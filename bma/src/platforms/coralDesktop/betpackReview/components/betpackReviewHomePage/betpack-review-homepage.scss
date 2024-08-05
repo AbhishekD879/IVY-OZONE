@@ -1,0 +1,314 @@
+@import 'global.variables.scss';
+
+.empty-token-container {
+  @include display-flex();
+  @include align-items(center);
+  background: $color-gray-light;
+  width: 100%;
+  height: 40px;
+
+  .token_value {
+    font-weight: normal;
+    font-size: 12px;
+    position: absolute;
+    left: 12px;
+    color: $color-blue-dark;
+  }
+
+  .total_value {
+    font-weight: bold;
+    font-size: 11px;
+    position: absolute;
+    right: 25px;
+    color: $color-blue-dark;
+  }
+}
+
+.empty-token-container-no-data {
+  margin: 0 0 4px 0;
+}
+
+// .empty-token-container-data {
+//   margin: 0 0 10px 0;
+// }
+
+.review-betpack-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+
+  .all_bets {
+    border-radius: 10px;
+    color: $color-gray-dark;
+    padding: 5px;
+    width: 50%;
+    overflow: hidden;
+
+    @media #{$mqMobile} {
+      width: 100%;
+    }
+
+    .bet {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15), 0px -1px 2px rgba(0, 0, 0, 0.05);
+
+      .bet_header {
+        height: 45px;
+        border-radius: 10px 10px 0 0;
+        background: $color-bpmp-card-content;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 8px 6px 6px 14px;
+        text-transform: capitalize;
+        display: flex;
+        align-items: center;
+
+        .price {
+          font-size: 12px;
+          line-height: 15px;
+          padding: 4px;
+          background: $madison;
+          margin: 0 5px 0 0;
+          border-radius: 2px;
+          color: white;
+          text-align: center;
+        }
+
+        .header_content {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          word-break: break-word;
+          white-space: normal;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+        }
+      }
+
+      .sports_footer {
+        margin: 0 10px;
+        display: flex;
+        border-top: 1px solid $color-gray;
+        height: 36px;
+        align-items: center;
+
+        .sports_content {
+          white-space: normal;
+          display: flex;
+          overflow: hidden;
+          flex-direction: row;
+          flex-wrap: wrap;
+          height: 20px;
+          margin-right: 10%;
+          width: 100%;
+          gap: 5px;
+
+          .sport_body {
+            border: 1.5px solid $madison;
+            margin: 2px;
+            border-radius: 5px;
+            color: $madison;
+            font-size: 8px;
+            font-weight: 700;
+            line-height: 6px;
+            padding: 4px;
+            display: block;
+            text-transform: uppercase;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            max-width: 99%;
+
+            .sport {
+               padding: 0px 1px;
+            }
+          }
+        }
+      }
+
+      .bet_scroll {
+        height: 300px;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        .bet_body {
+          font-size: 13px;
+          background: white;
+          line-height: 20px;
+          display: flex;
+          flex-direction: column;
+          color: $color-gray-dark;
+          padding: 4px 0 0 14px;
+
+          .token-header {
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 35px;
+          }
+
+          .token_data {
+            margin: 0 0 4px 0;
+
+            .token_main {
+              display: flex;
+              justify-content: space-between;
+
+              .token_name {
+                font-size: 13px;
+                font-weight: normal;
+                line-height: 16px;
+                text-transform: capitalize;
+                width: 80%;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+              }
+
+              .bet_data {
+                font-size: 10px;
+                font-weight: bold;
+                line-height: 12px;
+                text-transform: uppercase;
+                position: relative;
+                right: 12px;
+                color: $color-blue;
+                text-decoration: none;
+              }
+            }
+
+            .token_expiry {
+              font-size: 12px;
+              font-weight: normal;
+              line-height: 14px;
+              color: rgba(65, 73, 78, 0.65);
+            }
+
+          }
+        }
+      }
+
+      .bet_footer {
+        padding: 0 0 5px 0;
+        background: $color-bpmp-card-content 30%;
+        border-radius: 0 0 10px 10px;
+
+        .more_button {
+          font-size: 12px;
+          font-weight: bold;
+          height: 34px;
+          width: 95%;
+          background: $madison;
+          border-radius: 2px;
+          border: none;
+          color: white;
+          margin: 14px 0 10px 10px;
+        }
+
+        .purcahse {
+          margin: 0 0 0 10px;
+          font-weight: normal;
+          font-size: 11px;
+          color: rgba(65, 73, 78, 0.65);
+        }
+      }
+    }
+  }
+}
+
+.bpmp-navigation-link {
+  color: #FFF;
+  font-weight: 100;
+  font-size: 12px;
+  @media #{$mqTabletAndDesktop} {
+    &:hover{
+      color: $color-white;
+      border-bottom: 1px solid $color-white;
+     }
+  }
+  &:active{
+    color: $color-medium-gray;
+    border-bottom: none;
+  }
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  .expiringInfoIcon{
+    height: 14px;
+    width: 14px;
+  }
+}
+.innerDiv{
+  position: relative;
+   min-height: 45px;  
+  }
+  .innerSVG{  
+   width: 100%;  
+   height: 100%;  
+   position: absolute;  
+   top:0.5px;
+   min-height: 45px;
+   svg{
+    height: 100%;
+      width: 100%;
+   }
+  }  
+  .gift_svg{  
+    position: absolute;
+    height: 100%;  
+    background: #FFCD00;
+    z-index: 1;
+    min-width: 40px;
+    text-align: center;
+    display: flex;
+    max-width: 54px;
+    justify-content: center;
+    align-items: center;
+    top:0.5px;
+    svg{
+      max-width: 48px;
+      height: 100%;
+      width: 100%;
+      padding: 12px 10.5px;
+    }
+  }
+  .banner-data{
+    position: absolute;
+    padding: 10px;
+
+  }
+  .banner-text{
+    width: auto;
+    color: white;
+    bottom: 0px;
+    ::ng-deep a{
+      color: white;
+      text-decoration: underline;
+      text-decoration-color: white;
+    }
+    ::ng-deep p{
+      margin: auto 0px 4px auto;
+      display: inline-block;
+      font-size: 12px;
+    }
+  }
+  .close-icon {
+    top: 50%;
+    cursor: pointer;
+    will-change: transform;
+    transform: translate(0, -50%);
+    right: 0;
+
+    svg {
+      width: 10px;
+      height: 10px;
+      fill: $lGrayMediumLight;
+    }
+    .cross_icon {
+      width: 12px;
+      height: 12px;
+      fill: #FFFFFF;
+    }
+  }

@@ -1,0 +1,30 @@
+<header class="subheader" data-crlat="topBar">
+  <div class="subheader-inner">
+    <a class="btn-back" data-crlat="btnBack" *ngIf="!backFunc.observers.length" [back-button]>
+      <svg>
+        <use xlink:href="#prev-arrow"></use>
+      </svg>
+    </a>
+    <a class="btn-back" data-crlat="btnBack" *ngIf="backFunc.observers.length" (click)="backClickHandler()">
+      <svg>
+        <use xlink:href="#prev-arrow"></use>
+      </svg>
+    </a>
+    <div class="title-side flex">
+      <favourites-add-button
+        *ngIf="isFavourites && event"
+        [event]="event"
+        [sportName]="sportName">
+      </favourites-add-button>
+      <span *ngIf="seoEnabledInCms && titleText" [textContent]="titleText | eventName" class="subheader-title" data-crlat="topBarTitle"></span>
+      <h1 *ngIf="!seoEnabledInCms && titleText" [textContent]="titleText | eventName"  class="subheader-title" data-crlat="topBarTitle"></h1>
+    </div>
+    <ng-content select="date-info"></ng-content>
+    <ng-content select="[changeMatch]"></ng-content>
+    <div>
+      <ng-content select="top-bar-body"></ng-content>
+    </div>
+    <ng-content select="meeting-selector"></ng-content>
+  </div>
+</header>
+

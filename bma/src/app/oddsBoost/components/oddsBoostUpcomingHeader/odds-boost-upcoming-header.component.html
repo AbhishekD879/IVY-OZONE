@@ -1,0 +1,15 @@
+<div class="upcoming-boosts-header" [ngClass]="{'boosts-header': (tab || !tab) && isLads, 'odds-boosts-list':list}">
+  <p *ngIf="!isLads" class="no-boosts-message" [i18n]="'oddsboost.page.noBoostsMessage'"></p>
+  <span *ngIf="!isLads" class="timer-label" [i18n]="'oddsboost.page.nextBoostAvailable'"></span>
+  <div *ngIf="countDown && timer && isLads">
+    <div *ngIf="isDisplayedHeaderText && headerTimeText && countDown && !list">
+      <div class="timer-label-lads" [textContent]="headerTimeText"></div>
+      <span *ngIf="headerText()" class="timer" [ngClass]="{'timer-lads':isLads, 'timer-lads-header':!list && isLads}" [textContent]="countDown"></span>
+    </div>
+    <div *ngIf="list && countDown">
+      <span class="timer-label-list" [i18n]="isDisplayedListText?'oddsboost.page.expiry':'oddsboost.page.available'"></span>
+      <span  class="timer" [ngClass]="{'timer-lads':isLads}" [textContent]="countDown"></span>
+    </div>
+  </div>
+  <span *ngIf="!isLads" class="timer" [textContent]="countDown"></span>
+</div>

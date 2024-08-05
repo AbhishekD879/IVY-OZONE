@@ -1,0 +1,206 @@
+@import 'global.variables.scss';
+
+:host-context(.next-races, .horseracing) {
+  .race-card-carousel {
+    padding: $race-card-delimiter 0;
+    margin: 0px;
+
+    .race-carousel slidecontainer.carousel-slides {
+      width: $race-card-width + $race-card-delimiter;
+
+      .slide {
+        width: $race-card-width;
+        min-width: $race-card-width;
+        margin-left: $race-card-delimiter;
+
+        & + .slide {
+          width: $race-card-width;
+          padding-left: 0px;
+        }
+      }
+    }
+
+    .race-header {
+      height: $race-header-height;
+      padding: $race-card-h-padding;
+      border-radius: 0;
+      background: $color-gray-light;
+      color: $color-gray-dark;
+      font-size: 10px;
+      line-height: normal;
+    }
+
+    .race-card.odds-card {
+      background: $color-gray-light;
+
+      .odds-content {
+
+        .odds-side {
+          & + .odds-names {
+            margin-left: 0;
+          }
+
+          .label-text {
+            color: $color-gray-dark;
+          }
+        }
+
+        .silk-img {
+          background-position-x: -19px;
+
+          .next-races-horseracing & {
+            width: $race-silk-horseracing-width;
+            min-width: $race-silk-horseracing-width;
+            height: $race-silk-horseracing-height;
+            margin-right: 0;
+            border-radius: 3px;
+
+            &.has-img {
+              div {
+                width: $race-silk-horseracing-width;
+                height: $race-silk-horseracing-height;
+                background-position-x: -18px !important;
+              }
+            }
+          }
+        }
+
+        .odds-names {
+          margin-left: $race-card-delimiter;
+        }
+
+        ::ng-deep .btn-bet {
+          width: $race-card-btn-width;
+          font-size: 13px;
+          line-height: normal;
+
+          @media (min-width: 1600px) {
+            & {
+              min-width: $race-card-btn-width;
+            }
+          }
+
+          .previous-prices {
+            bottom: 4px;
+            font-size: 9px;
+            width: $race-card-btn-width;
+          }
+        }
+      }
+    }
+
+    .race-footer {
+      height: $race-footer-height;
+      background: $color-gray-light;
+      border-radius: 0;
+
+      ::ng-deep .race-timer {
+        color: $color-gray-dark;
+
+        .countdown {
+          .label {
+            font-size: 11px;
+          }
+
+          .value {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+
+    .race-next-link {
+      padding: 0 19px 0 0;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: normal;
+      text-decoration: none;
+      background: none;
+
+      svg {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        width: 4px;
+        height: 8px;
+        margin-top: -4px;
+        display: block;
+        fill: lighten($color-gray-dark, 50%);
+      }
+    }
+  }
+}
+
+:host-context(.next-races, .horseracing, .featured-races) {
+  .race-card-carousel {
+    .race-carousel-buttons {
+      display: block; // for desktop only
+    }
+
+    .race-carousel-buttons .race-arrow {
+
+      &.next-race, &.prev-race {
+        transition: none;
+
+        &:hover {
+          background: $color-gray-dark;
+          opacity: 0.85;
+        }
+      }
+    }
+
+    &.carousel-one-slide {
+        padding: 6px 0 6px 4px;
+
+      .race-carousel {
+        width: 100%;
+
+        slidecontainer.carousel-slides {
+          width: 100%;
+          margin: 0;
+
+          .slide {
+            width: 100%;
+            margin-left: 0;
+            padding-right: 0;
+          }
+        }
+      }
+    }
+
+    &.carousel-half-slides.fit-slides {
+      .race-carousel {
+        width: 100%;
+        overflow: hidden;
+
+        .carousel-slides slidecontainer.carousel-slides {
+          min-width: 100%;
+          margin: 0;
+
+          .slide {
+            width: calc(50% - 15px);
+            min-width: auto;
+            margin-left: 10px;
+
+            & + .slide {
+              width: calc(50% - 15px);
+              padding: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+:host-context(.featured-races) {
+  .race-card-carousel {
+    background-color: $color-gray;
+    padding: 6px 0 6px 4px;
+  }
+
+  ::ng-deep.btn-bet {
+    min-height: 40px;
+    min-width: 50px;
+  }
+}

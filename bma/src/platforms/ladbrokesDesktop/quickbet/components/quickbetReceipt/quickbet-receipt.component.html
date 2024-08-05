@@ -1,0 +1,201 @@
+<div class="qb-receipt">
+  <lazy-component moduleUri="@lazy-modules-module/receiptHeader/receipt-header.module#ReceiptHeaderModule"
+                  [inputs]="{ betDate: betReceipt.date }">
+  </lazy-component>
+
+  <lazy-component *ngIf="racingPostData && enableRacingPostTip()"
+        moduleUri="@lazy-modules-module/racingPostTip/racing-post-tip.module#RacingPostTipModule"
+        [inputs]="{quickBetReceipt: selection, racingPostTipTime: racingPostTipTime,
+          racingPostData: racingPostData, racingPostToggle: racingPostToggle, isNextRacesData: isNextRacesData}"
+          [outputs]="['racingPostGTM']" (event)="onRacingPostGTMEvent($event)">
+  </lazy-component>
+
+  <lazy-component *ngIf="showEntryConfirmation?.showdown" moduleUri="@lazy-modules-module/fiveASideShowDown/fiveaside-entry-confirmation.module#FiveASideEntryConfirmationModule"
+                   [inputs]="{entryTitle: 'fs.entryinfo.entryTitle', ecText: showEntryConfirmation?.ecText, contestId: showEntryConfirmation?.contestId, termsConditionTag: showEntryConfirmation?.termsConditionTag}"
+                   entryComponent="FiveASideEntryConfirmationComponent">
+  </lazy-component>
+  <div class="qb-reuse" *ngIf="!showEntryConfirmation?.showdown && !betReceipt.selections">
+    <span class="qb-reuse-yourbets" [textContent]="YOUR_BETS"></span>
+    <span class="qb-reuse-button-wrapper" *ngIf="showReuse">
+      <strong class="qb-reuse-button" [textContent]="REUSE" (click)="reuseBets()"></strong>
+    </span>
+  </div>
+  <div class="qb-receipt-wrapper">
+    <lazy-component
+      *ngIf="user.status && bonusSuppressionService.checkIfYellowFlagDisabled('freeRide') && freeRideHelperService.showFreeRide()"
+       moduleUri="@lazy-modules-module/freeRide/freeRide.module#FreeRideModule" entryComponent="LadsLaunchBannerComponent"
+      [inputs]="{config:'BETSLIP'}" [outputs]="['closeFlag']" (event)="onQuickbetEvent()">
+    </lazy-component>
+    <div class="qb-stake-boosted" *ngIf="betReceipt.oddsBoost" data-crlat="boostedSec">
+      <svg class="qb-boosted-icon" data-crlat="boostedIc">
+        <use xlink:href="#odds-boost-icon-receipt"></use>
+      </svg>
+      <span class="qb-boosted-text" [i18n]="'bs.boostedMsg'" data-crlat="boostedTxt"></span>
+    </div>
+    <div class="qb-stake-header" *ngIf="!betReceipt.selections">
+      <div class="line">
+        <div class="left">
+          <div class="qb-stake-info">
+            <strong class="selection-type" [i18n]="'bs.single'" data-crlat="selType"></strong>&nbsp;
+            <strong class="qb-single-receipt-odds" [textContent]="'@ '"></strong>
+            <strong class="qb-single-receipt-odds" [textContent]="odds" data-uat="odds" data-crlat="odds"></strong>
+            <div class="receipt-id">
+              <span [i18n]="'quickbet.betId'" data-crlat="betId.label"></span>
+              <span [textContent]="betReceipt.receipt.id" data-uat="betId" data-crlat="betId.value"></span>
+            </div>
+            <div  [ngClass]="{'epr': filteredOutcomeName.length < 28}">
+              <span><strong class="qb-stake-title" [textContent]="filteredOutcomeName" data-uat="selectionName"></strong></span>
+              <lazy-component 
+              moduleUri="@lazy-modules-module/extraPlaceSignposting/extra-place-signposting.module#ExtraPlaceSignpostingModule"
+              [inputs]="{marketData:selection.markets[0],origin:'quickbetreceipt'}" 
+              entryComponent="ExtraPlaceSignpostingComponent">
+            </lazy-component>
+            </div>
+            <span class="qb-stake-type" [textContent]="filteredMarketName + ' / '" data-uat="marketName"></span>
+            <span class="qb-stake-description" [textContent]="filteredEventName" data-uat="eventName"></span>
+          </div>
+        </div>
+        <div class="right-section">
+          <div *ngIf="isSportIconEnabled" class="sports-icon" [ngClass]="{'sports-icon-wrapper':winAlertsEnabled}">
+            <svg class="sports-icon-position">
+              <use [attr.xlink:href]="'#'+sportIconSvgId"></use>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qb-stake-header" *ngIf="betReceipt.selections" data-crlat="quickbet.content">
+      <div class="line">
+        <div class="left">
+          <div class="qb-stake-info">
+            <strong class="selection-type" [textContent]="bybSelectionType" data-crlat="selType"></strong>&nbsp;
+            <strong class="qb-single-receipt-odds" [textContent]="'@ '"></strong>
+            <strong class="qb-single-receipt-odds" [textContent]="oddsValue" data-uat="odds" data-crlat="odds"></strong>
+            <div class="receipt-id">
+              <span [i18n]="'quickbet.betId'" data-crlat="betId.label"></span>
+              <span [textContent]="betReceipt.receipt" data-crlat="betId.value"></span>
+            </div>
+            <section class="qb-content-info" data-crlat="section.selections">
+              <ng-content select="your-call-body-receipt-details"></ng-content>
+            </section>
+            <div class="byb-event-name" [textContent]="bybEventName"></div>
+          </div>
+        </div>
+        <div class="right-section">
+          <div *ngIf="isSportIconEnabled" class="sports-icon" [ngClass]="{'sports-icon-wrapper':winAlertsEnabled}">
+            <svg class="sports-icon-position">
+              <use [attr.xlink:href]="'#'+sportIconSvgId"></use>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="eachway-terms-block" *ngIf="isEachWay">
+      <span *ngIf="eachEayTerms" class="eachway-terms" [textContent]="eachEayTerms" data-crlat="ewPlaces"></span>
+      <span class="eachway-terms" [textContent]="linesPerStake" data-crlat="ewLines"></span>
+    </div>
+
+    <div class="promotion-icon-label icon-content" [ngClass]="{'alignLabelIcons': selection.categoryId == '16'}">
+        <ng-container *ngIf="selection.categoryId === '16'">
+        <promotion-icon
+        [type]="'market'"
+        [mode]="'sm'"
+        [display]="appendDrillDownTagNames(selection)"
+        [marketName]="selection.marketName"
+        [sport]="'sport'"
+        data-crlat="promotionIcons"
+        [disablePopUp]=true>
+        </promotion-icon>
+      </ng-container>
+
+      <div class="promo-line">
+        <!-- Promo labels -->
+        <promo-labels
+          [cashoutValue]="betReceipt.bet?.cashoutValue"
+          [event]="selection"
+          [marketId]="selection.marketId"
+          [isBogEnabled]="isBogEnabled"
+          [exclude]="excludedDrillDownTagNames"
+          [mode]="'quickbet'">
+        </promo-labels>
+      </div>
+    </div>
+
+    <div class="alerts-wrapper" *ngIf="winAlertsEnabled || betReceipt.footballAlertsVisible">
+      <div class="notification-icon-wrapper fav-icon">
+        <div class="match-alert-wrapper" *ngIf="betReceipt.footballAlertsVisible" (click)="onFootballBellClick(betReceipt)">
+            <span [i18n]="'bs.matchAlerts'"></span>
+            <svg *ngIf="betReceipt.footballBellActive">
+              <use xlink:href="#bell-icon-on"></use>
+            </svg>
+            <svg *ngIf="!betReceipt.footballBellActive">
+              <use xlink:href="#bell-icon-turn-off"></use>
+            </svg>
+          </div>
+      </div>
+      <div class="right qb-win-alerts-wrapper" *ngIf="winAlertsEnabled">
+        <ng-container *ngTemplateOutlet="winAlertsTpl"></ng-container>
+      </div>
+    </div>
+
+    <div class="qb-stake-footer">
+      <div class="line summary-info">
+        <span [i18n]="'quickbet.totalStake'" data-crlat="totalStake.label"></span>
+        <span class="freebet-stake">
+          <span *ngIf="selection.stakeAmount > 0"
+                [textContent]="finalStake"
+                data-crlat="totalStake"></span>
+          <free-bet-label *ngIf="hasFreebet"
+                    [freeBetLabelText]="betReceipt.stake.freebetOfferCategory"
+                    [selected]="betReceipt.stake.freebet"
+                    [margin]="true"
+                    [plusPrefix]="selection.stakeAmount > 0"
+                   >
+          </free-bet-label>
+        </span>
+      </div>
+      <div class="line summary-info">
+        <strong [i18n]="'quickbet.potentialReturnsWithColon'" data-crlat="estimatedResults.label"></strong>
+        <strong [textContent]=" payout | callBack : getPotentialPayoutValue : this" data-uat="estReturns"
+          data-crlat="estimatedResults.value"></strong>
+          <span
+          [ngClass] = "{'tooltipQB-max-payout-android': !!window?.nativeWindow?.NativeBridge, 'tooltipQB-max-payout': !window?.nativeWindow?.NativeBridge}"
+          *ngIf="maxPayOutErrorService.maxPayFlag && maxPayOutFlag">
+            <svg class="maxPayOut-info-icon" [tooltip]="'maxPayOutTitle'" [showTooltip]="isMaxPayedOut"
+              [toolTipArgs]="maxPayOutErrorService.toolTipArgs" [createElementTag]='true' [gtmInfo]="'quick bet'" (click)="togglemaxPayedOut()">
+              <use xlink:href="#icn-info"></use>
+            </svg>
+          </span>
+      </div>
+      <div class="line summary-info" *ngIf="isGermanUser">
+        <p class="qb-fee" data-crlat="taxMessage" [i18n]="'quickbet.tax5'"></p>
+      </div>
+    </div>
+  </div>
+  <lazy-component *ngIf="nextRacesToBetslipToggle"
+      moduleUri="@lazy-modules-module/nextRacesToBetslip/nextraces-to-betslip.module#NextRacesToBetslipModule"
+      [outputs]="['closeFn']" (event)="onQuickbetEvent()"
+      [inputs]="{quickBetReceipt: selection, racingPostData: racingPostData, isNextRacesData: isNextRacesData}">
+  </lazy-component>
+</div>
+
+<!-- Win alerts template -->
+<ng-template #winAlertsTpl>
+  <div class="qb-win-alerts-content">
+    <div class="qb-win-alerts-info">
+      <svg class="win-alerts-info-icon" data-crlat="infoButton" [tooltip]="'winAlerts'"
+        [showTooltip]="showWinAlertsTooltip()" (click)="handleAlertInfoClick()">
+        <use xlink:href="#win-alert-icon"></use>
+      </svg>
+      <span [i18n]="'quickbet.winAlerts'"></span>
+
+      <toggle-switch [initialState]="winAlertsActive && nativeBridge.pushNotificationsEnabled" [componentId]="'toggle-switch-quick-bet'"
+        [disabled]="!nativeBridge.pushNotificationsEnabled"
+        (switcherControl)="toggleWinAlerts(betReceipt, $event)"
+        (clickIfDisabled)="nativeBridge.showNotificationSettings()" data-crlat="allowQuickBetSwitch">
+      </toggle-switch>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,30 @@
+@import "../../../../../app/euro/components/matchRewards/match-rewards.component.scss";
+
+.grid-container {
+  grid-template-columns: repeat(6, 1fr);
+  width: 75%;
+  margin: 0px auto;
+  .box {
+      grid-column-end: 7;
+    }
+  .text {
+      line-height: 1.3;
+      font-size: $font-size;
+  }
+  .grid-item {
+    padding: 5px 0px;
+    .arrow-up {
+      top: 10px;
+    }
+    .current-badge-arrow {
+      top: 5px;
+    }
+    .caption {
+      font-size: $font-size-pre-xs;
+    }
+    .euro-logo {
+      height: 40px;
+      width: 100%;
+    }
+  }
+}

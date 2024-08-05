@@ -1,0 +1,51 @@
+<accordion
+        [accordionTitle]="title"
+        [ngClass]="{'yc-widget': type}"
+        [isExpanded]="isExpanded"
+        [disabled]="type !== 'widget'"
+        data-crlat="outerAccordion">
+  <right-side>
+    <your-call-label></your-call-label>
+  </right-side>
+  <accordion-body>
+    <div data-crlat="race.yourCallSpecials">
+      <div *ngIf="!type" class="switchers-parent">
+        <switchers
+          [type]="'scrollable'"
+          [switchers]="switchers"
+          [filter]="ycWidgetFilter"
+          [noPaddings]="true"
+        ></switchers>
+      </div>
+      <div class="yc-specials-content">
+        <ng-container *ngFor="let market of data; trackBy:trackById">
+          <ng-container *ngIf="ycWidgetFilter === market.name">
+            <div class="odds-card odds-single" *ngFor="let selection of market.selections; trackBy:trackById"
+                 data-crlat="selection">
+              <div class="odds-content">
+                <div class="odds-left">
+                  <div class="odds-names odds-names-wrap" data-crlat="oddsNames">{{ selection.name }}</div>
+                </div>
+                <div class="odds-right">
+                  <price-odds-button [event]="selection.event"
+                                     [market]="selection.market"
+                                     [outcome]="selection"
+                                     [priceType]="selection.prices[0]?.priceType">
+                  </price-odds-button>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+      <div *ngIf="type" class="yc-footer">
+        <a [routerLink]="'/horse-racing/yourcall'" (click)="trackYourcallSpecials()" data-crlat="link.viewAllYC">
+          <span class="yc-link" [i18n]="'racing.viewAllYC'"></span>
+          <svg>
+            <use xlink:href="#next-arrow"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </accordion-body>
+</accordion>

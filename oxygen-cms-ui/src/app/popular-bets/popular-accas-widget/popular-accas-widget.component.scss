@@ -1,0 +1,44 @@
+h5 {
+  font-size: 14px;
+}
+
+.order-message {
+  margin: 10px;
+  margin-top: -5px;
+}
+
+.checkBoxList {
+  display: flex;
+  padding-left: 7px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+a:not([href]) {
+  color: #4a90e2;
+  text-decoration: underline;
+}
+
+.checkBoxAdjust {
+  margin: 0 10px !important;
+}
+
+.checkContent {
+  display: flex;
+  align-items: center;
+}
+
+.checkLabell {
+  margin-top: 10px;
+  padding-left: 10px;
+  cursor: pointer;
+}
+
+.checkBox {
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.pad-layout {
+  padding-left: 0px;
+}

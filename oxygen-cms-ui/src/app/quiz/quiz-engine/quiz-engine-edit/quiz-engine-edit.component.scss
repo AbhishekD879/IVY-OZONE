@@ -1,0 +1,142 @@
+.questions-wrapper {
+  .question-header {
+    margin-left: 25px;
+    .lenghtExceeded {
+      color: red;
+    }
+  }
+  .remove-question {
+    color: tomato;
+    &:hover {
+      color: red;
+    }
+  }
+  .drag-point {
+    width: 15px;
+    display: inline-block;
+    cursor: row-resize;
+    position: absolute;
+    top: 5%;
+    height: 90%;
+    background: rgba(0,0,0,0.1);
+    transition: background-color 0.1s;
+    &:hover {
+      background: rgba(0,0,0,0.2);
+    }
+    &::after {
+      content: '...';
+      position: absolute;
+      top: 50%;
+      left: 1px;
+      color: grey;
+      font-weight: bold;
+    }
+  }
+  .answers-list-wrapper {
+    margin-left: 25px;
+    .answers-list-item {
+      margin: 5px 0;
+      background-color: #f7f7f7;
+      padding: 10px 10px 0;
+      &--correct {
+        background-color: rgba(0, 255, 0, 0.1);
+      }
+      .remove-answer {
+        color: tomato;
+        line-height: 3;
+        &:hover {
+          color: red;
+        }
+      }
+      .isCorrect {
+        color: #999;
+        &--true {
+          color: green;
+        }
+        &-disabled {
+          color: #AAAAAA;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+  .utility-btn {
+    border: none;
+    background: none;
+    padding: 0;
+  }
+  .no-bottom-mrgn {
+    margin-bottom: 0;
+  }
+}
+.questionText-error {
+  background: red;
+  color: white !important;
+  padding: 6px 20px;
+  text-align: center;
+  width: 100%;
+  display: block;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.mat-expansion-panel-header {
+  height: 48px;
+}
+.mat-expansion-panel-content:not(.mat-expanded) {
+  .mat-expansion-panel-body {
+    padding-bottom: 0;
+  }
+}
+
+.column-align {
+  margin-top: 12px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.prize-header {
+  font-weight: 500;
+  border-bottom: 1px solid;
+  text-align: center;
+}
+
+.up-down {
+  height: 100px;
+  min-width: 55px !important;
+  margin-left: 20px;
+  margin-top: 25px;
+  background-color: #f7f7f7;
+}
+
+.quizEditWarning {
+  border: 5px solid tomato;
+}
+
+.quizEditWarningMessage {
+  text-align: center;
+  color: tomato;
+}
+.coinsLink {
+  color: #007bff;
+  text-decoration: underline;
+  &:hover {
+    color: #007bff;
+    text-decoration: underline;
+  }
+}
+.mat-label-prize {
+  margin: 15px 15px 0;
+  display: flex;
+}
+::ng-deep .cdk-program-focused:not(:hover) {
+  .mat-radio-label {
+    .mat-radio-container {
+      .mat-radio-ripple {
+        .mat-radio-persistent-ripple {
+          display: none;
+        }
+      }
+    }
+  }
+}

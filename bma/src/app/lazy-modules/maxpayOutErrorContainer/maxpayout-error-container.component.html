@@ -1,0 +1,9 @@
+<div class="maxpay-info-msg">
+  <svg class="InfoIcon">
+    <use xlink:href="#icn-info" (click)="expanded()"></use>
+  </svg>
+  <div class="max-payout">
+    <span [innerHTML]="errorMsg"></span>
+    <span><a [href]="link" (click)="sendGtmData(gtmInfo[0])" [textContent]="click"></a></span>
+  </div>
+</div>

@@ -1,0 +1,6 @@
+<div *ngIf="showInfoPanel()" (click)="openQuickDepositPanel()">
+  <div class="qb-info-panel"
+       [ngClass]="messageTypeClass"
+       [innerHTML]="infoPanel.msg | safe: 'html'">
+  </div>
+</div>

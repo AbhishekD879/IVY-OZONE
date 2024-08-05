@@ -1,0 +1,23 @@
+<accordion
+  [headerClass]="'secondary-header'"
+  [isExpanded]="true"
+  *ngIf="!hasMatchesByDate()"
+  (function)="sendCollapseGTM()"
+  [accordionTitle]="widgetTitle">
+  <accordion-body>
+    <div class="results-widget" *ngFor="let matchesData of matchesByDateArray; trackBy: trackByDate">
+      <header class="results-widget-header">
+        <span class="header-widget" [i18n]="matchesData.date"></span>
+      </header>
+      <odds-card-result-component [event]="event" *ngFor="let event of matchesData.matches; trackBy: trackById;">
+      </odds-card-result-component>
+    </div>
+    <show-all-button
+      class="results-widget-show-more"
+      (click)="showMore(); sendShowMoreGTM()"
+      *ngIf="showMoreAvailable"
+      [showMoreMode]="true"
+      [spinnerVisible]="loader">
+    </show-all-button>
+  </accordion-body>
+</accordion>

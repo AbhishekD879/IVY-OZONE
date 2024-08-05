@@ -1,0 +1,536 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Summary</th>
+            <th>Value</th>
+            <th>Returns</th>
+            <th>Remarks</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>meetingDate</strong><br />Standard</td>
+            <td>
+                The date of the race the horse is entered at and is part of the primary key
+            </td>
+            <td>Not Null</td>
+            <td>Date</td>
+            <td>Meeting Date In The Format yyyy-mm-dd and part of the primary key (PK)</td>
+        </tr>
+        <tr>
+            <td><strong>courseId</strong><br />Standard</td>
+            <td>
+                The ID of the course that the horse is entered at and is part of the primary key
+            </td>
+            <td>Above 0</td>
+            <td>Integer</td>
+            <td>Part of the primary key (PK)</td>
+        </tr>
+        <tr>
+            <td><strong>raceNumber</strong><br />Standard</td>
+            <td>
+                The number of the race that the horse is entered at and is part of the primary key
+            </td>
+            <td>Above 0</td>
+            <td>Integer</td>
+            <td>Part of the primary key (PK)</td>
+        </tr>
+        <tr>
+            <td><strong>horseCode</strong><br />Standard</td>
+            <td>
+                The code of the horse and is part of the primary key
+            </td>
+            <td>Not Null</td>
+            <td>String(12)</td>
+            <td>Part of the primary key (PK)</td>
+        </tr>
+        <tr>
+            <td><strong>courseName</strong><br />Standard</td>
+            <td>
+                The full name of the course that the horse is entered at
+            </td>
+            <td>Upper Case</td>
+            <td>String</td>
+            <td>An example: HAYDOCK PARK</td>
+        </tr>
+        <tr>
+            <td><strong>horseName</strong><br />Standard</td>
+            <td>
+                The full name of the horse, including breeding suffix
+            </td>
+            <td>Upper Case</td>
+            <td>String</td>
+            <td>An example: KAUTO STAR (FR)</td>
+        </tr>
+        <tr>
+            <td><strong>horseAge</strong><br />Standard</td>
+            <td>
+                The age of the horse on the day of the race
+            </td>
+            <td>Above 0</td>
+            <td>Integer</td>
+            <td>An example: 7</td>
+        </tr>
+        <tr>
+            <td><strong>horseGender</strong><br />Standard</td>
+            <td>
+                The gender of the horse on the day of the race
+            </td>
+            <td>Lower Case</td>
+            <td>String</td>
+            <td>Values are : f - filly, m - mare, c - colt, g - gelding, h - entire horse</td>
+        </tr>
+        <tr>
+            <td><strong>saddleCloth</strong><br />Standard</td>
+            <td>
+                The number the horse will carry on its saddle cloth
+            </td>
+            <td>Can be 0 (pre declaration stage)</td>
+            <td>Integer</td>
+            <td>0 - pre declaration stage, greater than 0 is their saddle cloth number</td>
+        </tr>
+        <tr>
+            <td><strong>draw</strong><br />Standard</td>
+            <td>
+                The number of stall the horse will start from (0 for jump races and pre declaration stage)
+            </td>
+            <td>Can be 0</td>
+            <td>Integer</td>
+            <td>0 - jump or pre declaration stage, greater than 0 is the stall number</td>
+        </tr>
+        <tr>
+            <td><strong>weightCarried</strong><br />Standard</td>
+            <td>
+                The weight in pounds the horse is set to carry (from 4/5 day entries)
+            </td>
+            <td>Can be 0</td>
+            <td>Integer</td>
+            <td>0 - pre 4/5 day entries, greater than 0 is the weight the horse will carry</td>
+        </tr>
+        <tr>
+            <td><strong>jockeyName</strong><br />Standard</td>
+            <td>
+                The full name of the jockey booked to ride the horse
+            </td>
+            <td>Can be empty if no jockey has yet been booked to ride</td>
+            <td>String</td>
+            <td>&quot;&quot; if no jockey has been booked, an example: R. Walsh</td>
+        </tr>
+        <tr>
+            <td><strong>jockeyCode</strong><br />Standard</td>
+            <td>
+                The code of the jockey booked to ride the horse
+            </td>
+            <td>Can be empty if no jockey has yet been booked to ride</td>
+            <td>String</td>
+            <td>&quot;&quot; if no jockey has been booked, an example: &quot;000000000001&quot; if one has</td>
+        </tr>
+        <tr>
+            <td><strong>apprenticeClaim</strong><br />Standard</td>
+            <td>
+                The amount in pounds that a horse will have removed from its weight as a result of the jockey
+            </td>
+            <td>Can be 0</td>
+            <td>Integer</td>
+            <td>0 = no claim, greater than 0 represents the weight that will be taken off the horse</td>
+        </tr>
+        <tr>
+            <td><strong>trainerName</strong><br />Standard</td>
+            <td>
+                The full name of the trainer of the horse
+            </td>
+            <td>Can be empty if a trainer is not recorded against the horse</td>
+            <td>String</td>
+            <td>&quot;&quot; if no trainer is registered for the horse, an example: Paul Nicholls</td>
+        </tr>
+        <tr>
+            <td><strong>rating123</strong><br />Standard</td>
+            <td>
+                The Timeform 123 selections by analysts
+            </td>
+            <td>Can be 0 if horses isn&#39;t selected, great than 0 if it has</td>
+            <td>Integer</td>
+            <td>1 - Timeform Analysts&#39; Top Pick, 2 - 2nd, 3 - 3rd</td>
+        </tr>
+        <tr>
+            <td><strong>ratingStars</strong><br />Standard</td>
+            <td>
+                The number of stars attributed to the horses chances by the analyst
+            </td>
+            <td>Will be 0 if the race hasn&#39;t been assessed by the analyst, greater than 0 is the number of stars</td>
+            <td>Integer</td>
+            <td>0 - hasn&#39;t been assessed, 5 - best pick, 1- lowest pick</td>
+        </tr>
+        <tr>
+            <td><strong>tissuePriceDecimal</strong><br />Standard</td>
+            <td>
+                The decimal price that the analyst thinks the horse will start
+            </td>
+            <td>Will be 0.0 if the race hasn&#39;t been assessed by the analyst, greater than 0 is the horses predicted price</td>
+            <td>Decimal</td>
+            <td>0.0 if the race hasn&#39;t been assessed, an example 1.0 = evens</td>
+        </tr>
+        <tr>
+            <td><strong>tissuePriceFractional</strong><br />Standard</td>
+            <td>
+                The price that the analyst thinks the horse will start
+            </td>
+            <td>Will be &quot;&quot; if the race hasn&#39;t been assessed by the analyst, otherwise it will be title case</td>
+            <td>String</td>
+            <td>&quot;&quot; if the race hasn&#39;t been assessed, an example: 2/1</td>
+        </tr>
+        <tr>
+            <td><strong>equipmentDescription</strong><br />Standard</td>
+            <td>
+                The full description of any headgear the horse may be wearing
+            </td>
+            <td>Will be &quot;&quot; if the horse isn&#39;t wearing any headgear, otherwise Title Case</td>
+            <td>String</td>
+            <td>&quot;&quot; if no equipment, an example: &quot;Blinkers&quot;</td>
+        </tr>
+        <tr>
+            <td><strong>equipmentChar</strong><br />Standard</td>
+            <td>
+                A char to represent the headgear any headgear the horse may be wearing
+            </td>
+            <td>Will be &quot;&quot; if the horse isn&#39;t wearing any headgear, otherwise a single char</td>
+            <td>String(1)</td>
+            <td>&quot;&quot; where no headgear is being worn, an example: &quot;b&quot; blinkers</td>
+        </tr>
+        <tr>
+            <td><strong>longHandicap</strong><br />Standard</td>
+            <td>
+                The weight in pounds that the horse may be out of the handicap
+            </td>
+            <td>Will be 0 if the horses isn&#39;t out of the handicap, above 0 when it is</td>
+            <td>Integer</td>
+            <td>0 where horse is not out of the handicap, an example: 4 where the horse is 4 pounds out of the handicap</td>
+        </tr>
+        <tr>
+            <td><strong>analystsComments</strong><br />Standard</td>
+            <td>
+                The anaylst comment for the horse&#39;s chance in the race
+            </td>
+            <td>Will be &quot;&quot; if the analyst hasn&#39;t written a comment for the horse, otherwise it will have a comment</td>
+            <td>String</td>
+            <td>&quot;&quot; if no comment, an example: &quot;Has a great chance&quot;</td>
+        </tr>
+        <tr>
+            <td><strong>preRaceAdjustedRating</strong><br />Premium</td>
+            <td>
+                The adjusted Timeform rating of the horse
+            </td>
+            <td>Will be 0 if the rating hasn&#39;t been calculated or if the horse doesn&#39;t have a valid rating</td>
+            <td>Integer</td>
+            <td>0 - horse has no rating, less than 999 - horse&#39;s rating, 999 - horse has not qualified for a rating</td>
+        </tr>
+        <tr>
+            <td><strong>preRaceMasterRating</strong><br />Premium</td>
+            <td>
+                The unadjusted Timeform master rating of the horse in this race type
+            </td>
+            <td>Will be 0 if the rating hasn&#39;t been calculated or if the horse doesn&#39;t have a valid rating</td>
+            <td>Integer</td>
+            <td>0 - horse has no rating, less than 999 - horse&#39;s rating, 999 - horse has not qualified for a rating</td>
+        </tr>
+        <tr>
+            <td><strong>preRaceEpf</strong><br />Premium</td>
+            <td>
+                The predicted early position figure based on past performances
+            </td>
+            <td>0 where the EPF is uncalculated or not available, greater than 0 is the predicted position</td>
+            <td>Decimal</td>
+            <td>0 - not available or calculated, 1 - front runner, 5 - races in rear</td>
+        </tr>
+        <tr>
+            <td><strong>preRaceMasterSymbol</strong><br />Premium</td>
+            <td>
+                The master symbol of the horse in this race type
+            </td>
+            <td>&quot;&quot; if horse doesn&#39;t have a symbol, otherwise will be a string</td>
+            <td>String(2)</td>
+            <td>&quot;&quot; - no symbol, an example: &quot;+&quot;</td>
+        </tr>
+        <tr>
+            <td><strong>silksDescription</strong><br />Standard</td>
+            <td>
+                A textual description of the silks the jockey will be wearing
+            </td>
+            <td>&quot;&quot; if the silks description isn&#39;t available, otherwise will be a string</td>
+            <td>String</td>
+            <td>&quot;&quot; - no silk information available, an example &quot;green hoops&quot;</td>
+        </tr>
+        <tr>
+            <td><strong>horseInFocus</strong><br />Premium</td>
+            <td>
+                Indicates if the horse is a Horse In Focus for this race
+            </td>
+            <td>True or False</td>
+            <td>Boolean</td>
+            <td>True - horse is a Horse In Focus</td>
+        </tr>
+        <tr>
+            <td><strong>warningHorse</strong><br />Premium</td>
+            <td>
+                Indicates if the horse is a Warning Horse for this race
+            </td>
+            <td>True or False</td>
+            <td>Boolean</td>
+            <td>True - horse is a Warning Horse</td>
+        </tr>
+        <tr>
+            <td><strong>jockeyUplift</strong><br />Premium</td>
+            <td>
+                Indicates if the horse is a jockey uplift for this race
+            </td>
+            <td>True or False</td>
+            <td>Boolean</td>
+            <td>True - horse is a jockey uplift</td>
+        </tr>
+        <tr>
+            <td><strong>trainerUplift</strong><br />Premium</td>
+            <td>
+                Indicates if the horse is a trainer uplift for this race
+            </td>
+            <td>True or False</td>
+            <td>Boolean</td>
+            <td>True - horse is a trainer uplift</td>
+        </tr>
+        <tr>
+            <td><strong>horsesForCoursePos</strong><br />Premium</td>
+            <td>
+                Indicates if the horse is a positive horses for courses for this race
+            </td>
+            <td>True or False</td>
+            <td>Boolean</td>
+            <td>True - horse is a positive horses for courses</td>
+        </tr>
+        <tr>
+            <td><strong>horsesForCourseNeg</strong><br />Premium</td>
+            <td>
+                Indicates if the horse is a negative horses for courses for this race
+            </td>
+            <td>True or False</td>
+            <td>Boolean</td>
+            <td>True - horse is a negative horses for courses </td>
+        </tr>
+        <tr>
+            <td><strong>hotTrainer</strong><br />Premium</td>
+            <td>
+                Indicates if the horse has a hot trainer for this race
+            </td>
+            <td>True or False</td>
+            <td>Boolean</td>
+            <td>True - horse has a hot trainer</td>
+        </tr>
+        <tr>
+            <td><strong>coldTrainer</strong><br />Premium</td>
+            <td>
+                Indicates if the horse has a cold trainer for this race
+            </td>
+            <td>True or False</td>
+            <td>Boolean</td>
+            <td>True - horse has a cold trainer</td>
+        </tr>
+        <tr>
+            <td><strong>sectionalFlag</strong><br />Premium</td>
+            <td>
+                Indicates the horse is of particular interest based on its recent sectional times
+            </td>
+            <td>True or False</td>
+            <td>Boolean</td>
+            <td>True - horse has a sectional flag</td>
+        </tr>
+        <tr>
+            <td><strong>significantImprover</strong><br />Premium</td>
+            <td>
+                Indicates significant improver flag
+            </td>
+            <td>True or False</td>
+            <td>Boolean</td>
+            <td>True - horse has a significant improver flag</td>
+        </tr>
+        <tr>
+            <td><strong>jockeyInForm</strong><br />Premium</td>
+            <td>
+                Indicates jockey in form flag
+            </td>
+            <td>True or False</td>
+            <td>Boolean</td>
+            <td>True - horse has a jockey in form flag</td>
+        </tr>
+        <tr>
+            <td><strong>productionComment</strong><br />Premium</td>
+            <td>
+                Horse&#39;s master production comment for this season type
+            </td>
+            <td>Title Case</td>
+            <td>String</td>
+            <td>An example: Top class chaser....</td>
+        </tr>
+        <tr>
+            <td><strong>statusDescription</strong><br />Standard</td>
+            <td>
+                A description of the status that applies to the horse&#39;s entry
+            </td>
+            <td>Title Case</td>
+            <td>String</td>
+            <td>An example: Runner</td>
+        </tr>
+        <tr>
+            <td><strong>silkCode</strong><br />Standard</td>
+            <td>
+
+                The code of the jockey silks to match image files
+            </td>
+            <td>&quot;&quot; if no silks are available, string code if they are</td>
+            <td>String</td>
+            <td>&quot;&quot; - no silks available, an example: &quot;000000000001&quot;</td>
+        </tr>
+        <tr>
+            <td><strong>statusId</strong><br />Standard</td>
+            <td>
+                The integer value of the entry status of the horse
+            </td>
+            <td>Above 0</td>
+            <td></td>
+            <td>21 Runner, 22 Non Runner, 23 Withdrawn, 24 Reserve, 38 Dropped out at the five day stage, 39 Dropped out at the four day stage, 40 Dropped out at the overnight stage, 41	Dropped out during early closers,46	Race Abandoned</td>
+        </tr>
+        <tr>
+            <td><strong>formFigures</strong><br />Standard</td>
+            <td>
+                The horse&#39;s past form over the last two seasons in summary
+            </td>
+            <td>&quot;&quot; if the form hasn&#39;t been calculated or the horse hasn&#39;t run before, a string if it has</td>
+            <td>String</td>
+            <td>An example: 111P</td>
+        </tr>
+        <tr>
+            <td><strong>entryNumber</strong><br />Standard</td>
+            <td>
+                The entry number of the horse
+            </td>
+            <td>0 if the horse is no longer a runner, above 0 if it is</td>
+            <td>Integer</td>
+            <td>0 indicates the horse is no longer entered in the race, above 0 means it is</td>
+        </tr>
+        <tr>
+            <td><strong>BHARating</strong><br />Standard</td>
+            <td>
+                The horse&#39;s official handicap mark
+            </td>
+            <td>0 if the horse doesn&#39;t have an official rating, above 0 is its mark</td>
+            <td>Integer</td>
+            <td>0 - no official mark, greater than 0 is its official mark</td>
+        </tr>
+        <tr>
+            <td><strong>crsDisWinFavText</strong><br />Standard</td>
+            <td>
+                Information as to whether the horse has won over the course, distance or is a beaten favourite
+            </td>
+            <td>&quot;&quot; if there is no information, upper case if there is</td>
+            <td>String</td>
+            <td>BF - Beaten Favourite, C - Course Winner, D - Distance Winner, CD - Course And Distance Winner</td>
+        </tr>
+        <tr>
+            <td><strong>daysOff</strong><br />Standard</td>
+            <td>
+                Number of days off the horse has had since its last run
+            </td>
+            <td>Can be null where the horse hasn&#39;t run before</td>
+            <td>Integer</td>
+            <td>NULL - Horse hasn&#39;t run before, above 0 where it has</td>
+        </tr>
+        <tr>
+            <td><strong>betfairBackPrice</strong><br />Standard</td>
+            <td>
+                Latest Betfair Price available on the exchange
+            </td>
+            <td>0.0 where a price isn&#39;t available, above 0.0 is the horses back price</td>
+            <td>Decimal</td>
+            <td>&quot;&quot; - no price available, An example: 2.0 - evens</td>
+        </tr>
+        <tr>
+            <td><strong>ratingsAdjustment</strong><br />Standard</td>
+            <td>
+                The difference between the horse&#39;s master rating and adjusted rating
+            </td>
+            <td>0 if there is not difference or the horse doesn&#39;t have a rating, above 0 is the difference</td>
+            <td>Integer</td>
+            <td>0 - no difference or can&#39;t be calculated, above 0 is the difference</td>
+        </tr>
+        <tr>
+            <td><strong>bfSelectionId</strong><br />Standard</td>
+            <td>
+                Betfair Selection ID of the horse to match to the Betfair API
+            </td>
+            <td>0 if the market has not yet been formed or the horse is no longer entered, above 0 if it has an ID</td>
+            <td>Integer</td>
+            <td>0 - horse can&#39;t be mapped to a market, an example 134521</td>
+        </tr>
+        <tr>
+            <td><strong>sportsbookDecimalOdds</strong><br />Standard</td>
+            <td>
+                Betfair Sportsbook decimal odds
+            </td>
+            <td>&quot;&quot; - no odds available</td>
+            <td>String</td>
+            <td>&quot;&quot; - no price available, An example: 2.0 - evens</td>
+        </tr>
+        <tr>
+            <td><strong>sportsbookFractionalOdds</strong><br />Standard</td>
+            <td>
+                Betfair Sportsbook odds expressed as a fraction
+            </td>
+            <td>&quot;&quot; - no odds available</td>
+            <td>String</td>
+            <td>&quot;&quot; - no price available, An example: 1/1 - evens</td>
+        </tr>
+        <tr>
+            <td><strong>equipmentFirstTime</strong><br />Standard</td>
+            <td>
+                Flag to indicate this is the first time a horse has worn equipment
+            </td>
+            <td>True for yes, false for no</td>
+            <td>Boolean</td>
+            <td>True or False</td>
+        </tr>
+        <tr>
+            <td><strong>sportsbookBetSlipUrl</strong><br />Standard</td>
+            <td>
+                Betfair Sportsbook url values
+            </td>
+            <td>&quot;&quot; - no url</td>
+            <td>String</td>
+            <td>Values required for building sportsbook bet slip url</td>
+        </tr>
+        <tr>
+            <td><strong>trainerCode</strong><br />Standard</td>
+            <td>
+                The code of the horse&#39;s trainer
+            </td>
+            <td>&quot;&quot; if the horse doesn&#39;t have a registered trainer, has a code if it does which corresponds to the trainer</td>
+            <td>String</td>
+            <td>&quot;&quot; - no trainer available for the horse, an example: &quot;000000000001&quot;</td>
+        </tr>
+        <tr>
+            <td><strong>ownerCode</strong><br />Standard</td>
+            <td>
+                The code of the owner of the horse
+            </td>
+            <td>Can be empty if an owner is not recorded against the horse</td>
+            <td>String</td>
+            <td>&quot;&quot; if no owner is registered , an example: &quot;000000000001&quot; if one has</td>
+        </tr>
+        <tr>
+            <td><strong>ownerFullName</strong><br />Standard</td>
+            <td>
+                The full name of the owner of the horse
+            </td>
+            <td>Can be empty if an owner is not recorded against the horse, Title Case if it is</td>
+            <td>String</td>
+            <td>&quot;&quot; if no owner is registered for the horse, an example: Gigginstown House Stud</td>
+        </tr>
+    </tbody>
+</table>

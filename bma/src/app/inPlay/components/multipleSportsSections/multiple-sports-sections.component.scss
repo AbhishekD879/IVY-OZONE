@@ -1,0 +1,48 @@
+@import 'global.variables.scss';
+
+.in-play-header {
+  @include display-flex();
+  @include align-items();
+
+  height: 42px;
+  background: $brand-color-dark;
+  margin-bottom: 3px;
+  padding: 0 10px;
+  font-weight: bold;
+
+  .in-play-label {
+    font-size: 13px;
+    color: $color-white;
+    @include flex-grow(1);
+    @include justify-content(flex-end);
+  }
+
+  .see-all-count {
+    color: $color-yellow;
+    font-size: 11px;
+    justify-content: flex-end;
+    text-transform: uppercase;
+  }
+
+  .see-all-count-value {
+    color: $color-yellow;
+    font-size: 12px;
+    justify-content: flex-end;
+  }
+
+  .next-arrow {
+    fill: $color-yellow;
+    width: 15px;
+    height: 9px;
+  }
+}
+
+.in-play-header.upcoming-header {
+  background: $color-gray;
+  text-transform: uppercase;
+  padding: 10px;
+}
+
+.see-all-link {
+  margin-right: 30px;
+}

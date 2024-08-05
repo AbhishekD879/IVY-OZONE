@@ -1,0 +1,32 @@
+@import 'global.variables.scss';
+
+.overask-holding-page {
+  background-color: white;
+  padding: 25px 18px 55px;
+  text-align: center;
+}
+
+.row {
+  margin: 18px 0 0;
+  font-size: 14px;
+}
+
+.message {
+  color: $color-gray-dark;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: bold;
+  display: inherit;
+}
+
+.spinner {
+  display: inline-block;
+  color: black;
+
+  svg {
+    fill: currentColor;
+    @include animation(loader 1.2s infinite linear);
+  }
+}

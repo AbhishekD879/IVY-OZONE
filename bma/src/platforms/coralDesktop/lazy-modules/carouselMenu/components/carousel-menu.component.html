@@ -1,0 +1,49 @@
+<div [ngClass]="carouselClass" id="{{carouselId}}">
+<nav data-uat="mainNav" class="carousel-menu"
+  (mouseover)="mouseOver()"
+  (mouseleave)="mouseLeave()">
+  <div #menuContainer class="scroll-container sport-carousel"
+       scrollable [rescrollOnChange]="activeMenuItem">
+    <ul class="scroll-inner">
+      <ng-container *ngFor="let item of menuItems">
+          <li class="inplay-carousel" [ngClass]="{active: (item.targetUriCopy === activeMenuItem)}"
+              data-crlat="carouselMenu.item">
+            <a (click)="buttonAction($event, item)"
+              class="menu-item"
+              [attr.title]="item.imageTitle"
+              data-crlat="menu.item"
+              [click-link]>
+              <svg class="submenu-list-icon"
+                   [disable-dragging]
+                   data-crlat="submenuListIcon">
+                  <use [attr.xlink:href]="'#' + (item.svgId || 'icon-generic')"></use>
+              </svg>
+              <span class="submenu-list-title"
+                    [disable-dragging]
+                    data-crlat="menuItem.title">{{ item.imageTitle }}</span>
+              <span class="count-label"
+                    *ngIf="eventCount(item)"
+                    data-crlat="eventCount">
+                {{ eventCount(item) }}
+              </span>
+            </a>
+          </li>
+      </ng-container>
+    </ul>
+  </div>
+  <div class="action-arrow left row-middle"
+       (click)="scrollLeft($event)"
+       *ngIf="isShowLeftArrow">
+    <svg class="arrow-icon prev-arrow row-center">
+      <use [attr.xlink:href]="'#prev-arrow'"></use>
+    </svg>
+  </div>
+  <div class="action-arrow right row-middle"
+       (click)="scrollRight($event)"
+       *ngIf="isShowRightArrow">
+    <svg class="arrow-icon next-arrow">
+      <use [attr.xlink:href]="'#next-arrow'"></use>
+    </svg>
+  </div>
+</nav>
+</div>

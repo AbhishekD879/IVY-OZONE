@@ -1,0 +1,108 @@
+@import 'global.variables.scss';
+
+.header-details {
+  padding: 9px 10px 8px 0;
+  width: 100%;
+  @include display-flex();
+  .icons-area {
+    display: flex !important;
+    justify-content: flex-end;
+    cursor: auto;
+    // align-items: baseline; 
+    .watch-icon-stream {
+      height: 11px;
+      width: 11px;
+    }
+    .watch-label {
+      margin-left: 5px;
+      font-size: 9px;
+      font-weight: bold;
+    }      
+  }
+  .text-area {
+    @include display-flex();
+    @include align-items();
+    @include flex-grow(1);
+    .title-container {
+      @include display-flex;
+      .race-header-title {
+        margin-right: 10px;
+        white-space: normal;
+        color: $color-black;
+        font-size: 12px;
+        font-weight: bold;
+        display: block;
+        line-height: 13.2px;
+        text-transform: uppercase;
+      }
+    }
+
+    live-label {
+      height: 12px;
+    }    
+  }
+}
+
+.header-race-details {
+  align-items: center;
+  .icons-area .race-next-link {  
+    padding-left:0px !important;  
+    color: $color-blue-cornflower;
+    padding-left: 30px;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: bold;
+    @include display-flex();
+    @include align-items();
+    span {
+      font-size: $font-size;
+    }
+    svg {
+      margin-left: 5px;
+      height: 8px;
+      width: 5px;
+      fill: $color-blue-cornflower;
+    } 
+  } 
+  width: 100%;
+  .race-distance,
+  .race-going {
+    font-size: 10px;
+    color: $color-black;
+    text-transform: none;
+    font-weight: normal;
+  }
+  .race-distance {
+    margin-right: 5px;
+  }
+  .text-area {
+    .race-timer {
+      display: inline-block;
+      &:empty {
+        display: block;
+      }
+      .label {
+        color: $color-black;
+        font-weight: normal;
+      }
+      .value {
+        color: $color-blue-cornflower;
+      }
+    }
+
+    .title-container {
+      margin-bottom: 5px;
+    }
+
+    @include align-items();
+    @include flex-grow(1);
+  }
+
+  .see-all-text {
+    margin-left: auto;
+  }
+
+  .race-detail-area {
+    @include display-flex();
+  }
+}

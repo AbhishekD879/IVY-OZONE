@@ -1,0 +1,47 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>Create a New League</h1>
+  <div mat-dialog-content>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="League Name" [(ngModel)]="league.name" [value]="league.name" trim="blur" required>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Category id" type="number" [(ngModel)]="league.categoryId" [value]="league.categoryId" trim="blur" onkeypress="return event.charCode >= 48 && event.charCode <= 57" step="1" min="0">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Category Code" [(ngModel)]="league.ssCategoryCode" [value]="league.ssCategoryCode" trim="blur">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="BetBuilder Url"  [(ngModel)]="league.betBuilderUrl" [value]="league.betBuilderUrl">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="League Url"  [(ngModel)]="league.leagueUrl" [value]="league.leagueUrl">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Redirection Url"  [(ngModel)]="league.redirectionUrl" [value]="league.redirectionUrl">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <banners-autocomplete
+          [type]='"Mobile"'
+          (onBannerSelected)="league.banner = $event"
+          [selected]='league.banner'
+          [setSelected]="false">
+        </banners-autocomplete>
+        <banners-autocomplete
+          [type]='"Tablet"'
+          (onBannerSelected)="league.tabletBanner = $event"
+          [selected]='league.tabletBanner'
+          [setSelected]="false">
+        </banners-autocomplete>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+    <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="!isValidLeague()" (click)="getNewLeague();" [mat-dialog-close]="league">Save</button>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+---
+- name: Create CrlatServices EC2 node
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    instance_type: t2.medium
+    security_group: crlat
+    subnet_name: services
+    volume_size: 64
+    action: create
+    node_type: SingleNode
+    assign_public_ip: no
+    tags:
+      Team: Automation
+      NodeType: "{{ node_type }}"
+      Name: services
+      ClusterName: Services
+      ClusterNodeType: CrlatServices
+      s3mounts: crlat-storage
+      packages: allure,go-agent
+      dockers: AccountsSharing,NginxAllure
+      GoAgentEnv: crlat_vpc,OxygenUI_test_docker_crlat_vpc
+      GoAgentResources: allure-generatorcrlatServices_create.yml
+    num_nodes: 1
+  tasks:
+  - name: crlat.vpc
+    include_role:
+      name: crlat.vpc

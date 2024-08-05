@@ -1,0 +1,69 @@
+@import 'global.variables.scss';
+
+$competitions-header-height: 45px;
+
+.competition-type-events {
+  
+  .competitions-header {
+    height: $competitions-header-height;
+    position: -webkit-sticky;
+    position: sticky;
+    top: $app-header-height + $top-bar-height;
+    z-index: 6;
+    font-size: 11px;
+    font-weight: 900;
+    color: $color-white;
+    background: $brand-color-secondary;
+    @include display-flex();
+
+    .competitions-title {
+      padding-left: 10px;
+      line-height: 45px;
+      @include flex(1,1);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .competitions-selector {
+      @include display-flex();
+      @include align-items();
+      line-height: 45px;
+      padding: 0 10px;
+      white-space: nowrap;
+    }
+
+    .competitions-selector-title {
+      font-weight: normal;
+    }
+
+    .competitions-selector-arrow {
+      height: 4px;
+      width: 8px;
+      fill: $color-white;
+      margin-left: 5px;
+    }
+  }
+
+  .coupons-list {
+    background: $color-gray;
+
+    &.active {
+      position: static;
+      overflow: visible;
+    }
+
+    .coupons-wrap {
+      padding: 5px 0 10px 0;
+      height: auto;
+    }
+  }
+
+  competitions-matches-tab {
+    display: block;
+
+    .sticky-market-selector {
+      top: $app-header-height + $top-bar-height + $competitions-header-height;
+    }
+  }
+}

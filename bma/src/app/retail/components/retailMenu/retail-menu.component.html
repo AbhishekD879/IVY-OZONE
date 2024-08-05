@@ -1,0 +1,34 @@
+<div [ngClass]="{'top-border': showTopBorder}">
+  <vertical-menu [menuItems]="menuItems"
+                 *ngIf="menuItems.length"
+                 [header]="'retail.title'"
+                 [showHeader]="showHeader"
+                 [showRetailHeader]="showRetailHeader"
+                 [showDescription]="showDescription"
+                 [trackingLocation]="trackingLocation"
+                 (itemClickFn)="trackNavigation($event)"
+                 (itemClickFnGrid)="trackGridNavigation($event)"
+                 [disableDefaultNavigation]="disableDefaultNavigation">
+    <ng-container *ngIf="showCardNumber && cardMenuItem">
+      <li class="list-item" data-crlat="menu.listItem">
+        <a class="list-item-link"
+           [attr.title]="cardMenuItem.title"
+           [linkHref]
+           [link]="cardMenuItem.targetUri"
+           data-crlat="link">
+          <svg class="item-icon" data-crlat="icon">
+            <use [attr.xlink:href]="'#' + cardMenuItem.svgId"></use>
+          </svg>
+          <span class="item-name card-number"  data-crlat="title">
+            <span [i18n]="'retail.cardNumber'"></span>
+            <br>
+            <strong>{{ cardMenuItem.title }}</strong>
+          </span>
+          <svg class="item-next-arrow">
+            <use xlink:href="#next-arrow"></use>
+          </svg>
+        </a>
+      </li>
+    </ng-container>
+  </vertical-menu>
+</div>

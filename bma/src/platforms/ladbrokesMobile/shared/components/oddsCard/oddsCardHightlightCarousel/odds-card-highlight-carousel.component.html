@@ -1,0 +1,187 @@
+<div class="odds-card odds-hightlight-card" (click)="goToEvent(false, $event)" [attr.data-eventid]="event.id"
+  data-crlat="oddsCard.sportTemplate" [ngClass]="{'odds-hc-card-desktop': isDesktop}">
+  <div class="odds-header" [ngClass]="{'tennis-scores': (isTennis || isBadminton) && hasEventScores()}"
+     data-crlat="oddsHeader">
+    <div class="odds-left" data-crlat="oddsLeft">
+      <!-- Watch/Live label -->
+      <div *ngIf="isEventStartedOrLive || isStream" class="watch-live-wrapper">
+        <live-label *ngIf="isEventStartedOrLive"></live-label>
+        <watch-label *ngIf="isStream"></watch-label>
+      </div>
+
+      <!--Live clock -->
+      <live-clock *ngIf="isClockAllowed()" [event]="event" data-crlat="liveClock">
+      </live-clock>
+      <!--Odds label for HT/FT or tennis set -->
+      <span *ngIf="isLabelShown" [textContent]="oddsLabel" class="odds-label" data-crlat="oddsCardLabel">
+      </span>
+    </div>
+    <div class="odds-right two-up-icon">
+      <promotion-icon class="promo-icon" *ngIf="twoUpMarketsExists"
+        [type]="'market'"
+        [mode]="'mini'"
+        [display]="appendDrillDownTagNames(event.markets[0])"
+        [accordionTitle]="event.markets[0].name"
+        [marketName]="event.markets[0].name"
+        [sport]="'sport'"
+        data-crlat="promotionIcons"
+        [disablePopUp]=true>
+      </promotion-icon>
+    </div>
+  </div>
+
+  <div class="odds-content odds-names-scores" [ngClass]="{'odds-wrap': widget, 'odds-SGP-scores': (isTennis || isBadminton) && isDesktop && hasEventScores(),
+  'desktop-content-margin': isDesktop, 'no-image-padding': !checkForTeamsExist()}" data-crlat="oddsContent">
+    <div class="odds-left" [ngClass]="{'odds-left-desktop': isDesktop, 'tennis-margin-top': (isTennis || isBadminton) && isDesktop && !hasEventScores()}" data-crlat="oddsNamesRow">
+      <!-- Two teams template -->
+      <div class="odds-names odds-names-list" [ngClass]="{'tennis-padding-bottom': (isTennis || isBadminton) && isDesktop}"
+         *ngIf="(!event.outcomeStatus && eventSecondName)" data-crlat="oddsNames">
+        <!-- svg-team-kit component should be added to carousel template -->
+        <ng-container *ngTemplateOutlet="teamsDataTpl; context: { team: homeTeamData ,teamname: eventFirstName }">
+        </ng-container>
+
+        <ng-container *ngTemplateOutlet="teamsDataTpl; context: { team: awayTeamData,teamname: eventSecondName }">
+        </ng-container>
+
+        <ng-template #teamsDataTpl let-team="team" let-teamname="teamname">
+          <div class="odds-name-row">
+            <ng-container *ngIf="checkForTeamsExist()">
+              <ng-container *ngIf="checkForTeamsImageData()">
+                <img class="teams-image" height="100%" width="100%" [ngClass]="{'teams-image-desktop': isDesktop}"  [ngSrc]="CMS_UPLOADS_PATH + team?.teamsImage?.filename" [priority] = "index<eagerLoadCount ? true: false" />
+                <span [textContent]="teamname" class="odds-name" [ngClass]="{'odds-name-desktop': isDesktop}"></span>
+                <span><span [ngClass]="{'green-ball-icon': isTennis}"
+                    *ngIf="isTennis && isPlayerActive(1)"></span></span>
+              </ng-container>
+              <ng-container *ngIf="!checkForTeamsImageData()">
+                <svg class="crest-logo" xmlns="http://www.w3.org/2000/svg" [attr.width]="isDesktop ? '15' : '21'" 
+                [attr.height]="isDesktop ? '17' : '21'" [attr.viewBox]="isDesktop ? '0 0 15 17' : '0 0 21 21'">
+                  <g fill="none" fill-rule="evenodd">
+                    <path [attr.fill]="team.secondaryColour" style="opacity: .9"
+                      d="M14.834 1.244L7.617.003A.1.1 0 0 0 7.5.1V17l.136-.016A8.354 8.354 0 0 0 15 8.688V1.441a.2.2 0 0 0-.166-.197z" />
+                    <path [attr.fill]="team.secondaryColour"
+                      d="M13.839 1.237L7.619.003A.1.1 0 0 0 7.5.1V17A7.528 7.528 0 0 0 14 9.543v-8.11a.2.2 0 0 0-.161-.196z" />
+                    <path [attr.fill]="team.primaryColour" style="opacity: .9"
+                      d="M.166 1.244L7.383.003A.1.1 0 0 1 7.5.1V17l-.136-.016A8.354 8.354 0 0 1 0 8.688V1.441a.2.2 0 0 1 .166-.197z" />
+                    <path [attr.fill]="team.primaryColour"
+                      d="M1.161 1.237L7.381.003A.1.1 0 0 1 7.5.1V17A7.528 7.528 0 0 1 1 9.543v-8.11a.2.2 0 0 1 .161-.196z" />
+                  </g>
+                </svg>
+                <span [textContent]="teamname" class="odds-name" [ngClass]="{'odds-name-desktop': isDesktop}"></span>
+                <span><span [ngClass]="{'green-ball-icon': isTennis}"
+                    *ngIf="isTennis && isPlayerActive(1)"></span></span>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!checkForTeamsExist()">
+              <ng-container *ngIf="participants && participants[teamname]?.svgId; else kitsTemp">
+                <svg class="flag-icon">
+                  <use [attr.xlink:href]="participants[teamname]?.svgId"></use>
+                </svg>
+              </ng-container>
+              <ng-template #kitsTemp>
+                <span class="team-kit-icon" *ngIf="isKitsAvailable">
+                  <svg-team-kit (isTeamKitAvailable)="checkKits($event)" [fileName]="teamKit(teamname)"></svg-team-kit>
+                </span>
+              </ng-template>
+              <span [textContent]="teamname" class="odds-name" [ngClass]="{'odds-name-desktop': isDesktop}"></span>
+              <span><span [ngClass]="{'green-ball-icon': isTennis}" *ngIf="isTennis && isPlayerActive(1)"></span></span>
+            </ng-container>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <div class="odds-right odds-right-initial-align" [ngClass]="{ 'score-nontennis-inplay' : isDesktop 
+    && hasEventScores() && !(isTennis || isBadminton) }" data-crlat="oddsOutcomesRow">
+
+      <!--TODO deprecated, use <odds-card-score>-->
+      <ul *ngIf="hasEventScores()" class="odds-score" [ngClass]="{ 'odds-tennis' : isTennis || isBadminton }"
+        data-crlat="scoreTable">
+
+        <!-- Sport Score(Set) -->
+        <ng-container *ngIf="!isBadminton && !isTennis">
+          <ng-container *ngIf="boxScore">
+            <li>
+              <b [textContent]="boxScore.home.inn1"></b>
+              <b [textContent]="boxScore.away.inn1"></b>
+            </li>
+            <li *ngIf="eventComments?.teams.home">
+              <b [textContent]="boxScore.home.inn2"></b>
+              <b [textContent]="boxScore.away.inn2"></b>
+            </li>
+          </ng-container>
+          <li class="wide-column">
+            <ng-container *ngIf="showScoreData">
+              <span [textContent]="oddsScores.home"></span>
+              <span [textContent]="oddsScores.away"></span>
+            </ng-container>
+          </li>
+          <li *ngIf="isEventHasCurrentPoints && !isCricket">
+            <span [textContent]="eventComments?.teams.home.currentPoints"></span>
+            <span [textContent]="eventComments?.teams.away.currentPoints"></span>
+          </li>
+        </ng-container>
+        <!-- Tennis & Badminton Scores with SGP headers design -->
+        <ng-container *ngIf="isTennis">
+          <li>
+            <span class="tennis-score-column">
+              <span class="odds-tennis-score sgp-tennis-header">S</span>
+              <span class="odds-tennis-score" [textContent]="eventComments.teams.player_1.score || 0"></span>
+              <span class="odds-tennis-score" [textContent]="eventComments.teams.player_2.score || 0"></span>
+            </span>
+          </li>
+          <li>
+            <span class="tennis-score-column">
+              <span class="odds-tennis-score sgp-tennis-header" data-crlat="G">G</span>
+              <span class="odds-tennis-score" [textContent]="periodScores.home">
+              </span>
+              <span class="odds-tennis-score" [textContent]="periodScores.away">
+              </span>
+            </span>
+          </li>
+          <li>
+            <span class="tennis-score-column">
+              <span class="odds-tennis-score sgp-tennis-header">P</span>
+              <span class="odds-tennis-score" [textContent]="currentScores.home">
+              </span>
+              <span class="odds-tennis-score" [textContent]="currentScores.away">
+              </span>
+            </span>
+          </li>
+        </ng-container>
+        <ng-container *ngIf="isBadminton">
+          <li>
+            <span class="tennis-score-column">
+              <span class="odds-tennis-score sgp-tennis-header">G</span>
+              <span class="odds-tennis-score" [textContent]="oddsScores?.home || 0">
+              </span>
+              <span class="odds-tennis-score" [textContent]="oddsScores?.away || 0">
+              </span>
+            </span>
+          </li>
+          <li>
+            <span class="tennis-score-column">
+              <span class="odds-tennis-score sgp-tennis-header">P</span>
+              <span class="odds-tennis-score" [textContent]="currentScores?.home">
+              </span>
+              <span class="odds-tennis-score" [textContent]="currentScores?.away">
+              </span>
+            </span>
+          </li>
+        </ng-container>
+      </ul>
+
+    </div>
+  </div>
+  <div class="odds-content odds-outcomes" [ngClass]="{'odds-outcomes-desktop': isDesktop, 
+              'tennis-margins': (isTennis || isBadminton) && isDesktop}"
+   *ngIf="selectedMarketObject?.outcomes?.length">
+    <!-- Sport Odds Buttons -->
+    <div class="odds-btn-content" data-crlat="oddsBtnContent" (click)="$event.stopPropagation()"
+      *ngIf="selectedMarketObject.outcomes.length">
+      <ng-container *ngFor="let outcome of correctedOutcomes; let i = index">
+        <price-odds-button *ngIf="outcome" [event]="event" data-crlat="event" [market]="selectedMarketObject"
+          [outcome]="outcome" [head]="outcomeColumnsHeaders[i] | uppercase" [gtmModuleTitle]="'highlights carousel'">
+        </price-odds-button>
+      </ng-container>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,87 @@
+<ng-container *ngIf="isDisplayBanner(virtualsTitle) && eventsArray?.length &&  targetTab?.interstitialBanners?.bannerEnabled ">
+  <lazy-component
+    moduleUri="@lazy-modules-module/virtualEntryPointBanner/virtual-entry-point-banner.module#VirtualEntryPointBannerModule"
+    entryComponent="VirtualEntryPointBannerComponent"
+    [inputs]="{targetTab: targetTab,isUnTiedSport:true,sportName : sportName}">
+  </lazy-component>
+</ng-container>
+
+<accordion [accordionTitle]="virtualsTitle"
+           *ngIf="eventsArray?.length && !isVirtualHomePage"
+           [isExpanded]="isExpanded"
+           (function)="sendCollapseGTM()"
+           data-crlat="outerAccordion"  class="outerAccordionFeatured">
+<accordion-body>
+  <ng-container *ngIf="!isVirtualHomePage">
+    <ng-template [ngTemplateOutlet]="virtualcarousel"> </ng-template>
+  </ng-container>
+</accordion-body>
+</accordion>
+
+<ng-container *ngIf="eventsArray?.length &&  targetTab?.interstitialBanners?.bannerEnabled && isDisplayBanner(virtualsTitle + 'after')" >
+  <lazy-component
+    moduleUri="@lazy-modules-module/virtualEntryPointBanner/virtual-entry-point-banner.module#VirtualEntryPointBannerModule"
+    entryComponent="VirtualEntryPointBannerComponent"
+    [inputs]="{targetTab: targetTab,isUnTiedSport:true,sportName : sportName}">
+  </lazy-component>
+</ng-container> 
+
+<ng-container *ngIf="eventsArray?.length && isVirtualHomePage">
+  <div class="virtualsTitleHeader" data-crlat="virtualSectionHeaderName">{{virtualsTitle}}</div>
+  <ng-template [ngTemplateOutlet]="virtualcarousel"> </ng-template>
+</ng-container>
+
+<ng-template #virtualcarousel>
+  <div class="inspired-virtual-carousel"
+  (function)="sendCollapseGTM()"
+  [ngClass]="{'widget': widget, 'virtualHomePagCarousel': isVirtualHomePage}">
+<div class="virtual-carousel ng-carousel"
+    [ngCarousel]
+    [ngCarouselLoop]="false"
+    [ngCarouselWatch]="eventsArray.length"
+    [ngCarouselName]="carouselName">
+ <slidecontainer class="carousel-slides" [ngClass]="{'carousel-no-scroll': eventsArray.length === 1 }">
+   <slide class="slide" *ngFor="let event of eventsArray; trackBy:trackById">
+     <!-- Slide with Count down timer -->
+     <div *ngIf="event.countdownTimer">
+       <header><span class="slide-title" [textContent]="event.name"></span></header>
+       <div class="slide-body">
+         <div class="start-time" [textContent]="event?.startTime | callBack : getStartTime : this"></div>
+         <div class="timer">
+           <div class="starts-title" [i18n]="'racing.startsIn'"></div>
+           <span class="timer-item" [textContent]="event.countdownTimer.hours"></span>
+           <span class="timer-item" [textContent]="event.countdownTimer.minutes"></span>
+           <span class="timer-item" [textContent]="event.countdownTimer.seconds"></span>
+         </div>
+         <span (click)="goToLiveEvent(event)" class="bet-now-link" [i18n]="'racing.betNow'"></span>
+       </div>
+     </div>
+     <!-- Live now slide -->
+     <div *ngIf="event.liveTimer"
+          class="live-now-slide"
+          (click)="goToLiveEvent(event)">
+       <header><span class="slide-title" [textContent]="event.name"></span></header>
+       <div class="slide-body">
+         <div class="start-time" [textContent]="event?.startTime | callBack : getStartTime : this"></div>
+         <div class="live-now-label">
+           <div class="label-title" [i18n]="'racing.liveNow'"></div>
+         </div>
+         <span class="bet-now-link" [i18n]="'racing.betNow'"></span>
+       </div>
+     </div>
+   </slide>
+   <slide class="slide last-slide" [ngClass]="{'hide-slide': widget}">
+     <!-- Last slide - view all -->
+     <div class="slide-body last-title" (click)="viewAllVirtual(event)">
+       <div class="part-1" [i18n]="'racing.viewAll'"></div>
+       <div class="part-2" [i18n]="'racing.virtuals'"></div>
+     </div>
+   </slide>
+ </slidecontainer>
+</div>
+</div>
+<div *ngIf="widget"
+  class="show-all-title"
+  (click)="viewAllVirtual(eventsArray[0])"
+  [i18n]="'racing.viewAllVirtuals'"></div>
+</ng-template>

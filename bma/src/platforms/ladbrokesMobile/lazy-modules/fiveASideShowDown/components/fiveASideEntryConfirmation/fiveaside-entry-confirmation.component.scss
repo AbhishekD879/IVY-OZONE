@@ -1,0 +1,160 @@
+@import "global.variables.scss";
+@import "./fiveaside-entry-confirmation.mixin.scss";
+
+.entry-confirmation {
+  background-color: $color-border-top-dark-black;
+  margin: 1px 0 0 0;
+  .entry-confirm-wrapper {
+    background-color: $color-border-top-dark-black;
+    height:0px;
+    @include transition(height, .5s, ease-in-out);
+    opacity: 0;
+    @include transition(opacity, .5s, ease-in-out);
+    &.entryconfirm-slide-up {
+      opacity: 1;
+      height:160px;
+      @media (min-width: $tabletPoint) {
+        height: 145px;
+      }
+    }
+    @media (min-width: $tabletPoint) {
+      margin: 0;
+      width: auto;
+    }
+    @media (min-width: $mobileSmallPoint) and (max-width: $tabletPoint) {
+      margin: 1px 0 0 0;
+    }
+
+    @mixin setFontStyles($font-size, $font-weight, $font-stretch, $font-style, $line-height, $letter-spacing ) {
+      font-size: $font-size;
+      font-weight: $font-weight;
+      font-stretch: $font-stretch;
+      font-style: $font-style;
+      line-height: $line-height;
+      letter-spacing: $letter-spacing;
+    }
+
+    .entrybadge {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      flex: 0.7;
+      .section-content {
+        flex: 1.8;
+        margin: 0 10px;
+        .description {
+          height:36px;
+          .secondary-content {
+            ::ng-deep > * {
+              color: $color-white;
+              text-overflow: unset;
+              margin: 0 0 12px;
+              margin-bottom:0px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-line-clamp: 3; /* number of lines to show */
+              -webkit-box-orient: vertical;
+              text-align: left;
+              font-family: $alt-font-family;
+              @include setFontStyles(12px, normal, normal, normal, normal, normal );
+              @media (min-width: $mobileSmallPoint) and (max-width: $tabletPoint) {
+                @include setFontStyles(10px, normal, normal, normal, normal, normal );
+                text-align: center;
+                margin-bottom:0px;
+              }
+            }
+          }
+        }
+        .view-showdown-btn {
+          text-align: left;
+          @media (min-width: $mobileSmallPoint) and (max-width: $tabletPoint) {
+            text-align: center;
+          }
+        }
+      }
+    }
+    .title {
+      color: $color-white;
+      margin: 12px 0 8px 0;
+      height: 15px;
+      @include setFontStyles(12px, bold, normal, normal, normal, 0px );
+      font-family: $alt-font-family;
+      @media (min-width: $tabletPoint) {
+        font-size: $font-size-small;
+        height: auto;
+        text-align: left;
+        width: auto;
+      }
+      @media (min-width: $mobileSmallPoint) and (max-width: $tabletPoint) {
+        font-size: $font-size-small;
+        height: 34px;
+        @include setFontStyles(14px, bold, normal, normal, normal, normal );
+        font-family: $alt-font-family;
+        text-align: center;
+        color: $color-white;
+      }
+    }
+    .rectangle {
+      width: 100px;
+      border: 0px;
+      padding: 0;
+      height: 36px;
+      color: $color-white;
+      @include setFonts($base-font-family,$font-size-bit-lgr,700,center);
+      border-radius: 2px;
+      background-color: $color-light-green-leaf;
+      @media (min-width: $tabletPoint) {
+        height: 36px;
+        width: 100px;
+        border-color: transparent;
+        margin: -2px 0px 0px 0px;
+        text-align: center;
+      }
+      .viewShowDown {
+        height: 20px;
+        font-family: $base-font-family;
+        @include setFontStyles(13px, bold, condensed, normal, normal, 0.02px );
+        text-align: center;
+        color: $color-white;
+        @media (min-width: $mobileSmallPoint) and (max-width: $tabletPoint) {
+          height: 18px;
+        }
+      }
+    }
+    .entrybadge-logo {
+      flex: 0.3;
+      .five-a-side-icon {
+        @include logo-mixin(96px, 80px, 20px 0 0 10px);
+        @media (min-width: $mobileSmallPoint) and (max-width: $tabletPoint) {
+          @include logo-mixin(92px, 112px, 20px 0 0 20px);
+        }
+      }
+      @media (min-width: $mobileSmallPoint) and (max-width: $tabletPoint) {
+        flex: 0.6;
+        position: relative;
+        bottom:12px;
+      }
+    }
+
+    .terms-conditions{
+      color: $color-white;
+      text-overflow: unset;
+      margin-top: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3; /* number of lines to show */
+      -webkit-box-orient: vertical;
+      text-align: left;
+      font-family: $alt-font-family;
+      @include setFontStyles(8px, normal, normal, normal, normal, normal );
+              @media (min-width: $mobileSmallPoint) and (max-width: $tabletPoint) {
+                @include setFontStyles(8px, normal, normal, normal, normal, normal );
+                text-align: center;
+                margin-bottom:0px;
+              }
+    }
+  }
+}
+

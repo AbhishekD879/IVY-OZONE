@@ -1,0 +1,82 @@
+extends ../layout/base
+
+block intro
+  .page-header
+    h1 Structure
+
+block content
+  script(src="/keystone/js/lib/angular/bower_components/angular/angular.min.js")
+  script(src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js")
+  script(src="/keystone/js/lib/angular/bower_components/ngDialog/js/ngDialog.min.js")
+  link(href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css", rel="stylesheet")
+  link(href="/keystone/js/lib/angular/bower_components/ngDialog/css/ngDialog.css", type="text/css", rel="stylesheet")
+  link(href="/keystone/js/lib/angular/bower_components/ngDialog/css/ngDialog-theme-default.css", type="text/css", rel="stylesheet")
+
+  script(src="/keystone/js/lib/angular/bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.js")
+  script(src="/keystone/js/lib/angular/bower_components/moment/min/moment.min.js")
+  style .accordion-toggle {cursor:pointer};
+  script(src="/keystone/js/lib/angular/bower_components/ng-file-upload/ng-file-upload.js")
+  script(src="/keystone/js/lib/angular/systemConfiguration.js")
+
+  link(href="/keystone/js/lib/angular/bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.css", type="text/css", rel="stylesheet")
+  script.
+    window.data = !{JSON.stringify(data)}
+  div(ng-app="systemConfiguration")
+    div(ng-controller='structureCtrl', id='systemConfigurationContainer')
+      accordion(ng-init="oneAtATime = true", close-others="oneAtATime")
+        div(ng-repeat="(key, value) in config")
+          accordion-group(heading="{{key}}", ng-init="status.open = $first", is-open="status.open")
+            div(ng-repeat="(k, val) in value")
+              div(ng-if="val.type === 'input with multiselect'", class="field field-has-label")
+                label(class="field-label") {{val.name}}
+                div(class="field-ui field-size-small")
+                  input(type="text", ng-model="structure[key][val.name].value", class="form-control")
+                  multiselect(ng-model="structure[key][val.name].multiselectValue", options="c for c in val.multiselectValue", data-multiple="true")
+              div(ng-if="val.type === 'multiselect'", class="field field-has-label")
+                label(class="field-label") {{val.name}}
+                div(class="field-ui field-size-small")
+                  multiselect(ng-model="structure[key][val.name]", options="v for v in val.value", data-multiple="true")
+              div(ng-if="val.type === 'select'", class="field field-has-label")
+                label(class="field-label") {{val.name}}
+                div(class="field-ui field-size-small")
+                  select(ng-model="structure[key][val.name]", class="form-control")
+                    option(ng-repeat="v in val.value") {{v}}
+              div(ng-if="val.type === 'checkbox'", class="field field-has-label")
+                label(class="field-label") {{val.name}}
+                div(class="field-ui field-size-small")
+                  input(type="checkbox", ng-model="structure[key][val.name]", ng-true-value="true", ng-false-value="false")
+              div(ng-if="val.type === 'input'", class="field field-has-label")
+                label(class="field-label") {{val.name}}
+                div(class="field-ui field-size-small")
+                  input(type="text", class="form-control", ng-model="structure[key][val.name]")
+              div(ng-if="val.type === 'daterange'", class="field field-has-label")
+                label(class="field-label") {{val.name}}
+                div(class="field-ui field-size-small")
+                  module-ribbon-datetimepicker(model="structure[key][val.name].from")
+                div(class="field-ui field-size-small")
+                  module-ribbon-datetimepicker(model="structure[key][val.name].to", from="structure[key][val.name].from")
+              div(ng-if="val.type === 'image'", class="field field-has-label field-type-localfile")
+                label(class="field-label") {{val.name}}
+                div(class="field-ui has-file")
+                  div.file-container
+                    div.file-details
+                      div.file-values
+                        div.field-value {{structure[key][val.name]}}
+
+                  div.file-toolbar
+                    div.pull-left
+                      button.btn.btn-default(type="button", ngf-select="uploadFile($files, '{{key}}', '{{val.name}}')", accept="image/*") Change File
+
+              div(ng-if="val.type === 'svg'", class="field field-has-label field-type-localfile")
+                label(class="field-label") {{val.name}}
+                div(class="field-ui has-file")
+                  div.file-container
+                    div.file-details
+                      div.file-values
+                        div.field-value {{structure[key][val.name].value || 'noValue'}}
+
+                  div.file-toolbar
+                    div.pull-left
+                      button.btn.btn-default(type="button", ngf-select="uploadSvgFile($files, '{{key}}', '{{val.name}}')", accept="image/*") Change File
+
+      button(class="btn btn-default", ng-click="saveData();") submit

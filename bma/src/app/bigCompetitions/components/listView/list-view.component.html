@@ -1,0 +1,21 @@
+<div class="list-view">
+  <odds-card-header [events]="events"
+                    [sportConfig]="sportConfig"
+                    [selectedMarket]="selectedMarket"
+                    *ngIf="deviceType == 'Mobile'">
+  </odds-card-header>
+  <ng-container *ngFor="let eventEntity of events | slice:0:limit; trackBy : trackById let i = index;">
+    <div class="{{ (deviceType !== 'Mobile') ? 'odd_card_' + (i%2==0?'evenList':'oddList'):'' }}" >
+      <odds-card-header *ngIf="deviceType !== 'Mobile'" [events]="events" [sportConfig]="sportConfig" [selectedMarket]="selectedMarket">
+      </odds-card-header>
+    <odds-card-component *ngIf="eventEntity.markets[0] && eventEntity.markets[0].outcomes.length"
+                         [event]="eventEntity"
+                         [sportConfig]="sportConfig"
+                         [selectedMarket]="selectedMarket"
+                         [gtmModuleTitle]="gtmModuleTitle"
+                         [isFilterByTemplateMarketName]="true">
+    </odds-card-component>
+    </div>
+  </ng-container>
+  <show-all-button (click)="loadChunk()" *ngIf="!hideShowNext()" [showMoreMode]="true"></show-all-button>
+</div>

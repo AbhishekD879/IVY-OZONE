@@ -1,0 +1,26 @@
+<div class="scores-card">
+    <div class="row">
+        <div class="col-xs-6 left-side">
+            <div class="team-name-scores">
+                <div class="score" [textContent]="event.teamA.score"></div>
+                <div class="team-name" [textContent]="event.teamA.name"></div>
+            </div>
+            <div class="goal-scorers">
+                <p *ngFor="let goalScorer of event.teamA.parsedGoalScorers">
+                    <span [textContent]="goalScorer"></span>
+                </p>
+            </div>
+        </div>
+        <div class="col-xs-6 right-side">
+            <div class="team-name-scores">
+                <div class="score" [textContent]="event.teamB.score"></div>
+                <div class="team-name" [textContent]="event.teamB.name"></div>
+            </div>
+            <div class="goal-scorers">
+                <p *ngFor="let goalScorer of event.teamB.parsedGoalScorers">
+                    <span [textContent]="goalScorer"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

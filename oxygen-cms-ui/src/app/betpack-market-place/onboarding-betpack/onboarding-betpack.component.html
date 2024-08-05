@@ -1,0 +1,72 @@
+<div class="card">
+    <div class="header">
+        <h2 class="waves-effect waves-block" [textContent]="onboardConstats.Onboarding_Betpack"></h2>
+    </div>
+</div>
+<div class="card">
+    <div class="header">
+        <h2 class="has-activity-badge">
+            <span class="font-italic" [textContent]="onboardConstats.Onboarding_Images">Onboarding Images</span>
+            <create-updated-at-by *ngIf="onboardImageData" [collection]="onboardImageData"></create-updated-at-by>
+        </h2>
+        <header-activity-badge [state]="!disabled"></header-activity-badge>
+    </div>
+</div>
+<div class="card">
+    <div class="body">
+        <div class="row">
+            <div class="col-md-12 m-b-0">
+                <mat-checkbox color="primary" [checked]="disabled" (change)='activeStatus()'>Active</mat-checkbox>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="body">
+        <div class="row">
+            <div class="col-md-12 m-b-5">
+                <a routerLink="create-onboard" type="button" class="btn bg-teal waves-effect float-left">
+                    <i class="material-icons">add_box</i>
+                    <span [textContent]="onboardConstats.Create_Onboarding_Betpack"></span>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 m-b-0">
+                <h5 [textContent]="onboardConstats.Onboarding_Images"></h5>
+            </div>
+            <div class="col-md-6 m-b-0">
+                <div class="input-with-icon m-b-0">
+                    <i class="material-icons">search</i>
+                    <mat-form-field>
+                        <input matInput placeholder="Search For Onboarded Images" [(ngModel)]="searchField"
+                            [value]="searchField">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 m-b-0">
+                <ng-container *ngIf="onboardData">
+                <cms-data-table [customTableData]="onboardData" [customTableColumns]="dataTableColumns" [actions]="['remove','edit']"
+                    [reorder]="true" (onElementsOrder)="reorderHandler($event)" [filterString]="searchField"
+                    [filterProperties]="searchableProperties" (onRemoveTableElement)="removeOnboardBetPack($event)">
+                </cms-data-table>
+              </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="body">
+        <div class="row">
+            <div class="col-4 col-md-9 p-b-0 m-b-0">
+                <button mat-button type="button" class="btn bg-teal waves-effect float-left" (click)="saveChanges()"
+                    [disabled]='buttonDisabled'>
+                    <mat-icon>save</mat-icon>
+                    <span [textContent]="onboardConstats.Save_Changes"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

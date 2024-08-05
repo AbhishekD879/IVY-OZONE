@@ -1,0 +1,284 @@
+/*
+* Race Card
+*----------------------------------------------------------------------
+*/
+.race-card.odds-card {
+
+  .odds-content {
+    min-height: 60px;
+
+    .odds-names {
+      padding: 0;
+    }
+  }
+}
+
+bet-finder-result {
+  .bet-finder-silk {
+    width: 40px;
+    background: none;
+  }
+}
+
+.visibility-hidden {
+  display: none;
+}
+
+/* Silk images */
+.silk-img {
+  @include display-flex();
+  @include align-items(center);
+  @include justify-content(center);
+  height: 30px;
+  width: 30px;
+  min-width: 30px;
+  border-radius: 3px;
+  background: url(../../../app/bma/assets/images/silk.svg) center no-repeat;
+  background-position-x: right;
+  overflow: hidden;
+  margin-right: 5px;
+  &.inter-silk {
+    background: url(../../../app/bma/assets/images/silk-int.svg) center no-repeat;
+  }
+  &.has-img {
+    background-image: none;
+    div {
+      position: relative;
+      width: 30px;
+      height: 30px;
+      background-repeat: no-repeat;
+    }
+  }
+  &.with-default, &.inter-silk {
+    background-position: -11px -1px;
+    div {
+      position: relative;
+      width: 30px;
+      height: 30px;
+      background-repeat: no-repeat;
+    }
+  }
+  &.inter-silk {
+    background-position: -11px 2px;
+  }
+}
+
+/* Silk images */
+.silk-img-stream-bet {
+  @include display-flex();
+  @include align-items(center);
+  @include justify-content(center);
+  height: 30px;
+  width: 45px;
+  min-width: 30px;
+  border-radius: 3px;
+  // background: url(../../../app/bma/assets/images/silk.svg) center no-repeat;
+  background-position-x: right;
+  overflow: hidden;
+  margin-right: 5px;
+  &.inter-silk {
+    background: url(../../../app/bma/assets/images/silk-int.svg) center no-repeat;
+  }
+  &.has-img {
+    background-image: none;
+    div {
+      position: relative;
+      width: 30px;
+      height: 30px;
+      background-repeat: no-repeat;
+    }
+  }
+  &.with-default, &.inter-silk {
+    background-position: -11px -1px;
+    div {
+      position: relative;
+      width: 30px;
+      height: 30px;
+      background-repeat: no-repeat;
+    }
+  }
+  &.inter-silk {
+    background-position: -11px 2px;
+  }
+}
+
+/*
+* Race Card Carousel
+*----------------------------------------------------------------------
+*/
+.race-card-carousel {
+  margin: 4px 0;
+
+  /*  One slide in Carousel */
+  &.carousel-one-slide {
+
+    .race-carousel-controller {
+      display: none;
+    }
+
+    .race-carousel {
+      width: 100%;
+      overflow: hidden;
+
+      .carousel-slides {
+        width: 100%;
+      }
+    }
+  }
+
+  /* Carousel Buttons (prev, next buttons) */
+  .race-carousel-buttons {
+    background: $color-gray-light;
+    border-bottom: 2px solid $color-gray-light;
+    margin: 0 0 4px;
+    border-radius: 3px;
+    @include clearfix();
+
+    .race-arrow {
+      outline: none;
+      border: none;
+      display: inline-block;
+      padding: 10px 35px;
+      color: $brand-color-main;
+      position: relative;
+      background: none;
+      &:hover{
+        text-decoration: underline;
+        text-decoration-color: $brand-color-main;
+      }
+      &:active{
+        color: darken($brand-color-main, 25%);
+        text-decoration: none;
+      }
+
+      &.race-arrow-hide {
+        display: none;
+      }
+
+      svg {
+        text-shadow: 0 1px 1px rgba(0, 0, 0, .6);
+        top: 50%;
+        height: 11px;
+        width: 6px;
+        fill: $color-blue-light;
+        right: 15px;
+        margin-top: -6px;
+        position: absolute;
+      }
+    }
+
+    .prev-race {
+      float: left;
+
+      svg {
+        right: auto;
+        left: 15px;
+      }
+    }
+
+    .next-race {
+      float: right;
+
+      &:after {
+        right: 15px;
+      }
+    }
+
+    @media (max-width: $landscapeTabletPoint) {
+      display: none;
+    }
+  }
+
+  /*  Carousel Style  */
+  .race-carousel {
+    overflow: visible;
+    .carousel-slides {
+      overflow: visible;
+      position: relative;
+
+      @media (min-width: $tabletPoint) {
+        &.carousel-animate {
+          @include transition(transform, 0.5s, ease-out, 0s);
+        }
+      }
+    }
+  }
+
+  /* To be deleted once Home-Feature page fully inherits new design of "Next Races" module  */
+  .btn-bet {
+    .previous-prices {
+      featured-tab & {
+        display: none;
+      }
+    }
+  }
+}
+
+.quickNav {
+  .text-area race-timer {
+    display: inline-flex !important;
+    white-space: nowrap;
+    align-items: flex-end;
+  }
+  .next-races-header{
+    padding:0px !important;
+    background: #f9fafe !important;
+  }
+
+  #header-bg{
+    background: $color-white !important;
+  }
+  .text-area {
+    display: flex;
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+
+  a.race-next-link {
+    font-weight: bold !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0 1px 0 12px;
+    margin: 0px;
+    max-width: 70%;
+    display: inline-flex !important;
+  }
+
+  .nextRaceslabel {
+    font-size: 12px;
+    padding: 0 8px 0 12px;
+    margin: 0px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .race-timer{
+    display: inline-flex;
+  }
+  .race-timer span.value {
+    color: $color-blue-alt !important;
+    font-size: 10px !important;
+  }
+
+  .race-timer span.label {
+    padding: 0px 3px 0px 3px !important;
+    font-size: 10px !important;
+    color: $color-black !important;
+  }
+
+  .raceTimerLayout {
+    .race-timer span.label {
+      font-weight: normal !important;
+    }
+    .race-timer span.value {
+      color: #084D8D !important;
+    }
+    .countdown {
+      display: inline-flex !important;
+    }
+  }
+}
+
+.switcherOverlay .switchers{
+  margin-bottom: 0px !important;
+}

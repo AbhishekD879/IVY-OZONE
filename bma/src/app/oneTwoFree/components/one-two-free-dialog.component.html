@@ -1,0 +1,6 @@
+<top-bar *ngIf="!isMobile" [title]="'bma.otfPageTitle'"
+         [innerContent]="true">
+</top-bar>
+<div class="error-message" *ngIf="serviceClosureService.userServiceClosureOrPlayBreakCheck() &&
+serviceClosureService.userServiceClosureOrPlayBreak">{{errorMsg}}</div>
+<one-two-free id="one-two-free-overlay"></one-two-free>

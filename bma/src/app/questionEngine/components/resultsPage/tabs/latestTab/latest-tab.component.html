@@ -1,0 +1,32 @@
+<div class="tab-content tab-content-latest">
+
+  <upsell [qeData]="qeData" *ngIf="showUpsell"></upsell>
+
+  <div *ngIf="!showNoResultsWarning && showResults">
+    <answers-summary [quiz]="qeData.baseQuiz"></answers-summary>
+  </div>
+
+  <div  *ngIf="showNoResultsWarning" class="no-game-wrapper">
+    <div class="no-game-title" [textContent]="noLatestRoundTxt.title"></div>
+    <div class="no-game-subtitle" [textContent]="noLatestRoundTxt.subtitle"></div>
+  </div>
+
+  <div *ngIf="qeData.baseQuiz.questionsList.length && showSummary">
+    <div [i18n]="'qe.yourAnswers'" class="qe-summary-title"></div>
+    <ul class="qe-summary-list">
+      <li *ngFor="let qaBlock of quizSummary; let i = index; trackBy: trackByFn" class="qe-summary-item">
+        <div class="qe-summary-item-index" [textContent]="i + 1"></div>
+        <div class="">
+          <p [textContent]="qaBlock.question" class="qe-summary-item-question"></p>
+          <p [textContent]="qaBlock.selectedAnswer" class="qe-summary-item-answer"></p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="showGenericUpsell" class="qe-generic-upsell">
+    <img [src]="qeData.baseQuiz.resultsPage.upsell.fallbackImagePath"
+         (click)="genericUpsellHandler()"
+         alt="Question Engine Bet Now banner">
+  </div>
+</div>

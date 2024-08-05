@@ -1,0 +1,20 @@
+<modal #maxStakeDialog data-crlat="d.maxStake">
+  <div data-uat="popUpWindow" class="page-container styled-one-box">
+    <ng-template #modalHeader data-uat="popUpTitle">
+      <span [i18n]="'bs.fullBetSlip'" data-crlat="dTitle"></span>
+      <a data-uat="popUpCloseButton" class="btn-close" (click)="closeDialog()">
+        <svg>
+          <use xlink:href="#close-icon"></use>
+        </svg>
+      </a>
+    </ng-template>
+    <ng-template #modalBody>
+      <div data-uat="popUpText" class="container-content text-section">
+        <p class="text-center">
+          <span [i18n]="'bs.maxSelectionMessage'"
+            data-crlat="dTitle"></span> <span [textContent]="text"></span>
+        </p>
+      </div>
+    </ng-template>
+  </div>
+</modal>

@@ -1,0 +1,7 @@
+<a (touchstart)="iconClicked()" (touchend)="iconClickRemove()" [routerLink]="'/favourites'" data-crlat="navigateToFavourites" class="odds-fav-icon fav-icon-header"
+   *ngIf="isAvailable">
+  <svg id="icon" data-crlat="favouriteIcon" class="fav-icon-svg active">
+    <use xlink:href="#star"></use>
+  </svg>
+  <span class="favourite-counter" data-crlat="favouriteCounter">{{ count }}</span>
+</a>

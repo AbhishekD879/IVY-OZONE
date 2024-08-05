@@ -1,0 +1,33 @@
+@import 'global.variables.scss';
+
+.competition-filters {
+  @include display-flex();
+  @include align-items(center);
+  margin: 0 6px 6px;
+
+  .filter-label {
+    color: $color-gray-darkest;
+    font-size: $font-size-md;
+    letter-spacing: $quick-filter-letter-spacing;
+    margin-right: 5px;
+    padding-bottom: 6px;
+    white-space: nowrap;
+
+    &.padding-top {
+      padding-bottom: 0;
+    }
+  }
+
+  .scroll-container {
+    @include display-flex();
+    padding: 1px 0 6px;
+
+    &.padding-top {
+      padding-top: 6px;
+    }
+  }
+
+  &.margin-top {
+    margin-top: 6px;
+  }
+}

@@ -1,0 +1,28 @@
+<modal #oddsBoostDialog data-crlat="d.oddsBoost">
+  <ng-template #modalHeader>
+    <span [i18n]="'oddsboost.tokensInfoDialog.title'" data-crlat="dTitle"></span>
+    <a data-uat="popUpCloseButton" class="btn-close" (click)="closeDialog()">
+      <svg>
+        <use xlink:href="#close-icon"></use>
+      </svg>
+    </a>
+  </ng-template>
+  <ng-template #modalBody>
+    <div class="body">
+      <svg class="boost-icon" viewBox="0 0 150 100">
+        <use xlink:href="#odds-boost-icon-dark"></use>
+      </svg>
+      <div class="available">
+        <span [i18n]="'oddsboost.tokensInfoDialog.available1'"></span>
+        <b [textContent]="tokens?.length || 0"></b>
+        <span [textContent]="avaiLableBoostsText"></span>
+      </div>
+      <div class="terms" [i18n]="'oddsboost.tokensInfoDialog.terms'"></div>
+      <div class="show-toggle" *ngIf="showToggle">
+        <input type="checkbox" [formControl]="dontShowPopupAgain"><span [i18n]="'oddsboost.tokensInfoDialog.dontShowThisAgain'"></span>
+      </div>
+      <button class="btn btn-style1 more" routerLink="/superbooster" [i18n]="'oddsboost.tokensInfoDialog.showMore'"></button>
+      <a class="thanks" (click)="closeDialog()" [i18n]="'oddsboost.tokensInfoDialog.okThanks'"></a>
+    </div>
+  </ng-template>
+</modal>

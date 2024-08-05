@@ -1,0 +1,23 @@
+<div class="body">
+    <div class="row clearfix">
+      <div class="col-md-3">
+        <button (click)="addPrize()" mat-button type="button" class="btn bg-teal waves-effect float-left">
+          <mat-icon>add_box</mat-icon>
+          <span>Add A Prize</span>
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="payTable && payTable.length && !isLoading">
+      <cms-data-table
+        [customTableData]="payTable"
+        [customTableColumns]="dataTableColumns"
+        [filterString]="searchField"
+        [reorder]="false"
+        [filterProperties]="filterProperties"
+        [actions]="['remove', 'onPageEdit']"
+        (onPageEditTableElement)="editPrize($event)"
+        (onRemoveTableElement)="removePrize($event)">
+      </cms-data-table>
+    </div>
+  </div>

@@ -1,0 +1,92 @@
+{
+  "config" : {
+    "title" : "Basketball",
+    "name" : "basketball",
+    "path" : "basketball",
+    "tier" : 1,
+    "categoryType" : "gaming",
+    "isOutrightSport" : false,
+    "isMultiTemplateSport" : false,
+    "oddsCardHeaderType" : "oneTwoType",
+    "request" : {
+      "categoryId" : "6",
+      "siteChannels" : "M",
+      "marketsCount" : true,
+      "isActive" : false,
+      "dispSortName" : [ "HH", "MH", "WH" ],
+      "dispSortNameIncludeOnly" : [ "HH", "MH", "WH" ],
+      "marketTemplateMarketNameIntersects" : "|Money Line|,|Handicap Match Result|"
+    },
+    "tabs" : {
+      "live" : { },
+      "coupons" : {
+        "date" : "today",
+        "isActive" : true
+      },
+      "today" : {
+        "isNotStarted" : true
+      },
+      "tomorrow" : { },
+      "future" : { },
+      "outrights" : {
+        "isActive" : true,
+        "marketsCount" : false
+      }
+    }
+  },
+  "tabs" : [ {
+    "id" : "tab-coupons",
+    "name" : "coupons",
+    "label" : "Coupons",
+    "url" : "/sport/basketball/coupons",
+    "hidden" : true,
+    "sortOrder" : 4.0
+  }, {
+    "id" : "tab-matches",
+    "name" : "matches",
+    "label" : "Matches",
+    "url" : "/sport/basketball/matches",
+    "hidden" : false,
+    "sortOrder" : 1.0,
+    "subTabs" : [ {
+      "id" : "tab-today",
+      "name" : "today",
+      "label" : "Today",
+      "url" : "/sport/basketball/matches/today",
+      "hidden" : false
+    }, {
+      "id" : "tab-tomorrow",
+      "name" : "tomorrow",
+      "label" : "Tomorrow",
+      "url" : "/sport/basketball/matches/tomorrow",
+      "hidden" : false
+    }, {
+      "id" : "tab-future",
+      "name" : "future",
+      "label" : "Future",
+      "url" : "/sport/basketball/matches/future",
+      "hidden" : false
+    } ]
+  }, {
+    "id" : "tab-live",
+    "name" : "live",
+    "label" : "In-Play",
+    "url" : "/sport/basketball/live",
+    "hidden" : false,
+    "sortOrder" : 2.0
+  }, {
+    "id" : "tab-competitions",
+    "name" : "competitions",
+    "label" : "Competitions",
+    "url" : "/sport/basketball/competitions",
+    "hidden" : false,
+    "sortOrder" : 3.0
+  }, {
+    "id" : "tab-outrights",
+    "name" : "outrights",
+    "label" : "Outrights",
+    "url" : "/sport/basketball/outrights",
+    "hidden" : false,
+    "sortOrder" : 5.0
+  } ]
+}

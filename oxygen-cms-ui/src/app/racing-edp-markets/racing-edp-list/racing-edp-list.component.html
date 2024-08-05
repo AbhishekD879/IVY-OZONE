@@ -1,0 +1,44 @@
+<div class="card" *ngIf="!isLoading">
+    <div class="header">
+        <h2 class="waves-effect waves-block">
+            Racing Edp Markets Page
+            <small>Racing Edp Markets for Choosen Brand</small>
+        </h2>
+    </div>
+</div>
+<div class="card" *ngIf="!isLoading">
+    <div class="body">
+      <div *ngIf="racingEDPMarkets" class="row clearfix">
+        <div class="col-md-3">
+          <button (click)="createRacingEdpMarket();" mat-button type="button" class="btn bg-teal waves-effect float-left">
+            <mat-icon>add_box</mat-icon>
+            <span>Create Racing Edp Market</span>
+          </button>
+        </div>
+        <div class="col-md-3">
+          <download-cvs [cvsData]="racingEDPMarkets" [cvsDataTable]="dataTableColumns"></download-cvs>
+        </div>
+        <div class="col-md-6 m-b-0">
+          <div class="input-with-icon m-b-0">
+            <em class="material-icons">search</em>
+            <mat-form-field>
+              <input matInput placeholder="Search For Racing Edp Market" [(ngModel)]="searchField" [value]="searchField">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+  
+      <div *ngIf="racingEDPMarkets && racingEDPMarkets.length">
+        <cms-data-table
+          [customTableData]="racingEDPMarkets"
+          [customTableColumns]="dataTableColumns"
+          [filterString]="searchField"
+          [reorder]="true"
+          (onElementsOrder)="reorderHandler($event)"
+          [filterProperties]="filterProperties"
+          [actions]="['remove','edit']"
+          (onRemoveTableElement)="removeRacingEdpMarket($event)">
+        </cms-data-table>
+      </div>
+    </div>
+  </div>

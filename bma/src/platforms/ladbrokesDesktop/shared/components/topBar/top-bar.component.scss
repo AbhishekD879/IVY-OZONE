@@ -1,0 +1,143 @@
+@import 'global.variables.scss';
+
+top-bar:host {
+  position: relative;
+  top: 0;
+
+  .subheader {
+    background: $lGray;
+    overflow: hidden;
+
+    .subheader-inner {
+      padding: 0 10px 0 0;
+      height: 40px;
+      @include user-select();
+      @include display-flex();
+      @include align-items();
+    }
+
+    .subheader-title {
+      display: block;
+      font: normal #{$font-size-lg}/1.4 $alt-font-family;
+      margin: 0 0 0 10px;
+      color: $color-white;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-transform: capitalize;
+      white-space: nowrap;
+      pointer-events: none;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    /* back button */
+    .btn-back {
+      height: 100%;
+      width: 40px;
+      min-width: 40px;
+      background-color: $color-blue-dark-2;
+      cursor: pointer;
+      @include display-flex();
+      @include align-items();
+      @include justify-content();
+      &:hover {
+        background-color: rgba(30, 33, 43, 0.85);
+      }
+      &:active {
+        background-color: darken($color-blue-dark-2, 6%);
+      }
+      
+      svg {
+        height: 12px;
+        fill: $light-blue;
+        width: 7px;
+      }
+      &:hover {
+        svg {
+          fill: $color-white;
+        }
+      }
+    }
+
+    .flex {
+      @include display-flex();
+      @include align-items(center);
+    }
+    .title-side {
+      @include flex(1, 1, auto);
+      overflow: hidden;
+    }
+  }
+
+  ::ng-deep {
+    .odds-fav-icon {
+      display: block;
+      margin-right: 0;
+      margin-left: 10px;
+      width: 16px;
+      height: 16px;
+      .fav-icon-svg {
+        width: 16px;
+        height: 16px;
+        stroke: $color-white;
+      }
+    }
+    .date-side {
+      @include justify-content(flex-end);
+      padding-left: 10px;
+    }
+    .event-date-time {
+      font-size: 11px;
+      line-height: 1.1;
+      color: $color-white;
+      white-space: nowrap;
+    }
+    .live-label {
+      width: 30px;
+      height: 15px;
+      margin-right: 5px;
+    }
+    .competition-type-events .subheader-title {
+      margin-right: 150px;
+    }
+  }
+}
+
+top-bar:host(.racing-top-bar) {
+  .subheader {
+    ::ng-deep {
+      .title-side {
+        @include flex(0, 1, auto);
+      }
+
+      .bet-finder-link {
+        margin: 0 10px;
+        min-width: auto;
+        padding: 0;
+        @include display-flex();
+        @include flex(0, 1, auto);
+        .bet-finder-title {
+          white-space: nowrap;
+        }
+      }
+
+      date-info {
+        @include flex(1, 1, auto);
+        .event-date-time {
+          font-size: 11px;
+          line-height: 1.1;
+          color: $color-white;
+          white-space: nowrap;
+          margin-left: 0px;
+          font-family: $base-font-family;
+        }
+      }
+
+      .date-side {
+        @include justify-content(flex-start);
+      }
+    }
+  }
+}

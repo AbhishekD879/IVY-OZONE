@@ -1,0 +1,36 @@
+<div class="splash-page qe-wrap " *ngIf="qeData && qeData.splashPage">
+  <div *ngIf="closureService.userServiceClosureOrPlayBreakCheck() &&
+  closureService.userServiceClosureOrPlayBreak" class="error-msg-f2p"
+   [innerHTML]="f2pErrMsg"></div> 
+  <div class="qe-container">
+    <header class="qe-header">
+      <img class="logo"
+           *ngIf="qeData.splashPage.logoSvgUrl"
+           [src]="qeData.splashPage.logoSvgUrl"
+           alt="logo">
+      <p class="strap-line" [innerHTML]="qeData.splashPage.strapLine"></p>
+    </header>
+    <div class="qe-main-section">
+      <button
+         (click)="onCtaButtonClick()"
+         class="main-btn"
+         [disabled]="loginProcessing || (isUserLoggedIn && disableCtaBtnF2P)"
+         [textContent]="loginProcessing ? btnProcessingMsg : qeData.splashPage.ctaButtonText"
+      ></button>
+      <div class="qe-main-section-item" *ngIf="qeData?.splashPage?.showPreviousGamesButton && previousResults && isUserLoggedIn">
+        <a class="qe-main-section-link"
+          [routerLink]="['/footballsuperseries/after/previous-results']"
+        >
+          <span>Previous Results</span>
+          <span class="qe-main-section-svg"></span>
+        </a>
+      </div>
+      <qe-footer></qe-footer>
+      <img class="promo-logo"
+           *ngIf="qeData.splashPage.footerSvgUrl"
+           [src]="qeData.splashPage.footerSvgUrl"
+           alt="promoLogo">
+      <p class="bottom-text" [textContent]="qeData.splashPage.footerText"></p>
+    </div>
+  </div>
+</div>

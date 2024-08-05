@@ -1,0 +1,34 @@
+<div class="container heuristic-container event-markets-container">
+    <accordion [accordionTitle]="market.name"
+               data-crlat="accordion"
+               [isChevronToLeft]="true"
+               [headerClass]="'forced-chevron-up-and-styles'"
+               [card]="true"
+               [isExpanded]="i <= openMarketTabs"
+               [isHeaderHidden]="isFeaturedMarkets"
+               *ngFor="let market of eventEntity.markets; trackBy: trackByIndex; let i = index">
+      <right-side>
+        <cashout-label *ngIf="market.cashoutAvail === 'Y'"></cashout-label>
+      </right-side>
+      <!-- Each Way terms -->
+      <accordion-body>
+          <div class="terms-before-market" *ngIf="market.eachWayPlaces !== undefined && showTerms && market.isEachWayAvailable" data-crlat="terms">
+            <div class="term-value" [textContent]="market.terms" data-crlat="eachWayContainer"></div>
+          </div>
+          <div class="odds-card" data-crlat="oddsCard" *ngFor="let outcomeEntity of market.outcomes | slice:0:limit;  trackBy: trackByIndex">
+            <div class="odds-content" data-crlat="oddsContent">
+              <div class="odds-left" data-crlat="oddsLeft">
+                <div class="odds-names odds-names-wrap odds-normal" data-crlat="oddsNames" [textContent]="outcomeEntity.name"></div>
+              </div>
+              <div class="odds-right" data-crlat="oddsRight">
+                <price-odds-button [event]="eventEntity"
+                                   [market]="market"
+                                   [outcome]="outcomeEntity"
+                                   gtmModuleTitle="Fanzone Outrights">
+                </price-odds-button>
+              </div>
+            </div>
+          </div>
+      </accordion-body>
+    </accordion>
+  </div>

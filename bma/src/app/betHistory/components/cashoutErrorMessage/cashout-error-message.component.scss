@@ -1,0 +1,18 @@
+@import 'global.variables.scss';
+
+.cashout-error-message {
+  .info-container{
+    display: none;
+  }
+  @include display-flex();
+  @include align-content(center);
+  font-family: $cashout-error-font-family;
+  font-size: $font-size;
+  line-height: 16px;
+  font-weight: 400;
+  margin: 0 10px 10px;
+  padding: $cashout-error-message-padding;
+  background-color: $cashout-error-message-background;
+  color: $cashout-error-message-color;
+  letter-spacing: $cashout-error-letter-spacing;
+}

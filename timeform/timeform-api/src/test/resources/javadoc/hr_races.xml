@@ -1,0 +1,542 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Summary</th>
+            <th>Value</th>
+            <th>Returns</th>
+            <th>Remarks</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>meetingDate</strong><br />Standard</td>
+            <td>
+                The date of the race and part of the primary key
+            </td>
+            <td>Not Null</td>
+            <td>Date</td>
+            <td>Meeting Date In The Format yyy-mm-dd</td>
+        </tr>
+        <tr>
+            <td><strong>courseId</strong><br />Standard</td>
+            <td>
+                The ID of the course that the race took place at and is part of the primary key
+            </td>
+            <td>Above 0</td>
+            <td>Integer</td>
+            <td>Part of the primary key (PK)</td>
+        </tr>
+        <tr>
+            <td><strong>raceNumber</strong><br />Standard</td>
+            <td>
+                The number of the race that and is part of the primary key
+            </td>
+            <td></td>
+            <td></td>
+            <td>Part of the primary key (PK)</td>
+        </tr>
+        <tr>
+            <td><strong>courseName</strong><br />Standard</td>
+            <td>
+                The full name of the course that the performance took place at
+            </td>
+            <td>Upper Case</td>
+            <td>String</td>
+            <td>An example: HAYDOCK PARK</td>
+        </tr>
+        <tr>
+            <td><strong>courseAbbrev</strong><br />Standard</td>
+            <td>
+                The 3 character course abbreviation
+            </td>
+            <td>Title Case</td>
+            <td>String(3)</td>
+            <td>An example: Hay</td>
+        </tr>
+        <tr>
+            <td><strong>startTimeLocalScheduled</strong><br />Standard</td>
+            <td>
+                The time that the race was due to start where the race was being run
+            </td>
+            <td>yyyy-mm-ddd hh:mm:ss:ms</td>
+            <td>Date Time</td>
+            <td>Defaults to 1990-01-01 00:00:00.000 if not available, an example: 2012-02-19 13:10:00.000</td>
+        </tr>
+        <tr>
+            <td><strong>startTimeGMTScheduled</strong><br />Standard</td>
+            <td>
+                The time that the race was due to start at GMT
+            </td>
+            <td>yyyy-mm-ddd hh:mm:ss:ms</td>
+            <td>Date Time</td>
+            <td>Defaults to 1990-01-01 00:00:00.000 if not available, an example: 2012-02-19 13:10:00.000</td>
+        </tr>
+        <tr>
+            <td><strong>actualTimeLocalScheduled</strong><br />Standard</td>
+            <td>
+                The time that the race actually started where the race was being run
+            </td>
+            <td>yyyy-mm-ddd hh:mm:ss:ms</td>
+            <td>Date Time</td>
+            <td>Defaults to 1990-01-01 00:00:00.000 if not available, an example: 2012-02-19 13:10:00.000</td>
+        </tr>
+        <tr>
+            <td><strong>actualTimeGMTScheduled</strong><br />Standard</td>
+            <td>
+                The time that the race actually started in GMT
+            </td>
+            <td>yyyy-mm-ddd hh:mm:ss:ms</td>
+            <td>Date Time</td>
+            <td>Defaults to 1990-01-01 00:00:00.000 if not available, an example: 2012-02-19 13:10:00.000</td>
+        </tr>
+        <tr>
+            <td><strong>raceSurfaceChar</strong><br />Standard</td>
+            <td>
+                The type of surface that is being used for the race
+            </td>
+            <td>Title Case</td>
+            <td>String</td>
+            <td>Values are All Weather or Turf </td>
+        </tr>
+        <tr>
+            <td><strong>raceSurfaceName</strong><br />Standard</td>
+            <td>
+                The one character representation of the type of surface of the race
+            </td>
+            <td>Title Case</td>
+            <td>String</td>
+            <td>Values are A or T </td>
+        </tr>
+        <tr>
+            <td><strong>raceType</strong><br />Standard</td>
+            <td>
+                The type of racing
+            </td>
+            <td>Title Case</td>
+            <td></td>
+            <td>Values are Flat, Hurdle, Chase, Bumper</td>
+        </tr>
+        <tr>
+            <td><strong>distanceFurlongs</strong><br />Standard</td>
+            <td>
+                The number of complete furlongs the race will be run over
+            </td>
+            <td>Above 0</td>
+            <td>Integer</td>
+            <td>an example: 8</td>
+        </tr>
+        <tr>
+            <td><strong>distanceYards</strong><br />Standard</td>
+            <td>
+                The number of yards the race will be run over in addition to the furlongs
+            </td>
+            <td>May be 0 if the race is at an exact furlong distance</td>
+            <td>Integer</td>
+            <td>an example: 212</td>
+        </tr>
+        <tr>
+            <td><strong>distance</strong><br />Standard</td>
+            <td>
+                The race distance in decimal furlongs
+            </td>
+            <td>Above 0.0</td>
+            <td>Decimal</td>
+            <td>an example: 8.51</td>
+        </tr>
+        <tr>
+            <td><strong>distanceText</strong><br />Standard</td>
+            <td>
+                The race distance as text format
+            </td>
+            <td>Display text for the distance of the race</td>
+            <td>String</td>
+            <td>an example: 1M 4F 50y</td>
+        </tr>
+        <tr>
+            <td><strong>raceTitle</strong><br />Standard</td>
+            <td>
+                The full name of the race
+            </td>
+            <td>Upper Case</td>
+            <td>String</td>
+            <td>An Example: BETFRED CHELTENHAM GOLD CUP (Grade 1)</td>
+        </tr>
+        <tr>
+            <td><strong>raceTitleShort</strong><br />Standard</td>
+            <td>
+                The short name of the race
+            </td>
+            <td>Proper Case</td>
+            <td>String</td>
+            <td>An Example: CHELTENHAM GOLD CUP</td>
+        </tr>
+        <tr>
+            <td><strong>going</strong><br />Standard</td>
+            <td>
+                The Timeform going of the race
+            </td>
+            <td>&quot;&quot; if no report is available, char if it is</td>
+            <td>String</td>
+            <td>&quot;&quot; - no report, </td>
+        </tr>
+        <tr>
+            <td><strong>goingAbbrev</strong><br />Standard</td>
+            <td>
+                The Timeform single character going abbreviation
+            </td>
+            <td>&quot;&quot; if no report is available, char if it is</td>
+            <td>String(1)</td>
+            <td>&quot;&quot; - no report, </td>
+        </tr>
+        <tr>
+            <td><strong>goingOfficial</strong><br />Standard</td>
+            <td>
+                The official going of the race
+            </td>
+            <td>&quot;&quot; if no report is available, Title Case if it is</td>
+            <td>String</td>
+            <td>&quot;&quot; - no report, </td>
+        </tr>
+        <tr>
+            <td><strong>eligibilityAgeMax</strong><br />Standard</td>
+            <td>
+                The maximum age eligibility of the race
+            </td>
+            <td>Can be an integer or a char</td>
+            <td>String(1)</td>
+            <td>If integer then that is the explicit age max, + = no max age, O - limited to the min age</td>
+        </tr>
+        <tr>
+            <td><strong>eligibilityAgeMin</strong><br />Standard</td>
+            <td>
+                The minimum age eligibility of the race
+            </td>
+            <td>Above 0</td>
+            <td>Integer</td>
+            <td>An example: 4</td>
+        </tr>
+        <tr>
+            <td><strong>numberOfRunners</strong><br />Standard</td>
+            <td>
+                The number of runners either currently entered or that ran in the race
+            </td>
+            <td>If 0, the value hasnt yet been calculated, above 0 if it has</td>
+            <td>Integer</td>
+            <td>0 - runners not calculated, an example: 5</td>
+        </tr>
+        <tr>
+            <td><strong>numberOfPlaces</strong><br />Standard</td>
+            <td>
+                The number of horses that will qualify as being placed under standard bookmaking terms
+            </td>
+            <td>Above 0</td>
+            <td>Integer</td>
+            <td>An example: 3</td>
+        </tr>
+        <tr>
+            <td><strong>eligibilitySexLimit</strong><br />Standard</td>
+            <td>
+                Details of an sex limit on the race
+            </td>
+            <td>&quot;&quot; if no limit is involved, title case if it is</td>
+            <td>String(2)</td>
+            <td>&quot;&quot; means there is no sex limit, f - fillies only, m - mares only, fm - fillies and mares</td>
+        </tr>
+        <tr>
+            <td><strong>resultsStatus</strong><br />Standard</td>
+            <td>
+                The current status of the race
+            </td>
+            <td>&quot;&quot; - no status available, title case if it is</td>
+            <td>String</td>
+            <td>&quot;&quot; - no status available, an example: &quot;Weighed In&quot;</td>
+        </tr>
+        <tr>
+            <td><strong>raceTypeChar</strong><br />Standard</td>
+            <td>
+                Character value for the type of race
+            </td>
+            <td>Upper Case</td>
+            <td>String(1)</td>
+            <td>N - Bumper, F - Flat, H - Hurdle, C - Chase</td>
+        </tr>
+        <tr>
+            <td><strong>raceCode</strong><br />Standard</td>
+            <td>
+                Representation of the flavour of race (handicap, group etc)
+            </td>
+            <td>&quot;&quot; If not available, upper case if it is</td>
+            <td>String(2)</td>
+            <td>&quot;&quot; - not available, an example: H</td>
+        </tr>
+        <tr>
+            <td><strong>prizeFund</strong><br />Standard</td>
+            <td>
+                Total prize fund of the race
+            </td>
+            <td>0.0 if not available, above 0.0 if it is </td>
+            <td>Decimal</td>
+            <td>0.0 - not available, an example 9000.00</td>
+        </tr>
+        <tr>
+            <td><strong>prizeFundWinner</strong><br />Standard</td>
+            <td>
+                Prize fund for the winner of the race
+            </td>
+            <td>0.0 if not available, above 0.0 if it is </td>
+            <td>Decimal</td>
+            <td>0.0 - not available, an example 9000.00</td>
+        </tr>
+        <tr>
+            <td><strong>trw1</strong><br /></td>
+            <td>
+                The Timeform Rating of Winner of the race 5 runnings ago
+            </td>
+            <td>0 if not available, above 0 if it is</td>
+            <td>Integer</td>
+            <td>0 - not available, an example: 134</td>
+        </tr>
+        <tr>
+            <td><strong>trw2</strong><br /></td>
+            <td>
+                The Timeform Rating of Winner of the race 4 runnings ago
+            </td>
+            <td>0 if not available, above 0 if it is</td>
+            <td>Integer</td>
+            <td>0 - not available, an example: 134</td>
+        </tr>
+        <tr>
+            <td><strong>trw3</strong><br /></td>
+            <td>
+                The Timeform Rating of Winner of the race 3 runnings ago
+            </td>
+            <td>0 if not available, above 0 if it is</td>
+            <td>Integer</td>
+            <td>0 - not available, an example: 134</td>
+        </tr>
+        <tr>
+            <td><strong>trw4</strong><br /></td>
+            <td>
+                The Timeform Rating of Winner of the race 2 runnings ago
+            </td>
+            <td>0 if not available, above 0 if it is</td>
+            <td>Integer</td>
+            <td>0 - not available, an example: 134</td>
+        </tr>
+        <tr>
+            <td><strong>trw5</strong><br /></td>
+            <td>
+                The Timeform Rating of Winner of the race last time
+            </td>
+            <td>0 if not available, above 0 if it is</td>
+            <td>Integer</td>
+            <td>0 - not available, an example: 134</td>
+        </tr>
+        <tr>
+            <td><strong>tfwfa</strong><br /></td>
+            <td>
+                The Timeform Weight For Age
+            </td>
+            <td></td>
+            <td>String</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><strong>perspectiveComment</strong><br /></td>
+            <td>
+                The premium post-race review of the race
+            </td>
+            <td>&quot;&quot; if the comment hasn&#39;t been written, Title Case if it has</td>
+            <td>String</td>
+            <td>&quot;&quot; - no comment written, an example: &quot;Winner impressive, others disapointed&quot;</td>
+        </tr>
+        <tr>
+            <td><strong>analystVerdict</strong><br />Standard</td>
+            <td>
+                The Timeform Analyst pre-race predictions for the race
+            </td>
+            <td>&quot;&quot; if not available, Title Case if it is</td>
+            <td>String</td>
+            <td>&quot;&quot; - not available, an example: HURRICANE FLY looks certain to take this race</td>
+        </tr>
+        <tr>
+            <td><strong>drawComment</strong><br />Standard</td>
+            <td>
+                The comment for flat racing which is based on analysis of previous races at this course over the same distance
+            </td>
+            <td>&quot;&quot; if not available, Title Case if it is</td>
+            <td>String</td>
+            <td>&quot;&quot; - not available, an example: Strongly favours low</td>
+        </tr>
+        <tr>
+            <td><strong>ipHintsGeneral</strong><br />Standard</td>
+            <td>
+                Information about in play records at the course
+            </td>
+            <td>&quot;&quot; if not available, title case if it is</td>
+            <td>String</td>
+            <td>&quot;&quot; - not available, an example: Dundalk ranked 18 of 21 flat Irish courses for horses beaten at 1.01</td>
+        </tr>
+        <tr>
+            <td><strong>ipHintsPriceRunStyle</strong><br />Standard</td>
+            <td>
+                Information about horses in the race based on their past trading and run style information
+            </td>
+            <td>&quot;&quot; if not available, title case if it is</td>
+            <td>String</td>
+            <td>&quot;&quot; - not available, an example: Buywise traded at 1.50 on its last start when losing but travelling strongly in rear</td>
+        </tr>
+        <tr>
+            <td><strong>iPriceHistory</strong><br />Standard</td>
+            <td>
+                Information about horses in the race based on their past trading information
+            </td>
+            <td>&quot;&quot; if not available, title case if it is</td>
+            <td>String</td>
+            <td>&quot;&quot; - not available, an example: Milarrow traded at more than 5 times BSP twice when winning during its last 5 starts., Celtus has traded at 50% or less of BSP 4 times on its last 5 starts. </td>
+        </tr>
+        <tr>
+            <td><strong>ipHintsOverallPace</strong><br />Standard</td>
+            <td>
+                A prediction on the likely pace of the race
+            </td>
+            <td>&quot;&quot; if not available, title case if it is</td>
+            <td>String</td>
+            <td>&quot;&quot; - not available, an example: Strongly contested </td>
+        </tr>
+        <tr>
+            <td><strong>ipHintsSpecificPace</strong><br />Standard</td>
+            <td>
+                A prediction on the likely shape of the race
+            </td>
+            <td>&quot;&quot; if not available, title case if it is</td>
+            <td>String</td>
+            <td>&quot;&quot; - not available, an example: Kruzhlinin is unlikely to get things its own way close up and could therefore prove vulnerable in the finish: With no shortage of likely pace-forcers, Parsnip Pete may have a running style that suits. </td>
+        </tr>
+        <tr>
+            <td><strong>raceStateId</strong><br /></td>
+            <td>
+                An integer value of the race state
+            </td>
+            <td>0 - unknown, above 0 is a valid state</td>
+            <td>Integer</td>
+            <td>0 - unknown, an example 22 - weighed in</td>
+        </tr>
+        <tr>
+            <td><strong>ratingLimitLower</strong><br />Standard</td>
+            <td>
+                For handicaps the lower handicap mark for a horse to qualify to run
+            </td>
+            <td>0 if not applicable, above 0 for a valid mark</td>
+            <td>Integer</td>
+            <td>0 - limit not applicable, an example 130</td>
+        </tr>
+        <tr>
+            <td><strong>ratingLimitUpper</strong><br />Standard</td>
+            <td>
+                For handicaps the upper handicap mark for a horse to qualify to run
+            </td>
+            <td>0 if not applicable, above 0 for a valid mark</td>
+            <td>Integer</td>
+            <td>0 - limit not applicable, an example 130</td>
+        </tr>
+        <tr>
+            <td><strong>raceClass</strong><br />Standard</td>
+            <td>
+                The class of race
+            </td>
+            <td>&quot;&quot; if not available, title case if it is</td>
+            <td>String</td>
+            <td>&quot;&quot; if not available, an example 2</td>
+        </tr>
+        <tr>
+            <td><strong>smartStat1</strong><br />Standard</td>
+            <td>
+                The highest priority stat for the race
+            </td>
+            <td>&quot;&quot; if not available, title case if it is with standard formatting values - # separate, * bold</td>
+            <td>String</td>
+            <td>&quot;&quot; - not available, an example: #34%#James Doyle&#39;s strike rate on favourites since 01/01/2009 (rides *TIME CHECK*)</td>
+        </tr>
+        <tr>
+            <td><strong>smartStat2</strong><br />Standard</td>
+            <td>
+                The second highest priority stat for the race
+            </td>
+            <td>&quot;&quot; if not available, title case if it is with standard formatting values - # separate, * bold</td>
+            <td>String</td>
+            <td>&quot;&quot; - not available, an example: #34%#James Doyle&#39;s strike rate on favourites since 01/01/2009 (rides *TIME CHECK*)</td>
+        </tr>
+        <tr>
+            <td><strong>smartStat3</strong><br />Standard</td>
+            <td>
+                The third highest priority stat for the race
+            </td>
+            <td>&quot;&quot; if not available, title case if it is with standard formatting values - # separate, * bold</td>
+            <td>String</td>
+            <td>&quot;&quot; - not available, an example: #34%#James Doyle&#39;s strike rate on favourites since 01/01/2009 (rides *TIME CHECK*)</td>
+        </tr>
+        <tr>
+            <td><strong>bfMarketId</strong><br />Standard</td>
+            <td>
+                The Betfair market ID of this race if mapped
+            </td>
+            <td>&quot;&quot; if not mapped to a Betfair market, title case if it is</td>
+            <td>String</td>
+            <td>&quot;&quot; - no market mapped, an example: 12321 </td>
+        </tr>
+        <tr>
+            <td><strong>finishingTime</strong><br />Standard</td>
+            <td>
+                The finishing time of the race in seconds
+            </td>
+            <td>0 if the time in unavailable</td>
+            <td>Decimal</td>
+            <td>0 - if no time available, an example: 130.52</td>
+        </tr>
+        <tr>
+            <td><strong>leaderSectional</strong><br />Premium</td>
+            <td>
+                The time it took the leader at the point the sectional was taken to complete the race
+            </td>
+            <td>0 if the time in unavailable</td>
+            <td>Decimal</td>
+            <td>0 - if unavailable, measured in seconds to two decimal places</td>
+        </tr>
+        <tr>
+            <td><strong>winnerSectional</strong><br />Premium</td>
+            <td>
+                The time it took the winner at the point the sectional was taken to complete the race
+            </td>
+            <td>0 if the time in unavailable</td>
+            <td>Decimal</td>
+            <td>0 - if unavailable, measured in seconds to two decimal places</td>
+        </tr>
+        <tr>
+            <td><strong>distanceSectional</strong><br />Premium</td>
+            <td>
+                The distance the final sectional was taken
+            </td>
+            <td>0 or higher</td>
+            <td>Decimal</td>
+            <td>The distance is measured in decimal furlongs</td>
+        </tr>
+        <tr>
+            <td><strong>sectionalFinishingTime</strong><br />Premium</td>
+            <td></td>
+            <td>The appropriate finishing time of the race to use for calculating finishing speeds. For flat this is the official electronic finishing time. For jumps racing in UK and IRE this is the hand time taken by our race reporter where it differs from the official time.</td>
+            <td>Decimal</td>
+            <td>0 - if unavailable, measured in seconds to two decimal places</td>
+        </tr>
+        <tr>
+            <td><strong>publishFlag</strong><br />Standard</td>
+            <td>
+                Internal Publish Flag
+            </td>
+            <td></td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,58 @@
+<div class="lobbyAnimation">
+  <div class="lobbyAnimation-wrapper">
+    <div class="lobbyAnimation-panel center" *ngIf="!loadAnimation && !visible">
+      <fiveaside-progressbar [min]=0 [max]=100 [value]="progress" [origin]="'summary'" class="progressBar">
+      </fiveaside-progressbar>
+    </div>
+    <div class="lobbyAnimation-panel right" *ngIf="!loadAnimation && !visible && progress === 100" [@slideOutRight]>
+    </div>
+    <div class="lobbyAnimation-panel left" *ngIf="!loadAnimation && !visible && progress === 100" [@slideOutLeft] (@slideOutLeft.done) = "captureLeftSlideDoneEvent($event)">
+    </div>
+  </div>
+</div>
+<top-bar [title]="'fs.fiveASideHeader'" [innerContent]="true">
+  <top-bar-body>
+    <!-- TO Do for ticket widget story -->
+    <!-- <span class="fill-5"></span>
+    <span class="fill-4"></span>
+    <svg class="icnChev-Copy-5">
+      <use xlink:href="#down-arrow"></use>
+    </svg> -->
+  </top-bar-body>
+</top-bar>
+<section class="overFlow five-a-side-bg">
+  <fiveaside-welcome-overlay (clearOverlay)="showOverlay = false" [currentOverlay]="'LOBBY'"
+    [lobbyTutorial]="lobbyManualTutorial" [tutorialData]="welcomeCard" *ngIf="showOverlay">
+  </fiveaside-welcome-overlay>
+    <div class="sk-container" [ngClass]="{ 'sk-loading': state.loading }">
+      <outlet-status [skeletonType]="'GENERIC_FULL'" [state]="state">
+      </outlet-status>
+      <div>
+        <lazy-component moduleUri="@lazy-modules-module/banners/banners.module#BannersModule"
+        [inputs]='{ page: showDownHome}'>
+        </lazy-component>
+      </div>
+      <!-- Showdown cards -->
+      <div class="mt-4" id="showdown-cards">
+        <div *ngFor="let section of displayContests; let i = index">
+          <div class="category-header" *ngIf="section?.contests.length">
+            <span class="lobby-section-title" [textContent]="section.categoryName" *ngIf="section?.displayCount">
+            </span>
+            <span class="tsCs-And-FAQs pull-right tutorial-link" (click)="triggerLobbyTutorial()"
+              *ngIf="showTutorialIndex === i && welcomeCard?.overlayEnabled" [i18n]="'fs.entryinfo.tutorial'"></span>
+          </div>
+          <div class="show-down-card" *ngFor="let contestData of section?.contests">
+            <fiveaside-showdown-card [contestData]='contestData' *ngIf="contestData?.showRoleContest"
+              [event]='contestData?.eventDetails'
+              [categoryName]="section.categoryName">
+            </fiveaside-showdown-card>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+<footer class="tsCs-And-FAQs">
+  <a class="tsCs-And-FAQs" (click)="footerGATrack()" [attr.href]="termsConditions?.url" target="_blank"
+    [textContent]="termsConditions?.title">
+  </a>
+</footer>

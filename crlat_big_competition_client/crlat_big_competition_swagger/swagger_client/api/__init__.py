@@ -1,0 +1,8 @@
+from __future__ import absolute_import
+
+# flake8: noqa
+
+# import apis into api package
+from crlat_big_competition_swagger.swagger_client.api.basic_error_controller_api import BasicErrorControllerApi
+from crlat_big_competition_swagger.swagger_client.api.competition_api_api import CompetitionApiApi
+from crlat_big_competition_swagger.swagger_client.api.operation_handler_api import OperationHandlerApi

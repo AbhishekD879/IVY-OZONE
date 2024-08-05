@@ -1,0 +1,97 @@
+@import 'global.variables.scss';
+
+:host {
+  color: $color-black;
+}
+
+.odds-boost {
+  @include display-flex();
+
+  .boost-icon {
+    width: $odds-boost-icon-width;
+    margin-right: 5px;
+    white-space: nowrap;
+    font-size: 0;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      vertical-align: middle;
+      height: 100%;
+    }
+
+    svg {
+      width: 100%;
+      height: auto;
+      vertical-align: middle;
+    }
+  }
+
+  .odds-boosts-amount {
+    margin: 0 10px;
+  }
+
+  .boosts-value {
+    font-weight: bold;
+    font-size: 20px;
+    opacity: .25;
+  }
+
+  .boosts-label {
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+
+  &.active-boost-value {
+    .boosts-value {
+      opacity: 1;
+    }
+  }
+}
+
+.odds-boosts-title {
+  font-size: 15px;
+}
+
+.odds-boosts-description {
+  margin-top: 10px;
+}
+
+.login-button {
+  min-width: 150px;
+  text-transform: uppercase;
+}
+
+.info-content-header {
+  background: $color-gray-light;
+  color: $color-black;
+  border-bottom: 1px solid $color-gray-darker;
+  padding: 10px;
+  display: flex;
+  text-transform: uppercase;
+  height: 35px;
+  font-size: 12px;
+  align-items: center;
+
+  .info-content-icon {
+    width: $odds-boost-info-content-icon-width;
+    height: auto;
+    margin-right: 5px;
+
+    &.mirrored-icon {
+      @include transform(scaleX($odds-boost-info-content-icon-scale));
+    }
+  }
+}
+
+.info-content-container {
+  overflow: hidden;
+  padding: 15px 10px;
+  margin-bottom: 10px;
+  background-color: $color-white;
+  min-height: 50px;
+}
+
+.odds-boost-list-container {
+  padding: 0;
+}

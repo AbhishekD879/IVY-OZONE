@@ -1,0 +1,36 @@
+@import 'global.variables.scss';
+.action-arrows {
+  position: relative;
+}
+
+.action-arrow {
+  @include display-flex();
+  @include justify-content(center);
+  @include align-items(center);
+  user-select: none;
+  background-color: rgba($color-black, 0.6);
+  z-index: 99999;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  cursor: pointer;
+}
+
+.action-arrow:hover {
+  background-color: rgba($color-black, 0.8);
+}
+
+.action-arrow.left {
+  left: 0px;
+}
+
+.action-arrow.right {
+  right: 0px;
+}
+
+.arrow-icon {
+  width: 8px;
+  height: 14px;
+  fill: $color-white;
+}

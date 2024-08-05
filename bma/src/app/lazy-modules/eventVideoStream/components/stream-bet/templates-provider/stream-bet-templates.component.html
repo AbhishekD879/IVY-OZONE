@@ -1,0 +1,46 @@
+<ng-container *ngIf="eventEntity && market "><!--&& market.outcomes -->
+  <ng-container [ngSwitch]="getMarketTemplate(market,eventEntity)">
+      <sb-racing-market-item *ngSwitchCase="'horse-racing-template'"
+        [event]="eventEntity"
+        [market]="market"
+        (selectionClickEmit)="handleSelectionClick($event)">
+      </sb-racing-market-item>
+
+      <sb-correct-score-market-item *ngSwitchCase="'correct-score-market'"
+        [market]="market" [marketGroup]="allMarkets" [eventEntity]="eventEntity"
+        (selectionClickEmit)="handleSelectionClick($event)">
+      </sb-correct-score-market-item>
+  
+      <sb-single-drop-down-single-odd  [event]="eventEntity" [market]="market"
+        (selectionClickEmit)="handleSelectionClick($event)" *ngSwitchCase="'single-drop-single-odd'">
+      </sb-single-drop-down-single-odd>
+  
+      <sb-multiple-odds-market-item *ngSwitchCase="'price-odd-button'"
+        [event]="eventEntity" 
+        [market]="market"
+        (selectionClickEmit)="handleSelectionClick($event)">
+      </sb-multiple-odds-market-item>
+  
+      <sb-market-special-item *ngSwitchDefault
+        [event]="eventEntity" [market]="market" (selectionClickEmit)="handleSelectionClick($event)">
+      </sb-market-special-item>
+      <!-- <div class="plus-minus-template" *ngSwitchDefault>
+        <div class="market-name">{{market.name}}</div>
+        <div class="hr-item-odds">
+          <div class="col-xs col-bordered col-hr-odds"
+            *ngFor="let outcomeEntity of market.outcomes; trackBy: getTrackById">
+            <div class="col-inner col-inner-odds">
+              <strong class="col-name col-name-odds" [textContent]="outcomeEntity.name"></strong>
+  
+              <div class="ww-temp">
+                <price-odds-button [event]="eventEntity" [market]="market" [outcome]="outcomeEntity"
+                  [isStreamAndBet]="true" (selectionClickEmit)="handleSelectionClick($event)"
+                  class="one-row-btn" [head]="outcomeEntity?.name">
+                </price-odds-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+  </ng-container>
+</ng-container>

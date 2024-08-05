@@ -1,0 +1,138 @@
+@import 'global.variables.scss';
+
+:host-context(.next-races, .horseracing, .featured-races) {
+  .race-card-carousel {
+    position: relative;
+    margin: 0;
+
+    &:hover {
+      .race-carousel-buttons .race-arrow {
+        opacity: 1;
+
+        &.prev-race {
+          left: 0;
+        }
+
+        &.next-race {
+          right: 0;
+        }
+      }
+    }
+
+    &:active {
+      .race-carousel-buttons .race-arrow:not(:hover) {
+        pointer-events: none;
+      }
+    }
+
+    .race-carousel-buttons {
+      display: none; // for mobile only
+
+      background: transparent;
+      margin: 0;
+      border: none;
+      border-radius: 0;
+
+      .race-arrow {
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        width: $race-carousel-button-width;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        background: rgba(92, 99, 107, 0.6);
+        opacity: 0;
+        @include transition();
+
+        &.race-arrow-hide {
+          display: block;
+          opacity: 0;
+          pointer-events: none;
+        }
+
+        &.prev-race, &.race-arrow-hide.prev-race {
+          left: -$race-carousel-button-width;
+        }
+
+        &.next-race, &.race-arrow-hide.next-race {
+          right: -$race-carousel-button-width;
+        }
+
+        & > svg {
+          position: static;
+          left: auto;
+          top: auto;
+          height: 10px;
+          width: 5px;
+          margin: 0;
+          padding: 0;
+          fill: $color-white;
+          text-shadow: none;
+        }
+
+        & > span {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+:host-context(.next-races, .horseracing) {
+  .race-card-carousel {
+    padding: $race-card-delimiter 0;
+
+    .row-panel {
+      padding: 0;
+    }
+
+    .odds-card {
+      padding: 10px 12px;
+    }
+
+    .promotion-icons-wrapper {
+      margin: 4px 0 5px;
+    }
+
+    ::ng-deep .race-timer {
+      text-align: left;
+      .value {
+        color: $color-gray-dark;
+      }
+    }
+
+    .race-carousel {
+      .carousel-slides {
+        width: $race-card-width + $race-card-delimiter;
+      }
+
+      .slide {
+        padding-right: $race-card-delimiter;
+        width: $race-card-width;
+
+        .row-panel {
+          background: transparent;
+        }
+      }
+    }
+
+    .race-footer {
+      height: $race-footer-height;
+      margin-top: 1px;
+      margin-bottom: 0;
+      border-top: none;
+      padding: 0;
+      border-radius: 0 0 2px 2px;
+      background: $color-gray-light;
+      @include justify-content(space-between);
+      @include align-items(center);
+      @include align-content(center);
+
+      ::ng-deep .race-timer {
+        padding: $race-card-h-padding;
+        color: $color-gray-dark;
+      }
+    }
+  }
+}

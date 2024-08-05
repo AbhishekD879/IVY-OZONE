@@ -1,0 +1,52 @@
+<div class="card" *ngIf="marketLinksData">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Market Links Page
+      <small *ngIf="marketLinksData.length">Total Active Links: {{ linksAmount.active }}, Inactive Links: {{ linksAmount.inactive }}</small>
+      <small *ngIf="!marketLinksData.length">No Market Links Found</small>
+    </h2>
+  </div>
+</div>
+
+<div class="card" *ngIf="marketLinksData">
+  <div class="body">
+    <!-- search and download button.-->
+    <div class="row clearfix">
+      <div class="col-md-3">
+        <button (click)="createLeagueLink()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create Market link</span>
+        </button>
+      </div>
+      <div class="col-md-3">
+        <download-cvs [cvsData]="marketLinksData" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Market Link" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <!-- main content, config groups list-->
+    <div *ngIf="marketLinksData && marketLinksData.length > 0">
+      <cms-data-table
+        [customTableData]="marketLinksData"
+        [customTableColumns]="dataTableColumns"
+        [actions]="['remove','edit']"
+        [filterString]="searchField"
+        [filterProperties]="filterProperties"
+        (onRemoveTableElement)="removeLink($event)">
+      </cms-data-table>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="getDataError">
+  <div class="body">
+    Request Error
+  </div>
+</div>

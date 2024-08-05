@@ -1,0 +1,30 @@
+<section class="in-play-card-body in-play-outright-event"
+         data-crlat="inPlayCardBody"
+         [ngClass]="{'no-market': !isMarketExists}"
+         (click)="goToEDP(event)">
+  <div class="in-play-outright-event-name" [textContent]="event.name" data-crlat="inPlayOutrightEventName"></div>
+
+  <inplay-score [event]="event"></inplay-score>
+
+  <div class="inplay-card-outright-selections-name-container">
+    <div class="inplay-card-outright-selection-name-container"
+         *ngFor="let outcome of outcomes; trackBy: trackById">
+      <div class="inplay-card-outright-selection-name">
+        <span [textContent]="outcome.name"></span>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="in-play-card-footer in-play-outright-card-footer">
+  <div class="in-play-odds-btns-container">
+    <div class="in-play-odds-btn-container"
+         *ngFor="let outcome of outcomes; trackBy: trackById"
+         data-crlat="oddsBtnWrapper">
+      <price-odds-button [event]="event"
+                         [outcome]="outcome"
+                         [market]="market">
+      </price-odds-button>
+    </div>
+  </div>
+</div>
+

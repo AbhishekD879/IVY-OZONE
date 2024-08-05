@@ -1,0 +1,51 @@
+@import 'global.variables.scss';
+
+::ng-deep .video-stream-error-dialog {
+  .modal-dialog {
+    width: 280px;
+    font-family: $base-font-family;
+
+    .modal-header {
+      border-radius: 2px;
+      box-shadow: 0 1px 0 0 #e7e9ef;
+      background-color: $color-gray-light;
+      padding: 12px;
+      font-size: 13px;
+      text-transform: capitalize;
+      color: $color-blue-dark;
+    }
+
+    .modal-body {
+      padding: 20px 12px 24px;
+      font-size: 14px;
+      line-height: 1.43;
+      color: $color-gray-dark;
+
+      p {
+        margin-bottom: 18px;
+      }
+
+      .race-count-down-text {
+        font-weight: bold;
+        text-transform: uppercase;
+        color: $color-nevada;
+        font-size: 12px;
+        letter-spacing: -0.01px;
+      }
+
+      .race-count-down-counter {
+        color: $color-orange;
+        font-size: 16px;
+      }
+
+      .btn-list {
+        margin-top: 22px;
+        text-align: right;
+
+        .btn {
+          height: 35px;
+        }
+      }
+    }
+  }
+}

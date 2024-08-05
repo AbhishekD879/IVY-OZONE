@@ -1,0 +1,23 @@
+<div id="myModal" class="modal fanzone-league-table-container" [ngClass]="{'mobile-view': !isDesktop}">
+    <div class="modal-content">
+        <div class="league-table-header">
+            <div class="league-table-title" data-crlat="dTitle">Standings</div>
+            <div>
+                <a class="btn-close" (click)="close()">
+                    <svg>
+                        <use xlink:href="#close-icon"></use>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <hr/>
+        <div class="league-table-container">
+            <iframe 
+                id="fanzone-league-table-iframe" 
+                class="fanzone-league-table-iframe" 
+                data-crlat="iframe" 
+                [src]="leagueSrcLink">
+            </iframe>
+        </div>
+    </div>
+</div>

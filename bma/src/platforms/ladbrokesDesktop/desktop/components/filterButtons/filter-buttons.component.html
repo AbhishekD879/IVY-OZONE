@@ -1,0 +1,5 @@
+<div class="filter-buttons" data-crlat="switchers">
+  <a class="filter-btn" *ngFor="let item of items; trackBy:trackByLabel; let i = index" [ngClass]="{active: position === i, activeMatchesTab: item.label === 'AllEvents'}"
+    (click)="item.onClick(i)" [i18n]="item.label" data-crlat="buttonSwitch">
+  </a>
+</div>

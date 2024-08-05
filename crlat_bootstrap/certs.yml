@@ -1,0 +1,10 @@
+---
+- name: Create certificates
+  hosts: localhost
+#  user: ubuntu
+#  become: yes
+  gather_facts: no
+  tasks:
+  - name: Execute crlat.certificates role
+    include_role:
+      name: crlat.certificates

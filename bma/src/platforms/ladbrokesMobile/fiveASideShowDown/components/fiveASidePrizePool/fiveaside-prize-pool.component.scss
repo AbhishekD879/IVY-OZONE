@@ -1,0 +1,94 @@
+@import "global.variables.scss";
+
+.prize-pool-container {
+  .mrl-3 { // Utility class to take highest priority
+    margin-left: 3px !important;
+  }
+  .mrl-0 { // Utility class to take highest priority
+    margin-left: 0px !important;
+  }
+  overflow-y: auto;
+  .prize-pool-header {
+    min-height: 49px;
+    @include setFontProps($base-font-family,$font-size,normal,$color-light-white-grey);
+    padding: 20px 0px 18px 16px;
+    background-color:$color-border-bottom-dark-black;
+    margin: 0px;
+    font-stretch: condensed;
+    span {
+      margin-right:3px;
+    }
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    border: 4px solid rgba(0,0,0,0);
+    .prize-pool-record {
+      min-height: 52px;
+      border-radius: 4px;
+      margin-bottom:1px;
+      background-color: $color-border-top-dark-black;
+      @include display-flex();
+      @include align-items();
+      @include justify-content(space-between);
+      border-bottom: 1px solid $color-border-bottom-dark-black;
+      padding: 4px 16px;
+      .signposting-logo {
+        max-width:46px;
+        height:15px;
+        margin: 3px 0px 3px 3px;
+      }
+      .prize-position {
+        @include flex(3, 1, 0%);
+        @media #{$mqTablet} {
+          @include flex(2.6, 1, 0%);
+        }
+        min-height: 15px;
+        @include setFontProps($alt-font-family,$font-size,500,$color-light-white-grey);
+      }
+      .prize-value {
+        @include flex(8, 1, 0%);
+        min-height: 15px;
+        @include display-flex();
+        @include align-items();
+        @include justify-content(space-between);
+        @include flex-direction(row);
+        @include justify-content(flex-start);
+        @include flex-wrap(wrap);
+        section {
+          margin: 2px 0px;
+          &:first-child {
+            margin-left: 3px;
+          }
+          @media (min-width: $tabletPoint) {
+            margin-left: 0px;
+          }
+          @include display-flex();
+          @include align-items(center);
+          .seperator {
+            margin: 0 5px;
+            @include setFontProps($base-font-family,$font-size,bold,$color-light-green-leaf);
+          }
+          .prize-num {
+            @include setFontProps($base-font-family,$font-size-lgr,bold,$color-light-green-leaf);
+            font-stretch: condensed;
+          }
+          .prize-text,
+          .prize-type {
+            @include setFontProps($alt-font-family,$font-size,bold,$color-light-white-grey);
+            font-stretch: condensed;
+          }
+          .prize-text {
+            @include flex(1, 1, auto);
+            strong {
+              white-space: normal;
+            }
+          }
+          .prize-type {
+            margin-left: 3px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,260 @@
+@import '../../../assets/styles/general.scss';
+
+$color-light-gray: #e8e8e8;
+$color-red: #ec1d24;
+
+@-webkit-keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.answers-summary {
+  background: $color-white;
+  border-radius: 9px;
+  padding: 15px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  color: $color-blue-dark;
+  position: relative;
+  &-kit {
+    margin-bottom: 8px;
+    img {
+      width: 30px;
+      height: 30px;
+      margin-right: 5px;
+      display: inline-block;
+    }
+  }
+  &-info {
+    border: 1px solid $color-yellow;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+    &-item {
+      text-transform: uppercase;
+      font-size: 10px;
+      font-weight: bold;
+      padding: 2px 5px;
+      box-sizing: border-box;
+      align-items: center;
+      display: flex;
+      color: $color-blue;
+      &.top-left-header {
+        background: $color-yellow;
+      }
+
+    }
+  }
+  &-price {
+    position: absolute;
+    border-top-right-radius: 9px;
+    overflow: hidden;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 95px;
+    height: 65px;
+    z-index: 1;
+    transition: border-color 0.1s ease;
+    border-color: $color-yellow;
+
+    &:after {
+      position: absolute;
+      content: "";
+      right: 0;
+      top: 0;
+      z-index: -1;
+      width: 0;
+      height: 0;
+      background-color: transparent;
+      border-top: 0 solid transparent;
+      border-right: 95px solid transparent;
+      border-bottom: 65px solid transparent;
+      border-left: 0 solid transparent;
+      border-right-color: inherit;
+      transition: border-color 0.1s ease;
+    }
+
+    .label {
+      font-size: 18px;
+      font-weight: bold;
+      top: 5px;
+      right: 10px;
+      position: absolute;
+      z-index: 1;
+      color: $color-blue-dark;
+    }
+
+    .lose-svg {
+      display: none;
+    }
+
+    &.lose {
+      border-color: $color-red;
+      .lose-svg {
+        width: 20px;
+        height: 20px;
+        fill: white;
+        display: flex;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+      .label {
+        display: none;
+      }
+    }
+    &.won {
+      border-color: $color-green;
+      .label {
+        color: $color-white;
+      }
+    }
+  }
+}
+
+.team-score {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+  &-item {
+    font-size: 21px;
+    line-height: 25px;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    &.won{
+      font-weight: bold;
+    }
+  }
+}
+
+.game-summary {
+  &.show {
+    .game-summary-content {
+      display: block;
+      animation: fadeIn .3s;
+    }
+    .game-summary-label:after {
+      top: 1px;
+      transform: rotate(45deg);
+    }
+  }
+  &-label {
+    font-size: 11px;
+    text-align: center;
+    margin: 0;
+    position: relative;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 3px;
+      margin-left: 7px;
+      background-color: white;
+      border-right: 2px solid $color-blue-dark;
+      border-bottom: 2px solid $color-blue-dark;
+      width: 7px;
+      height: 7px;
+      display: inline-block;
+      transform: rotate(-135deg);
+      transition: all .3s linear;
+    }
+  }
+  &-content {
+    margin-top: 15px;
+    display: none;
+  }
+  &-list {
+    margin:0 -15px 10px;
+    .item {
+      padding: 10px 16px;
+      border-top: 1px solid $color-light-gray;
+      display: flex;
+      &:last-child {
+        border-bottom: 1px solid $color-light-gray;
+      }
+    }
+    .rez-svg {
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      min-height: 20px;
+      margin-right: 10px;
+      &.lose {
+        fill: $color-red;
+      }
+      &.won {
+        fill: $color-green;
+      }
+    }
+    .question {
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+    .answer {
+      font-size: 14px;
+      font-weight: bold;
+      margin: 0;
+    }
+  }
+  &-descr {
+    font-size: 12px;
+  }
+}
+
+/* MEDIA STYLES */
+@media #{$mqTabletAndDesktop} {
+  .answers-summary-price {
+    width: 130px;
+    height: 77px;
+    border-color: $color-yellow;
+    &:after {
+      border-right-width: 130px;
+      border-bottom-width: 77px;
+    }
+    .label {
+      font-size: 24px;
+    }
+  }
+
+  .game-summary {
+    &-label {
+      font-size: 12px;
+    }
+    &-list {
+      .answer {
+        font-size: 15px;
+      }
+      .question {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .answers-summary {
+    &-kit {
+      margin-bottom: 12px;
+      img {
+        width: 40px;
+        height: 40px;
+        margin-right: 8px;
+      }
+    }
+    &-info {
+      margin-bottom: 20px;
+      &-item {
+        font-size: 12px;
+        padding: 2px 7px;
+      }
+    }
+  }
+}

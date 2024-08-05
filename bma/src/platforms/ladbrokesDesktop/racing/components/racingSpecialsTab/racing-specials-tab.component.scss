@@ -1,0 +1,174 @@
+@import 'global.variables.scss';
+
+.sp-container {
+  font-family: $base-font-family;
+  font-size: $font-size-sm;
+  font-weight: bold;
+  box-sizing: border-box;
+
+  ::ng-deep {
+    .accordion {
+      &.is-expanded {
+        margin: 0;
+      }
+      .container-content {
+        background: none;
+      }
+    }
+  }
+  .sp-inner-header {
+    .accordion {
+      margin-bottom: 10px;
+      .accordion-header {
+        height: 35px;
+        @include align-items(baseline);
+        .accordion-right-side  right-side {
+          @include justify-content(flex-start);
+          padding-left: 8px;
+        }
+      }
+    }
+    .competition-date {
+      margin-right: 12px;
+      font-size: $font-size;
+      font-weight: normal;
+    }
+  }
+  .was-price-container {
+    @include display-flex();
+    @include justify-content(flex-end);
+  }
+  .container-inner-content {
+    @include display-flex();
+    @include flex-direction(column);
+    box-sizing: border-box;
+    font-family: $base-font-family;
+
+    .each-way-container {
+      padding: 17px 15px;
+      font-size: $font-size;
+      font-weight: normal;
+    }
+
+    .sp-card-wrapper {
+      @include display-flex();
+      @include flex-flow(row, wrap);
+      @include flex(0, 1, auto);
+      box-sizing: border-box;
+      border-top: 1px solid $color-gray;
+
+      .three-cell {
+        display: none;
+        order: 1;
+        @media screen and (min-width: 1026px) {
+          @include display-flex();
+        }
+      }
+      .two-cell {
+        @include display-flex();
+        order: 1;
+        @media screen and (min-width: 1026px) {
+          display: none;
+        }
+      }
+      .three-cell,
+      .two-cell {
+        pointer-events: none;
+      }
+
+      .odds-card {
+        @include flex(1, 1, calc(100% / 3));
+        height: 50px;
+        overflow: hidden;
+        border-top: 1px solid $color-gray;
+        border-right: 1px solid $color-gray;
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+
+        &.odds-card-two-outcome {
+          height: 70px;
+        }
+        &.smart-boosts {
+          .odds-content {
+            .odds-right {
+              padding-right: 10px;
+              @include flex-direction(column);
+              @include align-items(flex-end);
+              @include justify-content();
+
+              price-odds-button {
+                padding: 0;
+                height: auto;
+                & + .was-price-container {
+                  margin-top: 3px;
+                }
+              }
+            }
+          }
+        }
+
+        @media screen and (min-width: $md-point) {
+          @include flex(1, 1, 30%);
+        }
+
+        @media screen and (max-width: 1026px) {
+          @include flex(1, 1, 50%);
+        }
+
+        .odds-content {
+          @include flex(1, 1, auto);
+          height: 100%;
+          font-family: $base-font-family;
+          font-size: $font-size-tablet;
+          font-weight: bold;
+
+          .odds-left {
+            padding-left: 15px;
+          }
+
+          .odds-names {
+            padding: 0px;
+          }
+
+          .odds-right, price-odds-button {
+            height: 100%;
+
+            ::ng-deep {
+              .btn-bet {
+                height: 100% ;
+                font-size: $font-size-lg;
+                font-weight: bold;
+                width: 80px;
+                border-radius: 0;
+              }
+              .old-btn-bet {
+                padding: 14px 10px 15px;
+                .btn-bet {
+                  width: 50px;
+                  height: 40px;
+                  border-radius: 2px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    ::ng-deep {
+      .show-all-button {
+        display: block;
+        min-height: 35px;
+        position: relative;
+        background: $color-gray-light;
+        border-top: 1px solid $color-gray;
+        margin-top: -1px;
+        padding: 9px 0 10px 0;
+        color: $color-gray-dark;
+        font-size: $font-size-md;
+        font-weight: bold;
+        box-shadow: 10px 0 0 $color-white, -10px 0 0 $color-white;
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+<modal #dialog class="fb-select-dialog" [ngClass]="{'snb-fb-dialog': isStreamAndBet && isBrandLadbrokes}" data-crlat="d.freeBetSelect">
+  <ng-template #modalBody>
+    <div class="wrap">
+      <header data-uat="popUpTitle" class="header">
+        <span class="header-text" data-crlat="dTitle" *ngIf="tab ===fbTab "
+        [textContent]="freebetsConfig?.header +  ' (' + ( freeBets?.length  + fanzoneList?.length ) + ') '"></span>
+        <span class="header-text" data-crlat="dTitle" *ngIf="tab ===btTab "
+          [textContent]="freebetsConfig?.betTokenHeader + ' (' + betPackList?.length + ')'"></span>
+        <span class="header-text" data-crlat="dTitle" *ngIf="tab ===both "
+          [textContent]=freebetsConfig?.bothTokensHeader></span>  
+        <svg class="close-icon" (click)="closeDialog(true)" data-uat="popUpCloseButton">
+          <use xlink:href="#close-icon"></use>
+        </svg>
+      </header>
+      <div class="popup-description">
+        <span class="desc-text" data-crlat="dFBDesc" *ngIf="tab ===fbTab" [textContent]="freebetsConfig.freebetDescription"></span>
+        <span class="desc-text" data-crlat="dBTDesc" *ngIf="tab === btTab" [textContent]="freebetsConfig.betTokenDescription"></span>
+        <span class="desc-text" data-crlat="dBothDesc" *ngIf="tab ===both" [textContent]="freebetsConfig.bothTokensDescription"></span>
+      </div>
+      <div class="bet-tabs" *ngIf="tab==both ">
+        <div  class="bet-tab bet-tab__left" [ngClass]="{'bet-tab-selec' : activeTab ===btTab}" (click)="tabid(btTab)">{{freebetsConfig?.betTokenTabName}} (X{{betPackList?.length}})</div>
+        <div  class="bet-tab bet-tab__right" [ngClass]="{'bet-tab-selec' : activeTab ===fbTab}" (click)="tabid(fbTab)">{{freebetsConfig?.freebetTabName}} (X{{freeBets?.length + fanzoneList?.length}})</div>
+      </div>
+      <div class="free-bet-group__container" [ngClass]="{'free-bet-group-both_container' : tab ===both, 'stream-bet-free-bet': isStreamAndBet}" *ngIf="tab ===fbTab || (tab ===both) && activeTab ===fbTab">
+        <ng-container *ngIf="fanzoneList?.length > 0">
+          <ng-container *ngTemplateOutlet="listFB; context: {items: fanzoneList, tabName:'fanzoneTabName', tabType: 'fanzone'}"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="freeBets?.length > 0">
+          <ng-container *ngTemplateOutlet="listFB; context: {items: freeBets, tabName:'freebetTabName', tabType: 'freeBet'}"></ng-container>
+        </ng-container>
+      </div>
+      <div class="free-bet-group__container" [ngClass]="{'free-bet-group-both_container' : tab ===both, 'stream-bet-free-bet': isStreamAndBet}" *ngIf="tab ===btTab  || (tab ===both) && activeTab ===btTab ">
+        <ng-container *ngTemplateOutlet="listFB; context: {items: betPackList, tabName:'betTokenSubHeader', tabType: 'betPack'}"></ng-container>
+      </div>
+      <ng-template #listFB let-items="items" let-tabName="tabName" let-tabType="tabType">
+        <span class=" freebetDescription" *ngIf ="fanzoneList?.length > 0  || (freeBets?.length > 0 && fanzoneList?.length > 0)" [textContent]="freebetsConfig[tabName]+' (x'+items.length+')'"></span>
+        <ul class="list">
+          <li *ngFor="let freebet of items; trackBy: trackByIndex; index as i">
+            <span class="option" [class.selected]="freebet === selected" data-crlat="freebetStakeContainer"
+            (click)="freeBetClick(freebet, tabType)">
+            <span class="option-circle" data-crlat="freebetStakeCircle"></span>
+            <ng-container>
+              <div class="fb-item__value">
+                <span [textContent]="userService.currencySymbol + freebet.value + ' - '" data-crlat="fbAmount"></span>
+                <span [textContent]="freebet.freebetTokenDisplayText || freebet?.freeBetPossibleBets?.[0].name || freebet?.tokenPossibleBets?.[0].name" data-crlat="fbDisplayText"></span>
+              </div>
+              <div class="fb-item__expiration">
+                <span [textContent]="freebet.name" data-crlat="freebetStakeName"></span>
+                <span [textContent]="' - '"></span>
+                <span [i18n]="'bma.useBy'"></span>
+                <span [textContent]="freebet.expireAt |  date: 'dd/MM/yy, HH:mm'" data-crlat="fbUsedBy"></span>
+              </div>
+            </ng-container>
+          </span>
+          </li>
+        </ul>
+      </ng-template>
+      <div class="btn-group">
+        <button class="btn btn-remove" [i18n]="'bma.cancel'" (click)="removeFreeBet()" data-crlat="add"></button>
+        <button class="btn btn-add" [i18n]="'bma.apply'" [disabled]="!selected" (click)="addFreeBet()"
+          data-crlat="remove"></button>
+      </div>
+    </div>
+  </ng-template>
+</modal>

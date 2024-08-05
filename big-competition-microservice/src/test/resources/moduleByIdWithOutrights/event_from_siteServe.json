@@ -1,0 +1,152 @@
+[{
+  "id": "6592232",
+  "name": "Swansea v Stoke",
+  "eventStatusCode": "A",
+  "isActive": true,
+  "displayOrder": 0,
+  "siteChannels": "P,Q,C,U,I,M,",
+  "eventSortCode": "MTCH",
+  "startTime": "2018-03-15T15:00:00Z",
+  "rawIsOffCode": "N",
+  "classId": "97",
+  "typeId": "442",
+  "sportId": "16",
+  "liveServChannels": "sEVENT0006592232,",
+  "liveServChildrenChannels": "SEVENT0006592232,",
+  "categoryId": "16",
+  "categoryCode": "FOOTBALL",
+  "categoryName": "Football",
+  "className": "Football England",
+  "classDisplayOrder": -4,
+  "classSortCode": "FB",
+  "typeName": "Premier League",
+  "typeDisplayOrder": -23000,
+  "typeFlagCodes": "FI,PVA,INT,FE,",
+  "isOpenEvent": true,
+  "isNext24HourEvent": true,
+  "isLiveNowOrFutureEvent": true,
+  "drilldownTagNames": "EVFLAG_FE,EVFLAG_FI,EVFLAG_BL,EVFLAG_AVA,",
+  "isAvailable": true,
+  "cashoutAvail": "Y",
+  "children": [{
+    "market": {
+      "id": "115295194",
+      "eventId": "6592232",
+      "templateMarketId": 37241,
+      "templateMarketName": "Match Betting",
+      "dispSortId": "391",
+      "dispSortName": "MR",
+      "collectionIds": "623,1297,9507,4920,619,",
+      "collectionNames": "IK collection,Main Markets,Goal Markets,Match Betting,Test One,",
+      "marketMeaningMajorCode": "-",
+      "marketMeaningMinorCode": "MR",
+      "name": "Match Result",
+      "isLpAvailable": true,
+      "isSpAvailable": false,
+      "isGpAvailable": false,
+      "isEachWayAvailable": false,
+      "isPlaceOnlyAvailable": false,
+      "isMarketBetInRun": true,
+      "displayOrder": -999,
+      "marketStatusCode": "A",
+      "isActive": true,
+      "siteChannels": "P,Q,C,U,I,M,",
+      "liveServChannels": "sEVMKT0115295194,",
+      "liveServChildrenChannels": "SEVMKT0115295194,",
+      "priceTypeCodes": "LP,",
+      "isAvailable": true,
+      "maxAccumulators": 25,
+      "cashoutAvail": "Y",
+      "children": [{
+        "outcome": {
+          "id": "443448676",
+          "marketId": "115295194",
+          "name": "Stoke",
+          "outcomeMeaningMajorCode": "MR",
+          "outcomeMeaningMinorCode": "A",
+          "displayOrder": 3,
+          "outcomeStatusCode": "A",
+          "isActive": true,
+          "siteChannels": "P,Q,C,U,I,M,",
+          "liveServChannels": "sSELCN0443448676,",
+          "liveServChildrenChannels": "SSELCN0443448676,",
+          "isAvailable": true,
+          "cashoutAvail": "Y",
+          "children": [{
+            "price": {
+              "id": "1",
+              "isActive": true,
+              "displayOrder": 1,
+              "priceType": "LP",
+              "priceNum": 3,
+              "priceDen": 1,
+              "priceDec": 4.0,
+              "uuid": "fc5c3a09-2162-48b5-8e12-7804aca09c4b"
+            }
+          }],
+          "uuid": "5cbc1e00-0414-4b88-a117-cfd783a20741"
+        }
+      }, {
+        "outcome": {
+          "id": "443448677",
+          "marketId": "115295194",
+          "name": "Swansea",
+          "outcomeMeaningMajorCode": "MR",
+          "outcomeMeaningMinorCode": "H",
+          "displayOrder": 1,
+          "outcomeStatusCode": "A",
+          "isActive": true,
+          "siteChannels": "P,Q,C,U,I,M,",
+          "liveServChannels": "sSELCN0443448677,",
+          "liveServChildrenChannels": "SSELCN0443448677,",
+          "isAvailable": true,
+          "cashoutAvail": "Y",
+          "children": [{
+            "price": {
+              "id": "2",
+              "isActive": true,
+              "displayOrder": 1,
+              "priceType": "LP",
+              "priceNum": 1,
+              "priceDen": 1,
+              "priceDec": 2.0,
+              "uuid": "47f66289-19bb-4441-b939-ed5def8c383a"
+            }
+          }],
+          "uuid": "a62df982-5386-440f-9130-96ae37245406"
+        }
+      }, {
+        "outcome": {
+          "id": "443448678",
+          "marketId": "115295194",
+          "name": "Draw",
+          "outcomeMeaningMajorCode": "MR",
+          "outcomeMeaningMinorCode": "D",
+          "displayOrder": 2,
+          "outcomeStatusCode": "A",
+          "isActive": true,
+          "siteChannels": "P,Q,C,U,I,M,",
+          "liveServChannels": "sSELCN0443448678,",
+          "liveServChildrenChannels": "SSELCN0443448678,",
+          "isAvailable": true,
+          "cashoutAvail": "Y",
+          "children": [{
+            "price": {
+              "id": "3",
+              "isActive": true,
+              "displayOrder": 1,
+              "priceType": "LP",
+              "priceNum": 2,
+              "priceDen": 1,
+              "priceDec": 3.0,
+              "uuid": "3891cf55-f452-4752-b10c-d8ee11b7447d"
+            }
+          }],
+          "uuid": "1f7850a2-b2f9-48ef-b38c-c3bd300229b4"
+        }
+      }],
+      "uuid": "307b1dfc-af60-4294-80ee-b6a61711d1b5"
+    }
+  }],
+  "uuid": "90d93b22-5a93-4757-aaea-fd3aac5515d3"
+}]

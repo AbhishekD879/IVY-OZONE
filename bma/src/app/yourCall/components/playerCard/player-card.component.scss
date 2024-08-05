@@ -1,0 +1,85 @@
+@import 'global.variables.scss';
+
+:host:last-child .player-card {
+  margin-bottom: 0;
+}
+
+.player-card {
+  position: relative;
+  margin-bottom: 8px;
+  padding: 12px 30px 14px 12px;
+  font-size: $font-size;
+  border-radius: 8px;
+  box-shadow: 0 2px 2px 0 rgba(162, 162, 162, 0.24);
+  background-color: rgba(255, 255, 255, 0.97);
+
+  &:after {
+    content: '';
+    position: absolute;
+    padding: 3.5px;
+    top: 50%;
+    right: 10px;
+    border: solid #adadad;
+    border-width: 0 2px 2px 0;
+    @include transform(rotate(-45deg) translateY(-7px));
+  }
+
+  &.unavailable {
+    opacity: 0.4;
+  }
+}
+
+.team-chevron {
+  display: inline-block;
+  height: 17px;
+
+  .player-image {
+    width: 17px;
+    height: 17px;
+  }
+
+  + .team-name {
+    margin-left: 10px;
+  }
+  
+}
+
+.team {
+  @include display-flex();
+  @include align-items();
+}
+
+.team-name {
+  display: inline-block;
+  opacity: .5;
+  font-family: $base-font-family;
+  text-transform: uppercase;
+}
+
+.position {
+  margin-left: 6px;
+}
+
+.player-name {
+  margin-top: 8px;
+  font-size: $font-size-bit-lgr;
+  font-family: $alt-font-family;
+  letter-spacing: 0.1px;
+  font-weight: 500;
+}
+
+.stats {
+  margin-top: 2px;
+  letter-spacing: 0.01px;
+  font-family: $alt-font-family;
+}
+
+.market {
+  opacity: .6;
+}
+
+.value {
+  margin-left: 3px;
+  opacity: .84;
+  font-weight: bold;
+}

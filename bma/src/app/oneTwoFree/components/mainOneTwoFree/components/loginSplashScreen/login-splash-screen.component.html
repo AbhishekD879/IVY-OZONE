@@ -1,0 +1,21 @@
+<div class="login-splash-screen">
+  <img [src]="splashTitle" alt="one-two-free">
+  <div class="splashPage-content" [innerHTML]="content | safe: 'html'"></div>
+  <div class="btn-wrapper">
+
+    <button
+      class="otf-login-btn otf-btn"
+      (click)="playHandler()"
+      [disabled]="processingStatus"
+      [ngClass]="{'btn-disabled': processingStatus}"
+      [i18n]="processingStatus ? 'bma.otf.btnProcessing' : isInShopUser ? 'bma.otf.upgradeAndPlay' : 'bma.otf.loginToPlay'"
+    ></button>
+
+    <button
+      class="otf-btn otf-cancel-login-btn"
+      (click)="cancelLoginHandler()"
+      [i18n]="'bma.otf.cancelLogin'"
+    ></button>
+
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<div class="card" *ngIf="myStable">
+    <div class="header">
+        <h2 class="has-activity-badge">
+            <span [textContent]="ONBOARDING_MY_STABLE.onBoarding"></span>
+            <create-updated-at-by *ngIf="myStable" [collection]="myStable"></create-updated-at-by>
+        </h2>
+    </div>
+    <div class="body">
+        <div class="row">
+            <div class="col-sm-2">
+                <mat-checkbox color="primary" [checked]="myStable.isActive"
+                    (change)="myStable.isActive = !myStable.isActive">
+                    {{ONBOARDING_MY_STABLE.enableOnboarding}}
+                </mat-checkbox>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card" *ngIf="myStable">
+    <div class="body">
+        <div class="row">
+            <div class="col-md-2">
+                <span class="mat-label" [textContent]="ONBOARDING_MY_STABLE.useUploadedImage">
+                </span>
+            </div>
+            <div class="col-md-5">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="File Name" [(ngModel)]="myStable.fileName" [value]="myStable.fileName"
+                        #fileNameInput="ngModel" disabled required>
+                    <mat-hint class="col-red"
+                        *ngIf="!myStable?.fileName && myStable.fileName?.length === 0">Upload
+                        image should not be empty.</mat-hint>
+                </mat-form-field>
+                <small>Note* The above uploaded image supports PNG, JPEG, JPG, SVG formats.</small>
+            </div>
+            <div class="col-md-5">
+                <div style="display:none;"><input #onboardImageUpload (change)="prepareToUploadFile($event)" type="file"
+                        value="upload" /></div>
+                <button type="button" (click)="handleUploadImageClick()"
+                    class="image-btn btn bg-teal waves-effect">{{getButtonName(myStable.fileName)}}</button>
+                <button type="button" (click)="removeUploadMystableImage()" class="image-btn btn bg-red waves-effect"
+                    *ngIf="myStable?.fileName">Remove File</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2">
+                <span class="mat-label" [textContent]="ONBOARDING_MY_STABLE.ctaButtonLabel">
+                </span>
+            </div>
+            <div class="col-sm-5">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Enter text here" type="text" [(ngModel)]="myStable.buttonText"
+                        name="buttonText" trim="blur" required #buttonText="ngModel">
+                    <mat-hint class="col-red"
+                        *ngIf="(!myStable.buttonText || myStable.buttonText?.length > 12) && (buttonText.touched || buttonText.dirty)">{{ONBOARDING_MY_STABLE.ctaButtonLabelErrMsg}}</mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</div>
+
+<action-buttons #actionButtons *ngIf="myStable" [collection]="myStable" (actionsEmitter)="actionsHandler($event);"
+    [fieldOrItemName]="fieldOrItemName" [showRemoveButton]="false" [validateHandler]="verifyOnboarding">
+</action-buttons>

@@ -1,0 +1,132 @@
+[
+  {
+    "event": {
+      "id": "5851164",
+      "name": "|Andy Murray| |vs| |Kei Nishikori|",
+      "eventStatusCode": "A",
+      "isActive": "true",
+      "isDisplayed": "true",
+      "displayOrder": "0",
+      "siteChannels": "P,Q,C,I,M,",
+      "eventSortCode": "MTCH",
+      "startTime": "2017-06-13T20:00:00Z",
+      "rawIsOffCode": "Y",
+      "isStarted": "true",
+      "classId": "266",
+      "typeId": "1691",
+      "sportId": "34",
+      "liveServChannels": "sEVENT0005851164,",
+      "liveServChildrenChannels": "SEVENT0005851164,",
+      "categoryId": "34",
+      "categoryCode": "TENNIS",
+      "categoryName": "|Tennis|",
+      "categoryDisplayOrder": "-2",
+      "className": "|Tennis All Tennis|",
+      "classDisplayOrder": "-999",
+      "classSortCode": "FB",
+      "typeName": "|U.S. Open - Mens Singles|",
+      "typeDisplayOrder": "0",
+      "typeFlagCodes": "IVA,PVA,",
+      "isOpenEvent": "true",
+      "isNext24HourEvent": "true",
+      "isLiveNowEvent": "true",
+      "isLiveNowOrFutureEvent": "true",
+      "drilldownTagNames": "EVFLAG_BL,",
+      "isAvailable": "true",
+      "cashoutAvail": "Y",
+      "children": [
+        {
+          "eventPeriod": {
+            "id": "109257",
+            "eventId": "5851164",
+            "periodCode": "ALL",
+            "description": "Total Duration of the game/match",
+            "startTime": "2017-06-13T08:41:25Z",
+            "children": [
+              {
+                "eventPeriodClockState": {
+                  "id": "108446",
+                  "eventPeriodId": "109257",
+                  "offset": "0",
+                  "lastUpdate": "2017-06-13T08:41:25Z",
+                  "state": "S"
+                }
+              },
+              {
+                "eventPeriod": {
+                  "id": "109258",
+                  "eventId": "5851164",
+                  "parentEventPeriodId": "109257",
+                  "periodCode": "SET",
+                  "description": "Set in Tennis match",
+                  "periodIndex": "1",
+                  "startTime": "2017-06-13T08:41:25Z",
+                  "children": [
+                    {
+                      "eventPeriodClockState": {
+                        "id": "108447",
+                        "eventPeriodId": "109258",
+                        "offset": "0",
+                        "lastUpdate": "2017-06-13T08:41:25Z",
+                        "state": "S"
+                      }
+                    },
+                    {
+                      "eventIncident": {
+                        "id": "1049713",
+                        "eventId": "5851164",
+                        "eventPeriodId": "109258",
+                        "eventParticipantId": "26040",
+                        "incidentCode": "PERIOD_START",
+                        "description": "Period start",
+                        "relativeTime": "0",
+                        "createDate": "2017-06-13T08:41:25Z",
+                        "children": [
+                          {
+                            "eventIncidentComment": {
+                              "id": "1049511",
+                              "eventIncidentId": "1049713",
+                              "text": "Period start",
+                              "lang": "en"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "eventParticipant": {
+            "id": "26041",
+            "eventId": "5851164",
+            "name": "Kei Nishikori",
+            "type": "T",
+            "roleCode": "PLAYER_2",
+            "role": "Generic second player listed"
+          }
+        },
+        {
+          "eventParticipant": {
+            "id": "26040",
+            "eventId": "5851164",
+            "name": "Andy Murray",
+            "type": "T",
+            "roleCode": "PLAYER_1",
+            "role": "Generic first player listed",
+            "isActive": "true"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "responseFooter": {
+      "cost": "17",
+      "creationTime": "2017-06-13T10:32:08.691Z"
+    }
+  }
+]

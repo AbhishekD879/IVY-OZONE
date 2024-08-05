@@ -1,0 +1,36 @@
+@import 'global.variables.scss';
+
+.receipt-header-container {
+  background-color: $brand-color-dark;
+  padding: 15px 8px;
+  color: $color-white;
+  font-size: 14px;
+  line-height: 14px;
+  max-height: 42px;
+
+  .receipt-time {
+    font-size: 12px;
+    line-height: 12px;
+    color: $color-yellow;
+  }
+
+  .check-icon {
+    height: 12px;
+    width: 15px;
+    margin-right: 5px;
+  }
+
+  .receipt-header {
+    margin: 0px;
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: normal;
+  }
+  .space-between {
+    @include justify-content(space-between);
+  }
+
+  .left-side {
+    @include display-flex();
+  }
+}

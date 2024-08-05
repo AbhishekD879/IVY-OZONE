@@ -1,0 +1,19 @@
+<div class="outright-container" *ngIf="_market?.data?.markets[0]">
+  <grid-view-widget *ngIf="_market?.viewType === 'GRID'"
+                    [eventEntity]="_market?.data"
+                    [market]="_market?.data.markets[0]"
+                    [maxDisplay]="_market?.maxDisplay"
+                    [gtmModuleTitle]="gtmModuleTitle"></grid-view-widget>
+
+  <card-view *ngIf="_market?.viewType === 'CARD'"
+             [eventEntity]="_market?.data"
+             [market]="_market?.data.markets[0]"
+             [maxDisplay]="_market?.maxDisplay"
+             [gtmModuleTitle]="gtmModuleTitle"></card-view>
+
+  <list-view-widget *ngIf="_market?.viewType === 'LIST'"
+                    [eventEntity]="_market?.data"
+                    [market]="_market?.data.markets[0]"
+                    [maxDisplay]="_market?.maxDisplay"
+                    [gtmModuleTitle]="gtmModuleTitle"></list-view-widget>
+</div>

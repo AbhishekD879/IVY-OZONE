@@ -1,0 +1,7 @@
+<div id="number-selector" data-crlat="numberSelector">
+    <div class="number-picker">
+        <div class="numbercol" *ngFor="let number of numbers; index as i; trackBy: numbersTrackBy">
+            <button class="btn btn-circle lotto-number" [ngClass]="{'lads': isBrandLadbrokes}">{{ number.value }}</button>
+        </div>
+    </div>
+</div>

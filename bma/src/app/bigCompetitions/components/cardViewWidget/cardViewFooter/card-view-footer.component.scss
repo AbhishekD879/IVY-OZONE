@@ -1,0 +1,78 @@
+@import 'global.variables.scss';
+
+///footer
+card-view-footer:host {
+  background-color: $color-white;
+  border-radius: 0 0 3px 3px;
+  @include display-flex();
+  width: 100%;
+  justify-content: space-between;
+
+  price-odds-button, .empty-odds-button-space {
+    @include flex(1, 1, auto);
+    width: 33%;
+    max-width: 33%;
+    margin-right: 1px;
+
+    &::ng-deep {
+
+      .btn-bet{
+        border: 0;
+        min-height: 35px;
+        background: linear-gradient(-188deg, #F4F5F9 0%, #EDEEF3 100%);
+        border-radius: 0;
+        font-size: 11px;
+        width: 65px;
+        padding: 0 1px;
+        min-width: auto;
+
+        &.active {
+          background: $color-green;
+          color: $color-white;
+          pointer-events: auto;
+          cursor: pointer;
+
+          .odds-head {
+            color: $color-white;
+          }
+        }
+
+        .odds-head {
+          font-weight: 400;
+          padding: 0 4px;
+          display: block;
+          width: 100%;
+          color: $color-gray-dark;
+        }
+
+        .odds-price {
+          font-size: 12px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  // Hero event view (single event)
+  &.single-event {
+    border-radius: 0 0 2px 2px;
+
+    price-odds-button::ng-deep {
+      .btn-bet {
+        min-height: 40px;
+        padding: 6px 5px 7px 5px;
+        width: 100%;
+
+        .odds-head {
+          font-size: 8px;
+          padding-bottom: 5px;
+          white-space: nowrap;
+        }
+
+        .odds-price {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+@import 'global.variables.scss';
+
+$description-box-shadow: 0 1px 4px 0 rgba(0,0,0,0.15);
+
+.market-description {
+    font-family: $alt-font-family;
+    background-color: $color-white;
+    padding: 12px;
+    min-height: 38px;
+    text-transform: none;
+    border-top: 1px solid $color-gray;
+    border-bottom: 1px solid $color-gray;
+    box-shadow: $description-box-shadow;
+
+    &.icon-wrapper {
+      @include display-flex();
+      @include align-items();
+      @include flex-direction(row);
+    }
+  
+    .badge-wrapper {
+      height: 10px;
+      width: 100%;
+      margin-bottom: 5px;
+      .new-badge {
+        height: 10px;
+        width: 24px;
+      }
+    }
+    .description {
+      .description-value {
+        font-size: $font-size;
+        color: $color-gray-dark2;
+        line-height: normal;
+        letter-spacing: 0px;
+        width: 100%;
+      }
+      &.has-no-icon {
+        width: calc(100% - 15px);
+        .description-value {
+          font-size: $font-size;
+          color: $color-gray-dark2;
+          line-height: normal;
+          letter-spacing: 0px;
+        }
+      }
+    }
+    .description-icon {
+       width: 15px;
+       line-height: 12px;
+      .description-info-icon {
+        width: 12px;
+        height: 12px;
+        fill: $color-gray-dark2;
+        margin-right: 6px;
+      }
+    }
+    
+  }

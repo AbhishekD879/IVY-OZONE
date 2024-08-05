@@ -1,0 +1,37 @@
+<div *ngFor="let leg of oldLegs; trackBy: trackByIndex;" class="multiple-bet-part" data-crlat="mulBetPart">
+  <div class="bs-stake-content">
+    <div class="bs-stake-info">
+      <span class="bs-stake-title" data-crlat="bsStakeTitle">
+        <span *ngIf="!leg.betData.isFCTC" [textContent]="leg.betData.outcomeName"></span>
+        <betslip-fctc-list *ngIf="leg.betData.isFCTC"
+                           [outcomes]="leg.betData.outcomes"
+                           [lines]="leg.betData.Bet.lines">
+        </betslip-fctc-list>
+      </span>
+      <span class="bs-stake-type" [textContent]="leg.betData.marketName"></span>
+      <div class="bs-stake-event-name">
+        <span *ngIf="!leg.betData.isRacingSport" [textContent]="leg.betData.eventName | eventName"></span>
+        <span *ngIf="leg.betData.isRacingSport" [textContent]="leg.betData.localTime + ' ' + leg.betData.eventName">
+        </span>
+      </div>
+    </div>
+
+    <div *ngIf="!leg.changedPrice" class="bs-stake-body">
+      <div class="bs-stake-body-row">
+        <div class="stake-odds">
+          <div class="stake-odd-container">
+            <span class="stake-odd-number" [textContent]="formatOdds(leg.price)"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <betslip-offered-data *ngIf="leg.changedPrice"
+                          [multiplePriceChanged]="[formatOdds(leg.price), formatOdds(leg.changedPrice)]">
+    </betslip-offered-data>
+
+    <span class="bs-multiple-part-and">
+      <span class="bs-multiple-part-and-text" [i18n]="'bs.overaskElements.and'"></span>
+    </span>
+  </div>
+</div>

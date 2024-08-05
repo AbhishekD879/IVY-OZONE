@@ -1,0 +1,81 @@
+@import 'global.variables.scss';
+
+$virtualSubMenuActiveBg: #d5ebf8;
+$virtualSubMenuActiveBr: #797979;
+$virtualSubMenuItemBr: #b0b0b0;
+
+.vc-submenu {
+  .scroll-container {
+    background-color: $lGray;
+    padding: 12px 9px;
+
+    .scroll-inner {
+      border: none;
+      box-shadow: none;
+    }
+  }
+
+  .vc-item {
+    text-align: center;
+    text-decoration: none;
+    height: 38px;
+    width: auto;
+    max-width: none;
+    position: relative;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: solid 1px $virtualSubMenuItemBr;
+    background-color: $color-white;
+    color: $lGray;
+    font-family: $base-font-family;
+    font-size: $font-size-md;
+    margin: 0 3px;
+    text-transform: uppercase;
+    font-weight: normal;
+    letter-spacing: normal;
+    @include transition(text-shadow, .3s);
+    @include align-items(normal);
+
+    @mixin active-vc-item-mixin() {
+      border:1px solid $virtualSubMenuActiveBr;
+      background-color: $virtualSubMenuActiveBg;
+      .sport-name {
+        font-weight: bold;
+      }
+    }
+
+    &.active {
+      @include active-vc-item-mixin();
+    }
+
+    @media not all and (hover: none) {
+      &:hover {
+        @include active-vc-item-mixin();
+      }
+    }
+
+    .sport-name {
+      font-size: $font-size-md;
+      font-family: $base-font-family;
+      color: $lGray;
+    }
+  }
+}
+
+.vc-time {
+  font-size: $font-size-xs;
+  line-height: 1;
+  text-align: right;
+  display: block;
+  position: relative;
+  color: $lGray;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+@media #{$mqLandscapeAndDesktop} {
+  .virtual-carousel-menu {
+    margin-bottom: 4px;
+  }
+}

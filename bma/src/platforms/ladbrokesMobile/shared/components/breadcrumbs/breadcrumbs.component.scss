@@ -1,0 +1,31 @@
+@import 'global.variables.scss';
+@import '../../../../../app/shared/components/breadcrumbs/breadcrumbs.component.scss';
+@import 'breadcrumbs-top-bar.scss';
+
+.breadcrumbs_container {
+  background-color: $color-gray-light;
+}
+
+.breadcrumb_item {
+  font-family: $alt-font-family;
+  font-size: $font-size-lg;
+  color: $rb-link-color;
+
+  .breadcrumb_link {
+    color: $rb-link-color;
+  }
+
+  &:last-child {
+    .breadcrumb_link {
+      cursor: pointer;
+      color: $color-gray-dark;
+    }
+  }
+
+  .toggle-icon {
+    svg {
+      fill: $color-gray-dark;
+    }
+  }
+}
+

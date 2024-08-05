@@ -1,0 +1,83 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="!isLoading">
+  <div class="header">
+    <h2>Edit Market Selector: <span class="font-italic">{{ marketSelector.title }}</span></h2>
+    <create-updated-at-by [collection]="marketSelector"></create-updated-at-by>
+  </div>
+</div>
+
+<form [formGroup]="form">
+  <div class="card" *ngIf="!isLoading">
+    <div class="body">
+      <div class="row clearfix">
+        <div class="col-md-3">
+            <span class="mat-label">
+              Title
+            </span>
+        </div>
+        <div class="col-md-7">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !marketSelector.title}">
+            <input matInput type="text"
+                   placeholder="Title"
+                   [(ngModel)]="marketSelector.title"
+                   formControlName="title"
+                   required trim="blur">
+            <mat-hint class="col-red" *ngIf="!marketSelector.title">Title should be entered</mat-hint>
+
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-3">
+            <span class="mat-label">
+              Market Template Name
+            </span>
+        </div>
+        <div class="col-md-7">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !marketSelector.templateMarketName || !isTemplateNameFree }">
+            <input matInput type="text" required
+                   aria-label="Market Template Name"
+                   placeholder="Market Template Name"
+                   [(ngModel)]="marketSelector.templateMarketName"
+                   formControlName="templateMarketName"
+                   [matAutocomplete]="auto"
+                   (keyup)="isTemplateNameValid()">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let templateName of marketTemplateNames" [value]="templateName">
+                {{ templateName }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-hint class="col-red" *ngIf="!marketSelector.templateMarketName">Template market name should be entered</mat-hint>
+            <mat-hint class="col-red" *ngIf="marketSelector.templateMarketName && !isTemplateNameFree">Template market name is already in use</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-3">
+            <span class="mat-label">
+              Headers
+            </span>
+        </div>
+        <div class="col-md-7">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !isValidHeaders(marketSelector.headerStr) }">
+            <input matInput type="text"
+                   placeholder="Headers"
+                   [(ngModel)]="marketSelector.headerStr"
+                   formControlName="headers"
+                   trim="blur">
+            <mat-hint class="col-red" *ngIf="!isValidHeaders(marketSelector.headerStr)">There should be no more then three headers separated by comma</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<action-buttons
+  #actionButtons
+  *ngIf="!isLoading"
+  [validateHandler]="isValidModel"
+  [fieldOrItemName]="'title'"
+  [collection]="this.marketSelector"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

@@ -1,0 +1,55 @@
+<form id="player-bets-form" class="player-bets-form" data-crlat="playerBetsForm">
+  <ul class="player-bets-step-list">
+    <li class="player-bets-step" data-crlat="playerBets.selectPlayer">
+      <label data-crlat="playerBets.selectPlayerText">{{ playerLabel }}</label>
+      <custom-select>
+        <select class="form-control player-bets-select"
+                name="selectPlayer"
+                [ngClass]="{'no-value': !selectedPlayerModel}"
+                (change)="onPlayerUpdate()"
+                [(ngModel)]="selectedPlayerModel"
+                data-crlat="playerBets.selectPlayerSelect">
+          <option [i18n]="'yourCall.selectPlayerPlaceholder'"
+                  data-crlat="playerBets.selectPlayerOption" value="null"></option>
+          <option *ngFor="let item of market.filteredPlayers; trackBy: trackByPlayers;" [ngValue]="item">{{ item.name }}</option>
+        </select>
+      </custom-select>
+    </li>
+    <li class="player-bets-step select-statistic-step"
+        *ngIf="obtainedPlayerFeed?.length"
+        data-crlat="playerBets.selectStatisticSection">
+      <label data-crlat="playerBets.selectStatisticText">{{ statLabel }}</label>
+      <div class="select-statistic-container" data-crlat="selectStatisticContainer">
+        <custom-select>
+          <select class="form-control player-bets-select"
+                  name="selectStat"
+                  [ngClass]="{'no-value': !selectedStatModel}"
+                  [(ngModel)]="selectedStatModel"
+                  (change)="onStatsUpdate()"
+                  data-crlat="playerBets.selectStatistic">
+            <option [i18n]="'yourCall.selectStatisticPlaceholder'" data-crlat="playerBets.selectStatistic.option" value="null"></option>
+            <option *ngFor="let item of obtainedPlayerFeed; trackBy: trackByFeed" [ngValue]="item">{{ item.title }}</option>
+          </select>
+        </custom-select>
+        <custom-select>
+          <select class="form-control player-bets-select"
+                  name="selectStatValue"
+                  [ngClass]="{'no-value': !selectedStatValuesModel, 'no-data': !obtainedStatValuesToDisplay?.length}"
+                  (change)="onStatValueChange()"
+                  [(ngModel)]="selectedStatValuesModel"
+                  data-crlat="playerBets.selectStatistic.value">
+            <option *ngFor="let item of obtainedStatValuesToDisplay; trackBy: trackByStats;" [ngValue]="item">{{ item }}+</option>
+          </select>
+        </custom-select>
+      </div>
+    </li>
+    <div class="player-bets-step done-button-step"
+         *ngIf="selectedStatValuesModel && !hideButton">
+      <button class="one-row-btn btn-bet btn-act-bg"
+              [i18n]="'yourCall.addToBet'"
+              (click)="done()"
+              data-crlat="playerBets.addToBetButton">
+      </button>
+    </div>
+  </ul>
+</form>

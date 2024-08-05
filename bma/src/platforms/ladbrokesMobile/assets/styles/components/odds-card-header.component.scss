@@ -1,0 +1,25 @@
+@import 'global.variables.scss';
+@import '../../../../../app/shared/components/oddsCardHeader/odds-card-header.component.scss';
+
+.odds-card-header {
+  color: $color-gray-darkest;
+  text-transform: uppercase;
+  padding: 3px 9px 3px 12px;
+  min-height: 26px;
+  background: $color-white;
+  border-top: 1px solid $lGrayLight;
+  border-bottom: 0;
+
+  .odds-header-title {
+    text-transform: uppercase;
+  }
+
+  .odds-header-col {
+    font-weight: normal;
+    font-size: $font-size-md;
+  }
+
+  .matches-card .container-inner-content:first-child > odds-card-header & {
+    border-top: none;
+  }
+}

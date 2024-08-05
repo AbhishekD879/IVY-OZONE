@@ -1,0 +1,89 @@
+<div *ngIf="isBYBChecked && isFlagChecked" class="promotion-icons-wrapper">
+<div *ngIf="mulSignPosts" style="display: flex;">
+  <cashout-label *ngIf="cashoutAvailable && sport !='sport'" class="promotion-icon-container"
+    [mode]="mode">
+  </cashout-label>
+
+  <lazy-component
+    [inputs]="{ isLazyBIRSignpost: true, type, display, marketName, isHeaderBIRAvailable, 
+      eventDrillDownTags, showBIRSignPost, mode, isAnyIconAvailable, iconsCount }"
+      [outputs]="['iconCountUpdated']" (event)="handleLazyPromotionIconEvent($event)"
+    moduleUri="@lazy-modules-module/lazyPromotionIcons/lazy-promotion-icons.module#LazyPromotionIconsModule"
+    entryComponent="LazyPromotionIconsComponent" (init)="lazyPromotionComponentLoaded()">
+  </lazy-component>
+  
+  <div *ngIf="buildYourBetAvailable || (signpostIconDisplay ==='buildYourBetAvailable')"
+       class="promotion-icon-container">
+    <byb-label [mode]="mode"></byb-label>
+  </div>
+
+  <div *ngIf="(isGpAvailable && isBogCmsEnabled) || (signpostIconDisplay ==='isGpAvailable')" class="promotion-icon-container event-card-label-wrapper"
+       [ngClass]="bogIconStyle ? 'bog-promotion' : 'middle-icon'"
+       (click)="bogAction($event)" data-crlat="bogIcon">
+    <svg class="event-card-label bog-text"><use xlink:href="#bog-text"></use></svg>
+  </div>
+
+  <div class="prom-icons" *ngIf="(isPromoSignpostingEnabled && available) && (mulSignPosts)" data-crlat="promotionIcons">
+    <ng-container *ngFor="let icon of promoIcons; trackBy: trackByPromoIcon">
+      <ng-container *ngIf="icon.iconId">
+        <div class="prom-icon"
+             *ngIf="mode === 'big'" (click)="iconAction($event, icon)"
+             [ngClass]="{ 'big-icon': mode === 'big' }">
+          <div class="prom-icon-container" data-crlat="promotionIcons">
+            <svg [ngClass]="icon.flagName" class="select-arrow" [attr.data-crlat]="'promotionIcon.' + icon.flagName">
+              <use [attr.xlink:href]="icon.iconId"></use>
+            </svg>
+          </div>
+        </div>
+
+        <div *ngIf="mode !== 'big'"
+             class="promotion-icon-container event-card-label-wrapper promotion-icon-margin"
+             [ngClass]="{ 'small-icon': mode === 'sm',
+                          'middle-icon': mode === 'md',
+                          'mini-icon': mode === 'mini', 'small-icon-margin':disablePopUp && mode === 'sm','gery-two-up':isTwoUpSettlementDone === 0 }"
+             (click)="!disablePopUp && iconAction($event, icon)">
+          <svg class="event-card-label" [ngClass]="icon.flagName" [attr.data-crlat]="'promotionIcon.' + icon.flagName">
+                 <use [attr.xlink:href]="isTwoUpSettlementDone === 0 ?icon.greyIconId:icon.iconId"></use>
+          </svg>
+          <span class="event-card-text" [ngClass]="{ 'event-card-text-grey': isTwoUpSettlementDone === 0}" [i18n]="'bma.' + icon.promoName">
+          </span>
+        </div>
+        <div class="rectangle-green" [ngClass]="{ 'rectangle-green-mobile': isMobile}" *ngIf="icon.flagName=='two-up' && isTwoUpSettlementDone === 1">
+          <span class="two-up-got-it" [ngClass]="{ 'two-up-got-it-mobile': isMobile}" [i18n]="'bma.gotIt'">
+          </span>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+    <cashout-label *ngIf="(cashoutAvailable || signpostIconDisplay ==='cashoutAvailable') && sport ==='sport'"
+      class="promotion-icon-container" [mode]="mode">
+    </cashout-label>
+  </div>
+  <div class="prom-icons" *ngIf="(isPromoSignpostingEnabled && available) && (!mulSignPosts)">
+    <ng-container *ngFor="let icon of signPostFilteredObj; trackBy: trackByPromoIcon">
+      <ng-container *ngIf="icon.iconId">
+        <div class="prom-icon" *ngIf="mode === 'big'" (click)="iconAction($event, icon)"
+          [ngClass]="{ 'big-icon': mode === 'big' }">
+          <div class="prom-icon-container">
+            <svg [ngClass]="icon.flagName" class="select-arrow" [attr.data-crlat]="'promotionIcon.' + icon.flagName">
+              <use [attr.xlink:href]="icon.iconId"></use>
+            </svg>
+          </div>
+        </div>
+  
+        <div *ngIf="mode !== 'big'" class="promotion-icon-container event-card-label-wrapper" [ngClass]="{ 'small-icon': mode === 'sm',
+                          'middle-icon': mode === 'md',
+                          'mini-icon': mode === 'mini' }" (click)="!disablePopUp && iconAction($event, icon)">
+          <svg class="event-card-label" [ngClass]="icon.flagName" [attr.data-crlat]="'promotionIcon.' + icon.flagName">
+            <use [attr.xlink:href]="icon.iconId"></use>
+          </svg>
+          <span class="event-card-text" [i18n]="'bma.' + icon.promoName">
+          </span>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+  <div *ngIf="singleSignPost">
+    <button class="singleSignPost" (click)="mulSignPostsClick($event)">+{{iconsCount-1}}</button>
+  </div>
+  </div>

@@ -1,0 +1,65 @@
+/* *********************************************************************************************************************
+
+  OBJECTS:
+  So called “cosmetic free design patterns” such as a grid system
+
+********************************************************************************************************************* */
+
+.odds-card .odds-name, .odds-names,
+.col-bordered .col-inner .col-name {
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1.3;
+  padding: 0px 0px 10px 0px;
+}
+.row-pad {
+  padding: 10px;
+
+  .col-bordered {
+
+    &:nth-child(1):last-child .col-inner {
+      .btn-bet {
+        margin-left: 0px;
+      }
+    }
+
+    &:first-child .col-inner {
+      padding-left: 0px;
+
+      .btn-bet {
+        margin-left: 0px;
+      }
+    }
+
+    &:last-child .col-inner {
+      padding-right: 0px;
+
+      .btn-bet {
+        margin-left: 0px;
+      }
+    }
+
+    .col-inner {
+      @include display-flex();
+      @include align-items();
+
+      padding: 10px;
+      height: auto;
+
+      &:first-child {
+        margin-top: 0px;
+        padding-top: 0px;
+        padding-left: 10px;
+      }
+
+      &:last-child {
+        padding-bottom: 0px;
+      }
+    }
+
+    .btn-bet {
+      margin: 0px;
+      position: static;
+    }
+  }
+}

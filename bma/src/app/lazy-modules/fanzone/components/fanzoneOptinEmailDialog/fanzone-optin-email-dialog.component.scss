@@ -1,0 +1,83 @@
+@import "global.variables.scss";
+:host {
+  ::ng-deep .modal-dialog {
+    .modal-content {
+      .modal-header {
+        height: $fanzone-syt-header-height;
+        border-radius: $fanzone-syt-header-border-radius;
+        padding: 18px;
+      }
+      .modal-body {
+        padding: $fanzone-syt-modal-padding;
+      }
+      .modal-footer {
+        text-align: center;
+        border-top: 1px solid $lGrayLight;
+        padding: 12px;
+      }
+    }
+  }
+}
+.optinEmail-Popup-title {
+  height: $fanzone-syt-popup-title-height;
+  margin: 24px 0px 8px 0px;
+  font-family: $fanzone-syt-popup-title-font-family;
+  font-size: $fanzone-syt-popup-font-size;
+  font-weight: $fanzone-syt-popup-font-weight;
+  font-stretch: $fanzone-syt-popup-title-font-stretch;
+  font-style: $fanzone-syt-popup-title-style;
+  line-height: $fanzone-syt-popup-title-style;
+  letter-spacing: $fanzone-syt-popup-title-style;
+  color: $lGray;
+  text-align: left;
+}
+.optinEmail-Popup-text {
+  font-size: 11px;
+  line-height: $fanzone-syt-line-height;
+  letter-spacing: $fanzone-syt-popup-title-style;
+  text-align: left;
+  padding: $fanzone-syt-popup-text-padding;
+  padding-top: 0px;
+  padding-bottom: 12px;
+}
+.optin-email-buttons {
+  @include display-flex();
+  @include justify-content(center);
+  gap: 1rem;
+  margin: 12px 0px;
+}
+.remind-later, .optin-email-button, .dont-show-me {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'Roboto';
+  border: $fanzone-syt-border;
+}
+.remind-later {
+  color: $lGray;
+  font-size: $font-size;
+  background-color: $fanzone-transparent-color;
+}
+.optin-email-button {
+  color: $lGray;
+  font-size: $font-size;
+  padding: 11px 22.7px 10px 23px;
+  height: $fanzone-syt-popup-thirtyFivePx;
+  background-color: $color-yellow-alt;
+  
+}
+.dont-show-me {
+  font-size: 11px;
+  color: $color-blue-alt;
+  background-color: $fanzone-transparent-color;
+}
+@media (max-width: $mobilePoint) {
+  .optinEmail-Popup-title {
+    font-size: 15px;
+  }
+  .optin-email-button, .remind-later {
+    font-size: 13px;
+  }
+  .optinEmail-Popup-text {
+    font-size: $fanzone-syt-popup-font-size;
+  }
+}

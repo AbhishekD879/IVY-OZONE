@@ -1,0 +1,37 @@
+- name: "Create config directories on S3"
+  file:
+    path: "{{ s3_dir }}"
+    state: directory
+  with_items:
+    - "/val/gocd-server"
+    - "/var/gocd-server/gocd_data"
+    - "/var/gocd-server/gocd_user_home"
+  loop_control:
+    loop_var: s3_dir
+
+- name: Remove any existing docker GoServer
+  docker_container:
+    name: GoServer
+    state: absent
+
+# docker run --rm --name=GoServer -it -v /Users/myko/tmp/crlat-web-root.crt:/usr/local/share/ca-certificates/crlat-web-root.crt -v /Users/myko/tmp/gocd-server/docker-entrypoint.d/:/docker-entrypoint.d/ -p 8153:8153 -p 8154:8154 gocd/gocd-server:v17.12.0
+- name: Create GoServer Container
+  docker_container:
+    name: GoServer
+    image: gocd/gocd-server:v17.12.0
+    state: started
+    pull: yes
+    restart_policy: always
+    restart: yes
+    volumes:
+      - "/usr/local/share/ca-certificates/crlat-web-root.crt:/usr/local/share/ca-certificates/crlat-web-root.crt"
+      - "/var/gocd-server/gocd_data:/godata"
+      - "/var/gocd-server/gocd_user_home:/home/go"
+    dns_servers:
+      - "{{ dns_server_ip }}"
+    ports:
+      - "8153:8153"
+      - "8154:8154"
+    dns_servers:
+    - "{{ dns_server_ip }}"
+    command: sh -c 'set +e; update-ca-certificates; /docker-entrypoint.sh'

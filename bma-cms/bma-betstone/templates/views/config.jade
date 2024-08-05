@@ -1,0 +1,73 @@
+extends ../layout/base
+
+block intro
+  .page-header
+    h1 Config
+
+block content
+  script(src="/keystone/js/lib/angular/bower_components/angular/angular.min.js")
+  script(src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js")
+  script(src="/keystone/js/lib/angular/bower_components/ngDialog/js/ngDialog.min.js")
+  link(href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css", rel="stylesheet")
+  link(href="/keystone/js/lib/angular/bower_components/ngDialog/css/ngDialog.css", type="text/css", rel="stylesheet")
+  link(href="/keystone/js/lib/angular/bower_components/ngDialog/css/ngDialog-theme-default.css", type="text/css", rel="stylesheet")
+
+  script(src="/keystone/js/lib/angular/bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.js")
+  script(src="/keystone/js/lib/angular/bower_components/moment/min/moment.min.js")
+  script(src="/keystone/js/lib/angular/bower_components/ng-file-upload/ng-file-upload.min.js")
+  script(src="/keystone/js/lib/angular/systemConfiguration.js")
+
+  link(href="/keystone/js/lib/angular/bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.css", type="text/css", rel="stylesheet")
+  script.
+    window.config = !{JSON.stringify(config)}
+  div(ng-app="systemConfiguration")
+    div(ng-controller='configCtrl', id='systemConfigurationContainer')
+
+      button(class="btn btn-default btn-create btn-create-item", ng-click="addGroup();")
+        span(class="ion-plus-round mr-5")
+        span new group
+
+      div(ng-repeat="(key, value) in config")
+        h3(class="form-heading") {{key}}
+          button(ng-click="removeField(key);", class="btn") remove group
+        div(ng-repeat="(k, val) in value", class="field")
+          div(class="field-ui field-size-small")
+            input(type="text", class="form-control", ng-model="config[key][k].name")
+          div(class="field-ui field-size-small")
+            select(class="form-control", ng-model="config[key][k].type")
+              option(ng-repeat="type in fieldTypes") {{type}}
+
+          div(class="field-ui field-size-small")
+            input(
+              type="checkbox",
+              ng-show="config[key][k].type === 'checkbox'",
+              class="ng-hide",
+              ng-model="config[key][k].value",
+              ng-true-value="true",
+              ng-false-value="false"
+            )
+            input(
+              type="text",
+              ng-show="config[key][k].type !== 'checkbox'",
+              class="ng-hide form-control",
+              ng-model="config[key][k].value"
+            )
+            input(
+              type="text",
+              placeholder="multiselect is empty"
+              ng-show="config[key][k].type === 'input with multiselect'",
+              class="ng-hide form-control",
+              ng-model="config[key][k].multiselectValue"
+            )
+
+          button(ng-click="removeField(key, k);", class="btn") remove
+        div(class="field")
+          div(class="field-ui field-size-small")
+            button(ng-click="addField(key);", class="btn btn-create")
+              span(class="ion-plus-round mr-5")
+              span add
+          div(class="field-ui field-size-small")
+          div(class="field-ui field-size-small")
+          button(class="btn btn-primary submit-button", ng-click="saveData();")
+            span(class="ion-checkmark mr-5")
+            span submit

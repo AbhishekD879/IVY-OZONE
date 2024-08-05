@@ -1,0 +1,9 @@
+<!--Pre match card-->
+<odds-card-pre-match *ngIf="!isLive && !widget" [oddsCard]="this"
+                     [gtmModuleTitle]="gtmModuleTitle" [isFootballCoupon]="isFootballCoupon"></odds-card-pre-match>
+<!--In-play card-->
+<odds-card-inplay *ngIf="isLive && !widget" [oddsCard]="this" [isFootballCoupon]="isFootballCoupon" 
+                  [gtmModuleTitle]="gtmModuleTitle"></odds-card-inplay>
+<!--Desktop favourites widget specific component design (contain mixed design of on-play and pre match cards)-->
+<odds-card-favourite *ngIf="widget" [oddsCard]="this" [isFootballCoupon]="isFootballCoupon" data-crlat="addFavouritesButton"
+                     [gtmModuleTitle]="gtmModuleTitle"></odds-card-favourite>

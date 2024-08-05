@@ -1,0 +1,64 @@
+tst2:
+  qa2:
+    base_host_url: https://qa2.myaccount.ladbrokes.com/
+    labelhost: https://qa2.myaccount.ladbrokes.com/en/api/
+    mobileportal: https://qa2.myaccount.ladbrokes.com/en/mobileportal/api/
+    registration_prefix: 'ukmigct_'
+    nickname_prefix: 'au-lad-'
+    auth_username_prefix: 'ld_'
+    deposit_user_api_tokens: http://api.bwin.com/v3/user/
+    cashier_host: https://trunkia-ladbrokescashier.ivycomptech.co.in/
+    brand_id: LADBROKEUK
+    product_id: SPORTSBOOK
+    channel_id: MW
+    in_shop_user_card_generation: https://tr-lb-gateway.ivycomptech.co.in/product/ums/service/player-management/operation/
+  qa3:
+    base_host_url: https://qa3.myaccount.ladbrokes.com/
+    labelhost: https://qa3.myaccount.ladbrokes.com/en/api/
+    mobileportal: https://qa3.myaccount.ladbrokes.com/en/mobileportal/api/
+    registration_prefix: 'ukmigct_'
+    nickname_prefix: 'au-lad-'
+    auth_username_prefix: 'ld_'
+    deposit_user_api_tokens: http://api.bwin.com/v3/user/
+    cashier_host: https://trunkia-ladbrokescashier.ivycomptech.co.in/
+    brand_id: LADBROKEUK
+    product_id: SPORTSBOOK
+    channel_id: MW
+stg2:
+  base_host_url: https://test.myaccount.ladbrokes.com/
+  labelhost: https://test.myaccount.ladbrokes.com/en/api/
+  mobileportal: https://test.myaccount.ladbrokes.com/en/mobileportal/api/
+  registration_prefix: 'ukmigct_'
+  nickname_prefix: 'au-lad-'
+  auth_username_prefix: 'ld_'
+  deposit_user_api_tokens: http://api.bwin.com/v3/user/
+  cashier_host: https://cashier.ladbrokes.com.e7new.com/
+  brand_id: LADBROKEUK
+  product_id: SPORTSBOOK
+  channel_id: MW
+beta:
+  base_host_url: https://beta-myaccount.ladbrokes.com/
+  labelhost: https://beta-myaccount.ladbrokes.com/en/api/
+  mobileportal: https://beta-myaccount.ladbrokes.com/en/mobileportal/api/
+  registration_prefix: 'testgvcld_'
+  nickname_prefix: 'au-lad-'
+  auth_username_prefix: 'ld_'
+  deposit_user_api_tokens: http://api.bwin.com/v3/user/
+  cashier_host: https://payments.ladbrokes.com/
+  brand_id: LADBROKEUK
+  product_id: SPORTSBOOK
+  channel_id: MW
+  in_shop_user_card_generation: https://lb-gateway.partygaming.com/product/ums/service/player-management/operation/
+prod:
+  base_host_url: https://myaccount.ladbrokes.com/
+  labelhost: https://myaccount.ladbrokes.com/en/api/
+  mobileportal: https://myaccount.ladbrokes.com/en/mobileportal/api/
+  registration_prefix: 'testgvcld_'
+  nickname_prefix: 'au-lad-'
+  auth_username_prefix: 'ld_'
+  deposit_user_api_tokens: http://api.bwin.com/v3/user/
+  cashier_host: https://payments.ladbrokes.com/
+  brand_id: LADBROKEUK
+  product_id: SPORTSBOOK
+  channel_id: MW
+  in_shop_user_card_generation: https://lb-gateway.partygaming.com/product/ums/service/player-management/operation/

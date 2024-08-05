@@ -1,0 +1,98 @@
+{
+  "id": "14461070",
+  "name": "|Inter Milan Esoccer| |0-0| |borussia Dortmund Esoccer|",
+  "eventStatusCode": "A",
+  "isActive": "true",
+  "isDisplayed": "true",
+  "displayOrder": "0",
+  "siteChannels": "P,Q,C,U,I,M,",
+  "eventSortCode": "MTCH",
+  "startTime": "2020-04-07T19:18:00Z",
+  "rawIsOffCode": "Y",
+  "isStarted": "true",
+  "classId": "3092",
+  "typeId": "101969",
+  "sportId": "16",
+  "liveServChannels": "sEVENT0014461070,",
+  "liveServChildrenChannels": "SEVENT0014461070,",
+  "categoryId": "16",
+  "categoryCode": "FOOTBALL",
+  "categoryName": "|Football|",
+  "categoryDisplayOrder": "-10015",
+  "className": "|ESoccer|",
+  "classDisplayOrder": "-10000",
+  "classSortCode": "FB",
+  "typeName": "|Battle ESoccer| |-| |8 Min Matches|",
+  "typeDisplayOrder": "-31800",
+  "typeFlagCodes": "IVA,",
+  "isOpenEvent": "true",
+  "isLiveNowEvent": "true",
+  "isLiveNowOrFutureEvent": "true",
+  "drilldownTagNames": "EVFLAGBL,",
+  "isAvailable": "true",
+  "cashoutAvail": "Y",
+  "children": [
+    {
+      "eventPeriod": {
+        "id": "11817181",
+        "eventId": "14461070",
+        "periodCode": "ALL",
+        "description": "Total Duration of the game/match",
+        "startTime": "2020-04-07T19:18:20Z",
+        "children": [
+          {
+            "eventPeriodClockState": {
+              "id": "9553721",
+              "eventPeriodId": "11817181",
+              "offset": "0",
+              "lastUpdate": "2020-04-07T19:18:19Z",
+              "state": "S"
+            }
+          },
+          {
+            "eventFact": {
+              "id": "24221420",
+              "eventId": "14461070",
+              "eventParticipantId": "1923724",
+              "eventPeriodId": "11817181",
+              "fact": "2",
+              "factCode": "SCORE",
+              "name": "Score of the match/game"
+            }
+          },
+          {
+            "eventFact": {
+              "id": "24221421",
+              "eventId": "14461070",
+              "eventParticipantId": "1923725",
+              "eventPeriodId": "11817181",
+              "fact": "0",
+              "factCode": "SCORE",
+              "name": "Score of the match/game"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "eventParticipant": {
+        "id": "1923724",
+        "eventId": "14461070",
+        "name": "Inter Milan (PASHOK75)",
+        "type": "T",
+        "roleCode": "HOME",
+        "role": "Home Team"
+      }
+    },
+    {
+      "eventParticipant": {
+        "id": "1923725",
+        "eventId": "14461070",
+        "name": "Borussia Dortmund (TAKA)",
+        "type": "T",
+        "roleCode": "AWAY",
+        "role": "Away Team"
+      }
+    }
+  ]
+}

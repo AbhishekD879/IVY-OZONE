@@ -1,0 +1,67 @@
+@import 'global.variables.scss';
+
+.lancher-container {
+  @include display-flex();
+  @include justify-content(space-between);
+  @include align-items();
+
+  .lancher-middle-content {
+    font-family: $alt-font-family;
+    color: $color-white;
+    flex: 1;
+
+    .launcher-title {
+      font-size: $font-size-lg;
+      height: 17px;
+      margin: 10px 12px;
+      font-weight: bold;
+    }
+    .launcher-content {
+      font-size: $font-size-tablet;
+      margin: 10px 12px;
+    }
+  }
+
+  .lancher-right-content {
+    font-family: $base-font-family;
+    width: 19%;
+    font-size: $font-size-lg;
+    margin-right: 18px;
+    .rectangle {
+      width: 59px;
+      height: 30px;
+      margin: 29px 0 30px;
+      padding: 6px 12px;
+      border-radius: 14px;
+      border: solid 1px $color-white;
+      background-color: $color-blue-selected;
+      .build {
+        color: $color-white;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .lancher-left-content {
+    width: 19%;
+    .five-a-side-icon {
+      width: 47px;
+      height: 70px;
+      margin-left: 18px
+    }
+  }
+}
+.bg-l-img {
+ position: absolute;
+ opacity: 5;
+}
+.mrgn{
+  width: 153px;
+  height: 150px;
+  margin: 0 91px 0 90px; 
+  padding: 0 18px;
+}
+.mask {
+  margin: 10px 4px;
+  background-image: linear-gradient(to top, #04604a -13%, #018e6e 150%);
+}

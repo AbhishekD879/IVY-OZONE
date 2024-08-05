@@ -1,0 +1,131 @@
+@import 'global.variables.scss';
+
+.race-market {
+  position: relative;
+
+  .race-market-content {
+    box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15)
+  }
+
+  .race-market-header {
+    .header-wrapper {
+      @include display-flex();
+      @include justify-content(flex-end);
+      @include align-items(center);
+      margin: 0;
+      padding: 0 12px 0 0;
+      background-color: $color-gray-light;
+      min-height: 35px;
+
+      @media (min-width: $tabletPoint) {
+        min-height: 27px;
+      }
+      li {
+        min-width: 65px;
+        list-style-type: none;
+        text-align: center;
+        font-size: $font-size-sm;
+        font-family: $base-font-family;
+        color: $color-gray-dark;
+        text-transform: uppercase;
+        margin-left: 6px;
+
+        @media (min-width: $odds-button-big-size) {
+          min-width: $price-odd-btn-min-width-1600;
+        }
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+  .btn.btn-bet,
+  .btn-bet {
+    width: 50px;
+    //disabled
+    &.active[disabled], &.bet-up[disabled],
+    &.bet-down[disabled], &.bet-dis[disabled],
+    &[disabled] {
+      width: 50px;
+    }
+  }
+
+  .price-odds-wrapper {
+    margin-left: 6px;
+  }
+
+  .odds-card{
+    box-shadow: none;
+  }
+
+  .new-race-card {
+    padding: 10px 12px;
+    .odds-content .odds-left {
+      .odds-side {
+        width: 20px;
+        margin-right: 8px;
+      }
+      .silk-img {
+        width: 40px;
+        margin: 0 10px 0 0;
+      }
+      gh-silk {
+        margin: 0 10px 0 0;
+      }
+      .odds-names-list {
+        .horse-star {
+          display: inline-flex;
+          flex-direction: row;
+         .start-rating {
+           margin-left: 8px;
+           padding: 0 5px;
+           letter-spacing: 1px;
+           color: $color-yellow-alt;
+           border: 1px solid $color-yellow-alt;
+           border-radius: 2px;
+           height: 15px;
+           line-height: 14px;
+           font-family: $base-font-family;
+           font-size: $font-size;
+           vertical-align: baseline;
+           display: inline-block;
+        
+           .star-icon {
+            width: 10px;
+            height: 9px;
+            fill: $color-yellow-alt;
+            }
+          }
+       }
+        .odds-normal {
+          line-height: 17px;
+        }
+     }
+    }
+  }
+}
+
+.sort-by-enabled .race-market {
+  margin-top: 0;
+}
+
+.race-card.odds-card .odds-content .odds-names {
+  font-size: $font-size-tablet;
+  font-weight: bold;
+  margin: 0 5px 0 0;
+}
+
+:host ::ng-deep { 
+  .toggle-icon {
+    padding-left: 0px;
+  }
+  .showMoreLess {
+    padding-right: 4px;
+  }
+  .chevron {
+    margin-left: 0px !important;
+  }
+  .form-guide-color {
+    margin-right: 4px;
+}
+}

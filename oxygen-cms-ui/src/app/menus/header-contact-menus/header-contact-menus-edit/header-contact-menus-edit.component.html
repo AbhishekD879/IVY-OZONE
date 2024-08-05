@@ -1,0 +1,100 @@
+<breadcrumbs *ngIf="headerContactMenu" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="headerContactMenu">
+  <div class="header">
+    <h2 class="has-activity-badge">Header Contact Menu:
+      <span class="font-italic">{{headerContactMenu.linkTitle}}</span>
+      <create-updated-at-by [collection]="headerContactMenu"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="headerContactMenu.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="headerContactMenu">
+  <form [formGroup]="form" novalidate>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-4">
+          <mat-checkbox color="primary" formControlName="disabled"
+                        (change)="headerContactMenu.disabled=!headerContactMenu.disabled">Active</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-checkbox color="primary"
+                        (change)="headerContactMenu.inApp=!headerContactMenu.inApp" formControlName="inApp">In App</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-checkbox color="primary" formControlName="authRequired"
+                        (change)="headerContactMenu.authRequired=!headerContactMenu.authRequired">Auth Required</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Link Title*
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Link Title" [(ngModel)]="headerContactMenu.linkTitle" formControlName="linkTitle" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+              Target Uri*
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Target Uri" [(ngModel)]="headerContactMenu.targetUri" formControlName="targetUri" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+              Start Url
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Start Url" [(ngModel)]="headerContactMenu.startUrl" formControlName="startUrl">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Label
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Label" [(ngModel)]="headerContactMenu.label" formControlName="label">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            System ID
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="System ID" [(ngModel)]="headerContactMenu.systemID" formControlName="systemID">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="headerContactMenu"
+  [form]="form"
+  [fieldOrItemName]="'linkTitle'"
+  [collection]="headerContactMenu"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

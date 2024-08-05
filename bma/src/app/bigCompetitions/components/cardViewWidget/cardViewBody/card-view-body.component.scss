@@ -1,0 +1,163 @@
+@import 'global.variables.scss';
+
+//CARD BODY
+card-view-body:host {
+  @include flex-flow(column);
+  @include justify-content(space-between);
+  display: block;
+  height: 94px;
+  background-color: $color-white;
+  cursor: pointer;
+  border-radius: $border-radius $border-radius 0 0;
+  position: relative;
+
+  a {
+    text-decoration: none;
+    outline: none;
+  }
+
+  .market-name {
+    bottom: 4px;
+    position: absolute;
+    width: 100%;
+    text-transform: uppercase;
+    font-family: $base-font-family;
+    font-size: $font-size-xs;
+    font-weight: bold;
+    text-align: center;
+    color: lighten($color-gray-dark, 50%);
+  }
+
+  .card-main-body {
+    @include display-flex();
+    @include flex-flow();
+    @include justify-content(space-between);
+    position: relative;
+    text-align: center;
+    height: 25px;
+  }
+
+  .card-view-inplay {
+    background: url(/assets/images/inplay-hero-card-bg.png) center no-repeat;
+    background-size: cover;
+    color: $color-white;
+    display: block;
+    height: 94px;
+
+    .card-main-body {
+      height: 20px;
+    }
+
+    .card-more-link {
+      border-color: $color-white;
+      color: $color-white;
+    }
+
+    .card-watch-live-icon {
+      fill: $color-white;
+    }
+  }
+
+  .card-more-link-container {
+    @include display-flex();
+    @include justify-content();
+    bottom: 10px;
+    position: absolute;
+    width: 100%;
+
+    &.hero-card-more {
+      bottom: 18px;
+    }
+  }
+
+  .card-more-link {
+    @include display-flex();
+    @include justify-content();
+
+    border-bottom: 1px solid $color-gray-dark;
+    font-size: 9px;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: $color-gray-dark;
+
+    .card-markets-count {
+      padding-left: 2px;
+    }
+
+    &:hover {
+      text-decoration: none;
+
+      .card-markets-count {
+        border-bottom: 1px solid;
+        margin-bottom: -1px;
+      }
+    }
+  }
+
+  .card-watch-live-icon {
+    stroke: $color-gray-dark;
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+    stroke-width: 0px;
+    fill: $color-gray-dark;
+  }
+
+  .card-watch-live-icon-container {
+    margin: 5px;
+  }
+  .card-favorite-icon-container {
+    .star-item {
+      display: block;
+      padding: 5px;
+    }
+
+    .odds-fav-icon {
+      margin-right: 0;
+    }
+  }
+
+  .card-fav-icon {
+    position: absolute;
+    margin-right: 0;
+    cursor: pointer;
+
+    .fav-icon-svg {
+      stroke: $color-gray-dark;
+      stroke-width: 2px;
+      width: 15px;
+      height: 15px;
+      fill: none;
+    }
+  }
+
+  // Hero event view (single event)
+  &.single-event {
+    border-radius: 2px 2px 0 0;
+    height: 102px;
+
+    .card-view-inplay {
+      height: 102px;
+    }
+
+    .card-main-body {
+      height: 28px;
+    }
+
+    .card-watch-live-icon-container {
+      margin: 10px;
+
+      .card-watch-live-icon {
+        height: 15px;
+        width: 15px;
+      }
+    }
+
+    .star-item {
+      display: block;
+      padding: 9px;
+    }
+  }
+}
+

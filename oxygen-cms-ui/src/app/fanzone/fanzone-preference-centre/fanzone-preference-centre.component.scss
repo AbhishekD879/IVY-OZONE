@@ -1,0 +1,35 @@
+.fz-preference-container {
+    table {
+      thead {
+        th {
+          border: none;
+          padding: 10px !important;
+          text-align: center;
+          color: #fff;
+          border: 1px solid #eee;
+        }
+      }
+      tbody {
+        .pref-field {
+          padding: 10px !important;
+          position: relative;
+          border: 1px solid #ccc;
+          input {
+            width: 100%;
+            border: none;
+          }
+        }
+        .actn-btn-abs {
+          cursor: pointer;
+          position: absolute;
+          right: 10px;
+          bottom: 5px;
+        }
+        .add-pref {
+          cursor: pointer;
+          width: 30px;
+        }
+      }
+    }
+  }
+  

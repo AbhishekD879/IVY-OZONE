@@ -1,0 +1,35 @@
+@import 'global.variables.scss';
+@import '../../../../../app/questionEngine/assets/styles/general.scss';
+
+$color-bright-yellow: #fdf001;
+$color-dark-red: #a4161c;
+$tabSwitcherBorder: rgba(0, 0, 0, 0.15);
+
+.tab-content-latest, .tab-content-previous {
+  .no-game-wrapper {
+    .no-game-title {
+      text-transform: uppercase;
+      color: $color-black;
+      opacity: 0.3;
+      font-size: 26px;
+    }
+    .no-game-subtitle {
+      font-weight: normal;
+    }
+  }
+}
+.qe-header {
+  .logo {
+    height: 20px;
+    margin: 0 auto 30px;
+  }
+}
+
+.qe-btn-back {
+  @include inline-flex();
+  @include align-items();
+  height: 45px;
+  min-width: 45px;
+  margin-top: 0;
+  margin-bottom: 15px;
+}

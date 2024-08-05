@@ -1,0 +1,102 @@
+@import 'global.variables.scss';
+@import './euro-mixin.scss';
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @include body-mixin(50px, 20px, 20px, 10px, $color-blue);
+}
+
+hr {
+  color: $color-white;
+  margin: 0
+}
+
+.container-works {
+  background-color: $color-blue;
+  width: 100%;
+  padding: 5px 0px;
+
+  .howItWorksHeader {
+    @include how-it-works-mixin($how-it-works-bg-color, 0, auto, $color-white, 95%, 3%, 5px, 30px, middle, 14px, 200);
+    .text-area {
+      @include relative-positioning-mixin(relative, 0, 0, 0, 10px);
+      cursor: pointer;
+    }
+    .nextArrowSvg {
+      @include height-width-mixin(10px, 10px);
+      fill: $color-white;
+      margin-bottom: 10px;
+    }
+    .icons-area {
+      float: right;
+      @include height-width-mixin(10px, 25px);
+      text-align: center;
+      margin-top: -20px;
+    }
+  }
+}
+
+.termsAndConditions {
+  @include body-mixin(20px, 10px, 20px, 10px, $color-blue);
+  width: 100%;
+  color: $color-white;
+  font-size: 10px;
+  font-weight: 400;
+  .tcHeader {
+    height: 35px;
+    font-size: $font-size;
+  }
+  .tcContent {
+    margin-bottom: 10px;
+    font-weight: 200;
+  }
+}
+
+a {
+  text-decoration: underline;
+  color: $color-white;
+}
+
+a:hover {
+  text-decoration: none;
+  cursor: pointer;
+  color: $color-white;
+}
+
+.error-messages {
+  padding: 15px;
+  text-align: center;
+}
+
+.container {
+  background-color: $color-blue;
+  text-align: center;
+  width: 85%;
+  height: 100px;
+  background-image: url("/assets/images/MatchDay_Rewards_White.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.outer-container {
+  background-color: $color-blue;
+}
+
+.confetti-anime {
+  position: fixed;
+  top: 0;
+  z-index: 201;
+
+  img {
+    width: 100vw;
+  }
+}
+
+@media (min-width: 450px) {
+  .confetti-anime {
+    display: none;
+  }
+}

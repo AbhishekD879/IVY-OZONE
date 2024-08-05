@@ -1,0 +1,301 @@
+@import 'global.variables.scss';
+@import '../../../../shared/components/priceOddsButton/price-odds-button.component.scss';
+
+$racing-font-style: none;
+
+//
+// Racing post tip
+//----------------------------------------------------------------------
+.po-red {
+  height: 10px;
+  width: 10px;
+  background-color: $color-white;
+  border-radius: 50%;
+  display: inline-block;
+  border: 2px solid $color-red;
+  position: relative;
+  top: 0.5px;
+  margin: 0 0.1%;
+}
+
+@mixin font-styles() {
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0px;
+  color: $color-gray-dark;
+}
+
+button {
+  height: 10px !important;
+}
+
+.race-tip-container {
+  background: $color-white;
+  margin: 15px 12px 12px 12px;
+  box-sizing: border-box;
+  ;
+  font-family: 'Lato';
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+  .tip-header {
+    @include display-flex();
+    @include align-items(center);
+    @include flex-direction(row);
+    box-sizing: border-box;
+    height: 36px;
+    width: 100%;
+    background-color: $color-blue;
+    color: $color-white;
+
+    .r-tip {
+      width: 50%;
+      font-weight: bold;
+      padding-left: 8px;
+      font-size: 12px;
+      &-header {
+        strong {
+          font-family: sans-serif;
+          font-weight: 800;
+        }
+      }
+
+      .ttp {
+        margin-left: 3px;
+        width: 51px;
+        height: 13px;
+        font-family: 'Lato';
+        font-size: 11px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: center;
+      }
+    }
+
+    .r-link {
+      @include display-flex();
+      justify-content: flex-end;
+      width: 50%;
+      font-size: 11px;
+
+      .racetip_right {
+        margin-right: 12px;
+
+        a.race_r_title {
+          position: relative;
+          right: 3px;
+          color: $color-white;
+          font-family: 'Lato';
+          font-size: 11px;
+          font-weight: bold;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: normal;
+          letter-spacing: 0px;
+
+          svg {
+            width: 8px;
+            height: 9px;
+            stroke: $color-white;
+            stroke-width: 3px;
+            fill: $color-white;
+            margin: 0px 0 0px 2px;
+          }
+        }
+      }
+    }
+  }
+
+  .race-tip-body {
+    margin-top: 12px;
+
+    .tip-bdy {
+      font-family: 'Helvetica Neue';
+      .tip-horse {
+        @include display-flex();
+        @include align-items(center);
+
+        .bitmap {
+          width: 40px;
+          height: 40px;
+          position: relative;
+          margin: 12px 0px 0px 0px;
+        }
+
+        &-left {
+          width: 78%;
+          display: flex;
+          align-items: center;
+
+          .silkImage {
+            width: 25%;
+            display: flex;
+            justify-content: center;
+          }
+
+          .horse-info {
+            width: 70%;
+            @include display-flex();
+            @include flex-direction(column);
+
+            .info1 {
+              font-family: 'Lato';
+              font-size: 12px;
+              @include font-styles();
+            }
+
+            .info2 {
+              font-family: 'Lato';
+              font-size: 15px;
+              @include font-styles();
+            }
+
+            .info3 {
+              font-family: 'Lato';
+              font-size: 12px;
+              @include font-styles();
+            }
+          }
+        }
+
+        .btn-bet {
+          width:20%;
+          position: relative;
+          right:8px;
+        }
+      }
+
+      .tip-odd {
+        @include display-flex();
+        @include flex-direction(column);
+        @include align-items(center);
+
+        .bg-odd {
+          text-align: center;
+          line-height: 35px;
+          width: 50px;
+          height: 40px;
+          background-image: $bet-btn-bg;
+          border: 1px solid $color-gray-darker;
+          color: $color-gray-dark;
+          border-radius: 3px;
+          font-size: 12px;
+          font-family: $base-font-family;
+          font-weight: bold;
+          outline: none;
+          right: 6px;
+          top: 12px;
+          margin: 12px 12px 0px 0px;
+          padding: 12px 0 12.5px;
+          border-radius: 2px;
+          background-image: linear-gradient(190deg, #f7f8fb 95%, #dbdee7 -43%);
+          cursor: pointer;
+          position: relative;
+        }
+      }
+    }
+  }
+
+  .conditional-jockey {
+    display: flex;
+    font-size: 12px;
+    color: $color-black !important;
+    margin: 19px 0 13px;
+    padding: 12px;
+    @include font-styles();
+    letter-spacing: -0.01px;
+  }
+
+  .path {
+    .path-title {
+      font-weight: bold;
+      color: $color-black;
+      padding: 0 12px 8px 12px;
+      font-size: 11px;
+      strong {
+        font-family: sans-serif;
+        font-weight: 800!important;
+      }
+    }
+  }
+}
+
+.noMargin {
+  margin: 0px !important;
+}
+
+.po-red1 {
+  height: 9px;
+  width: 9px;
+  background-color: $color-white;
+  border-radius: 50%;
+  display: inline-block;
+  border: 2px solid $color-red;
+  position: relative;
+  top: 1px;
+  margin:0 0.1%;
+}
+
+@media screen and (min-width: 1200px) {
+  .racetip_right {
+    margin-right: 3px !important;
+  }
+}
+
+@media screen and (max-width: $desktopPoint) {
+  .race-tip-container {
+    .tip-header {
+      .r-tip {
+        width: 49%;
+      }
+
+      .r-link {
+        @include display-flex();
+        width: 51%;
+      }
+    }
+  }
+
+  .racetip_right {
+    margin-right: 0px !important;
+  }
+}
+
+@media screen and (max-width: $mobileSmallPoint) {
+  .race-tip-container {
+    margin: 6px 11px 6px;
+    .conditional-jockey {
+      margin: 6px 0 13px;
+    }
+  }
+}
+
+@media screen and (min-width:350px) and (max-width: 420px) {
+  .race-tip-container {
+    margin: 6px 11px 6px;
+    .conditional-jockey {
+      margin: 6px 0 13px;
+    }
+  }
+}
+
+@media screen and (min-width:401px) and (max-width: 420px) {
+  .race-tip-container {
+    margin: 6px 11px 6px;
+    .conditional-jockey {
+      margin: 6px 0 13px;
+    }
+  }
+}
+
+@media screen and (min-width:421px) and (max-width: 430px) {
+  .race-tip-container {
+    margin: 6px 11px 6px;
+    .conditional-jockey {
+      margin: 6px 0 13px;
+    }
+  }
+}

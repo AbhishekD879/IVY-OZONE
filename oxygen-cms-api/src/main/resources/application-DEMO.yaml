@@ -1,0 +1,17 @@
+# defaults
+spring:
+  profiles.include: LOCAL
+
+app.demo:
+  admin:
+    email: coral
+    password: $2a$10$FC.7PtnXd64yU0rWB410oObH/atD89Ofu1tHLNuDoB1TkM0g7NJB2
+  brand:
+    coral:
+      brandCode: bma
+      title: Coral
+      siteServerEndPoint: https://ss-tst2.coral.co.uk/
+    ladbrokes:
+        brandCode: ladbrokes
+        title: Ladbrokes
+        siteServerEndPoint: https://tst2-backoffice-lcm.ladbrokes.com/

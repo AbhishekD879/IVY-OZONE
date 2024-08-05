@@ -1,0 +1,232 @@
+<breadcrumbs *ngIf="bankingMenu" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="bankingMenu">
+  <div class="header">
+    <h2 class="has-activity-badge">Header Menu:
+      <span class="font-italic">{{bankingMenu.linkTitle}}</span>
+      <create-updated-at-by [collection]="bankingMenu"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="bankingMenu.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="bankingMenu">
+  <form [formGroup]="form" novalidate>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-4">
+          <mat-checkbox color="primary" formControlName="disabled"
+                        (change)="bankingMenu.disabled=!bankingMenu.disabled">Active</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-checkbox color="primary" formControlName="inApp"
+                        (change)="bankingMenu.inApp=!bankingMenu.inApp">In App</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-checkbox color="primary" formControlName="authRequired"
+                        (change)="bankingMenu.authRequired=!bankingMenu.authRequired">Auth Required</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <mat-checkbox color="primary" formControlName="showOnlyOnIOS"
+                        (change)="bankingMenu.showOnlyOnIOS=!bankingMenu.showOnlyOnIOS">Show Only on iOS</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-checkbox color="primary" formControlName="showOnlyOnAndroid"
+                        (change)="bankingMenu.showOnlyOnAndroid=!bankingMenu.showOnlyOnAndroid">Show Only on Android</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Link Title
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Link Title" [(ngModel)]="bankingMenu.linkTitle" formControlName="linkTitle" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Sub Header Text
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Sub Header Text" [(ngModel)]="bankingMenu.subHeader" formControlName="subHeader">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Target Uri
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Target Uri" [(ngModel)]="bankingMenu.targetUri" formControlName="targetUri" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Start Url
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Start Url" [(ngModel)]="bankingMenu.startUrl" formControlName="startUrl">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            QA
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="QA" [(ngModel)]="bankingMenu.qa" formControlName="qa" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            System ID
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="System ID" [(ngModel)]="bankingMenu.systemID" formControlName="systemID">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Section
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Section" (selectionChange)="onSectionChanged($event)" formControlName="section">
+              <mat-option *ngFor="let section of sections" [value]="section">
+                {{ section | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Type
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Type" (selectionChange)="onTypeChanged($event)" formControlName="type">
+              <mat-option *ngFor="let type of types" [value]="type">
+                {{ type | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <cms-upload
+            [filename]="bankingMenu.filename"
+            (onImageUpload)="uploadImageHandler($event)"
+            (onImageRemove)="removeImageHandler()">
+          </cms-upload>
+        </div>
+      </div>
+      <div class="row">
+        <ng-container *ngIf="isIMActive; else cmsUpload">
+          <div class="col-md-2">
+            <span class="mat-label">SVG Icon</span>
+          </div>
+          <div class="col-md-6">
+            <svg-icon-select-input
+              [formFieldsModels]="bankingMenu"
+              [externalForm]="form"
+            ></svg-icon-select-input>
+          </div>
+        </ng-container>
+        <ng-template #cmsUpload>
+          <div class="col-md-12">
+            <cms-upload
+              [label]="'SVG Filename'"
+              [filename]="bankingMenu.svgFilename"
+              (onImageUpload)="uploadSvgHandler($event)"
+              (onImageRemove)="removeSvgHandler()">
+            </cms-upload>
+          </div>
+        </ng-template>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Show Item For
+          </span>
+        </div>
+        <div class="col-md-6">
+          <customer-variants-select
+            [optionsType]="'loggedIn'"
+            [customerType]="bankingMenu.showItemFor"
+            (onChange)="onShowModeChanged($event)">
+          </customer-variants-select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Menu Item View
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Menu Item View" (selectionChange)="onViewModeChanged($event)" formControlName="menuItemView">
+              <mat-option *ngFor="let mode of viewModes" [value]="mode">
+                {{ mode | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Icon Alignment
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Icon Alignment" (selectionChange)="onAlignmentModeChanged($event)" formControlName="iconAligment">
+              <mat-option *ngFor="let mode of alignmentModes" [value]="mode">
+                {{ mode | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="bankingMenu"
+  [form]="form"
+  [fieldOrItemName]="'linkTitle'"
+  [collection]="bankingMenu"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

@@ -1,0 +1,10 @@
+<div class="row" *ngIf="runnerImages">
+  <div class="col-sm-2 col-4 image-container" *ngFor="let image of runnerImages">
+    <img [src]="absoluteUrl(image)" alt="Failed to load an image" onerror="this.style.display='none'"
+         class="img-responsive img-silk"/>
+    <div class="image-caption">{{image.filename}}</div>
+    <button mat-button type="button" class="btn btn-danger bg-teal waves-effect" (click)="removeImageClicked(image)">
+      <mat-icon>delete_forever</mat-icon>
+    </button>
+  </div>
+</div>

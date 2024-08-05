@@ -1,0 +1,50 @@
+<div class="sk-container" [ngClass]="{'sk-loading': state.loading}">
+    <outlet-status [state]="state">
+        <request-error (reloadFn)="reloadComponent()"></request-error>
+    </outlet-status>
+    <ng-container *ngIf="!state.loading && !state.error">
+        <top-bar [title]="titleTranslation" [iconId]="vsIconId"></top-bar>
+        <breadcrumbs></breadcrumbs>
+        <loading-screen [displayed]="showLoader && virtualShowLoader" [templateType]="'GENERIC'">
+        </loading-screen>
+        <ng-container *ngIf="!showLoader && !virtualShowLoader">
+            <ng-container *ngIf="virtualHubSystemConfig.headerBanner">
+                <div class="banner-block">
+                    <!--- Banners Section-->
+                    <banners-section [page]='bannerName'></banners-section>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="virtualHubSystemConfig.topSports && topSportsImages?.length">
+                <div class="virtual-section-wrapper" data-crlat="virtualSectionWrapper">
+                    <virtual-top-sports [topSportsImages]="topSportsImages" [virtualsLiveCount]="virtualsLiveCount"
+                        [topSportsBGImage]="topSportsBGImage"></virtual-top-sports>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="virtualHubSystemConfig.nextEvents">
+                <div id="virtual-nextevents-desktop" class="virtual-section-wrapper" data-crlat="virtualSectionWrapper">
+                    <inspired-virtual-module
+                        *ngIf="VirtualRaceModules && isHorseracingVirtualsEnabled && (VirtualRaceModules.data[0]?.id || VirtualRaceModules.data[0]?.name === 'VRC')"
+                        [virtualsTitle]="'Next Events'" [sportName]="sportName" [eventsData]="VirtualRaceModules.data"
+                        [isVirtualHomePage]='true' [widget]="true" [IsOnlyNextEventEnabled]="IsOnlyNextEventEnabled">
+                    </inspired-virtual-module>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="virtualHubSystemConfig.otherSports && otherSportImages?.length">
+                <div class="virtual-section-wrapper" data-crlat="virtualSectionWrapper">
+                    <virtual-other-sports [otherSportImages]="otherSportImages"
+                        [virtualsLiveCount]="virtualsLiveCount"></virtual-other-sports>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="virtualHubSystemConfig.featureZone && featuredZoneImages?.length">
+                <div class="virtual-section-wrapper" data-crlat="virtualSectionWrapper">
+                    <virtual-feature-zone [virtualHubSystemConfig]="virtualHubSystemConfig"
+                        [featuredZoneOffers]="featuredZoneImages"></virtual-feature-zone>
+                </div>
+            </ng-container>
+        </ng-container>
+    </ng-container>
+</div>

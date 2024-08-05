@@ -1,0 +1,64 @@
+<div class="custom-dialog">
+    <h1 mat-dialog-title>{{dailogTitle}}</h1>
+    <div mat-dialog-content *ngIf="!autoseoPage">
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Page Url" [(ngModel)]="newAutoSeoPage.uri" [value]="newAutoSeoPage.uri" required
+              trim="blur">
+            <mat-hint class="col-red" *ngIf="newAutoSeoPage.uri.length > 0 &&!isValidUrl(newAutoSeoPage.uri)">Url should
+              must begin with the sign '/'</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Page Title" [(ngModel)]="newAutoSeoPage.metaTitle"
+              [value]="newAutoSeoPage.metaTitle" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Page description" [(ngModel)]="newAutoSeoPage.metaDescription"
+              [value]="newAutoSeoPage.metaDescription" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-content *ngIf="autoseoPage">
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Page Url" [(ngModel)]="autoseoPage.uri" [value]="autoseoPage.uri" required
+              trim="blur">
+            <mat-hint class="col-red" *ngIf="autoseoPage.uri.length > 0 &&!isValidUrl(autoseoPage.uri)">Url should must
+              begin with the sign '/'</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Page Title" [(ngModel)]="autoseoPage.metaTitle" [value]="autoseoPage.metaTitle"
+              required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Page description" [(ngModel)]="autoseoPage.metaDescription"
+              [value]="autoseoPage.metaDescription" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+      <button  *ngIf = "!autoseopageid"mat-button class="btn btn-sm bg-teal float-right" [disabled]="!isValidFormData(newAutoSeoPage)" [mat-dialog-close]="newAutoSeoPage">Create</button>
+      <button *ngIf = "autoseopageid" mat-button class="btn btn-sm bg-teal float-right" [disabled]="!isValidFormData(autoseoPage)"  [mat-dialog-close]="autoseoPage">Save</button>
+    </div>
+  </div>

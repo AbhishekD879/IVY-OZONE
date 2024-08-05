@@ -1,0 +1,165 @@
+@import 'global.variables.scss';
+$post-tips-border-bottom-color: #979797;
+:host {
+  font-size: 12px;
+}
+
+.r-p-verdict__info {
+  padding: 12px 15px;
+  margin: 0;
+  font-family: $alt-font-family;
+  font-size: 12px;
+  line-height: normal;
+  color: $color-gray-darkest;
+}
+
+.header-section {
+  display: inline-block;
+  width: 100%;
+  height: 40px;
+  font-family: $base-font-family;
+  background: $lGray-bg;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-top: 1px solid $lGrayLight;
+  border-bottom: 1px solid $lGrayLight;
+  line-height: 40px;
+  padding: 0 15px;
+  margin: 0;
+  font-size: $font-size;
+  letter-spacing: -0.29px;
+}
+
+section {
+  & > div {
+    display: flex;
+    @include flex();
+    @include justify-content(space-between);
+    @include align-items(center);
+    padding: 0 15px;
+  }
+  & > span {
+    display: flex;
+    @include flex();
+    @include justify-content(space-between);
+    @include align-items(center);
+    padding: 0 15px;
+    align-items: noraml;
+  }
+}
+
+.r-p-verdict__tips-section {
+  & > div {
+    padding: 0;
+    border-bottom: 1px solid $post-tips-border-bottom-color;
+  }
+
+  color: $color-black;
+    @include flex();
+    flex-direction: row;
+    @include justify-content(start);
+    @include align-items(center);
+  
+  .item-name {
+    @include flex();
+    display: inline-block;
+    padding: 15px;
+    padding-top: 24px;
+    padding-bottom: 23px;
+    font-family: $alt-font-family;
+    &:first-of-type {
+        width: 25%;
+        font-size: $font-size-lg;
+        font-weight: bold;
+        color: $color-black;
+        letter-spacing: -0.31px;
+        background-color: $lGray-bg;
+        font-family: $robo-font-family;
+        font-weight: 700;
+        line-height: 16px;
+        letter-spacing: -0.007116669788956642px;
+        text-align: left;
+      }
+  }
+  .item-value {
+    width: 40%;
+    display: inline-block;
+    padding-left: 35px;
+    font-family: $helve-font-family;
+    font-size: $font-size;
+    font-weight: 400;
+    line-height: 14px;
+    letter-spacing: -0.007116669788956642px;
+    text-align: left;
+  }
+  .item-odd-button {
+    width: 30%;
+    padding-right: 12px;
+    padding-bottom: 12px;
+    padding-top: 12px;
+  }
+}
+
+.r-p-verdict__rating-section {
+  color: $color-black;
+  div:first-of-type {
+    margin-top: 10px;
+  }
+  div:last-of-type {
+    margin-bottom: 10px;
+  }
+  .item-name {
+    @include flex();
+    line-height: 26px;
+    font-family: $alt-font-family;
+  }
+  .header-section{
+    display: inline-block;
+    font-family: $base-font-family;
+    line-height: 40px;
+  }
+}
+
+.r-p-verdict__most-tipped {
+  color: $color-black;
+ 
+  div:first-of-type {
+    margin-top: 10px;
+  }
+  div:last-of-type {
+    margin-bottom: 10px;
+    border-bottom: none;
+  }
+  div {
+    border-bottom: 1px solid $lGrayLight;
+    height: 60px;
+  span {
+    line-height: 26px;
+    font-family: $alt-font-family;
+  }
+  .horse_name {
+    word-wrap: break-word;
+    line-height: normal;
+    width: 35%;
+  }
+  .number_of_tips {
+      font-weight: bold;
+      width: 20%;
+      font-family: $base-font-family;
+      font-size: $font-size-lg;
+      letter-spacing: 0.02px;
+      text-align: right;
+  }
+  .tipster_names {
+    width: 40%;
+    line-height: 14px;
+    @include align-items(center);
+  }
+ }
+}
+
+img {
+  display: block;
+  width: calc(100% - 30px);
+  margin: 0 auto 15px;
+}

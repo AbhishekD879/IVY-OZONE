@@ -1,0 +1,22 @@
+<ng-container *ngIf="!state.loading && !state.error else phTemplate">
+  <div class="banner-block-place"></div>
+  
+  <div class="ribbon-block-place">
+    <lazy-component *ngIf="ribbon"
+    moduleUri="@sharedModule/components/moduleRibbon/module-ribbon.module#RibbonModule"
+    [inputs]='{ ribbon: ribbon}'
+    entryComponent="brand === 'ladbrokes'? LadbrokesModuleRibbonComponent : ModuleRibbonComponent">
+  </lazy-component>
+  </div>
+</ng-container>
+<ng-template #phTemplate>
+  <div class="banner-block-place"></div>
+  <div class="ribbon-block-place"></div>
+</ng-template>
+<outlet-status [state]="state">
+  <request-error (reloadFn)="reloadComponent()"></request-error>
+</outlet-status>
+
+<ng-container *ngIf="!state.loading && !state.error">
+  <router-outlet></router-outlet>
+</ng-container>

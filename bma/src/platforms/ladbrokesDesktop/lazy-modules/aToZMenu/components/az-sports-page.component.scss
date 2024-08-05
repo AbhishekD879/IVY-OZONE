@@ -1,0 +1,64 @@
+@import 'global.variables.scss';
+
+$row-height: 45px;
+$container-padding-vert: 5px;
+$container-padding-horiz: 4px;
+$item-padding-horiz: 12px;
+
+:host ::ng-deep .az-sports-page {
+
+  .page-container > .container-header {
+    height: $row-height;
+    margin: 0;
+    padding: 20px 0 12px 18px;
+    font-weight: normal;
+    font-size: $font-size-md;
+    color: $color-gray-dark;
+    background-color: $color-gray;
+  }
+
+  .links-list-panel {
+    margin: 0;
+    padding: 0 $container-padding-horiz;
+    background-color: $color-gray;
+
+    .list-item-link {
+      min-height: $row-height;
+      margin: 0;
+      padding: 0 $item-padding-horiz 0 14px;
+      font-size: $font-size-lg;
+      font-weight: normal;
+
+      svg.item-icon {
+        width: 22px;
+        height: 22px;
+        fill: $color-gray-dark;
+      }
+
+      svg.item-next-arrow {
+        width: 7px;
+        height: 12px;
+        right: $item-padding-horiz;
+        margin-top: -6px;
+      }
+    }
+  }
+
+  .top-sports {
+
+    .links-list-panel {
+      padding-top: $container-padding-vert;
+    }
+
+    svg.item-icon {
+      display: none;
+    }
+  }
+
+  .az-sports {
+
+    .item-next-arrow {
+      display: none;
+    }
+  }
+}

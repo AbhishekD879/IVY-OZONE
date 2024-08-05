@@ -1,0 +1,18 @@
+<div class="single-drop-down-template">
+  <div class="market-name">{{market?.originalMarketName || market?.name}}</div>
+  <div class="items-container">
+    <div class="drop-down-container">
+      <stream-bet-template-drop-down [outcomes]="marketNames"
+          (itemEmit)="onValueChange($event)">
+      </stream-bet-template-drop-down>
+    </div>
+    <div class="sb-cs-button" *ngFor="let outcome of currOutcomes; index as outcomeIndex;">
+      <sb-price-odds-button [event]="eventEntity"
+        [market]="market" [outcome]="outcome"
+        [head]="btnTexts[outcomeIndex]"
+        [isStreamAndBet]="true" class=""
+        (selectionClickEmit)="handleSelectionClick(market)">
+      </sb-price-odds-button>
+    </div>
+  </div>
+</div>

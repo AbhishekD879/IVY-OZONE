@@ -1,0 +1,98 @@
+@import 'global.variables.scss';
+
+gaming-overlay:host {
+  position: fixed;
+  width: 100%;
+  background: $gaming-overlay-bg;
+  z-index: 1010;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  height: 0;
+  @include transition(height, 0.3s, cubic-bezier(0.39, 0.58, 0.57, 1));
+
+  iframe {
+    height: 100%;
+    width: 100%;
+  }
+
+  &.isActive {
+    height: 100%;
+  }
+
+  & > iframe {
+    display: none;
+    border: none;
+
+    &.isVisible {
+      display: block;
+    }
+  }
+
+  ::ng-deep spinner {
+    top: 40%;
+    left: 50%;
+    margin-left: -15px;
+    margin-top: 30px;
+    width: 30px;
+    height: 30px;
+    z-index: 2;
+  }
+
+  /* Gaming Splash Overlay */
+  .splash-overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      left: 0;
+      bottom: 0;
+      z-index: 1;
+      background-size: contain;
+    }
+
+    .splash-logo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -60px 0 0 -100px;
+      background: url($home-screen-logo) center center no-repeat;
+      height: 60px;
+      width: 200px;
+      z-index: 2;
+    }
+  }
+}
+
+.sidebar-close {
+  top: 0px;
+	right: 5px;
+	z-index: 100;
+	padding: 8px;
+	width: 30px;
+	height: 30px;
+	position: absolute;
+
+  .close-icon {
+    top: 0;
+    height: 15px;
+    width: 15px;
+    fill: #fff;
+    position: absolute;
+    z-index: 1;
+    margin-top: 20px;
+  }
+
+  &:before, &:after {
+    display: none;
+  }
+}
+
+.hideOverlay{
+  display: none;
+}

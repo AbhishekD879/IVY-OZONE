@@ -1,0 +1,17 @@
+<div>
+    <div *ngIf="raceGridRaces && raceGridRaces.data && !raceGridRaces.data.groupedRacing" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+    <ng-container *ngIf="raceGridRaces && raceGridRaces.data && raceGridRaces.data.groupedRacing">
+      <ng-container *ngFor="let group of raceGridRaces.data.groupedRacing; trackBy: trackByGroupedRacing">
+        <race-grid *ngIf="isRaceGridGroup(group) && raceGridRaces.data.groupedRacing"
+                    [eventsData]="raceGridRaces.data"
+                    [sportName]="sportName"
+                    [eventsOrder]="eventsOrder"
+                    [racingGroupFlag]="group.flag"
+                    [raceType]="'race'"
+                    [racingGroup]="group.data"
+                    data-crlat="raceGrid">
+        </race-grid>
+      </ng-container>
+    </ng-container>
+  </div>
+  

@@ -1,0 +1,22 @@
+@import 'global.variables.scss';
+
+.live-label{
+  display: flex;
+  .live {
+    margin: auto;
+    font-family: $base-font-family;
+    font-size: 9px;
+    font-weight: bold;
+    color: $color-orange;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.inplay-icon {
+  height: 11px;
+  width: 11px;
+  margin-right: 5px;
+  vertical-align: middle;
+}

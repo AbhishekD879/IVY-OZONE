@@ -1,0 +1,204 @@
+<breadcrumbs *ngIf="newCampaign" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<mat-tab-group>
+    <mat-tab label="Campaign">
+        <div class="card" *ngIf="isloading">
+            <div class="body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label">
+                            Name
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Name" [(ngModel)]="newCampaign.name" [value]="newCampaign.name"
+                                required trim="blur" [disabled]="newCampaign?.isPotsCreated">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <date-range [startDate]="newCampaign.displayFrom"
+                            [endDate]="newCampaign.displayTo" [startPlaceholder]="'Start Date'"
+                            [endPlaceholder]="'End Date'" [placeholderColumn]="true"
+                            (onDateUpdate)="handleDisplayDateUpdate($event)"
+                            [isStartDateEnable]="newCampaign?.isPotsCreated"  [isEndDateEnable]="newCampaign?.isPotsCreated">
+                        </date-range>
+                        <mat-hint class="col-red" *ngIf="!isEndDateValid()">
+                            Display end date cannot be greater than display start date
+                        </mat-hint>
+                        <br/>
+                        <mat-hint class="col-red" *ngIf="!newCampaign.isPotsCreated && isPastDate()">
+                            Cant create campaign with past dates
+                        </mat-hint>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label">
+                            Openbet ID
+                        </span>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Openbet ID" [(ngModel)]="newCampaign.openBetCampaignId"
+                                [value]="newCampaign.openBetCampaignId" required trim="blur"
+                                [disabled]="newCampaign?.isPotsCreated">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label">
+                            Optimove ID
+                        </span>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder=" Optimove ID" [(ngModel)]="newCampaign.optimoveId"
+                                [value]="newCampaign.optimoveId" required trim="blur"
+                                [disabled]="newCampaign?.isPotsCreated">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab label="Questions">
+        <div class="card" *ngIf="newCampaign">
+            <div class="body" >
+                <div class="questions-wrapper">
+                    <form #questionForm="ngForm">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <span class="mat-label">
+                                    Welcome Message
+                                </span>
+                            </div>
+                            <div class="col-md-8">
+                                <mat-form-field class="full-width">
+                                    <input matInput placeholder="Welcome Message" #welcome maxlength="200"
+                                        [(ngModel)]="newCampaign.questionnarie.welcomeMessage"
+                                        [disabled]="newCampaign?.isPotsCreated"
+                                        name="welcomeMessage" required>
+                                    <mat-hint align="end">{{welcome.value?.length || 0}}/200</mat-hint>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div *ngFor="let question of newCampaign?.questionnarie?.questions; index as i"
+                            class="question-item row">
+
+                            <div class="col-md-11 mb-0" style="padding-left: 0; padding-right: 0;">
+                                <div class="question-header">
+                                    <strong>QUESTION: </strong>
+                                    {{ newCampaign.questionnarie.questions.indexOf(question) + 1 }}
+                                    <mat-form-field class="full-width">
+                                        <input type="text" matInput #questions maxlength="200"
+                                            [(ngModel)]="newCampaign.questionnarie.questions[i].quesDescription"
+                                            value="{{ question.quesDescription }}" required trim="blur"
+                                            [disabled]="newCampaign?.isPotsCreated"
+                                            name="quesDescription{{i}}" >
+                                        <mat-hint align="end">{{questions.value?.length || 0}}/200</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                                <div class="answers-list-wrapper">
+                                    <div class="answers-list-item row mb-0 p-0">
+                                        <div class="col no-bottom-mrgn">
+                                            <strong>Answers:</strong>
+                                        </div>
+                                    </div>
+                                    <div class="answers-list-item mt-0">
+
+                                        <div class="row clearfix">
+                                            <div *ngFor="let answer of question.options; index as ai"
+                                                class="answers-list-item">
+
+                                                <div class="col no-bottom-mrgn">
+                                                    <mat-form-field class="full-width">
+                                                        <input type="text" #option maxlength="50"
+                                                            [(ngModel)]="newCampaign.questionnarie.questions[i].options[ai].optionText"
+                                                            value="{{ answer.optionText }}"
+                                                            placeholder="Option {{ai+1}}" aria-label="answer" matInput
+                                                            required trim="blur"  name="optionText{{i}}{{ai}}"
+                                                            [disabled]="newCampaign?.isPotsCreated">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row chatBox">
+                                    <div class="col-md-3">
+                                        <span class="mat-label">
+                                            Chat Bot Response
+                                        </span>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <mat-form-field class="full-width chatBoxField">
+                                            <input matInput placeholder="Chat Bot Response" #chatBoxResp maxlength="200"
+                                                [(ngModel)]="newCampaign.questionnarie.questions[i].chatBoxResp"
+                                            required
+                                                trim="blur" [disabled]="newCampaign?.isPotsCreated"  name="chatBoxResp{{i}}">
+                                            <mat-hint align="end">{{chatBoxResp.value?.length || 0}}/200</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <hr class="w-100">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <span class="mat-label">
+                                    Summary Message
+                                </span>
+                            </div>
+                            <div class="col-md-8">
+                                <mat-form-field class="full-width">
+                                    <input matInput placeholder="Summary Message" #summaryMsg maxlength="200"
+                                        [(ngModel)]="newCampaign.questionnarie.summaryMsg"
+                                       required trim="blur"
+                                        [disabled]="newCampaign?.isPotsCreated"  name="summaryMsg">
+                                    <mat-hint align="end">{{summaryMsg.value?.length || 0}}/200</mat-hint>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <span class="mat-label">
+                                    Horse Selection Message
+                                </span>
+                            </div>
+                            <div class="col-md-8">
+                                <mat-form-field class="full-width">
+                                    <input matInput placeholder="Horse Selection Message" #horseSelectionMsg
+                                        maxlength="200" [(ngModel)]="newCampaign.questionnarie.horseSelectionMsg"
+                                         required trim="blur"
+                                        [disabled]="newCampaign?.isPotsCreated" name="horseSelectionMsg">
+                                    <mat-hint align="end">{{horseSelectionMsg.value?.length || 0}}/200</mat-hint>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab [disabled]="!this.questionForm?.form.valid" label="Create Pots">
+        <spotlight [isFreeRidePot]="true" [isPotsCreated]="newCampaign?.isPotsCreated"
+            [campaignEventData]="campaignPotsData" (emitSelectedRaces)="getSelectedRaces($event)"
+            (emitCreatePotsEvent)="createPotstoCampaign($event)" [isvalidDate]="createPotsValidationOnDateTime()" [dataChanged]="dataChanged">
+        </spotlight>
+    </mat-tab>
+    <mat-tab label="View Pots" >
+        <div *ngIf="newCampaign?.isPotsCreated">
+            <app-view-pot-table></app-view-pot-table>
+        </div>
+    </mat-tab>
+</mat-tab-group>
+<action-buttons *ngIf="newCampaign" #actionButtons [validateHandler]="isValidModel" [fieldOrItemName]="'name'"
+    [collection]="newCampaign" [showRemoveButton]="true" (actionsEmitter)="actionsHandler($event);">
+</action-buttons>

@@ -1,0 +1,181 @@
+<breadcrumbs *ngIf="leaderboard" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+
+<div class="card" *ngIf="leaderboard">
+    <div class="header">
+        <h2 class="has-activity-badge">Edit Promotions Leaderboard: <span
+                class="font-italic">{{leaderboard.name}}</span></h2>
+        <create-updated-at-by class="has-activity-badge" [collection]="leaderboard"></create-updated-at-by>
+        <header-activity-badge [state]="!leaderboard.status"></header-activity-badge>
+    </div>
+</div>
+
+<div class="card" *ngIf="leaderboard">
+    <div class="body">
+        <div class="row">
+            <div class="col-md-2">
+                <mat-checkbox color="primary" [checked]="leaderboard?.status"
+                    (change)="leaderboard.status = !leaderboard.status">
+                    Active
+                </mat-checkbox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <span class="mat-label">
+                    Leaderboard Name *
+                </span>
+            </div>
+            <div class="col-md-10">
+                <mat-form-field class="full-width" [ngClass]="{ 'custom-form-field-invalid' : !name.valid}">
+                    <input #Lbname matInput placeholder="Name" [formControl]="name" [(ngModel)]="leaderboard.name"
+                        required trim="blur" maxlength="30">
+                    <mat-hint align="end">{{Lbname.value?.length || 0}}/30</mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <span class="mat-label">
+                    CSV File Path *
+                </span>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field class="full-width" [ngClass]="{ 'custom-form-field-invalid' : !leaderboard.filePath}">
+                    <input matInput placeholder="CSV File Path" [(ngModel)]="leaderboard.filePath" trim="blur" maxlength="100" disabled>
+                </mat-form-field>
+            </div>
+            <div style="display:none;"><input #fileUpload (change)="prepareToUploadFile($event)" type="file"
+                value="upload" /></div>
+            <button type="button" (click)="fileUpload.value='';handleFileUpload($event)"
+                class="file-add-btn btn bg-teal waves-effect">Change File</button>
+            <button type="button" [disabled]="!checkValidity()" (click)="uploadFile()"
+                class="file-upload-btn btn bg-red waves-effect">Upload
+            </button>
+            <div class="col-md-2 mb-0">
+                <mat-checkbox color="primary" [checked]="leaderboard?.isFileChanged"
+                    (change)="leaderboard.isFileChanged = !leaderboard.isFileChanged" (change)="toggle($event)">
+                    CSV File updated
+                </mat-checkbox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 mb-0">
+                <mat-checkbox color="primary" [checked]="leaderboard?.individualRank"
+                    (change)="leaderboard.individualRank = !leaderboard.individualRank">
+                    Individual Rank Display
+                </mat-checkbox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <span class="mat-label">
+                    Top X Positions
+                </span>
+            </div>
+            <div class="col-md-10">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="topX positions" type="number" trim="blur" min="1"
+                        [(ngModel)]="leaderboard.topX" [value]= "leaderboard.topX" min="1" max="999"
+                        (keypress)="validateMinandMaxValue()" (blur)="updateTopXValue()">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <span class="mat-label">
+                    Generic Message
+                </span>
+            </div>
+            <div class="col-md-10">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="generic text" trim="blur" maxlength="100" #genericTxt
+                        [(ngModel)]="leaderboard.genericTxt">
+                    <mat-hint align="end">{{genericTxt.value?.length || 0}}/100</mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+        <!-- table for Column Config start -->
+        <div class="body">
+            <div class="row col-md-10">
+                <table class="custom-table table table-hover table-condensed table-bordered m-b-0"
+                    [ngClass]="tableUniqueClass">
+                    <thead>
+                        <tr class="bg-teal">
+                            <th class="font-bold" [attr.colspan]="2">Data Column Name</th>
+                            <th class="font-bold">Display Column Name</th>
+                            <th class="font-bold">Style Name</th>
+                            <th class="font-bold">Subtitle Column Name</th>
+                            <th class="font-bold">Masking</th>
+                            <th class="font-bold">Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let col of leaderboard?.columns;let i = index">
+                            <td class="drag-handler">
+                                <i class="material-icons">swap_vert</i>
+                            </td>
+                            <td class="col-md-3">
+                                <mat-form-field class="customWidth">
+                                    <input matInput [placeholder]="'Enter DataColName'" name="name"
+                                        [(ngModel)]="col.originalName" required trim="blur">
+
+                                </mat-form-field>
+                                <div>
+                                    <mat-hint class="col-red" *ngIf="!col.originalName">This Field is
+                                        required*</mat-hint>
+                                </div>
+                            </td>
+                            <td class="col-md-3">
+                                <mat-form-field class="customWidth">
+                                    <input matInput [placeholder]="'Enter DisplayName'" name="displayName"
+                                        [(ngModel)]="col.displayName" maxLength="20" trim="blur" #displayName>
+                                </mat-form-field>
+                                <div>
+                                    <mat-hint align="end">{{displayName.value?.length || 0}}/20</mat-hint>
+                                </div>
+                            </td>
+                            <td class="col-md-1">
+                                <mat-form-field class="customWidth">
+                                    <mat-select [(value)]="col.style" [(ngModel)]="col.style" placeholder="style">
+                                        <mat-option *ngFor="let style of styleArray" [value]="style.id">{{style.value}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </td>
+                            <td class="col-md-3">
+                                <mat-form-field class="customWidth">
+                                    <input matInput [placeholder]="'Enter subtitle'" name="subtitle"
+                                        [(ngModel)]="col.subtitle" trim="blur" #subtitle>
+                                </mat-form-field>
+                            </td>
+                            <td class="col-md-1">
+                                <mat-checkbox color="primary" name="applyMasking" [checked]="col.applyMasking"
+                                    (change)="col.applyMasking = !col.applyMasking">
+                                </mat-checkbox>
+                            </td>
+                            <td class="align-center col-md-1 ">
+                                <a (click)="removeColumnItem(i)"><i class="material-icons col-red">remove_circle</i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        <div>
+        <!-- table for column config end -->
+        <div class="body">
+            <div class="row col-md-3">
+                <button (click)="addLeaderboardColumns();" type="button" class="btn bg-teal waves-effect float-left"
+                    [disabled]="isDisabledBtn">
+                    <i class="material-icons">add_box</i>
+                    <span>Add New Row</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <action-buttons #actionButtons *ngIf="leaderboard"
+        [validateHandler]="isValidForm"
+        [collection]="leaderboard"
+        [fieldOrItemName]="'name'"
+        (actionsEmitter)="actionsHandler($event);">
+    </action-buttons>
+</div>

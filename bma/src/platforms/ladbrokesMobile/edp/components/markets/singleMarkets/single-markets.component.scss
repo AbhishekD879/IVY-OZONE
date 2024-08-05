@@ -1,0 +1,59 @@
+@import 'global.variables.scss';
+:host {
+    display: block;
+    .is-horizontal .col-vertical, ::ng-deep .is-horizontal .col-bordered .col-inner.col-vertical {
+        height: 100%;
+      
+        price-odds-button {
+          margin-top: auto;
+        }
+      }
+    show-all-button {
+        ::ng-deep .show-all-button {
+            border-top: 1px solid $color-gray;
+            text-decoration: none;
+            background: $color-white;
+            span {
+                color: $blue;
+            }
+        }
+    }
+    .price-button {
+        price-odds-button {
+            ::ng-deep .btn-bet {
+                min-width: auto;
+                font-size: 13px;
+                line-height: 13px;
+                min-height: 40px;
+                width: 100px;
+                left: 36%;
+                .handicap-btn {
+                    display: inline-flex;
+                    padding-right: 30px;
+                    color: $color-blue-cornflower;
+                }
+            }
+        }
+    }
+    #wdw-name {
+        padding-right: 4px;
+        word-break: break-word;
+      }
+    .handicap-wdw {
+        price-odds-button {
+            ::ng-deep .btn-bet {
+                min-width: auto;
+                font-size: 13px;
+                line-height: 13px;
+                min-height: 40px;
+                width: 100px;
+                left: 28%;
+                .handicap-btn {
+                    display: inline-flex;
+                    padding-right: 30px;
+                    color: $color-blue-cornflower;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,211 @@
+<div class="card">
+  <div class="header">
+      <h2 class="waves-effect waves-block" [textContent]=EUROLOYAL.labels.MatchDayRewards></h2>
+    <create-updated-at-by [collection]="euroLoyalty"></create-updated-at-by>
+      <header-activity-badge [state]=false></header-activity-badge>
+  </div>
+</div>
+
+<div [formGroup]="form" *ngIf="euroLoyalty">
+  <div class="card">
+    <div class="body">
+      <div class="row">
+        <div class="card tableHeaderContainer col-md-11" *ngIf="euroLoyalty">
+            <div class="header bg-teal edit-config-group">
+              <h2 [textContent]=EUROLOYAL.labels.RewardsConfig></h2>
+                <ul class="header-dropdown">
+                  <li *ngIf="!isAddingItem && !isDataChanged">
+                    <button (click)="toggleTableEdit()" type="button" class="btn btn-xs bg-teal waves-effect header-edit-btn">
+                      <i class="material-icons" [textContent]=EUROLOYAL.labels.ModeEdit></i>
+                      <span *ngIf="!isEditOn" [textContent]=EUROLOYAL.labels.EditTable></span>
+                      <span *ngIf="isEditOn" [textContent]=EUROLOYAL.labels.EndEditTable></span>
+                    </button>
+                  </li>
+                  <li *ngIf="!isAddingItem && !isEditOn && !isDataChanged">
+                    <button (click)="startAddingNewItem()" type="button" class="btn btn-xs bg-teal waves-effect header-edit-btn">
+                      <i class="material-icons" [textContent]=EUROLOYAL.labels.AddCircle></i>
+                      <span [textContent]=EUROLOYAL.labels.AddProperty></span>
+                    </button>
+                  </li>
+                  <li *ngIf="isDataChanged">
+                    <button (click)="saveConfigGroupChanges()" type="button" class="btn btn-xs bg-teal waves-effect header-edit-btn">
+                      <i class="material-icons" [textContent]=EUROLOYAL.actions.Save></i>
+                      <span [textContent]=EUROLOYAL.labels.SaveChanges></span>
+                    </button>
+                  </li>
+                </ul>
+            </div>
+
+            <div class="body edit-config-group">
+                <div class="tableContainer table table-hover table-condensed table-bordered">
+                  <div class="tableHeader">
+                    <div class="tableRow">
+                      <div class="tableTh font-bold table-col-1" [textContent]=EUROLOYAL.labels.TierNo></div>
+                      <div class="tableTh font-bold table-col-3" [textContent]=EUROLOYAL.labels.FreebetLocation></div>
+                      <div class="tableTh font-bold table-col-3" [textContent]=EUROLOYAL.labels.OfferIDSequence></div>
+                      <div class="tableTh font-bold table-col-2" *ngIf="!isEditOn" [textContent]=EUROLOYAL.labels.Action></div>
+                    </div>
+                  </div>
+
+                  <div class="tableBody" *ngIf="!isEditOn" >
+                    <div class="tableRow" *ngFor="let configItem of configGroup.items;let configItemIndex = index">
+                      <div class="tableCol" [textContent]=configItem.tierName></div>
+                      <div class="tableCol" [textContent]=configItem.freeBetPositionSequence></div>
+                      <div class="tableCol" [textContent]=configItem.offerIdSeq></div>
+                      <div class="tableCol align-center">
+                        <a (click)="removePropertyFromGroup(configItemIndex)">
+                          <i class="material-icons col-red" [textContent]=EUROLOYAL.labels.RemoveCircle></i>
+                        </a>
+                      </div>
+                    </div>
+              
+                    <!--ADDING NEW EPROPERTY FORM -->
+                    <div class="tableRow" *ngIf="isAddingItem">
+                      <div class="tableCol">
+                        <mat-form-field class="example-full-width">
+                          <input type="number" matInput [placeholder]=EUROLOYAL.placeholders.TierNo formControlName="tierName" [(ngModel)]="newItem.tierName" required>
+                        </mat-form-field>
+                        <mat-error *ngIf="!specialPagesValidationService.isUnique(newItem.tierName, configGroup.items, EUROLOYAL.labels.TierName)" [textContent]=EUROLOYAL.errors.DuplicateMsg>
+                        </mat-error>
+                        <mat-error *ngIf="!specialPagesValidationService.checkIfInteger(newItem.tierName)" [textContent]=EUROLOYAL.errors.IntegerErrorMessage>
+                        </mat-error>
+                        <mat-error *ngIf="!(newItem.tierName > 0)" [textContent]=EUROLOYAL.errors.PositiveIntegerMessage>
+                        </mat-error>
+                      </div>
+                      <div class="tableCol">
+                        <mat-form-field class="example-full-width">
+                          <input matInput [placeholder]=EUROLOYAL.placeholders.Locations formControlName="freeBetPositionSequence" [(ngModel)]="newItem.freeBetPositionSequence" (focusout)="$event.target.value = updateLocationOrder($event.target.value)" required trim="blur">
+                        </mat-form-field>
+                        <mat-error *ngIf="!specialPagesValidationService.checkIfInteger(newItem.freeBetPositionSequence)" [textContent]=EUROLOYAL.errors.IntegerErrorMessage>
+                        </mat-error>
+                      </div>
+                      <div class="tableCol">
+                        <mat-form-field class="example-full-width">
+                          <input matInput [placeholder]=EUROLOYAL.placeholders.OfferIds formControlName="offerIdSeq" [(ngModel)]="newItem.offerIdSeq" required trim="blur">
+                        </mat-form-field>
+                        <mat-error *ngIf="!euroLoyaltyValidationService.checkLocationAndSequenceCount(newItem)" [textContent]=EUROLOYAL.errors.OfferIdError>
+                        </mat-error>
+                        <mat-error *ngIf="!specialPagesValidationService.checkIfInteger(newItem.offerIdSeq)" [textContent]=EUROLOYAL.errors.IntegerErrorMessage>
+                        </mat-error>
+                      </div>
+                      <div class="tableCol align-center">
+                        <button [disabled]="!(euroLoyaltyValidationService.isValidConfigProperty(newItem, true) && specialPagesValidationService.isUnique(newItem.tierName, configGroup.items, EUROLOYAL.labels.TierName))" (click)="submitNewProperty()" type="submit" class="btn btn-xs bg-teal">
+                          <i class="material-icons" [textContent]=EUROLOYAL.labels.CheckCircle></i>
+                        </button>
+                        <button type="button" (click)="finishAddingNewItem()" class="btn btn-xs bg-red">
+                          <i class="material-icons" [textContent]=EUROLOYAL.labels.RemoveCircle></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--table view with all fields editing-->
+                  <div class="tableBody" *ngIf="isEditOn">
+                    <div class="tableRow" *ngFor="let configItem of configGroup.items;let configItemIndex = index">
+                      <div class="tableCol">
+                        <mat-form-field class="example-full-width">
+                          <input type="number" matInput [placeholder]=EUROLOYAL.placeholders.TierNo [(ngModel)]="configItem.tierName" (input)="isDataChanged = true;" [ngModelOptions]="{standalone: true}" required>
+                        </mat-form-field>
+                        <mat-error *ngIf="!specialPagesValidationService.isUnique(configItem.tierName, configGroup.items, EUROLOYAL.labels.TierName, configItemIndex)" [textContent]=EUROLOYAL.errors.DuplicateMsg>
+                        </mat-error>
+                        <mat-error *ngIf="!specialPagesValidationService.checkIfInteger(configItem.tierName)" [textContent]=EUROLOYAL.errors.IntegerErrorMessage>
+                        </mat-error>
+                        <mat-error *ngIf="!(configItem.tierName > 0)" [textContent]=EUROLOYAL.errors.PositiveIntegerMessage>
+                        </mat-error>
+                      </div>
+                      <div class="tableCol">
+                        <mat-form-field class="example-full-width">
+                          <input matInput [placeholder]=EUROLOYAL.placeholders.Locations [(ngModel)]="configItem.freeBetPositionSequence" [ngModelOptions]="{standalone: true}" (input)="isDataChanged = true;" (focusout)="$event.target.value = updateLocationOrder($event.target.value)" required trim="blur">
+                        </mat-form-field>
+                        <mat-error *ngIf="!specialPagesValidationService.checkIfInteger(configItem.freeBetPositionSequence)" [textContent]=EUROLOYAL.errors.IntegerErrorMessage>
+                        </mat-error>
+                      </div>
+                      <div class="tableCol">
+                        <mat-form-field class="example-full-width">
+                          <input matInput [placeholder]=EUROLOYAL.placeholders.OfferIds [(ngModel)]="configItem.offerIdSeq" [ngModelOptions]="{standalone: true}" (input)="isDataChanged = true;" required trim="blur">
+                        </mat-form-field>
+                        <mat-error *ngIf="!euroLoyaltyValidationService.checkLocationAndSequenceCount(configItem)" [textContent]=EUROLOYAL.errors.OfferIdError>
+                        </mat-error>
+                        <mat-error *ngIf="!specialPagesValidationService.checkIfInteger(configItem.offerIdSeq)" [textContent]=EUROLOYAL.errors.IntegerErrorMessage>
+                        </mat-error>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>                  
+        </div>
+      </div>
+    </div>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-2">
+        <span class="mat-label" [textContent]=EUROLOYAL.labels.HowItWorks></span>
+        </div>
+        <div class="contentContainer col-md-9" *ngIf="euroLoyalty">
+          <tinymce-editor
+            #howItWorksEditor
+            [pageName]=EUROLOYAL.labels.EuroHowItWorks
+            [pageItemId]=EUROLOYAL.labels.EuroHowItWorks
+            (outputEditorData)="updateText($event, EUROLOYAL.labels.HowItWorksText)"
+            [initialEditorContent]="euroLoyalty.howItWorks">
+          </tinymce-editor>
+          <input type="text"
+                hidden
+                formControlName="howItWorks"
+                [(ngModel)]="euroLoyalty.howItWorks">
+        </div>
+      </div>
+    </div>
+    <div class="body">
+      <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]=EUROLOYAL.labels.TermsAndConditions></span>
+          </div>
+          <div class="contentContainer col-md-9" *ngIf="euroLoyalty">
+            <tinymce-editor
+              #termsAndConditionsEditor
+              [pageName]=EUROLOYAL.labels.EuroTermsAndCondtions
+              [pageItemId]=EUROLOYAL.labels.EuroTermsAndCondtions
+              [charLimit]=EUROLOYAL.labels.CharLimitForTermsAndConditions
+              (limitExceeded)="checkLimit($event)"
+              (outputEditorData)="updateText($event, EUROLOYAL.labels.TermsAndConditionsText)"
+              [initialEditorContent]="euroLoyalty.termsAndConditions">
+            </tinymce-editor>
+            <input type="text"
+                  hidden
+                  formControlName="termsAndConditions"
+                  [(ngModel)]="euroLoyalty.termsAndConditions">
+            <mat-error *ngIf="limitExceeded" [textContent]=EUROLOYAL.errors.CharLimitError>
+            </mat-error>
+          </div>
+      </div>
+    </div>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]=EUROLOYAL.labels.FullTCUrl>
+          </span>
+        </div>
+        <div class="col-md-9">
+          <mat-form-field class="full-width">
+            <input matInput 
+              [placeholder]=EUROLOYAL.placeholders.FullTermsAndConditionsUrl
+              [(ngModel)]="euroLoyalty.fullTermsURI" 
+              formControlName="fullTermsURI"
+              [value]="euroLoyalty.fullTermsURI">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<action-buttons
+  *ngIf="euroLoyalty.howItWorks"
+  #actionButtons
+  [showRemoveButton]=deleteButton
+  [form]="form"
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]=EUROLOYAL.labels.EuroLoyaltyConfig
+  [collection]="euroLoyalty"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

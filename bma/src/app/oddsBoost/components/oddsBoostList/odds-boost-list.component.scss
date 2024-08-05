@@ -1,0 +1,70 @@
+@import 'global.variables.scss';
+
+.odd-boost-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.category-name {
+  background: $color-gray-light;
+  border-bottom: 1px solid $color-gray-darker;
+  padding: 7px 10px;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.odd-boost-item {
+  padding: 10px;
+  border-bottom: 1px solid $color-gray-darker;
+  position: relative;
+  cursor: pointer;
+
+  .odd-boost-details,
+  .odd-boost-location {
+    font-size: 12px;
+  }
+
+  .odd-boost-title {
+    font-size: 15px;
+  }
+
+  .odd-boost-location {
+    opacity: .75;
+  }
+
+  .odd-boost-title,
+  .odd-boost-location {
+    padding-right: 20px;
+    word-break: break-word;
+  }
+
+  .odd-boost-details {
+    margin-top: 5px;
+  }
+
+  .odd-boost-details-item {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  .odd-boost-details-icon {
+    position: absolute;
+    right: 10px;
+    opacity: .5;
+    top: 50%;
+    @include transform(translateY(-50%));
+    height: 14px;
+  }
+
+  .odd-boost-details-label {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+}
+
+.no-boosts-message {
+  margin: 15px 10px;
+  font-size: 13px;
+  line-height: normal;
+}

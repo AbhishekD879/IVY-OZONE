@@ -1,0 +1,127 @@
+<div id="fiveaside-live-tutorial" class="cookie-top vn-smart-banner-margin-top">
+    <div class="header-content">
+        <div id="close-div" class="close-content" (click)="onCloseLiveOverlay('close')">
+            <svg id="close-svg" class="close-icon">
+                <use xlink:href="#close_qb" id="close-qb-svg"></use>
+            </svg>
+        </div>
+    </div>
+    <div class="centered">
+        <section class="welcome-cards" id="lobby-step1" *ngIf="tutorialSteps.step1">
+            <div class="welcome-card">
+                <div class="overlay-context">
+                    <div [@textContent-noDelay]>
+                        <p class="overlay-header" [textContent]="tutorialData?.liveHeaderTitle"></p>
+                        <p class="overlay-content" [textContent]="tutorialData?.liveSectionTitle"></p>
+                        <p class="overlay-content" [textContent]="tutorialData?.liveFooterTitle"></p>
+                    </div>
+                </div>
+                <div class="welcome-card" [@textButton-Welcome]="'enter'">
+                    <button class="navigation-button" (click)="onClickNext('2')" [i18n]="'fs.overlay.next'"></button>
+                </div>
+            </div>
+            <div class="welcome-card">
+            </div>
+        </section>
+
+        <section class="welcome-cards" id="lobby-step2" *ngIf="tutorialSteps.step2">
+            <div class="welcome-card">
+                <div class="welcome-card">
+                    <div class="overlay-context">
+                        <div [@textContent-noDelay]>
+                            <p class="overlay-header" [textContent]="tutorialData?.liveMainPageHeaderTitle"></p>
+                            <p class="overlay-content" [textContent]="tutorialData?.liveMainPageSectionTitle"></p>
+                        </div>
+                    </div>
+                    <div class="my-entry-your-team-content team" id="my-entry-your-team">
+                        <div id="my-entry-team-arrow" [@liveCard-arrow] class="top-arrow">
+                            <svg class="top-right-arrow-icon">
+                                <use xlink:href="#top-right-arrow-5-a-side"></use>
+                            </svg>
+                        </div>
+                        <div class="step-tutorial-content step-2" id="card-info-content">
+                            <div class="overlay-context d-block" [@textContent-fade]="'enter'">
+                                <p class="overlay-content" [textContent]="tutorialData?.liveEntryTitle"></p>
+                                <button class="navigation-button" (click)="onClickNext('3')" [i18n]="'fs.overlay.next'"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="welcome-cards" id="lobby-step3" *ngIf="tutorialSteps.step3">
+            <div class="welcome-card">
+                <div class="welcome-card">
+                    <div class="my-entry-your-team-content" id="my-entry-your-team-expand">
+                        <div class="step-tutorial-content step-3" id="expand-team-progress-step">
+                            <div class="overlay-context" [@textContent-fade]="'enter'">
+                                <p class="overlay-content" [textContent]="tutorialData?.liveStatTitle"></p>
+                            </div>
+                            <button class="navigation-button entry-expand" [@textContent-fade]="'enter'"
+                                (click)="onClickNext('4')" [i18n]="'fs.overlay.next'"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="welcome-cards" id="lobby-step4" *ngIf="tutorialSteps.step4">
+            <div class="welcome-card">
+                <div class="welcome-card">
+
+                    <div class="entry-progressbar-content" id="entry-progress-info">
+                        <div class="overlay-context" id="entry-top-progress-info">
+                            <div>
+                                <p class="overlay-content" [@textContent-noDelay]
+                                    [textContent]="tutorialData?.liveProgressHeaderTitle"></p>
+                                    
+                                <div id="progressbar-single-arrow" *ngIf="!isMultiEntriesPresent"  [@teamProgress-arrow]
+                                    class="right-arrow">
+                                    <svg class="right-arrow-icon">
+                                        <use xlink:href="#right-arrow-5-a-side"></use>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="progressbar-arrow" *ngIf="isMultiEntriesPresent" [@teamProgressDown-arrow]
+                            class="top-arrow">
+                            <svg class="top-right-arrow-icon">
+                                <use xlink:href="#top-right-arrow-5-a-side"></use>
+                            </svg>
+                        </div>
+                        <div class="step-tutorial-content step-4" id="card-info-content">
+                            <div class="overlay-context d-block" [@textContent-fade]="'enter'">
+                                <p class="overlay-content" *ngIf="isMultiEntriesPresent"
+                                    [textContent]="tutorialData?.liveProgressFooterTitle"></p>
+                                <button class="navigation-button" [@textContent-fade]="'enter'"
+                                    (click)="onClickNext('5')" [i18n]="'fs.overlay.next'"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="welcome-cards" id="lobby-step5" *ngIf="tutorialSteps.step5">
+            <div class="welcome-card">
+                <div class="welcome-card">
+                    <div class="leaderboard-content" id="leaderboard-info">
+                        <div class="step-tutorial-content step-5" id="card-info-content">
+                            <div class="overlay-context d-block">
+                                <div id="leaderboard-arrow" [@liveEntries-arrow] class="up-arrow">
+                                    <svg class="top-right-inv-icon">
+                                        <use xlink:href="#top-arrow-inv"></use>
+                                    </svg>
+                                </div>
+                                <p class="overlay-content" [@textContent-noDelay]
+                                    [textContent]="tutorialData?.liveLeaderBoardEntriesTitle"></p>
+                                <button class="navigation-button finish" [@textContent-fade]="'enter'"
+                                    (click)="onClickNext('finish')" [i18n]="'fs.overlay.finish'"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="pool-headers">
+  <div class="pool-sub-header" [textContent]="raceTitle" data-crlat="raceTitle"></div>
+  <span class="gp-cls"  [ngClass] = "(deviceService.isMobile ? 'gp-is-mobile' : 'pool-leg-gp')">Guide Price</span>
+</div>
+<section class="page-container page-inner-container">
+  <div class="inner-container">
+    <racing-outcome-card
+        *ngFor="let outcomeEntity of marketOutcomes; index as i; trackBy: trackByOutcomes"
+        [eventEntity]="event"
+        [marketEntity]="market"
+        [outcomeEntity]="outcomeEntity"
+        [showSummary]="expandedSummary[i]"
+        [outcomIndex]="i"
+        [isNotRacingSpecials]="true"
+        raceType="tote"
+        (expand)="onExpandSummary($event)">
+        <div class="tote-odds-style" *ngIf="outcomeEntity?.totePrices?.length>0 && !outcomeEntity.nonRunner">
+          {{fracToDec(outcomeEntity?.totePrices[0]['priceNum'], outcomeEntity?.totePrices[0]['priceDen'])}}
+         </div>
+        <div class="uk-tote" (click)="$event.stopPropagation()">
+          <div class="check-area"
+               data-crlat="checkBox"
+               (click)="selectOutcome(outcomeEntity.id)"
+               [ngClass]="{
+                  'open': !toteLegVal.isOutcomeSelected(outcomeEntity.id),
+                  'checked': toteLegVal.isOutcomeSelected(outcomeEntity.id),
+                  'disabled': outcomeSuspensionStatuses[i],
+                  'non-runner': outcomeEntity.nonRunner }">
+            <div *ngIf="!outcomeEntity.nonRunner" class="checkbox"></div>
+            <div *ngIf="outcomeEntity.nonRunner"
+                 class="non-runner-text" [i18n]="'uktote.nonRunner'"></div>
+          </div>
+        </div>
+      </racing-outcome-card>
+    <no-events *ngIf="!market" [message]="'uktote.noToteEvent'"></no-events>
+  </div>
+</section>

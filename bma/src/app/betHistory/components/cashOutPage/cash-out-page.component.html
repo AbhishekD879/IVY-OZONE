@@ -1,0 +1,55 @@
+<div class="sk-container" [ngClass]="{'sk-loading': state.loading}">
+    <outlet-status [state]="state" [isUsedFromWidget]="isUsedFromWidget" [skeletonType]="'GENERIC_BET'">
+      <request-error [errorMsg]="errorMsg"
+                     [loadFailed]="userStatus"
+                     [loginNeed]="!userStatus"
+                     [insertedPlace]="title"
+                     [reloadMethods]="['SUCCESSFUL_LOGIN', 'EDIT_MY_ACCA', 'RELOAD_CASHOUT']"
+                     (reloadFn)="reloadComponent()"
+                     data-crlat="cashout.loadFailed">
+      </request-error>
+    </outlet-status>
+    <ng-container *ngIf="!state.loading && !state.error">
+      <div>
+        <div class="container cashout-container lazyload-scroll" data-crlat="cashoutContainer">
+          <div class="date-picker-wrapper">
+              <div class="datepickers-section d-flex">
+                <date-picker [date]="startDate" dateType="startDate" label="From" 
+                (errorStateData)="processDateRangeData($event)" [minDate]="minDate" [maxDate]="maxDate"></date-picker>
+                <date-picker [date]="endDate" dateType="endDate" label="To" 
+                (errorStateData)="processDateRangeData($event)" [minDate]="minDate" [maxDate]="maxDate"></date-picker>
+              </div>
+          </div>
+            <cash-out-bets *ngIf="!isLoading && !isDatePickerError()"
+              [data]="data"
+              [area]="title"
+              [isUsedFromWidget]="isUsedFromWidget"
+              [isMyBetsInCasino]="isMyBetsInCasino"
+              [section] = "MYBETS_WIDGET"
+              data-crlat="cashoutWidget"
+              [lazyLoadedBets]="lazyLoadedBets">
+            </cash-out-bets>
+            <div class="history-errors error-template container-content" *ngIf="isDatePickerError()">
+              <svg class="alert-icon">
+                <use xlink:href="#alert"></use>
+              </svg>
+              <div *ngIf="!datePickerErrors.moreThanFourYears">
+                <p class="center-text" data-crlat="textMsg" [i18n]="'bethistory.incorrectDateRange'"></p>
+              </div>
+              <div *ngIf="datePickerErrors.moreThanFourYears">
+                <p class="error-template-message center-text" data-crlat="textMsg" [innerHTML]="contactUsMsg"
+                   [attr.data-help-support-url]="helpSupportUrl"></p>
+              </div>
+            </div>
+          <loading-screen [displayed]="isLoading" [isUsedFromWidget]="isUsedFromWidget"
+                      [templateType]="'GENERIC_BET'"></loading-screen>
+        <div *ngIf="betsLazyLoading.isLoadingMore" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+        </div>
+      </div>
+      <terms-conditions *ngIf="!data.mapState.isEmpty && !isDatePickerError()"></terms-conditions>
+    </ng-container>
+
+    <lazy-component *ngIf="!!isMyBetsInCasino"
+    moduleUri="@lazy-modules-module/casinoMyBetsIntegration/casino-my-bets-integration.module#CasinoMyBetsIntegrationModule"
+    entryComponent="CasinoGoToSportsComponent"></lazy-component>
+</div>

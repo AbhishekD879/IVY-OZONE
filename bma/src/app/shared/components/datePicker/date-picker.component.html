@@ -1,0 +1,34 @@
+<div class="ox-datepicker-container">
+  <!-- Info section - displayed date, label and calendar icon-->
+  <div class="ox-datepicker-info" [ngClass]="{'active': isDatePickerOpened }">
+    <svg class="calendar-icon">
+      <use xlink:href="#calendar"></use>
+    </svg>
+    <div>
+      <label [attr.for]="dateType" [innerHtml]="label" data-crlat="datePickerValue"></label><br/>
+      <span class="displayed-date" [innerHtml]="formatDate(date.value)" data-crlat="datePickerText">
+      </span>
+    </div>
+  </div>
+
+  <!-- Fallback to simple input field if native date picker is not available -->
+  <input *ngIf="!isDateSupports"
+         class="ox-datepicker-fallback"
+         type="text"
+         [placeholder]="'dd/MM/yyyy'"
+         [attr.id]="dateType"
+         [value]="formatDate(date.value)"
+         (blur)="onChange($event.target.value)">
+
+  <!-- Native Date Picker -->
+  <input *ngIf="isDateSupports"
+         class="ox-datepicker"
+         type="date"
+         [min]="minDate"
+         [max]="maxDate"
+         [value]="formatDate(date.value, 'yyyy-MM-dd')"
+         [attr.id]="dateType"
+         (change)="onChange($event.target.value)"
+         (click)="setActive()"
+         (blur)="setInactive()">
+</div>

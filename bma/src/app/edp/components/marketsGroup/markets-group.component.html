@@ -1,0 +1,138 @@
+<accordion [isExpanded]="isExpanded"
+           [headerClass]="'secondary-header'"
+           [isChevronToLeft]="true"
+           [memoryId]="memoryId"
+           (function)="changeAccordionState($event)"
+           [memoryLocation]="memoryLocation"
+           [accordionTitle]="marketsGroup.name"
+           *ngIf="marketsGroup.marketsAvailable">
+  <right-side>
+    <cashout-label *ngIf="!marketsGroup.drilldownTagNames && marketsGroup.cashoutAvail"></cashout-label>
+    <!-- Promotional signposting -->
+    <promotion-icon *ngIf="marketsGroup.drilldownTagNames"
+                    [type]="'market'"
+                    [mode]="'big'"
+                    [cashoutAvailable]="marketsGroup.cashoutAvail"
+                    [display]="marketsGroup.drilldownTagNames"
+                    [accordionTitle]="marketsGroup.name"
+                    [sport]="'sport'"
+                    data-crlat="promotionIcons">
+    </promotion-icon>
+  </right-side>
+  <accordion-body *ngIf="isExpanded">
+    <scoreboard-link *ngIf="isFootball && isOptaProviderPresent && marketsGroup.marketOptaLink && isOptaAvailable"
+                     [market]="marketsGroup"
+                     [event]="eventEntity">
+    </scoreboard-link>
+    <switchers
+      *ngIf="marketsGroup.periods"
+      data-crlat="switchers"
+      [type]="'links'"
+      [filter]="periodIndex"
+      [switchers]="switchers">
+    </switchers>
+    <div class="container-inner-content" *ngIf="!isMarketHeader">
+      <div *ngFor="let market of selectedMarkets(periodIndex); trackBy:trackByFn;"
+           data-crlat="containerInnerContent">
+        <!-- Market Row -->
+        <div class="row row-center row-no-gutter row-col-last row-pad is-horizontal" *ngIf="isMarketRow">
+          <div class="col-xs col-bordered" *ngFor="let outcome of selectedOutcomes(market.outcomes); trackBy:trackByFn;" data-crlat="oddsCard">
+            <div class="col-inner col-vertical">
+              <strong class="col-name" data-crlat="outcome.name" [textContent]="outcome.name"></strong>
+              <price-odds-button [event]="eventEntity"
+                                 [market]="market"
+                                 [outcome]="outcome"
+                                 class="one-row-btn"></price-odds-button>
+            </div>
+          </div>
+        </div>
+        <!-- Market Card -->
+        <div *ngIf="isMarketCard">
+          <div class="odds-card" data-crlat="oddsCard"
+               *ngFor="let outcome of selectedOutcomes(market.outcomes); trackBy:trackByFn;">
+            <div class="odds-content">
+              <div class="odds-left no-wrap" data-crlat="oddsLeft">
+                <strong class="odds-name">
+                  <span [textContent]="outcome.alphabetName"
+                        data-crlat="outcome.alphabetName"></span>
+                  <span [textContent]="outcome.numbersName"
+                        data-crlat="outcome.numbersName"></span>
+                </strong>
+              </div>
+              <div class="odds-right" data-crlat="oddsRight">
+                <price-odds-button data-crlat="marketsGroup.eventEntity"
+                                   [event]="eventEntity"
+                                   [market]="outcome"
+                                   [outcome]="outcome"></price-odds-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Market Card with Header-->
+    <div class="container-inner-content" *ngIf="isMarketHeader" data-crlat="containerInnerContent.table">
+      <div class="odds-card-header" *ngIf="marketsLength() && !showHeader()">
+        <div class="odds-left" data-crlat="oddsLeft">
+              <span class="odds-header-title"
+                    *ngIf="isMarketHeader"
+                    [textContent]="marketsGroup.headerLabel"
+                    data-crlat="oddsHeader"></span>
+        </div>
+        <div class="odds-right" data-crlat="oddsRight">
+          <span class="odds-header-col" *ngFor="let header of marketsGroup.header" [textContent]="header.name" data-crlat="oddsHeader"></span>
+        </div>
+      </div>
+      <div class="odds-card" data-crlat="oddsCard"
+           *ngFor="let market of selectedMarkets(periodIndex)">
+        <div class="odds-content">
+          <div class="odds-left" data-crlat="oddsLeft">
+            <strong class="odds-name" data-crlat="oddsNames" [textContent]="market.name"></strong>
+          </div>
+          <div class="odds-right" data-crlat="oddsRight">
+            <div class="odds-btn-content">
+              <ng-container *ngFor="let outcome of getMarketOutcomes(market, periodIndex); trackBy: trackById;">
+                <div class="odds-btn-wrapper">
+                  <price-odds-button
+                    *ngIf="!outcome.fakeOutcome"
+                    [event]="eventEntity"
+                    [market]="outcome"
+                    [outcome]="outcome">
+                  </price-odds-button>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="odds-card" data-crlat="oddsCard" *ngIf="marketNoGoal">
+        <div class="odds-content">
+          <div class="odds-left" data-crlat="oddsLeft">
+            <strong class="odds-name" data-crlat="oddsNames" [textContent]="marketNoGoal.name"></strong>
+          </div>
+          <div class="odds-right" data-crlat="oddsRight">
+            <div class="odds-btn-content">
+              <ng-container *ngFor="let outcome of marketNoGoal.outcomes">
+                <div class="odds-btn-wrapper">
+                  <price-odds-button
+                    [event]="eventEntity"
+                    *ngIf="!outcome.fakeOutcome"
+                    [market]="outcome"
+                    [outcome]="outcome">
+                  </price-odds-button>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <show-all-button *ngIf="showLessButton"
+                     data-crlat="showAllButton"
+                     (click)="toggleShow()"
+                     [allShown]="isAllShow">
+    </show-all-button>
+    <no-events *ngIf="!marketsLength()"></no-events>
+  </accordion-body>
+</accordion>

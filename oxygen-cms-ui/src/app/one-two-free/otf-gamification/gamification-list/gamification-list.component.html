@@ -1,0 +1,44 @@
+<div class="card">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Gamification</h2>
+  </div>
+</div>
+<div class="card">
+  <div class="body">
+    <div class="row" *ngIf="seasonGamificationData">
+      <div class="col-md-3">
+        <button (click)="navigateToCreateGamification()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create Gamification</span>
+        </button>
+      </div>
+      <div class="col-4 m-b-0 pagination-block">
+        <mat-icon class="m-r-5">format_list_numbered</mat-icon>
+        <mat-form-field class="pagination-select">
+          <mat-select placeholder="Rows per page" [(ngModel)]="paginationLimit">
+            <mat-option *ngFor="let option of paginationLimitOptions" [textContent]="option || 'No pagination'"
+              [value]="option">
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Games" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="seasonGamificationData">
+      <cms-data-table [customTableData]="seasonGamificationData" [customTableColumns]="dataTableColumns" [multyRemove]="true"
+        [isRemoveCheckboxEnabled]="isRemoveCheckboxEnabled" [actions]="['remove','edit']" [filterString]="searchField"
+        [filterProperties]="filterProperties" [paginationLimit]="paginationLimit"
+        (onRemoveTableElement)="removeGamification($event)" (onMultyRemove)="removeHandlerMulty($event)">
+      </cms-data-table>
+    </div>
+  </div>
+</div>

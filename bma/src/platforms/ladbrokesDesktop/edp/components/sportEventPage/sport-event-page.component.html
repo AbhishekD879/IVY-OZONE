@@ -1,0 +1,300 @@
+<outlet-status [state]="state" *ngIf="!state.loading && state.error">
+  <request-error (reloadFn)="reloadComponent()"></request-error>
+</outlet-status>
+<ng-container *ngIf="!state.loading && !state.error">
+  <!--- Tabs -->
+  <action-arrows>
+    <action-arrows-content>
+      <switchers
+        *ngIf="!isSpecialEvent && eventEntity?.markets?.length"
+        class="tab-switchers"
+        data-crlat="panel.tabs"
+        [type]="'scrollable'"
+        [switchers]="eventTabs"
+        [activeTab]="activeTab"
+        [noPaddings]="true"
+        [detectGTMLocation]="'location'"
+      ></switchers>
+    </action-arrows-content>
+  </action-arrows>
+
+  <edp-surface-bets-carousel *ngIf="showSurfaceBets" [eventId]="eventEntity.id"></edp-surface-bets-carousel>
+
+  <!--- Sport Event Page -->
+  <div *ngIf="!isSpecialEvent && !showFiveASideContent && !showYourCallContent && !loading"
+     class="market-columns"
+     data-crlat="accordionsList">
+    <div class="market-column" *ngFor="let column of columns; let parentIndex = index">
+      <ng-container *ngFor="let market of filteredMarketGroup; trackBy: getTrackByValue; let index = index">
+        <ng-container *ngFor="let config of marketConfig; trackBy: getTrackById">
+          <markets-group-component
+            *ngIf="isHidden(index, parentIndex) && config && market.marketsGroup && marketAvailable[config.localeName] &&
+                market.localeName === config.localeName"
+            [markets]="marketGroup"
+            [isOptaAvailable] = "isOptaAvailable"
+            [isOptaProviderPresent] = "isOptaProviderPresent"
+            [isFootball] = "isFootball"
+            [memoryId]="getMemoryId(index, market, true)"
+            [memoryLocation]="marketsStorage"
+            [marketsGroup]="config"
+            [eventEntity]="eventEntity"
+            [isExpanded]="isExpanded(market.id)">
+          </markets-group-component>
+        </ng-container>
+        <correct-score *ngIf="market.viewType === 'Correct Score' && isHidden(index, parentIndex)"
+                       [market]="market"
+                       [marketGroup]="marketGroup"
+                       [eventEntity]="eventEntity"
+                       [memoryId]="getMemoryId(index, market, true)"
+                       [memoryLocation]="marketsStorage"
+                       [isExpanded]="isExpanded(market.id)"
+                       data-crlat="correctScoreMarket"></correct-score>
+
+        <scorecast
+          *ngIf="hasScorecastMarket(market) && isHidden(index, parentIndex)"
+          [markets]="marketGroup"
+          [memoryId]="getMemoryId(index + 1, market, true)"
+          [memoryLocation]="marketsStorage"
+          [eventEntity]="eventEntity"
+          [isExpanded]="isExpanded(market.id)">
+        </scorecast>
+        <scorer
+        *ngIf="market.viewType === 'Scorer' && isHidden(index, parentIndex)"
+        [markets]="marketGroup"
+        [memoryId]="getMemoryId(index, market, true)"
+        [memoryLocation]="marketsStorage"
+        [marketsGroup]="market"
+        [eventEntity]="eventEntity"
+        [isExpanded]="isExpanded(market.id)">
+      </scorer>
+
+        <your-call-player-stats [marketsGroup]="market"
+                                [memoryId]="getMemoryId(index, market, true)"
+                                [isExpanded]="isExpanded(market.id)"
+                                [memoryLocation]="marketsStorage"
+                                [eventEntity]="eventEntity"
+                                *ngIf="market.localeName === 'playerStats' && isEnabledOnCms() && isHidden(index, parentIndex)">
+        </your-call-player-stats>
+
+        <accordion *ngIf="isHidden(index, parentIndex) && !isYourCallMarket(market) && !market.marketsGroup && market.viewType !== 'Scorer' && market.viewType !== 'Correct Score'"
+                   [isChevronToLeft]="true"
+                   data-crlat="accordion"
+                   [hidden]="market.hidden"
+                   [memoryId]="getMemoryId(index, market)"
+                   [memoryLocation]="marketsStorage"
+                   [headerClass]="'secondary-header'"
+                   [isHeaderHidden]="false"
+                   [isExpanded]="isExpanded(market.id, market)"
+                   (function)="changeAccordionState(market, $event)"
+                   [ngClass]="{'accordion-margin': isHeaderHidden(market)}"
+                   [accordionTitle]="market.name">
+          <right-side>
+            <!-- Promotional signposting -->
+            <promotion-icon
+              [type]="'market'"
+              [mode]="'big'"
+              [cashoutAvailable]="market.cashoutAvail === 'Y'"
+              [display]="appendDrillDownTagNames(market)"
+              [accordionTitle]="market.templateMarketName"
+              [marketName]="market.name"
+              [eventName]="eventName"
+              [sport]="'sport'"
+              data-crlat="promotionIcons">
+            </promotion-icon>
+          </right-side>
+
+          <accordion-body>
+            <scoreboard-link *ngIf="isFootball && isOptaProviderPresent && market.marketOptaLink && isOptaAvailable"
+                             [market]="market"
+                             [event]="eventEntity">
+            </scoreboard-link>
+            <ng-container *ngIf="isStatContentInfo && (!eventEntity.isStarted || !eventEntity.isLiveNowEvent) && market.drilldownTagNames">
+              <lazy-component
+                moduleUri="@lazy-modules-module/statisticalContentInformation/statistical-content-information.module#StatisticalContentInformationModule"
+                [inputs]="{
+                  market:market,
+                  brand:brand,
+                  display:appendDrillDownTagNames(market)}" 
+                  [outputs]="['marketStatistical']"
+                  (event)="handleStatisticalEvents($event)"
+                entryComponent="StatisticalContentInformationComponent">
+              </lazy-component>
+              </ng-container>
+            <lazy-component
+            moduleUri="@lazy-modules-module/twoUpSignpostingBlurbMsg/twoup-signposting-blurbmsg.module#TwoUpSignPostingBlurbMsgModule"
+            [inputs]="{
+              marketName:market.name
+            }"
+            entryComponent="TwoUpSignPostingBlurbMsgComponent">
+            </lazy-component>
+            <div data-crlat="containerContent">
+              <div class="container-inner-content" *ngIf="market.viewType === 'List'" data-crlat="containerInnerContent">
+                <div class="odds-card" *ngFor="let outcomeEntity of market.outcomes | slice:0:!market.isAllShown ? 6 : market.outcomes.length; trackBy: getTrackById" data-crlat="oddsCard">
+                  <div class="odds-content">
+                    <div class="odds-left">
+                      <div class="odds-names odds-names-wrap" [textContent]="outcomeEntity.name" data-crlat="oddsNames"></div>
+                    </div>
+                    <div class="odds-right">
+                      <price-odds-button [event]="eventEntity"
+                                         [market]="market"
+                                         [outcome]="outcomeEntity"
+                                         class="one-row-btn">
+                      </price-odds-button>
+                    </div>
+                  </div>
+                  <div class="odds-footer" *ngIf="market.isSmartBoosts && outcomeEntity.wasPrice">
+                    <div class="odds-right">
+                      <div class="was-price">
+                        <span [i18n]="'sb.wasPrice'"></span>
+                        <strike [textContent]="outcomeEntity.wasPrice"></strike>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <show-all-button
+                  *ngIf="market.outcomes.length > 6"
+                  (click)="toggleShowYourCallMarket(market)"
+                  [allShown]="market.isAllShown">
+                </show-all-button>
+              </div>
+
+              <div class="container-inner-content" *ngIf="market.viewType === 'WW'">
+                <div class="row row-center row-no-gutter row-last row-pad">
+                  <div class="col-xs col-bordered" *ngFor="let outcomeEntity of market.outcomes; trackBy: getTrackById">
+                    <div class="col-inner">
+                      <strong class="col-name" [textContent]="outcomeEntity.name"></strong>
+                      <div class="ww-temp">
+                      <price-odds-button [event]="eventEntity"
+                                         [market]="market"
+                                         [outcome]="outcomeEntity"
+                                         class="one-row-btn">
+                      </price-odds-button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="container-inner-content" *ngIf="market.viewType === 'Handicap WW'" data-crlat="containerInnerContent">
+                <div class="row row-center row-no-gutter row-last row-pad">
+                  <div class="col-xs col-bordered" *ngFor="let outcomeEntity of market.outcomes; trackBy: getTrackById" data-crlat="oddsCard">
+                    <div class="col-inner">
+                      <strong class="col-name" [textContent]="outcomeEntity.name.split('(')[0]" data-crlat="outcomeEntity.name"></strong>
+                      <div class="ww-temp">
+                      <price-odds-button [event]="eventEntity"
+                                         [market]="market"
+                                         [outcome]="outcomeEntity"
+                                         class="one-row-btn"
+                                         [handicapVal]="outcomeEntity.prices[0]?.handicapValueDec">
+                      </price-odds-button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="container-inner-content" *ngIf="market.viewType === 'WDW'" data-crlat="containerInnerContent">
+                <div class="row row-center row-no-gutter row-col-last row-pad" [equal-column]="market.viewType !== 'WDW'"
+                     [class.is-horizontal]="market.viewType === 'WDW'">
+                  <div class="col-xs col-bordered" *ngFor="let outcomeEntity of market.outcomes" data-crlat="market.outcomes">
+                    <div class="col-inner col-vertical" data-crlat="oddsCard">
+                      <strong class="col-name">
+                        <span *ngIf="outcomeEntity.alphabetName" id="wdw-name"
+                              [textContent]="outcomeEntity.alphabetName"
+                              data-crlat="outcomeEntity.name"></span>
+                        <span [textContent]="outcomeEntity.numbersName"></span>
+                      </strong>
+                      <price-odds-button [event]="eventEntity"
+                                         [market]="market"
+                                         [outcome]="outcomeEntity"
+                                         class="one-row-btn">
+                      </price-odds-button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="container-inner-content" *ngIf="market.viewType === 'Handicap WDW'">
+                <div class="row row-center row-no-gutter row-col-last row-pad" [equal-column]="market.viewType !== 'Handicap WDW'"
+                     [class.is-horizontal]="market.viewType === 'Handicap WDW'">
+                  <div class="col-xs col-bordered" *ngFor="let set of market.groupedOutcomes">
+                    <div *ngFor="let outcomeEntity of set; trackBy: getTrackById" class="col-inner col-vertical">
+                      <strong class="col-name" [textContent]="outcomeEntity.name.split('(')[0]"></strong>
+                      <price-odds-button *ngIf="outcomeEntity.name.split(' ')[0].toLowerCase()!=='draw' && outcomeEntity.name.split(' ')[0].toLowerCase()!=='tie' && outcomeEntity.name.split(' ')[0].toLowerCase()!=='line'"
+                                        [event]="eventEntity"
+                                         [market]="market"
+                                         [outcome]="outcomeEntity"
+                                         [handicapVal]="outcomeEntity.prices[0]?.handicapValueDec"
+                                         class="one-row-btn">
+                      </price-odds-button>
+                      <price-odds-button *ngIf="outcomeEntity.name.split(' ')[0].toLowerCase()==='draw' || outcomeEntity.name.split(' ')[0].toLowerCase()==='tie' || outcomeEntity.name.split(' ')[0].toLowerCase()==='line'"                                       
+                                         [event]="eventEntity"
+                                         [market]="market"
+                                         [outcome]="outcomeEntity"
+                                         class="one-row-btn">
+                      </price-odds-button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </accordion-body>
+        </accordion>
+
+        <ng-container *ngIf="isYourCallMarket(market) && isHidden(index, parentIndex)">
+          <accordion
+            [accordionTitle]="market.name"
+            [isChevronToLeft]="true"
+            [isExpanded]="isExpanded(market.id)"
+            [inner]="true">
+            <right-side>
+              <cashout-label *ngIf="market.cashoutAvail === 'Y'"></cashout-label>
+            </right-side>
+            <accordion-body>
+              <scoreboard-link *ngIf="isFootball && isOptaProviderPresent && market.marketOptaLink && isOptaAvailable"
+                               [market]="market"
+                               [event]="eventEntity">
+              </scoreboard-link>
+              <div class="odds-card"
+                   *ngFor="let outcomeEntity of market.outcomes | slice:0:showLimit(market); trackBy: getTrackById"
+                   data-crlat="oddsCard">
+                <div class="odds-content">
+                  <div class="odds-left">
+                    <div class="odds-names odds-names-wrap" [textContent]="outcomeEntity.name" data-crlat="oddsNames"></div>
+                  </div>
+                  <div class="odds-right">
+                    <price-odds-button [event]="eventEntity"
+                                       [market]="market"
+                                       [outcome]="outcomeEntity"
+                                       [gtmModuleTitle]="[market.name, market.name].join('. ')">
+                    </price-odds-button>
+                  </div>
+                </div>
+              </div>
+              <show-all-button
+                *ngIf="market.outcomes.length > market.showLimit"
+                (click)="toggleShowYourCallMarket(market)"
+                [allShown]="market.isAllShown">
+              </show-all-button>
+            </accordion-body>
+          </accordion>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+  <div class="heuristic-container sk-container"
+    [ngClass]="{'sk-loading': !initialized}"
+    *ngIf="showFiveASideContent || showYourCallContent">
+    <loading-screen
+      [displayed]="(showYourCallContent || showFiveASideContent) && !initialized"
+      [templateType]="'GENERIC'">
+    </loading-screen>
+    <lazy-component *ngIf="showFiveASideContent" moduleUri="@yourCallModule/your-call.module#YourCallModule"
+      [inputs]="{eventEntity: eventEntity}" entryComponent="FiveASideTabContentComponent"
+      (init)="childComponentLoaded()"
+      (failed)="childComponentLoaded()">
+    </lazy-component>
+    <lazy-component *ngIf="showYourCallContent" moduleUri="@yourCallModule/your-call.module#YourCallModule"
+      [inputs]="{eventEntity: eventEntity}" entryComponent="DesktopYourCallTabContentComponent"
+      (init)="childComponentLoaded()"
+      (failed)="childComponentLoaded()">
+    </lazy-component>
+  </div>
+</ng-container>

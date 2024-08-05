@@ -1,0 +1,149 @@
+<div class="container-content jackpot-receipt my-bets-single-stakes-scroll">
+  <ng-container *ngIf="poolHistory">
+    <div class="bet-item my-bets-item-scroll"
+         *ngFor="let poolEntity of poolHistory; trackBy: trackByBet"
+         data-crlat="cashout.betItems">
+      <div class="bet-container" [ngClass]="poolEntity.status">
+        <ng-container *ngIf="isCongratsBannerShown(poolEntity)">
+          <div [ngClass]="{'congrats-message-lads': isBrandLadbrokes&&celebration.congratsBannerImage, 'congrats-message': !isBrandLadbrokes&&celebration.congratsBannerImage, 'static-celebration-block': !celebration.congratsBannerImage, 'static-banner': !celebration.congratsBannerImage}" [style.background]="celebration.congratsBannerImage ? 'url('+celebration.congratsBannerImage+')' : ''" class="static-celebration-block">
+            <div [ngClass]="{'static-celebration-message': !celebration.congratsBannerImage, 'static-celebration-message-lads': isBrandLadbrokes}">
+                <div [ngClass]="{'celebration-message-lads': isBrandLadbrokes}" class="celebration-message"><span>{{celebration.celebrationMessage}}</span></div>
+                <div [ngClass]="isBrandLadbrokes ? 'winning-message-lads' : 'winning-message'">
+                  <span *ngIf="poolEntity.status !== cashoutStatus">{{getReturnValue(poolEntity)}}</span>
+                  <span *ngIf="poolEntity.status === cashoutStatus">{{getCashoutReturnValue(poolEntity)}}</span>
+                </div>    
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="!isCongratsBannerShown(poolEntity)">
+          <!-- Header -->
+          <div class="my-bets-item-header">
+            <span class="my-bets-item-header-text">
+              <span [textContent]="poolEntity.betTitle" data-crlat="cashout.item.header"></span>
+              <span
+                *ngIf="poolEntity.showLegsNumberInTitle"
+                [textContent]="poolEntity.numLegs"
+                data-crlat="numLegs">
+              </span>
+            </span>
+            <span
+              *ngIf="poolEntity.status"
+              [textContent]="poolEntity.status"
+              class="my-bets-item-status"
+              [ngClass]="poolEntity.status"
+              data-crlat="cashout.totalStatus">
+            </span>
+          </div>
+        </ng-container>
+        <!-- Football jackpot pool bet card -->
+        <jackpot-pool-leg-list
+          *ngIf="poolEntity.isFootballJackpotBetModel"
+          [pool]="poolEntity"
+          [isSportIconEnabled]="isSportIconEnabled"
+          data-crlat="poolType.jackpot">
+        </jackpot-pool-leg-list>
+
+        <!-- Tote One Leg pool bet card -->
+                <!-- [poolBets]="poolBets" -->
+        <tote-pool-bet-card
+          *ngIf="poolEntity.isTotePoolBetBetModel"
+          [pool]="poolEntity"
+          [isSportIconEnabled]="isSportIconEnabled"
+          data-crlat="poolType.oneLeg">
+        </tote-pool-bet-card>
+
+        <!-- Tote Multiple Legs pool bet card -->
+        <tote-pot-pool-bet-card
+          *ngIf="poolEntity.isTotePotPoolBetBetModel"
+          [pool]="poolEntity"
+          [isSportIconEnabled]="isSportIconEnabled"
+          data-crlat="poolType.multipleLegs">
+        </tote-pot-pool-bet-card>
+
+        <!-- Stake and lines or estimated returns-->
+        <div
+          class="cashout-stake-and-returns" [ngClass]="{ 'longTxt-stake-returns-wrap': !deviceService.isDesktop}">
+          <div [ngClass]="{'pool-flex': !deviceService.isDesktop && showFreeBetsToggle(poolEntity?.tokenValue)}">
+          <div class="select-market-header unit-stake-row" [ngClass]="{'flexWrap': (poolEntity?.tokenValue > 0 && !deviceService.isDesktop)}">
+            <div [ngClass]="getClassName(deviceService.isDesktop, poolEntity.isSettled)" data-crlat="stake">
+              <span class="stake-label"
+                    [i18n]="'bethistory.stakePerLine'"
+                    data-crlat="label">
+              </span>
+              <span *ngIf="showFreeBetsToggle(poolEntity?.stake)" class="stake-label stake-value"
+                    [textContent]="poolEntity?.totalStake.charAt(0)+poolEntity?.stake"
+                    data-crlat="value">
+              </span>
+             <span *ngIf="showFreeBetsToggle(poolEntity?.stake) && showFreeBetsToggle(poolEntity?.tokenValue)">&nbsp;+&nbsp;</span>            
+              <span class="free-bet-label" [ngClass]="{'marginRight': deviceService.isDesktop}">
+                <free-bet-label *ngIf="showFreeBetsToggle(poolEntity?.tokenValue)" 
+                  [freeBetLabelText]="poolEntity?.bet?.freebetTokens?.freebetToken?.freebetOfferCategories?.freebetOfferCategory"
+                  [selected]="poolEntity?.tokenValue">
+                </free-bet-label>
+              </span>
+            </div>
+
+            <div *ngIf="poolEntity.showStakeAndLines"
+                 class="single-right"
+                 data-crlat="showStakeAndLines">
+              <span class="stake-label" [i18n]="'bethistory.infoLinesNum'" data-crlat="label"></span>
+              <span class="stake-label stake-value lines-number" [textContent]="poolEntity.lines"></span>
+              <span class="stake-label win-lines-label" [i18n]="'bethistory.infoWinLinesNum'"></span>
+              <span class="stake-label stake-value"
+                    [ngClass]="{'win-lines-number': poolEntity.status === 'won'}"
+                    [textContent]="poolEntity.winLines" data-crlat="label">
+              </span>
+            </div>
+
+            <div [ngClass]="{'single-right' : deviceService.isDesktop, 'single-right-flex': !deviceService.isDesktop, 'paddingTop': !deviceService.isDesktop && showFreeBetsToggle(poolEntity?.tokenValue)}"
+                 *ngIf="poolEntity.showEstimatedReturns"
+                 data-crlat="estimatedReturns">
+            <span *ngIf="!deviceService.isDesktop && !showFreeBetsToggle(poolEntity?.tokenValue)"
+                 [i18n]="'bethistory.delimiter'"
+                 class="delimiter">
+            </span>
+            <span *ngIf="!poolEntity.isSettled"
+                  class="stake-label"
+                  [i18n]="deviceService.isDesktop ? 'bethistory.potentialReturns' : 'bethistory.totalReturn'"
+                  data-crlat="label">
+            </span>
+              <span *ngIf="poolEntity.isSettled"
+                    class="stake-label"
+                    [i18n]="'bethistory.totalReturns'"
+                    data-crlat="label">
+              </span>
+              <span class="stake-label stake-value"
+                    [textContent]="poolEntity.totalReturns || 'N/A'"
+                    data-crlat="value">
+              </span>
+            </div>
+          </div>
+          </div>
+          <div  *ngIf="!deviceService.isDesktop" [ngClass]="{ 'width-20': !deviceService.isDesktop}">
+            <lazy-component *ngIf="!deviceService.isDesktop"
+              moduleUri="@lazy-modules-module/bet-share-image-card/bet-share-image-card.module#BetShareImageCardModule"
+              [inputs]="{bet: poolEntity, bets: poolBets, sportType : 'pools',  currencySymbol: poolEntity.currency}"
+              entryComponent="BetShareImageCardComponent">
+            </lazy-component>
+          </div>
+        </div>
+
+        <!--Bet receipt-->
+        <bet-receipt-info
+          datePattern="HH:mm - dd MMM"
+          [receipt]="poolEntity.receipt"
+          [date]="poolEntity.date"
+          data-crlat="betReceiptInfo">
+        </bet-receipt-info>
+      </div>
+    </div>
+    <!-- No lotto bets error message -->
+  </ng-container>
+
+  <no-bets-section
+    *ngIf="!poolHistory.length"
+    [noBetsMessage]="noBetsMessage"
+    [showStartGamingButton]="!isUsedFromWidget"
+    [isMyBetsInCasino]="isMyBetsInCasino"
+  ></no-bets-section>
+</div>

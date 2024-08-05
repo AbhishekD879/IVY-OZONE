@@ -1,0 +1,54 @@
+<div class="card" *ngIf="hideAction">
+    <div class="header">
+        <h2 class="has-activity-badge">My Bets
+            <create-updated-at-by [collection]="myBets.value"></create-updated-at-by>
+        </h2>
+    </div>
+</div>
+<form [formGroup]="myBets" *ngIf="hideAction">
+    <div class="card">
+        <div class="body">
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">
+                        Secondary Copy
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Secondary Copy" formControlName="addDescText">
+                        <mat-hint class="col-red"
+                            *ngIf="(myBetsControl.addDescText.touched && myBetsControl.addDescText.errors?.required)">
+                            This Property Should not be empty</mat-hint>
+                    </mat-form-field>
+                </div>
+                <!-- <div class="col-md-2 text-length">
+              {{myBets.value.secondaryCopy?myBets.value.secondaryCopy?.length : 0}} / 50 
+            </div> -->
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">
+                        Branded Image 
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Branded Image URL" formControlName="defaultImgLink">
+                        <mat-hint class="col-red"
+                            *ngIf="(myBetsControl.defaultImgLink.touched && myBetsControl.defaultImgLink.errors?.required)">
+                            This Property Should not be empty</mat-hint>
+                    </mat-form-field>
+                </div>
+                <!-- <div class="col-md-2 text-length">
+              {{myBets.value.secondaryCopy?myBets.value.secondaryCopy?.length : 0}} / 50 
+            </div> -->
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<action-buttons [fieldOrItemName]="'My Bets'" *ngIf="hideAction" [showRemoveButton]="false" [collection]="myBets.value"
+    (actionsEmitter)="actionsHandler($event);" [form]="myBets">
+</action-buttons>

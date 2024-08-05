@@ -1,0 +1,16 @@
+<div *ngIf="isBetValid"
+     class="acca-notification row row-middle footer-acca"
+     [class.diagonal-shine-animation]="isLoadingAnimationActive"
+     [class.timeline-shown]="timelineShown"
+     [class.nw-indicator-shown]="NWIndicatorShown"
+     data-crlat="accaNotification"
+     (click)="focusOnMultiple()">
+  <span class="col-xs-8" [textContent]="betType" data-crlat="betType"></span>
+  <span class="col-xs-4 label-price text-right" [textContent]="price" data-crlat="accaPrice"></span>
+  <svg class="next-arrow" data-crlat="arrowNext">
+    <use xlink:href="#next-arrow"></use>
+  </svg>
+  <div *ngIf="teamselectionNames" class="selection-name">
+    <span [textContent]="getDivWidth(teamselectionNames)"></span>
+  </div>
+</div>

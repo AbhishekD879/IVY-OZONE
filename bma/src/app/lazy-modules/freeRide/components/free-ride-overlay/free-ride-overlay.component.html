@@ -1,0 +1,39 @@
+<div id="freeRideOverlay" class="overlay">
+    <div class="overlay-content">
+        <div class="bannerContainer">
+            <a href="javascript:void(0)" class="closebtn" (click)="destroyOverlay()">&times;</a>
+            <p class="text-center mainImage">
+                <img class="imgMainContainer" [src]="splashImg" alt="splash-overlay-heading-image">
+            </p>
+            <p class="text-center headingImage">
+                <img class="imgContainer" [src]="freeRideImg" alt="splash-overlay-heading-image">
+            </p>
+        </div>
+        <div class="error-notification" *ngIf="freeRideError">
+            <span class="error-content" [textContent]=FREERIDEMSGS.ERROR_MSG></span>
+            <span class="close-icon" (click)="closeErrorMessage($event)">
+                <svg>
+                    <use xlink:href="#close-icon"></use>
+                </svg>
+            </span>
+        </div>
+        <div class="contentContainer">
+            <div class="content-area">
+            </div>
+        </div>
+        <div class="loadingChat">
+        </div>
+        <audio crossorigin="anonymous" #ansAudioOption>
+            <source src="./assets/ansAudSrc.mp3" type="audio/mpeg">
+        </audio>
+        <audio crossorigin="anonymous" #quesAudioOption>
+            <source src="./assets/bookiePopShortNew.mp3" type="audio/mpeg">
+        </audio>
+        <audio crossorigin="anonymous" #ques1AudioOption>
+            <source src="./assets/questAudSrc.mp3" type="audio/mpeg">
+        </audio>
+        <audio crossorigin="anonymous" #resultAudioOption>
+            <source src="./assets/resultAudSrc.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+</div>

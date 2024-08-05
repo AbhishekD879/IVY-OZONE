@@ -1,0 +1,45 @@
+@import 'global.variables.scss';
+$color-blue-alt: #4a90e2;
+
+::ng-deep modal.quiz-dialog {
+  .modal-header {
+    background:  $color-white;
+    margin-bottom: 0;
+    text-transform: none;
+    padding: 24px 24px 12px;
+    font-size: 15px;
+
+    .btn-close {
+      display: none;
+    }
+  }
+  .modal-body {
+    padding: 0 24px 24px 24px;
+    color: $lBlack-light;
+    font-size: 13px;
+    font-stretch: normal;
+    letter-spacing: normal;
+    max-height: 450px;
+    overflow-y: auto;
+
+    .btn {
+      &.okButton {
+        padding-left: 5px;
+      }
+      &.btn-style-quiz {
+        text-align: center;
+        width: calc(100% + 48px);
+        height: 42px;
+        padding: 12px 24px;
+        margin: 16px 0 -24px -24px;
+        line-height: 18px;
+        color: $color-blue-alt;
+        background: $color-white;
+        border-top: 1px solid $lGrayLight;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+  }
+}
+

@@ -1,0 +1,180 @@
+@use "sass:math";
+@import 'global.variables.scss';
+
+$deflt-padd-val: 12px;
+$small-padd-val: 6px;
+$sport-card-padding: $deflt-padd-val $deflt-padd-val 8px $deflt-padd-val;
+$sport-card-header-height: 15px;
+$sport-card-header-content-between: 10px;
+$sport-card-content-height: 40px;
+$sport-card-price-button-width: 50px;
+
+$sport-card-labels-font-size: 11px;
+$sport-card-default-font-size: 13px;
+
+// styles
+.sport-card {
+  display: block;
+  position: relative;
+  padding: $sport-card-padding;
+
+  background: $color-white;
+  color: $color-gray-darkest;
+  border-bottom: 1px solid $lGrayLight;
+  font-family: $alt-font-family;
+  font-size: $sport-card-default-font-size;
+  cursor: pointer;
+
+  min-height: 100px;
+
+  &.coupon-sport-card-lad-desk
+  {
+    padding: 12px 12px 0px 12px;
+    border-bottom: 0px;
+    border-top: 1px solid $lGrayLight;
+    min-height: fit-content;
+  }
+
+  .sport-card-left {
+    @include display-flex();
+    @include align-items(center);
+    @include flex(1, 1, auto);
+    max-width: 100%;
+    overflow: hidden;
+  }
+  .flag-sp {
+    @include display-flex();
+    @include align-items();
+    .flag-icon {
+      margin-right: 8px;
+    }
+  }
+
+  .sport-card-right {
+    @include display-flex();
+    @include align-items(center);
+    @include justify-content(flex-end);
+    @include flex(1, 0, auto);
+    width: auto;
+  }
+
+  .sport-card-header {
+    @include display-flex();
+    @include align-items(center);
+    height: $sport-card-header-height;
+    margin-bottom: $sport-card-header-content-between;
+    font-size: $sport-card-labels-font-size;
+    line-height: $sport-card-header-height;
+
+    // left header side
+
+    live-label + live-clock,
+    live-label + .sport-card-label,
+    watch-label + live-clock,
+    watch-label + .sport-card-label {
+      margin-left: 8px;
+    }
+
+    // right header side
+
+    .sport-card-promotions-icon,
+    .sport-card-promotions-icon div,
+    .sport-card-promotions-icon svg {
+      height: 15px;
+    }
+
+    .sport-card-more-link {
+      font-size: $sport-card-labels-font-size;
+      font-family: $base-font-family;
+      color: $color-blue-alt;
+      white-space: nowrap;
+      font-weight: bold;
+      line-height: $sport-card-header-height;
+      text-transform: uppercase;
+      padding: 0 5px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+      &:active{
+        text-decoration: underline;
+      }
+
+      &:after {
+        content: '';
+        position: relative;
+        top: -1px;
+        left: 4px;
+        border: solid $color-blue-alt;
+        border-width: 0 2px 2px 0;
+        display: inline-block;
+        padding: 2px;
+        @include transform(rotate(-45deg));
+      }
+    }
+
+  }
+
+  .sport-card-content {
+    @include display-flex();
+    @include align-items(center);
+    @include flex-flow(row, nowrap);
+    @include justify-content(space-between);
+    min-height: $sport-card-content-height;
+  }
+
+  .sport-card-names {
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    a {
+      display: block;
+      color: $color-gray-darkest;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: math.div($sport-card-content-height, 2);
+      -webkit-line-clamp: 2;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      line-height: 25px;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .sport-card-btn-content {
+    @include display-flex();
+    margin-left: 3px;
+  }
+
+  .sport-card-btn-wrapper {
+    width: $sport-card-price-button-width;
+    margin-left: $small-padd-val;
+  }
+
+  button.btn.btn-bet,
+  button.btn-bet {
+    width: $sport-card-price-button-width;
+  }
+
+  @media (min-width: $odds-button-big-size) {
+    .odds-btn-wrapper, .sport-card-btn-wrapper {
+      min-width: $price-odd-btn-min-width-1600;
+      margin-left: 8px;
+    }
+
+  }
+
+  @media (max-width: $odds-button-small-size) {
+    .odds-btn-wrapper, .sport-card-btn-wrapper {
+      min-width: $price-odd-btn-max-width-1599;
+      margin-left: 4px;
+    }
+  }
+}
+
+promotion-icon + span.sport-card-next-score {
+  margin-left: 10px;
+}

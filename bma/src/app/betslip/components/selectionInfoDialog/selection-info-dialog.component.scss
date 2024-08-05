@@ -1,0 +1,68 @@
+@import 'global.variables.scss';
+
+.selection-info-dialog-title {
+  text-transform: none;
+  font-size: 13px;
+  letter-spacing: -0.05px
+}
+
+.event-title {
+  padding: 14px 14px 14px 4px;
+  border-bottom: 1px solid $color-gray;
+  margin-top: -10px;
+  position: relative;
+
+  .event-name {
+    display: inline;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+
+  .event-arrow-icon {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -6px;
+    fill: $color-gray-dark;
+    opacity: .85;
+  }
+}
+
+.event-details {
+  margin-top: 10px;
+  padding: 0 4px;
+
+  promo-labels {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .event-detail {
+    margin-bottom: 4px;
+    font-size: 13px;
+    color: $lGray;
+  }
+
+  .detail-label {
+    font-weight: bold;
+    margin-right: 5px;
+    color: $lGray;
+  }
+}
+
+betslip-fctc-list {
+  display: inline-flex;
+  @include flex-direction(column);
+}
+
+.btn-list {
+  text-align: right;
+  margin: 18px 4px 4px;
+  .btn {
+    width: 99px;
+    height: 36px;
+    color: $color-gray-dark;
+  }
+}

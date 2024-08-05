@@ -1,0 +1,105 @@
+<breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+
+<div class="card">
+    <div class="header">
+        <h2 class="has-activity-badge">
+            <span class="font-italic" [textContent]="onboardConstats.Create_Onboarding_Image"></span>
+        </h2>
+    </div>
+</div>
+
+<form [formGroup]="onboardingFormGroup">
+    <div class="card">
+        <div class="body">
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label" for="imageType" [textContent]="onboardConstats.Image_Type"></span>
+                </div>
+                <div class="col-md-5">
+                    <mat-form-field class="full-width">
+                        <mat-select formControlName="imageType">
+                            <mat-option value="onboarding" [textContent]="onboardConstats.Onboarding"></mat-option>
+                            <mat-option value="betreview" [textContent]="onboardConstats.BetReview"></mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label" for="onboardImg" [textContent]="onboardConstats.Upload_Image"></span>
+                </div>
+                <div class="col-md-5">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Onboard Image" [(ngModel)]="uploadImageName"
+                            [value]="uploadImageName" formControlName="onboardImg">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-5">
+                    <div style="display:none;"><input  #imageUploadInput (change)="prepareToUploadFile($event)" type="file"
+                            value="upload" /></div>
+                    <button type="button" (click)="uploadImageFile($event)"
+                        class="main-image-btn btn bg-teal waves-effect"
+                        [textContent]="onboardConstats.Upload_Image_File"></button>
+                    <button type="button" (click)="removeMainImage($event)"
+                        class="main-image-btn btn bg-red waves-effect"
+                        [textContent]="onboardConstats.Remove_Image"></button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label" for="imageLabel"
+                        [textContent]="onboardConstats.Uploaded_Image_Label"></span>
+                </div>
+                <div class="col-md-5">
+                    <mat-form-field class="full-width">
+                        <input matInput maxlength="50" formControlName="imageLabel">
+                        <mat-hint class="col-red" *ngIf="onboardingFormGroup.get('imageLabel').value.length >= 50"
+                            [textContent]="onboardConstats.Error_Massage">
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length mt-3">
+                    {{onboardingFormGroup.get('imageLabel').value.length}} / 50
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label" for="nextCTAButtonLabel"
+                        [textContent]="onboardConstats.Next_CTA_Button_Label"></span>
+                </div>
+                <div class="col-md-5">
+                    <mat-form-field class="full-width">
+                        <input matInput maxlength="50" formControlName="nextCTAButtonLabel">
+                        <mat-hint class="col-red"
+                            *ngIf="onboardingFormGroup.get('nextCTAButtonLabel').value.length >= 50"
+                            [textContent]="onboardConstats.Error_Massage">
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length mt-3">
+                    {{onboardingFormGroup.get('nextCTAButtonLabel').value.length}} / 50
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="body">
+            <div class="row">
+                <div class="col-4 col-md-9 p-b-0 m-b-0">
+                    <button mat-button type="button" class="btn bg-teal waves-effect float-left"
+                        [disabled]='isValidForm() || disableBottons' (click)="addChanges()">
+                        <mat-icon>save</mat-icon>
+                        <span [textContent]="onboardConstats.Add"></span>
+                    </button>
+                </div>
+                <div class="col-3 col-md-2 p-b-0 m-b-0">
+                    <button mat-button type="button" class="btn bg-blue-grey waves-effect float-left"
+                        [disabled]='isValidForm() || disableBottons' (click)="revertChanges();">
+                        <mat-icon>undo</mat-icon>
+                        <span [textContent]="onboardConstats.Revert_Changes"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

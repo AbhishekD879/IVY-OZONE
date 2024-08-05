@@ -1,0 +1,80 @@
+@import 'global.variables.scss';
+
+$spinner-border-color: rgba(13,48,100, 0.5);
+$spinner-border-accent-color: rgb(13,48,100);
+$box-shadow-color: rgba(0, 0, 0, 0.15);
+$spinner-size: 15px;
+$small-text-size: 12px;
+
+.free-bets-panel {
+  padding: 0;
+}
+
+.total-info-block{
+  background: $color-white;
+  font-family: $alt-font-family;
+  line-height: 13px;
+  padding: 13px 12px;
+  margin-bottom: 12px;
+  box-shadow: 0px 1px 0px $lGrayLight;
+  b{
+    color: $color-gray-darkest;
+  }
+}
+
+.free-bet-item {
+  border-bottom: 1px solid $lGrayLight;
+  padding: 14px 12px 13px;
+}
+
+.free-bet-item__value {
+  font-family: $base-font-family;
+}
+
+.free-bet-item__expiration {
+  color: $lBlack-medium;
+  font-family: $alt-font-family;
+  margin: 6px 0;
+}
+
+.free-bet-item__bet-type {
+  color: $lBlack-light;
+  font-family: $alt-font-family;
+  font-size: $small-text-size;
+  line-height: 14px;
+}
+
+.free-bet-item__display-text {
+  font-family: $alt-font-family;
+  
+  & > * {
+    vertical-align: middle;
+  }
+}
+
+.free-bet-item__go-betting {
+  color: $color-blue-alt;
+  font-family: $base-font-family;
+  font-size: 12px;
+  line-height: 14px;
+
+  &:not([disabled])::after {
+    border-color: $color-blue-alt;
+  }
+}
+
+.free-bet-group__container {
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 15%);
+  margin: 0 4px;
+}
+
+.free-bet-group__header {
+  padding: 8px 13px 11px;
+  box-shadow: 0px 1px 0px $lGrayDark, 0px -1px 0px $lGrayDark;
+  margin: 8px 0 2px;
+  span {
+    font-size: 13px;
+    line-height: 15px;
+    color: $lGray;
+  }
+}

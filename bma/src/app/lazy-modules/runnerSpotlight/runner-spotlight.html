@@ -1,0 +1,35 @@
+<div class="runner-spotlight" data-crlat="runnerSpotlight">
+  <div class="runner-details" *ngIf="!noDetails" data-crlat="runnerDetails">
+    <div *ngIf="outcome.racingFormOutcome.age" data-crlat="racingFormOutcome.age">
+      <span class="label" [i18n]="'racing.age'" data-crlat="label"></span><b>:</b>
+      <span class="value" data-crlat="value">&nbsp;{{ outcome.racingFormOutcome.age }}</span>
+    </div>
+    <div *ngIf="outcome.racingFormOutcome.weight" data-crlat="racingFormOutcome.weight">
+      <span class="label weight" [i18n]="'racing.weight'" data-crlat="label"></span><b>:</b>
+      <span class="value" data-crlat="value">&nbsp;{{ correctWeightValue }}</span>
+    </div>
+    <div *ngIf="outcome.racingFormOutcome.officialRating" data-crlat="racingFormOutcome.officialRating">
+      <span class="label" [i18n]="'racing.officialRatingLadbrokes'" data-crlat="label"></span><b>:</b>
+      <span class="value rpr-value" data-crlat="value">&nbsp;{{ outcome.racingFormOutcome.officialRating }}</span>
+    </div>
+    <div *ngIf="outcome.racingFormOutcome?.starRating" class="runner-details-right">
+      <star-rating [rating]="outcome.racingFormOutcome.starRating" data-crlat="starsContainer"></star-rating>
+  </div>
+  </div>
+  <div *ngIf="noDetails && !spotlightOverview" [i18n]="'racing.noDetails'"></div>
+  <div class="runner-spotlight-info" *ngIf="isOverview();" data-crlat="spotlightInfo">
+    <div class="runner-spotlight-title" *ngIf="!isGreyhoundEdp && isUKorIRE" data-crlat="runner.spotlightTitle">
+      <!-- <svg class="spotlight-icon">
+        <use xlink:href="#spotlight"></use>
+      </svg>  -->
+      <span [i18n]="'racing.spotlightTitle'" data-crlat="racing.spotlightTitle"></span>
+    </div>
+    <p data-crlat="text" [textContent]="spotlightOverview"></p>
+  </div>
+  <div class="runner-lastrun-details" *ngIf="!isGreyhoundEdp &&
+    isUKorIRE && outcome.racingFormOutcome.form?.length">
+    <span [i18n]="'racing.lastRun'"></span>
+    <p [textContent]="lastRunOverview"></p>
+  </div>
+  <runner-spotlight-table  [outcome]="outcome"></runner-spotlight-table>
+</div>

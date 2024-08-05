@@ -1,0 +1,77 @@
+@import 'global.variables.scss';
+.odds-card.odds-card-favourite {
+  @include flex-direction(column);
+  padding: 15px 5px 10px 0;
+
+  &.desktop-sport-card {
+    &.coupon-odds-card-sport-desktop {
+      padding: 15px 5px 0px 0;
+    }
+  }
+
+  .odds-content ::ng-deep {
+    .odds-btn-content .odds-btn-wrapper {
+      margin: 0 5px 0 0;
+      min-width: 45px;
+      max-width: 45px;
+      &:last-child {
+        margin: 0;
+      }
+      .btn-bet {
+        min-width: 45px;
+        max-width: 45px;
+        max-height: 35px;
+        min-height: 35px;
+        font-size: 11px;
+      }
+    }
+
+    .odds-fav-icon {
+      max-width: 37px;
+      min-width: 37px;
+      padding: 0 10px;
+      margin: 0;
+    }
+  }
+
+  .odds-footer {
+    &.odds-footer-favourite {
+      padding: 15px 5px 0 10px;
+
+      .odds-left, .odds-live-clock, .odds-card-label, .odds-stream-container {
+        font-size: 10px;
+      }
+
+      .odds-more-link-inline {
+        margin-left: 10px;
+        padding-right: 10px;
+      }
+    }
+  }
+  .odds-side {
+    .odds-fav-icon {
+      margin-left: 0;
+    }
+  }
+
+  .odds-names, .odds-score, .btn-bet {
+    font-size: 11px;
+  }
+
+  .odds-score {
+    &.no-border {
+      border: none;
+    }
+  }
+
+  .prom-icon {
+    padding: 0 5px;
+  }
+
+  .odds-score {
+    li {
+      color: $color-gray-dark;
+      padding-right: 0;
+    }
+  }
+}

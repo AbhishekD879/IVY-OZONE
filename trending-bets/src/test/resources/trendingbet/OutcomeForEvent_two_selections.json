@@ -1,0 +1,139 @@
+[
+  {
+    "id": "3959750",
+    "name": "A1 VS A3 ",
+    "eventStatusCode": "A",
+    "isActive": "true",
+    "isDisplayed": "true",
+    "displayOrder": "0",
+    "siteChannels": "C,f,I,K,M,P,Q,U,W,y,Z,z,",
+    "eventSortCode": "MTCH",
+    "startTime": "2023-09-08T21:46:00Z",
+    "rawIsOffCode": "N",
+    "classId": "97",
+    "typeId": "435",
+    "sportId": "16",
+    "liveServChannels": "sEVENT0003959750,",
+    "liveServChildrenChannels": "SEVENT0003959750,",
+    "categoryId": "16",
+    "categoryCode": "FOOTBALL",
+    "categoryName": "Football",
+    "categoryDisplayOrder": "10",
+    "className": "Football England",
+    "classDisplayOrder": "0",
+    "classSortCode": "FB",
+    "classFlagCodes": "UF,CN,EP,ER,LI,SP,",
+    "typeName": "Championship",
+    "typeDisplayOrder": "2",
+    "typeFlagCodes": "GVA,IVA,UK,NE,PVA,AVA,FE,",
+    "isOpenEvent": "true",
+    "isLiveNowOrFutureEvent": "true",
+    "drilldownTagNames": "EVFLAG_FE,EVFLAG_PB,EVFLAG_NE,EVFLAG_AVA,",
+    "isAvailable": "true",
+    "cashoutAvail": "Y",
+    "children": [
+      {
+        "market": {
+          "id": "52730250",
+          "eventId": "3959750",
+          "templateMarketId": "36408",
+          "templateMarketName": "Match Betting",
+          "dispSortId": "391",
+          "dispSortName": "MR",
+          "collectionIds": "10008,9653,9712,10198,",
+          "collectionNames": "Football_Collection,COLLECTION7,trial,QA2 Lads Collection,",
+          "marketMeaningMajorCode": "-",
+          "marketMeaningMinorCode": "MR",
+          "name": "Match Betting",
+          "isLpAvailable": "true",
+          "isMarketBetInRun": "true",
+          "displayOrder": "-500",
+          "marketStatusCode": "A",
+          "isActive": "true",
+          "isDisplayed": "true",
+          "siteChannels": "P,Q,C,U,I,M,",
+          "liveServChannels": "sEVMKT0052730250,",
+          "liveServChildrenChannels": "SEVMKT0052730250,",
+          "priceTypeCodes": "LP,",
+          "drilldownTagNames": "MKTFLAG_SP,",
+          "isAvailable": "true",
+          "maxAccumulators": "25",
+          "minAccumulators": "1",
+          "cashoutAvail": "Y",
+          "children": [
+            {
+              "outcome": {
+                "id": "241157648",
+                "marketId": "52730250",
+                "name": "s3",
+                "outcomeMeaningMajorCode": "MR",
+                "outcomeMeaningMinorCode": "A",
+                "displayOrder": "0",
+                "outcomeStatusCode": "A",
+                "isActive": "true",
+                "isDisplayed": "true",
+                "siteChannels": "P,Q,C,U,I,M,",
+                "liveServChannels": "sSELCN0241157648",
+                "liveServChildrenChannels": "SSELCN0241157648",
+                "isAvailable": "true",
+                "children": [
+                  {
+                    "price": {
+                      "id": "1",
+                      "isActive": "true",
+                      "displayOrder": "1",
+                      "priceType": "LP",
+                      "priceNum": "2",
+                      "priceDen": "1",
+                      "priceDec": "3.00"
+                    }
+                  },
+                  {
+                    "price": {
+                      "id": "2",
+                      "isActive": "true",
+                      "displayOrder": "1",
+                      "priceType": "LP",
+                      "priceNum": "11",
+                      "priceDen": "5",
+                      "priceDec": "3.20"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "outcome": {
+                "id": "241157647",
+                "marketId": "52730250",
+                "name": "s2",
+                "outcomeMeaningMajorCode": "MR",
+                "outcomeMeaningMinorCode": "D",
+                "displayOrder": "0",
+                "outcomeStatusCode": "A",
+                "isActive": "false",
+                "isDisplayed": "true",
+                "siteChannels": "P,Q,C,U,I,M,",
+                "liveServChannels": "sSELCN0241157647,",
+                "liveServChildrenChannels": "SSELCN0241157647,",
+                "isAvailable": "true",
+                "children": [
+                  {
+                    "price": {
+                      "id": "4",
+                      "isActive": "true",
+                      "displayOrder": "1",
+                      "priceType": "LP",
+                      "priceNum": "2",
+                      "priceDen": "1",
+                      "priceDec": "3.00"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  } ]

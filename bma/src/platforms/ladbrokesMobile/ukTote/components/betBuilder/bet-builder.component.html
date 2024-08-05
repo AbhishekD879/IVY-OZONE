@@ -1,0 +1,78 @@
+<section class="bet-builder"
+         overscrollFix
+         [ngClass]="{'expanded': !expanded, 'visible': visible }"
+         data-crlat="betBuilder">
+  <div class="alert" *ngIf="showAlert">
+    <svg class="arrow-icon prev-arrow row-center">
+      <use xlink:href="#warning-icon"></use>
+    </svg>
+    <span [textContent]="alertMsg"></span>
+    <div class="close" (click)="closeMessage()"></div>
+  </div>
+  <header>
+    <div class="summary" data-crlat="summary">
+      <div *ngIf="!isMultipleLegsBet" class="description" data-crlat="descriptionTitle">
+        <span class="title" [textContent]="betName"></span>
+      </div>
+      <div *ngIf="isMultipleLegsBet" class="description info">
+        <div class="info-block" data-crlat="description.infoBlock">
+          <span class="title" [i18n]="'uktote.noLines'" data-crlat="label"></span>
+          <span class="title" [textContent]="betModel.numberOfLines" data-crlat="value"></span>
+        </div>
+        <div class="info-block">
+          <span class="title" [i18n]="'uktote.stakePerLine'"></span>
+          &nbsp;
+        </div>
+        <div class="info-block">
+          <div class="input-wrapper">
+            <div class="input-label" [ngClass]="{'dark': stakePerLine}"></div>
+            <input id="stakePerLine" [digit-keyboard-input] [showDecimalPoint]="true" [componentId]="'uk-tote-event'"
+              [isTotePool]="true" [quickStakeItems]="quickStakeItems" name="stakePerLine" [(ngModel)]="stakePerLine"
+              [patternRestrict]="stakePattern" [patternToFixed]="true" (ngModelChange)="setStake($event)" [value]="stakePerLine"
+              data-money-validate="true" placeholder="0.00" data-crlat="enterAmount">
+          </div>
+        </div>
+      </div>
+      <div class="open">
+        <span
+          *ngIf="!isMultipleLegsBet"
+          (click)="clearSelections()"
+          data-crlat="clearSelections">{{ isManySelections }}</span>
+        <div *ngIf="isMultipleLegsBet"
+             (click)="toggleSummary()"
+             class="close-open-switcher">
+          <span *ngIf="expanded" [i18n]="'uktote.close'"></span>
+          <span *ngIf="!expanded" [i18n]="'uktote.open'"></span>
+          <svg>
+            <use xlink:href="#icn_arrowdown" data-crlat="icon.arrowdown"></use>
+          </svg>
+        </div>
+      </div>
+      <div class="odd"
+           [ngClass]="{'extendable': isMultipleLegsBet,
+                      'disabled': !isBetReadyForBetslip}"
+           (click)="addToBetslip()"
+           data-crlat="addToBetslip">
+          <span
+            *ngIf="!isMultipleLegsBet"
+            class="label"
+            [i18n]="'uktote.addToBetslip'"></span>
+        <div class="add-button"
+             *ngIf="isMultipleLegsBet">
+          <span class="stake-label-top" [i18n]="'uktote.addToSLip'" data-crlat="totalStake"></span>
+          <span class="stake-value" [textContent]="totalStakeWithCurrency" data-crlat="value"></span>
+          <span class="stake-label" [i18n]="'uktote.totalStake'" data-crlat="label"></span>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="tote-digit-keyboard" *ngIf="isMultipleLegsBet" >
+    <digit-keyboard [componentId]="'uk-tote-event'" [currency]="userCurrencySymbol"
+      (keyboardShown)="onKeyboardToggle($event)">
+    </digit-keyboard>
+  </div>
+  <uk-tote-selections-overview
+    *ngIf="isMultipleLegsBet"
+    [expanded]="expanded"
+    [poolBet]="betModel"></uk-tote-selections-overview>
+</section>

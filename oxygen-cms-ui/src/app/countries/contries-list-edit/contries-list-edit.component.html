@@ -1,0 +1,62 @@
+<div class="card" *ngIf="!isLoading && countries !== undefined">
+  <div class="header">
+    <h2>Countries Setup</h2>
+    <create-updated-at-by [collection]="countries"></create-updated-at-by>
+  </div>
+</div>
+<div class="card" *ngIf="!isLoading && !countries !== undefined">
+  <div class="header">
+    <h2>Countries Setup</h2>
+    <small>Not Found for Current Brand</small>
+  </div>
+</div>
+<div class="card" *ngIf="!isLoading && countries !== undefined">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-5">
+        <countries-list-group [countries]="allowedCountries" [title]="'Allowed Countries'"></countries-list-group>
+      </div>
+      <div class="col-md-2 text-center">
+        <br>
+        <br>
+        <br>
+        <br>
+        <button type="button" mat-button class="btn btn-default btn-circle waves-effect waves-circle waves-float" (click)="moveAllowedToBanned();">
+          <mat-icon class="material-icons">skip_next</mat-icon>
+        </button>
+        <br>
+        <br>
+        <button type="button" mat-button class="btn btn-default btn-circle waves-effect waves-circle waves-float" (click)="moveSelectedToBanned();">
+          <mat-icon class="material-icons">chevron_right</mat-icon>
+        </button>
+        <br>
+        <br>
+        <button type="button" mat-button class="btn btn-default btn-circle waves-effect waves-circle waves-float" (click)="moveSelectedToAllowed();">
+          <mat-icon class="material-icons">chevron_left</mat-icon>
+        </button>
+        <br>
+        <br>
+        <button type="button" mat-button class="btn btn-default btn-circle waves-effect waves-circle waves-float" (click)="moveBannedToAllowed();">
+          <mat-icon class="material-icons">skip_previous</mat-icon>
+        </button>
+      </div>
+      <div class="col-md-5">
+        <countries-list-group [countries]="bannedCountries" [title]="'Banned Countries'"></countries-list-group>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-7">
+        <button [disabled]="isButtonsDisabled()" mat-button type="button" class="btn bg-teal waves-effect float-left" (click)="saveChanges();">
+          <mat-icon>save</mat-icon>
+          <span>Save Changes</span>
+        </button>
+      </div>
+      <div class="col-md-5">
+        <button [disabled]="isButtonsDisabled()" mat-button type="button" class="btn bg-blue-grey waves-effect float-left" (click)="revertChanges();">
+          <mat-icon>undo</mat-icon>
+          <span>Revert Changes</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

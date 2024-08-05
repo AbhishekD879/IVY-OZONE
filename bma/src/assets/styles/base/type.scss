@@ -1,0 +1,155 @@
+@use "sass:math";
+@import 'global.variables.scss';
+
+/*
+ * Variables
+ * --------------------------------------------------
+ *== Typography
+ *
+ *
+ * Unit-less `line-height` for use in components like buttons.
+*/
+$line-height-base:        1.428571429; /* 20/14 */
+/* //** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc. */
+$line-height-computed:    floor(($font-size-base * $line-height-base)); /* ~20px */
+
+/* By default, this inherits from the `<body>`. */
+$headings-font-family:    inherit;
+$headings-font-weight:    500;
+$headings-line-height:    1.1;
+$headings-color:          inherit;
+
+/*
+ * Typography
+ * --------------------------------------------------
+*/
+
+
+/* Headings
+ * -------------------------
+*/
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $headings-font-family;
+  font-weight: $headings-font-weight;
+  line-height: $headings-line-height;
+  color: $headings-color;
+
+  small,
+  .small {
+    font-weight: normal;
+    line-height: 1;
+  }
+}
+
+h1, h2, h3 {
+  margin-top: $line-height-computed;
+  margin-bottom: math.div($line-height-computed, 2);
+
+  small,
+  .small {
+    font-size: 65%;
+  }
+}
+h4, h5, h6 {
+  margin-top: math.div($line-height-computed, 2);
+  margin-bottom: math.div($line-height-computed, 2);
+
+  small,
+  .small {
+    font-size: 75%;
+  }
+}
+
+
+/* Body text
+ * -------------------------
+*/
+
+
+p {
+  margin: 0 0 math.div($line-height-computed, 2);
+  font-family: $base-font-family;
+  line-height: normal;
+}
+
+/* Emphasis & misc
+ * -------------------------
+*/
+
+
+/* Ex: (12px small font / 14px base font) * 100% = about 85% */
+small,
+.small {
+  font-size:  floor(math.div(100% * $font-size-small, $font-size-base));
+}
+
+/* Alignment */
+.text-left           { text-align: left; }
+.text-right          { text-align: right; }
+.text-center         { text-align: center; }
+.text-justify        { text-align: justify; }
+.text-nowrap         { white-space: nowrap; }
+
+/* Transformation */
+.text-lowercase      { text-transform: lowercase; }
+.text-uppercase      { text-transform: uppercase; }
+.text-capitalize     { text-transform: capitalize; }
+
+/* Lists
+ * -------------------------
+ */
+
+/* Unordered and Ordered lists  */
+ul,
+ol {
+  margin-top: 0;
+  margin-bottom: math.div($line-height-computed, 2);
+  ul,
+  ol {
+    margin-bottom: 0;
+  }
+}
+
+/* List options */
+
+/* Unstyled keeps list items block level, just removes default browser padding and list-style */
+@mixin list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+/* Inline turns list items into inline-block */
+.list-inline {
+  @include list-unstyled();
+  margin-left: -5px;
+
+  > li {
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+
+/* Description Lists */
+dl {
+  margin-top: 0; /* Remove browser default */
+  margin-bottom: $line-height-computed;
+}
+dt,
+dd {
+  line-height: $line-height-base;
+}
+dt {
+  font-weight: bold;
+}
+dd {
+  margin-left: 0; /* Undo browser default */
+}
+
+/* Addresses */
+address {
+  margin-bottom: $line-height-computed;
+  font-style: normal;
+  line-height: $line-height-base;
+}

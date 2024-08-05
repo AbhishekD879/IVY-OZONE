@@ -1,0 +1,152 @@
+<breadcrumbs *ngIf="connectMenu" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="connectMenu">
+  <div class="header">
+    <h2 class="has-activity-badge">Connect Menu:
+      <span class="font-italic">{{connectMenu.linkTitle}}</span>
+      <create-updated-at-by [collection]="connectMenu"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="connectMenu.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="connectMenu">
+  <form [formGroup]="form" novalidate>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-4">
+          <mat-checkbox color="primary" formControlName="disabled"
+                        (change)="connectMenu.disabled=!connectMenu.disabled"> Active</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-checkbox color="primary"
+                        (change)="connectMenu.inApp=!connectMenu.inApp" formControlName="inApp"> In App</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-checkbox color="primary"
+                        (change)="connectMenu.upgradePopup=!connectMenu.upgradePopup" formControlName="upgradePopup"> Upgrade Popup</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Link Title
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Link Title" [(ngModel)]="connectMenu.linkTitle" formControlName="linkTitle" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Subtitle
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Link Subtitle" [(ngModel)]="connectMenu.linkSubtitle" formControlName="linkSubtitle" trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Target Uri
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Target Uri" [(ngModel)]="connectMenu.targetUri" formControlName="targetUri" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Level
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Level" (selectionChange)="onLevelChanged($event)" formControlName="level">
+              <mat-option *ngFor="let level of menuLevels" [value]="level">
+                {{ level | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row" *ngIf="connectMenu.level === '2'">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Parent
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Parent"
+              (selectionChange)="onParentChanged($event)"
+              formControlName="parent">
+              <mat-option *ngFor="let menu of connectMenus" [value]="menu.id">
+                {{ menu.linkTitle | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-1" *ngIf="connectMenu.parent">
+          <a class="mat-label" [routerLink]="getParentLink()">View</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Show Item For
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Show Item For" (selectionChange)="onShowModeChanged($event)" formControlName="showItemFor">
+              <mat-option *ngFor="let mode of showModes" [value]="mode">
+                {{ mode | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <ng-container *ngIf="isIMActive; else cmsUpload">
+          <div class="col-md-2">
+            <span class="mat-label">SVG Icon</span>
+          </div>
+          <div class="col-md-6">
+            <svg-icon-select-input
+              [formFieldsModels]="connectMenu"
+              [externalForm]="form"
+            ></svg-icon-select-input>
+          </div>
+        </ng-container>
+        <ng-template #cmsUpload>
+          <div class="col-md-8">
+            <cms-upload
+              [label]="'SVG File'"
+              [filename]="connectMenu.svgFilename"
+              (onImageUpload)="uploadSvgHandler($event)"
+              (onImageRemove)="removeSvgHandler()">
+            </cms-upload>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </form>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="connectMenu"
+  [form]="form"
+  [fieldOrItemName]="'linkTitle'"
+  [collection]="connectMenu"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

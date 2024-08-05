@@ -1,0 +1,13 @@
+<ng-container *ngIf="(showSettledShareIcon || showOpenBetsShareIcon) && isNativeBetSharingAllowed">
+  <canvas [id]="betId" width="578" height="400" style="display: none;"></canvas>
+  <canvas id="intialiseShareFonts" width="578" height="400" style="display: none;"></canvas>
+  <div (click)="shareToMedia()" [ngClass]="{'share-icon-coral': brand === 'bma',
+    'share-icon-lads': brand === 'ladbrokes','marginTop': legType}">
+    <span class="shareLayout" [ngClass]="{'share-txt-coral': brand === 'bma',
+    'share-txt-lads': brand === 'ladbrokes'}">Share</span>
+    <svg class="share-icon" [ngClass]="{'ios-icon': deviceService.isIos, 'share-svg-coral': brand === 'bma'}">
+      <use *ngIf="deviceService.isIos" xlink:href="#share-icon-ios"></use>
+      <use *ngIf="deviceService.isAndroid" xlink:href="#share-icon-android"></use>
+    </svg>
+  </div>
+</ng-container>

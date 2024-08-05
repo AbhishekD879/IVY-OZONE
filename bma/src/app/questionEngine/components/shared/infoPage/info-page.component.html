@@ -1,0 +1,22 @@
+<div class="qe-container">
+  <a class="qe-btn-back" (click)="goBack()" href="javascript:void(0)">
+    <svg class="qe-btn-back-svg">
+      <use xlink:href="#back-arrow"></use>
+    </svg>
+  </a>
+
+  <ng-container *ngIf="infoPageContent">
+    <div class="links-list {{styleClassForInfoPage}}" [innerHTML]="infoPageContent"></div>
+  </ng-container>
+
+  <ng-container *ngIf="!infoPageContent">
+    <div class="loading-error-wrap loading-error-no-content">
+      <div class="loading-error-text" [innerHtml]="dataLoadingError"></div>
+      <button class="loading-error-btn main-btn "
+              (click)="goBack()"
+              [innerHTML]="dataLoadingErrorBtn">
+      </button>
+    </div>
+  </ng-container>
+
+</div>

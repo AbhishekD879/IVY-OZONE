@@ -1,0 +1,17 @@
+- name: Provision InfluxDB
+  ec2:
+    key_name: "{{ key_name }}"
+    group: "{{ security_group }}"
+    vpc_subnet_id: "{{ subnets[subnet_name] }}"
+    instance_type: "{{ instance_type }}"
+    image: "{{ os_images[image_name] }}"
+    volumes:
+      - device_name: /dev/sda1
+        volume_size: "{{ volume_size }}"
+    region: "{{region}}"
+    assign_public_ip: "{{assign_public_ip}}"
+    wait: yes
+    exact_count: {{ num_nodes }}
+    count_tag: {{ tags }}
+    instance_tags: {{ tags }}
+  register: ec2

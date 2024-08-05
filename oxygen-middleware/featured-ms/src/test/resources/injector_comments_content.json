@@ -1,0 +1,467 @@
+[
+  {
+    "event": {
+      "id": "5428416",
+      "name": "|Relegation|",
+      "eventStatusCode": "A",
+      "isActive": "true",
+      "isDisplayed": "true",
+      "displayOrder": "0",
+      "siteChannels": "P,Q,C,I,M,",
+      "eventSortCode": "TNMT",
+      "startTime": "2017-04-19T19:00:00Z",
+      "rawIsOffCode": "-",
+      "isStarted": "true",
+      "classId": "97",
+      "typeId": "442",
+      "sportId": "16",
+      "liveServChannels": "sEVENT0005428416,",
+      "liveServChildrenChannels": "SEVENT0005428416,",
+      "categoryId": "16",
+      "categoryCode": "FOOTBALL",
+      "categoryName": "|Football|",
+      "categoryDisplayOrder": "-32767",
+      "className": "|Football England|",
+      "classDisplayOrder": "-999",
+      "classSortCode": "FB",
+      "typeName": "|Premier League|",
+      "typeDisplayOrder": "-13000",
+      "typeFlagCodes": "FI,IVA,UK,PVA,SP,INT,",
+      "isOpenEvent": "true",
+      "isLiveNowEvent": "true",
+      "isLiveNowOrFutureEvent": "true",
+      "isAvailable": "true",
+      "cashoutAvail": "Y"
+    }
+  },
+  {
+    "event": {
+      "id": "5433366",
+      "name": "|Zwolle| |vs| |Syria|",
+      "eventStatusCode": "A",
+      "isActive": "true",
+      "isDisplayed": "true",
+      "displayOrder": "0",
+      "siteChannels": "P,Q,C,I,M,",
+      "eventSortCode": "MTCH",
+      "startTime": "2017-04-19T11:00:00Z",
+      "rawIsOffCode": "Y",
+      "isStarted": "true",
+      "classId": "97",
+      "typeId": "442",
+      "sportId": "16",
+      "liveServChannels": "sEVENT0005433366,",
+      "liveServChildrenChannels": "SEVENT0005433366,",
+      "categoryId": "16",
+      "categoryCode": "FOOTBALL",
+      "categoryName": "|Football|",
+      "categoryDisplayOrder": "-32767",
+      "className": "|Football England|",
+      "classDisplayOrder": "-999",
+      "classSortCode": "FB",
+      "typeName": "|Premier League|",
+      "typeDisplayOrder": "-13000",
+      "typeFlagCodes": "FI,IVA,UK,PVA,SP,INT,",
+      "isOpenEvent": "true",
+      "isLiveNowEvent": "true",
+      "isLiveNowOrFutureEvent": "true",
+      "drilldownTagNames": "EVFLAG_ES,EVFLAG_FI,EVFLAG_BL,EVFLAG_SP,",
+      "isAvailable": "true",
+      "cashoutAvail": "Y",
+      "children": [
+        {
+          "eventPeriod": {
+            "id": "103921",
+            "eventId": "5433366",
+            "periodCode": "ALL",
+            "description": "Total Duration of the game/match",
+            "startTime": "2017-04-19T11:44:23Z",
+            "children": [
+              {
+                "eventPeriodClockState": {
+                  "id": "103110",
+                  "eventPeriodId": "103921",
+                  "offset": "0",
+                  "lastUpdate": "2017-04-19T11:44:22Z",
+                  "state": "S"
+                }
+              },
+              {
+                "eventFact": {
+                  "id": "196992",
+                  "eventId": "5433366",
+                  "eventParticipantId": "23422",
+                  "eventPeriodId": "103921",
+                  "fact": "1",
+                  "factCode": "SCORE",
+                  "name": "Score of the match/game"
+                }
+              },
+              {
+                "eventFact": {
+                  "id": "196991",
+                  "eventId": "5433366",
+                  "eventParticipantId": "23421",
+                  "eventPeriodId": "103921",
+                  "fact": "2",
+                  "factCode": "SCORE",
+                  "name": "Score of the match/game"
+                }
+              },
+              {
+                "eventPeriod": {
+                  "id": "103930",
+                  "eventId": "5433366",
+                  "parentEventPeriodId": "103921",
+                  "periodCode": "HALF_TIME",
+                  "description": "Half time in a match/game",
+                  "startTime": "2017-04-19T12:39:31Z",
+                  "children": [
+                    {
+                      "eventPeriodClockState": {
+                        "id": "103119",
+                        "eventPeriodId": "103930",
+                        "offset": "2700",
+                        "lastUpdate": "2017-04-19T12:39:35Z",
+                        "state": "S"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "eventPeriod": {
+                  "id": "103922",
+                  "eventId": "5433366",
+                  "parentEventPeriodId": "103921",
+                  "periodCode": "FIRST_HALF",
+                  "description": "First half of a match/game",
+                  "startTime": "2017-04-19T11:44:23Z",
+                  "children": [
+                    {
+                      "eventPeriodClockState": {
+                        "id": "103111",
+                        "eventPeriodId": "103922",
+                        "offset": "3290",
+                        "lastUpdate": "2017-04-19T12:39:14Z",
+                        "state": "S"
+                      }
+                    },
+                    {
+                      "eventFact": {
+                        "id": "196989",
+                        "eventId": "5433366",
+                        "eventParticipantId": "23421",
+                        "eventPeriodId": "103922",
+                        "fact": "2",
+                        "factCode": "SCORE",
+                        "name": "Score of the match/game"
+                      }
+                    },
+                    {
+                      "eventFact": {
+                        "id": "196990",
+                        "eventId": "5433366",
+                        "eventParticipantId": "23422",
+                        "eventPeriodId": "103922",
+                        "fact": "1",
+                        "factCode": "SCORE",
+                        "name": "Score of the match/game"
+                      }
+                    },
+                    {
+                      "eventIncident": {
+                        "id": "1026220",
+                        "eventId": "5433366",
+                        "eventPeriodId": "103922",
+                        "eventParticipantId": "23421",
+                        "incidentCode": "PERIOD_START",
+                        "description": "Period start",
+                        "relativeTime": "0",
+                        "createDate": "2017-04-19T11:44:22Z",
+                        "children": [
+                          {
+                            "eventIncidentComment": {
+                              "id": "1026018",
+                              "eventIncidentId": "1026220",
+                              "text": "Period start",
+                              "lang": "en"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "eventIncident": {
+                        "id": "1026225",
+                        "eventId": "5433366",
+                        "eventPeriodId": "103922",
+                        "eventParticipantId": "23421",
+                        "incidentCode": "SCORE",
+                        "description": "Scoring Incident",
+                        "relativeTime": "13",
+                        "createDate": "2017-04-19T11:44:39Z",
+                        "children": [
+                          {
+                            "eventIncidentComment": {
+                              "id": "1026023",
+                              "eventIncidentId": "1026225",
+                              "text": "Goal for Zwolle",
+                              "lang": "en"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "eventIncident": {
+                        "id": "1026221",
+                        "eventId": "5433366",
+                        "eventPeriodId": "103922",
+                        "eventParticipantId": "23421",
+                        "incidentCode": "SCORE",
+                        "description": "Scoring Incident",
+                        "relativeTime": "0",
+                        "createDate": "2017-04-19T11:44:22Z",
+                        "children": [
+                          {
+                            "eventIncidentComment": {
+                              "id": "1026019",
+                              "eventIncidentId": "1026221",
+                              "text": "Goal for Zwolle",
+                              "lang": "en"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "eventIncident": {
+                        "id": "1026222",
+                        "eventId": "5433366",
+                        "eventPeriodId": "103922",
+                        "eventParticipantId": "23422",
+                        "incidentCode": "SCORE",
+                        "description": "Scoring Incident",
+                        "relativeTime": "0",
+                        "createDate": "2017-04-19T11:44:23Z",
+                        "children": [
+                          {
+                            "eventIncidentComment": {
+                              "id": "1026020",
+                              "eventIncidentId": "1026222",
+                              "text": "Goal for Syria",
+                              "lang": "en"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "eventIncident": {
+                        "id": "1026223",
+                        "eventId": "5433366",
+                        "eventPeriodId": "103922",
+                        "eventParticipantId": "23421",
+                        "incidentCode": "SCORE",
+                        "description": "Scoring Incident",
+                        "relativeTime": "4",
+                        "createDate": "2017-04-19T11:44:28Z",
+                        "children": [
+                          {
+                            "eventIncidentComment": {
+                              "id": "1026021",
+                              "eventIncidentId": "1026223",
+                              "text": "Goal for Zwolle",
+                              "lang": "en"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "eventIncident": {
+                        "id": "1026224",
+                        "eventId": "5433366",
+                        "eventPeriodId": "103922",
+                        "eventParticipantId": "23422",
+                        "incidentCode": "SCORE",
+                        "description": "Scoring Incident",
+                        "relativeTime": "10",
+                        "createDate": "2017-04-19T11:44:34Z",
+                        "children": [
+                          {
+                            "eventIncidentComment": {
+                              "id": "1026022",
+                              "eventIncidentId": "1026224",
+                              "text": "Goal for Syria",
+                              "lang": "en"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "eventPeriod": {
+                  "id": "103938",
+                  "eventId": "5433366",
+                  "parentEventPeriodId": "103921",
+                  "periodCode": "SECOND_HALF",
+                  "description": "Second half of a match/game",
+                  "startTime": "2017-04-19T13:38:42Z",
+                  "children": [
+                    {
+                      "eventPeriodClockState": {
+                        "id": "103127",
+                        "eventPeriodId": "103938",
+                        "offset": "96923",
+                        "lastUpdate": "2017-04-20T15:52:19Z",
+                        "state": "R"
+                      }
+                    },
+                    {
+                      "eventIncident": {
+                        "id": "1026254",
+                        "eventId": "5433366",
+                        "eventPeriodId": "103938",
+                        "eventParticipantId": "23421",
+                        "incidentCode": "PERIOD_START",
+                        "description": "Period start",
+                        "relativeTime": "2700",
+                        "createDate": "2017-04-19T13:38:42Z",
+                        "children": [
+                          {
+                            "eventIncidentComment": {
+                              "id": "1026052",
+                              "eventIncidentId": "1026254",
+                              "text": "Period start",
+                              "lang": "en"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "eventParticipant": {
+            "id": "23421",
+            "eventId": "5433366",
+            "name": "Zwolle",
+            "type": "T",
+            "roleCode": "HOME",
+            "role": "Home Team"
+          }
+        },
+        {
+          "eventParticipant": {
+            "id": "23422",
+            "eventId": "5433366",
+            "name": "Syria",
+            "type": "T",
+            "roleCode": "AWAY",
+            "role": "Away Team"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "event": {
+      "id": "5436654",
+      "name": "|Denis Boytsov| |vs| |Dereck Chisora|",
+      "eventStatusCode": "A",
+      "isActive": "true",
+      "isDisplayed": "true",
+      "displayOrder": "0",
+      "siteChannels": "P,Q,C,I,M,",
+      "eventSortCode": "MTCH",
+      "startTime": "2017-04-21T09:53:00Z",
+      "rawIsOffCode": "-",
+      "classId": "56",
+      "typeId": "2467",
+      "sportId": "9",
+      "liveServChannels": "sEVENT0005436654,",
+      "liveServChildrenChannels": "SEVENT0005436654,",
+      "categoryId": "9",
+      "categoryCode": "BOXING",
+      "categoryName": "|Boxing|",
+      "categoryDisplayOrder": "90",
+      "className": "|Boxing All Boxing|",
+      "classDisplayOrder": "0",
+      "classSortCode": "ST",
+      "typeName": "|Olympic Boxing Men's|",
+      "typeDisplayOrder": "0",
+      "typeFlagCodes": "IVA,PVA,AVA,RVA,",
+      "isOpenEvent": "true",
+      "isNext24HourEvent": "true",
+      "isLiveNowOrFutureEvent": "true",
+      "isAvailable": "true",
+      "cashoutAvail": "N",
+      "children": [
+        {
+          "eventPeriod": {
+            "id": "4341536",
+            "eventId": "6847581",
+            "periodCode": "ALL",
+            "description": "Total Duration of the game/match",
+            "startTime": "2017-04-20T11:30:04Z",
+            "children": [
+              {
+                "eventFact": {
+                  "id": "9488432",
+                  "eventId": "6847581",
+                  "eventParticipantId": "713922",
+                  "eventPeriodId": "4341536",
+                  "fact": "25",
+                  "factCode": "SCORE",
+                  "name": "Score of the match/game"
+                }
+              },
+              {
+                "eventFact": {
+                  "id": "9488433",
+                  "eventId": "6847581",
+                  "eventParticipantId": "713923",
+                  "eventPeriodId": "4341536",
+                  "fact": "21",
+                  "factCode": "SCORE",
+                  "name": "Score of the match/game"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "eventParticipant": {
+            "id": "713923",
+            "eventId": "6847581",
+            "name": "|Heliopolis||(BG)|",
+            "type": "T",
+            "roleCode": "TEAM_2",
+            "role": "Generic second team listed",
+            "isActive": "true"
+          }
+        },
+        {
+          "eventParticipant": {
+            "id": "713922",
+            "eventId": "6847581",
+            "name": "|Smouha|",
+            "type": "T",
+            "roleCode": "TEAM_1",
+            "role": "Generic first team listed",
+            "isActive": "true"
+          }
+        }
+      ]
+    }
+  }
+]

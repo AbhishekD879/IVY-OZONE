@@ -1,0 +1,93 @@
+plugins {
+  id 'org.springframework.boot' version '2.7.0'
+  id 'com.coral.tools' version '3.0-SNAPSHOT'
+}
+
+apply plugin: "io.spring.dependency-management"
+
+group = 'com.ladbrokescoral.oxygen'
+
+def nexusRepo = System.getenv("NEXUS_HOST") ?: 'https://nexus-vie.coral.co.uk/repository/maven-public/'
+def nexusUser = System.getenv("NEXUS_USER") ?: project.properties.nexusUser
+def nexusPass = System.getenv("NEXUS_PASS") ?: project.properties.nexusPass
+
+repositories {
+  maven {
+    credentials {
+      username = nexusUser
+      password = nexusPass
+    }
+    url nexusRepo
+  }
+  mavenCentral()
+}
+
+configurations {
+  all {
+  }
+  compileOnly {
+    extendsFrom annotationProcessor
+  }
+}
+
+dependencies {
+
+  // Development
+  developmentOnly 'org.springframework.boot:spring-boot-devtools'
+  implementation 'org.springframework.boot:spring-boot-configuration-processor'
+
+  //utils
+  implementation 'org.projectlombok:lombok:1.18.18'
+  implementation 'org.apache.commons:commons-lang3:3.11'
+  implementation 'com.google.code.gson:gson:2.8.6'
+  implementation 'com.mikesamuel:json-sanitizer:1.2.1'
+
+  // Spring Boot
+  implementation 'org.springframework.boot:spring-boot-starter-undertow'
+  implementation 'org.springframework.boot:spring-boot-starter-actuator'
+  implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+  // Project dependencies
+  implementation "com.egalacoral.spark:siteserver-api:release-155.0.0-jdk-17"
+  implementation "com.squareup.retrofit2:converter-gson:2.8.1"
+  implementation 'com.squareup.retrofit2:converter-jackson:2.1.0'
+  implementation 'com.squareup.okhttp3:okhttp:4.9.1'
+  implementation 'com.squareup.okhttp3:logging-interceptor:3.14.9'
+  implementation 'com.squareup.okio:okio:2.10.0'
+  implementation 'com.google.code.gson:gson:2.8.6'
+  implementation 'org.modelmapper:modelmapper:2.3.8'
+  implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+
+  //project reactor tools
+  implementation 'io.projectreactor:reactor-tools:3.4.17'
+  implementation 'joda-time:joda-time:2.12.2'
+
+  // Testing
+  testImplementation "org.springframework.boot:spring-boot-starter-test"
+  testImplementation 'junit:junit:4.13.1'
+  testImplementation 'io.projectreactor:reactor-test'
+  testImplementation 'com.squareup.okhttp3:mockwebserver:4.9.1'
+}
+
+test {
+  useJUnitPlatform()
+}
+
+springBoot {
+  buildInfo()
+}
+
+bootBuildImage {
+  imageName = "${rootProject.name}"
+}
+
+jar{
+  enabled=false
+}
+
+sonarqube {
+  properties {
+    property  'sonar.coverage.exclusions', "**/configuration/*"
+  }
+}
+jacocoTestReport.reports.xml.enabled=true

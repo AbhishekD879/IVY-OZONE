@@ -1,0 +1,6 @@
+<svg class="star-icon"
+     *ngFor="let star of startRating; trackBy: trackByIndex;"
+     [ngClass]="{'active': !!star}"
+     data-crlat="stars">
+  <use xlink:href="#star"></use>
+</svg>

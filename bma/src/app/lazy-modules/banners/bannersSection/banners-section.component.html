@@ -1,0 +1,80 @@
+<ng-container *ngIf="isBannersEnabled">
+  <loading-screen [displayed]="!showBanners"
+                  templateType="BANNER"
+                  [skeletonOnly]="true"></loading-screen>
+  <div [ngClass]="{'no-margin': isBannerSectionEmpty, 'five-a-side-bg': checkForFiveASideUrl()}"
+       id="banner-section"
+       data-crlat="sectionBanner" >
+    <div id="aem-placeholder" *ngIf="showBanners"
+         class="lc-carousel"
+         [ngClass]="'lc-carousel--'+brand"
+         [style.visibility]="bannersVisibility">
+      <div class="swiper-container ng-carousel"
+           *ngIf="offers?.length"
+           [ngCarousel]
+           [ngCarouselName]="carouselName"
+           [ngCenterMode]="true"
+           [ngCarouselActiveClass]="'swiper-slide-active'"
+           [ngCarouselLoop]="true"
+           [ngCarouselWatch]="offers.length"
+           [ngCarouselFluid]="true"
+           [ngCarouselTimer]="timePerSlide"
+           [ngStopSlideOnHover]= "true"
+           [slidesToScroll]="1"
+           [ngCarouselMoveThresholdPercentage]="5"
+           (activeSlideIndex)="handleActiveSlide($event)">
+        <slidecontainer class="carousel-slides" [ngClass]="{'carousel-no-scroll': offers.length === 1}">
+          <slide class="slide"
+          *ngFor="let offer of offers; let ind = index;
+          trackBy: trackByPosition">
+          <div *ngIf="offer.bannerStatus" class="lc-offer" [ngClass]="offer.brand ? 'lc-offer--' + offer.brand : ''">
+            <a class="lc-offer__link" (click)="actionHandler($event, offer)" [href]="offer.link" [target]="offer.target">
+              <img *ngIf="offer.imgUrl" class="bg-image lc-offer__image" height="100%" width="100%"
+                [ngSrc]="addImageWidth(offer.imgUrl)" [priority]="ind<eargerLoadCountMobile ? true: false"
+                [alt]="offer.altText" />
+              <img *ngIf="offer.foregroundimage" class="fg-image" [attr.src]="offer.foregroundimage"
+                [alt]="offer.foregroundAltText" />
+          <div class="offer-odds" *ngIf="offer.currentOdds && offer.previousOdds">
+            <div class="odds-now">
+              <span  [i18n]="'sb.nowPrice'"></span>
+              <span>&nbsp;</span>
+              <span *ngIf="offer.currentOdds" [textContent] = "offer.currentOdds"></span>
+            </div>
+            <div class="odds-then">
+              <span  [i18n]="'sb.wasPrice'"></span>
+              <span>&nbsp;</span>
+              <span *ngIf="offer.previousOdds"  [textContent] = "offer.previousOdds"></span>
+            </div>
+          </div>
+          <div class="offer-odds" *ngIf="offer.currentOdds && !offer.previousOdds">
+            <div>
+              <span *ngIf="offer.currentOdds" [textContent] = "offer.currentOdds"></span>
+            </div>
+          </div>
+            <div class="offer-text" [ngClass]="{'terms-conditionsifnot': !offer.tcText}">
+              <div *ngIf="offer.introductorytext" class="offer-introductorytext" [ngClass]="offer.brand ? 'lc-text--' + offer.brand : ''" [textContent] = "offer.introductorytext"></div>
+              <div *ngIf="offer.title" class="offer-title" [ngClass]="offer.brand ? 'lc-text--' + offer.brand : ''" [textContent] = "offer.title"></div>
+              <div *ngIf="offer.subtitle" class="offer-subtitle" [ngClass]="offer.brand ? 'lc-text--' + offer.brand : ''" [textContent] = "offer.subtitle"></div>
+            </div>
+            <a *ngIf="offer.tcText"
+              class="lc-offer__terms"
+              [href]="offer.tcLink"
+              [target]="offer.tcTarget">
+              <div class="lc-offer__text" [innerHTML]="offer.tcText"></div>
+            </a>
+            </a>
+          </div>
+   </slide>
+        </slidecontainer>
+      </div>
+
+    <ul class="slide-dots bellow" *ngIf="offers?.length > 1" data-crlat="slideDots">
+        <li *ngFor="let slide of offers; index as ind; trackBy: trackByPosition"
+            [ngClass]="{'slide-active': slide.active}"
+            data-crlat="slideDotContainer">
+          <button type="button" (click)="gotToSlide(ind)" data-crlat="dotBtn"></button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</ng-container>

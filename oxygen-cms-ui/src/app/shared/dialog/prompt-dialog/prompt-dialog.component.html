@@ -1,0 +1,26 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>{{data.title}}</h1>
+  <div mat-dialog-content>
+    <ng-container *ngFor="let control of data.controls;" [ngSwitch]="control.type">
+      <mat-form-field *ngSwitchCase="'text'">
+        <input matInput
+          [(ngModel)]="control.value"
+          placeholder="{{control.label}}"
+          required="control.required"
+          trim="blur">
+      </mat-form-field>
+      <mat-checkbox
+        *ngSwitchCase="'checkbox'"
+        color="primary"
+        [(ngModel)]="control.value"
+        [labelPosition]="before">
+        {{control.label}}
+      </mat-checkbox>
+    </ng-container>
+    <p *ngIf="data.hint" class="hint">{{ data.hint }}</p>
+  </div>
+  <div mat-dialog-actions>
+    <button (click)="onNoClick()" mat-button class="btn btn-sm bg-cean m-r-20 float-right">{{data.noOption}}</button>
+    <button [disabled]="!isValid" mat-button class="btn btn-sm bg-teal float-right" [mat-dialog-close]="data.controls">{{data.yesOption}}</button>
+  </div>
+</div>

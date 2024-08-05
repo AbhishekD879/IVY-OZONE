@@ -1,0 +1,29 @@
+---
+- name: Create BackOfficeMock EC2 nodes
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    key_name: crlat
+    instance_type: t2.micro
+    security_group: crlat
+    image_name: ubuntu_1604_ansible
+    subnet_name: private
+    volume_size: 12
+    action: create
+    node_type: cluster_node
+    assign_public_ip: no
+    tags:
+      team: Automation
+      nodeType: "{{ node_type }}"
+      Name: BackOfficeMock
+      ClusterName: BppLoadTest
+      ClusterNodeType: BackOfficeMockNodes
+      class: TemporaryNode
+      packages: docker
+      dockers: telegraf,BackOfficeMock
+    num_nodes: 2
+  tasks:
+  - name: crlat.vpc
+    include_role:
+      name: crlat.vpc

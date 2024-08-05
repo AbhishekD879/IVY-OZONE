@@ -1,0 +1,15 @@
+<h5>List of {{title}}</h5>
+
+<mat-form-field class="full-width" *ngIf="countries.length">
+  <input matInput placeholder="Search For Country" [(ngModel)]="searchField" [value]="searchField">
+</mat-form-field>
+
+<div class="scrolled-container" *ngIf="countries.length">
+  <ul class="list-group">
+    <li *ngFor="let country of data;"
+        [ngClass]="{'active': country.active}"
+        (click)="country.active = !country.active"
+        class="list-group-item">{{country.label}} ({{country.val}}) <span class="badge bg-teal">{{country.phoneAreaCode}}</span>
+    </li>
+  </ul>
+</div>

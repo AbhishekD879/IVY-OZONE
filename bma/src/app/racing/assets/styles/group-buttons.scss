@@ -1,0 +1,16 @@
+@import 'global.variables.scss';
+
+.racing-content {
+  .group-buttons {
+    padding: 0;
+
+    &.group-buttons-toggle {
+      @include justify-content(space-between);
+    }
+
+    .group-col {
+      @include flex-grow(1);
+      padding: 0;
+    }
+  }
+}

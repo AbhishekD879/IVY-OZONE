@@ -1,0 +1,142 @@
+<breadcrumbs *ngIf="widget" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+
+<div class="card" *ngIf="widget">
+  <div class="header">
+    <h2 class="waves-effect waves-block has-activity-badge">
+      Widget: {{widget.title}}
+      <create-updated-at-by [collection]="widget"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="widget.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="widget">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox color="primary"
+                      [checked]="!widget.disabled"
+                      (change)="widget.disabled = !widget.disabled">
+          Active
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+      <span class="mat-label">
+        Title
+      </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !widget.title}">
+          <input matInput placeholder="Title" [(ngModel)]="widget.title" [value]="widget.title" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!widget.title">Title should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Type
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Type" [(ngModel)]="widget.type" [value]="widget.type" disabled>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Columns
+        </span>
+      </div>
+      <div class="col-md-5">
+        <mat-form-field>
+          <mat-select [(ngModel)]="widget.columns"
+                      placeholder="Column" required>
+            <mat-option *ngFor="let column of columnOptions" [value]="column">
+              {{ columnsTypesEnum[column] }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="widget && widget.type === 'match-centre'" class="card">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Show On Routes
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field>
+          <input matInput placeholder="Show On Routes" [(ngModel)]="widget.showOn.routes" [value]="widget.showOn.routes">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Show On Sports</span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <mat-select placeholder="Show On Sports" multiple [value]="widget.showOn.sports"
+            [(ngModel)]="widget.showOn.sports">
+            <mat-option *ngFor="let sport of sportCategories" [value]="sport.id">{{sport.imageTitle}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="widget">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-3">
+        <mat-checkbox color="primary"
+                      [checked]="widget.showExpanded"
+                      (change)="widget.showExpanded = !widget.showExpanded">
+          Show Expanded
+        </mat-checkbox>
+      </div>
+      <div class="col-md-3">
+        <mat-checkbox color="primary"
+                      [checked]="widget.showOnMobile"
+                      (change)="widget.showOnMobile = !widget.showOnMobile">
+          Show On Mobile
+        </mat-checkbox>
+      </div>
+      <div class="col-md-3">
+        <mat-checkbox color="primary"
+                      [checked]="widget.showOnDesktop"
+                      (change)="widget.showOnDesktop = !widget.showOnDesktop">
+          Show on Desktop
+        </mat-checkbox>
+      </div>
+      <div class="col-md-3">
+        <mat-checkbox color="primary"
+                      [checked]="widget.showOnTablet"
+                      (change)="widget.showOnTablet = !widget.showOnTablet">
+          Show On Tablet
+        </mat-checkbox>
+      </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="widget"
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'title'"
+  [collection]="widget"
+  [showRemoveButton]="false"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

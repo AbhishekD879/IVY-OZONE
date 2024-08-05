@@ -1,0 +1,18 @@
+<breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div *ngIf="form">
+  <app-fanzone-common [fanzone]="fanzone" [form]="form"></app-fanzone-common>
+</div>
+
+<div class="card">
+  <div class="body">
+    <div class="row --m-t-10">
+      <div class="col-md-3 m-b-0">
+        <button mat-button type="button" class="btn bg-teal waves-effect" (click)="createFanzone()"
+          [disabled]="!isValidModel()">
+          <mat-icon>save</mat-icon>
+          <span [textContent]="FANZONE_DETAILS.create"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

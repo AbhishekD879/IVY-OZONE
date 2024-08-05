@@ -1,0 +1,52 @@
+<modal #dialog data-crlat="d.selInfo">
+  <ng-template #modalHeader>
+    <div class="selection-info-dialog-title" [textContent]="title">
+    </div>
+  </ng-template>
+  <ng-template #modalBody>
+    <div class="event-title" (click)="goToEvent()">
+      <div class="event-name" [textContent]="eventName"></div>
+      <live-label *ngIf="params.stake.isStarted"></live-label>
+
+      <svg class="event-arrow-icon" *ngIf="!isVirtual">
+        <use xlink:href="#next-arrow"></use>
+      </svg>
+    </div>
+
+    <div class="event-details">
+      <promo-labels
+        [cashoutValue]="cashoutValue"
+        [event]="params.stake.Bet?.legs[0]?.parts[0]?.outcome?.details"
+        [marketId]="params.stake.marketId?.toString()"
+        [mode]="'selection-info'">
+      </promo-labels>
+
+      <div class="event-detail">
+        <span class="detail-label" [i18n]="'bs.start'"></span>
+        <span [textContent]="params.stake.time | date: 'EEE d LLL yyyy, HH:mm'"></span>
+      </div>
+      <div class="event-detail">
+        <span class="detail-label" [i18n]="'bs.selection'"></span>
+        <span *ngIf="!params.stake.isFCTC" [textContent]="params.stake.outcomeName"></span>
+
+        <betslip-fctc-list *ngIf="params.stake.isFCTC"
+                           [outcomes]="params.stake.outcomes"
+                           [lines]="params.stake.Bet.lines">
+        </betslip-fctc-list>
+      </div>
+      <div class="event-detail">
+        <span class="detail-label" [i18n]="'bs.market'"></span>
+        <span [textContent]="params.stake.isFCTC ? params.stake.Bet.betComplexName : params.stake.marketName"></span>
+      </div>
+      <div class="event-detail" *ngIf="!params.stake.isFCTC">
+        <span class="detail-label" [i18n]="'bs.odds'"></span>
+        <span *ngIf="params.stake.price.priceType === 'LP'" [textContent]="params.odds"></span>
+        <span *ngIf="params.stake.price.priceType === 'SP'" [i18n]="'bs.SP'"></span>
+      </div>
+    </div>
+
+    <div class="btn-list">
+      <button class="btn btn-style2" [i18n]="'bs.ok'" (click)="dialog.close()"></button>
+    </div>
+  </ng-template>
+</modal>

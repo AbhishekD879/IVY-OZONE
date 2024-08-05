@@ -1,0 +1,47 @@
+$columnWidth: 140px;
+$cellBorderMargin: 2px;
+
+.horizontal-header {
+  flex: 0 0 $columnWidth;
+  text-align: center;
+  margin-left: $cellBorderMargin * 2;
+}
+
+.cell {
+  flex: 0 0 $columnWidth;
+  text-align: center;
+  border: 1px solid #455a6b;
+  margin: $cellBorderMargin $cellBorderMargin $cellBorderMargin $cellBorderMargin;
+}
+
+
+.option-input {
+  width: $columnWidth - 20;
+  padding: 5px 5px 5px 5px;
+}
+
+.vertical-header {
+  flex: 0 0 40px;
+  margin-right: 10px;
+}
+
+.mat-row, .mat-header-row {
+  border-bottom-style: none;
+}
+
+.warning {
+  font-size: 13pt;
+  color: #9F6000;
+
+  mat-icon {
+    font-size: 25pt;
+    margin-right: 20px;
+    vertical-align: middle
+  }
+
+  span {
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 5px
+  }
+}

@@ -1,0 +1,67 @@
+<ng-container>
+  <breadcrumbs  [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+  <div class="card" *ngIf="sportTab" >
+    <div class="body">
+      <div class="row">
+        <div class="col-md-12">
+          <mat-checkbox color="primary" [checked]="sportTab.enabled" (change)="sportTab.enabled = !sportTab.enabled"
+            [disabled]="isUntiedSport">
+            Enabled
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Tab Name
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width" [ngClass]="{'mat-form-field-invalid': !sportTab.name}">
+            <input matInput placeholder="Name" [value]="sportTab.name" disabled required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Tab Display Name
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !sportTab.displayName || sportTab.displayName.length > 15}">
+            <input matInput placeholder="Display Name" [(ngModel)]="sportTab.displayName" [value]="sportTab.displayName"
+              required trim="blur" [disabled]="isUntiedSport">
+            <mat-hint class="col-red" *ngIf="!sportTab.displayName">Tab Display Name should be entered</mat-hint>
+            <mat-hint class="col-red" *ngIf="sportTab.displayName.length > 15">Tab Display Name should be max 15 characters</mat-hint>
+
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-checkbox color="primary" [checked]="sportTab.showNewFlag"
+          (change)="sportTab.showNewFlag = !sportTab.showNewFlag" >
+            Enable New Flag
+          </mat-checkbox>
+        </div>
+      </div> 
+    </div>
+  </div>
+
+  <div class="card"  >
+      <div class="body" *ngIf="showCmsTable">
+        <cms-data-table
+          [customTableData]="insightsTable"
+          [customTableColumns]="dataTableColumns"
+          [actions]="['edit']"
+          [reorder]="true"
+          [insightsDatatable]="insightsDatatable"
+          (onElementsOrder)="insightsTabReorderHandler($event)">
+        </cms-data-table>
+      </div>
+  </div>
+ </ng-container>
+
+ <action-buttons #actionButtons *ngIf="sportTab" [validateHandler]="isValidForm" [fieldOrItemName]="'displayName'"
+  [collection]="sportTab" [showRemoveButton]="false" (actionsEmitter)="actionsHandler($event);"></action-buttons>

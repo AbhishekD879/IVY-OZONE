@@ -1,0 +1,88 @@
+/* Global styles  */
+@import 'global.variables.scss';
+
+$digit-height: 13px;
+$score-delimiter-width: 12px;
+
+.live-scores {
+  .live-scores-labels {
+    line-height: 8px;
+
+    th {
+      font-size: 8px;
+      color: $color-gray;
+    }
+  }
+
+  .live-scores-result {
+    line-height: $digit-height;
+
+    td {
+      padding-top: 5px;
+      vertical-align: top;
+    }
+  }
+
+  .live-scores-points, .live-scores-set {
+    color: $color-yellow;
+    font-size: $font-size-md;
+    padding: 0 5px;
+    position: relative;
+    white-space: nowrap;
+
+    > * {
+      display: inline-block;
+      height: $digit-height;
+      line-height: $digit-height;
+      overflow: hidden;
+    }
+  }
+
+  .live-scores-points, .singles .live-scores-set {
+    font-weight: bold;
+  }
+
+  .live-scores-team {
+    font-size: $font-size-md;
+    font-weight: bold;
+  }
+
+  .live-scores-digit {
+    min-width: 7px;
+    max-width: 8px;
+    display: inline-block;
+    position: relative;
+    top: 0;
+    transition: top 350ms ease-out;
+    white-space: normal;
+
+    &:before {
+      content: ' 0 1 2 3 4 5 6 7 8 9 ';
+    }
+  }
+
+  @mixin digit-loop($counter) {
+    @if ($counter < 10) {
+      .digit-#{$counter} {
+        top: -$digit-height * $counter;
+      }
+      @include digit-loop(($counter + 1));
+    }
+  }
+
+  @include digit-loop(0);
+
+  .live-scores-delimiter {
+    position: relative;
+    min-width: $score-delimiter-width;
+
+    &:after {
+      background: $color-white;
+      content: '';
+      height: 2px;
+      position: absolute;
+      top: 10px;
+      width: $score-delimiter-width;
+    }
+  }
+}

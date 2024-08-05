@@ -1,0 +1,99 @@
+/* Inplay Card view (Live carousel) */
+.live-events-carousel {
+  font-family: $base-font-family;
+  display: block;
+  margin: 5px 5px 10px;
+
+  .card-title {
+    border-color: $color-white;
+    color: $color-white;
+    height: 41px;
+    @include display-flex();
+    @include flex-direction(column);
+    @include justify-content(center);
+
+    .extra-markets-info {
+      @include display-flex();
+      @include justify-content(center);
+      font-family: $base-font-family;
+      font-size: $font-size-xs;
+      font-weight: bold;
+      text-align: center;
+      color: lighten($color-gray-dark, 50%);
+      line-height: normal;
+
+      .match-time {
+        @include display-flex();
+        @include justify-content(space-around);
+        width: 30%;
+      }
+
+      .penalties {
+        font-size: 12px;
+        line-height: 10px;
+      }
+    }
+  }
+
+  .odds-fav-icon .fav-icon-svg {
+    stroke: $color-white;
+  }
+
+  inplay-score {
+    @include display-flex();
+  }
+
+  .in-play-score {
+    color: $color-white;
+
+    .in-play-scores-container span {
+      color: $color-white;
+      font-size: 24px;
+    }
+  }
+
+  .card-widget-carousel {
+    .in-play-game-status {
+      margin: 0 5px;
+    }
+
+    .in-play-scores-container span {
+      margin: 0 0 0 10px;
+    }
+
+    .in-play-score-reversed span {
+      margin: 0 10px 0 0;
+    }
+
+    .participant {
+      @include display-flex();
+      @include flex-direction(column);
+      @include align-items(center);
+      @include justify-content(space-around);
+      text-align: center;
+      height: 37px;
+
+      .team-abbreviation {
+        display: block;
+        margin: 5px 0;
+      }
+
+      &:last-child {
+
+        .team-abbreviation {
+          @include flex-order(2);
+        }
+
+        .team-flag {
+          @include flex-order(1);
+        }
+      }
+    }
+  }
+
+  .single-event {
+    .in-play-scores-container span {
+      font-size: 28px;
+    }
+  }
+}

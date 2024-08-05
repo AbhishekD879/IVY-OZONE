@@ -1,0 +1,251 @@
+<div [class]="'inner-container ' + betLocation" data-crlat="accordionsList">
+
+  <div *ngIf="bets?.length" class="my-bets-single-stakes-scroll">
+    <div class="bet-item tooltip-container my-bets-item-scroll"
+         *ngFor="let bet of bets; trackBy: trackByBet; let isLastBet = last; let index = index"
+         data-crlat="cashout.betItems">
+      <div class="bet-container" data-uat="betDetails">
+        <ng-container *ngIf="isCongratsBannerShown(bet)">
+          <div [ngClass]="{'congrats-message-lads': isBrandLadbrokes&&celebration.congratsBannerImage, 'congrats-message': !isBrandLadbrokes&&celebration.congratsBannerImage, 'static-banner': !celebration.congratsBannerImage}" [style.background]="celebration.congratsBannerImage ? 'url('+celebration.congratsBannerImage+')' : ''">
+            <div [ngClass]="{'static-celebration-message': !celebration.congratsBannerImage, 'celebration-text-lads': isBrandLadbrokes, 'celebration-text': !isBrandLadbrokes&&!celebration.congratsBannerImage}">
+                <div [ngClass]="{'celebration-message-lads': isBrandLadbrokes}" class="celebration-message"><span>{{celebration.celebrationMessage}}</span></div>
+                <div [ngClass]="isBrandLadbrokes ? 'winning-message-lads' : 'winning-message'">
+                  <span *ngIf="bet.eventSource.totalStatus !== cashoutStatus">{{getReturnValue(bet)}}</span>
+                  <span *ngIf="bet.eventSource.totalStatus === cashoutStatus">{{getCashoutReturnValue(bet)}}</span>
+                  <lazy-component *ngIf="displayProfitIndicator && bet.eventSource.totalStatus === cashoutStatus"
+                    [inputs]="{betEventSource: bet.eventSource,
+                               returns: getCashedOutValue(bet.eventSource),
+                               currencySymbol: bet.eventSource.currencySymbol}"
+                    moduleUri="@lazy-modules-module/profit-indicator/profit-indicator.module#ProfitIndicatorModule">
+                  </lazy-component>
+                </div>   
+            </div>
+          </div>
+          <bet-promotions *ngIf="bet.eventSource?.leg" [betEventSource]="bet.eventSource"></bet-promotions>
+        </ng-container> 
+        <ng-container *ngIf="!isCongratsBannerShown(bet)">
+          <regular-bet-header
+            [bet]="bet"
+            [betHistoryHeader]="isBetHistoryTab"
+            [gtmLocation]="'open bets'"
+            [hasLeaderboardWidget]="hasLeaderboardWidget"
+            (reuseBet)="reuseBets(bet)">
+          </regular-bet-header>
+  
+          <bet-promotions *ngIf="bet.eventSource?.leg" [betEventSource]="bet.eventSource"></bet-promotions>
+  
+          <top-success-message
+            *ngIf="bet.eventSource.totalStatus === cashoutStatus"
+            [messageTranslateValue]="'bethistory.cashedOutLabel'"
+            [value]="getCashedOutValue(bet.eventSource)"
+            [stake]="isBetHistoryTab ? '' : bet.eventSource.stake"
+            [betEventSource] = "bet.eventSource"
+            [currencySymbol]="bet.eventSource.currencySymbol"
+            [displayProfitIndicator]="!isMyBetsInCasino && displayProfitIndicator">
+          </top-success-message>
+        </ng-container>
+        <div *ngIf="bet.eventSource.totalStatus === 'won'">
+          <div *ngIf="!!showBog(bet); else showTopSuccessMessage" 
+          class="bog-signposting bog-section-container" >
+            <div class="bog-icon-label-container">
+              <div class="promotion-icon-container event-card-label-wrapper"
+              [ngClass]="isBrandLadbrokes ? '' : 'bog-icon-border-radius-coral'" data-crlat="bogIcon">
+              <svg class="event-card-label bog-text"><use xlink:href="#bog-text"></use></svg>
+            </div>
+              <span [i18n]="'app.bogLabel'" class="bog-label"
+              [ngClass]="isBrandLadbrokes ? 'bog-label-ladbrokes' : 'bog-label-coral'"></span>
+            </div>
+            <div class="bog-extra-earnings-label" [ngClass]="isBrandLadbrokes ? 'bog-extra-earnings-label-ladbrokes' : 'bog-extra-earnings-label-coral'">
+              <span [i18n]="'app.bogExtraEarnings'" ></span>
+              <span [textContent]="bogReturnValue(bet.eventSource.winnings, bet.eventSource.livePriceWinnings)
+              | currency:bet.eventSource.currencySymbol:'code'"></span>
+            </div>          
+          </div>
+
+          <ng-template #showTopSuccessMessage>
+            <ng-container *ngIf="!isCongratsBannerShown(bet)">
+              <top-success-message
+              [messageTranslateValue]="'bethistory.youWonLabel'"
+              [stake]="isBetHistoryTab ? '' : bet.eventSource.stake"
+              [betEventSource] = "bet.eventSource"
+              [value]="bet.eventSource.potentialPayout"
+              [currencySymbol]="bet.eventSource.currencySymbol">
+              </top-success-message>
+            </ng-container>
+          </ng-template>  
+        </div>
+        <bet-leg-list [bet]="bet"
+                      [betLocation]="betLocation"
+                      [isUsedFromWidget]="isUsedFromWidget"
+                      [isLastBet]="isLastBet"
+                      [removeBogAndLabel]="(bet.eventSource.totalStatus === 'won' && !!showBog(bet))"
+                      [section]="section"
+                      [origin]="origin"
+                      [tabName]="isBetHistoryTab?'Settled Bets':'open bets'"
+                      [area]="area"
+                      [isSportIconEnabled]="isSportIconEnabled"
+                      [estimatedReturns]="bet.eventSource.potentialPayout">
+        </bet-leg-list>
+
+        <div class="alerts-wrapper" *ngIf="!this.isBetHistoryTab && (winAlertsEnabled || bet.footballAlertsVisible) && bet.eventSource.betType === 'SGL'">
+          <div class="notification-icon-wrapper fav-icon">
+            <div class="match-alert-wrapper" *ngIf="bet.footballAlertsVisible" (click)="onFootballBellClick(bet)">
+              <span>Match Alert</span>
+              <svg *ngIf="bet.footballBellActive">
+                <use xlink:href="#bell-icon-on"></use>
+              </svg>
+              <svg *ngIf="!bet.footballBellActive">
+                <use xlink:href="#bell-icon-turn-off"></use>
+              </svg>
+            </div>
+          </div>
+          <div class="bs-win-alerts-wrapper" *ngIf="winAlertsEnabled">
+            <div class="bs-win-alerts-content">
+              <div class="bs-win-alerts-info">
+                <svg class="win-alerts-info-icon" data-crlat="infoButton" [tooltip]="'winAlerts'"
+                  [showTooltip]="!index && showWinAlertsTooltip()" (click)="handleAlertInfoClick(bet)">
+                  <use xlink:href="#win-alert-icon"></use>
+                </svg>
+                <span [i18n]="'bs.winAlerts'"></span>
+                <toggle-switch [initialState]="bet.winAlertsActive" [componentId]="setToggleSwitchId(bet)"
+                  [disabled]="!nativeBridge.pushNotificationsEnabled" 
+                  (switcherControl)="toggleWinAlerts(bet, $event)"
+                  (clickIfDisabled)="nativeBridge.showNotificationSettings()" data-crlat="allowQuickBetSwitc">
+                </toggle-switch>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bet-card-bottom-block" [class.ema-history-bottom]="isBetHistoryTab">
+          <div class="data-mybet-disclaimer--container" *ngIf="isShownDisclaimer(bet)">
+            <div class="disclaimer" [textContent]="dataDisclaimer?.dataDisclaimer"></div>
+          </div>
+          <span *ngIf="device.isDesktop && bet.eventSource.settled =='N' && cashOutSectionService.checkLuckyType(bet) && !cashOutSectionService.checkSPSelection(bet) && !isDisplayBonus(bet.eventSource.receipt)" [ngClass]="isBrandLadbrokes && device.isDesktop ? 'allWinnerBonus-OpenBets-lads' : 'allWinnerBonus-OpenBets'" class="stake-est-return">
+            <span class="allWinnerBonus" [i18n]="'bs.allWinnerBonus'" data-crlat="estReturn.label"></span>&nbsp;
+            <span class="stake-est-return-number allWinnerBonus-OpenBets-value"
+                  [textContent]="cashOutSectionService.checkLuckyBonus(bet)"
+                  data-crlat="estReturn">
+            </span>
+          </span>
+          <stake-and-returns-header [stake]="bet.eventSource.stake"
+                                    [tokenValue]="bet.eventSource.tokenValue"
+                                    [tokenType]="bet.eventSource.tokenType"
+                                    [legType]="bet.eventSource.legType"
+                                    [stakePerLine]="bet.eventSource.stakePerLine"
+                                    [estimatedReturns]="bet.eventSource.potentialPayout"
+                                    [settled]="bet.eventSource.settled"
+                                    [currencySymbol]="bet.eventSource.currencySymbol"
+                                    [isEdit]="bet.eventSource.isAccaEdit"
+                                    [winnings]="bet.eventSource.winnings"
+                                    [livePriceWinnings] = "bet.eventSource.livePriceWinnings"
+                                    [hasFreeBet]="bet.eventSource.hasFreeBet"
+                                    [bet]="bet"
+                                    [bets]="bets"
+                                    [betLocation]="betLocation"
+                                    [lad] = "isBrandLadbrokes"
+                                    [initialReturns]="bet.eventSource.initialReturns === bet.eventSource.potentialPayout"
+                                    [sportType]="'regularBets'"
+                                    data-crlat="sectionStakeAndReturns">
+          </stake-and-returns-header>
+          <span *ngIf="isMobile && cashOutSectionService.checkLuckyType(bet) && !cashOutSectionService.checkSPSelection(bet) && !isDisplayBonus(bet.eventSource.receipt)" class="stake-est-return" [ngClass]="isBrandLadbrokes ? 'allWinnerBonus-openbets-mobile-lads' : 'allWinnerBonus-openbets-mobile-coral'" >
+            <span class="allWinnerBonus" [i18n]="'bs.allWinnerBonus'" data-crlat="estReturn.label"></span>&nbsp;
+            <span class="stake-est-return-number allWinnerBonus-value-Cashout"
+                  [textContent]="cashOutSectionService.checkLuckyBonus(bet)"
+                  data-crlat="estReturn">
+            </span>
+          </span>
+        </div>
+        <bet-receipt-info datePattern="HH:mm - dd MMM"
+                          [receipt]="bet.eventSource.receipt"
+                          [date]="bet.eventSource.date"
+                          data-crlat="betReceiptInfo">
+        </bet-receipt-info>
+
+        <div class="five-A-Side-BetVoid"  *ngIf="bet.eventSource.totalStatus === STATUS_VOID && bet.eventSource.bybType === BYBTYPE_FIVEASIDE && !bet.hasActiveEvent ">
+          <div class="five-A-Side-Info" *ngIf="fiveASideVoidHandling">
+            <span [textContent]="fiveASideVoidHandling">
+            </span>
+          </div>
+          <div class="five-A-Side-Button">
+            <five-a-side-button *ngIf="!isMyBetsInCasino"
+            [event]="bet.eventSource.event" [leg]="bet.eventSource?.leg[0]"></five-a-side-button>
+            <lazy-component *ngIf="!!isMyBetsInCasino"
+            moduleUri="@lazy-modules-module/casinoMyBetsIntegration/casino-my-bets-integration.module#CasinoMyBetsIntegrationModule"
+            [inputs]="{event: bet.eventSource.event,
+                       leg: bet.eventSource?.leg[0],
+                       isMyBetsInCasino: isMyBetsInCasino}"
+            entryComponent="CasinoMyBetsFiveASideComponent"></lazy-component>
+          </div>
+          <div class="five-A-Side-Info-text" *ngIf="goToFiveASide">
+            <svg class="infoIcon">
+              <use xlink:href="#Icon_Info"></use>
+            </svg>
+            <span class="five-a-side-text" [textContent]="goToFiveASide"></span>
+          </div>
+        </div>
+
+        <div class="reuse-button-cashout" *ngIf="!isLdipBetTag(bet) && bet.eventSource.settled === 'Y' && checkIfAnyEventDisplayed(bet) && checkIfAnyEventActive(bet)" (click)="reuseBets(bet)"> 
+          <span class="reuse-text-cashout" [i18n]="'bs.reuseSelection'"></span> 
+        </div>
+
+        <edit-my-acca-warning [bet]="bet.eventSource"
+                              *ngIf="bet.eventSource.isAccaEdit">
+        </edit-my-acca-warning>
+
+        <edit-my-acca-confirm *ngIf="bet.eventSource.isAccaEdit" [bet]="bet"></edit-my-acca-confirm>
+
+        <div class="ema-error-container" *ngIf="bet.eventSource.emaPriceError">
+          <svg class="message-icon">
+            <use xlink:href="#info-icon"></use>
+          </svg>
+          <span [i18n]="'bethistory.emaError'"></span>
+        </div>
+        
+        <cashout-error-message *ngIf="isCashoutError(bet, !isBrandLadbrokes, !isBetHistoryTab)"
+        [message]="getCashoutError(bet)"></cashout-error-message>
+
+        <cashout-panel
+          *ngIf="!bet.eventSource.isAccaEdit && !isBetHistoryTab"
+          [data]="bets"
+          [bet]="bet"
+          [isPartialCashOutAvailable]="bet.eventSource.isPartialCashOutAvailable"
+          [betLocation]="betLocation">
+        </cashout-panel>
+
+        <cashout-error-message *ngIf="isCashoutError(bet, isBrandLadbrokes, !isBetHistoryTab)"
+                                 [message]="getCashoutError(bet)"></cashout-error-message>
+
+        <lazy-component *ngIf="betTrackingEnabled && bet.eventSource.bybType && bet.optaDisclaimerAvailable"
+                        moduleUri="@bybHistoryModule/byb-history.module#LazyBybHistoryModule"
+                        [inputs]="{optaDisclaimer: optaDisclaimer, isOptaAvailable: bet?.optaDisclaimerAvailable, isLastbet: isLastBet}"
+                        entryComponent="OptaInfoComponent">
+        </lazy-component>
+
+        <partial-cashout-history *ngIf="!bet.eventSource.cashoutSuccessMessage"
+                                 [terms]="bet.eventSource.betTermsChange"
+                                 [currencySymbol]="bet.eventSource.currencySymbol">
+        </partial-cashout-history>
+
+        <bet-history-prompt *ngIf="bet.eventSource.cashoutSuccessMessage"
+                            [prompt]="'success'"
+                            [mode]="'cashout'"
+                            [promptText]="bet.eventSource.cashoutSuccessMessage"></bet-history-prompt>
+
+        <bet-history-prompt *ngIf="emaService.savedAccas[bet.eventSource.betId]"
+                             [prompt]="emaService.savedAccas[bet.eventSource.betId]"
+                             [mode]="'ema'"></bet-history-prompt>
+
+        <edit-my-acca-history [bet]="bet" *ngIf="bet.eventSource.betGroupType === 'EDT' && !emaService.savedAccas[bet.eventSource.betId]"></edit-my-acca-history>
+      </div>
+    </div>
+  </div>
+
+  <no-bets-section
+    *ngIf="!bets?.length && !loadingContestIds"
+    [noBetsMessage]="noBetsMessage"
+    [showStartGamingButton]="!isUsedFromWidget"
+    [isMyBetsInCasino]="isMyBetsInCasino"
+  ></no-bets-section>
+
+</div>

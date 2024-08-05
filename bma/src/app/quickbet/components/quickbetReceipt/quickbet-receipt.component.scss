@@ -1,0 +1,392 @@
+//Global styles
+@import 'global.variables.scss';
+
+$qb-content-side-padding: 15px;
+$qb-small-font-size: 11px;
+$qb-medium-font-size: 12px;
+$qb-large-font-size: 14px;
+$qb-outcome-name-height: 13px;
+$qb-small-font-size: 11px;
+
+/* Quickbet content */
+.quickbet-content {
+  background: $color-white;
+  @include display-flex();
+  @include flex-direction(column);
+  padding: 15px $qb-content-side-padding;
+
+  .quickbet-sectionwrap {
+    width: 100%;
+    @include display-flex();
+  }
+
+  /*// if quick bet is for racing:*/
+  .qb-content-info,
+  .qb-stake-section {
+    width: 50%;
+  }
+
+  .qb-stake-section {
+    text-align: right;
+
+    odds-boost-price {
+      margin-left: 4px;
+    }
+
+    .odds-label {
+      color: $color-gray-dark;
+      text-transform: capitalize;
+      font-weight: normal;
+      font-size: $qb-small-font-size;
+    }
+
+    .odds-label {
+      color: lighten($color-gray-dark, 50%);
+    }
+
+    .odds {
+      font-weight: normal;
+      font-size: $qb-medium-font-size;
+      margin-bottom: 10px;
+    }
+
+    .odds-value {
+      color: $color-gray-dark;
+      font-weight: bold;
+      font-size: $qb-medium-font-size;
+    }
+  }
+}
+
+.eachway-terms-block {
+  margin-top: -5px;
+}
+
+.eachway-terms {
+  display: block;
+  color: $color-gray-dark;
+}
+
+.qb-receipt-wrapper {
+  background: #fff;
+  margin: 5px 4px;
+
+  .selection-type {
+    font-size: $qb-large-font-size;
+    color: $color-gray-dark;
+  }
+
+  .qb-single-receipt-odds,
+  .receipt-id {
+    margin: 8px 0;
+    color: lighten($color-gray-dark, 35%);
+    font-size: $qb-medium-font-size;
+  }
+}
+
+.qb-receipt {
+  background: $color-gray;
+  overflow: hidden;
+  max-height: 460px;
+  overflow-y: scroll;
+
+  .qb-reuse {
+    background: #fff;
+    max-height: inherit;
+    padding: 15px;
+    position: relative;
+    .qb-reuse-yourbets{
+      font-size: 14px;;
+    }
+    .qb-reuse-button-wrapper{
+      position: absolute;
+      right: 3.2%;
+      .qb-reuse-button {
+        font-family:  $reuse-selection-font-family;
+        font-size: 11px;
+        color: $reuse-selection-border-button;
+        font-weight: 700;
+        border: 1px solid $reuse-selection-border-button;
+        border-radius: 2px;
+        padding: 8px;
+      }
+    }
+  }
+
+  .qb-stake-boosted {
+    border-bottom: 1px dashed $color-gray;
+    padding: 10px 15px;
+
+    .qb-boosted-icon {
+      width: 23px;
+      height: 17px;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    .qb-boosted-text {
+      vertical-align: middle;
+    }
+  }
+
+  .qb-stake-header {
+    max-height: inherit;
+    padding: 15px;
+    position: relative;
+    .line {
+      display: flex;
+      flex-flow: row nowrap;
+
+    }
+
+    .qb-stake-title {
+      display: block;
+      font-size: $qb-medium-font-size;
+      color: $color-gray-dark;
+      line-height: $qb-outcome-name-height;
+      margin-bottom: 5px;
+    }
+
+    .qb-stake-type,
+    .qb-stake-description {
+      color: $color-gray-dark;
+      font-size: $qb-medium-font-size;
+    }
+  }
+
+  .left,
+  .right {
+    display: flex;
+    align-items: center;
+    flex: 0 1 auto;
+    z-index: 1;
+
+    &.qb-win-alerts-wrapper {
+      align-items: flex-start;
+      flex: 1 1 auto;
+      justify-content: flex-end;
+    }
+
+    .qb-stake-info {
+      line-height: 1;
+      white-space: normal;
+    }
+  }
+
+  .alerts-wrapper {
+    padding: 0 15px;
+    border-top: 1px solid $color-gray-border;
+    align-items: center;
+    height: 36px;
+    display: flex;
+    font-weight: 700;
+    font-size: 11px;
+
+    .notification-icon-wrapper {
+      width: 50%;
+
+      .match-alert-wrapper {
+        align-items: center;
+        display: flex;
+
+        svg {
+          height: 20px;
+          width: 26px;
+          margin-left: 3px;
+        }
+      }
+    }
+  }
+
+  .qb-win-alerts-wrapper {
+
+    .qb-win-alerts-content {
+      display: flex;
+      flex-flow: column;
+      justify-content: flex-end;
+
+      .qb-win-alerts-info {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        .win-alerts-info-icon {
+          width: 14px;
+          height: 14px;
+          position: relative;
+        }
+
+        span {
+          margin-left: 4px;
+          white-space: nowrap;
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+
+  .qb-stake-footer {
+    padding: 15px;
+    background: $color-gray-light;
+    border-top: 1px dashed $color-gray;
+    position: relative;
+    white-space: nowrap;
+
+    &::after,
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: $color-gray;
+      border-radius: 7px;
+      top: -7px;
+    }
+
+    &::after {
+      left: -7px;
+    }
+
+    &:before {
+      right: -7px;
+    }
+
+    strong {
+      font-weight: bold;
+    }
+  }
+
+  .line {
+    width: 100%;
+    margin-bottom: 10px;
+    line-height: 16px;
+    white-space: nowrap;
+
+    &.summary-info {
+      span {
+        font-size: 13px;
+        color: $color-gray-dark;
+      }
+
+      strong {
+        font-size: 13px;
+        color: $color-gray-dark;
+      }
+    }
+
+    &:last-child {
+      margin: 0;
+    }
+
+    .free-bet-label{
+      height: 16px;
+      vertical-align: text-bottom;
+    }
+  }
+}
+
+::ng-deep {
+  p.yourcall-selection {
+    margin: 0 0 6px;
+
+    span {
+      font-size: 12px;
+      font-family: $base-font-family;
+      color: rgba($color-gray-dark, 0.75);
+    }
+
+    .value {
+      color: $color-gray-dark;
+      display: block;
+      line-height: normal;
+      text-transform: capitalize;
+    }
+  }
+}
+
+:host ::ng-deep {
+  .bog-block {
+    &.bog-bg {
+      margin: 4px;
+    }
+  }
+
+  .promo-labels.quickbet {
+    &:last-child .bog-block.bog-bg {
+      margin: 0px;
+    }
+  }
+
+  .promotion-icon-label {
+    align-items: center;
+    &.alignLabelIcons {
+      margin-bottom:10px;
+      .promo-labels {
+        padding: 5px 0 5px;
+        .cashout-label-wrapper {
+         margin-top: 0px!important;
+        }
+     }
+    }
+  }
+}
+
+.byb-event-name {
+  font-size: 12px;
+  color: #41494e;
+  margin-top: 10px;
+}
+
+.tooltipQB-max-payout {
+  padding-right: 0px;
+  padding-left: 4px;
+  margin-top: -2px;
+  position: absolute;
+}
+
+.tooltipQB-max-payout-android {
+  padding-right: 0px;
+  padding-left: 4px;
+  margin-top: -2px;
+  position: absolute;
+}
+
+.maxPayOut-info-icon {
+  height: 14px;
+  width: 15px;
+  margin-bottom: -1px;
+  margin-right: 3px;
+}
+
+.icon-content {
+  margin-left: 15px;
+}
+::ng-deep {
+  .icon-content {
+    margin-left: 15px;
+    .promo-labels.quickbet {
+      padding: 0 0 15px;   
+    }
+  }
+}
+
+.sports-icon {
+  top: 11%;
+  right: 4%;
+  z-index: 0;
+  &-wrapper {
+    padding-top: 4%; 
+    position: static;
+  }
+}
+.right-section {
+  align-items: flex-end;
+  flex: 1 1 auto;
+  flex-direction: column;
+  display: flex;
+}
+.epr{
+  display: flex;
+  align-items: flex-start;
+}

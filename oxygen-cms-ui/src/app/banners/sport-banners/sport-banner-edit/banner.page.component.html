@@ -1,0 +1,225 @@
+<breadcrumbs *ngIf="banner" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="banner">
+  <div class="header">
+    <h2 class="waves-effect waves-block has-activity-badge">
+      Banner: {{banner.imageTitle}}
+      <create-updated-at-by [collection]="banner"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="banner.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="banner">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox color="primary"
+                      [checked]="!banner.disabled"
+                      (change)="banner.disabled = !banner.disabled">
+          Active
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Title*
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !banner.imageTitle}">
+          <input matInput placeholder="Title"  [(ngModel)]="banner.imageTitle" [value]="banner.imageTitle" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!banner.imageTitle">Title should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Alternative Text
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Open Link"  [(ngModel)]="banner.alt" [value]="banner.alt">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox class="mat-label" color="primary"
+                      [checked]="banner.enabled"
+                      (change)="banner.enabled = !banner.enabled">
+          Mobile
+        </mat-checkbox>
+      </div>
+      <div class="col-md-5">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Mobile Image"
+                 [(ngModel)]="banner.uriMedium"
+                 [value]="banner.uriMedium" disabled>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <div style="display:none;"><input id="upload-mobile-file" (change)="uploadFile($event, false)" type="file" value="upload"/></div>
+        <button type="button" (click)="hadleUploadImageClick($event)" class="main-image-btn btn bg-teal waves-effect" [disabled]="!banner.enabled">CHANGE FILE</button>
+        <button type="button" (click)="removeImage(false)" class="main-image-btn btn bg-red waves-effect">REMOVE FILE</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox class="mat-label" color="primary"
+                      [checked]="banner.inApp"
+                      (change)="banner.inApp = !banner.inApp">
+         In App
+        </mat-checkbox>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width" *ngIf="banner.inApp">
+          <input matInput placeholder="Target URL"  [(ngModel)]="banner.targetUri" [value]="banner.targetUri">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox class="mat-label" color="primary"
+                      [checked]="banner.desktopEnabled"
+                      (change)="banner.desktopEnabled = !banner.desktopEnabled">
+          Desktop
+        </mat-checkbox>
+      </div>
+      <div class="col-md-5">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Desktop Image"
+                 [(ngModel)]="banner.desktopUriMedium"
+                 [value]="banner.desktopUriMedium" disabled>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <div style="display:none;"><input id="upload-desktop-file" (change)="uploadFile($event, true)" type="file" value="upload"/></div>
+        <button type="button" (click)="hadleUploadImageClick($event)" class="main-image-btn btn bg-teal waves-effect" [disabled]="!banner.desktopEnabled">CHANGE FILE</button>
+        <button type="button" (click)="removeImage(true)" class="main-image-btn btn bg-red waves-effect">REMOVE FILE</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox class="mat-label" color="primary"
+                      [checked]="banner.desktopInApp"
+                      (change)="banner.desktopInApp = !banner.desktopInApp">
+          Desktop In App
+        </mat-checkbox>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width" *ngIf="banner.desktopInApp">
+          <input matInput placeholder="Target URL"  [(ngModel)]="banner.desktopTargetUri" [value]="banner.desktopTargetUri">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="banner">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label">
+          Signposting Event-level flag
+        </span>
+      </div>
+      <div class="col-md-9">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Signposting Event-level flag"
+                 [(ngModel)]="banner.signpostingEventLevel"
+                 [value]="banner.signpostingEventLevel">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label">
+          Signposting Market-level flag
+        </span>
+      </div>
+      <div class="col-md-9">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Signposting Market-level flag"
+                 [(ngModel)]="banner.signpostingMarketLevel"
+                 [value]="banner.signpostingMarketLevel">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="banner">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-12">
+        <date-range
+          [isSetDateButtons]="true"
+          [startDate]="banner.validityPeriodStart"
+          [endDate]="banner.validityPeriodEnd"
+          [startPlaceholder]="'Validity Period Start Date*'"
+          [endPlaceholder]="'Validity Period End Date*'"
+          [placeholderColumn]="true"
+          (onDateUpdate)="handleDateUpdate($event)">
+        </date-range>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Vip Levels*
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Include VIP Levels"
+                 [(ngModel)]="banner.vipLevelsInput"
+                 (input)="transformToNumber($event)">
+          <mat-hint class="col-red" *ngIf="!isVipLevelValid()">Only Numbers with commas alowed</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Show To Customer
+        </span>
+      </div>
+      <div class="col-md-6">
+        <customer-variants-select
+          [optionsType]="'existing'"
+          [customerType]="banner.showToCustomer"
+          (onChange)="onShowToCustomerChange($event)">
+        </customer-variants-select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Category
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field>
+          <mat-select [(value)]="banner.categoryId"
+                      [(ngModel)]="banner.categoryId" placeholder="Category">
+            <mat-option *ngFor="let category of sportCategories" [value]="category.id">{{category.imageTitle}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+<action-buttons
+  #actionButtons
+  *ngIf="banner"
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'imageTitle'"
+  [collection]="banner"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

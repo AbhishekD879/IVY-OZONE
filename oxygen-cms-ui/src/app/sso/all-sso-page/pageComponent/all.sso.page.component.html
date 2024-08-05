@@ -1,0 +1,50 @@
+<div class="card" *ngIf="ssoPagesData">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      SSO Page
+      <small *ngIf="ssoPagesData">Total active ssoPages: {{ssoPagesAmount.active}}, inactive ssoPages: {{ssoPagesAmount.inactive}}</small>
+    </h2>
+  </div>
+</div>
+<div class="card" *ngIf="ssoPagesData">
+  <div class="body">
+    <!-- search and download button.-->
+    <div *ngIf="ssoPagesData" class="row clearfix">
+      <div class="col-md-3">
+        <button (click)="createSsoPage()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create SSO Page</span>
+        </button>
+      </div>
+      <div class="col-md-3">
+        <download-cvs [cvsData]="ssoPagesData" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For SsoPage" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <!-- main content, config groups list-->
+    <div *ngIf="ssoPagesData">
+      <cms-data-table
+        [customTableData]="ssoPagesData"
+        [customTableColumns]="dataTableColumns"
+        [reorder]="true"
+        [actions]="['remove','edit']"
+        [filterString]="searchField"
+        [filterProperties]="searchableProperties"
+        (onElementsOrder)="reorderHandler($event)"
+        (onRemoveTableElement)="removeHandler($event)">
+      </cms-data-table>
+    </div>
+
+    <div *ngIf="getDataError">
+      Request Error
+    </div>
+  </div>
+</div>

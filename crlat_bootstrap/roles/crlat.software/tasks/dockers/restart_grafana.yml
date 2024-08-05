@@ -1,0 +1,25 @@
+- name: Restart Grafana Container
+  docker_container:
+    name: Grafana
+    image: grafana/grafana
+    state: started
+    restart: yes
+    restart_policy: always
+    dns_servers:
+      - "{{ dns_server_ip }}"
+    env:
+      GF_SECURITY_ADMIN_PASSWORD: secret#1
+      GF_AUTH_ANONYMOUS_ENABLED: false
+      GF_USERS_ALLOW_SIGN_UP: false
+      GF_INSTALL_PLUGINS: grafana-piechart-panel
+    ports:
+     - "3000:3000"
+    volumes:
+      - /var/lib/grafana:/var/lib/grafana
+
+- name: Wait Grafana port accessible
+  wait_for:
+    port: 3000
+    delay: 1
+    timeout: 15
+    state: started

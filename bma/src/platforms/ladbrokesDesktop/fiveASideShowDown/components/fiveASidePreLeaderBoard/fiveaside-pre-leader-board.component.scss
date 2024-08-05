@@ -1,0 +1,71 @@
+  @import "global.variables.scss";
+  @import '../../../../ladbrokesMobile/fiveASideShowDown/components/fiveASidePreLeaderBoard/fiveASidePreLeaderBoardMixin/fiveaside-pre-leader-board-mixin.scss';
+  $imagesPath: '/assets/images/';
+  $desktop-med: '1300px';
+
+  .topBar {
+    display: inline;
+  }
+  .leaderboard-container {
+    width: 98.7%;
+    @include leader-board-mixin(100%, 10px 0px 0px 0px, url('#{$imagesPath}5ASideWithPlayers.png') #010101, 1085px, no-repeat);
+    background-position-x: center;
+    position: absolute;
+    overflow: auto;
+    .container-body {
+      margin: 55px 60px;
+      background-color: $color-background-black;
+    }
+    .description-hidden {
+      visibility: hidden;
+    }
+    .leader-board-header {
+      @include leader-board-mixin(156px, 0, url('#{$imagesPath}soccerdesktop.png'), 725px, repeat);
+      background-position: center;
+      @media (min-width: $desktopPoint) and (max-width: 1299px) {
+        @include leader-board-mixin(156px, 0, url('#{$imagesPath}soccerwithgrassdesktop.png'), 100%, no-repeat);
+      }
+      @media (min-width: $desktop-med) and (max-width: $desktopLargePointLow ) {
+        @include leader-board-mixin(190px, 0, url('#{$imagesPath}soccerwithgrassdesktop.png'), 100%, no-repeat);
+      }
+      @media (min-width: $desktopLargePoint) {
+        @include leader-board-mixin(220px, 0, url('#{$imagesPath}soccerwithgrassdesktop.png'), 100%, no-repeat);
+      }
+    .contest-description {
+      @include contest-mixin(32px, $color-gray-fiveaside, 8px 12px, $color-white, flex, space-between, $base-font-family, $font-size-base, bold);
+      align-items: center;
+          .description-name {
+          @include contest-detail-mixin(60%, 20px, hidden);
+          }
+          .clock-time {
+            @include contest-detail-mixin(175px, 16px, hidden);
+          }
+        }
+
+        .country-flags {
+          @include country-detail-mixin(30px 130px 0px 130px, uppercase, flex, space-between);
+          .home-flag {
+            @include country-flags-mixin(25px, 41px, 41px, 0 2px 4px 0 #828282);
+          }
+          .away-flag {
+            @include country-flags-mixin(25px, 41px, 41px, 0 2px 4px 0 #828282);
+          }
+        }
+          .country-names {
+            @include country-detail-mixin(10px 75px 0, uppercase, flex, space-between);
+            .home-name {
+              @include country-name-mixin(150px, 35px, $color-white, 10px, center, $base-font-family, 1px, bold, hidden);
+            }
+            .away-name {
+              @include country-name-mixin(150px, 35px, $color-white, 10px, center, $base-font-family, 1px, bold, hidden);
+            }
+          }
+      }
+      }
+      ::ng-deep {
+        .description-name {
+          & > p {
+          @include contest-desc-p-mixin($font-size-base, $base-font-family, bold);
+         }
+         }
+       }

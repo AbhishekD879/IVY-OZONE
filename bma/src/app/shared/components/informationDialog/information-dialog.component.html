@@ -1,0 +1,31 @@
+<modal #informationDialog [ngClass]="params.dialogClass" data-crlat="d.info">
+  <ng-template #modalHeader>
+    <span data-crlat="dTitle" data-uat="popUpTitle" [textContent]="params.caption"></span>
+    <a *ngIf="!params.hideCrossIcon" class="btn-close" data-uat="popUpCloseButton" (click)="closeDialog()">
+      <svg>
+        <use xlink:href="#close-icon"></use>
+      </svg>
+    </a>
+  </ng-template>
+  <ng-template #modalBody>
+    <div [innerHtml]="params.text" data-crlat="popUpText"></div>
+    <div class="btn-list">
+      <div *ngIf="params.links?.length" class="more-link-lucky">
+        <a *ngFor="let link of params.links; trackBy: trackByFn"
+              [href]="link.hyperlink" 
+              class="btn btn-style4 more"
+              [textContent]="link.caption">
+    </a>
+      </div>
+      <div *ngIf="params.buttons?.length">
+        <button *ngFor="let btn of params.buttons; trackBy: trackByFn"
+                class="btn"
+                [ngClass]="btn.cssClass || 'btn-style2'"
+                [textContent]="btn.caption"
+                (click)="handleBtnClick(btn)"
+                [attr.data-crlat]="'button.' + btn.caption">
+        </button>
+      </div> 
+    </div>
+   </ng-template>
+</modal>

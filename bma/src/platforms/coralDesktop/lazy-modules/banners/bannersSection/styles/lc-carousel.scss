@@ -1,0 +1,44 @@
+@import 'global.variables.scss';
+
+.lc-carousel {
+  padding-bottom: $banner-shadow-height;
+  margin-bottom: -$banner-shadow-height;
+}
+
+.swiper-container {
+  padding-top: calc(#{$banner-min-height} * 1% + #{$banner-shadow-height});
+  margin-bottom: 0;
+}
+
+.lc-offer__image, .lc-offer {
+  height: 100%;
+}
+
+.lc-offer {
+  margin-right: 12px;
+}
+
+.swiper-container .carousel-slides:not(.center-mode) {
+  width: 100%;
+}
+
+.ng-carousel {
+  ::ng-deep {
+    .carousel-slides {
+      @include transform(translate(-$slide-width * 2, 0));
+
+      &.carousel-no-scroll {
+        @include transform(translate(-$slide-width, 0));
+      }
+    }
+
+    .slide, .carousel-slide-copy {
+      width: $slide-width;
+      min-width: $slide-width;
+    }
+  }
+}
+
+#banner-section {
+  background-color: transparent;
+}

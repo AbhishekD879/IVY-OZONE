@@ -1,0 +1,36 @@
+<div *ngIf="competitionMarkets">
+  <div class="row clearfix">
+    <div class="col-md-3">
+      <button (click)="addOBMarketId();" mat-button type="button" class="btn bg-teal waves-effect float-left">
+        <mat-icon>add_box</mat-icon>
+        <span>Add OB Market ID</span>
+      </button>
+    </div>
+    <div class="col-md-3" *ngIf="competitionMarkets.length">
+      <download-cvs [cvsData]="competitionMarkets"></download-cvs>
+    </div>
+    <div class="col-md-6 m-b-0">
+      <div class="input-with-icon m-b-0">
+        <i class="material-icons">search</i>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Search For Markets" [(ngModel)]="searchField" [value]="searchField">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="competitionMarkets.length">
+    <cms-data-table
+      [customTableData]="competitionMarkets"
+      [customTableColumns]="dataTableColumns"
+      [reorder]="true"
+      [filterString]="searchField"
+      [filterProperties]="filterProperties"
+      [actions]="['remove', 'onPageEdit']"
+      (onElementsOrder)="reorderHandler($event)"
+      (onRemoveTableElement)="removeMarketId($event)"
+      (onPageEditTableElement)="editMarketId($event)">
+    </cms-data-table>
+  </div>
+</div>
+<div *ngIf="!competitionMarkets.length">Competition markets list is empty</div>

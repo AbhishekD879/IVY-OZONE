@@ -1,0 +1,92 @@
+<breadcrumbs *ngIf="game" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="game">
+  <div class="header">
+    <div class="row">
+      <div class="col-md-10">
+        <h2 class="waves-effect waves-block has-activity-badge">
+          Game: {{game.title}}
+          <create-updated-at-by [collection]="game"></create-updated-at-by>
+        </h2>
+      </div>
+      <div class="col-md-2">
+        <mat-checkbox color="primary"
+                      [checked]="game.enabled"
+                      (change)="game.enabled = !game.enabled">
+          Active
+        </mat-checkbox>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="game">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Game info</h4>
+      </div>
+      <div class="col-md-10 game-name">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !game.id}">
+          <input matInput required placeholder="Game name" [(ngModel)]="game.title" [value]="game.title" trim="blur"
+            [readonly]="isActive">
+          <mat-hint class="col-red" *ngIf="!game.title">Game name should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+
+    <!--  FOR OTF SEASON MYBADGES -->
+
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Season Name:</h4>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width">
+          <mat-select placeholder="Select Season" [(value)]="selectedSeason"
+            (selectionChange)="onSelectSeason($event,game)" [disabled]="isActive" required>
+            <mat-option *ngFor="let season of seasons" [value]="season.id">
+              {{ season.seasonName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-error *ngIf="!isValidSeason">Please select a valid Season*</mat-error>
+      </div>
+    </div>
+    <!--  FOR OTF SEASON MYBADGES -->
+  </div>
+
+  <div class="body">
+    <div class="row">
+      <div class="col-md-12 m-b-0 m-t-20">
+        <date-range
+          [isSetDateButtons]="true"
+          [startDate]="game.displayFrom"
+          [endDate]="game.displayTo"
+          [startPlaceholder]="'Display From Date'"
+          [endPlaceholder]="'Display To Date'"
+          [placeholderColumn]="true"
+          (onDateUpdate)="handleVisibilityDateUpdate($event)"
+          [isStartDateEnable]="isActive" [isEndDateEnable]="isActive">
+        </date-range>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="game">
+  <event-create-table
+    [game]="game"
+    [eventsNotEditable]="eventsNotEditable"
+    (actionsEmitter)="actionsHandler($event);">
+  </event-create-table>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="game"
+  [validateHandler]="isValidModel"
+  [fieldOrItemName]="'title'"
+  [collection]="game"
+  (actionsEmitter)="actionsHandler($event);">
+</action-buttons>

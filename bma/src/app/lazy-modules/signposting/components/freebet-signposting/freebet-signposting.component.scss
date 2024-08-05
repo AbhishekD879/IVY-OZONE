@@ -1,0 +1,41 @@
+@import 'global.variables.scss';
+
+.signposting-container {
+    display: inline-flex;
+    min-height: 20px;
+    margin-top: 8px;
+    background: #F9F9F9;
+    width: 100%;
+}
+
+.ew-icon-container{
+    margin: auto 0px;
+    padding-top: 1.5px;
+    padding-left: 6px;
+}
+
+.ew-signposting-icon {
+    height: 10px;
+    width: 10px;
+    fill: #5A5A5A;
+}
+
+.signpostingTxt {
+    font-family: $base-font-family;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+    color: #777777;
+    padding: 6px;
+}
+
+.baseFontFamily {
+    font-family: $base-font-family;
+}
+
+.altFontFamily {
+    font-family: $alt-font-family;
+}

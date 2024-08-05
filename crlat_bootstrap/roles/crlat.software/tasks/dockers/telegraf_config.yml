@@ -1,0 +1,24 @@
+---
+- name: Set InfluxDB address variable
+  set_fact:
+    instance_name: "{{ hostvars[inventory_hostname]['ec2_tag_Name'] }}"
+    private_ip: "{{ hostvars[inventory_hostname]['ec2_private_ip_address'] }}"
+    public_ip: "{{ hostvars[inventory_hostname]['ec2_ip_address'] }}"
+    aws_region: "{{ hostvars[inventory_hostname]['region'] }}"
+    subnet_id: "{{ hostvars[inventory_hostname]['ec2_subnet_id'] }}"
+    subnet_name: "{{ hostvars[inventory_hostname]['subnets'].keys()[hostvars[inventory_hostname]['subnets'].values().index(hostvars[inventory_hostname]['ec2_subnet_id'])] }}"
+#    tag_NodeType: "{{ hostvars[inventory_hostname]['ec2_tag_NodeType'] }}"
+#    tag_packages: "{{ hostvars[inventory_hostname]['ec2_tag_packages'] }}"
+#    tag_dockers: "{{ hostvars[inventory_hostname]['ec2_tag_dockers'] }}"
+    tag_Team: "{{ hostvars[inventory_hostname]['ec2_tag_Team'] }}"
+    tag_ClusterName: "{{ hostvars[inventory_hostname]['ec2_tag_ClusterName'] }}"
+    tag_ClusterNodeType: "{{ hostvars[inventory_hostname]['ec2_tag_ClusterNodeType'] }}"
+    tag_ClusterName: "{{ hostvars[inventory_hostname]['ec2_tag_ClusterName'] }}"
+
+
+- name: Create Telegraf directory in /etc
+  file: path=/etc/telegraf state=directory
+
+- template:
+    src: telegraf.conf.j2
+    dest: "{{ path_to_telegraf_conf }}"

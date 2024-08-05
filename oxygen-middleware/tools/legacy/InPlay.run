@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+export featured_scheduled_task_enabled=false
+export inplay_scheduled_task_enabled=true
+export SPRING_PROFILES_ACTIVE=$1
+export pessimistic_mode=false
+export redis_host=localhost
+export spring_kafka_bootstrapservers=localhost:9092
+export liveServer_logging_level=BODY
+export masterlock_enabled=false
+
+./gradlew bootRun

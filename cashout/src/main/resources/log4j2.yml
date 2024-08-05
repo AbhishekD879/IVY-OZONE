@@ -1,0 +1,17 @@
+Configuration:
+
+  status: warn
+
+  Appenders:
+
+    Console:
+      name: LogToConsole
+      target: SYSTEM_OUT
+      PatternLayout:
+        Pattern: "%d{yyyy-MM-dd HH:mm:ss,SSS} [$${ctx:user:-root}][$${ctx:token:-none}][$${ctx:uuid:-sys}][$${ctx:time:-0}] %-5p %c{1}:%L - %m%n"
+
+  Loggers:
+
+    Root:
+      AppenderRef:
+        ref: LogToConsole

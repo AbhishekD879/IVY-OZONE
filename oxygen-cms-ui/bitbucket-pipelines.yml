@@ -1,0 +1,44 @@
+image: java:8
+
+pipelines:
+  default:
+
+  - step:
+      name: npm install
+      image: 740335462382.dkr.ecr.eu-west-2.amazonaws.com/build-node-chrome:8.9.4
+      caches:
+      - node
+      script:
+      - npm set registry https://nexus-vie.coral.co.uk/repository/npm-all
+      - npm install
+      artifacts:
+      - node_modules/**
+
+  - parallel:
+    - step:
+        name: npm lint
+        image: 740335462382.dkr.ecr.eu-west-2.amazonaws.com/build-node-chrome:8.9.4
+        script:
+        - npm run lint
+    - step:
+        name: npm test
+        image: 740335462382.dkr.ecr.eu-west-2.amazonaws.com/build-node-chrome:8.9.4
+        script:
+        - npm run test
+    - step:
+        name: coverage
+        image: 740335462382.dkr.ecr.eu-west-2.amazonaws.com/build-node-chrome:8.9.4
+        script:
+        - npm run coverage-report-sonar
+        artifacts:
+        - coverage/**
+
+  - step:
+      name: SonarCloud
+      image: 740335462382.dkr.ecr.eu-west-2.amazonaws.com/sonar-scanner-node:3.2.0
+      script:
+      - echo "Start code static verification"
+      - sonar-scanner -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=coral-devops-support-bitbucket -Dsonar.login=$SONAR_TOKEN -Dsonar.projectBaseDir=./ -Dsonar.sources=./src -Dsonar.branch.name=$BITBUCKET_BRANCH -Dproject.settings=./sonar-project.properties
+      artifacts:
+      - .scannerwork/**
+

@@ -1,0 +1,186 @@
+<breadcrumbs *ngIf="form" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+
+<div class="card" *ngIf="form">
+  <div class="header">
+    <h2 class="has-activity-badge">
+      <span [innerText]="pageTitle"></span>
+      <span class="font-italic">{{nextEventCarousel.title}}</span>
+      <create-updated-at-by [collection]="nextEventCarousel" [class.invisible]="!nextEventId"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="nextEventCarousel.disabled"></header-activity-badge>
+  </div>
+</div>
+
+
+
+<div class="card" *ngIf="form">
+  <form [formGroup]="form" novalidate>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-checkbox color="primary" [checked]="!nextEventCarousel.disabled" (change)="toggleActiveStatus()">
+            Active
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Title
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Title" formControlName="title" required trim="blur" (blur)="loadCarousels()">
+            <mat-error class="col-red"
+              *ngIf="formControls.title.errors?.required  && (formControls?.title?.dirty || formControls?.title?.touched)">Title
+              is required.</mat-error>
+            <mat-error *ngIf="formControls.title.errors?.notUnique" [textContent]="'Title should be unique'">
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Class id's
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Class Id's" formControlName="classIds" required
+              (change)="loadTypeIds(classIds)" trim="blur">
+            <mat-hint align="start" *ngIf="!formControls.classIds.errors">Class Id's with comma seperated</mat-hint>
+            <mat-error class="col-red"
+              *ngIf="formControls.classIds.errors?.required  && (formControls?.classIds?.dirty || formControls?.classIds?.touched)">Class
+              Id's is required.</mat-error>
+            <mat-error *ngIf="formControls.classIds.errors?.pattern"
+              [textContent]="'Enter only integer value with comma seperated without space'">
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Type id's (include type id's)
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Multi select of Type id's" [(ngModel)]="nextEventCarousel.typeIds"
+              formControlName="typeIds" #select multiple name="typeIds" required>
+              <div class="select-all">
+                <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
+                  (change)="toggleAllSelection()">
+                  Select All</mat-checkbox>
+              </div>
+              <mat-option *ngFor="let type of typeIdsData" [value]="type.typeId" (click)="optionClick()">
+                {{ type.typeName }}
+              </mat-option>
+            </mat-select>
+            <mat-error class="col-red"
+              *ngIf="formControls.typeIds.errors?.required  && (formControls?.typeIds?.dirty || formControls?.typeIds?.touched)">
+              Type id's is required.</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Display events
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Display events" formControlName="limit" required trim="blur">
+            <mat-error class="col-red"
+              *ngIf="formControls.limit.errors?.required  && (formControls?.limit?.dirty || formControls?.limit?.touched)">No
+              of events is required.</mat-error>
+            <mat-error *ngIf="formControls.limit.errors?.pattern" [textContent]="'Enter only integer value'">
+            </mat-error>
+            <mat-error *ngIf="formControls.limit.errors?.min" [textContent]="'Display events must be greater than 0'">
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Button text
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Button text" formControlName="buttonText" required trim="blur">
+            <mat-error class="col-red"
+              *ngIf="formControls.buttonText.errors?.required  && (formControls?.buttonText?.dirty || formControls?.buttonText?.touched)">
+              Button text is required.</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Redirection Url
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Redirection Url" formControlName="redirectionUrl" required trim="blur">
+            <mat-error class="col-red"
+              *ngIf="formControls.redirectionUrl.errors?.required  && (formControls?.redirectionUrl?.dirty || formControls?.redirectionUrl?.touched)">
+              Redirection Url is required.</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Desktop Image ID
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Desktop Image ID" formControlName="desktopImageId" required trim="blur">
+            <mat-error class="col-red"
+              *ngIf="formControls.desktopImageId.errors?.required  && (formControls?.desktopImageId?.dirty || formControls?.desktopImageId?.touched)">Desktop
+              Image ID is required.</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Mobile Image ID
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Mobile Image ID" formControlName="mobileImageId" required trim="blur">
+            <mat-error class="col-red"
+              *ngIf="formControls.mobileImageId.errors?.required  && (formControls?.mobileImageId?.dirty || formControls?.mobileImageId?.touched)">Mobile
+              Image ID is required.</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<action-buttons #actionButtons *ngIf="form && nextEventId" [validateHandler]="validationHandler" fieldOrItemName="title"
+  [collection]="nextEventCarousel" (actionsEmitter)="actionsHandler($event);"></action-buttons>
+
+<div class="card" *ngIf="form && !nextEventId">
+  <div class="body">
+    <div class="row">
+      <div class="col-4 col-md-7 p-b-0 m-b-0">
+        <button mat-button [disabled]="!validationHandler()" type="button" class="btn bg-teal waves-effect float-left"
+          (click)="save();">
+          <mat-icon>save</mat-icon>
+          <span>Create</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,990 @@
+@import 'global.variables.scss';
+
+$yourcall-color1: $color-white;
+$yourcall-color2: $caribbean-green;
+$yourcall-light-grey: lighten($color-gray-dark, 50%);
+
+$yourcall-icon-size: 15px;
+
+$yourcall-header-size: 35px;
+$yourcall-tab-height: 30px;
+$yourcall-tab-width: 22px;
+$yourcall-tab-default-text-color: $color-gray-dark;
+$yourcall-section-color: $color-gray;
+$yourcall-inner-header-size: 25px;
+$yourcall-list-item-size: 30px;
+
+$yourcall-carousel-link-bg-color: $color-gray-light;
+$yourcall-carousel-text-color: $color-gray-dark;
+$yourcall-carousel-slide-width: 50%;
+
+$yourcall-select-stat-value-width: 90px;
+$yourcall-player-bets-select-border-rtadius: 2px;
+
+$yourcall-spinner-light-color: $color-white;
+$yourcall-spinner-dark-color: $color-gray-dark;
+
+$yourcall-dashboard-selection-value-color: $color-gray-dark;
+
+$yourcall-receipt-is-color: lighten($color-gray-dark, 50%);
+
+$your-call-quickbet-z-index: $ngdialog-zindex - 3;
+
+$headerHeight: 56px;
+
+.yourcall-icon {
+  width: $yourcall-header-size;
+  height: $yourcall-header-size;
+  float: right;
+  text-align: center;
+  padding: 0;
+  margin: -10px;
+
+  .yourcall-icon-container {
+    @include display-flex();
+    @include align-items(center);
+    height: 100%;
+  }
+
+  svg {
+    width: $yourcall-icon-size;
+    height: $yourcall-icon-size;
+    margin: 0 auto;
+  }
+}
+
+.inner-header .yourcall-icon {
+  height: $yourcall-inner-header-size;
+  width: $yourcall-header-size;
+  margin: -4px -10px;
+}
+
+.yourcall-betslip {
+
+  .quickbet-panel {
+    .freebet-input {
+      margin-top: 20px !important;
+      margin-bottom: 5px;
+    }
+    .quickbet-header {
+      display: flex;
+      align-items: center;
+      padding: 0 0 0 10px;
+    }
+  }
+
+  // BYB bs overlay (mobile)
+  &:after {
+    display: none;
+    position: fixed;
+    content: '';
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: $color-black;
+    z-index: $your-call-quickbet-z-index;
+    opacity: 0.85;
+
+    @media (max-width: $tabletPoint) {
+      .yourcall-bs-opened & {
+        display: block;
+      }
+    }
+  }
+}
+
+@mixin truncate-text() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.yourcall-static-block {
+  @include display-flex();
+  min-height: 55px;
+  background: $color-white;
+  align-items: center;
+  margin-bottom: 8px;
+  font-family: $base-font-family;
+
+  .yourcall-static-text {
+    min-width: 0;
+    font-size: 11px;
+    padding: 15px 15px 15px 10px;
+    p {
+      margin: 0;
+      font-size: 11px;
+    }
+    a {
+      font-weight: bold;
+      color: $color-gray-dark;
+      text-decoration: underline;
+    }
+  }
+}
+
+.byb-static-block .yourcall-static-text{
+  p {  
+    font-size: 12px;
+  }
+}
+
+.byb-static-block {
+  min-height: 25px;
+
+  div p {
+    font-family: $font-increment-number;
+    // font-size: 12px;
+  }
+}
+
+.yourcall-tab-content {
+  font-family: $base-font-family;
+  position: relative;
+
+  show-all-button {
+    display: block;
+    width: 100%;
+  }
+
+  .yourcall-static-text {
+    color: $yourcall-carousel-text-color;
+    font-size: 11px;
+    padding: 15px 10px 15px 10px;
+  }
+
+  .yourcall-default-text {
+    padding: 15px 10px 20px 10px;
+    background: $color-white;
+    font-family: $base-font-family;
+    .yourcall-tab-info-text {
+      font-size: 14px;
+      color: $yourcall-carousel-text-color;
+      .yourcall-hash {
+        font-weight: 700;
+        color: $yourcall-color2
+      }
+    }
+    .yourcall-add-text {
+      font-size: 12px;
+      color: $yourcall-tab-default-text-color;
+      margin-bottom: 0;
+    }
+  }
+
+  .yourcall-tab-switchers.switchers {
+    padding: 5px 0 10px 0;
+    .icon-wrapper {
+      line-height: 1;
+    }
+  }
+
+  .switchers {
+    @include user-select();
+    padding: 5px 10px 0;
+  }
+
+  .switch-btn {
+    > span {
+      @include truncate-text();
+    }
+  }
+
+  .yourcall-markets.row {
+    &.row-left {
+      @include justify-content(flex-start);
+      text-align: center;
+      padding: 15px 10px 5px 0;
+    }
+    .col-xs {
+      @include flex(0, 0, 50%);
+      max-width: 50%;
+      .col-inner {
+        padding: 0 0 10px 10px;
+        height: 100%;
+      }
+      &.cols-3 {
+        @include flex(0, 0, 33.3%);
+        max-width: 33.3%;
+      }
+    }
+  }
+
+  .correct-score {
+    .correct-score-container {
+      margin: 0;
+      .teams-group .team-col.odd-right {
+        @media #{$mqSmallMobile} {
+          min-width: 80px;
+        }
+      }
+    }
+
+    .btn-bet {
+      height: auto;
+      padding: 0;
+    }
+
+    .col-vertical .btn-bet {
+      position: static;
+      width: 46px;
+      margin: 0;
+    }
+
+    .col-bordered {
+      &:first-child,
+      &:last-child {
+        .col-inner .btn-bet {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .btn-bet {
+    width: 100%;
+    padding: 8px 10px;
+    line-height: normal;
+    border-radius: 2px;
+    height: 100%;
+    &.btn-act-bg {
+      color: $color-white;
+      background: $color-green;
+    }
+  }
+  .btn-bet-stat {
+    max-width: 125px;
+    padding: 7px 5px;
+    line-height: normal;
+    border-radius: 21px;
+    height: 100%;
+    min-height: 32px;
+    box-shadow: 0 2px 5px 0 rgba(84, 84, 84, 0.26);
+    font-weight: normal;
+    background: transparent;
+    font-size: 12px;
+    font-family: $font-increment-number;
+    border: none;
+    color: $color-blue-dark;  
+    width: 109px;
+    text-transform: capitalize;  
+    &.btn-act-bg-builder {
+      color: $color-white;
+      background: $switch-btn-active-color;
+      font-family: $base-font-family;
+    }
+    &.active {
+      background: $color-blue !important;
+    border-radius: 35px;
+    font-size: 12px;
+    font-weight: normal;
+    height: 32px;
+    color: $color-white;
+    @media screen and (min-width: 1020px) {
+      //width: 134px;
+    }
+    }
+    &:hover{
+      background: $color-blue !important;
+      color: $color-white;
+    }
+    &:active{
+      background: $color-blue-rich-heavy !important;
+      color: $color-white;
+    }
+    &.active-lads{
+      background-color: $color-blue-alt !important;
+      color: $color-white !important;
+    }
+    &.btn-bet-stat-lads {
+      &:hover {
+        background-color: $color-blue-alt !important;
+        color: $color-white !important;
+      }
+      &:active {
+        background-color: $color-blue-alt-heavy !important;
+        color: $color-white !important;
+      }
+    }
+    &.btn-act-bg-builder {
+      color: $color-white;
+      background: $color-maingreen;
+      border-radius: 2px;
+      width: 90%;
+      margin: 6px auto;
+      font-size: 13px;
+      font-weight: 700;
+      @media screen and (min-width: 1020px) {
+        width: 343px;
+        height: 40px;
+      }
+      &:hover {
+        box-shadow: inset 0 1px $color-white-byb, inset 0 25px 25px $color-white-light-grey-byb, 0 1px $color-black-byb;
+      }
+    }
+    &.active {
+      background:$switch-btn-active-color;
+      border: 1px solid $switch-btn-active-color;
+      &.active:hover {
+        border: 1px solid $switch-btn-active-color;
+      }
+    }
+  }
+
+  .show-all-button {
+    background: transparent;
+    padding: 0 0 5px;
+    margin-bottom: 10px;
+    height: auto;
+    line-height: normal;
+  }
+}
+
+.byb-home-content, .yourcall-tab-content {
+  p.no-data {
+    margin: 0;
+    background-color: $yourcall-section-color;
+    padding: 10px;
+    text-align: center;
+  }
+}
+
+.player-bets-form {
+  width: 100%;
+  label {
+    display: inline-block;
+    text-transform: uppercase;
+    font: bold 10px $base-font-family;
+    color: $yourcall-carousel-text-color;
+    line-height: 1;
+  }
+  .player-bets-step-list {
+    list-style-type: decimal;
+    list-style-position: inside;
+    padding: 0;
+    margin-bottom: 0;
+
+    .player-bets-step {
+      font-family: $base-font-family;
+      font-weight: bold;
+      font-size: 10px;
+      color: $yourcall-carousel-text-color;
+      margin: 15px 10px;
+
+      &.select-statistic-step {
+        .select-statistic-container {
+          @include display-flex();
+          width: 100%;
+        }
+        custom-select {
+          &:first-child {
+            @include flex-grow(1);
+          }
+          &:nth-child(2) {
+            width: $yourcall-select-stat-value-width;
+            margin-left: 10px;
+          }
+        }
+      }
+      &.done-button-step {
+        margin-top: 0;
+        .btn-bet {
+          text-transform: uppercase;
+        }
+      }
+      custom-select {
+        margin: 10px 0 0 0;
+
+        .player-bets-select {
+          border-radius: $yourcall-player-bets-select-border-rtadius;
+          border: solid 1px $yourcall-light-grey;
+          font-weight: bold;
+          font-size: 11px;
+          font-family: $base-font-family;
+          &.no-value {
+            color: $yourcall-light-grey;
+          }
+          &.no-data {
+            pointer-events: none
+          }
+        }
+      }
+    }
+
+  }
+}
+
+.list-item {
+  position: relative;
+}
+
+.your-call-specials {
+  .page-container {
+    &.page-inner-container {
+      .container-content {
+        margin: 4px 4px 0 4px;
+        background: $yourcall-section-color;
+        .odds-right {
+          padding-left: 10px;
+        }
+      }
+    }
+  }
+
+}
+
+.yourcall-tab {
+  @include display-flex();
+  @include align-items(center);
+}
+
+.tabs-panel {
+  li .yourcall-tab {
+    a.yourcall-tab-text.tab {
+      padding-top: 11px;
+      padding-bottom: 10px;
+    }
+  }
+}
+
+.yourcall-page {
+  color: $color-gray-dark;
+  .ng-carousel {
+    width: calc(100% - 5px);
+    overflow: visible;
+  }
+}
+.ng-carousel .your-call-slides.carousel-slides {
+  position: relative;
+  &.carousel-ignore-first-slide {
+    @include transform(translate(-$yourcall-carousel-slide-width, 0));
+  }
+  &.carousel-no-scroll {
+    @include transform(translate(-$yourcall-carousel-slide-width, 0) !important);
+  }
+
+  .carousel-slide-copy {
+    width: $yourcall-carousel-slide-width;
+  }
+
+  .slide {
+    padding: 5px 0 5px 5px;
+    width: $yourcall-carousel-slide-width;
+    min-width: 150px;
+    &:last-child {
+      padding: 5px;
+    }
+    .event-card {
+      background: $color-white;
+      border-radius: 3px;
+      margin-top: -2px;
+      p {
+        text-align: center;
+        font-size: 11px;
+        color: $yourcall-carousel-text-color;
+        margin: 0;
+        padding-bottom: 10px;
+        &:first-child {
+          padding: 10px 0 7px;
+        }
+        strong {
+          font-size: 12px;
+        }
+      }
+      span {
+        cursor: pointer;
+        height: 25px;
+        line-height: 25px;
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        font-size: 10px;
+        color: $yourcall-carousel-text-color;
+        text-decoration: underline;
+        background-color: $yourcall-carousel-link-bg-color;
+        border-radius: 0 0 3px 3px;
+      }
+    }
+  }
+}
+
+yourcall-tab-content {
+  position: relative;
+}
+
+yourcall-betslip {
+  display: block;
+
+  .quickbet-overlay {
+    z-index: $your-call-quickbet-z-index + 1;
+  }
+  .quickbet-panel {
+    z-index: $your-call-quickbet-z-index + 2;
+    left: 0;
+
+    &.quickbet-panel-receipt {
+      overflow: auto;
+      background: transparent;
+      max-height: calc(100% - #{$headerHeight});
+    }
+
+    .info-panel {
+      font-size: 11px;
+
+      &.warning-panel {
+        color: $color-gray-dark;
+      }
+    }
+
+    .dk-keyboard {
+      background: $color-white;
+    }
+
+    .quickbet-content {
+      margin-bottom: 0;
+      padding: 15px 15px 10px;
+      #stake-input {
+        margin-bottom: 0;
+        &.ng-not-empty {
+          border-color: $yourcall-dashboard-selection-value-color;
+        }
+      }
+
+      .quickbet-sectionwrap {
+        margin-bottom: 0;
+        align-items: center;
+        .qb-content-info {
+          flex: 1 0 auto;
+          margin-right: 15px;
+        }
+      }
+      .yourcall-selection {
+        line-height: 1;
+        &:last-child {
+          margin-bottom: 8px;
+        }
+        span {
+          font-size: 12px;
+          font-family: $base-font-family;
+          color: rgba($color-gray-dark, 0.65);
+        }
+        strong {
+          color: $yourcall-dashboard-selection-value-color;
+          display: block;
+          margin-bottom: 2px;
+          text-transform: capitalize;
+        }
+        p {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+      .qb-stake-section {
+       position: relative;
+
+        .stake {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+        }
+
+        .odds {
+          margin-bottom: 45px;
+          white-space: nowrap;
+          font-size: 0;
+          margin-top: 8px;
+        }
+
+        .odds-label {
+          font-size: 10px;
+          color: lighten($color-gray-dark, 20%);
+        }
+
+        .odds-value {
+          margin-left: 5px;
+          display: block;
+          font-size: 18px;
+          line-height: 18px;
+          font-family: $base-font-family;
+          font-weight: bold;
+
+          &.crossed {
+            display: inline-block;
+            font-size: 12px;
+            line-height: 12px;
+          }
+        }
+
+        .odds-change {
+          display: block;
+
+          .odds-value {
+            display: inline-block;
+          }
+
+          .stake-arrows {
+            margin: 0;
+
+            &.decrease {
+              border-width: 4px 4px 0;
+              margin-bottom: 4px;
+
+              &:before, &:after {
+                left: -4px;
+                border-width: 4px 4px 0;
+              }
+
+              &:before {
+                top: 1px;
+              }
+
+              &:after {
+                bottom: 5px;
+              }
+            }
+
+            &.increase {
+              border-width: 0 4px 4px;
+              margin-bottom: 5px;
+
+              &:before, &:after {
+                left: -4px;
+                border-width: 0 4px 4px;
+              }
+
+              &:before {
+                top: 5px;
+              }
+
+              &:after {
+                bottom: 1px;
+              }
+            }
+          }
+        }
+      }
+
+      .yc-content-info {
+        margin-right: 15px;
+        overflow-y: auto;
+        flex: 1;
+      }
+
+      .receipt-id {
+        font-size: 10px;
+        color: $yourcall-receipt-is-color;
+        text-align: right;
+
+        strong {
+          color: $yourcall-receipt-is-color;
+        }
+      }
+    }
+  }
+}
+
+.byb-league {
+  font-family: $base-font-family;
+  color: $color-gray-dark;
+  font-size: 11px;
+  @include display-flex();
+  @include flex-wrap(wrap);
+  .byb-event {
+    @include flex(1, 0, 50%);
+    min-width: 50%;
+    padding: 10px;
+    border-bottom: 1px solid $color-gray;
+    @include display-flex();
+    @include align-items(center);
+    .event-content {
+      @include display-flex();
+      @include justify-content(flex-start);
+      @include align-items(center);
+      @include flex(1, 1, auto);
+      overflow: hidden;
+      cursor: pointer;
+      > div {
+        @include flex(0, 0, auto);
+        &.event-details {
+          @include flex(1, 1, auto);
+        }
+      }
+    }
+    .title {
+      font-weight: bold;
+    }
+    .date {
+      font-size: 10px;
+    }
+    .event-details {
+      overflow: hidden;
+      > div {
+        @include truncate-text();
+      }
+    }
+    &:nth-child(even) {
+      border-left: 1px solid $color-gray;
+    }
+  }
+  .event-link {
+    height: 1em;
+    width: 1em;
+    svg {
+      width: 100%;
+      height: 100%;
+      fill: lighten($color-gray-dark, 50%);
+    }
+  }
+}
+
+.byb-home-content .no-leagues-available {
+  text-align: center;
+  h6 {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: $tabletPoint) {
+  .yourcall-bs-opened { // TODO does not apply on vanilla (no affects found)
+    overflow: hidden;
+
+    .yourcall-betslip {
+      &:after {
+        position: fixed;
+        content: '';
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: $color-black;
+        z-index: $your-call-quickbet-z-index;
+        opacity: 0.85;
+      }
+    }
+
+    .header-inner {
+      &:after {
+        position: absolute;
+        content: '';
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        display: block !important; // Needs to overwrite header style
+        background: $color-black;
+        z-index: $your-call-quickbet-z-index;
+        opacity: 0.85;
+      }
+    }
+  }
+}
+
+// BYB bs overlay (desktop)
+#content {
+  &:after {
+    display: none;
+    position: absolute;
+    content: '';
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: $color-black;
+    z-index: 100;
+    opacity: 0.4;
+
+    @media (min-width: $tabletPoint) {
+      .yourcall-bs-opened & {
+        display: block;
+      }
+    }
+  }
+}
+
+.five-a-side-bs-overlay {
+  position: absolute;
+  content: '';
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: $color-black;
+  z-index: 100;
+  transition: opacity 0.25s linear, visibility;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.five-a-side-betslip-opened .five-a-side-bs-overlay {
+  opacity: 0.4;
+  visibility: visible;
+ }
+.byb-align {
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+   gap: 12px; 
+  padding: 9px 14px;
+  margin: -1px auto;
+}
+
+.inner-rectangle{ 
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+   gap: 12px; 
+  padding: 9px 14px;
+  margin: 0 auto;
+  border-top: 1px groove $color-gray;
+  background: $color-white;
+  border-radius: 3px;
+  text-align: center;
+  }
+  .outer-rectangle{  
+  background: $color-white;
+  border-radius: 3px;
+  }
+.byb-svg-stats{
+  width: 17px;
+  margin: 4px -4px -4px 0px;
+}
+.byb-player-position {
+  margin: 14px 2px 7px 1px;
+  font-family: $font-increment-number;
+  font-size: 11px;
+  text-align: left;
+  color: $increment-color;
+  font-weight: normal;
+}
+.byb-value-stats {
+  margin: 6px 6px 6px 19px;
+  font-family: $font-increment-number;
+  font-size: 11px;
+  letter-spacing: 0px;
+  text-align: left;
+  font-weight: 400;
+  color: $increment-color;
+}
+.byb-stats{
+  margin: 0px 6px 6px 19px;
+  padding: 0px 9px 0px 0px;
+  font-family: $switch-stats-font-family;
+  font-size: 11px;
+  letter-spacing: 0px;
+  text-align: left;
+  text-transform: uppercase;
+  border: none;
+  color: $switch-show-color;
+  font-weight: bold;
+}
+.byb-increment{
+  margin: 0px 12px 18px;
+  font-family: $font-increment-number;
+  font-size: 12px;
+  letter-spacing: 0px;
+  text-align: center;
+  color: $increment-color;
+  font-weight: 400;
+}
+.display-players {
+  max-height: auto;
+  flex-grow: 0;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 -1px 2px 0 rgba(0, 0, 0, 0.05);
+  margin-top: 18px;
+  width: 100%;
+}
+.byb-show {
+  flex-grow: 0;
+  padding: 9px;
+  background-color: $color-white-light;
+  text-align: center;
+  font-family: $switch-stats-font-family;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 0px;
+  color: $switch-show-color;
+  border: none;
+  width: 100%;
+  border-top: 1px solid $color-gray;
+  &::after {
+    content: '';
+    position: relative;
+    display: inline-block;
+    padding: 3px;
+    top: -2px;
+    margin-left: 5px;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    border-color: $switch-show-color;
+    will-change: transform;
+    transform: rotate(45deg);
+  }
+}
+.byb-show-less {
+  &::after {
+    will-change: transform;
+    transform: rotate(225deg);
+    top: 2px;
+  }
+}
+.marketdesc{
+  flex-grow: 0;
+  margin: 17px 7px 24px 12px;
+  font-family: $switch-byb-font-family;
+  color: $switch-byb-market-des-color;
+  font-size: 12px;
+}
+
+.yourcall-playermarkets.row {
+  &.row-left {
+    @include justify-content(flex-start);
+    text-align: center;
+    background-color: $color-white;
+  }
+  .col-xs {
+    @include flex(0, 0, 50%);
+    max-width: 50%;
+    .col-inner {
+      padding: 0 0 10px 10px;
+      height: 100%;
+    }
+    &.cols-3 {
+      @include flex(0, 0, 33.3%);
+      max-width: 33.3%;
+    }
+  }
+}
+.byb-player-name {
+  margin: 12px 4px 6px 8px;
+  font-family: $font-increment-number;
+  font-size: 13px;
+  font-weight: $byb-player-font-weight;
+  text-align: left;
+  color: $switch-byb-market-player-color;
+  text-transform: capitalize;
+}
+.byb-show-right-side{    
+  margin: $byb-showcard-accordion;
+}
+
+.btn-act-bg-builder {
+  color: $color-white;
+  background: $color-maingreen;
+  border-radius: 2px;
+  margin: 6px auto;
+  font-size: 13px;
+  font-weight: 700;
+  @media screen and (min-width: 1020px) {
+    width: 343px !important;
+    height: 40px;
+  }
+  &:hover {
+    box-shadow: inset 0 1px $color-white-byb, inset 0 25px 25px $color-white-light-grey-byb, 0 1px $color-black-byb;
+  }
+}

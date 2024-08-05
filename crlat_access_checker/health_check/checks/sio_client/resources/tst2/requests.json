@@ -1,0 +1,155 @@
+{
+  "ping": {
+    "request": {
+      "ID": 19
+    },
+    "expected_success_ids": [
+      18
+    ]
+  },
+  "newPlayer": {
+    "request": {
+      "ID": 31007,
+      "casinoName": "coraltst2",
+      "realMode": 1,
+      "secretKey": "TGKchYcrhhhz",
+      "clientVersion": "0.01",
+      "clientPlatform": "mobile",
+      "languageCode": "EN",
+      "deviceId": "iPad",
+      "clientType": "casino",
+      "dataMap": {
+        "userName": "autotesterT3",
+        "title": "mr",
+        "sex": "M",
+        "firstname": "FirstNameTestA",
+        "lastname": "LastNameTestA",
+        "birthdate": "1981-03-19",
+        "countrycode": "GB",
+        "zip": "WR26NJ",
+        "address": "Moseley Road",
+        "city": "Worcester",
+        "cellphone": "+448282878778",
+        "password": "qwerty",
+        "email": "test@playtech.com",
+        "currencyCode": "GBP",
+        "wantmail": "false"
+      },
+      "changeTimestamp": "2015-9-15 15:32:22.000"
+    },
+    "expected_success_ids": [
+      31008
+    ]
+  },
+  "sessionToken": {
+    "request": {
+      "ID": 31001,
+      "casinoName": "coraltst2",
+      "realMode": 1,
+      "secretKey": "TGKchYcrhhhz",
+      "clientVersion": "0.01",
+      "languageCode": "EN",
+      "deviceId": "xxPxxx",
+      "clientPlatform": "mobile",
+      "clientType": "casino",
+      "deliveryPlatform": "HTML5",
+      "deviceBrowser": "Chrome 31.0.1650.59",
+      "deviceType": "GT-I9505",
+      "osVersion": "4.2.2",
+      "gameType": "Sportsbook",
+      "osName": "Android",
+      "userName": "zazaza",
+      "password": "qwerty"
+    },
+    "expected_success_ids": [
+      31002
+    ]
+  },
+  "token": {
+    "request": {
+      "languageCode": "EN",
+      "clientType": "sportsbook",
+      "realMode": 1,
+      "secretKey": "TGKchYcrhhhz",
+      "deviceId": "iPad",
+      "ID": 30001,
+      "casinoName": "coraltst2",
+      "serviceType": "Cashier",
+      "clientVersion": "0.01",
+      "clientPlatform": "mobile",
+      "sessionToken": "sMjuhi1D2qHGzF9OjknQgICwcGAwcMAY",
+      "systemId": 239
+    },
+    "expected_success_ids": [
+      30002
+    ]
+  },
+  "balance": {
+    "request": {
+      "ID": 31020,
+      "casinoName": "coraltst2",
+      "realMode": 1,
+      "secretKey": "TGKchYcrhhhz",
+      "clientVersion": "0.01",
+      "clientPlatform": "mobile",
+      "languageCode": "EN",
+      "deviceId": "iPad",
+      "clientType": "sportsbook",
+      "balanceTypes": [
+        "casino_gaming_balance"
+      ]
+    },
+    "expected_success_ids": [
+      30021
+    ]
+  },
+  "termsAndConditions": {
+    "request": {
+      "ID": 31011,
+      "casinoName": "coraltst2",
+      "realMode": 1,
+      "secretKey": "TGKchYcrhhhz",
+      "clientVersion": "0.01",
+      "clientPlatform": "mobile",
+      "languageCode": "EN",
+      "deviceId": "iPad",
+      "clientType": "casino",
+      "accept": true,
+      "termVersionReference": "20741"
+    }
+  },
+  "Neteller": {
+    "request": {
+      "ID": 33016,
+      "methodCode": "NETeller",
+      "specificParams": {
+        "accountId": "458591047553",
+        "accountPwd": 411392
+      },
+      "amount": 1,
+      "depositConfirmed": "true",
+      "uuid": "FA55C835-AD19-41F7-8E67-E2A4F162F788",
+      "successUrl": "undefined?result=success",
+      "errorUrl": "undefined?result=error",
+      "cancelUrl": "undefined?result=cancel",
+      "waitingUrl": "undefined?result=waiting"
+    }
+  },
+  "logout": {
+    "request": {
+      "ID": 31013,
+      "casinoName": "coraltst2",
+      "realMode": 1,
+      "secretKey": "TGKchYcrhhhz",
+      "clientVersion": "0.01",
+      "languageCode": "EN",
+      "clientPlatform": "mobile",
+      "clientType": "sportsbook"
+    }
+  },
+  "socketIOhandler":{
+    "request":
+      {"ID":31037,"event":"SOCKETIOHANDLER:SENDING 31037"}
+  }
+}
+

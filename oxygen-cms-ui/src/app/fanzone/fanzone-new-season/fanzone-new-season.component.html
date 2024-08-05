@@ -1,0 +1,119 @@
+<div *ngIf="isReady">
+  <breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+  <form [formGroup]="form">
+    <div class="card">
+      <div class="header">
+        <h2 [textContent]="FZ_NEW_SEASON_CONST.fzNewSeasonHeading"></h2>
+      </div>
+      <div class="body">
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FZ_NEW_SEASON_CONST.fzNewSeasonTitle"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="FZ_NEW_SEASON_CONST.fzNewSeasonTitle" formControlName="fzNewSeasonTitle"
+                [(ngModel)]="fanzoneNewSeason.fzNewSeasonTitle" [value]="fanzoneNewSeason.fzNewSeasonTitle" required
+                trim="blur">
+              <mat-hint class="col-red"
+                *ngIf="fzNewSeasonTitle.invalid && (fzNewSeasonTitle.dirty || fzNewSeasonTitle.touched) && fzNewSeasonTitle.errors.required">Title
+                should be max 25 characters</mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 text-length">{{fanzoneNewSeason.fzNewSeasonTitle?.length || 0}} /25</div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FZ_NEW_SEASON_CONST.fzNewSeasonDescription"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="FZ_NEW_SEASON_CONST.fzNewSeasonDescription"
+                formControlName="fzNewSeasonDescription" [(ngModel)]="fanzoneNewSeason.fzNewSeasonDescription"
+                [value]="fanzoneNewSeason.fzNewSeasonDescription" required trim="blur">
+              <mat-hint class="col-red"
+                *ngIf="fzNewSeasonDescription.invalid && (fzNewSeasonDescription.dirty || fzNewSeasonDescription.touched) && fzNewSeasonDescription.errors.required">Title
+                should be max 150 characters</mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 text-length">{{fanzoneNewSeason.fzNewSeasonDescription?.length || 0}} /150</div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FZ_NEW_SEASON_CONST.fzNewSeasonBadgeDesktop"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="FZ_NEW_SEASON_CONST.fzNewSeasonBadgeDesktop"
+                formControlName="fzNewSeasonBadgeDesktop" [(ngModel)]="fanzoneNewSeason.fzNewSeasonBadgeDesktop"
+                [value]="fanzoneNewSeason.fzNewSeasonBadgeDesktop" required trim="blur" name="fzNewSeasonBadgeDesktop">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FZ_NEW_SEASON_CONST.fzNewSeasonBadgeMobile"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="FZ_NEW_SEASON_CONST.fzNewSeasonBadgeMobile"
+                formControlName="fzNewSeasonBadgeMobile" [(ngModel)]="fanzoneNewSeason.fzNewSeasonBadgeMobile"
+                [value]="fanzoneNewSeason.fzNewSeasonBadgeMobile" required trim="blur" name="fzNewSeasonBadgeMobile">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FZ_NEW_SEASON_CONST.fzNewSeasonLightningDesktop"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="FZ_NEW_SEASON_CONST.fzNewSeasonLightningDesktop"
+                formControlName="fzNewSeasonLightningDesktop" [(ngModel)]="fanzoneNewSeason.fzNewSeasonLightningDesktop"
+                [value]="fanzoneNewSeason.fzNewSeasonLightningDesktop" required trim="blur" name="fzNewSeasonLightningDesktop">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FZ_NEW_SEASON_CONST.fzNewSeasonLightningMobile"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="FZ_NEW_SEASON_CONST.fzNewSeasonLightningMobile"
+                formControlName="fzNewSeasonLightningMobile" [(ngModel)]="fanzoneNewSeason.fzNewSeasonLightningMobile"
+                [value]="fanzoneNewSeason.fzNewSeasonLightningMobile" required trim="blur" name="fzNewSeasonLightningMobile">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FZ_NEW_SEASON_CONST.fzNewSeasonBgImageDesktop"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="FZ_NEW_SEASON_CONST.fzNewSeasonBgImageDesktop"
+                formControlName="fzNewSeasonBgImageDesktop" [(ngModel)]="fanzoneNewSeason.fzNewSeasonBgImageDesktop"
+                [value]="fanzoneNewSeason.fzNewSeasonBgImageDesktop" required trim="blur" name="fzNewSeasonBgImageDesktop">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FZ_NEW_SEASON_CONST.fzNewSeasonBgImageMobile"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="FZ_NEW_SEASON_CONST.fzNewSeasonBgImageMobile"
+                formControlName="fzNewSeasonBgImageMobile" [(ngModel)]="fanzoneNewSeason.fzNewSeasonBgImageMobile"
+                [value]="fanzoneNewSeason.fzNewSeasonBgImageMobile" required trim="blur" name="fzNewSeasonBgImageMobile">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <action-buttons #actionButtons [validateHandler]="validationHandler" [fieldOrItemName]="'Fanzone On Vacation'"
+    [collection]="fanzoneNewSeason" [showRemoveButton]="false" (actionsEmitter)="actionsHandler($event);">
+  </action-buttons>
+</div>

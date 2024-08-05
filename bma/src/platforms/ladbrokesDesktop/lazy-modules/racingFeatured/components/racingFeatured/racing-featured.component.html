@@ -1,0 +1,47 @@
+<ng-container  *ngFor="let module of featuredModuleData?.modules; index as i; trackBy: trackByModules">
+  <racing-events *ngIf="!reloadEventsModule && (module['@type'] === 'RacingEventsModule' && !responseError && module.data[0]?.id)"
+                [racing]="races[module._id]"
+                [sectionTitle]="sectionTitle"
+                [eventsGroup]="races[module.data[0].name]"
+                [byTimeEvents]="allEvents"
+                [sportName]="sportName"
+                [moduleTitle]="module.title"
+                [eventsOrder]="eventsOrder"
+                [filter]="filter"
+                [isEnabledCardState]="isEnabledCardState"
+                [isLimitReached]="isLimitReached"
+                [isClearBuildCardState]="isClearBuildCardState"
+                [display]="display"
+                (gaTracking)="trackModule($event[0], $event[1])"
+                (fetchCardId)="emitFetchCardId($event)"
+                [racingIndex]="i">
+  </racing-events>
+
+  <inspired-virtual-module *ngIf="!responseError && isHorseracingVirtualsEnabled
+                            && module['@type'] === 'VirtualRaceModule' && inspiredVirtualsDataReady && (module.data[0]?.id || module.data[0]?.name === 'VRC')"
+                            [widget]="true"
+                            [virtualsTitle]="module.title"
+                            [sportName]="sportName"
+                            [eventsData]="module.data">
+  </inspired-virtual-module>
+
+  <lazy-component *ngIf="!responseError && isTotePoolsAvailable
+                  && (module['@type'] === 'InternationalToteRaceModule' && module.data[0]?.id || module.data[0]?.name === 'ITC')"
+                  moduleUri="@toteModule/tote.module#ToteModule"
+                  [inputs]="{
+                      sport: 'horseracing',
+                      sportName: sportName,
+                      sectionTitle: sectionTitle['UK'],
+                      moduleTitle: module.title,
+                      eventsData: module.data
+                    }">
+  </lazy-component>
+</ng-container>
+
+<request-error *ngIf="responseError"
+               [loadFailed]="responseError"
+               (reloadFn)="reloadComponent()">
+</request-error>
+<!-- Show only when no events -->
+<no-events *ngIf="!responseError && noEvents" [message]="'sb.noEventsFound'"></no-events>
+

@@ -1,0 +1,20 @@
+<div class="filter-toggle">
+  <div *ngIf="_filters" [scrollable] class="scroll-container"
+  [ngClass]="{
+ 'horseracing-tab': moduleType ==='horseracing' && !isBrandLadbrokes ,'horseracing-tab-lads': compName ==='horseracing' && isBrandLadbrokes ,'greyhounds-coral-tab': moduleType ==='greyhound' && !isBrandLadbrokes, 'horseracing-home-tab': compName ==='horseracing' && !isBrandLadbrokes,
+  'greyhounds-lads-tab': compName ==='greyhounds' && isBrandLadbrokes,
+  'lads-home': compName ==='home' && isBrandLadbrokes,
+  'lads-side-widget' : isLadsSideWidget && isBrandLadbrokes,
+  'greyhounds-lads-tab-today': (greyhoundstodayTab ==='today' || landingPageGH) && isBrandLadbrokes,
+  'horse-nextraces-lads-tab': greyhoundstodayTab === 'races' && isBrandLadbrokes && compName != 'greyhounds' }">
+  <ng-container *ngFor="let filter of _filters">
+    <div class="filter-wrapper" *ngIf="filter.access" [ngClass]="{
+      'lads-active': isBrandLadbrokes
+    }" [class.active]="filter.flag === selectedFilter" (click)="onFilterSelect(filter)">
+    
+      <p class="filter">{{countries[filter?.flag] }}</p>
+
+    </div>
+  </ng-container>
+</div>
+</div>

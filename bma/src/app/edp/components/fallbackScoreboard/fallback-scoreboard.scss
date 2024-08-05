@@ -1,0 +1,220 @@
+/* Global styles */
+@import 'global.variables.scss';
+
+.fallback-scoreboard {
+  font-family: $alt-font-family;
+
+  .fb-container {
+    @include display-flex();
+    @include flex-direction(row);
+    @include justify-content(center);
+    @include align-items(center);
+
+    margin: 0 8px;
+  }
+
+  .team-label {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .team {
+    @include inline-flex();
+    @include flex-direction(row);
+    @include flex(1, 1, auto);
+    @include align-items(center);
+
+    font-size: $font-size-tablet;
+    color: $color-white;
+    position: relative;
+    line-height: 18px;
+    flex: 1 1 0%;
+    min-width: 0;
+    
+    &.home {
+      @include justify-content(flex-end);
+    }
+
+    &.away {
+      @include justify-content(flex-start);
+    }
+  }
+
+  .score-box {
+    width: 28px;
+    height: 24px;
+    line-height: 24px; 
+    text-align: center;
+    border-radius: 1px;
+    font-size: $font-size-base;
+    color: $fb-score-color;
+    background-color: $fb-scorebox-bg;
+    font-weight: 700;
+
+    &:last-child {
+      margin-left: 2px;
+    }
+
+    &.gaa {
+      width: auto;
+      padding: 0 8px;
+    }
+  }
+
+  .team-name-wrapper {
+    height: 50px;
+    @include display-flex();
+    @include flex-direction(column);
+    min-width: 0;
+  }
+
+  .labels-wrapper {
+    @include display-flex();
+    @include flex-direction(row);
+  }
+
+  .score-wrapper {
+    @include display-flex();
+    @include flex-direction(row);
+    margin: 0 8px;
+  }
+
+  .competition-name {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 12px;
+    font-family: $base-font-family;
+    padding-left: 12px;
+    margin-bottom: 9px;
+    color: $color-white;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .possession {
+    height: 6px;
+    width: 6px;
+    border-radius: 100%;
+    margin-left: 6px;
+    flex-shrink: 0;
+
+    &.home {
+      background-color: $fb-home-team-label;
+    }
+
+    &.away {
+      background-color: $fb-away-team-label;
+    }
+  }
+
+  .fb-container.box-score {
+    @include justify-content(space-between);
+    @include align-items(flex-end);
+    margin: 0 auto;
+    width: 100%;
+
+    .score-box {
+      width: 25px;
+      height: 25px;
+      line-height: 25px;
+      border-radius: 0;
+      font-size: $font-size;
+      color: $color-white;
+      background-color: $fb-scorebox-bg-alt;
+      font-weight: normal;
+
+      box-sizing: content-box;
+      border-right: 1px solid $fb-scorebox-border;
+      font-family: $base-font-family;
+      min-width: 25px;
+
+      &.wide {
+        width: 58px;
+      }
+
+      &.stretch {
+        width: auto;
+        border-right: none;
+        flex-grow: 1;
+        padding: 0 5px;
+        box-sizing: border-box;
+      }
+
+      &.transparent {
+        background-color: transparent;
+        font-size: $font-size-tablet;
+        color: $fb-score-color;
+        border-right: none;
+        margin-right: 1px;
+      }
+
+      &.label {
+        background-color: transparent;
+        border-right: none;
+        margin-right: 1px;
+        font-size: $font-size-md;
+      }
+
+      &.label:last-child {
+        margin-right: 0;
+      }
+
+      &:last-child {
+        margin-left: 0;
+      }
+    }
+
+    .score-group {
+      @include display-flex();
+      @include flex-direction(column);
+      margin-right: 0;
+    }
+
+    .score-wrapper {
+      margin: 0;
+
+      &.home {
+        margin-bottom: 1px;
+      }
+    }
+
+    .team.home {
+      @include justify-content(flex-start);
+      padding-left: 16px;
+      position: relative;
+      margin-bottom: 9px;
+
+      &::before {
+        background: $fb-home-team-label;
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 18px;
+        width: 4px;
+        border-radius: 0 2px 2px 0;
+      }
+    }
+
+    .team.away {
+      padding-left: 16px;
+      position: relative;
+      margin-bottom: 4px;
+
+      &::before {
+        background: $fb-away-team-label;
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 18px;
+        width: 4px;
+        border-radius: 0 2px 2px 0;
+      }
+    }
+  }
+}

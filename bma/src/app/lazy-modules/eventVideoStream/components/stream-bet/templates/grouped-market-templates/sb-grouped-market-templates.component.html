@@ -1,0 +1,85 @@
+
+<div *ngIf="eventEntity && markets" class="odds-card-multiple-item">
+
+  <!-- marketOutcomePairs 
+  - contains individual outcomes on same or diferent market(s)
+  - Valid for special market type as specials will display single outcome at a time
+  - For Non-special market types, iterating over markets not outcomes
+  -->
+  <div *ngIf="(templateType !== 'single-counter-double-odd') && ((templateType === 'special-market' && marketOutcomePairs.length>1) || (templateType !== 'special-market' && markets?.length>1))" class="navigation-btn left-content">
+    <button class="left-content-holder" (click)="getPreviousOutcome()">
+      <svg class="left-content-item">
+        <use xlink:href="#right-arrow-snb"></use>
+      </svg>
+    </button>
+  </div>
+
+  <ng-container *ngFor="let market of initialMarket; trackBy: getTrackById">
+    <sb-racing-market-item *ngIf="templateType === 'horse-racing-template'" [event]="eventEntity" [market]="market"
+      (selectionClickEmit)="handleSelectionClick($event)">
+    </sb-racing-market-item>
+  
+    <sb-correct-score-market-item *ngIf="templateType === 'correct-score-market'" [market]="market"
+      [eventEntity]="eventEntity" [marketGroup]="allMarkets" (selectionClickEmit)="handleSelectionClick($event)">
+    </sb-correct-score-market-item>
+
+    <sb-over-under-market-item *ngIf="templateType === 'single-counter-double-odd'"
+        [markets]="markets"
+        [allMarkets]="allMarkets"
+        [eventEntity]="eventEntity"
+        (selectionClickEmit)="handleSelectionClick($event)"></sb-over-under-market-item>
+
+    <sb-single-drop-double-odd-item *ngIf="templateType === 'single-drop-double-odd'"
+        [market]="market"
+        [marketGroup]="allMarkets"
+        [eventEntity]="eventEntity"
+        (selectionClickEmit)="handleSelectionClick($event)"></sb-single-drop-double-odd-item>
+  
+    <sb-single-drop-down-single-odd [event]="eventEntity" [market]="market"
+      (selectionClickEmit)="handleSelectionClick($event)" *ngIf="templateType === 'single-drop-single-odd'">
+    </sb-single-drop-down-single-odd>
+  
+    <ng-container *ngIf="templateType === 'price-odd-button'">
+      <sb-multiple-odds-market-item [event]="eventEntity" [market]="market"
+        (selectionClickEmit)="handleSelectionClick($event)">
+      </sb-multiple-odds-market-item>
+    </ng-container>
+  
+    <!-- Item_market_Special template 
+    marketOutcomePair means, single outcome-->
+    <ng-container *ngIf="templateType === 'special-market' && marketOutcomePair">
+      <div class="main-content" *ngIf="marketOutcomePair">
+        <div class="market-odds-status">
+          <div class="odds-card-market-item">{{marketOutcomePair.market?.originalMarketName || marketOutcomePair.market?.name}}</div>
+        </div>
+        <div class="odds-card odds-hightlight-card">
+          <div class="odds-content">
+            <div class="odds-btn-content" data-crlat="oddsBtnContent">
+              <span class="outcome-Name"> {{marketOutcomePair.outcome.name}}</span>
+              <div class="sb-cs-button">
+                <sb-price-odds-button [event]="eventEntity" [market]="marketOutcomePair.market"
+                  [outcome]="marketOutcomePair.outcome" [isStreamAndBet]="true"
+                  (selectionClickEmit)="handleSelectionClick($event)" class="">
+                </sb-price-odds-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <!-- END: Item_market_Special template -->
+  </ng-container>
+
+  <!-- marketOutcomePairs 
+  - contains individual outcomes on same or diferent market(s)
+  - Valid for special market type as specials will display single outcome at a time
+  - For Non-special market types, iterating over markets not outcomes
+  -->
+  <div *ngIf="(templateType !== 'single-counter-double-odd') && ((templateType === 'special-market' && marketOutcomePairs.length>1)|| (templateType !== 'special-market' && markets?.length>1))" class="navigation-btn" [ngClass]="templateType !== 'special-market' ? 'other-market-right-content': 'special-market-right-content'">
+    <button class="left-content-holder" (click)="getNextOutcome()">
+      <svg class="left-content-item">
+        <use xlink:href="#left-arrow-snb"></use>
+      </svg>
+    </button>
+  </div>
+</div> 

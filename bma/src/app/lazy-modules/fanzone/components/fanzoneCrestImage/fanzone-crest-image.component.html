@@ -1,0 +1,20 @@
+<ng-container *ngIf="hasTeamImage && team">
+    <div class="crest-image__fanzone-card" *ngIf="checkForTeamsImageData()">
+        <img class="card-img select-your-team__card--img" [style.width.px]="widthHeight" [style.height.px]="widthHeight" [attr.src]="CMS_UPLOADS_PATH+team.teamsImage?.filename" />
+    </div>
+    <div class="crest-image__fanzone-card" *ngIf="!checkForTeamsImageData()">
+        <svg class="card-img" [style.width.px]="widthHeight" [style.height.px]="widthHeight" xmlns="http://www.w3.org/2000/svg" width="65" height="65" viewBox="0 0 15 17">
+            <g fill="none" fill-rule="evenodd">
+                <path [attr.fill]="team.secondaryColour" style="opacity: .9"
+                    d="M14.834 1.244L7.617.003A.1.1 0 0 0 7.5.1V17l.136-.016A8.354 8.354 0 0 0 15 8.688V1.441a.2.2 0 0 0-.166-.197z" />
+                <path [attr.fill]="team.secondaryColour"
+                    d="M13.839 1.237L7.619.003A.1.1 0 0 0 7.5.1V17A7.528 7.528 0 0 0 14 9.543v-8.11a.2.2 0 0 0-.161-.196z" />
+                <path [attr.fill]="team.primaryColour" style="opacity: .9"
+                    d="M.166 1.244L7.383.003A.1.1 0 0 1 7.5.1V17l-.136-.016A8.354 8.354 0 0 1 0 8.688V1.441a.2.2 0 0 1 .166-.197z" />
+                <path [attr.fill]="team.primaryColour"
+                    d="M1.161 1.237L7.381.003A.1.1 0 0 1 7.5.1V17A7.528 7.528 0 0 1 1 9.543v-8.11a.2.2 0 0 1 .161-.196z" />
+            </g>
+        </svg>
+    </div>
+</ng-container>
+<span [style.fontWeight]="fontWeight" [textContent]="dialogText ? teamName.toUpperCase() : teamName" [ngClass]="dialogText ? 'crest-image__card-dialog-text' : 'crest-image__card-team-text'" class="crest-image__card-text"></span>

@@ -1,0 +1,197 @@
+<div class="card" *ngIf="!isLoading && !hubId">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Featured Tab Modules
+      <active-inactive-expired [collection]="modulesAmount"></active-inactive-expired>
+    </h2>
+  </div>
+</div>
+
+<div class="card" *ngIf="!isLoading">
+  <div class="body">
+    <div class="row clearfix">
+      <div class="col-md-3">
+        <button (click)="createFeaturedTabModule();" mat-button type="button" class="btn bg-teal waves-effect float-left">
+          <mat-icon>add_box</mat-icon>
+          <span>Create Featured Tab Module</span>
+        </button>
+      </div>
+      <div class="segment-dropdown" class="col-md-4  m-b-0" *ngIf="isHomePage">
+        <cms-segment-dropdown [activeSegment]='selectedSegment'
+                              (selectedSegment)="segmentHandler($event)">
+        </cms-segment-dropdown>
+      </div>
+      <div class="col-md-3">
+        <download-cvs *ngIf="modules && modules.length" [cvsData]="modules" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+    </div>
+    <div class="row clearfix" *ngIf="activeModules.length">
+      <div class="col-md-6">
+        <h5 class="mat-label">Active Featured Modules</h5>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0" *ngIf="modules && modules.length">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Modules" [(ngModel)]="searchFieldActive" [value]="searchFieldActive">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!activeModules.length">
+      <div class="col-md-12 p-l-0">
+        <h5 class="mat-label">No Active Featured Modules</h5>
+      </div>
+    </div>
+    <div *ngIf="activeModules.length">
+      <div *ngIf="orderMessage && isHomePage" class="order-message">
+        {{ orderMessage }}
+      </div>
+      <cms-data-table *ngIf="!isHomePage"
+          [customTableData]="activeModules"
+          [customTableColumns]="dataTableColumns"
+          [reorder]="false"
+          [actions]="['remove','edit']"
+          [filterString]="searchFieldActive"
+          [filterProperties]="searchableProperties"
+          (onRemoveTableElement)="removeModule($event)">
+      </cms-data-table>
+      <cms-segment-data-table *ngIf="isHomePage  && segmentChanged"
+          [selectedSegment]="selectedSegment"
+          [customTableData]="activeModules"
+          [customTableColumns]="dataTableColumns"
+          [reorder]="true"
+          (onElementsOrder)="reorderHandler($event)"
+          [actions]="['remove','edit']"
+          [filterString]="searchFieldActive"
+          [filterProperties]="searchableProperties"
+          (onRemoveTableElement)="removeModule($event)">
+      </cms-segment-data-table>
+    </div>
+
+    <div class="row clearfix" *ngIf="upcomingModules.length">
+      <div class="col-md-6">
+        <h5 class="mat-label">Upcoming Featured Modules</h5>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0" *ngIf="modules && modules.length">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Modules" [(ngModel)]="searchFieldUpcomig" [value]="searchFieldUpcomig">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!upcomingModules.length">
+      <div class="col-md-12 p-l-0">
+        <h5 class="mat-label">No Upcoming Featured Modules</h5>
+      </div>
+    </div>
+    <div *ngIf="upcomingModules.length">
+      <cms-data-table *ngIf="!isHomePage"
+          [customTableData]="upcomingModules"
+          [customTableColumns]="dataTableColumns"
+          [reorder]="false"
+          [actions]="['remove','edit']"
+          [filterString]="searchFieldActive"
+          [filterProperties]="searchableProperties"
+          (onRemoveTableElement)="removeModule($event)">
+      </cms-data-table>
+      <cms-segment-data-table *ngIf="isHomePage"
+          [selectedSegment]="selectedSegment"
+          [customTableData]="upcomingModules"
+          [background]="'bg-green'"
+          [customTableColumns]="dataTableColumns"
+          [reorder]="false"
+          [actions]="['remove','edit']"
+          [filterString]="searchFieldUpcomig"
+          [filterProperties]="searchableProperties"
+          (onRemoveTableElement)="removeModule($event)">
+      </cms-segment-data-table>
+    </div>
+
+    <div class="row clearfix" *ngIf="disabledModules.length">
+      <div class="col-md-6">
+        <h5 class="mat-label">Disabled Featured Modules</h5>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0" *ngIf="modules && modules.length">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Modules" [(ngModel)]="searchFieldDisabled" [value]="searchFieldDisabled">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!disabledModules.length">
+      <div class="col-md-12 p-l-0">
+        <h5 class="mat-label">No Disabled Featured Modules</h5>
+      </div>
+    </div>
+    <div *ngIf="disabledModules.length">
+      <cms-data-table *ngIf="!isHomePage"
+          [customTableData]="disabledModules"
+          [customTableColumns]="dataTableColumns"
+          [reorder]="false"
+          [actions]="['remove','edit']"
+          [filterString]="searchFieldActive"
+          [filterProperties]="searchableProperties"
+          (onRemoveTableElement)="removeModule($event)">
+      </cms-data-table>
+      <cms-segment-data-table *ngIf="isHomePage"
+          [selectedSegment]="selectedSegment"
+          [customTableData]="disabledModules"
+          [background]="'bg-pink'"
+          [customTableColumns]="dataTableColumns"
+          [reorder]="false"
+          [actions]="['remove','edit']"
+          [filterString]="searchFieldDisabled"
+          [filterProperties]="searchableProperties"
+          (onRemoveTableElement)="removeModule($event)">
+      </cms-segment-data-table>
+    </div>
+    <div class="row clearfix" *ngIf="expiredModules.length">
+      <div class="col-md-6">
+        <h5 class="mat-label">Expired Featured Modules</h5>
+      </div>
+      <div class="col-md-6 m-b-0">
+          <div class="input-with-icon m-b-0" *ngIf="modules && modules.length">
+            <i class="material-icons">search</i>
+            <mat-form-field>
+              <input matInput placeholder="Search For Modules" [(ngModel)]="searchFieldExpired" [value]="searchFieldExpired">
+            </mat-form-field>
+          </div>
+        </div>
+    </div>
+    <div *ngIf="!expiredModules.length">
+      <div class="col-md-12  p-l-0">
+        <h5 class="mat-label">No Expired Featured Modules</h5>
+      </div>
+    </div>
+    <div *ngIf="expiredModules.length">
+      <cms-data-table *ngIf="!isHomePage"
+          [customTableData]="expiredModules"
+          [customTableColumns]="dataTableColumns"
+          [reorder]="false"
+          [actions]="['remove','edit']"
+          [filterString]="searchFieldActive"
+          [filterProperties]="searchableProperties"
+          (onRemoveTableElement)="removeModule($event)">
+      </cms-data-table>
+      <cms-segment-data-table *ngIf="isHomePage"
+          [selectedSegment]="selectedSegment"
+          [customTableData]="expiredModules"
+          [background]="'bg-orange'"
+          [customTableColumns]="dataTableColumns"
+          [reorder]="false"
+          [multyRemove]="multyRemoveFlag"
+          [actions]="['remove','edit']"
+          [filterString]="searchFieldExpired"
+          [filterProperties]="searchableProperties"
+          (onRemoveTableElement)="removeModule($event)"
+          (onMultyRemove)="removeHandlerMulty($event)">
+      </cms-segment-data-table>
+    </div>
+  </div>
+</div>
+

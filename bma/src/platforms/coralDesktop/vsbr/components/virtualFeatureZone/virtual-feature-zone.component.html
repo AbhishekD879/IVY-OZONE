@@ -1,0 +1,24 @@
+<ng-container *ngIf="featuredZoneFilteredOffers?.length && featuredZoneBGImage">
+  <div class="virtual-class-header-name" data-crlat="virtualSectionHeaderName">{{featureZoneTitle}}</div>
+
+  <div *ngIf="isValidCarousel" [style.background-image]="'url(' + featuredZoneBGImage + ')'"
+    class="featureZone-carousel-container" data-crlat="featureZone-carousel-container">
+    <div class="feature-bg-wrapper">
+      <div class="feature-bg-title">{{bgImageOffer.title}}</div>
+      <div class="feature-bg-description">{{bgImageOffer.introductorytext}}</div>
+    </div>
+    <div class="feature-images-container">
+      <div class="feature-image-wrapper" *ngFor="let offer of featuredZoneFilteredOffers; index as i;"
+        (click)="onImageClick(offer)">
+        <div class="sport-tile-container" data-crlat="virtualSportWrapper">
+          <img *ngIf="offer.imgUrl" class="feature-static-image" [attr.src]="offer.imgUrl"
+            [attr.fetchpriority]="offer.fetchpriority" [alt]="offer.altText" />
+          <div class="sport-tile-wrapper" data-crlat="virtualSportName">
+            <div class="sport-tile-title">{{offer.title}}</div>
+            <div class="sport-tile-description">{{offer.introductorytext}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

@@ -1,0 +1,24 @@
+<div class="card">
+  <div class="body">
+    <div class="row">
+      <div class="col-4 col-md-7 p-b-0 m-b-0">
+        <button mat-button [disabled]="!isValidForSave()" type="button" class="btn bg-teal waves-effect float-left" (click)="saveChanges();">
+          <mat-icon>save</mat-icon>
+          <span>{{isTypeAdd? 'Create': 'Save Changes'}}</span>
+        </button>
+      </div>
+      <div class="col-4 col-md-2 p-b-0 m-b-0" *ngIf="showRevertButton">
+        <button mat-button [disabled]="isEqualCollection()" type="button" class="btn bg-blue-grey waves-effect float-left" (click)="revertChanges();">
+          <mat-icon>undo</mat-icon>
+          <span>Revert Changes</span>
+        </button>
+      </div>
+      <div class="col-4 col-md-3 p-b-0 m-b-0" *ngIf="showRemoveButton">
+        <button mat-button type="button" class="btn bg-red waves-effect float-right" (click)="remove();">
+          <mat-icon>delete_forever</mat-icon>
+          <span>Remove</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

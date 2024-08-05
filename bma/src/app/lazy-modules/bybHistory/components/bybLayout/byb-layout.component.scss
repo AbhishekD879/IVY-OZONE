@@ -1,0 +1,86 @@
+@import 'global.variables.scss';
+
+.market-name {
+  background-color: $color-white;
+  padding: 5px 10px 5px 18px;
+  margin: 0px;
+  font-size: 12px;
+  color: $market-description-color;
+  margin-bottom: -3px;
+  font-family: $font-increment-number;
+  border-top: 1px solid $color-white-light-byb;
+}
+
+.select-name {
+  text-align: center;
+  background-color: $color-white;
+  padding: 10px 0px;
+  margin: 0px;
+  color: $selection-btn-text-color;
+  font-size: 14px;
+  font-family: $font-increment-number;
+}
+
+.byb-layout-container {
+  background: $color-white;
+}
+
+.markets {
+  display: inline-block;
+  width: 52px;
+  height: 17px;
+  flex-grow: 0;
+  font-family: Lato;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0px;
+  text-align: left;
+  color: $color-black;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 16px 0px 12px 12px;
+  max-width: 110px;
+}
+
+.display {
+  display: none;
+}
+
+.byb-layout-container {
+  background: $color-white;
+}
+
+.duplicate-parent:nth-child(odd) {
+  display: none;
+}
+
+@media screen and (min-width: 1020px) {
+  .parent {
+    display: flex;
+  }
+
+  .duplicate-parent {
+    width: 50%;
+    margin-top: 5px;
+    ;
+  }
+
+  .duplicate-parent:nth-child(odd) {
+    display: block;
+    margin-right: 5px;
+  }
+
+  .first:nth-child(even) {
+    display: none;
+  }
+
+  .second:nth-child(odd) {
+    display: none;
+  }
+}
+
+.no-display {
+  display: none;
+}

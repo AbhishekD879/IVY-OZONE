@@ -1,0 +1,29 @@
+@import '../../../../app/promotions/components/promotionIcon/promotion-icon.component.scss';
+
+.event-card-label-wrapper.race-label-wrapper {
+  background: $color-blue-lightest;
+  cursor: pointer;
+
+  .event-card-label {
+    width: $prom-icon-size;
+    height: $prom-icon-size;
+  }
+
+  &.small-icon .event-card-label {
+    width: $small-prom-icon-size;
+    height: $small-prom-icon-size;
+  }
+
+  &.bir-inplay {
+    padding: 0 5px;
+
+    &.middle-icon {
+      width: auto;
+    }
+
+    #event-card-text {
+      display: block;
+      margin-left: 3px;
+    }
+  }
+}

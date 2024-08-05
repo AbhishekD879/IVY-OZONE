@@ -1,0 +1,237 @@
+$btn-bet-border-color: #dbdbdb;
+$btn-width: 50px;
+$btn-height: 40px;
+$btn-up-bg: #cd4200;
+$btn-down-bg: #0090a5;
+
+@media (max-width: $odds-button-small-size) {
+  .btn-bet {
+    min-width: $price-odd-btn-max-width-1599;
+  }
+}
+@media (min-width: $odds-button-big-size) {
+  .btn-bet {
+    min-width: $price-odd-btn-min-width-1600;
+  }
+}
+
+.btn-bet {
+  background-image: linear-gradient(-180deg, #f5f5f5 0%, #eeeeee 52%, #e7e7e7 100%);
+  border: 1px solid $btn-bet-border-color;
+  color: $color-gray-darkest;
+  font-size: 14px;
+  font-family: $base-font-family;
+  line-height: $bet-btn-font-size;
+  width: $btn-width;
+  min-height: $btn-height;
+  border-radius: 2px;
+  cursor: pointer;
+  text-align: center;
+  font-weight: bold;
+  outline: none;
+  padding: 0;
+
+  &.btn-with-header {
+    @include display-flex();
+    @include flex-direction(column);
+    @include align-items(stretch);
+    background: none;
+    border-radius: 2px;
+    text-align: center;
+    color: $color-white;
+    padding: 0;
+
+    .odds-head {
+      background: rgba(255,255,255,.4);
+      border-top-right-radius: 2px;
+      border-top-left-radius: 2px;
+      font-weight: normal;
+      font-size: 9px;
+      line-height: 11px;
+      padding: 2px;
+      margin-bottom: 1px;
+      text-transform: uppercase;
+      height: 15px;
+      width: 100%;
+      color: $color-white;
+    }
+
+    .odds-price {
+      background: rgba(255,255,255,.4);
+      border-bottom-right-radius: 2px;
+      border-bottom-left-radius: 2px;
+      height: 30px;
+      line-height: 30px;
+    }
+
+    //disabled
+    &[disabled], &.active[disabled], &.bet-up[disabled],
+    &.bet-down[disabled], &.bet-dis[disabled] {
+      background: none;
+      color: $color-white;
+      opacity: .4;
+
+      .odds-head, .odds-price {
+        background: rgba-color($color-gray-light, .4);
+      }
+    }
+
+    // active
+    &.active, &.active:hover {
+      background: none;
+
+      .odds-head, .odds-price {
+        background: rgba-color($color-green, .6);
+      }
+    }
+
+    // hover
+    &:hover {
+      background: none;
+
+      .odds-head, .odds-price {
+        background: rgba(255,255,255,.5);
+      }
+    }
+
+    //live bet update
+    &.bet-up .odds-head, &.bet-up .odds-price {
+      @include bet-animation(up-button);
+    }
+
+    &.bet-down .odds-head, &.bet-down .odds-price {
+      @include bet-animation(down-button);
+    }
+  }
+
+  &:hover {
+    background: $color-gray-lighter;
+  }
+
+  &.bet-modified {
+    padding-bottom: 1px;
+
+    .bet-changed {
+      padding-top: 2px;
+      font-size: 8px;
+      display: block;
+      color: red;
+
+      &:before {
+        content: "WAS\00a0";
+        font-stretch: condensed;
+      }
+    }
+
+    &.active .bet-changed {
+      color: $color-white;
+    }
+  }
+
+  &.active {
+    background: $color-green;
+    color: $color-white;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  //live bet update
+  &.bet-up:not([disabled]) {
+    @include bet-animation(up-button);
+  }
+
+  &.bet-down:not([disabled]) {
+    @include bet-animation(down-button);
+  }
+
+  //disabled
+  &.active[disabled], &.bet-up[disabled],
+  &.bet-down[disabled], &.bet-dis[disabled] {
+    background: $color-gray-light;
+    color: $color-gray-dark;
+  }
+}
+
+.space-to-history-4 + .historic-prices {
+  margin-top: 4px;
+}
+
+@mixin bet-animation($animation-name) {
+  animation-duration: 2s;
+  animation-name: $animation-name;
+  animation-iteration-count: 1;
+  animation-fill-mode: backwards;
+}
+
+@keyframes up-button {
+  from {
+    background: inherit;
+    color: $color-gray-dark;
+  }
+
+  to {
+    background: $color-pink;
+    color: $color-white;
+  }
+}
+
+@keyframes down-button {
+  from {
+    background: inherit;
+    color: inherit;
+  }
+
+  to {
+    background: $color-tealish;
+    color: $color-white;
+  }
+}
+
+.enhanced-multiples-carousel-section .btn-bet,
+.enhanced-carousel-container-many-slides .btn-bet {
+  min-height: 50px;
+  min-width: 60px;
+  font-size: 14px;
+  line-height: 14px;
+}
+
+@keyframes up-button {
+  from {
+    color: $color-gray-dark;
+  }
+
+  to {
+    color: $btn-up-bg;
+  }
+}
+
+@keyframes down-button {
+  from {
+    color: $color-gray-dark;
+  }
+
+  to {
+    color: $btn-down-bg;
+  }
+}
+
+@-webkit-keyframes up-button {
+  from {
+    color: $color-gray-dark;
+  }
+
+  to {
+    color: $btn-up-bg;
+  }
+}
+
+@-webkit-keyframes down-button {
+  from {
+    background: inherit;
+    color: $color-gray-dark;
+  }
+
+  to {
+    color: $btn-down-bg;
+  }
+}

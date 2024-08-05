@@ -1,0 +1,175 @@
+@import 'global.variables.scss';
+
+.yc-specials {
+  margin-top: 10px;
+  filter-buttons .filter-buttons {
+    margin: 0;
+  }
+  .scroll-container {
+    &:after {
+      content: none;
+    }
+    &.desktop-scroll-container {
+      line-height: 0;
+    }
+    .scroll-inner {
+      padding: 0;
+      min-width: 100%;
+    }
+  }
+}
+
+.yc-specials-desktop .yc-specials-content {
+  margin-bottom: 10px;
+
+  & > div {
+    @include display-flex();
+    @include flex-direction(row);
+    @include flex-wrap(wrap);
+  }
+  .odds-card {
+    @include flex(0, 0, 100%);
+    width: 100%;
+    box-shadow: none;
+    background-color: $color-white;
+    padding: 0;
+    position: relative;
+    .odds-content {
+      margin: 15px 10px 15px 15px;
+      .odds-right {
+        padding-left: 15px;
+      }
+    }
+  }
+  @media (min-width: 1280px) {
+    .odds-card {
+      @include flex(0, 0, 50%);
+      width: 50%;
+      &:nth-child(2n+1):after {
+        right: 0;
+        top: 0;
+        content: '';
+        width: 1px;
+        height: 100%;
+        position: absolute;
+        background-color: $color-gray;
+      }
+    }
+  }
+}
+
+.racing-content {
+  .odds-side {
+    font-size: 12px;
+    color: $color-gray-dark;
+  }
+
+  .odds-normal {
+    font-size: 12px;
+    color: $color-gray-dark;
+  }
+
+  .odds-small {
+    font-size: 11px;
+    color: lighten($color-gray-dark, 50%);
+  }
+
+  .odds-names.odds-names-wrap {
+    font-size: 13px;
+    color: $color-gray-dark;
+  }
+
+  .race-card.odds-card {
+    padding: 0 0 0 10px;
+    margin: -1px 0 0;
+
+    &.tote-card {
+      margin: -1px 10px 0;
+    }
+
+    &.smart-boosts {
+      .odds-footer {
+        margin-top: 0;
+        padding: 0 10px 5px;
+        .was-price {
+          min-width: 90px;
+        }
+      }
+    }
+
+    &.type-tote {
+      .odds-content {
+        .odds-right {
+          padding: 0;
+        }
+      }
+    }
+
+    .odds-content {
+      @include align-items(center);
+      min-height: 60px;
+
+      .label-text {
+        font-size: 9px;
+        color: $color-gray-dark;
+      }
+
+      .odds-left {
+        @include align-items(center);
+      }
+
+      .odds-right {
+        padding: 10px 10px 10px 0;
+
+        .toggle-icon {
+          min-width: 6px;
+          height: auto;
+          margin-right: 17px;
+
+          svg {
+            width: 6px;
+            height: 10px;
+            fill: $color-gray-dark;
+            margin: -3px 0 0;
+          }
+        }
+
+        .toggle-icon.toggle-cd-flag.toggles{
+          padding: 0px!important;
+        }
+
+        .btn-bet {
+          height: 32px;
+          width: 65px;
+          position: relative;
+          border-radius: 3px;
+
+          .odds-price {
+            font-size: 13px;
+            font-weight: 700;
+            color: $color-gray-dark;
+          }
+        }
+
+        .price-odds-wrapper .btn-bet {
+          height: 32px;
+          width: 65px;
+        }
+
+        .previous-prices {
+          font-size: 9px;
+          color: $color-gray-dark;
+        }
+      }
+      .odds-left .odds-names .odds-small{
+        .toggle-icon.toggle-cd-flag {
+          padding: 0px;
+        }
+      }
+    }
+
+    gh-silk {
+      margin: 0 10px 0 0;
+    }
+  }
+}

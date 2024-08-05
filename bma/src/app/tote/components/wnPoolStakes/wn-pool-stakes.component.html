@@ -1,0 +1,23 @@
+<form name="stakeForm" class="custom-input-container tote-input-container" data-crlat="stakeForm" (submit)="onFormSubmit($event)">
+  <span class="currency" [textContent]="currencySymbol"
+        data-crlat="pool.currencySymbol"
+        [ngClass]="{'error': stakeError, 'disabled-currency' : stopBetting}"></span>
+  <input type="number"
+         [attr.step]="poolStakes?.stakeIncrementFactor || '0.01'"
+         [ngClass]="{'error': stakeError}"
+         placeholder="0.00"
+         [(ngModel)]="value"
+         [value]="value"
+         [patternRestrict]="stakePattern"
+         [patternToFixed]="true"
+         (keyup)="setStake()"
+         (click)="clearStakeError()"
+         [disabled]="stopBetting"
+         (input)="onChange()"
+         [showDecimalPoint]="true"
+         data-crlat="stakeInput">
+  <div class="estimated-container" *ngIf="convertedValue">
+    <span class="label" [i18n]="'tt.convertedValue'"></span>
+    <span class="value" [textContent]="convertValue()" data-crlat="pool.estimatedConvertedValue"></span>
+  </div>
+</form>

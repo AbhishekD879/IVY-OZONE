@@ -1,0 +1,96 @@
+<html>
+
+<style>
+table, th, td {
+	border: 1px solid black;
+}
+</style>
+
+<body>
+
+
+	<H1>Filters format</H1>
+
+	<b>Current version supports filtering only for root objects.</b>
+
+	<H2>Supported operators</H2>
+
+	<table cellpadding="5" spacepadding="5"
+		style="width: auto; border-collapse: collapse;">
+		<tr>
+			<th>Name</th>
+			<th>Operator</th>
+		</tr>
+		<tr>
+			<td>And</td>
+			<td align="center">&</td>
+		</tr>
+		<tr>
+			<td>Or</td>
+			<td align="center">|</td>
+		</tr>
+		<tr>
+			<td>Equals</td>
+			<td align="center">=</td>
+		</tr>
+		<tr>
+			<td>Greater</td>
+			<td align="center">></td>
+		</tr>
+		<tr>
+			<td>Lesser</td>
+			<td align="center"><</td>
+		</tr>
+		<tr>
+			<td>Greater or Equals</td>
+			<td align="center">>=</td>
+		</tr>
+		<tr>
+			<td>Lesser or Equals</td>
+			<td align="center"><=</td>
+		</tr>
+		<tr>
+			<td>Match text</td>
+			<td align="center">match(fieldname,regexp)</td>
+		</tr>
+
+	</table>
+
+	<H2>Examples</H2>
+
+	<h3>Compare operators</h3>
+
+	<ul style="list-style-type: square">
+		<li>booleanField=true</li>
+		<li>integerField<=50</li>
+		<li>doubleField=65.2</li>
+		<li>stringField=Flat</li>
+		<li>dateField=2016-09-05T00:00:00</li>
+	</ul>
+	
+	<h3>Compare operators with special symbols.</h3>
+	
+	We need to escape special symbol using tables from <a href="http://www.w3schools.com/tags/ref_urlencode.asp">HTML URL Encoding Reference</a>
+	
+	<ul style="list-style-type: square">
+		<li>tissuePriceFractional=9%2F1   as filter by  tissuePriceFractional=9/1</li>	
+		<li>damSireName=GRAND TRESOR %28FR%29 as filter by  damSireName=GRAND TRESOR (FR)</li>
+					
+	</ul>
+	
+
+	<h3>Match operator</h3>
+	<ul style="list-style-type: square">
+		<li>match(anyField,*text)</li>
+		<li>match(anyField,text*)</li>
+	</ul>
+	
+	<h3>Boolean operators</h3>
+	<ul style="list-style-type: square">
+		<li>meetingTypeName=Flat|meetingDate=2016-09-05T00:00:00</li>
+		<li>gender=Dog&colour=bk</li>
+		<li>(gender=Dog|colour=bk)&birthDate=2012-10-02T00:00:00</li>
+	</ul>
+
+
+</body>

@@ -1,0 +1,33 @@
+<div class="card" *ngIf="sportModules">
+  <div class="body">
+    <!-- search and download button.-->
+    <div class="row clearfix">
+      <div class="col-md-4">
+        <button *ngIf="hubIndex" (click)="addModule()" type="button" class="btn bg-teal waves-effect float-left"
+                [disabled]="!isAddModuleAvailable">
+          <i class="material-icons">add_box</i>
+          <span>Add Sport Module</span>
+        </button>
+      </div>
+      <div class="col-md-2" *ngIf="sportModules.length > 0">
+        <download-cvs [cvsData]="sportModules" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+    </div>
+
+    <!-- main content, config groups list-->
+    <div *ngIf="sportModules.length > 0">
+      <cms-data-table
+        [customTableData]="sportModules"
+        [customTableColumns]="dataTableColumns"
+        [reorder]="true"
+        [actions]="['remove']"
+        (onRemoveTableElement)="deleteHandler($event)"
+        (onElementsOrder)="reorderHandler($event)">
+      </cms-data-table>
+    </div>
+
+    <div *ngIf="getDataError">
+      Request Error
+    </div>
+  </div>
+</div>

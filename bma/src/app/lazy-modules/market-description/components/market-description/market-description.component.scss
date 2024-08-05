@@ -1,0 +1,58 @@
+@import 'global.variables.scss';
+
+.market-description {
+    font-family: $base-font-family;
+    background-color: $color-white;
+    padding: 8px 8px;
+    min-height: 38px;
+    text-transform: none;
+    border-bottom: 1px solid $color-gray;
+  
+    &.icon-wrapper {
+      @include display-flex();
+      @include align-items();
+      @include flex-direction(row);
+    }
+  
+    .badge-wrapper {
+      height: 10px;
+      width: 100%;
+      margin-bottom: 5px;
+      .new-badge {
+        height: 10px;
+        width: 24px;
+      }
+    }
+  
+    .description {
+      .description-value {
+        font-size: $font-size;
+        color: $color-gray-dark;
+        line-height: normal;
+        letter-spacing: 0px;
+        width: 100%;
+      }
+      &.has-no-icon {
+        width: calc(100% - 15px);
+        .description-value {
+          font-size: $font-size;
+          color: $color-gray-dark;
+          line-height: normal;
+          letter-spacing: 0px;
+        }
+      }
+    }
+    .description-icon {
+       width: 15px;
+       line-height: 12px;
+       padding-top: 3px;
+
+      .description-info-icon {
+        width: 12px;
+        height: 12px;
+        fill: $color-gray-dark;
+        margin-right: 6px;
+      }
+    }
+    
+  }

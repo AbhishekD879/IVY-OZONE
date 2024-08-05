@@ -1,0 +1,17 @@
+pluginManagement {
+  repositories {
+    maven {
+      credentials {
+        username = System.getenv("NEXUS_USER") ?: nexusUser
+        password = System.getenv("NEXUS_PASS") ?: nexusPass
+      }
+      url "https://nexus-vie.coral.co.uk/repository/maven-public/"
+    }
+    gradlePluginPortal()
+  }
+}
+
+include 'timeform-api'
+include 'siteserver-api'
+
+rootProject.name = 'timeform'

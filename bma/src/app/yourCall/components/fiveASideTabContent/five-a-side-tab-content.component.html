@@ -1,0 +1,21 @@
+<div class="sk-container" [ngClass]="{'sk-loading': !isLoaded}">
+  <loading-screen [displayed]="!isLoaded" [templateType]="'GENERIC'"></loading-screen>
+  <div *ngIf="isLoaded" class="five-a-side">
+    <div *ngIf="!showPitch" [innerHtml]="staticBlockContent" [ngClass]="{'no-padding': !staticBlockContent}" class="five-a-side-launcher" data-crlat="teamLauncher"></div>
+
+    <five-a-side-pitch
+        *ngIf="showPitch"
+        (hidePitchView)="showPitch = $event"
+        [eventEntity]="eventEntity"
+        data-crlat="pitchContent"
+    ></five-a-side-pitch>
+
+    <ng-container [ngSwitch]="fiveASideService.activeView">
+      <five-a-side-player-list *ngSwitchCase="'player-list'"
+                              [eventEntity]="eventEntity" data-crlat="playerListContent"></five-a-side-player-list>
+      <five-a-side-player-page *ngSwitchCase="'player-page'"
+                              [eventEntity]="eventEntity" data-crlat="playerCardContent"></five-a-side-player-page>
+    </ng-container>
+  </div>
+  <request-error *ngIf="isLoaded && cmsDown" [loadFailed]="cmsDown" (reloadFn)="reloadState()"></request-error>
+</div>

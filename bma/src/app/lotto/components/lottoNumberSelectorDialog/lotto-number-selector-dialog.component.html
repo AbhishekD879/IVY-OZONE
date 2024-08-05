@@ -1,0 +1,54 @@
+<modal #lottoNumberSelector id="lottoNumberSelector" data-crlat="d.lottoNumber">
+  <ng-template #modalHeader>
+    <span [i18n]="'lotto.selectNumbers'" data-crlat="dTitle" data-uat="popUpTitle"></span>
+    <a data-uat="popUpCloseButton" class="btn-close" (click)="closeDialog()">
+      <svg>
+        <use xlink:href="#close-icon"></use>
+      </svg>
+    </a>
+  </ng-template>
+  <ng-template #modalBody>
+    <div class="lotto-content">
+      <div class="item-inner item-btm-pad">
+        <div class="row">
+          <div class="col-xs-2" *ngFor="let number of params.numbersData; let i = index;">
+            <button class="btn btn-circle lotto-number" [ngClass]="{'active': number.selected}" [disabled]="number.disabled"
+              (click)="params.selectNumbers(number.value, i);selectedNumbersExists = false" data-crlat="numbersButton">
+              {{ number.value }}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="luckydip group-buttons" *ngIf="chooseNumber === 'True'">
+        <div  class="group-caption label-text" [i18n]="'lotto.luckydip'"></div>
+        <div class="group-btn no-hidden" data-crlat="buttonGroup">
+          <div class="group-col" *ngFor="let lucky of params.luckyDipArr">
+            <button (click)="params.luckyDip(lucky); selectedNumbersExists=false" class="btn" data-crlat="luckyDipsButton">
+              {{ lucky | callBack : getDipTranlations : this }}
+            </button>
+          </div>
+        </div>  
+      </div>
+      <div class="item-inner">
+        <p class="alert-msg alert-text lotto-alert" *ngIf="selectedNumbersExists">Line with selected numbers exists!</p>
+        <div class="row">
+          <div class="col-xs-6">
+            <button (click)="params.resetNumbers(); 
+            selectedNumbersExists=false" 
+            class="btn btn-style4 full-width" 
+            [i18n]="'lotto.reset'"
+            [disabled]="!isSelected" 
+            data-crlat="resetButton"></button>
+          </div>
+          <div class="col-xs-6">
+            <button class="btn btn-style1 full-width done-button"
+             [disabled]="!isSelected"
+             (click)="checkSelectedNumbersExists()" 
+             data-crlat="doneButton"
+             [i18n]="'lotto.addLine'"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</modal>

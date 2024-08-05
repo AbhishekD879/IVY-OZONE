@@ -1,0 +1,81 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>New Virtual Sport Child</h1>
+  <form [formGroup]="form" novalidate>
+    <div mat-dialog-content>
+
+      <div class="row">
+        <div class="col-sm-3">
+          <span class="mat-label">
+            Title
+          </span>
+        </div>
+
+        <div class="col-sm-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Title" formControlName="name" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3">
+      <span class="mat-label">
+        Stream URL
+      </span>
+        </div>
+        <div class="col-sm-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Stream URL" formControlName="streamUrl" trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3">
+      <span class="mat-label">
+        Class ID
+      </span>
+        </div>
+        <div class="col-sm-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Class ID" formControlName="classId" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3">
+      <span class="mat-label">
+        Type IDs (For Legends)
+      </span>
+        </div>
+        <div class="col-sm-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Enter comma separated type ids" formControlName="typeIds" trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3">
+          <span class="mat-label">
+            Events number to show
+          </span>
+        </div>
+        <div class="col-sm-8">
+          <mat-form-field class="full-width">
+            <input matInput type="number" placeholder="Number of events" onkeypress="return event.charCode >= 48 && event.charCode <= 57" formControlName="numberOfEvents" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+      <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="form.invalid" (click)="getChildSport();"
+              [mat-dialog-close]="newChildSport">Save</button>
+    </div>
+  </form>
+</div>
+

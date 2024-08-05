@@ -1,0 +1,104 @@
+@import 'global.variables.scss';
+
+$menu-active-color: #3c4052;
+//----------------------------------------------------------------------
+// Filter buttons
+//
+//   Today   Tomorrow   Future
+//  ________
+
+.filter-buttons {
+  background: $color-white;
+  height: 40px;
+  position: relative;
+  margin: 0 0 $componets-edge-gap;
+  padding: 0 0 0 13px;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.25);
+
+  @include display-flex();
+
+  .filter-btn {
+    position: relative;
+    border: none;
+    background: transparent;
+    outline: none;
+    text-transform: capitalize;
+    color: $lBlack-light;
+    font: normal 12px $alt-font-family;
+    cursor: pointer;
+    margin: 0 5px;
+    padding: 0 15px;
+    @include display-flex();
+    @include align-items();
+    @include justify-content();
+
+    &:after {
+      height: 3px;
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: none;
+    }
+
+    &:hover {
+      text-decoration: none;
+      color: $lGray;
+      background: $IGreyLightDark;
+    }
+
+    &.active {
+      text-shadow: none;
+      color: $lGray;
+      font-weight: bold;
+      background: transparent;
+
+      &:after {
+        background: $color-red;
+      }
+    }
+  }
+  .activeMatchesTab {
+    display: none;
+  }
+}
+
+:host.black {
+  .filter-buttons {
+    background: $lGray;
+
+    .filter-btn {
+      color: $color-white;
+
+      &:hover {
+        background: $menu-active-color;
+      }
+
+
+      &:after {
+        height: 3px;
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: none;
+      }
+
+      &.active {
+        text-shadow: none;
+        color: $color-white;
+        font-weight: bold;
+        background: transparent;
+
+        &:after {
+          background: $color-white;
+        }
+      }
+    }
+  }
+  .activeMatchesTab {
+    display: none;
+  }
+}

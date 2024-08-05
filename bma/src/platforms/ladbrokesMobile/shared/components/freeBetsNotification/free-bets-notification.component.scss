@@ -1,0 +1,19 @@
+@import 'global.variables.scss';
+
+.free-bet-notification {
+  background: $color-gray-darkest;
+  margin-bottom: 10px;
+
+  &.removeMargin{
+    margin-top: 0;
+  }
+  .free-bet-label{
+    background: $color-yellow-alt;
+  }
+  .notification-content{
+
+    font-family: $alt-font-family;
+    line-height: 15px;
+    margin: 0 45px 0 50px;
+  }  
+}

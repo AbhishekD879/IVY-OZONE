@@ -1,0 +1,183 @@
+@import 'global.variables.scss';
+
+// After iOS 10, -webkit-overflow-scrolling with touch parameter have a bug.
+// When you dynamically add content to a div with -webkit-overflow-scrolling: touch
+// that exceeds the div in height, it becomes broken.
+// We can fix this by forcing browser to rebuild scrollable content
+$sidebar-header-height: 55px;
+$header-title-betslip: 60px;
+$header-title-betreceipt: 96px;
+
+.sidebar-container-full-height {
+  position: relative;
+  height: 100%;
+}
+
+.bs-lazy-container {
+  height: 100%;
+}
+
+#slide-out-betslip {
+  .sidebar-container {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    padding-top: $sidebar-header-height;
+
+    .slide-content {
+      overflow: hidden;
+      position: relative;
+      height: 100%;
+      display: none;
+
+      .slide {
+        overflow-x: hidden;
+        overflow-y: auto;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+      }
+    }
+  }
+
+  .sidebar-menu-header {
+    @include display-flex();
+    @include justify-content(flex-end);
+    background-color: $brand-color-main;
+    height: $sidebar-header-height;
+    margin-top: -$sidebar-header-height;
+    overflow: hidden;
+    padding: 10px 12px;
+
+    .betslip-label {
+      width: $header-title-betslip;
+      padding-right: 12px;
+      text-align: center;
+      white-space: nowrap;
+      margin: 0;
+      color: $color-white;
+      line-height: 35px;
+      font-size: $font-size-lgr;
+      font-weight: normal;
+      height: 100%;
+    }
+
+    .centering-title {
+      @include display-flex();
+      @include justify-content(flex-end);
+      min-width: calc((100% - #{$header-title-betslip})/2);
+    }
+
+    &.receipt {
+      .betslip-label {
+        width: $header-title-betreceipt;
+      }
+      .centering-title {
+        min-width: calc((100% - #{$header-title-betreceipt})/2);
+      }
+    }
+
+    .btn-balance {
+      height: 35px;
+      min-width: 69px;
+      padding: 0 12px;
+      border: 0;
+      background-color: rgba(7, 41, 75, 0.35);
+      font-weight: bold;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: $color-white;
+    }
+
+    .drop-down-menu {
+      position: absolute;
+      top: 46px;
+      right: 12px;
+      z-index: 999;
+      box-shadow: 0 3px 3px 0 $color-gray-rich;
+      background-color: $color-white;
+
+      .menu-item {
+        display: block;
+        text-align: center;
+        height: 40px;
+        line-height: 16px;
+        padding: 12px 15px;
+        color: $color-gray-dark;
+        border-bottom: 1px solid $color-gray;
+
+        &:last-child {
+          border: 0;
+        }
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+
+    .sidebar-header-bottom {
+      height: 25px;
+      background-color: $color-gray-dark;
+    }
+
+    .sidebar-user-balance {
+      color: $color-gray-light;
+      background-color: lighten($color-gray-dark, 10%);
+      font-size: 10px;
+      position: relative;
+      padding: 7px 10px;
+    }
+
+    .free-bet-ico {
+      position: static;
+      float: right;
+      margin-top: -2px;
+      @media #{$mqMobile} {
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+}
+
+.slide-out-betslip {
+  top: 0;
+  @include transition(opacity, .5s, ease-in-out);
+
+  .sidebar-inner {
+    position: absolute;
+    @include transform(translateY(100vh));
+    @include transition(transform, .5s, ease-in-out);
+  }
+}
+
+.slide-out-betslip-open {
+  position: relative;
+  overflow-y: hidden;
+
+  #slide-out-betslip .sidebar-container .slide-content {
+    display: block;
+  }
+
+  .slide-out-betslip  .sidebar-inner {
+    @include transform(translateY(0));
+  }
+}
+
+// fix to not overlap with Iphone X bottom software button.
+@supports (height: constant(safe-area-inset-top)) {
+  .slide-out-betslip-open {
+    --safe-area-inset-bottom: env(safe-area-inset-bottom);
+    height: calc(100% + var(--safe-area-inset-bottom));
+  }
+}
+
+@supports (height: env(safe-area-inset-top)) {
+  .slide-out-betslip-open {
+    --safe-area-inset-bottom: env(safe-area-inset-bottom);
+    height: calc(100% + var(--safe-area-inset-bottom));
+  }
+}

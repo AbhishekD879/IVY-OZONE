@@ -1,0 +1,20 @@
+<div class="no-bets-container" *ngIf="!isMyBetsInCasino">
+   <div [ngClass]="{'lads-text': isBrandLadbrokes}" class="no-bets-msg" [textContent]="noBetsMessage" data-crlat="textMsg"></div>
+   <a *ngIf="showStartGamingButton"
+      data-crlat="startBetting"
+      routerLink="/" class="button btn-secondary btn-lg"
+      [i18n]="'bethistory.startBetting'"></a>
+</div>
+
+<div *ngIf="noBetsMessage.length !== 0 && !!isMyBetsInCasino" class="no-bets-msg-container">
+   <div class="no-bets-msg" [textContent]="noBetsMessage"></div>
+   <button [i18n]="'bethistory.goToSports'" class="no-bets-button" (click)="goToSportsClick()"></button>
+   
+   <lazy-component
+   moduleUri="@lazy-modules-module/casinoMyBetsIntegration/casino-my-bets-integration.module#CasinoMyBetsIntegrationModule"
+   [inputs]="{showLeavingCasinoDialog}"
+   [outputs]="['userAction']"
+   (event)="confirmationDialogClick($event)"
+   entryComponent="LeavingCasinoDialogComponent"></lazy-component>
+</div>
+   

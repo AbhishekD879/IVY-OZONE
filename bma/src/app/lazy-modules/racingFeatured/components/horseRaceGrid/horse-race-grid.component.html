@@ -1,0 +1,66 @@
+<div class="race-grid horserace" data-crlat="race.raceGrid">
+  <switchers *ngIf="isHR && showSwitcher"
+             [filter]="filter"
+             [switchers]="switchers">
+  </switchers>
+  <ng-container *ngFor="let racesGroup of groupedRaces; trackBy: trackByGroupName">
+    <section class="rg-section" data-crlat="raceGrid.meeting">
+      <header class="rg-header">
+        <span class="rg-title" data-crlat="raceGrid.meeting.name" [textContent]="racesGroup.groupName"></span>
+        <cashout-label *ngIf="racesGroup.cashoutAvailable" [mode]="'md'"></cashout-label>
+        <div class="bog-signposting">
+          <promotion-icon [isAnyIconAvailable]="racesGroup.cashoutAvailable" [isHeaderBIRAvailable]="racesGroup.isHeaderBIRAvailable" [isGpAvailable]="racesGroup.bogAvailable" [bogIconStyle]="true"></promotion-icon>
+        </div>
+        <svg *ngIf="racesGroup.liveStreamAvailable" class="rg-stream-icon" data-crlat="raceGrid.iconStream">
+          <use xlink:href="#stream"></use>
+        </svg>
+      </header>
+      <div class="tabs-panel tabs-bottom early-price-coral-mobile" data-crlat="panel.tabs">
+        <div class="scroll-container" [scrollable-racing]>
+          <ul class="scroll-inner">
+            <li *ngFor="let eventEntity of racesGroup.events; trackBy: trackById"
+                [ngClass]="{'race-resulted': eventEntity.isResulted,
+                            'race-on': !eventEntity.isResulted && (!eventEntity.isStarted || eventEntity.isLiveNowEvent)}"
+                [attr.data-eventid]="eventEntity.id"
+                data-crlat="raceGrid.event">
+              <a class="tab"
+                 [routerLink]="genEventDetailsUrl(eventEntity)"
+                 [click-link]
+                 (click)="overlayMenuClose(eventEntity)"
+                 data-crlat="tab">
+                <span class="race-time"
+                      [ngClass]="{'text-bold': isLpAvailable(eventEntity)}"
+                      [textContent]="eventEntity.localTime"
+                      data-crlat="raceGrid.raceTime">
+                </span>
+                <lazy-component *ngIf="eventEntity.isStarted || eventEntity.isLiveNowEvent || eventEntity.isResulted"
+                    moduleUri="@lazy-modules-module/racingStatus/racing-status.module#RacingStatusModule"
+                    [inputs]="{event: eventEntity, liveServeSubscription: !showSwitcher}">
+                </lazy-component>
+              </a>
+              <!-- Promotional signposting TODO had lazy loading check for 'promotions' (not working atm)-->
+              <div>
+                <promotion-icon class="tabs-panel-promotion-icon" [type]="'event'" [display]="eventEntity.drilldownTagNames" data-crlat="promotionIcons"
+                [showBIRSignPost]="false"></promotion-icon>
+              </div>
+            </li>
+            <!-- Tote pools indicators -->
+            <racing-pool-indicator *ngIf="showUKToteIndicators()"
+                                   class="pool-indicators-container"
+                                   [events]="racesGroup.events"
+                                   data-crlat="poolIndicatorsContainer"
+                                   [emitEvent]="!showSwitcher"
+                                   (overlayMenuClose)="overlayMenuClose()">
+            </racing-pool-indicator>
+          </ul>
+        </div>
+        <div class="early-price-sign-post"
+          [ngClass]="{'move-left' : (hasResult(racesGroup.events) && isDesktop), 'early-price-sign-post-coral' : isMobile, 'move-left-coral': (hasResult(racesGroup.events) && isMobile)}"
+          *ngIf="isEarlyPricesAvailable(racesGroup.events)">
+          <span>{{ earlySignPostTitle() }}</span>
+        </div>
+      </div>
+      <footer class="rg-footer"></footer>
+    </section>
+  </ng-container>
+</div>

@@ -1,0 +1,70 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="!isLoading">
+  <div class="header">
+    <h2 class="has-activity-badge">Edit Static Block: <span class="font-italic">{{staticBlock.title}}</span></h2>
+    <create-updated-at-by class="has-activity-badge" [collection]="staticBlock"></create-updated-at-by>
+    <header-activity-badge [state]="!staticBlock.enabled"></header-activity-badge>
+  </div>
+</div>
+<div class="card" *ngIf="!isLoading">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox color="primary"
+                      [checked]="staticBlock.enabled"
+                      (change)="staticBlock.enabled = !staticBlock.enabled">
+          Active
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-2">
+        <span class="mat-label">Title</span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !staticBlock.title}">
+          <input matInput placeholder="Title" [(ngModel)]="staticBlock.title" [value]="staticBlock.title" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!staticBlock.title">Title should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-2">
+        <span class="mat-label">Uri</span>
+      </div>
+      <div class="col-md-6">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !staticBlock.uri}">
+            <input matInput placeholder="Uri" [(ngModel)]="staticBlock.uri" [value]="staticBlock.uri" required trim="blur">
+            <mat-hint class="col-red" *ngIf="!staticBlock.uri">Uri should be entered</mat-hint>
+          </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Html Markup</span>
+      </div>
+      <div class="col-md-10">
+        <tinymce-editor
+          #htmlMarkup
+          [pageName]="'static-block'"
+          [pageItemId]="staticBlock.id"
+          (outputEditorData)="updateStaticBlock($event, 'htmlMarkup')"
+          [initialEditorContent]="staticBlock.htmlMarkup">
+        </tinymce-editor>
+      </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="!isLoading"
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'title'"
+  [collection]="staticBlock"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>
+

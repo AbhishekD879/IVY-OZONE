@@ -1,0 +1,278 @@
+<div class="card" *ngIf="hideAction">
+  <div class="header">
+    <h2 class="has-activity-badge">BetPack Banner HomePage
+      <create-updated-at-by [collection]="bannerFormGroup.value"></create-updated-at-by>
+    </h2>
+  </div>
+</div>
+<form [formGroup]="bannerFormGroup" >
+<div class="card">
+  <div class="body">
+   
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Banner*
+          </span>
+        </div>
+        <div class="col-md-5">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Banner" formControlName="bannerImageFileName" readonly >
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <div style="display:none;"><input id="upload-banner" [accept]="'image/svg+xml,image/gif,image/png,image/jpeg,image/svg'"
+            (change)="prepareToUploadFile($event)" type="file" 
+              value="upload" /></div>
+          <button type="button" (click)="handleUploadImageClick($event)"
+            class="change-launch-image-btn btn bg-teal waves-effect">Upload File</button>
+          <button type="button" (click)="removeMainImage($event)"
+            class="launch-image-btn btn bg-red waves-effect">Remove
+            File</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Welcome Message*
+          </span>
+        </div>
+        <div class="col-md-8">
+          <tinymce-editor [pageName]="'Welcome Message'" [pageItemId]="'banner'" [charLimit]="charLimit"  *ngIf="hideAction"
+            (outputEditorData)="updateBannerMsg($event,'welcomeMsg')"
+            (limitExceeded)="patchLimitError($event,'welcomeMsg')"
+            [initialEditorContent]="bannerFormGroupControls.welcomeMsg?.value || ''">
+          </tinymce-editor>
+          <mat-hint class="col-red" *ngIf="bannerFormGroupControls.welcomeMsg?.value?.length === 0">
+            This Property Should be filled</mat-hint>
+            <mat-hint class="col-red" *ngIf="bannerFormGroupControls.welcomeMsg.errors?.maxlength">
+              This Property Should not exceed 70 characters</mat-hint>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Terms and Conditions*
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Terms And Conditions" maxlength="50" formControlName="termsAndCondition">
+            <mat-hint class="col-red"
+              *ngIf="(bannerFormGroup.get('termsAndCondition').invalid && (bannerFormGroup.get('termsAndCondition').dirty || bannerFormGroup.get('termsAndCondition').touched) && bannerFormGroup.get('termsAndCondition').errors.required)">
+              This Property Should not exceed 50 characters</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-md-2 text-length">
+          {{bannerFormGroup.get('termsAndCondition')?bannerFormGroup.get('termsAndCondition').value?.length : 0}} / 50
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Terms and Conditions Link*
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Terms and Conditions Link" formControlName="termsAndConditionLink">
+            <mat-hint class="col-red"
+              *ngIf="(bannerFormGroup.get('termsAndConditionLink').invalid && (bannerFormGroup.get('termsAndConditionLink').dirty || bannerFormGroup.get('termsAndConditionLink').touched) && bannerFormGroup.get('termsAndConditionLink').errors.required)">
+              This Property Should be filled</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-checkbox class="mat-label" color="primary" formControlName="enabled">
+            Active
+          </mat-checkbox>
+        </div>
+      </div>
+    
+  </div>
+</div>
+<div class="card">
+  <div class='head'>
+  <div class="row mx-0">
+    <div class="col-md-12">
+      <mat-checkbox class="mat-label" color="primary" formControlName="bannerActiveInMarketPlace" (change)="triggrExpiresActive($event)">
+        Banner in Market place page Active
+      </mat-checkbox>
+    </div>
+  </div>
+</div>
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Market place page Banner*
+        </span>
+      </div>
+    <div class="col-md-7"> 
+        <svg-icon-select-input
+        [formFieldsModels]="marketPlaceImageFileName"
+        [externalForm]="bannerFormGroup"
+        [controlName]="'marketPlaceImageFileName'"
+        ></svg-icon-select-input>
+        <mat-hint class="col-red"
+        *ngIf="(bannerFormGroup.get('marketPlaceImageFileName').invalid && (bannerFormGroup.get('marketPlaceImageFileName').dirty || bannerFormGroup.get('marketPlaceImageFileName').touched) && bannerFormGroup.get('marketPlaceImageFileName').errors.required)">
+        This Property Should be filled</mat-hint>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <span class="mat-label">
+       Market place page Banner background*
+      </span>
+    </div>
+  <div class="col-md-7"> 
+      <svg-icon-select-input
+      [formFieldsModels]="marketPlaceBgImageFileName"
+      [externalForm]="bannerFormGroup"
+      [controlName]="'marketPlaceBgImageFileName'"
+      ></svg-icon-select-input>
+      <mat-hint class="col-red"
+      *ngIf="(bannerFormGroup.get('marketPlaceBgImageFileName').invalid && (bannerFormGroup.get('marketPlaceBgImageFileName').dirty || bannerFormGroup.get('marketPlaceBgImageFileName').touched) && bannerFormGroup.get('marketPlaceBgImageFileName').errors.required)">
+      This Property Should be filled</mat-hint>
+      
+  </div>
+</div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Banner Text Description in Market place page*
+        </span>
+      </div>
+      <div class="col-md-8">
+        <tinymce-editor [pageName]="'Banner Text Description in Market place page'" [pageItemId]="'banner'"  *ngIf="hideAction"
+          (outputEditorData)="updateBannerMsg($event,'bannerTextDescInMarketPlacePage')"            
+          [initialEditorContent]="bannerFormGroupControls.bannerTextDescInMarketPlacePage?.value|| ''" >
+        </tinymce-editor>
+        <mat-hint class="col-red" *ngIf="bannerFormGroupControls.bannerTextDescInMarketPlacePage?.value?.length === 0">
+          This Property Should be filled</mat-hint>
+
+        </div>
+      </div>
+    </div>  
+</div>
+<div class="card">
+  <div class='head'>
+  <div class="row mx-0">
+    <div class="col-md-12">
+      <mat-checkbox class="mat-label" color="primary" formControlName="bannerActiveInReviewPage" (change)="triggrExpiresActive($event)">
+        Banner in Review page Active
+      </mat-checkbox>
+    </div>
+  </div>
+</div>
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Review page Banner*
+        </span>
+      </div>
+    <div class="col-md-7"> 
+        <svg-icon-select-input
+        [formFieldsModels]="reviewPageImageFileName"
+        [externalForm]="bannerFormGroup"
+        [controlName]="'reviewPageImageFileName'"
+        ></svg-icon-select-input>
+        <mat-hint class="col-red"
+        *ngIf="(bannerFormGroup.get('reviewPageImageFileName').invalid && (bannerFormGroup.get('reviewPageImageFileName').dirty || bannerFormGroup.get('reviewPageImageFileName').touched) && bannerFormGroup.get('reviewPageImageFileName').errors.required)">
+        This Property Should be filled</mat-hint>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <span class="mat-label">
+        Review page Banner background*
+      </span>
+    </div>
+  <div class="col-md-7"> 
+      <svg-icon-select-input
+      [formFieldsModels]="reviewPageBgImageFileName"
+      [externalForm]="bannerFormGroup"
+      [controlName]="'reviewPageBgImageFileName'"
+      ></svg-icon-select-input>
+      <mat-hint class="col-red"
+      *ngIf="(bannerFormGroup.get('reviewPageBgImageFileName').invalid && (bannerFormGroup.get('reviewPageBgImageFileName').dirty || bannerFormGroup.get('reviewPageBgImageFileName').touched) && bannerFormGroup.get('reviewPageBgImageFileName').errors.required)">
+      This Property Should be filled</mat-hint>
+  </div>
+</div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Banner Text Description in Review Page*
+        </span>
+      </div>
+      <div class="col-md-8">
+        <tinymce-editor [pageName]="' Banner Text Description in Review Page'" [pageItemId]="'banner'"  *ngIf="hideAction"
+          (outputEditorData)="updateBannerMsg($event,'bannerTextDescInReviewPage')" 
+          [initialEditorContent]="bannerFormGroupControls.bannerTextDescInReviewPage?.value || ''" >
+        </tinymce-editor>
+        <mat-hint class="col-red" *ngIf="bannerFormGroupControls.bannerTextDescInReviewPage?.value?.length === 0">
+          This Property Should be filled</mat-hint>
+        <!-- <mat-hint class="col-red" *ngIf="bannerFormGroupControls.bannerTextDescInReviewPage.errors?.maxlength">
+          This Property Should not exceed 70 characters</mat-hint> -->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class='head'>
+    <div class="row mx-0">
+      <div class="col-md-12">
+        <mat-checkbox class="mat-label" color="primary" formControlName="expiresInActive">
+          Expires in Active
+        </mat-checkbox>
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2 ">
+
+        <span class="mat-label">
+          Expires in xx: xx Text*
+        </span>
+      </div>
+  
+        <div class="col-md-7">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Expires in xx: xx Text" maxlength="20" formControlName="expiresInText">
+            <mat-hint class="col-red"
+              *ngIf="(bannerFormGroup.get('expiresInText').invalid && (bannerFormGroup.get('expiresInText').dirty || bannerFormGroup.get('expiresInText').touched) && bannerFormGroup.get('expiresInText').errors.required)">
+              This Property Should not exceed 20 characters</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-md-2 text-length">
+          {{bannerFormGroup.get('expiresInText')?bannerFormGroup.get('expiresInText').value?.length : 0}} / 20
+        </div>
+     
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          ExpiresIn Info Icon*
+        </span>
+      </div>
+    <div class="col-md-7"> 
+        <svg-icon-select-input
+        [formFieldsModels]="expiresInIconImage"
+        [externalForm]="bannerFormGroup"
+        [controlName]="'expiresInIconImage'"
+        ></svg-icon-select-input>
+        <mat-hint class="col-red"
+        *ngIf="(bannerFormGroup.get('expiresInIconImage').invalid && (bannerFormGroup.get('expiresInIconImage').dirty || bannerFormGroup.get('expiresInIconImage').touched) && bannerFormGroup.get('expiresInIconImage').errors.required)">
+        This Property Should be filled</mat-hint>
+    </div>
+  </div>
+  </div>
+</div>
+
+<action-buttons  [fieldOrItemName]="'Banners'" *ngIf="hideAction"
+[showRemoveButton]="false" [collection]="bannerFormGroup.value" (actionsEmitter)="actionsHandler($event);" [form]="bannerFormGroup" >
+</action-buttons>
+</form>

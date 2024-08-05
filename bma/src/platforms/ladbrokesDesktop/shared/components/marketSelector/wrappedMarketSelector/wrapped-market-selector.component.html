@@ -1,0 +1,14 @@
+<ng-container *ngIf="selectOptions">
+  <div class="option-title" [textContent]="marketFilterText"></div>
+  <div class="selector-wrapper">
+    <drop-down-menu class="market-selector market-selector-dropdown wrapped-market-selector"
+                    [hidden]="!selectOptions"
+                    [selectedItem]="marketFilter"
+                    [menuList]="selectOptions"
+                    [selectionKey]="'templateMarketName'"
+                    [isInplay]="true"
+                    (clickFunction)="filterMarkets($event)">
+    </drop-down-menu>
+  </div>
+</ng-container>
+

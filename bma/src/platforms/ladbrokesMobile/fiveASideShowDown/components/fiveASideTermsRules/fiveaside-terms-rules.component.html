@@ -1,0 +1,71 @@
+<div id="fiveaside-terms-rules" [scroll-fix] class="cookie-top vn-smart-banner-margin-top">
+  <div class="header-content">
+    <div class="close-content" (click)="onCloseRulesOverlay()">
+      <svg class="close-icon">
+        <use xlink:href="#close_qb"></use>
+      </svg>
+    </div>
+    <div class="flag-content">
+      <div class="left-side">
+        <div class="flag-icon">
+          <div class="country-flag">
+            <fiveaside-crest-image [hasTeamImage]="hasTeamImage"
+                    [widthHeight]="'54'"
+                    [team]="teams[0]"></fiveaside-crest-image>
+          </div>
+        </div>
+        <div class="flag-name">
+          <span [textContent]="homeTeam"></span>
+        </div>
+      </div>
+      <div class="right-side">
+        <div class="flag-icon">
+          <div class="country-flag">
+            <fiveaside-crest-image [hasTeamImage]="hasTeamImage"
+                    [widthHeight]="'54'"
+                    [team]="teams[1]"></fiveaside-crest-image>
+          </div>
+        </div>
+        <div class="flag-name">
+          <span [textContent]="awayTeam"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rules-terms-block">
+  <fiveaside-rules-entry-area [contestClass]="'.rules-terms-block'"
+    [removeElements]="removeElements"
+    [contest]="showDown"
+    [contestSize]="showDown.contestSize"
+    [userContestSize]="showDown.userContestSize"
+  ></fiveaside-rules-entry-area>
+  </div>
+  <div class="container">
+      <div class="rules-tabs">
+        <tabs-panel [tpTabs]="tabs" [tpActiveTab]="activeTab" [detectGTMLocation]="'location'"
+          (tpFunction)="switchTab($event)"></tabs-panel>
+      </div>
+      <ng-container [ngSwitch]="activeTab.id">
+        <div *ngSwitchCase="RULES.PRIZES">
+          <fiveaside-prize-pool *ngIf="prizePoolData" [prizePoolData]="prizePoolData"></fiveaside-prize-pool>
+        </div>
+        <div *ngSwitchCase="RULES.FAQ" class="faq">
+          <accordion *ngFor="let faq of faqs; let i=index;" [accordionHeaderHtml]="faq.question"
+          (function)="faqHandler(i)"
+          [headerClass]="'forced-chevron-up-and-styles'"
+            [isExpanded]="faq.isExpanded" [isShowAll]="'false'">
+            <accordion-body>
+              <div class="faq-answer">
+                <div class="faq-answer-text" [innerHTML]="faq.answer"></div>
+              </div>
+            </accordion-body>
+          </accordion>
+        </div>
+        <div *ngSwitchCase="RULES.TERMS_CONDITIONS" class="rules-terms-conditions">
+          <ng-container *ngIf="staticBlockTerms">
+            <div class="rules-terms-conditions-text" [innerHTML]="staticBlockTerms"></div>
+          </ng-container>
+        </div>
+      </ng-container>
+  </div>
+</div>

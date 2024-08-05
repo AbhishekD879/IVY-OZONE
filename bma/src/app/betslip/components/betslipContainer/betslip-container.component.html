@@ -1,0 +1,16 @@
+<div class="container bet-slip-tabs-container full-height" [ngClass]="{'overflow-auto' : checkIfBannersLoaded()}" id="bs-tabs-container" data-crlat="bsTabsContainer" #bsTabsContainer>
+  <div class="full-height">
+    <betslip *ngIf="mode == MODES.betslip" (heightChanged)= "handleHeightUpdate($event)"></betslip>
+    <betslip-receipt *ngIf="mode === MODES.betReceipt && checkIfBannersLoaded() && !isLuckyDip" data-crlat="betslipReceipt"
+                     (winAlertsToggleChanged)="setWinAlertsBets($event)"
+                     [racingPostToggle]="sysConfig.racingPostTip"
+                     [nextRacesToBetslipToggle]="sysConfig.nextRacesToBetslip?.enabled"
+                     [bsMaxHeight]="bsMaxHeight"
+                     [winAlertsEnabled]="sysConfig.winAlerts && sysConfig.winAlerts.enabled && device.isWrapper" 
+                     [bsReceiptBannerImages]="bsReceiptBannerImages"></betslip-receipt>
+    <tote-bet-receipt *ngIf="mode === MODES.toteBetReceipt && checkIfBannersLoaded()" [bsReceiptBannerImages]="bsReceiptBannerImages" data-crlat="betslipReceipt"></tote-bet-receipt>
+  <lazy-component *ngIf="mode === MODES.betReceipt && checkIfBannersLoaded() && isLuckyDip"
+     moduleUri="@lazy-modules-module/luckyDip/luckyDip.module#LuckyDipModule"
+    [inputs]="{winAlertsEnabledLD: true}" entryComponent="LadsDeskLuckyDipBetReceiptComponent"></lazy-component> 
+  </div>
+</div>

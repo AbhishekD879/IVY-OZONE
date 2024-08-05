@@ -1,0 +1,26 @@
+@import "global.variables.scss";
+
+:host ::ng-deep { 
+    .toggle-icon {
+      padding-left: 0px;
+    }
+    .form-guide-color {
+        margin-right: 4px;
+      }
+    .showMoreLess {
+      padding-right: 4px;
+    }
+    .toggle-icon svg {
+      margin-left: 0px;
+    }
+  }
+
+  .toggle-icon {
+    height: 11px;
+  }
+
+.verdict-border {
+  border-top: 1px solid $lGrayLight !important;
+  border-bottom: 1px solid $lGrayLight !important;
+  margin-bottom: 12px !important;
+}

@@ -1,0 +1,33 @@
+@import 'global.variables.scss';
+
+.maxpay-info-msg {
+  padding: 10px 16px 11px;
+  border-bottom: 1px solid $lGrayLight;
+  border-top: 1px solid $lGrayLight;
+  background-color: $color-white;
+  font-family: $alt-font-family;
+  @include display-flex();
+  @include align-items(center);
+  @include justify-content(center);
+
+  svg {
+    @include flex-shrink(0);
+    width: 16px;
+    height: 16px;
+  }
+
+  .max-payout {
+    margin: 0 0 4px 6px;
+    font-size: 12px;
+    color: $color-gray-darkest;
+    line-height: normal;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+    a{
+      color: $color-blue-alt;
+      font-weight: bold;
+    }
+  }
+}

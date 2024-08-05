@@ -1,0 +1,14 @@
+- name: Create Chronograf Container
+  docker_container:
+    name: Chronograf
+    image: chronograf:alpine
+    state: started
+    restart_policy: always
+    restart: yes
+    dns_servers:
+      - "{{ dns_server_ip }}"
+    ports:
+    - "8888:8888"
+    command: "--influxdb-url={{ influx_url }}"
+    volumes:
+      - /var/lib/chronograf:/var/lib/chronograf

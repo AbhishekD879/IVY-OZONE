@@ -1,0 +1,387 @@
+$k-card-gray-darkest: $color-gray-dark;
+$k-card-concrete: $color-gray-light;
+$k-card-pale-grey: $color-gray-light;
+$k-card-silver-two: $color-gray;
+
+.knockouts-card {
+  .knockouts-card-content-wrapper {
+    min-height: 116px;
+    margin-bottom: 10px;
+
+    &.no-bets {
+      min-height: 100px;
+    }
+
+    &.no-bets-final {
+      height: 133px;
+    }
+  }
+
+  .knockouts-box-header {
+    height: 20px;
+    padding-top: 3px;
+    text-align: center;
+    background: $k-card-concrete;
+    position: relative;
+    font-weight: lighter;
+
+    .match-round {
+      position: absolute;
+      left: 0;
+      top: 4px;
+      width: 24px;
+      height: 12px;
+
+      line-height: 12px;
+      text-align: center;
+      background: $color-white;
+      text-transform: uppercase;
+      color: $k-card-gray-darkest;
+
+      &.final-round {
+        width: 50px;
+      }
+    }
+  }
+  .knockouts-venue {
+    display: block;
+    text-align: center;
+    padding: 6px 0 7px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: normal;
+    white-space: nowrap;
+    width: 120px;
+    margin: auto;
+    line-height: 11px;
+    &.final-venue {
+      font-size: 12px;
+      margin-bottom: 8px;
+      width: 260px;
+      &.result {
+        padding-bottom: 12px;
+      }
+    }
+    &.result {
+      padding-bottom: 10px;
+    }
+  }
+
+  .knockouts-box-content {
+    @include display-flex();
+    @include justify-content(center);
+    @include align-items(flex-start);
+    font-size: $font-size-lgr;
+    margin: 0 auto;
+    width: 70%;
+    min-height: 36px;
+
+    .winner-mark {
+      @include flex(1,1);
+      min-width: 9px;
+      line-height: 0;
+      svg {
+        width: 9px;
+        height: 12px;
+      }
+    }
+
+    .knockouts-team {
+      @include align-items(center);
+      @include justify-content(center);
+      @include display-flex();
+      @include flex-direction(column);
+      padding: 0 2px;
+      position: relative;
+
+      &.result {
+        &.lost-team {
+          opacity: 0.4;
+        }
+        .team-abbreviation {
+          font-size: 14px;
+          min-width: 34px;
+          padding-top: 2px;
+        }
+      }
+
+      &.teams-final {
+        @include flex-direction(column);
+        .flag {
+          order: 0;
+        }
+
+        &.no-team-name .name-home {
+          display: none;
+        }
+        .team-abbreviation.name-home {
+          font-size: 20px;
+          line-height: 25px;
+          padding-top: 6px;
+        }
+        .team-abbreviation.winner-home {
+          max-width: 70px;
+        }
+      }
+
+      &.teams-final-away {
+        @include flex-direction(column);
+        &.no-team-name .name-away {
+          display: none;
+        }
+        .team-abbreviation.name-away {
+          font-size: 20px;
+          line-height: 25px;
+          padding-top: 6px;
+        }
+        .team-abbreviation.winner-away {
+          max-width: 70px;
+        }
+      }
+
+      .flag {
+        width: 20px;
+        height: 13px;
+
+        &.waiting-flag {
+          width: 30px;
+          height: 20px;
+        }
+      }
+
+      .no-flag-container {
+        width: 30px;
+        height: 20px;
+        background-color: $k-card-concrete;
+        border: solid 1px $k-card-gray-darkest;
+        position: relative;
+        align-self: center;
+        @include inline-flex();
+
+        &.hide-container {
+          background-color: $color-white;
+          border: none;
+          width: 20px;
+          height: 13px;
+        }
+
+        &:before {
+          content: attr(data-label);
+          margin-top: 1px;
+          position: absolute;
+          width: 100%;
+          text-align: center;
+          font-size: $font-size;
+          color: $k-card-gray-darkest;
+        }
+      }
+
+      .team-abbreviation {
+        font-weight: bold;
+        color: $k-card-gray-darkest;
+        text-align: center;
+        line-height: 20px;
+        font-size: 16px;
+        text-transform: uppercase;
+
+        &.winner {
+          font-size: $font-size-pre-xs;
+          line-height: 10px;
+          width: 52px;
+          max-width: 52px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: pre-wrap;
+          height: 20px;
+          margin-top: 3px;
+        }
+      }
+
+      .winner-label {
+        position: relative;
+        top: -17px;
+        text-transform: uppercase;
+        font-size: 9px;
+        margin-bottom: -12px;
+        color: $color-orange;
+      }
+    }
+
+    .team-separator {
+      font-weight: bold;
+      margin: 0 8px;
+      width: 100%;
+      height: 15px;
+      line-height: 17px;
+      text-align: center;
+      color: $k-card-gray-darkest;
+      top: 11px;
+      font-size: $font-size-lgr;
+      position: relative;
+
+      &.no-team-name {
+        top: -3px;
+      }
+
+      &.final-separator {
+        top: -3px;
+        font-size: $line-height-md;
+      }
+    }
+
+    .results-table {
+      width: 100%;
+      table {
+        width: 100%;
+      }
+      th, td {
+        text-align: center;
+        color: $color-gray-dark;
+      }
+
+      th {
+        font-size: 16px;
+        line-height: 12px;
+      }
+
+      .label {
+        text-transform: uppercase;
+        font-size: 8px;
+        font-weight: normal;
+        color: lighten($color-gray-dark, 50%);
+        line-height: 20px;
+      }
+      .extra-time {
+        font-size: 12px;
+        font-weight: normal;
+      }
+      .separator {
+        line-height: 0;
+        min-width: 32px;
+        vertical-align: middle;
+        span {
+          text-transform: uppercase;
+          font-size: 9px;
+          font-weight: normal;
+          display: inline-block;
+          line-height: 15px;
+          border-radius: 2px;
+          background-color: lighten($color-gray-dark, 50%);
+          color: $color-white;
+          padding: 0 5px;
+        }
+      }
+      &.final-results {
+        position: relative;
+        th {
+          font-size: 24px;
+          line-height: 20px;
+        }
+        .separator {
+          line-height: 0;
+          span {
+            line-height: 14px;
+            width: 30px;
+            padding: 0 5px;
+          }
+        }
+        .label {
+          padding: 0 34px;
+          line-height: 38px;
+        }
+        .extra-time {
+          font-size: 14px;
+          font-weight: lighter;
+        }
+      }
+    }
+  }
+
+  .markets-link {
+    font-size: $font-size-sm;
+    color: $color-gray-dark;
+    text-decoration: underline;
+    text-align: center;
+    margin-top: 3px;
+
+    &.markets-link-hidden {
+      visibility: hidden;
+    }
+
+    a {
+      color: $k-card-gray-darkest;
+    }
+  }
+
+  .current-market {
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 8px;
+    color: lighten($color-gray-dark, 50%);
+    font-weight: normal;
+    margin-top: 4px;
+  }
+
+  .empty-odds-btn-container {
+    height: 40px;
+    background-color: $k-card-pale-grey;
+  }
+}
+
+.knockouts-card-footer {
+  .card-odds-btns-container {
+    @include display-flex();
+    width: 100%;
+
+    .card-odds-btn-container {
+      @include flex(1, 1, auto);
+      width: 33%;
+
+      background: $color-gray-light;
+      margin-right: 1px;
+
+      &:first-child {
+        border-radius: 0 0 0 $border-radius;
+
+        .btn-bet{
+          border-radius: 0 0 0 $border-radius;
+        }
+      }
+
+      &:last-child {
+        margin-right: 0;
+        border-radius: 0 0 $border-radius 0;
+
+        .btn-bet{
+          border-radius: 0 0 $border-radius 0;
+        }
+      }
+    }
+
+    .btn-bet {
+      font-size: 11px;
+      font-weight: lighter;
+      line-height: 10px;
+      height: $odds-button-height;
+      width: 100%;
+      border-radius: 0;
+      padding: 4px 5px 6px;
+
+      .odds-head {
+        color: $color-gray-dark;
+        display: block;
+        white-space: nowrap;
+        width: 100%;
+      }
+
+      .odds-price {
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      &.active .odds-head {
+        color: $color-white;
+      }
+    }
+  }
+}

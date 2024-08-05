@@ -1,0 +1,87 @@
+<div class="card" *ngIf="!isLoading">
+  <div class="header">
+    <h2 class="has-activity-badge">Feature:
+      <span class="font-italic">{{feature.title}}</span>
+      <create-updated-at-by [collection]="feature"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="feature.disabled"></header-activity-badge>
+  </div>
+</div>
+<div class="card" *ngIf="!isLoading">
+  <div class="body">
+      <div class="row">
+        <div class="col-md-2">
+          <mat-checkbox color="primary"
+            [checked]="!feature.disabled"
+            (change)="feature.disabled = !feature.disabled">
+            Active
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Title
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !feature.title}">
+            <input matInput placeholder="Title"  [(ngModel)]="feature.title" [value]="feature.title" required trim="blur">
+            <mat-hint class="col-red" *ngIf="!feature.title">Title should be entered</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <cms-upload
+        [filename]="feature.filename"
+        (onImageUpload)="uploadFeatureImage($event)"
+        (onImageRemove)="removeImage()">
+      </cms-upload>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">Description</span>
+        </div>
+        <div class="col-md-10">
+          <tinymce-editor
+            #htmlMarkup
+            [pageName]="'features'"
+            [pageItemId]="feature.id"
+            (outputEditorData)="update($event, 'htmlMarkup')"
+            [initialEditorContent]="feature.description"></tinymce-editor>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <date-range
+            [isSetDateButtons]="true"
+            [startDate]="feature.validityPeriodStart"
+            [endDate]="feature.validityPeriodEnd"
+            [startPlaceholder]="'Validity Period Start Date'"
+            [placeholderColumn]="'true'"
+            [endPlaceholder]="'Validity Period End Date'"
+            (onDateUpdate)="handleDateUpdate($event)">
+          </date-range>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">Show To Customer</span>
+        </div>
+        <div class="col-md-5">
+          <customer-variants-select
+            [optionsType]="'loggedIn'"
+            [customerType]="feature.showToCustomer"
+            (onChange)="onShowToCustomerChange($event)">
+          </customer-variants-select>
+        </div>
+      </div>
+  </div>
+</div>
+
+<action-buttons
+  *ngIf="!isLoading"
+  #actionButtons
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'title'"
+  [collection]="feature"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

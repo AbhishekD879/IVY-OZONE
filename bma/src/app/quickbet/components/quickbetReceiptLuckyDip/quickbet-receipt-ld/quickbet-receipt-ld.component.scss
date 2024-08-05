@@ -1,0 +1,125 @@
+@import 'global.variables.scss';
+.qb-receipt-wrapper {
+    margin: 0;
+	background: $color-white;
+}
+.qb-stake-header {
+    max-height: inherit;
+    padding: 0 15px 15px 15px;
+    position: relative;
+    color: $color-gray-darkest;
+}
+.qb-win-alerts-content {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-end;
+
+    .qb-win-alerts-info {
+      font-size: 11px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+
+      .win-alerts-info-icon {
+        width: 14px;
+        height: 14px;
+        position: relative;
+      }
+
+      span {
+        margin-left: 4px;
+        white-space: nowrap;
+      }
+    }
+  }
+.line {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    line-height: 20px;
+    white-space: nowrap;
+}
+.line:last-child {
+    margin: 0;
+}
+.left {
+    display: flex;
+    align-items: center;
+    flex: 0 1 auto;
+    z-index: 1;
+}
+.qb-win-alerts-wrapper {
+    align-items: flex-start;
+    flex: 0 1 auto;
+    justify-content: flex-end;
+}
+.qb-stake-info {
+    font-weight: 400;
+	margin: 8px 0;
+}
+.selection-type, .qb-single-receipt-odds {
+    font-size: 15px;
+}
+.receipt-id {
+    color: $lBlack-light;
+    font-size: 12px;
+}
+.epr {
+    display: flex;
+    align-items: center;
+    margin-top: -10px;
+    font-size: 12px;
+}
+.right-section {
+    align-items: flex-end;
+    flex: 1 1 auto;
+    flex-direction: column;
+    display: flex;
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+    flex: 0 1 auto;
+    z-index: 1;
+    &.qb-win-alerts-wrapper {
+      align-items: flex-start;
+      flex: 0 1 auto;
+      justify-content: flex-end;
+    }
+
+    .qb-stake-info {
+      line-height: 1;
+      white-space: normal;
+    }
+  }
+.qb-stake-footer {
+    background:$lGrayLight;
+    padding: 15px;
+    border-top: 1px dashed $color-gray;
+    position: relative;
+    white-space: nowrap;
+    margin: 0 -15px -15px;
+}
+.line .summary-info {
+    width: 100%;
+    margin-bottom: 10px;
+    line-height: 16px;
+    white-space: nowrap;
+	font-size: 13px;
+    font-weight: 700;
+}
+
+:host ::ng-deep {
+    .promo-labels {
+        &.promo-lucky-dip {
+            padding-bottom: 15px;
+        }
+    } 
+    .promo-label{
+        &.small-icon {
+            font-size: 10px;
+        }
+    }
+}

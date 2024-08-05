@@ -1,0 +1,37 @@
+<div class="questions-page qe-bg" *ngIf="qeData"
+     [ngStyle]="{'background-image': qeData.quizBackgroundSvgFilePath ? 'url(' + qeData.quizBackgroundSvgFilePath + ')' : 'null'}"
+>
+  <div class="navigation-container">
+
+    <a [i18n]="'qe.exitText'" class="qe-back-link" (click)="handleBackArrow();" href="javascript:void(0)">
+      <svg class="qe-btn-back-svg">
+        <use xlink:href="#back-arrow"></use>
+      </svg>
+    </a>
+
+    <div class="qe-container">
+
+    <header class="qe-header">
+      <img class="logo-small"
+           *ngIf="qeData.quizLogoSvgFilePath"
+           [src]="qeData.quizLogoSvgFilePath"
+           alt="quizLogo"
+      >
+      <ul class="qe-header-inf" *ngIf="qeData?.quizConfiguration?.showEventDetails &&
+        (qeData.defaultQuestionsDetails.topLeftHeader || qeData.defaultQuestionsDetails.topRightHeader)">
+        <li class="qe-header-inf-item top-left-header"
+            *ngIf="qeData.defaultQuestionsDetails.topLeftHeader">
+          <span [textContent]="qeData.defaultQuestionsDetails.topLeftHeader"></span>
+        </li>
+        <li class="qe-header-inf-item top-right-header"
+            *ngIf="qeData.defaultQuestionsDetails.topRightHeader">
+          <span [textContent]="qeData.defaultQuestionsDetails.topRightHeader"></span>
+        </li>
+      </ul>
+    </header>
+    <questions-info *ngIf="qeData?.quizConfiguration?.showEventDetails"></questions-info>
+    <questions-carousel></questions-carousel>
+
+    </div>
+  </div>
+</div>

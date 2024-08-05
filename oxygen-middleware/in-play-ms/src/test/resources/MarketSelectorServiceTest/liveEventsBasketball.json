@@ -1,0 +1,814 @@
+[
+    {
+      "id": "1107627",
+      "name": "test1",
+      "eventStatusCode": "A",
+      "isActive": true,
+      "displayOrder": 0,
+      "siteChannels": "P,Q,C,I,j,M,",
+      "eventSortCode": "MTCH",
+      "startTime": "2020-08-25T15:32:00Z",
+      "rawIsOffCode": "Y",
+      "isStarted": true,
+      "classId": "51",
+      "typeId": "136",
+      "sportId": "6",
+      "liveServChannels": "sEVENT0001107627,",
+      "liveServChildrenChannels": "SEVENT0001107627,",
+      "categoryId": "6",
+      "categoryCode": "BASKETBALL",
+      "categoryName": "Basketball",
+      "className": "Basketball USA",
+      "classDisplayOrder": -9300,
+      "classSortCode": "ST",
+      "typeName": "NBA",
+      "typeDisplayOrder": -555,
+      "typeFlagCodes": "FI,GVA,IVA,PVA,AVA,US,FE,",
+      "isOpenEvent": true,
+      "isLiveNowEvent": true,
+      "isLiveNowOrFutureEvent": true,
+      "drilldownTagNames": "EVFLAG_FE,EVFLAG_FI,EVFLAG_BL,",
+      "isAvailable": true,
+      "cashoutAvail": "Y",
+      "responseCreationTime": "2020-08-25T20:27:44.007Z",
+      "children": [
+        {
+          "market": {
+            "id": "36763979",
+            "eventId": "1107627",
+            "templateMarketId": 7204,
+            "templateMarketName": "Money Line",
+            "dispSortId": "135",
+            "dispSortName": "HH",
+            "collectionIds": "9694,9255,9588,9692,9693,9691,",
+            "collectionNames": "Half Markets,Main Markets,Quarter Markets,Race Markets,#GetAPrice,Player Markets,",
+            "marketMeaningMajorCode": "-",
+            "marketMeaningMinorCode": "HH",
+            "name": "Money Line",
+            "isLpAvailable": true,
+            "isSpAvailable": false,
+            "isGpAvailable": false,
+            "isEachWayAvailable": false,
+            "isPlaceOnlyAvailable": false,
+            "isMarketBetInRun": true,
+            "displayOrder": 0,
+            "marketStatusCode": "A",
+            "isActive": true,
+            "siteChannels": "P,Q,C,I,M,",
+            "liveServChannels": "sEVMKT0036763979,",
+            "liveServChildrenChannels": "SEVMKT0036763979,",
+            "priceTypeCodes": "LP,",
+            "isAvailable": true,
+            "maxAccumulators": 25,
+            "minAccumulators": 1,
+            "cashoutAvail": "Y",
+            "children": [
+              {
+                "outcome": {
+                  "id": "131228993",
+                  "marketId": "36763979",
+                  "name": "Home",
+                  "outcomeMeaningMajorCode": "HH",
+                  "outcomeMeaningMinorCode": "H",
+                  "displayOrder": 0,
+                  "outcomeStatusCode": "A",
+                  "isActive": true,
+                  "siteChannels": "P,Q,C,I,M,",
+                  "liveServChannels": "sSELCN0131228993,",
+                  "liveServChildrenChannels": "SSELCN0131228993,",
+                  "isAvailable": true,
+                  "cashoutAvail": "Y",
+                  "children": [
+                    {
+                      "price": {
+                        "id": "1",
+                        "isActive": true,
+                        "displayOrder": 1,
+                        "priceType": "LP",
+                        "priceNum": 2,
+                        "priceDen": 1,
+                        "priceDec": 3.0,
+                        "uuid": "d249a8c5-d530-4e86-9532-67a223c2dc96"
+                      }
+                    }
+                  ],
+                  "uuid": "4e384b99-8520-4589-9e2f-0357ac4c2feb"
+                }
+              },
+              {
+                "outcome": {
+                  "id": "131228994",
+                  "marketId": "36763979",
+                  "name": "Away",
+                  "outcomeMeaningMajorCode": "HH",
+                  "outcomeMeaningMinorCode": "A",
+                  "displayOrder": 0,
+                  "outcomeStatusCode": "A",
+                  "isActive": true,
+                  "siteChannels": "P,Q,C,I,M,",
+                  "liveServChannels": "sSELCN0131228994,",
+                  "liveServChildrenChannels": "SSELCN0131228994,",
+                  "isAvailable": true,
+                  "cashoutAvail": "Y",
+                  "children": [
+                    {
+                      "price": {
+                        "id": "2",
+                        "isActive": true,
+                        "displayOrder": 1,
+                        "priceType": "LP",
+                        "priceNum": 9,
+                        "priceDen": 1,
+                        "priceDec": 10.0,
+                        "uuid": "373c5e4e-8782-4932-9c96-0ed94b887a23"
+                      }
+                    }
+                  ],
+                  "uuid": "cd996a1e-a62b-4b8c-a620-b471e5d071a1"
+                }
+              }
+            ],
+            "uuid": "c18b84ea-3ff7-4b8b-9c2b-47245106a971"
+          }
+        },
+        {
+          "market": {
+            "id": "36763982",
+            "eventId": "1107627",
+            "templateMarketId": 1558553,
+            "templateMarketName": "Handicap Match Result",
+            "dispSortId": "134",
+            "dispSortName": "MH",
+            "marketMeaningMajorCode": "M",
+            "marketMeaningMinorCode": "MH",
+            "name": "Handicap Match Result",
+            "isLpAvailable": true,
+            "isSpAvailable": false,
+            "isGpAvailable": false,
+            "isEachWayAvailable": false,
+            "isPlaceOnlyAvailable": false,
+            "rawHandicapValue": 1.0,
+            "isMarketBetInRun": true,
+            "displayOrder": 0,
+            "marketStatusCode": "A",
+            "isActive": true,
+            "siteChannels": "P,Q,C,I,M,",
+            "liveServChannels": "sEVMKT0036763982,",
+            "liveServChildrenChannels": "SEVMKT0036763982,",
+            "priceTypeCodes": "LP,",
+            "isAvailable": true,
+            "maxAccumulators": 25,
+            "minAccumulators": 1,
+            "cashoutAvail": "N",
+            "children": [
+              {
+                "outcome": {
+                  "id": "131229002",
+                  "marketId": "36763982",
+                  "name": "Home",
+                  "outcomeMeaningMajorCode": "MH",
+                  "outcomeMeaningMinorCode": "H",
+                  "displayOrder": 0,
+                  "outcomeStatusCode": "A",
+                  "isActive": true,
+                  "siteChannels": "P,Q,C,I,M,",
+                  "liveServChannels": "sSELCN0131229002,",
+                  "liveServChildrenChannels": "SSELCN0131229002,",
+                  "isAvailable": true,
+                  "cashoutAvail": "N",
+                  "children": [
+                    {
+                      "price": {
+                        "id": "3",
+                        "isActive": true,
+                        "displayOrder": 1,
+                        "priceType": "LP",
+                        "priceNum": 2,
+                        "priceDen": 1,
+                        "priceDec": 3.0,
+                        "handicapValueDec": "1.0,",
+                        "rawHandicapValue": 1.0,
+                        "uuid": "70ef4db2-9344-4422-bd56-2784d351081c"
+                      }
+                    }
+                  ],
+                  "uuid": "f14ecd4c-e288-45fe-9132-40416aface64"
+                }
+              },
+              {
+                "outcome": {
+                  "id": "131229003",
+                  "marketId": "36763982",
+                  "name": "Away",
+                  "outcomeMeaningMajorCode": "MH",
+                  "outcomeMeaningMinorCode": "A",
+                  "displayOrder": 0,
+                  "outcomeStatusCode": "A",
+                  "isActive": true,
+                  "siteChannels": "P,Q,C,I,M,",
+                  "liveServChannels": "sSELCN0131229003,",
+                  "liveServChildrenChannels": "SSELCN0131229003,",
+                  "isAvailable": true,
+                  "cashoutAvail": "N",
+                  "children": [
+                    {
+                      "price": {
+                        "id": "4",
+                        "isActive": true,
+                        "displayOrder": 1,
+                        "priceType": "LP",
+                        "priceNum": 9,
+                        "priceDen": 1,
+                        "priceDec": 10.0,
+                        "handicapValueDec": "-1.0,",
+                        "rawHandicapValue": 1.0,
+                        "uuid": "95242b2f-cf85-463b-b197-4bd08edbc561"
+                      }
+                    }
+                  ],
+                  "uuid": "9d0f7f58-0b96-44d6-aa67-5e2aee513fc4"
+                }
+              },
+              {
+                "outcome": {
+                  "id": "131229004",
+                  "marketId": "36763982",
+                  "name": "Draw",
+                  "outcomeMeaningMajorCode": "MH",
+                  "outcomeMeaningMinorCode": "L",
+                  "displayOrder": 0,
+                  "outcomeStatusCode": "A",
+                  "isActive": true,
+                  "siteChannels": "P,Q,C,I,M,",
+                  "liveServChannels": "sSELCN0131229004,",
+                  "liveServChildrenChannels": "SSELCN0131229004,",
+                  "isAvailable": true,
+                  "cashoutAvail": "N",
+                  "children": [
+                    {
+                      "price": {
+                        "id": "5",
+                        "isActive": true,
+                        "displayOrder": 1,
+                        "priceType": "LP",
+                        "priceNum": 8,
+                        "priceDen": 1,
+                        "priceDec": 9.0,
+                        "handicapValueDec": "1.0,",
+                        "rawHandicapValue": 1.0,
+                        "uuid": "c8de8d34-64a7-462d-8221-f8cff7443f17"
+                      }
+                    }
+                  ],
+                  "uuid": "18ae85d5-b74a-4ba1-94f7-5c3d63067035"
+                }
+              }
+            ],
+            "uuid": "2167aaf9-8a7e-45f1-a457-ac5804c0f4b7"
+          }
+        }
+      ],
+      "uuid": "4ad204e7-8596-4231-8437-ada7672b09fe"
+    },
+    {
+      "id": "1107630",
+      "name": "Tes2",
+      "eventStatusCode": "A",
+      "isActive": true,
+      "displayOrder": 0,
+      "siteChannels": "P,Q,C,I,j,M,",
+      "eventSortCode": "MTCH",
+      "startTime": "2020-08-25T15:36:00Z",
+      "rawIsOffCode": "Y",
+      "isStarted": true,
+      "classId": "51",
+      "typeId": "136",
+      "sportId": "6",
+      "liveServChannels": "sEVENT0001107630,",
+      "liveServChildrenChannels": "SEVENT0001107630,",
+      "categoryId": "6",
+      "categoryCode": "BASKETBALL",
+      "categoryName": "Basketball",
+      "className": "Basketball USA",
+      "classDisplayOrder": -9300,
+      "classSortCode": "ST",
+      "typeName": "NBA",
+      "typeDisplayOrder": -555,
+      "typeFlagCodes": "FI,GVA,IVA,PVA,AVA,US,FE,",
+      "isOpenEvent": true,
+      "isLiveNowEvent": true,
+      "isLiveNowOrFutureEvent": true,
+      "drilldownTagNames": "EVFLAG_FE,EVFLAG_FI,EVFLAG_BL,",
+      "isAvailable": true,
+      "cashoutAvail": "Y",
+      "responseCreationTime": "2020-08-25T20:27:44.007Z",
+      "children": [
+        {
+          "market": {
+            "id": "36763986",
+            "eventId": "1107630",
+            "templateMarketId": 7204,
+            "templateMarketName": "Money Line",
+            "dispSortId": "135",
+            "dispSortName": "HH",
+            "collectionIds": "9694,9255,9588,9692,9693,9691,",
+            "collectionNames": "Half Markets,Main Markets,Quarter Markets,Race Markets,#GetAPrice,Player Markets,",
+            "marketMeaningMajorCode": "-",
+            "marketMeaningMinorCode": "HH",
+            "name": "Money Line",
+            "isLpAvailable": true,
+            "isSpAvailable": false,
+            "isGpAvailable": false,
+            "isEachWayAvailable": false,
+            "isPlaceOnlyAvailable": false,
+            "isMarketBetInRun": true,
+            "displayOrder": 0,
+            "marketStatusCode": "A",
+            "isActive": true,
+            "siteChannels": "P,Q,C,I,M,",
+            "liveServChannels": "sEVMKT0036763986,",
+            "liveServChildrenChannels": "SEVMKT0036763986,",
+            "priceTypeCodes": "LP,",
+            "isAvailable": true,
+            "maxAccumulators": 25,
+            "minAccumulators": 1,
+            "cashoutAvail": "Y",
+            "children": [
+              {
+                "outcome": {
+                  "id": "131229005",
+                  "marketId": "36763986",
+                  "name": "Home",
+                  "outcomeMeaningMajorCode": "HH",
+                  "outcomeMeaningMinorCode": "H",
+                  "displayOrder": 0,
+                  "outcomeStatusCode": "A",
+                  "isActive": true,
+                  "siteChannels": "P,Q,C,I,M,",
+                  "liveServChannels": "sSELCN0131229005,",
+                  "liveServChildrenChannels": "SSELCN0131229005,",
+                  "isAvailable": true,
+                  "cashoutAvail": "Y",
+                  "children": [
+                    {
+                      "price": {
+                        "id": "6",
+                        "isActive": true,
+                        "displayOrder": 1,
+                        "priceType": "LP",
+                        "priceNum": 2,
+                        "priceDen": 1,
+                        "priceDec": 3.0,
+                        "uuid": "3690e49c-8ade-4eb3-9d21-a161835285f5"
+                      }
+                    }
+                  ],
+                  "uuid": "206121f0-0de4-4a52-9b42-fc3115e0ccc9"
+                }
+              },
+              {
+                "outcome": {
+                  "id": "131229006",
+                  "marketId": "36763986",
+                  "name": "Away",
+                  "outcomeMeaningMajorCode": "HH",
+                  "outcomeMeaningMinorCode": "A",
+                  "displayOrder": 0,
+                  "outcomeStatusCode": "A",
+                  "isActive": true,
+                  "siteChannels": "P,Q,C,I,M,",
+                  "liveServChannels": "sSELCN0131229006,",
+                  "liveServChildrenChannels": "SSELCN0131229006,",
+                  "isAvailable": true,
+                  "cashoutAvail": "Y",
+                  "children": [
+                    {
+                      "price": {
+                        "id": "7",
+                        "isActive": true,
+                        "displayOrder": 1,
+                        "priceType": "LP",
+                        "priceNum": 9,
+                        "priceDen": 1,
+                        "priceDec": 10.0,
+                        "uuid": "fa9dc444-5d68-431b-a887-9202700bf796"
+                      }
+                    }
+                  ],
+                  "uuid": "0ebd3ac0-0adb-4d8f-8aa3-a0ba3c65c77c"
+                }
+              }
+            ],
+            "uuid": "a76c1a28-66f2-4a7f-b53b-74f3de27e29c"
+          }
+        },
+        {
+          "market": {
+            "id": "36764012",
+            "eventId": "1107630",
+            "templateMarketId": 1558553,
+            "templateMarketName": "Handicap Match Result",
+            "dispSortId": "134",
+            "dispSortName": "MH",
+            "marketMeaningMajorCode": "M",
+            "marketMeaningMinorCode": "MH",
+            "name": "Handicap Match Result",
+            "isLpAvailable": true,
+            "isSpAvailable": false,
+            "isGpAvailable": false,
+            "isEachWayAvailable": false,
+            "isPlaceOnlyAvailable": false,
+            "rawHandicapValue": 1.0,
+            "isMarketBetInRun": true,
+            "displayOrder": 0,
+            "marketStatusCode": "A",
+            "isActive": true,
+            "siteChannels": "P,Q,C,I,M,",
+            "liveServChannels": "sEVMKT0036764012,",
+            "liveServChildrenChannels": "SEVMKT0036764012,",
+            "priceTypeCodes": "LP,",
+            "isAvailable": true,
+            "maxAccumulators": 25,
+            "minAccumulators": 1,
+            "cashoutAvail": "N",
+            "children": [
+              {
+                "outcome": {
+                  "id": "131229073",
+                  "marketId": "36764012",
+                  "name": "Home",
+                  "outcomeMeaningMajorCode": "MH",
+                  "outcomeMeaningMinorCode": "H",
+                  "displayOrder": 0,
+                  "outcomeStatusCode": "A",
+                  "isActive": true,
+                  "siteChannels": "P,Q,C,I,M,",
+                  "liveServChannels": "sSELCN0131229073,",
+                  "liveServChildrenChannels": "SSELCN0131229073,",
+                  "isAvailable": true,
+                  "cashoutAvail": "N",
+                  "children": [
+                    {
+                      "price": {
+                        "id": "8",
+                        "isActive": true,
+                        "displayOrder": 1,
+                        "priceType": "LP",
+                        "priceNum": 2,
+                        "priceDen": 1,
+                        "priceDec": 3.0,
+                        "handicapValueDec": "1.0,",
+                        "rawHandicapValue": 1.0,
+                        "uuid": "a7fc8e91-84aa-49b0-b7a9-e67acdf8a950"
+                      }
+                    }
+                  ],
+                  "uuid": "e98be2ec-5198-4aeb-96d9-3341431ab5c5"
+                }
+              },
+              {
+                "outcome": {
+                  "id": "131229074",
+                  "marketId": "36764012",
+                  "name": "Away",
+                  "outcomeMeaningMajorCode": "MH",
+                  "outcomeMeaningMinorCode": "A",
+                  "displayOrder": 0,
+                  "outcomeStatusCode": "A",
+                  "isActive": true,
+                  "siteChannels": "P,Q,C,I,M,",
+                  "liveServChannels": "sSELCN0131229074,",
+                  "liveServChildrenChannels": "SSELCN0131229074,",
+                  "isAvailable": true,
+                  "cashoutAvail": "N",
+                  "children": [
+                    {
+                      "price": {
+                        "id": "9",
+                        "isActive": true,
+                        "displayOrder": 1,
+                        "priceType": "LP",
+                        "priceNum": 7,
+                        "priceDen": 1,
+                        "priceDec": 8.0,
+                        "handicapValueDec": "-1.0,",
+                        "rawHandicapValue": 1.0,
+                        "uuid": "6629ce95-07e4-41ae-aa26-f4e829d0de1e"
+                      }
+                    }
+                  ],
+                  "uuid": "c9b6a050-db02-4a0f-a65b-f4591e633ccb"
+                }
+              },
+              {
+                "outcome": {
+                  "id": "131229075",
+                  "marketId": "36764012",
+                  "name": "Draw",
+                  "outcomeMeaningMajorCode": "MH",
+                  "outcomeMeaningMinorCode": "L",
+                  "displayOrder": 0,
+                  "outcomeStatusCode": "A",
+                  "isActive": true,
+                  "siteChannels": "P,Q,C,I,M,",
+                  "liveServChannels": "sSELCN0131229075,",
+                  "liveServChildrenChannels": "SSELCN0131229075,",
+                  "isAvailable": true,
+                  "cashoutAvail": "N",
+                  "children": [
+                    {
+                      "price": {
+                        "id": "10",
+                        "isActive": true,
+                        "displayOrder": 1,
+                        "priceType": "LP",
+                        "priceNum": 4,
+                        "priceDen": 3,
+                        "priceDec": 2.33,
+                        "handicapValueDec": "1.0,",
+                        "rawHandicapValue": 1.0,
+                        "uuid": "a1b03c47-4edf-4164-8312-91658499bc12"
+                      }
+                    }
+                  ],
+                  "uuid": "07ede10c-e277-44a7-9546-2d7f0354cd08"
+                }
+              }
+            ],
+            "uuid": "fb195a7d-4794-4dc7-b71c-6b3219d6caef"
+          }
+        }
+      ],
+      "uuid": "160658ff-6341-4a68-9f5a-972180af5a5c"
+    },
+    {
+      "id": "1107642",
+      "name": "event1",
+      "eventStatusCode": "A",
+      "isActive": true,
+      "displayOrder": 0,
+      "siteChannels": "P,Q,C,I,j,M,",
+      "eventSortCode": "MTCH",
+      "startTime": "2020-08-25T16:02:00Z",
+      "rawIsOffCode": "Y",
+      "isStarted": true,
+      "classId": "51",
+      "typeId": "136",
+      "sportId": "6",
+      "liveServChannels": "sEVENT0001107642,",
+      "liveServChildrenChannels": "SEVENT0001107642,",
+      "categoryId": "6",
+      "categoryCode": "BASKETBALL",
+      "categoryName": "Basketball",
+      "className": "Basketball USA",
+      "classDisplayOrder": -9300,
+      "classSortCode": "ST",
+      "typeName": "NBA",
+      "typeDisplayOrder": -555,
+      "typeFlagCodes": "FI,GVA,IVA,PVA,AVA,US,FE,",
+      "isOpenEvent": true,
+      "isLiveNowEvent": true,
+      "isLiveNowOrFutureEvent": true,
+      "drilldownTagNames": "EVFLAG_FE,EVFLAG_FI,EVFLAG_BL,",
+      "isAvailable": true,
+      "cashoutAvail": "Y",
+      "responseCreationTime": "2020-08-25T20:27:44.007Z",
+      "children": [
+        {
+          "market": {
+            "id": "36764004",
+            "eventId": "1107642",
+            "templateMarketId": 7204,
+            "templateMarketName": "Money Line",
+            "dispSortId": "135",
+            "dispSortName": "HH",
+            "collectionIds": "9694,9255,9588,9692,9693,9691,",
+            "collectionNames": "Half Markets,Main Markets,Quarter Markets,Race Markets,#GetAPrice,Player Markets,",
+            "marketMeaningMajorCode": "-",
+            "marketMeaningMinorCode": "HH",
+            "name": "Money Line",
+            "isLpAvailable": true,
+            "isSpAvailable": false,
+            "isGpAvailable": false,
+            "isEachWayAvailable": false,
+            "isPlaceOnlyAvailable": false,
+            "isMarketBetInRun": true,
+            "displayOrder": 0,
+            "marketStatusCode": "A",
+            "isActive": true,
+            "siteChannels": "P,Q,C,I,M,",
+            "liveServChannels": "sEVMKT0036764004,",
+            "liveServChildrenChannels": "SEVMKT0036764004,",
+            "priceTypeCodes": "LP,",
+            "isAvailable": true,
+            "maxAccumulators": 25,
+            "minAccumulators": 1,
+            "cashoutAvail": "Y",
+            "children": [
+              {
+                "outcome": {
+                  "id": "131229049",
+                  "marketId": "36764004",
+                  "name": "Home",
+                  "outcomeMeaningMajorCode": "HH",
+                  "outcomeMeaningMinorCode": "H",
+                  "displayOrder": 0,
+                  "outcomeStatusCode": "A",
+                  "isActive": true,
+                  "siteChannels": "P,Q,C,I,M,",
+                  "liveServChannels": "sSELCN0131229049,",
+                  "liveServChildrenChannels": "SSELCN0131229049,",
+                  "isAvailable": true,
+                  "cashoutAvail": "Y",
+                  "children": [
+                    {
+                      "price": {
+                        "id": "11",
+                        "isActive": true,
+                        "displayOrder": 1,
+                        "priceType": "LP",
+                        "priceNum": 2,
+                        "priceDen": 1,
+                        "priceDec": 3.0,
+                        "uuid": "aedb19e5-cbbd-408a-9177-b525826a029a"
+                      }
+                    }
+                  ],
+                  "uuid": "f140b30e-e1fb-4592-88b5-dd35d4a726ed"
+                }
+              },
+              {
+                "outcome": {
+                  "id": "131229050",
+                  "marketId": "36764004",
+                  "name": "Away",
+                  "outcomeMeaningMajorCode": "HH",
+                  "outcomeMeaningMinorCode": "A",
+                  "displayOrder": 0,
+                  "outcomeStatusCode": "A",
+                  "isActive": true,
+                  "siteChannels": "P,Q,C,I,M,",
+                  "liveServChannels": "sSELCN0131229050,",
+                  "liveServChildrenChannels": "SSELCN0131229050,",
+                  "isAvailable": true,
+                  "cashoutAvail": "Y",
+                  "children": [
+                    {
+                      "price": {
+                        "id": "12",
+                        "isActive": true,
+                        "displayOrder": 1,
+                        "priceType": "LP",
+                        "priceNum": 7,
+                        "priceDen": 1,
+                        "priceDec": 8.0,
+                        "uuid": "78ed23af-57d8-40c6-8bd3-547621401c72"
+                      }
+                    }
+                  ],
+                  "uuid": "dfe9c53f-72e1-49f8-b379-f50acfc30f3b"
+                }
+              }
+            ],
+            "uuid": "5de4ddb7-d8a1-4aef-8cfc-583622886664"
+          }
+        }
+      ],
+      "uuid": "3c8a3ec0-6853-46ea-b3c8-301dd93f259f"
+    },
+    {
+      "id": "1107633",
+      "name": "Test_25",
+      "eventStatusCode": "A",
+      "isActive": true,
+      "displayOrder": 0,
+      "siteChannels": "P,Q,C,I,j,M,",
+      "eventSortCode": "MTCH",
+      "startTime": "2020-08-25T15:46:00Z",
+      "rawIsOffCode": "Y",
+      "isStarted": true,
+      "classId": "51",
+      "typeId": "136",
+      "sportId": "6",
+      "liveServChannels": "sEVENT0001107633,",
+      "liveServChildrenChannels": "SEVENT0001107633,",
+      "categoryId": "6",
+      "categoryCode": "BASKETBALL",
+      "categoryName": "Basketball",
+      "className": "Basketball USA",
+      "classDisplayOrder": -9300,
+      "classSortCode": "ST",
+      "typeName": "NBA",
+      "typeDisplayOrder": -555,
+      "typeFlagCodes": "FI,GVA,IVA,PVA,AVA,US,FE,",
+      "isOpenEvent": true,
+      "isLiveNowEvent": true,
+      "isLiveNowOrFutureEvent": true,
+      "drilldownTagNames": "EVFLAG_FE,EVFLAG_FI,EVFLAG_BL,",
+      "isAvailable": true,
+      "cashoutAvail": "Y",
+      "responseCreationTime": "2020-08-25T20:27:44.007Z",
+      "children": [
+        {
+          "market": {
+            "id": "36763989",
+            "eventId": "1107633",
+            "templateMarketId": 7204,
+            "templateMarketName": "Money Line",
+            "dispSortId": "135",
+            "dispSortName": "HH",
+            "collectionIds": "9694,9255,9588,9692,9693,9691,",
+            "collectionNames": "Half Markets,Main Markets,Quarter Markets,Race Markets,#GetAPrice,Player Markets,",
+            "marketMeaningMajorCode": "-",
+            "marketMeaningMinorCode": "HH",
+            "name": "Money Line",
+            "isLpAvailable": true,
+            "isSpAvailable": false,
+            "isGpAvailable": false,
+            "isEachWayAvailable": false,
+            "isPlaceOnlyAvailable": false,
+            "isMarketBetInRun": true,
+            "displayOrder": 0,
+            "marketStatusCode": "A",
+            "isActive": true,
+            "siteChannels": "P,Q,C,I,M,",
+            "liveServChannels": "sEVMKT0036763989,",
+            "liveServChildrenChannels": "SEVMKT0036763989,",
+            "priceTypeCodes": "LP,",
+            "isAvailable": true,
+            "maxAccumulators": 25,
+            "minAccumulators": 1,
+            "cashoutAvail": "Y",
+            "children": [
+              {
+                "outcome": {
+                  "id": "131229013",
+                  "marketId": "36763989",
+                  "name": "HOme",
+                  "outcomeMeaningMajorCode": "HH",
+                  "outcomeMeaningMinorCode": "H",
+                  "displayOrder": 0,
+                  "outcomeStatusCode": "A",
+                  "isActive": true,
+                  "siteChannels": "P,Q,C,I,M,",
+                  "liveServChannels": "sSELCN0131229013,",
+                  "liveServChildrenChannels": "SSELCN0131229013,",
+                  "isAvailable": true,
+                  "cashoutAvail": "Y",
+                  "children": [
+                    {
+                      "price": {
+                        "id": "13",
+                        "isActive": true,
+                        "displayOrder": 1,
+                        "priceType": "LP",
+                        "priceNum": 1,
+                        "priceDen": 2,
+                        "priceDec": 1.5,
+                        "uuid": "d1891498-692a-4458-b19d-3a99d8b71b16"
+                      }
+                    }
+                  ],
+                  "uuid": "d0cb4c66-3e2f-4668-8f89-b8c36cc519cd"
+                }
+              },
+              {
+                "outcome": {
+                  "id": "131229014",
+                  "marketId": "36763989",
+                  "name": "Away",
+                  "outcomeMeaningMajorCode": "HH",
+                  "outcomeMeaningMinorCode": "A",
+                  "displayOrder": 0,
+                  "outcomeStatusCode": "A",
+                  "isActive": true,
+                  "siteChannels": "P,Q,C,I,M,",
+                  "liveServChannels": "sSELCN0131229014,",
+                  "liveServChildrenChannels": "SSELCN0131229014,",
+                  "isAvailable": true,
+                  "cashoutAvail": "Y",
+                  "children": [
+                    {
+                      "price": {
+                        "id": "14",
+                        "isActive": true,
+                        "displayOrder": 1,
+                        "priceType": "LP",
+                        "priceNum": 4,
+                        "priceDen": 5,
+                        "priceDec": 1.8,
+                        "uuid": "f485e876-c904-458f-8d20-5a3c9d596f0c"
+                      }
+                    }
+                  ],
+                  "uuid": "4dcb9b25-5152-4804-a4a7-04f13b4db06b"
+                }
+              }
+            ],
+            "uuid": "ed900573-96c8-4f0b-8fac-dfc737cb30ad"
+          }
+        }
+      ],
+      "uuid": "f714292c-a343-45d1-b6c1-ac54789bc718"
+    }
+  ]

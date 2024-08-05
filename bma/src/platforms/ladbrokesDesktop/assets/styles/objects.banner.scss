@@ -1,0 +1,42 @@
+/* *********************************************************************************************************************
+
+  OBJECTS:
+  So called “cosmetic free design patterns” such as a grid system
+
+********************************************************************************************************************* */
+
+$banner-md-width       : 481px;
+$banner-sm-width       : 410px;
+
+.float-left-section {
+  float: left;
+}
+.banner-block {
+  background: $lGray-bg;
+  margin-bottom: $componets-edge-gap;
+  @include clearfix();
+
+  #banner-section {
+    width: 100%;
+    display: inline-block;
+    @extend .float-left-section;
+
+    @media screen and (max-width: 1099px) {
+      &.no-margin {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .offers-module {
+    @extend .float-left-section;
+    display: inline-block;
+    position: relative;
+    padding-top: 23.8%; // aspect-ratio for offers
+    width: calc(40% - 10px);
+    margin-left: 10px;
+    @media screen and (max-width: 1099px) {
+      display: none;
+    }
+  }
+}

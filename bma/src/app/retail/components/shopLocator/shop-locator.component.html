@@ -1,0 +1,9 @@
+<div class="shop-locator-page">
+  <top-bar [title]="title" data-crlat="topBar"></top-bar>
+  <iframe #shopLocator class="shop-locator-external-component"
+    [src]='shopLocatorUrl'
+    frameborder='0'
+    scrolling='no'
+    allow='geolocation'>
+  </iframe>
+</div>

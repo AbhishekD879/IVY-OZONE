@@ -1,0 +1,48 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="!isLoading">
+  <div class="header">
+    <h2 class="has-activity-badge">Edit External link: <span class="font-italic">{{shortVersion()}}</span></h2>
+    <create-updated-at-by class="has-activity-badge" [collection]="externalLink"></create-updated-at-by>
+  </div>
+</div>
+<div class="card" *ngIf="!isLoading">
+  <div class="body">
+    <div class="row clearfix">
+      <div class="col-md-2">
+        <span class="mat-label">Url</span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !externalLink.url}">
+          <input matInput placeholder="Title" [(ngModel)]="externalLink.url" [value]="externalLink.url" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!externalLink.url">Url should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-2">
+        <span class="mat-label">Target</span>
+      </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select [(value)]="externalLink.target"
+                        [(ngModel)]="externalLink.target"
+                        placeholder="Target" required>
+              <mat-option value="NEW">NEW</mat-option>
+              <mat-option value="CURRENT">CURRENT</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="!isLoading"
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'url'"
+  [collection]="externalLink"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>
+
+

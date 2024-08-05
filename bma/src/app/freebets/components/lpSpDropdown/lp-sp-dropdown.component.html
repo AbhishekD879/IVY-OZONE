@@ -1,0 +1,17 @@
+<div class="dropdown {{mode}}" data-crlat="dropdown" (click)="clickInside = true">
+  <div class="dropdown-selected" [ngClass]="{'disabled': disabled}" (click)="toggleList()">
+    <span [textContent]="selectedItem?.value" data-crlat="odds" class="odds-value"></span>
+    <span class="dropdown-arrow">
+      <svg><use xlink:href="#icn_arrow"></use></svg>
+    </span>
+  </div>
+  <div class="dropdown-list" data-crlat="oddsDropDownList" [ngClass]="{'dropdown-list-open': listOpen}">
+    <div class="dropdown-list-item"
+         data-crlat="oddsDropDownItem"
+         *ngFor="let item of options; trackBy: trackByName"
+         [ngClass]="{'dropdown-list-item-selected': item.name === selectedItem.name}"
+         [textContent]="item.value"
+         (click)="selectItem(item)">
+    </div>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+@import 'global.variables.scss';
+
+.competition-filters {
+  font-family: $alt-font-family;
+
+  .filter-label {
+    padding-bottom: 1px;
+
+    &.padding-top { // reversed condition to save styles override
+      padding-bottom: 5px;
+    }
+  }
+
+  .scroll-container {
+    padding: 6px 0 6px;
+
+    &.padding-top { // reversed condition to save styles override
+      padding-top: 1px;
+    }
+  }
+}

@@ -1,0 +1,45 @@
+<div class="card" *ngIf="!isLoading">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Leagues Page
+      <active-inactive-expired [collection]="leaguesAmount"></active-inactive-expired>
+    </h2>
+  </div>
+</div>
+<div class="card" *ngIf="!isLoading">
+  <div class="body">
+    <!-- search and download button.-->
+    <div *ngIf="leagues" class="row clearfix">
+      <div class="col-md-3">
+        <button (click)="createLeague();" mat-button type="button" class="btn bg-teal waves-effect float-left">
+          <mat-icon>add_box</mat-icon>
+          <span>Create League</span>
+        </button>
+      </div>
+      <div class="col-md-3">
+        <download-cvs [cvsData]="leagues" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For League" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <!-- main content, config groups list-->
+    <div *ngIf="leagues && leagues.length">
+      <cms-data-table
+        [customTableData]="leagues"
+        [customTableColumns]="dataTableColumns"
+        [reorder]="false"
+        [filterString]="searchField"
+        [filterProperties]="filterProperties"
+        [actions]="['remove','edit']"
+        (onRemoveTableElement)="removeLeague($event)">
+      </cms-data-table>
+    </div>
+  </div>
+</div>

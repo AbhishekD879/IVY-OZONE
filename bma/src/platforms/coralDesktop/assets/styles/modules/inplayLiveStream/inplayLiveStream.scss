@@ -1,0 +1,37 @@
+@import 'global.variables.scss';
+
+.inplay-livestream-section {
+  margin-bottom: $componets-edge-gap;
+
+  .show-more-link {
+    margin-top: -$componets-edge-gap;
+  }
+}
+
+.event-card-container {
+  @include display-flex();
+}
+
+.in-play-live-stream {
+  background: $brand-color-dark no-repeat url(/assets/images/bg-live-matches.jpg) 0 0;
+  background-size: cover;
+  padding: 10px;
+  color: $color-white;
+
+  .spinner-loader {
+    display: none;
+  }
+  .video-js .vjs-error-display.vjs-modal-dialog .vjs-modal-dialog-content {
+    background: none;
+    color: $color-white;
+    height: auto;
+  }
+
+  .watch-live {
+    margin-bottom: 0;
+    display: block;
+  }
+  .error-message .horseracing-info-icon {
+    display: none;
+  }
+}

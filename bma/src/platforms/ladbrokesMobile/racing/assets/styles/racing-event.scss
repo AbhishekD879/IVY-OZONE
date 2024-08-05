@@ -1,0 +1,30 @@
+.top-event-panel .race-details-container {
+  .notification-icon-wrapper {
+    width: 26px;
+    height: 20px;
+    margin-left: auto;
+    margin-right: 0;
+    svg {
+      fill: $lGray;
+    }
+  }
+
+  .event-title {
+    .notification-icon-wrapper {
+      float: right;
+    }
+  }
+}
+
+.top-event-panel {
+  .racing-post-media-btns-container{
+    justify-content: space-between;
+    &.no-watch{
+      justify-content: flex-end;
+    }
+  }
+}
+
+.horse-racing-icons promotion-icon {
+  font-size: 10px;
+}

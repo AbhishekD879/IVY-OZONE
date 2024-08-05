@@ -1,0 +1,22 @@
+<ng-container *ngFor="let group of moduleConfig.results; trackBy: trackByGroup">
+  <accordion  [isExpanded]="true" *ngIf="isGroupVisible(group)"
+  [headerClass]="getHeaderClass()"
+   [isChevronToLeft]="moduleConfig?.brand?.device==='Mobile'">
+    <left-side>
+      <span class="left-title-text" [textContent]="group.date | date:'dd MMM yyyy'"></span>
+    </left-side>
+    <accordion-body class="res-top">
+      <div class="row">
+      <div class="col-md-6 bch-data col-xs-12"  *ngFor="let event of group.matches; trackBy: trackByEvent">
+      <ng-container >
+        <ng-container *ngIf="isEventVisible(event)">
+          <competition-odds-card-result-component [event]="event"></competition-odds-card-result-component>
+        </ng-container>
+      </ng-container>
+   </div>
+   </div>
+    </accordion-body>
+  </accordion>
+</ng-container>
+<show-all-button (click)="showMore()" *ngIf="showMoreAvailable" [showMoreMode]="true"></show-all-button>
+<no-events *ngIf="!moduleConfig?.results?.length" [message]="'bigcompetitions.noEvents'"></no-events>

@@ -1,0 +1,28 @@
+<div class="sk-container" [ngClass]="{'sk-loading': state.loading}">
+  <outlet-status [state]="state">
+    <request-error *ngIf="ssError || wsError.reconnectFailed" [loadFailed]="ssError || wsError.reconnectFailed"
+      (reloadFn)="reloadComponent()" data-crlat="errorField">
+    </request-error>
+  </outlet-status>
+  <ng-container *ngIf="!state.loading && !state.error">
+    <div class="heuristic-container" *ngIf="!ssError && !wsError.reconnectFailed" data-crlat="tabContent">
+
+      <loading-screen [displayed]="!dataReady && !wsError.reconnectFailed" [templateType]="'GENERIC'"></loading-screen>
+
+      <ng-container *ngIf="sportSectionData && dataReady && !wsError.reconnectFailed">
+        <ng-container *ngFor="let filter of viewByFilters; trackBy: trackById; let filterIndex = index">
+          <single-sport-section *ngIf="sportSectionData[filter] && dataReady && !wsError.reconnectFailed"
+            [filter]="filter" [inner]="false" data-crlat="accordionsList" class="single-sport-section"
+            [expandedLeaguesCount]="filterIndex === 0 ? expandedLeaguesCount : 0"
+            [eventsBySports]="sportSectionData[filter]" (reloadData)="updateSportData($event)"
+            [isHR]="isHR" [liveLabel]="isHR">
+          </single-sport-section>
+          <!-- Shown for single sport -->
+          <no-events data-crlat="label.noLiveEvents" *ngIf="showNoEventsSection(filter)"
+            [message]="isLiveNowFilter(filter) ? 'inplay.noLiveEventsFound' : 'inplay.noUpcomingEventsFound'">
+          </no-events>
+        </ng-container>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>

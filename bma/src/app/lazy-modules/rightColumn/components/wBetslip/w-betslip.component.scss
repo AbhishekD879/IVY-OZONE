@@ -1,0 +1,104 @@
+@import 'global.variables.scss';
+
+$menu-active-color: #3c4052;
+
+.w-betslip {
+  background: $bs-widget-bg;
+}
+
+:host {
+  ::ng-deep {
+    .bs-content-quick-deposit-vanilla {
+      .bs-selections-wrapper {
+        max-height: 250px;
+      }
+    }
+    .bs-content-quick-deposit {
+      .bs-selections-wrapper {
+        max-height: 125px;
+      }
+    }
+  }
+}
+
+.my-bets-content {
+  background: $bs-content-bg;
+  padding-bottom: $bs-content-padding-bottom;
+  margin-top: $bs-content-margin-top;
+}
+
+.w-betslip-tabs-wrapper {
+  @include display-flex();
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+  background: $bs-subheader-bg-color;
+  position: relative;
+  z-index: 1;
+
+  .w-betslip-tab {
+    @include display-flex();
+    @include justify-content(center);
+    @include align-items(center);
+    @include flex-grow(1);
+    height: $bs-subheader-height;
+    color: $bs-subheader-color;
+    text-transform: uppercase;
+    font-size: 12px;
+    cursor: pointer;
+
+    &.lads {
+      &:hover {
+        text-decoration: none;
+        background: $menu-active-color;
+      }
+    }
+
+    &.active {
+      border-bottom: 2px solid $bs-subheader-active-border-color;
+      color: $bs-subheader-active-color;
+      font-weight: bold;
+      pointer-events: none;
+    }
+
+    &:hover {
+      text-decoration: none;
+      background: $denim-blue;
+    }
+  }
+}
+
+.bet-slip-tabs-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+
+  // ios scroll fix
+  will-change: transform;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+
+  &.quick-deposit-iframe-opened {
+    max-height: none;
+  }
+  &.myBets {
+    overflow-y: auto;
+    ::ng-deep .switchers {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.bet-slip-tabs-container.myBets ::ng-deep .replay {
+  ::ng-deep .switchers {
+  margin-bottom: 0px!important;
+  //  padding: 0px;
+//  font-weight: 400;
+  font-family: Lato;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.001px;
+  border-top:none;
+  }
+  ::ng-deep .switch-btn {
+    border-bottom: none;
+    color: #252835;
+}
+}

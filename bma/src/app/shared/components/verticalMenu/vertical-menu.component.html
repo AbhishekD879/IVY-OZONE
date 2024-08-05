@@ -1,0 +1,47 @@
+<section
+  [ngClass]="showRetailHeader ? 'noHeaderMargin' : 'vertical-menu'"
+  class="page-container is-expanded" data-crlat="pageContainer" *ngIf="menuItems && menuItems.length">
+  <header *ngIf="showHeader" class="container-header" data-crlat="containerHeader">
+    <span class="left-title-text" [i18n]="header" data-crlat="headerTitle.leftMessage"></span>
+  </header>
+
+  <article class="container-content" data-crlat="containerContent">
+    <svg-list *ngIf="menuItems" [list]="menuItems"></svg-list>
+
+    <ul class="links-list-panel">
+      <ng-content></ng-content>
+      <ng-container *ngFor="let menuItem of menuItems; trackBy: trackByIndex;">
+        <li *ngIf="!menuItem.hidden" class="list-item"
+            [ngClass]="menuItem.qa"
+            (click)="menuItemClick(menuItem)"
+            data-crlat="menu.listItem">
+          <ng-container>
+            <a class="list-item-link"
+               [attr.title]="menuItem.title"
+               [attr.target]="menuItem.inApp ? '' : '_blank'"
+               linkHref
+               [link]="menuItem.targetUri"
+               data-crlat="link">
+              <svg class="item-icon" data-crlat="icon">
+                <use [attr.xlink:href]="'#' + (menuItem.svgId || 'icon-generic')"></use>
+              </svg>
+              <span class="item-name" data-crlat="title">
+                {{ menuItem.title }}
+                <span *ngIf="showDescription" class="item-description" data-crlat="description" [textContent]="menuItem.subtitle"></span>
+                <ng-container *ngIf="showOddsBoostCount(menuItem.targetUri)">
+                  <lazy-component 
+                        moduleUri="@oddsBoostModule/odds-boost.module#OddsBoostModule"
+                        entryComponent="OddsBoostCountNotificationComponent">
+                  </lazy-component>
+                </ng-container>
+              </span>
+              <svg class="item-next-arrow">
+                <use xlink:href="#next-arrow"></use>
+              </svg>
+            </a>
+          </ng-container>
+        </li>
+      </ng-container>
+    </ul>
+  </article>
+</section>

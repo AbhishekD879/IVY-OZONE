@@ -1,0 +1,27 @@
+<nav class="breadcrumbs_container"
+     data-crlat="breadcrumbsContainer">
+  <ul class="breadcrumbs clearfix">
+    <li class="breadcrumb_item"
+        [attr.title]="linkItem.name"
+        *ngFor="let linkItem of items; trackBy: trackByBreadcrumb; let last = last"
+        data-crlat="breadcrumb.item">
+      <a *ngIf="!last"
+         class="breadcrumb_link"
+         (click)="navigateUri($event, linkItem.targetUri)"
+         [attr.href]="linkItem.targetUri"
+         [textContent]="linkItem.name"
+         data-crlat="breadcrumb.link">
+      </a>
+      <span *ngIf="last" (click)="lastItemClick()" data-crlat="meetingSelector">
+        <span class="breadcrumb_link" [textContent]="linkItem.name" data-crlat="breadcrumb.link">
+        </span>
+        <span *ngIf="menuItems && menuItems.length" class="toggle-icon" data-crlat="toggleIcon"
+              [ngClass]="{'active' : isExpanded}">
+          <svg>
+            <use xlink:href="#down-arrow"></use>
+          </svg>
+        </span>
+      </span>
+    </li>
+  </ul>
+</nav>

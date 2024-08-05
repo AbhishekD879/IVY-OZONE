@@ -1,0 +1,7 @@
+<ng-container *ngIf="uKToteEnabled">
+  <li class="tote-indicator-container"
+      (click)="goToEvent(indicator.link, indicator.poolType)"
+      *ngFor="let indicator of poolIndicators; trackBy: trackById">
+    <a class="tab tote-indicator" [click-link] [textContent]="indicator.poolType" data-crlat="indicator.poolType"></a>
+  </li>
+</ng-container>

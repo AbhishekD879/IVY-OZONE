@@ -1,0 +1,348 @@
+<div class="my-bets-promo-labels-row">
+  <promo-labels
+    *ngIf="eventEntity && !isFCTC"
+    [event]="eventEntity"
+    [marketId]="leg.part[0].marketId"
+    [mode]="'bet-history-mode'"
+    [exclude]="bet.eventSource?.betType === 'SGL' ? 'EVFLAG_MB,MKTFLAG_MB,EVFLAG_EPR,MKTFLAG_EPR' : 'EVFLAG_EPR,MKTFLAG_EPR'"
+    class="my-bets-promo-labels">
+  </promo-labels>
+</div>
+<lazy-component *ngIf="eventEntity?.markets && isESPCheck(bet,eventEntity.markets,filterAddScore(eventMarketDescription, outcomeNames[0]))"
+                moduleUri="@lazy-modules-module/extraPlaceSignposting/extra-place-signposting.module#ExtraPlaceSignpostingModule"
+                [inputs]="{marketData:extraPlaceOfferedEvent,eventData:eventEntity,origin:origin,index:index}" 
+                entryComponent="ExtraPlaceSignpostingComponent">
+              </lazy-component>
+<div class="bet-leg-inner">
+  <!-- Winning/Losing indicators -->
+  <div *ngIf="winLosIndicator && !showRemovedLabel"
+       [class]="'leg-indicator ' + winLosIndicator"
+       [ngClass]="{'removing': leg.removing}">
+    <div class="icon">
+      <div class="arrow-icon"></div>
+    </div>
+  </div>
+
+  <!-- Leg status -->
+  <div *ngIf="leg.part.length >= 1 && statusName && !showRemovedLabel && !isBuildYourBet && !shouldShowFiveASideIcon"
+       class="leg-status-container"
+       data-crlat="legStatusContainer"
+       [ngClass]="statusName">
+    <span class="leg-status" [attr.data-crlat]="'leg.status.' + statusName" [textContent]="statusName"></span>
+  </div>
+
+  <div *ngIf="!isMultiples && shouldShowSilk"
+       class="silk-container single {{statusName}}"
+       data-crlat="silks"
+       [ngClass]="{'removed': showRemovedLabel || leg.removing}">
+
+    <div *ngIf="isGenericSilk(leg)"
+         class="silk-img"
+         data-crlat="silk.generic"></div>
+
+    <div *ngIf="isSilkAvailable(leg)"
+         class="silk-img" [ngClass]="isUKorIRE ? 'with-default': 'inter-silk'"
+         data-crlat="silk.image">
+
+      <div [ngStyle]="getSilkStyle(leg)"
+           data-crlat="silk.image.style">
+      </div>
+
+    </div>
+    <ng-container *ngIf="leg?.eventEntity?.categoryId === HORSE_RACING_CATEGORY_ID && getRunnerNumberAndStallNumber(leg); let runnerNumberAndStallNumber">
+      <div class="odds-side"
+          *ngIf="(isSilkAvailable(leg) || isGenericSilk(leg))">
+        <strong [textContent]="runnerNumberAndStallNumber.runnerNumber" data-crlat="runnerNumber"></strong>
+        <span class="label-text" *ngIf="runnerNumberAndStallNumber.stallNumber" data-crlat="outcomeDraw">
+          (<span [textContent]="runnerNumberAndStallNumber.stallNumber"></span>)
+        </span>
+      </div>
+    </ng-container>
+  </div>
+
+  <div [attr.eventid]="leg.eventEntity?.id"
+       class="single-item-inner"
+       [ngClass]="getClasses(leg)"
+       data-crlat="cashout.betLegItem">
+    <div *ngIf="isSportIconEnabled && !isBuildYourBet && !shouldShowFiveASideIcon" class="sports-icon">
+      <svg class="sports-icon-position">
+        <use [attr.xlink:href]="'#'+sportIconSvgId"></use>
+      </svg>
+    </div>
+    <div class="leg-z-index">
+    <div *ngIf="!isBuildYourBet" class="select-market-header top"
+         data-crlat="section.marketHeader">
+      <div class="single-left"
+           data-crlat="marketHeader">
+      <span *ngIf="showRemovedLabel || leg.removing" class="leg-remove-marker" [i18n]="'ema.legRemoved'"
+            data-crlat="legRemoveMarker"></span>
+
+        <div *ngIf="!isMultiples" class="selection-name"
+             data-crlat="outcomeInfo">
+        <span class="single-selection-name" 
+        [ngClass]="{'single-selection-name-ld':isLDMarket}"
+              [textContent]="filterPlayerName(outcomeNames[0])"
+              data-crlat="selectionName"
+              data-uat="selectionName"></span>
+        <ng-container *ngIf="displayBogPrice && startingOddsCaption">
+          <span class="single-selection-odds single-selection-odds-plain single-selection-odds-bog"
+                [textContent]="startingOddsCaption"></span>
+          <span class="selection-odds-separator"></span>
+        </ng-container>
+        <span class="single-selection-odds"
+              [ngClass]="{'single-selection-odds-ld':isLDMarket,'single-selection-odds-plain': !(displayBogPrice && startingOddsCaption), 'single-selection-odds-crossed': displayBogPrice && startingOddsCaption}"
+              [textContent]="takenOddsCaption"
+              data-crlat="oddsValue"></span>
+      </div>
+
+        <!-- Outcome names -->
+        <div class="selection-names" *ngIf="isMultiples">
+          <div *ngFor="let name of outcomeNames; trackBy: trackByOutcomeName; index as i;"
+               class="selection-name"
+               data-crlat="outcomeInfo">
+
+            <div *ngIf="shouldShowSilk"
+                 class="silk-container"
+                 data-crlat="outcome.silk">
+
+              <div *ngIf="isGenericSilk(leg, i)"
+                   class="silk-img"
+                   data-crlat="silk.generic"></div>
+
+              <div *ngIf="isSilkAvailable(leg, i)"
+                   class="silk-img" [ngClass]="isUKorIRE ? 'with-default': 'has-img'"
+                   data-crlat="silk.image">
+
+                <div [ngStyle]="getSilkStyle(leg, i)"
+                     data-crlat="silk.image.style">
+                </div>
+
+              </div>
+
+            </div>
+            <ng-container *ngIf="(leg?.eventEntity?.categoryId === HORSE_RACING_CATEGORY_ID  || leg?.backupEventEntity?.categoryId === HORSE_RACING_CATEGORY_ID) && +bet.eventSource.numLines === 1">
+              <span class="fctc-place" [ngPlural]="i + 1">
+                <ng-template ngPluralCase="1">1st</ng-template>
+                <ng-template ngPluralCase="2">2nd</ng-template>
+                <ng-template ngPluralCase="3">3rd</ng-template>
+              </span>
+            </ng-container>
+            <span class="single-selection-name"
+                  [textContent]=" name | callBack : filterPlayerName : this"
+                  data-crlat="selectionName"
+                  data-uat="selectionName"></span>
+            <ng-container *ngIf="leg?.eventEntity?.categoryId === HORSE_RACING_CATEGORY_ID && getRunnerNumberAndStallNumber(leg, name); let runnerNumberAndStallNumber">
+              <span class="runner-number">(<span [textContent]="runnerNumberAndStallNumber.runnerNumber"></span>)</span>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <lazy-component *ngIf="isBuildYourBet"
+                    moduleUri="@bybHistoryModule/byb-history.module#LazyBybHistoryModule"
+                    [inputs]="{leg: leg, bet: bet.eventSource, isUsedFromWidget: isUsedFromWidget, isLastBet: isLastBet}"
+                    entryComponent="BybSelectionsComponent">
+    </lazy-component>
+
+    <div *ngIf="!leg.removing && !leg.isEventEntity && !leg.noEventFromSS" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+
+    <!-- Event info -->
+    <div class="event-info" [ngClass]="{'silk-space': silkSpace, 'arrowed-item': isBuildYourBet}">
+      <div *ngIf="shouldShowFiveASideIcon" class="fiveASideIcon">
+        <svg>
+          <use xlink:href="#icon-logo-five-a-side"></use>
+        </svg>
+      </div>
+      <div *ngIf="isSportIconEnabled && (isBuildYourBet || shouldShowFiveASideIcon)" class="sports-icon sports-icon-byb">
+        <svg class="sports-icon-position">
+          <use [attr.xlink:href]="'#'+sportIconSvgId"></use>
+        </svg>
+      </div>
+      <div class="leg-z-index">
+        <!-- Byb suspended label -->
+        <div *ngIf="isBuildYourBet && bet.eventSource.settled !== 'Y' && leg.status === 'suspended'"
+          class="byb-suspended-label" [i18n]="'app.suspended'"></div>
+
+        <!-- Single market name -->
+        <div class="single-market-name" *ngIf="!showRemovedLabel && !leg.removing">
+          <span [textContent]="filterAddScore(eventMarketDescription, outcomeNames[0])"
+                data-crlat="marketName"
+                data-uat="marketName"></span>
+
+          <ng-container *ngIf="displayBogPrice && startingOddsCaption && isMultiples">
+            <span class="single-selection-odds single-selection-odds-plain single-selection-odds-bog"
+                  [textContent]="startingOddsCaption"></span>
+            <span class="selection-odds-separator"></span>
+          </ng-container>
+
+          <ng-container *ngIf="isMultiples">
+            <span class="single-selection-odds"
+                  [ngClass]="{'single-selection-odds-plain': !(displayBogPrice && startingOddsCaption), 'single-selection-odds-crossed': displayBogPrice && startingOddsCaption}"
+                  [textContent]="takenOddsCaption"
+                  data-crlat="oddsValue"></span>
+          </ng-container>
+        </div>
+
+        <!-- Event header -->
+        <event-header
+          *ngIf="eventEntity && bet"
+          [event]="eventEntity"
+          [id]="bet.eventSource.id || bet.eventSource.betId"
+          [result]="leg.part[0].result"
+          [place]="leg.part[0]?.outcome[0]?.result?.places"
+          [status]="bet.eventSource.settled !== 'Y' && is2upMarketSuspended(leg) ? '' : leg.status"
+          [totalStatus]="bet.eventSource.totalStatus"
+          [legType]="legType"
+          [homeScore]='eventEntity.comments?.teams?.home?.score'
+          [awayScore]='eventEntity.comments?.teams?.away?.score'
+          [matchTime]='eventEntity.clock?.matchTime'
+          [runningSetIndex]='eventEntity.comments?.runningSetIndex'
+          [isHRLiveLabel]="isHRLiveLabelEnabled()"
+          [isOff]="leg.is_off"
+          [isLd] = "isLDMarket"
+          [ngClass]= "bet.eventSource.totalStatus === STATUS_VOID ? 'void' : {removed: leg.removing}"
+          [outcomeId]="leg.part[0]?.outcome[0].id ?? leg.part[0]?.outcome"
+          data-crlat="legItem">
+        </event-header>
+
+        <!-- Rule 4 message for Horse racing events -->
+        <div *ngIf="ruleFourDeduction"
+             class="rule-four-message">
+          <span [i18n]="'bethistory.ruleFourMessageFirstPart'"></span>
+          <span class='highlight'
+                [textContent]="ruleFourDeduction + 'p'"></span>
+          <span [i18n]="'bethistory.ruleFourMessageSecondPart'"></span>.
+          <a
+            class='link'
+            (click)="$event.stopPropagation();"
+            [attr.href]='RULE_FOUR_URL'
+            target='_blank'
+            [i18n]="'bethistory.ruleFourMessageThirdPart'">
+          </a>
+        </div>
+
+        <!-- Dead heat message -->
+        <div 
+            *ngIf="isDeadHeat && isDeadHeatApplicable(leg)"
+             class="rule-four-message"
+             data-crlat="deadheatInfo">
+          <span [i18n]="'bethistory.deadHeatMessageFirstPart'"></span>
+          <a
+            class='link'
+            [attr.href]='deadHeatURL'
+            target='_blank'
+            (click)="prepareGAData(true, leg, $event)"
+            [i18n]="'bethistory.ruleFourMessageThirdPart'">
+          </a>
+        </div>
+
+        <div class="promotion-icon-label">
+          <ng-container *ngIf="leg.part?.length && (bet?.eventSource?.betType !== 'SGL' || (isTwoUpSettlmentSignpostDisplay && leg.part[0]?.outcome[0]?.result?.confirmed == 'Y' && bet?.eventSource?.betType === 'SGL'))">
+            <promotion-icon
+            [type]="'market'"
+            [mode]="'sm'"
+            [display]="appendDrillDownTagNames(leg.backupEventEntity, leg.part[0])"
+            [marketName]="leg.part[0].eventMarketDesc"
+            [sport]="'sport'"
+            [isTwoUpSettlementDone]="isTwoUpSettlementDone"
+            data-crlat="promotionIcons"
+            [disablePopUp]=true>
+            </promotion-icon>
+          </ng-container>
+          
+          <promo-labels
+            *ngIf="eventEntity && !isFCTC"
+            [luckyDip]="isLDMarket"
+            [event]="eventEntity"
+            [marketId]="leg.part[0].marketId"
+            [mode]="'bet-history-mode'"
+            [exclude]="excludedDrilldownTagNames"
+            [origin]="origin"
+            class="my-bets-promo-labels bottom-extra-place-label">
+          </promo-labels>
+        </div>
+        
+
+        <bog-label *ngIf="!isFCTC && leg.part[0].isBog && !removeBogAndLabel" [bogLabelStyle]="false"></bog-label>
+        <lazy-component *ngIf="eventEntity?.markets && isESPCheck(bet,eventEntity.markets,filterAddScore(eventMarketDescription, outcomeNames[0]))"  
+        moduleUri="@lazy-modules-module/extraPlaceSignposting/extra-place-signposting.module#ExtraPlaceSignpostingModule"
+        [inputs]="{marketData:extraPlaceOfferedEvent,origin:origin,isBetHistory:true,changeStrategy: changeStrategy}" 
+        entryComponent="ExtraPlaceSignpostingComponent">
+      </lazy-component>
+      </div>      
+      <ng-template [ngTemplateOutlet]="streamingButtonReplay"  *ngIf="isWatchReplayAvailable()&& !(getStreamByType()) "> </ng-template>
+      <ng-template [ngTemplateOutlet]="streamingButton" *ngIf="isHRbuttonEnabled() && !leg.isLiveStreamOpened && !isWatchReplayAvailable()"> </ng-template>
+    </div>
+
+    <edit-my-acca-remove-icon *ngIf="bet.eventSource.isAccaEdit" [bet]="bet" [leg]="leg"></edit-my-acca-remove-icon>
+    
+  </div>
+  </div>
+</div>
+<ng-container *ngIf="leg.isLiveStreamOpened && !isReplayVideo && isHRbuttonEnabled() && hrEventEntity">
+  <div class="media-area-container"  (click)="watchCTAclick=true">
+    <div *ngIf="spinner.loading" class='loading-v3'><div class='dot-flashing'></div></div>
+    <div class="media-area watch-live-widget">
+      <lazy-component moduleUri="@lazy-modules-module/eventVideoStream/event-video-stream.module#LazyEventVideoStreamModule" [inputs]="{eventEntity: hrEventEntity, autoPlay: true,  preloadStream: true, cssClassesForStreams: cssClassesForStreams, streamUniqueId: isUsedFromWidget?'rtmpe-hls-bet-widget':'rtmpe-hls-bet', isLiveStreamRefreshed: isLiveStreamRefreshed, isMyBets: true,isReplayVideo:false,tabName,eventName,isUsedFromWidget:isUsedFromWidget}"
+        [outputs]="['playStreamError', 'liveStreamStarted']" (event)="onVideoStreamEvent($event)" (init)="transitionSpinner()" data-crlat="eventVideoStreamArea">
+      </lazy-component>
+    </div>
+  </div>
+  <ng-template [ngTemplateOutlet]="streamingButton"> </ng-template>
+</ng-container>
+<ng-template #streamingButton>
+  <div class="racing-post-media-btns-container" *ngIf="!isWatchReplayAvailable() && isNotAntepostOrSpecials() && isHRbuttonEnabled() && hrEventEntity && hrEventEntity.liveStreamAvailable && !leg.removedLeg " [ngClass]="{ 'done-btn': leg.isLiveStreamOpened }">
+    <div class="btn-wrapper">
+      <a class="btn watch-btn" [ngClass]="{'active' : leg.isLiveStreamOpened}" (click)="playStream($event)" data-crlat="buttonPlayStream">
+        <svg class="btn-icon video-stream-icon">
+          <use xlink:href="#video-stream-icon"></use>
+        </svg>
+        <ng-container *ngIf="showWatchAndInsights() && (eventEntity.rawIsOffCode !== 'Y' && !leg.is_off); else elseBlock">
+          <span [i18n]="leg.isLiveStreamOpened ? 'sb.done' : 'sb.watchInsights'"></span>
+        </ng-container>
+        <ng-template #elseBlock>
+          <span [i18n]="leg.isLiveStreamOpened ? 'sb.done' : 'sb.watch'"></span>
+        </ng-template>
+      </a>
+    </div>
+  </div>
+</ng-template>
+<ng-template #streamingButtonReplay>
+  <div class="racing-post-media-btns-container" *ngIf="isWatchReplayAvailable()"
+    [ngClass]="{ 'replay-done-btn':getStreamByType()}">
+    <div class="btn-wrapper">
+      <a class="btn watch-btn"     [ngClass]="[isBrandLadbrokes ? 'lads-replaybtn': 'coral-replaybtn', getStreamByType()? 'active': '']" 
+       (click)="replayStream($event)"
+        data-crlat="buttonPlayStream">
+        <svg class="btn-icon video-stream-icon">
+          <use xlink:href="#video-stream-icon"></use>
+        </svg>
+        <ng-container>
+          <span   class ="replayspan" [ngClass]="{'coral-text':!isBrandLadbrokes}"  [i18n]="(getStreamByType()) ? 'sb.done' : 'sb.watchReplay'"></span>
+        </ng-container>
+      </a>
+    </div>
+  </div>
+</ng-template>
+<lazy-component
+        moduleUri="@lazy-modules-module/casinoMyBetsIntegration/casino-my-bets-integration.module#CasinoMyBetsIntegrationModule"
+        [inputs]="{showLeavingCasinoDialog}" [outputs]="['userAction']" (event)="confirmationDialogClick($event)"
+        entryComponent="LeavingCasinoDialogComponent"></lazy-component>
+<ng-container
+  *ngIf="(getStreamByType()) && isReplayVideo && isWatchReplayAvailable()">
+  <div class="media-area-container" (click)="watchCTAclick=true">
+    <div *ngIf="spinner.loading" class='loading-v3'>
+      <div class='dot-flashing'></div>
+    </div>
+    <div class="media-area watch-live-widget">
+      <lazy-component
+        moduleUri="@lazy-modules-module/eventVideoStream/event-video-stream.module#LazyEventVideoStreamModule"
+        [inputs]="{eventEntity: hrEventEntity, autoPlay: true,  preloadStream: true, cssClassesForStreams: cssClassesForStreams, streamUniqueId: isUsedFromWidget?'rtmpe-hls-bet-widget':'rtmpe-hls-bet', isLiveStreamRefreshed: isLiveStreamRefreshed, isMyBets: true,isReplayVideo:isReplayVideo,tabName,isUsedFromWidget:isUsedFromWidget,eventName}"
+        [outputs]="['playStreamError', 'liveStreamStarted']" (event)="onVideoStreamEvent($event)"
+        (init)="transitionSpinner()" data-crlat="eventVideoStreamArea">
+      </lazy-component>
+    </div>
+  </div>
+  <ng-template [ngTemplateOutlet]="streamingButtonReplay"> </ng-template>
+</ng-container>

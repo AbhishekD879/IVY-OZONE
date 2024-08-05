@@ -1,0 +1,477 @@
+@import 'global.variables.scss';
+
+.five-a-side-overlay {
+  .no-box-shadow {
+    box-shadow: none !important; //Utility class to mark an element with  no box shadow.
+  }
+  // bad Safari rendering: elements with translateZ(0) from sibling DOM branches were shown
+  // above the 5-a-side drawer overlay despite its fixed position
+  will-change: auto, transform;
+  transform: translate3d(0,0,0);
+  z-index: $ngdialog-zindex - 4;
+  position: relative;
+
+  .scroll-body {
+    overflow: hidden;
+    overflow-y: hidden;
+  }
+
+  .five-a-side-title {
+    width: 100%;
+    color: $color-black;
+    padding: 16px 16px 10px;
+    .five-a-side-icon {
+      width: 18px;
+      height: 21px;
+    }
+    .five-a-side-text {
+      height: 15px;
+      width: 51px;
+      margin-left: 8px;
+    }
+
+    .subtitle-text {
+      opacity: 0.5;
+      font-size: 13px;
+      margin-bottom: 0;
+      line-height: 1.5;
+      font-family: $alt-font-family;
+    }
+  }
+
+  .formation-carousel {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+
+    .scroll-inner {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      padding: 0;
+
+      .formation-cell {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-right: 20px;
+        min-width: 55px;
+
+        &:first-child {
+          margin-left: 16px;
+        }
+
+        &:last-child {
+          margin-right: 16px;
+        }
+
+        @media #{$mqStPoint}{
+          width: 113px;
+          margin-right: 10px;
+        }
+
+        .formation-icon {
+          width: 24px;
+          height: 24px;
+          margin-bottom: 8px;
+        }
+
+        .formation-name {
+          font-family: $base-font-family;
+          font-size: $font-size;
+          line-height: $line-height-normal;
+          text-transform: uppercase;
+        }
+
+        .selected {
+          color: $color-blue-selected;
+          font-weight: bold;
+        }
+
+        .unselected {
+          color: $color-very-light-gray;
+          font-weight: normal;
+        }
+      }
+    }
+  }
+
+  .five-a-side-body{
+    font-family: $alt-font-family;
+    width: 100%;
+    height: 492px;
+    position: relative;
+    .branding-section {
+      height: 30.4px;
+      border-bottom: solid 1.4px $color-pantone;
+      background: $color-green-observatory;
+      padding: 6px 48px 5px;
+
+      .branding-wrapper {
+        width: 71px;
+        height: 18px;
+        background: $color-brand-background;
+        padding: $branding-padding;
+        float: right;
+
+        &:first-child {
+          float: left;
+        }
+
+        .branding-icon {
+          width: 55px;
+          height: 10px;
+        }
+      }
+    }
+    .watermark {
+      pointer-events: none;
+      opacity: 0.5;
+      position: absolute;
+      width: 149px;
+      height: 173px;
+      margin: 0 auto;
+      top: 40%;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .football-field {
+      width: 100%;
+      height: 405px;
+      background-image: linear-gradient(0deg, $color-green-watercourse 0%, $color-green-observatory 100%);
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      position: relative;
+      .formation-value {
+        position: absolute;
+        top: 5%;
+        right: 5px;
+        font-family: $base-font-family;
+        font-size: 13px;
+        letter-spacing: -0.4px;
+        color: $color-white;
+      }
+
+      .first-goal-line {
+        width: 100px;
+        height: 30px;
+        border: solid 1.4px $color-pantone;
+        position: absolute;
+        border-top: none;
+        top: 0;
+        left: 50%;
+        will-change: transform;
+        transform: translate(-50%, 0);
+      }
+      .second-goal-line {
+        width: 260px;
+        height: 96px;
+        border: solid 1.4px $color-pantone;
+        position: absolute;
+        border-top: none;
+        top: 0;
+        left: 50%;
+        will-change: transform;
+        transform: translate(-50%, 0);
+        display: flex;
+        justify-content: center;
+        .dot {
+          width: 5px;
+          height: 5px;
+          background-color: $color-green-rain;
+          border-radius: 50%;
+          top: 61%;
+          position: relative;
+        }
+      }
+      .circle-goal-line {
+        width: 46px;
+        height: 21px;
+        border-bottom-left-radius: 21px;
+        border-bottom-right-radius: 21px;
+        border: solid 1.4px $color-pantone;
+        border-top: 0;
+        position: absolute;
+        top: 96px;
+        left: 50%;
+        will-change: transform;
+        transform: translate(-50%, 0);
+      }
+      .circle-bottom-line {
+        border-top-left-radius: 52px;
+        border-top-right-radius: 52px;
+        border: solid 1.4px $color-cyprus;
+        width: 114px;
+        height: 52px;
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        will-change: transform;
+        transform: translate(-50%, 0);
+      }
+
+      .players-matrix {
+        width: 100%;
+        position: relative;
+        margin: 12px auto 0;
+        flex-grow: 1;
+
+        @media #{$mqStPoint} {
+          max-width: 424px;
+        }
+
+        .cell {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 33%;
+          position: absolute;
+          transition: all 0.5s;
+
+          .player {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            line-height: normal;
+            &.conflict {
+              opacity: 0.59;
+            }
+
+            .player-image {
+              width:30px;
+              height:30px;
+              border-radius: 50%;
+              margin-bottom: 3px;
+              position: relative;
+             }
+
+            .player-icon {
+              cursor: pointer;
+              width: 30px;
+              height: 30px;
+              display: inline-block;
+              text-align: center;
+              color: transparent;
+              box-shadow: 0 1px 0 0 $color-green-sea;
+              border-radius: 50%;
+              margin-bottom: 3px;
+              position: relative;
+
+              &.not-selected-player-icon {
+                background: $color-green-deap;
+
+                .plus-icon {
+                  position: relative;
+                  width: 8px;
+                  height: 8px;
+                  top: 50%;
+                  left: 50%;
+                  will-change: transform;
+                  transform: translate(-50%, -50%);
+
+                  &:before,
+                  &:after {
+                    content: "";
+                    position: absolute;
+                    background-color: white;
+                    transition: transform 0.25s ease-out;
+                  }
+
+                  &:before {
+                    left: 50%;
+                    width: 2px;
+                    height: 100%;
+                    margin-left: -1px;
+                  }
+
+                  &:after {
+                    top: 50%;
+                    left: 0;
+                    width: 100%;
+                    height: 2px;
+                    margin-top: -1px;
+                  }
+
+                }
+              }
+            }
+            .player-name {
+              font-size: 15px;
+              font-weight: bold;
+              text-align: center;
+              color: $color-white;
+              margin-bottom: 3px;
+              white-space: nowrap;
+
+            }
+            .market-name {
+              opacity: 0.9;
+              font-size: 13px;
+              text-align: center;
+              color: $color-white;
+              white-space: nowrap;
+            }
+          }
+        }
+        .cell-0-0 {
+          left: 0;
+          top: 0;
+        }
+        .cell-0-1 {
+          left: 33.39%;
+          top: 0;
+        }
+        .cell-0-2 {
+          left: 66.69%;
+          top: 0;
+        }
+        .cell-1-0 {
+          left: 0;
+          top: 25%;
+        }
+        .cell-1-1 {
+          left: 33.39%;
+          top: 25%;
+        }
+        .cell-1-2 {
+          left: 66.69%;
+          top: 25%;
+        }
+        .cell-2-0 {
+          left: 0;
+          top: 50%;
+        }
+        .cell-2-1 {
+          left: 33.39%;
+          top: 50%;
+        }
+        .cell-2-2 {
+          left: 66.69%;
+          top: 50%;
+        }
+        .cell-3-0 {
+          left: 0;
+          top: 75%;
+        }
+        .cell-3-1 {
+          left: 33.39%;
+          top: 75%;
+        }
+        .cell-3-2 {
+          left: 66.69%;
+          top: 75%;
+        }
+        .cell-0-6 {
+          top: 0;
+          left: 10%;
+        }
+        .cell-0-7 {
+          top: 0;
+          left: 57%;
+        }
+        .cell-1-6 {
+          top: 25%;
+          left: 10%;
+        }
+        .cell-1-7 {
+          top: 25%;
+          left: 57%;
+        }
+        .cell-2-6 {
+          top: 50%;
+          left: 10%;
+        }
+        .cell-2-7 {
+          top: 50%;
+          left: 57%;
+        }
+        .cell-3-6 {
+          top: 75%;
+          left: 10%;
+        }
+        .cell-3-7 {
+          top: 75%;
+          left: 57%;
+        }
+      }
+
+      btn-odds {
+        margin: 0 18px 24px;
+      }
+    }
+  }
+  .error-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 50px;
+    position: absolute;
+    z-index: 1;
+    margin-top: -10px;
+    left: 0;
+    padding: 8px 16px 8px 32px;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.18);
+    background-color: $warning-msg-color;
+
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 300ms ease-in-out;
+    &.hide {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    .info-icon {
+      height: 16px;
+      width: 16px;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 9px;
+      margin: auto;
+    }
+
+    .error-message {
+      font-size: 12px;
+      color: $lGray;
+      line-height: 1.25;
+      letter-spacing: 0;
+      text-transform: capitalize;
+    }
+  }
+
+  .five-a-side-betslip {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .five-a-side-pitch-overlay {
+    background-color: rgba(0,0,0,0.8);
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    opacity: 0.8;
+    top: 0;
+  }
+
+  .five-a-side-journey-wrapper {
+    width: 100%;
+    height: 170px;
+    background: #fcfdfd;
+    border-top-left-radius: 13px;
+    border-top-right-radius: 13px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+}

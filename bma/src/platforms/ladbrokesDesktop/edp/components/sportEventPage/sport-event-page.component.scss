@@ -1,0 +1,55 @@
+@import '../../../../../platforms/ladbrokesMobile/edp/components/sportEventPage/sport-event-page.component.scss';
+
+:host {
+  .market-column {
+    flex: unset;
+  }
+
+  .col-bordered .col-inner .col-name {
+    font-weight: normal;
+    text-transform: uppercase;
+  }
+
+  .is-horizontal .col-vertical, ::ng-deep .is-horizontal .col-bordered .col-inner.col-vertical {
+    height: 100%;
+
+    price-odds-button {
+      margin-top: auto;
+    }
+  }
+  price-odds-button {
+    ::ng-deep .btn-bet { 
+      min-width: auto;
+      font-size: 13px;
+      line-height: 13px;
+      min-height: 40px;
+      width: 99px;
+        .handicap-btn {
+        display: inline-flex;
+        padding-right: 30px;
+        color: $color-blue-cornflower;
+      }
+    }
+  }
+  #wdw-name {
+    padding-right: 4px;
+    word-break: break-word;
+  }
+  .ww-temp {
+    price-odds-button{
+     ::ng-deep .btn-bet {
+      min-width: auto;
+      font-size: 13px;
+      line-height: 13px;
+      min-height: 40px;
+      width: 155px;
+      }
+    }
+  }
+
+  ::ng-deep .promotion-icon-container {
+    .cashout-label-wrapper {
+        margin: 0;
+    }
+  }
+}

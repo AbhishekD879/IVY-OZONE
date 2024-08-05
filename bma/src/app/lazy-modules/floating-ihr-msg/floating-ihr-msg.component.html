@@ -1,0 +1,11 @@
+<div *ngIf="showFloatingInplayMsg && closeFloatingMsg" class="floating-msg-area" 
+    [ngClass]="isBrandLadbrokes ? 'ladbrokes-background' : 'coral-background'">
+    <svg class="floating-msg-horse" >
+      <use xlink:href="#horseracing"></use>
+    </svg>
+    <div class="floating-msg-text" [ngClass]="isBrandLadbrokes ? 'ladbrokes-font-family' : ''"
+     [textContent]="floatingMsgText"></div> 
+    <svg class="floating-msg-close" (click)="closeFloatingInplayMsg()">
+      <use xlink:href="#close_qb"></use>
+    </svg>
+</div>

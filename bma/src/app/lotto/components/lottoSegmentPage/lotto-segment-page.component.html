@@ -1,0 +1,139 @@
+<div class="sk-container" [ngClass]="{'sk-loading': state.loading}">
+  <outlet-status [skeletonType]="'GENERIC_FULL'" [state]="state">
+    <div class="container">
+      <div class="center-text">
+        <span [i18n]="'lotto.serverError'"></span>
+      </div>
+      <div class="center-text">
+        <span [i18n]="'lotto.errorServiceDepartmentMessage'"></span>
+        <span>
+          <a [routerLink]="['/contact-us']" [i18n]="'lotto.errorServiceDepartmentLink'"></a>
+        </span>
+      </div>
+    </div>
+  </outlet-status>
+  <ng-container *ngIf="!state.loading && !state.error">
+    <div class="lotto-segment" [ngClass]="{'lotto-segment-lads': isBrandLadbrokes}">
+      <section class="page-container" [ngClass]="{'lads-border': isBrandLadbrokes}">
+        <header class="container-header" [ngClass]="{'lads': isBrandLadbrokes}" data-crlat="containerHeader">
+          <div class="segment-title">
+            <strong>
+              <span data-crlat="currentLotto.name" [textContent]="singleData?.label"></span>
+            </strong>
+          </div>
+          <a class="help-icon" (click)="openLottoInfoDialog()" data-crlat="infoButton">
+            <svg>
+              <use xlink:href="#info-icon"></use>
+            </svg>
+          </a>
+          <span [textContent]="lotto.nextDraw"></span>&nbsp;
+          <span *ngIf="days !== 0">
+            <span>{{ days }}</span>&nbsp;
+            <span [i18n]="'lotto.days'" *ngIf="days !== 1"></span>
+            <span [i18n]="'lotto.day'" *ngIf="days === 1"></span>&nbsp;
+          </span>
+          <span *ngIf="hours !== 0">
+            <span>{{ hours }}</span>&nbsp;
+            <span [i18n]="'lotto.hours'" *ngIf="hours !== 1"></span>
+            <span [i18n]="'lotto.hour'" *ngIf="hours === 1"></span>&nbsp;
+          </span>
+          <span>
+            <span>{{ minutes }}</span>&nbsp;
+            <span [i18n]="'lotto.minutes'" *ngIf="minutes !== 1"></span>
+            <span [i18n]="'lotto.minute'" *ngIf="minutes === 1"></span>
+          </span>
+        </header>
+        <div class="button-segment-container">
+          <div class="page-inner container-group" [ngClass]="{'lads-container-group ': isBrandLadbrokes}">
+            <div class="page-segment padding-btm-group" [ngClass]="{'padding-btm ': isBrandLadbrokes}">
+              <div [ngClass]="{'lads-border': isBrandLadbrokes}">
+                <div class="group-buttons btm-margin font" data-crlat="Select Numbers">
+                  <div class="group-caption"> {{lotto.selectNumbers}}</div>
+                  <div class="group-btn" data-crlat="buttonGroup">
+                    <div class="group-col group-default ">
+                      <button class="btn " [ngClass]="{'lads': isBrandLadbrokes}" (click)="numDialog();"
+                        data-crlat="luckyButton"> {{lotto.chooseNumbers}}</button>
+                    </div>
+                    <div class="group-col group-default  usefavourites">
+                      <button class="btn" [ngClass]="{'lads': isBrandLadbrokes}" data-crlat="luckyButton"> {{lotto.useFavourites}}</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="group-buttons" data-crlat="lotto.luckyDip">
+                  <div class="group-caption"> {{lotto.orChooseYourLuckyD}}</div>
+                  <div class="group-btn" data-crlat="buttonGroup">
+                    <div class="group-col group-default" *ngFor="let lucky of luckyDipArr;">
+                      <button class="btn" [ngClass]="{'lads': isBrandLadbrokes}" (click)="luckyDip(lucky); numDialog();"
+                        data-crlat="luckyButton">{{ lucky |
+  
+                        callBack : getDipTranslations : this }}</button>
+  
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="widget-column">
+              <ng-container *ngIf="previousResults.length">
+                 <div class="prev-results" [ngClass]="{'lads': isBrandLadbrokes}">
+                    <div class="group-caption previousResults-label" data-crlat="previousResults">{{lotto.previousResults}}</div>
+                    <ng-container  *ngFor="let betResults of previousResults">
+                      <div class ="previousResults group-buttons btm-margin">
+                        <div class="group-caption">
+                            <p class="draw-name-time lads" *ngIf= "isBrandLadbrokes else coralPlusDraw"> 
+                              <strong>{{betResults.drawName}}</strong><span> - </span>                            
+                                <span [dateTimeFmt]="betResults.drawAt"></span>
+                            </p> 
+                            <ng-template #coralPlusDraw >
+                              <p class="draw-name-time">
+                                <strong><span>{{betResults.drawName}}</span><span>&nbsp;{{betResults.noOfBalls}}</span><span>&nbsp;{{lotto.ball}}</span> - </strong>
+                                <span [dateTimeFmt]="betResults.drawAt"></span>
+                              </p>
+                            </ng-template>                         
+                        </div>
+                          <div class="previous-balls previousResults-drawBalls ">
+                            <span *ngFor="let ball of betResults.balls" class="previous-ball ">{{ ball }}</span>
+                            <div *ngIf="betResults.bonusBall != null" class=" previous-balls bonus-ball-wrapper"> 
+                              <span class="previous-ball" [ngClass]="{'lads-bonusball':isBrandLadbrokes}"> {{ betResults?.bonusBall }}</span>
+                            </div>
+                          </div>
+                      </div>
+                    </ng-container>
+                    <div *ngIf="handleAccordian" class="toggle-icon-caption" [showMoreMode]="true" data-crlat="toggleIcon">
+                      <div class="toggle-icon"  (click)="handleToggle()" [ngClass]="{'lads-toggle-icon': isBrandLadbrokes}" data-crlat="toggleIcon">
+                        <span [textContent]=" isShowMore ? 'View Less Results' : 'View More Results'"></span>
+
+                        <svg *ngIf="!isShowMore">
+                          <use xlink:href="#down-arrow"></use>
+                        </svg>
+
+                        <svg *ngIf="isShowMore">
+                          <use xlink:href="#up-arrow"></use>
+                        </svg>
+                      </div>
+                    </div>
+                 </div>
+              </ng-container>
+              <div class="p-returns-container" [ngClass]="{'lads-returns-container ': isBrandLadbrokes}">
+                <div class="potentialReturns-label" [ngClass]="{'lads-pb ': isBrandLadbrokes}" data-crlat="Potential-Returns">{{lotto.potentialReturns}}</div>
+                <ul class="lotto-balls">
+                  <li class="lotto-odds">
+                    <p class="retuns-price"[ngClass]="{'p-returns-price ': isBrandLadbrokes}">{{lotto.matches}}</p>
+                    <p>{{lotto.odds}}</p>
+                  </li>
+                  <li class="lotto-odds center-text" *ngFor="let price of potentialReturns; let indx = index"
+                    data-crlat="Potential-Returns">
+                    <p class="retuns-price"[ngClass]="{'p-returns-price ': isBrandLadbrokes}">{{price.numberCorrect}} Ball{{indx === 0 ? '' : 's'}}</p>
+                    <p>{{price.priceNum}}</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="tab === 'combo'" class="container-content text-section" data-crlat="Combo">{{lotto.combo}}</div>
+        <div *ngIf="tab === 'results'" class="container-content text-section" data-crlat="Results">{{lotto.results}}</div>
+      </section>
+    </div>
+  </ng-container>
+</div>

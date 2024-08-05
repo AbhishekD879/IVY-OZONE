@@ -1,0 +1,39 @@
+<div class="dropdown"
+     [ngClass]="{'expanded': showMenu,'switcher-dropdown': dropDownCss}" tabindex="-1"
+     (blur)="showMenu = false"
+     data-crlat="dropdown">
+  <div class="label"
+       (click)="showMenu = !showMenu"
+       data-crlat="dropdown.label">
+    <span [textContent]="selectedListItem" data-crlat="dropdown.selectedItem"></span>
+    <svg class="dropdown-up-arrow" data-crlat="dropdown.arrowUp">
+      <use [attr.xlink:href]="'#up-arrow'"></use>
+    </svg>
+    <svg class="dropdown-down-arrow" data-crlat="dropdown.arrowDown">
+      <use [attr.xlink:href]="'#down-arrow'"></use>
+    </svg>
+  </div>
+  <ul class="dropdown-menu" data-crlat="dropdownMenu">
+    <li class="menu-item"
+        *ngFor="let selectOption of menuList; trackBy: trackByName; index as selectOptionIndex"
+        (click)="clickItem(selectOption, '', selectOptionIndex)"
+        data-crlat="dropdown.menuItem">
+      <span class="menu-title"
+            [ngClass]="{'has-child': selectOption.hasChild, 'item-active': active[selectOptionIndex] }"
+            [textContent]="(selectOption.text || selectOption.name || selectOption.title)" data-crlat="dropdown.menuTitle"></span>
+      <ul class="sub-menu"
+          *ngIf="active[selectOptionIndex] && selectOption.list" data-crlat="dropdownSubMenu">
+        <li class="menu-item"
+            *ngFor="let option of selectOption.list; trackBy: trackByName; index as optionIndex;"
+            (click)="clickItem(selectOption, option, optionIndex)"
+            data-crlat="dropdown.subMenuItem">
+          <span class="menu-title" [textContent]="(option.text || option.name)" data-crlat="dropdown.subMenuTitle"></span>
+          <lazy-component class="menu-icon" *ngIf="icon" data-crlat="dropdown.icon.yourcall" moduleUri="@yourCallModule/your-call.module#YourCallModule"
+            [inputs]="{typeId: option.id, display: 'general'}" entryComponent="YourCallIconComponent">
+          </lazy-component>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+

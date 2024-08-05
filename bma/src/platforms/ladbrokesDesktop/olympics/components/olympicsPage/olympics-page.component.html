@@ -1,0 +1,19 @@
+<ng-container *ngIf="!state.loading && !state.error">
+  <top-bar [title]="'ol.olympics'"></top-bar>
+  <breadcrumbs></breadcrumbs>
+  <lazy-component 
+     moduleUri="@lazy-modules-module/banners/banners.module#BannersModule"
+     [inputs]='{ page: olympics}' data-crlat="bannersSection"></lazy-component>
+  <div *ngFor="let sport of olympicsMenu; trackBy: trackById;" class="sport-ribbon-menu">
+    <a [routerLink]="[sport.targetUri]" class="sport-item"
+       [attr.title]="sport.imageTitle" [ngClass]="sport.ssCategoryCode.toLowerCase()">
+      <div class="layer">
+        <span class="sport-name" [textContent]="sport.imageTitle"></span>
+      </div>
+    </a>
+  </div>
+</ng-container>
+
+<outlet-status [state]="state">
+  <request-error (reloadFn)="reloadComponent()"></request-error>
+</outlet-status>

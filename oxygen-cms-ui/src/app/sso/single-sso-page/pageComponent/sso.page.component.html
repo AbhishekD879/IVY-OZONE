@@ -1,0 +1,91 @@
+<breadcrumbs *ngIf="ssoPage" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="ssoPage">
+  <div class="header">
+    <h2 class="waves-effect waves-block has-activity-badge">
+      SSO Page: {{ssoPage.title}}
+      <create-updated-at-by [collection]="ssoPage"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="ssoPage.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="ssoPage">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox color="primary"
+                      [checked]="!ssoPage.disabled"
+                      (change)="ssoPage.disabled = !ssoPage.disabled">
+          Active
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Title
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !ssoPage.title}">
+          <input matInput placeholder="Title"  [(ngModel)]="ssoPage.title" [value]="ssoPage.title" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!ssoPage.title">Name should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <cms-upload
+      [filename]="ssoPage.filename"
+      (onImageUpload)="uploadImage($event)"
+      (onImageRemove)="removeImage()">
+    </cms-upload>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Open Link
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Open Link"  [(ngModel)]="ssoPage.openLink" [value]="ssoPage.openLink" required trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox class="mat-label" color="primary"
+                      [checked]="ssoPage.showOnIOS"
+                      (change)="ssoPage.showOnIOS = !ssoPage.showOnIOS">
+          Show on IOS
+        </mat-checkbox>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width" *ngIf="ssoPage.showOnIOS">
+          <input matInput placeholder="URL"  [(ngModel)]="ssoPage.targetIOS" [value]="ssoPage.targetIOS">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox class="mat-label" color="primary"
+                      [checked]="ssoPage.showOnAndroid"
+                      (change)="ssoPage.showOnAndroid = !ssoPage.showOnAndroid">
+          Show on Android
+        </mat-checkbox>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width" *ngIf="ssoPage.showOnAndroid">
+          <input matInput placeholder="URL"  [(ngModel)]="ssoPage.targetAndroid" [value]="ssoPage.targetAndroid">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="ssoPage"
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'title'"
+  [collection]="ssoPage"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

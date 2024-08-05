@@ -1,0 +1,31 @@
+@import 'global.variables.scss';
+@import '../../../../app/promotions/assets/styles/main.scss';
+
+.promotion {
+  &-item {
+    span {
+      padding: 0 12px;
+      color: $color-gray-dark;
+      background: $color-white;
+      font-weight: normal;
+      border-bottom: 0;
+    }
+  }
+  &-content {
+    @include display-flex();
+    @include justify-content(space-between);
+    @include align-items(center);
+    background: $color-white;
+    padding: 6px 12px;
+  }
+}
+#promotion-group{
+  .offer-title{
+    color: $color-white;
+  }
+  .offer-introductorytext,.offer-subtitle{
+    color: $color-white;
+  }  
+
+}
+

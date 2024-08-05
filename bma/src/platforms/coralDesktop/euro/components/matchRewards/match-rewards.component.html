@@ -1,0 +1,29 @@
+<div class="grid-container">
+    <ng-container *ngFor="let euroBadge of matchRewardBadge.allBadges; index as badgeNumber">
+        <div [attr.id]="'euroBadge-' + badgeNumber" class="grid-item">
+            <svg class="euro-logo"
+                [ngClass]="{'bet-collected': placedBetToday && currentBadge == (badgeNumber+1) && !freeBetDay}">
+                <use [attr.xlink:href]="euroBadge.badgeType"></use>
+            </svg>
+            <div class="caption" *ngIf="euroBadge.freeBetToken">
+                <strong><span [textContent]="euroBadge.freeBetToken"></span></strong>
+            </div>
+            <svg *ngIf="euroBadge.yellowHighlight" class="yellow-line">
+                <use xlink:href="#Rectangle"></use>
+            </svg>
+            <div *ngIf="currentBadge == (badgeNumber+1) && userService.status" class="arrow-up"
+                [ngClass]="{'current-badge-arrow': currentBadge == (badgeNumber+1) && userService.status && (!placedBetToday || freeBetPositionSequence.includes(badgeNumber+1))}">
+            </div>
+        </div>
+        <ng-container *ngIf="euroBadge.message[0]">
+            <div class="tip box">
+                <div class="text">
+                    <p [textContent]="euroBadge.message[0]"></p>
+                    <p><span [textContent]="euroBadge.message[1]"></span> 
+                    <strong *ngIf="euroBadge.message[2]"><span [textContent]="euroBadge.message[2]"> </span></strong></p>
+                    <p  *ngIf="euroBadge.message[3]" [textContent]="euroBadge.message[3]"></p>
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+</div>

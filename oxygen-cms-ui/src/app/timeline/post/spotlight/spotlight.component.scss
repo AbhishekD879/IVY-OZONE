@@ -1,0 +1,116 @@
+.spotlight-event-cell {
+  padding: 5px;
+}
+
+.spotlight-event-cell-content {
+  color: rgb(65, 73, 78);
+  cursor: pointer;
+  &:not(:last-child) {
+    border-right: solid 2px gray;
+  }
+}
+
+.spotlight-event-typename-cell {
+  font-weight: bolder;
+  border-right: solid 2px gray;
+  padding-left: 0;
+  min-width: 150px;
+}
+.spotlight-event-typename-cell-fr{
+  font-weight: bolder;
+  padding-left: 0;
+  min-width: 150px;
+}
+
+.spotlight-item-cell-header, .verdict-item-cell-header {
+  max-width: 12rem;
+  overflow-wrap: break-word;
+  font-weight: bolder;
+  padding-right: 10px;
+}
+
+.verdict-item-cell-header {
+  color: orangered;
+}
+
+th.spotlight-item-cell {
+  text-align: center;
+}
+
+.spotlight-item-cell-content, .verdict-item-cell-content {
+  padding: 7px 10px;
+  text-align: justify;
+}
+
+.bold-cell {
+  font-weight: bold;
+}
+
+div.spotlight tr {
+  border-top: solid 2px gray;
+}
+
+// trick for scrollbar to be visible if needed by content width
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .5);
+  box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+}
+
+// trick for scrollbar be displayed at vertical position
+table.event-data-content {
+  display: block;
+}
+.event-data-container {
+  max-width: 1300px;
+  overflow-y: scroll;
+}
+.event-data-container, table.event-data-content {
+  transform:rotateX(180deg);
+  -ms-transform:rotateX(180deg); /* IE 9 */
+  -webkit-transform:rotateX(180deg); /* Safari and Chrome */
+}
+
+.spotlight {
+  margin-top: 30px;
+}
+
+.verdict-info {
+  display: flex;
+  &-racename {
+    flex: 0 0 16%;
+  }
+
+  &-body {
+    flex: 0 0 69%;
+    text-align: justify;
+    padding: 0 10px;
+  }
+
+  &-action-container {
+    flex: 0 0 15%;
+  }
+}
+
+.align_center{
+  display: flex;
+  justify-content: center;
+}
+.selectBackground{
+  background: aliceblue;
+ 
+
+}
+.selectBackgroundCell{
+background: aliceblue;
+
+
+}
+.selectBackgroundhov:hover{
+background: lightgrey;
+cursor: pointer;
+}

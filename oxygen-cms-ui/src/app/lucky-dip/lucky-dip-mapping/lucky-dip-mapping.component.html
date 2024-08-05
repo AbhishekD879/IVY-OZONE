@@ -1,0 +1,34 @@
+<div class="card">
+  <div class="header">
+    <h2 class="waves-effect waves-block" [textContent]="LUCKYDIP_MAPPING_CONST.luckyDipMappingPage"></h2>
+  </div>
+</div>
+<div class="card">
+  <div class="body">
+    <div class="row clearfix">
+      <div class="col-md-3">
+        <button (click)="createLuckyDipMapping()" type="button" class="btn bg-teal waves-effect float-left" [disabled]="!isValidCreate()">
+          <i class="material-icons">add_box</i>
+          <span [textContent]="LUCKYDIP_MAPPING_CONST.createLuckyDipMapping"></span>
+        </button>
+      </div>
+      <div *ngIf="luckyDipMapping" class="col-md-3">
+      </div>
+      <div *ngIf="luckyDipMapping" class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search for Mapping" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="luckyDipMapping.length!=0">
+      <cms-data-table class="test" [customTableData]="luckyDipMapping" [customTableColumns]="dataTableColumns"
+        [actions]="['remove','edit']" [filterString]="searchField" [filterProperties]="filterProperties" [reorder]="true" (onElementsOrder)="reorderHandler($event)" 
+        (onRemoveTableElement)="removeLuckyDipMapping($event)">
+      </cms-data-table>
+    </div>
+  </div>
+</div>

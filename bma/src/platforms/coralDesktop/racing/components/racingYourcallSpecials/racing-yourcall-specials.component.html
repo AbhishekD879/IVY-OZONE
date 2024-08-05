@@ -1,0 +1,78 @@
+<div *ngIf="!type" class="yc-specials">
+
+  <switchers
+    [type]="'scrollable'"
+    [switchers]="switchers"
+    [filter]="ycWidgetFilter"
+    [noPaddings]="true"
+  ></switchers>
+
+
+  <div class="yc-specials-desktop">
+    <div class="yc-specials-content" data-crlat="race.yourCallSpecials">
+      <ng-container *ngFor="let market of data; trackBy:trackById">
+        <div *ngIf="ycWidgetFilter === market?.name">
+          <div class="odds-card odds-single"
+               *ngFor="let selection of orderByDisplayOrder(market.selections); trackBy:trackById"
+               data-crlat="selection">
+            <div class="odds-content">
+              <div class="odds-left">
+                <div class="odds-names odds-names-wrap" [textContent]="selection.name" data-crlat="oddsNames"></div>
+              </div>
+              <div class="odds-right">
+                <price-odds-button [event]="selection.event"
+                                   [market]="selection.market"
+                                   [outcome]="selection"
+                                   [priceType]="selection.prices[0]?.priceType">
+                </price-odds-button>
+              </div>
+            </div>
+          </div>
+          <div class="odds-card odds-single" *ngIf="market.selections.length % 2"></div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<accordion
+  [headerClass]="'secondary-header'"
+  [isExpanded]="isExpanded"
+  *ngIf="type"
+  data-crlat="outerAccordion">
+  <left-side>
+    <your-call-label></your-call-label>
+    <span class="left-title-text" [i18n]="'racing.yourcallSpecials'"></span>
+  </left-side>
+  <accordion-body>
+    <div class="yc-widget yc-specials-content">
+      <ng-container *ngFor="let market of orderByDisplayOrder(data); trackBy:trackById">
+        <div *ngIf="ycWidgetFilter === market?.name">
+          <div class="odds-card odds-single"
+               *ngFor="let selection of orderByDisplayOrder(market.selections); trackBy:trackById">
+            <div class="odds-content">
+              <div class="odds-left">
+                <div class="odds-names odds-names-wrap" [textContent]="selection.name"></div>
+              </div>
+              <div class="odds-right">
+                <price-odds-button [event]="selection.event"
+                                   [market]="selection.market"
+                                   [outcome]="selection"
+                                   [priceType]="selection.prices[0]?.priceType">
+                </price-odds-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="yc-footer">
+      <a [routerLink]="['/horse-racing/yourcall']" (click)="trackYourcallSpecials()" data-crlat="link.viewAllYC">
+        <span class="yc-link" [i18n]="'racing.viewAllYC'"></span>
+        <svg>
+          <use xlink:href="#next-arrow"></use>
+        </svg>
+      </a>
+    </div>
+  </accordion-body>
+</accordion>

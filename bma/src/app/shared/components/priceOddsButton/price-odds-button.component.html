@@ -1,0 +1,26 @@
+<button id="bet-{{outcome.id}}"
+        [priceOddsDisabled]="[outcome, outcome.outcomeStatusCode, market.marketStatusCode,
+        event.eventStatusCode, event.displayed, market.priceTypeCodes, outcome.hasOwnProperty('prices') && outcome.prices[0],isRacing]"
+        (oddsPriceDisabled) = "showOddsPriceValue($event)"
+        last-made-bet
+        [priceOddsClass]="[outcome, cssClass, outcome.hasOwnProperty('prices') && outcome.prices[0]?.liveShowTimer?.type]"
+        (click)="onPriceOddsButtonClick($event)"
+        class="btn-bet"
+                data-crlat="betButton">
+  <span class="odds-head" [innerHTML]="head" *ngIf="head"></span>
+  <span *ngIf="showHandicapValue" class="handicap-btn">{{overUnderTag}} {{ handicapVal }}</span>
+  <span *ngIf="showCorrectScore" class="handicap-btn-val">{{ correctName }}</span>
+  <span class="odds-price" *ngIf="!showSuspendValue"
+        [priceOddsValue]="[outcome, outcome.hasOwnProperty('prices') && outcome.prices[0]?.priceDen, outcome.hasOwnProperty('prices') && outcome.prices[0]?.priceNum,
+        market.priceTypeCodes]"
+        [(oddsPrice)]="oddsPrice"
+        [textContent]="oddsPrice"
+        data-crlat="oddsPrice">
+  </span>
+  <span class="odds-price" *ngIf="showSuspendValue" [i18n]="'app.suspended'"></span>
+</button>
+<historic-prices class="historic-prices"
+                 [outcome]="outcome"
+                 [hasWasLabel]="hasWasLabel"
+                 *ngIf="isShowHistoricPrices && oddsPrice !== 'SP' && outcome?.prices?.length > 1 && !nonRunner">
+</historic-prices>

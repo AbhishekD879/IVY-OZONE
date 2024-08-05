@@ -1,0 +1,29 @@
+@import 'global.variables.scss';
+
+:host {
+  display: block;
+}
+
+.progress-bar {
+  height: 12px;
+  background-color: $color-darkgrayishblue;
+  border-radius: 6px;
+  overflow: hidden;
+  @media #{$mqDesktop} {
+    height: 16px;
+    border-radius: 10px;
+  }
+}
+.progress-bar-details{
+  height: 3px;
+  border-radius: 4px;
+  background-color: $color-darkgrayishblue;
+}
+.progress {
+  $color-start:$color-softblue;
+  $color-end: $color-blue;
+  height: 100%;
+  width: 0;
+  background-image:linear-gradient(to right,$color-softblue,$blue 100%);
+  transition: width 1s ease-in;
+}

@@ -1,0 +1,163 @@
+@import 'global.variables.scss';
+
+#page-wrapper {
+  height: 100%;
+  min-height: 100%;
+}
+
+.item-inner {
+  padding: 15px;
+
+  &.item-btm-pad {
+    padding-bottom: 0;
+  }
+
+  &.item-top-pad {
+    padding-top: 0;
+  }
+
+  &.item-bordered {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .4);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  &.item-no-shadow {
+    box-shadow: none;
+  }
+
+  &.item-bordered-top {
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.4);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+}
+
+.inner-container {
+  min-height: 50px;
+  position: relative;
+
+  .spinner-loader {
+    z-index: 1;
+  }
+
+  .page-container {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.custom-input-container {
+  @include display-flex();
+  @include justify-content(flex-start);
+  background: $color-gray-light;
+  border-radius: 3px;
+  position: relative;
+  color: lighten($color-gray-dark, 50%);
+  font-size: 11px;
+  font-weight: bold;
+
+  .currency {
+    width: 15px;
+    text-align: center;
+    line-height: 32px;
+  }
+
+  input {
+    color: $color-black;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 3px 0;
+    width: 100%;
+    line-height: 14px;
+    height: 32px;
+    @include input-placeholder(lighten($color-gray-dark, 50%));
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+.mobile-container {
+  padding: 33px 15px 15px;
+}
+
+.heuristic-container {
+  padding: $platform-paddings;
+  margin-bottom: 10px;
+  &.top-padding {
+    padding-top: 4px;
+  }
+  &.top-margin {
+    margin-top: 8px;
+  }
+  .heuristic-container {
+    padding: 0;
+  }
+}
+
+/* styles for skeleton */
+.skeleton {
+  #right-column .sk-container.sk-loading {
+    min-height: $sk-widget-height;
+  }
+
+  .sk-container {
+    display: block;
+
+    &:not(.banner) {
+      min-height: 0;
+
+      &.sk-loading {
+        &:not(.scoreboard) {
+          min-height: $sk-min-height;
+        }
+
+        &.scoreboard {
+          &:not(.tablet) {
+            min-height: $sk-scoreboard-height;
+            max-height: $sk-scoreboard-height;
+          }
+
+          &.tablet {
+            min-height: $sk-tablet-scoreboard-height;
+            max-height: $sk-tablet-scoreboard-height;
+          }
+        }
+      }
+
+      &:not(.sk-loading) {
+        @include transition(all, 0.3s, ease-in, 1s);
+
+        &:not(.scoreboard) {
+          transition-property: min-height;
+        }
+
+        &.scoreboard {
+          transition-property: min-height, max-height;
+        }
+      }
+    }
+
+    &.scoreboard {
+      overflow: hidden;
+      max-height: 400px;
+    }
+    &.br-mob-scoreboard {
+      max-height: 430px;
+    }
+    &.img-arena-mob-scoreboard {
+      max-height: 420px;
+    }
+  }
+}
+
+@media #{$mqTablet} {
+  .skeleton .sk-container {
+    &:not(.banner) {
+      &.sk-loading {
+        &:not(.scoreboard) {
+          min-height: $sk-tablet-min-height;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+@import 'global.variables.scss';
+
+$surface-bet-scroll-step: 290px;
+$surface-bet-card-width: 280px;
+$surface-bet-card-height: 95px;
+
+:host {
+  position: relative;
+}
+
+.surface-bets-container {
+  position: relative;
+  overflow: hidden;
+  // to collapse with other margins
+  margin: 8px 0;
+  // to display card shadow
+  padding: $surface-bet-pad;
+  min-height: 103px;
+}
+
+.surface-bets-carousel {
+  width: auto;
+  overflow: visible;
+
+  .carousel-slides {
+    overflow: visible;
+    position: relative;
+    @include display-flex();
+    @include justify-content(flex-start);
+    height: 100%;
+    width: $surface-bet-scroll-step;
+
+    .slide {
+      height: auto;
+      min-height: $surface-bet-card-height;
+      width: $surface-bet-card-width;
+      min-width: $surface-bet-card-width;
+      margin-right: 10px;
+      display: flex;
+    }
+  }
+
+  &.one-card-mode {
+    @include display-flex();
+    @include justify-content(center);
+  }
+}

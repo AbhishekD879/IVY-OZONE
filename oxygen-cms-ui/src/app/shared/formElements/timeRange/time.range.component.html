@@ -1,0 +1,52 @@
+<div class="row clearfix">
+  <div class="col-md-{{'3'}} time-column">
+    <mat-form-field class="time-input">
+      <input matInput [(ngModel)]="chosenStartTime.hh"
+             (input)="validateTime($event)"
+             type="number"
+             min="0" max="23"
+             placeholder="HH" value="" [disabled]="disableFlag">
+    </mat-form-field>
+    <mat-form-field class="time-input">
+      <input matInput [(ngModel)]="chosenStartTime.mm"
+             (input)="validateTime($event)"
+             type="number"
+             min="0" max="59"
+             placeholder="MM" value="" [disabled]="disableFlag">
+    </mat-form-field>
+    <mat-form-field class="time-input">
+      <input matInput [(ngModel)]="chosenStartTime.ss"
+             (input)="validateTime($event)"
+             type="number"
+             min="0" max="59"
+             placeholder="SS" validate [disabled]="disableFlag">
+    </mat-form-field>
+  </div>
+</div>
+
+
+<div class="row clearfix">
+  <div class="col-md-{{'3'}} time-column">
+    <mat-form-field class="time-input">
+      <input matInput [(ngModel)]="chosenEndTime.hh"
+             (input)="validateTime($event)"
+             type="number"
+             min="0" max="23"
+             placeholder="HH" value="" [disabled]="disableFlag">
+    </mat-form-field>
+    <mat-form-field class="time-input">
+      <input matInput [(ngModel)]="chosenEndTime.mm"
+             (input)="validateTime($event)"
+             type="number"
+             min="0" max="59"
+             placeholder="MM" value="" [disabled]="disableFlag">
+    </mat-form-field>
+    <mat-form-field class="time-input">
+      <input matInput [(ngModel)]="chosenEndTime.ss"
+             (input)="validateTime($event)"
+             type="number"
+             min="0" max="59"
+             placeholder="SS" validate [disabled]="disableFlag">
+    </mat-form-field>
+  </div>
+</div>

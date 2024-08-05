@@ -1,0 +1,30 @@
+@import 'global.variables.scss';
+
+.byb-list.suspended .byb-suspended-label {
+  font-size: 12px;
+  font-family: $base-font-family;
+  color: $color-gray-darkest;
+}
+
+:host ::ng-deep {
+  .live-label {
+    .live {
+      color: $red !important;
+    }
+  }
+}
+.bet-slip-tabs-container.myBets ::ng-deep .replay {
+  ::ng-deep .switchers {
+  margin-bottom: 0px!important;
+  padding: 0px;
+  border-top:none;
+  }
+}
+.odds-side {
+  padding-top: 3px;
+}
+.sports-icon {
+  position: absolute;
+  right: 9%;
+  z-index: 0;
+}

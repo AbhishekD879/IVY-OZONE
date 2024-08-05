@@ -1,0 +1,34 @@
+<ng-container *ngIf="!state.loading && !state.error">
+  <!--- Page Header -->
+  <top-bar [title]="'bma.freebetDetails'"></top-bar>
+
+  <div class="freebet-details" *ngIf="item" data-crlat="freebetDetails">
+    <span class="freebet-icon-container">
+      <svg class="freebet-icon">
+        <use xlink:href="#freebets"></use>
+      </svg>
+    </span>
+    <div class="freebet-info">
+      <div class="freebet-name">
+        <span [textContent]="item.freebetTokenValue" data-crlat="value"></span>
+        <span>&nbsp;</span>
+        <span [textContent]="item.freebetOfferName" data-crlat="name"></span>
+      </div>
+      <div class="freebet-date" *ngIf="item.usedBy">
+        <span [i18n]="'bma.useBy'"></span>
+        <span class="black-text" [textContent]="item.usedBy" data-crlat="usedBy"></span>
+      </div>
+      <div class="freebet-date" *ngIf="item.expires">
+        <span [i18n]="'bma.expiresFreeBets'"></span>
+        <span class="black-text" [textContent]="item.expires" data-crlat="expires"></span>
+      </div>
+    </div>
+    <a [routerLink]="[item.betNowLink]" class="btn btn-style1 full-width" [i18n]="'bma.betNow'"
+       data-crlat="betNowLink"></a>
+  </div>
+  <no-events *ngIf="!item" [message]="'bma.noFreeBetsFound'"></no-events>
+</ng-container>
+
+<outlet-status [state]="state">
+  <request-error (reloadFn)="reloadComponent()"></request-error>
+</outlet-status>

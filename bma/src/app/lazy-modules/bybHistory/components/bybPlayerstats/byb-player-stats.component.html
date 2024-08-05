@@ -1,0 +1,32 @@
+<modal #bybStatsDialog class="byb-player-stats">
+    <ng-template #modalHeader>
+        <div class="title">
+            <button class="btn-back" [i18n]="'bma.back'" (click)="closeDialog()"></button>
+            <h1 class="title-text" [textContent]="player.name"></h1>
+            <span class="player-team" [textContent]="player.teamName.toLowerCase()"></span>
+            <span *ngIf="player.position.long" class="player-team" [textContent]="' | '+player.position.long"></span>
+        </div>
+    </ng-template>
+    <ng-template #modalBody>
+        <div class="content">
+            <h2 class="subtitle">
+                <span class="displaySub" [textContent]="'Player Stats'"></span>
+            </h2>
+            <div class="player-stat" *ngFor="let st of playerStatMap; let last = last" [ngClass]="{'last-item':last}">
+                <svg>
+                    <use [attr.xlink:href]="'#' + marketsMap[st.statLabel] | lowercase"></use>
+                </svg>
+                <div class="stats_align">
+                    <div class="player-label" [i18n]="st.statLabel+' :  '"></div>
+                    <div class="player-value" [textContent]="st.statValue"></div>
+                    <div *ngIf="st.statLabel === 'Cards'" class="cards">
+                        <span class="player-label" [i18n]="'Yellow :'"></span>
+                        <span class="player-value" [textContent]="player.cardsYellow"></span>
+                        <span class="player-label" [i18n]="'Red :'" ></span>
+                        <span class="player-value" [textContent]="player.cardsRed"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</modal>

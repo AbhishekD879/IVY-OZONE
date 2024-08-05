@@ -1,0 +1,139 @@
+bpp:
+  api:
+    path: /Proxy
+    url: ${bpp.url}${bpp.api.path}
+  connect:
+    timeout: 30000
+  pool:
+    keep:
+      alive: false
+    size: 10000
+    timeout: 30000
+  read:
+    timeout: 35000
+  retry:
+    number: 0
+    timeout: 0
+  url: https://bp-hl.coral.co.uk/Proxy
+  write:
+    timeout: 35000
+cms:
+  base:
+    url: https://cms-hlv0.coralsports.nonprod.cloud.ladbrokescoral.com
+  brand: bma
+  connect:
+    timeout: 2000
+  pool:
+    keep:
+      alive: false
+    size: 2000
+    timeout: 30000
+  read:
+    timeout: 3000
+  retry:
+    number: 0
+    timeout: 0
+  write:
+    timeout: 2000
+df:
+  kafka:
+    admin:
+      properties:
+        bootstrap:
+          servers: ${df.kafka.bootstrap-servers}
+    bootstrap-servers: df-app-kafka.ladbrokescoral.com:9092
+    consumer:
+      auto-commit-interval: 1s
+      auto-offset-reset: latest
+      bootstrap-servers: ${df.kafka.bootstrap-servers}
+      group-id: BET-PACK-CONSUMER-PROMOTION-${spring.profiles.active}
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      security:
+        protocol: SSL
+      ssl:
+        key-password: coralAdminPass1
+        key-store-location: classpath:ssl/prod/oxygen.keystore.jks
+        key-store-password: coralAdminPass1
+        key-store-type: JKS
+        trust-store-location: classpath:ssl/prod/oxygen.truststore.jks
+        trust-store-password: coralAdminPass1
+        trust-store-type: JKS
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    listenersConcurrency: 1
+    properties:
+      security:
+        protocol: SSL
+  paf:
+    topic:
+      name: df-reward-streamer-paf
+  brand: Coral
+
+distributed:
+  prefix: ${spring.profiles.active}
+internal:
+  active:
+    bet-pack-ids:
+      kafka:
+        groupId: ${distributed.prefix}-internal-active-bet-pack-ids
+        listenersConcurrency: 1
+  bet-pack:
+    kafka:
+      groupId: ${distributed.prefix}-internal-bet-packs
+      listenersConcurrency: 1
+kafka:
+  bet-pack-live-updates:
+    partition:
+      default: 1
+    replica:
+      factor: 2
+  bet-pack-subscription:
+    partition:
+      default: 1
+    replica:
+      factor: 2
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: '*'
+      path-mapping:
+        health: /health
+        info: /info
+max:
+  poll:
+    interval:
+      ms: 500000
+spring:
+  aop:
+    proxy-target-class: true
+  application:
+    name: bet-pack-marketplace
+  cloud:
+    discovery:
+      enabled: false
+  config:
+    discovery:
+      enabled: true
+  kafka:
+    bootstrap-servers: 10.140.52.67:9092,10.140.52.68:9092,10.140.52.69:9092
+  redis:
+    password: D2D2D9FBB87079F58F2FE3C4B367006C695D63FD
+    sentinel:
+      master: master
+      host: AT2S5XACOD248.dbz.unix:26388,AT2S5XACOD249.dbz.unix:26388,AT2S5XACOD247.dbz.unix:26388
+ssl:
+  certificates:
+    resource: classpath:/opt/betpackmp/ssl
+topic:
+  prefix: HLV0
+  active-bet-packs: ${topic.prefix}__active-bet-packs-topic
+  bet-pack-live-updates: ${topic.prefix}__bet-pack-updates-topic
+  bet-pack-subscription: ${topic.prefix}__bet-pack-subscription-topic
+
+masterlock:
+  aws:
+    dynamo.lock-table-name: CR-MSLOCKTABLE-NONPROD

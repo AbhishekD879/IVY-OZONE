@@ -1,0 +1,45 @@
+# RightMenu2
+
+## Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | **str** |  | [optional] 
+**brand** | **str** |  | [optional] 
+**collection_type** | **str** |  | [optional] 
+**disabled** | **bool** |  | [optional] 
+**filename** | [**UsersbmakarIdeaProjectsoxygenCmsApisrcmainresourcesstaticprivatecomponentssvgFilenameYamlSvgFilename**](UsersbmakarIdeaProjectsoxygenCmsApisrcmainresourcesstaticprivatecomponentssvgFilenameYamlSvgFilename.md) |  | [optional] 
+**height_medium** | **float** |  | [optional] 
+**height_small** | **float** |  | [optional] 
+**icon_aligment** | **str** |  | [optional] 
+**in_app** | **bool** |  | [optional] 
+**lang** | **str** |  | [optional] 
+**link_title** | **str** |  | [optional] 
+**link_title_brand** | **str** |  | [optional] 
+**menu_item_view** | **str** |  | [optional] 
+**path** | **str** |  | [optional] 
+**section** | **str** |  | [optional] 
+**show_item_for** | **str** |  | [optional] 
+**sort_order** | **float** |  | [optional] 
+**sprite_class** | **str** |  | [optional] 
+**target_uri** | **str** |  | [optional] 
+**type** | **str** |  | [optional] 
+**uri_medium** | **str** |  | [optional] 
+**uri_small** | **str** |  | [optional] 
+**width_medium** | **float** |  | [optional] 
+**width_small** | **float** |  | [optional] 
+**show_only_on_ios** | **bool** |  | [optional] 
+**show_only_on_android** | **bool** |  | [optional] 
+**height_large** | **float** |  | [optional] 
+**width_large** | **float** |  | [optional] 
+**svg** | **str** |  | [optional] 
+**svg_filename** | [**UsersbmakarIdeaProjectsoxygenCmsApisrcmainresourcesstaticprivatecomponentsfilenameYamlFilename**](UsersbmakarIdeaProjectsoxygenCmsApisrcmainresourcesstaticprivatecomponentsfilenameYamlFilename.md) |  | [optional] 
+**svg_id** | **str** |  | [optional] 
+**qa** | **str** |  | [optional] 
+**uri_large** | **str** |  | [optional] 
+**auth_required** | **bool** |  | [optional] 
+**system_id** | **float** |  | [optional] 
+**start_url** | **str** |  | [optional] 
+**sub_header** | **str** |  | [optional] 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+

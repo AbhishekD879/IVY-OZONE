@@ -1,0 +1,40 @@
+- name: Remove any existing docker QuickBetMS
+  docker_container:
+    name: QuickBetMS
+    state: absent
+
+- name: Set mock services URL
+  set_fact:
+    qb_mock_address: "https://crlat-qbbackends-mock.crlat.vpc"
+
+- name: "Build QuickBet MS config for CRLAT"
+  template:
+    src: application-CRLAT.properties.j2
+    dest: /tmp/application-CRLAT.properties
+
+- name: Restart docker QuickBetMS
+  docker_container:
+    name: QuickBetMS
+    image: docker-registry.crlat.vpc/crlat_remote_betslip:latest
+    pull: yes
+    state: started
+    restart_policy: always
+    restart: yes
+    dns_servers:
+      - "{{ dns_server_ip }}"
+    env:
+      VERBOSE: False
+      DELAY: 0
+    ports:
+    - "8080:8080"
+    - "8081:8081"
+    volumes:
+    - "/tmp/application-CRLAT.properties:/root/application-CRLAT.properties"
+    - "/usr/local/share/ca-certificates/crlat-web-root.crt:/usr/local/share/ca-certificates/crlat-web-root.crt"
+    etc_hosts:
+      crlat-qbbackends-mock.crlat.vpc: 192.168.193.225
+    links:
+    - "Redis:redis"
+    command: sh -c 'update-ca-certificates; apk --update add curl; curl "https://crlat-qbbackends-mock.crlat.vpc/openbet-ssviewer/Drilldown/2.26/EventToOutcomeForOutcome/460000000?includeRestricted=true&translationLang=en&includeUndisplayed=false"; java -jar app.jar --spring.config.location=./application-CRLAT.properties --spring.profiles.active=CRLAT'
+    dns_servers:
+      - "{{ dns_server_ip }}"

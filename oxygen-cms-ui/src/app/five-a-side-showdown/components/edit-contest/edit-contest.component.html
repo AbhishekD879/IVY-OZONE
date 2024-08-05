@@ -1,0 +1,506 @@
+<breadcrumbs
+  *ngIf="!isLoading"
+  [breadcrumbsData]="breadcrumbsData"
+></breadcrumbs>
+<div
+  class="card "
+  *ngIf="contestManagerForm && !isLoading"
+>
+<div class="header">
+    <h2 class="waves-effect waves-block" [textContent]="CONTESTFORM.contestTitle + contestManagerForm.name"></h2>
+      <create-updated-at-by
+        [collection]="contestManagerForm"
+      ></create-updated-at-by>
+  </div>
+</div>
+<div class="card create-edit-section" *ngIf="!isLoading">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label" [textContent]="CONTESTFORM.contestId"></span>
+      </div>
+      <div class="col-md-9">
+        <div
+          class="full-width pt-15"
+          [textContent] = "contestManagerForm.id">
+      </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label" [textContent]="CONTESTFORM.nameLabel"></span>
+      </div>
+      <div class="col-md-9">
+        <mat-form-field
+          class="full-width"
+          [ngClass]="{ 'mat-form-field-invalid': !contestManagerForm.name }"
+        >
+          <input
+            matInput
+            [placeholder]="CONTESTFORM.nameLabel"
+            [(ngModel)]="contestManagerForm.name"
+            [value]="contestManagerForm.name"
+          />
+          <mat-hint class="col-red" *ngIf="!contestManagerForm.name"
+          [textContent]="CONTESTFORM.nameMsg"></mat-hint
+          >
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label" [textContent]="CONTESTFORM.descriptionLabel">
+        </span>
+      </div>
+      <div class="col-md-9">
+        <tinymce-editor
+                        [pageName]="'description'"
+                        [pageItemId]="'description'"
+                        (outputEditorData)="updateDescription($event)"
+                        [initialEditorContent]="contestManagerForm.description">
+        </tinymce-editor>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label" [textContent]="CONTESTFORM.blurbLabel">
+        </span>
+      </div>
+      <div class="col-md-9">
+        <tinymce-editor
+                        [pageName]="'blurb'"
+                        [pageItemId]="'blurb'"
+                        (outputEditorData)="updateBlurb($event)"
+                        [initialEditorContent]="contestManagerForm.blurb">
+        </tinymce-editor>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label" [textContent]="CONTESTFORM.iconLabel"></span>
+      </div>
+      <div class="col-md-5">
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            placeholder=""
+            [(ngModel)]="iconSvgFileName"
+            [value]="iconSvgFileName"
+            disabled
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-md-4 space-btns-evenly">
+        <div style="display: none">
+          <input #iconSvgFileInput
+            id="upload-icon"
+            (change)="prepareToUploadFile($event, 'iconSvgFile')"
+            type="file"
+            value="upload"
+          />
+        </div>
+        <button
+          type="button"
+          (click)="handleUploadImageClick($event)"
+          class="main-image-btn btn bg-teal waves-effect"
+        >
+        <mat-icon class="align-middle ">file_upload</mat-icon>
+        <span class="t-1" [textContent]= "getButtonName(iconSvgFileName)"></span>
+        </button>
+        <button
+          type="button"
+          [disabled] = "!iconSvgFileName"
+          (click)="removeImage('iconSvgFile')"
+          class="main-image-btn btn bg-red waves-effect"
+        >
+        <mat-icon class="align-middle ">delete_forever</mat-icon>
+        <span class="t-1" [textContent]= "CONTESTFORM.removeLabel"></span>
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <date-time-inputs
+          class="full-width"
+          [placeholderColumn]="true"
+          [isSetDateButtons]="false"
+          [initialDate]="contestManagerForm.startDate"
+          [placeholder]="CONTESTFORM.startDateLabel"
+          (outputIsoTime)="handleStartDate($event)"
+        >
+        </date-time-inputs>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label"  [textContent]="CONTESTFORM.eventLabel"></span>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            [placeholder]="CONTESTFORM.eventLabel"
+            type="text"
+            (keyup)="alphaToNumeric($event)"
+            min="1"
+            trim="blur"
+            [(ngModel)]="contestManagerForm.event"
+            [value]="contestManagerForm.event"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label" [textContent]="CONTESTFORM.entryStakeLabel"></span>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field
+          class="full-width"
+          [ngClass]="{
+            'mat-form-field-invalid': !contestManagerForm.entryStake
+          }"
+        >
+          <input
+            matInput
+            [placeholder]="CONTESTFORM.entryStakeLabel"
+            type="text"
+            step='0.01'
+            min="0.01"
+            twoDigitDecimaNumber
+            [(ngModel)]="contestManagerForm.entryStake"
+            [value]="contestManagerForm.entryStake"
+          />
+          <mat-hint class="col-red" *ngIf="!contestManagerForm.entryStake"
+          [textContent]="CONTESTFORM.entryStakeMsg"></mat-hint
+          >
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label" [textContent]="CONTESTFORM.freeBetsLabel"></span>
+      </div>
+      <div class="col-md-3">
+        <mat-slide-toggle [(ngModel)]="contestManagerForm.isFreeBetsAllowed"
+        [color]="'primary'"
+        [checked]="contestManagerForm.isFreeBetsAllowed"
+        [disabled]="false">
+        </mat-slide-toggle>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label" [textContent]="CONTESTFORM.sponsorTextLabel"></span>
+      </div>
+      <div class="col-md-9">
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            [placeholder]="CONTESTFORM.sponsorTextLabel"
+            [(ngModel)]="contestManagerForm.sponsorText"
+            [value]="contestManagerForm.sponsorText"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label" [textContent]="CONTESTFORM.sponsorLogoLabel"> </span>
+      </div>
+      <div class="col-md-5">
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            placeholder=""
+            [(ngModel)]="sponsorSvgFileName"
+            [value]="sponsorSvgFileName"
+            disabled
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-md-4 space-btns-evenly">
+        <div style="display: none">
+          <input #sponsorSvgFileInput
+            id="upload-sponsorlogo"
+            (change)="prepareToUploadFile($event, 'sponsorSvgFile')"
+            type="file"
+            value="upload"
+          />
+        </div>
+        <button
+          type="button"
+          (click)="handleUploadImageClick($event)"
+          class="main-image-btn btn bg-teal waves-effect"
+        >
+         <mat-icon class="align-middle ">file_upload</mat-icon>
+         <span class="t-1" [textContent]= "getButtonName(sponsorSvgFileName)"></span>
+        </button>
+        <button
+          type="button"
+          [disabled] = "!sponsorSvgFileName"
+          (click)="removeImage('sponsorSvgFile')"
+          class="main-image-btn btn bg-red waves-effect"
+        >
+          <mat-icon class="align-middle ">delete_forever</mat-icon>
+          <span class="t-1" [textContent]= "CONTESTFORM.removeLabel">&nbsp;</span>
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label" [textContent]="CONTESTFORM.maxEntries"> </span>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            [placeholder]="CONTESTFORM.maxEntries"
+            type="number"
+            min="1"
+            (keyup)="blockSpecialChars($event)"
+            trim="blur"
+            [(ngModel)]="contestManagerForm.maxEntries"
+            [value]="contestManagerForm.maxEntries"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label" [textContent]="CONTESTFORM.maxEntriesPerUser"> </span>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            [placeholder]="CONTESTFORM.maxEntriesPerUser"
+            type="number"
+            min="1"
+            trim="blur"
+            (keyup)="blockSpecialChars($event)"
+            [(ngModel)]="contestManagerForm.maxEntriesPerUser"
+            [value]="contestManagerForm.maxEntriesPerUser"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row" *ngIf="contestManagerForm?.entriesSize">
+      <div class="col-md-3">
+        <span class="mat-label" [textContent]="CONTESTFORM.currentEntriesLabel"> </span>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            disabled="true"
+            [(ngModel)]="contestManagerForm.entriesSize"
+            [value]="contestManagerForm.entriesSize"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label" [textContent]="CONTESTFORM.entryLabel">
+        </span>
+      </div>
+      <div class="col-md-9">
+        <tinymce-editor
+                        [pageName]="'entryConfirmation'"
+                        [pageItemId]="'entryConfirmation'"
+                        (outputEditorData)="updateEntryConfirmation($event)"
+                        [initialEditorContent]="contestManagerForm.entryConfirmationText">
+        </tinymce-editor>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label" [textContent]="CONTESTFORM.nextContestIdLabel"></span>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            [placeholder]="CONTESTFORM.nextContestIdLabel"
+            type="text"
+            (keyup)="blockSpecialChars($event)"
+            min="1"
+            trim="blur"
+            [(ngModel)]="contestManagerForm.nextContestId"
+            [value]="contestManagerForm.nextContestId"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label" [textContent]="CONTESTFORM.displayLabel"></span>
+      </div>
+      <div class="col-md-3">
+        <mat-checkbox
+          color="primary"
+          [checked]="contestManagerForm.display"
+          (change)="
+            contestManagerForm.display = !contestManagerForm.display
+          "
+        >
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label" [textContent]="CONTESTFORM.userAccountsLabel"></span>
+      </div>
+      <div class="col-md-4">
+        <mat-checkbox
+          color="primary"
+          [checked]="contestManagerForm.realAccount"
+          (change)="
+            contestManagerForm.realAccount = !contestManagerForm.realAccount;
+            checkForAccountSel()
+          "
+        >
+        </mat-checkbox>
+        <span class="ml-2"></span>
+        <span [textContent]="CONTESTFORM.realAccountLabel"></span>
+      </div>
+      <div class="col-md-3">
+        <mat-checkbox
+          color="primary"
+          [checked]="contestManagerForm.testAccount"
+          (change)="
+            contestManagerForm.testAccount = !contestManagerForm.testAccount;
+            checkForAccountSel()
+          "
+        >
+        </mat-checkbox>
+        <span class="ml-2"></span>
+        <span  [textContent]="CONTESTFORM.testAccountLabel"></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label" [textContent]="CONTESTFORM.invitationalContest"></span>
+      </div>
+      <div class="col-md-3">
+        <mat-slide-toggle [(ngModel)]="contestManagerForm.isInvitationalContest"
+        (change)="onContestTypeChange($event)" 
+        [color]="'primary'"
+        [disabled]="false">
+        </mat-slide-toggle>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label" [textContent]="CONTESTFORM.contestType"></span>
+      </div>
+      <div class="col-md-3">
+        <mat-radio-group [disabled]="!contestManagerForm.isInvitationalContest"
+         aria-label="Select an option"
+         [color]="'primary'"
+         [(ngModel)]="contestManagerForm.isPrivateContest" >
+          <mat-radio-button [value]="false">Public</mat-radio-button>
+          <mat-radio-button [value]="true">Private</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div> 
+
+    <div class="row" *ngIf="contestManagerForm.isInvitationalContest && contestManagerForm.contestURL">
+      <div class="col-md-3">
+        <span class="mat-label" [textContent]="CONTESTFORM.contestURL"></span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width">
+          <input [readonly]="true" matInput [placeholder]="CONTESTFORM.contestURL" [(ngModel)]="contestManagerForm.contestURL" />
+          <mat-icon class="copy-icon" (click)="copyToClipboard()" [matTooltip]="CONTESTFORM.copyContestURL" matSuffix>link</mat-icon>
+        </mat-form-field> 
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label" [textContent]="CONTESTFORM.crmPrizeIndicator"></span>
+      </div>
+      <div class="col-md-3">
+        <mat-slide-toggle [(ngModel)]="contestManagerForm.crmPrizeIndicator"
+        [color]="'primary'">
+        </mat-slide-toggle>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="!isLoading">
+  <prize-pool (prizePoolChanged)="onPrizePoolChanged($event)" [poolData]="prizePool"></prize-pool>
+</div>
+<div class="card" *ngIf="!isLoading">
+  <pay-table (prizesChanged)="onPayTableChanged($event)" [contestId]="contestid" [contestData]="contestManagerForm"></pay-table>
+</div>
+<div class="card" *ngIf="!isLoading">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label" [textContent]="CONTESTFORM.enableServiceLabel"></span>
+      </div>
+      <div class="col-md-3">
+        <mat-checkbox
+          color="primary"
+          [checked]="contestManagerForm.enableServiceMsg"
+          (change)="
+            contestManagerForm.enableServiceMsg = !contestManagerForm.enableServiceMsg
+          "
+        >
+        </mat-checkbox>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label" [textContent]="CONTESTFORM.serviceMsgLabel"></span>
+      </div>
+      <div class="col-md-9">
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            [placeholder]="CONTESTFORM.serviceMsgLabel"
+            type="text"
+            min="1"
+            trim="blur"
+            [(ngModel)]="contestManagerForm.serviceMsg"
+            [value]="contestManagerForm.serviceMsg"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card" *ngIf="!isLoading && contestManagerForm?.reportGenerated">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-5 no-margin-bottom">
+        <button mat-button type="button" class="btn bg-teal waves-effect float-left" (click)="onDownloadCSV('contest')">
+          <mat-icon>file_download</mat-icon>
+          <span [textContent]="downloadCSV.contestInformation"></span>
+        </button>
+      </div>
+      <div class="col-md-5 no-margin-bottom">
+        <button mat-button type="button" class="btn bg-teal waves-effect float-left" (click)="onDownloadCSV('prizeReport')">
+          <mat-icon>file_download</mat-icon>
+          <span [textContent]="downloadCSV.prizeReport"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="!isLoading"
+  [validateHandler]="isValidModel"
+  [fieldOrItemName]="'name'"
+  [collection]="contestManagerForm"
+  (actionsEmitter)="actionsHandler($event)"
+></action-buttons>

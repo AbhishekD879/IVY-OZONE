@@ -1,0 +1,48 @@
+<breadcrumbs *ngIf="postData" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+
+<div class="card">
+  <div class="body">
+    <div class="row clearfix">
+      <div class="col-md-3">
+        <button (click)="openCreatePost()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create Post</span>
+        </button>
+      </div>
+      <div *ngIf="postData" class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Post" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="postData">
+      <timeline-data-table
+        [customTableData]="postData"
+        [customTableColumns]="dataTableColumns"
+        [multyRemove]="true"
+        [filterString]="searchField"
+        [filterProperties]="filterProperties"
+        [startingNumberOffset]="startingNumberOffset"
+        (onPublishTableElement)="publishPost($event)"
+        (onUnpublishTableElement)="unpublishPost($event)"
+        (onRemoveTableElement)="removePost($event)"
+        (onMultyRemove)="removeHandlerMulti($event)">
+      </timeline-data-table>
+
+
+      <mat-paginator [length]="postsAmount"
+                     [pageSize]="pageSize"
+                     [pageSizeOptions]="[25]"
+                     (page)="handlePageChanging($event)">
+      </mat-paginator>
+    </div>
+
+    <div *ngIf="getDataError">
+      Request Error
+    </div>
+  </div>
+</div>

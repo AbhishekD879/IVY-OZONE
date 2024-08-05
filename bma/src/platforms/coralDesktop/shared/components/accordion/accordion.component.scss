@@ -1,0 +1,34 @@
+@import "./chevron";
+@import "./icons";
+@import "./styles";
+
+accordion {
+    width: 100%;
+}
+
+.page-container {
+    .text-section {
+      .container-inside-text {
+        .MsoNormal {
+          .btn-style2 {
+            &:active {
+              background-color: $color-green-dark-leaf !important;
+            }
+            &:hover {
+              background-color: $color-green-light-leaf !important;
+            }
+          }
+        }
+      }
+    }
+}
+
+.hr-header {
+    width: 100%;
+}
+
+.accordion {
+    & > .hr-header {
+        background: $color-white;
+    }
+}

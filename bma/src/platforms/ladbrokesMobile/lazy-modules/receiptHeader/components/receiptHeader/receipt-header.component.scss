@@ -1,0 +1,18 @@
+@import 'global.variables.scss';
+
+.receipt-header-container {
+  font-family: $alt-font-family;
+  background-color: $lGray;
+  padding: 13px 12px;
+
+  .receipt-time {
+    font-size: 11px;
+    line-height: 11px;
+    color: $color-white;
+  }
+  
+  .check-icon {
+    width: 14px;
+    height: 10px;
+  }
+}

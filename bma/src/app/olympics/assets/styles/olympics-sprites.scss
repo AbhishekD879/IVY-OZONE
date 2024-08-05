@@ -1,0 +1,453 @@
+/*
+LESS variables are information about icon's compiled state, stored under its original file name
+
+.icon-home {
+  width: $icon-home-width;
+}
+
+The large array-like variables contain all information about a single icon
+$icon-home: x y offset_x offset_y width height total_width total_height image_path name;
+
+At the bottom of this section, we provide information about the spritesheet itself
+$spritesheet: width height image $spritesheet-sprites;
+*/
+$archery-name: 'archery';
+$archery-x: 756px;
+$archery-y: 137px;
+$archery-offset-x: -756px;
+$archery-offset-y: -137px;
+$archery-width: 121px;
+$archery-height: 123px;
+$archery-total-width: 878px;
+$archery-total-height: 681px;
+$archery-image: '';
+$archery: 756px 137px -756px -137px 121px 123px 878px 681px '../images/olympics-sprite.png' 'archery';
+$athletics-name: 'athletics';
+$athletics-x: 126px;
+$athletics-y: 411px;
+$athletics-offset-x: -126px;
+$athletics-offset-y: -411px;
+$athletics-width: 122px;
+$athletics-height: 133px;
+$athletics-total-width: 878px;
+$athletics-total-height: 681px;
+$athletics-image: '../images/olympics-sprite.png';
+$athletics: 126px 411px -126px -411px 122px 133px 878px 681px '../images/olympics-sprite.png' 'athletics';
+$badminton-name: 'badminton';
+$badminton-x: 252px;
+$badminton-y: 0px;
+$badminton-offset-x: -252px;
+$badminton-offset-y: 0px;
+$badminton-width: 122px;
+$badminton-height: 133px;
+$badminton-total-width: 878px;
+$badminton-total-height: 681px;
+$badminton-image: '../images/olympics-sprite.png';
+$badminton: 252px 0px -252px 0px 122px 133px 878px 681px '../images/olympics-sprite.png' 'badminton';
+$basketball-name: 'basketball';
+$basketball-x: 0px;
+$basketball-y: 137px;
+$basketball-offset-x: 0px;
+$basketball-offset-y: -137px;
+$basketball-width: 122px;
+$basketball-height: 133px;
+$basketball-total-width: 878px;
+$basketball-total-height: 681px;
+$basketball-image: '../images/olympics-sprite.png';
+$basketball: 0px 137px 0px -137px 122px 133px 878px 681px '../images/olympics-sprite.png' 'basketball';
+$beachvolleyball-name: 'beachvolleyball';
+$beachvolleyball-x: 126px;
+$beachvolleyball-y: 137px;
+$beachvolleyball-offset-x: -126px;
+$beachvolleyball-offset-y: -137px;
+$beachvolleyball-width: 122px;
+$beachvolleyball-height: 133px;
+$beachvolleyball-total-width: 878px;
+$beachvolleyball-total-height: 681px;
+$beachvolleyball-image: '../images/olympics-sprite.png';
+$beachvolleyball: 126px 137px -126px -137px 122px 133px 878px 681px '../images/olympics-sprite.png' 'beachvolleyball';
+$boxing-name: 'boxing';
+$boxing-x: 252px;
+$boxing-y: 137px;
+$boxing-offset-x: -252px;
+$boxing-offset-y: -137px;
+$boxing-width: 122px;
+$boxing-height: 133px;
+$boxing-total-width: 878px;
+$boxing-total-height: 681px;
+$boxing-image: '../images/olympics-sprite.png';
+$boxing: 252px 137px -252px -137px 122px 133px 878px 681px '../images/olympics-sprite.png' 'boxing';
+$canoeing-name: 'canoeing';
+$canoeing-x: 378px;
+$canoeing-y: 0px;
+$canoeing-offset-x: -378px;
+$canoeing-offset-y: 0px;
+$canoeing-width: 122px;
+$canoeing-height: 133px;
+$canoeing-total-width: 878px;
+$canoeing-total-height: 681px;
+$canoeing-image: '../images/olympics-sprite.png';
+$canoeing: 378px 0px -378px 0px 122px 133px 878px 681px '../images/olympics-sprite.png' 'canoeing';
+$cycling-name: 'cycling';
+$cycling-x: 378px;
+$cycling-y: 137px;
+$cycling-offset-x: -378px;
+$cycling-offset-y: -137px;
+$cycling-width: 122px;
+$cycling-height: 133px;
+$cycling-total-width: 878px;
+$cycling-total-height: 681px;
+$cycling-image: '../images/olympics-sprite.png';
+$cycling: 378px 137px -378px -137px 122px 133px 878px 681px '../images/olympics-sprite.png' 'cycling';
+$diving-name: 'diving';
+$diving-x: 756px;
+$diving-y: 264px;
+$diving-offset-x: -756px;
+$diving-offset-y: -264px;
+$diving-width: 104px;
+$diving-height: 100px;
+$diving-total-width: 878px;
+$diving-total-height: 681px;
+$diving-image: '../images/olympics-sprite.png';
+$diving: 756px 264px -756px -264px 104px 100px 878px 681px '../images/olympics-sprite.png' 'diving';
+$equestrian-name: 'equestrian';
+$equestrian-x: 126px;
+$equestrian-y: 274px;
+$equestrian-offset-x: -126px;
+$equestrian-offset-y: -274px;
+$equestrian-width: 122px;
+$equestrian-height: 133px;
+$equestrian-total-width: 878px;
+$equestrian-total-height: 681px;
+$equestrian-image: '../images/olympics-sprite.png';
+$equestrian: 126px 274px -126px -274px 122px 133px 878px 681px '../images/olympics-sprite.png' 'equestrian';
+$fencing-name: 'fencing';
+$fencing-x: 252px;
+$fencing-y: 274px;
+$fencing-offset-x: -252px;
+$fencing-offset-y: -274px;
+$fencing-width: 122px;
+$fencing-height: 133px;
+$fencing-total-width: 878px;
+$fencing-total-height: 681px;
+$fencing-image: '../images/olympics-sprite.png';
+$fencing: 252px 274px -252px -274px 122px 133px 878px 681px '../images/olympics-sprite.png' 'fencing';
+$football-name: 'football';
+$football-x: 378px;
+$football-y: 274px;
+$football-offset-x: -378px;
+$football-offset-y: -274px;
+$football-width: 122px;
+$football-height: 133px;
+$football-total-width: 878px;
+$football-total-height: 681px;
+$football-image: '../images/olympics-sprite.png';
+$football: 378px 274px -378px -274px 122px 133px 878px 681px '../images/olympics-sprite.png' 'football';
+$golf-name: 'golf';
+$golf-x: 504px;
+$golf-y: 0px;
+$golf-offset-x: -504px;
+$golf-offset-y: 0px;
+$golf-width: 122px;
+$golf-height: 133px;
+$golf-total-width: 878px;
+$golf-total-height: 681px;
+$golf-image: '../images/olympics-sprite.png';
+$golf: 504px 0px -504px 0px 122px 133px 878px 681px '../images/olympics-sprite.png' 'golf';
+$gymnastics-name: 'gymnastics';
+$gymnastics-x: 504px;
+$gymnastics-y: 137px;
+$gymnastics-offset-x: -504px;
+$gymnastics-offset-y: -137px;
+$gymnastics-width: 122px;
+$gymnastics-height: 133px;
+$gymnastics-total-width: 878px;
+$gymnastics-total-height: 681px;
+$gymnastics-image: '../images/olympics-sprite.png';
+$gymnastics: 504px 137px -504px -137px 122px 133px 878px 681px '../images/olympics-sprite.png' 'gymnastics';
+$handball-name: 'handball';
+$handball-x: 504px;
+$handball-y: 274px;
+$handball-offset-x: -504px;
+$handball-offset-y: -274px;
+$handball-width: 122px;
+$handball-height: 133px;
+$handball-total-width: 878px;
+$handball-total-height: 681px;
+$handball-image: '../images/olympics-sprite.png';
+$handball: 504px 274px -504px -274px 122px 133px 878px 681px '../images/olympics-sprite.png' 'handball';
+$hockey-name: 'hockey';
+$hockey-x: 0px;
+$hockey-y: 411px;
+$hockey-offset-x: 0px;
+$hockey-offset-y: -411px;
+$hockey-width: 122px;
+$hockey-height: 133px;
+$hockey-total-width: 878px;
+$hockey-total-height: 681px;
+$hockey-image: '../images/olympics-sprite.png';
+$hockey: 0px 411px 0px -411px 122px 133px 878px 681px '../images/olympics-sprite.png' 'hockey';
+$judo-name: 'judo';
+$judo-x: 0px;
+$judo-y: 0px;
+$judo-offset-x: 0px;
+$judo-offset-y: 0px;
+$judo-width: 122px;
+$judo-height: 133px;
+$judo-total-width: 878px;
+$judo-total-height: 681px;
+$judo-image: '../images/olympics-sprite.png';
+$judo: 0px 0px 0px 0px 122px 133px 878px 681px '../images/olympics-sprite.png' 'judo';
+$olimpicsspesial-name: 'olimpicsspesial';
+$olimpicsspesial-x: 252px;
+$olimpicsspesial-y: 411px;
+$olimpicsspesial-offset-x: -252px;
+$olimpicsspesial-offset-y: -411px;
+$olimpicsspesial-width: 122px;
+$olimpicsspesial-height: 133px;
+$olimpicsspesial-total-width: 878px;
+$olimpicsspesial-total-height: 681px;
+$olimpicsspesial-image: '../images/olympics-sprite.png';
+$olimpicsspesial: 252px 411px -252px -411px 122px 133px 878px 681px '../images/olympics-sprite.png' 'olimpicsspesial';
+$pentathlon-name: 'pentathlon';
+$pentathlon-x: 378px;
+$pentathlon-y: 411px;
+$pentathlon-offset-x: -378px;
+$pentathlon-offset-y: -411px;
+$pentathlon-width: 122px;
+$pentathlon-height: 133px;
+$pentathlon-total-width: 878px;
+$pentathlon-total-height: 681px;
+$pentathlon-image: '../images/olympics-sprite.png';
+$pentathlon: 378px 411px -378px -411px 122px 133px 878px 681px '../images/olympics-sprite.png' 'pentathlon';
+$rowing-name: 'rowing';
+$rowing-x: 504px;
+$rowing-y: 411px;
+$rowing-offset-x: -504px;
+$rowing-offset-y: -411px;
+$rowing-width: 122px;
+$rowing-height: 133px;
+$rowing-total-width: 878px;
+$rowing-total-height: 681px;
+$rowing-image: '../images/olympics-sprite.png';
+$rowing: 504px 411px -504px -411px 122px 133px 878px 681px '../images/olympics-sprite.png' 'rowing';
+$rugbyunion-name: 'rugbyunion';
+$rugbyunion-x: 630px;
+$rugbyunion-y: 0px;
+$rugbyunion-offset-x: -630px;
+$rugbyunion-offset-y: 0px;
+$rugbyunion-width: 122px;
+$rugbyunion-height: 133px;
+$rugbyunion-total-width: 878px;
+$rugbyunion-total-height: 681px;
+$rugbyunion-image: '../images/olympics-sprite.png';
+$rugbyunion: 630px 0px -630px 0px 122px 133px 878px 681px '../images/olympics-sprite.png' 'rugbyunion';
+$sailing-name: 'sailing';
+$sailing-x: 630px;
+$sailing-y: 137px;
+$sailing-offset-x: -630px;
+$sailing-offset-y: -137px;
+$sailing-width: 122px;
+$sailing-height: 133px;
+$sailing-total-width: 878px;
+$sailing-total-height: 681px;
+$sailing-image: '../images/olympics-sprite.png';
+$sailing: 630px 137px -630px -137px 122px 133px 878px 681px '../images/olympics-sprite.png' 'sailing';
+$shooting-name: 'shooting';
+$shooting-x: 630px;
+$shooting-y: 274px;
+$shooting-offset-x: -630px;
+$shooting-offset-y: -274px;
+$shooting-width: 122px;
+$shooting-height: 133px;
+$shooting-total-width: 878px;
+$shooting-total-height: 681px;
+$shooting-image: '../images/olympics-sprite.png';
+$shooting: 630px 274px -630px -274px 122px 133px 878px 681px '../images/olympics-sprite.png' 'shooting';
+$swimming-name: 'swimming';
+$swimming-x: 630px;
+$swimming-y: 411px;
+$swimming-offset-x: -630px;
+$swimming-offset-y: -411px;
+$swimming-width: 122px;
+$swimming-height: 133px;
+$swimming-total-width: 878px;
+$swimming-total-height: 681px;
+$swimming-image: '../images/olympics-sprite.png';
+$swimming: 630px 411px -630px -411px 122px 133px 878px 681px '../images/olympics-sprite.png' 'swimming';
+$synswimming-name: 'synswimming';
+$synswimming-x: 0px;
+$synswimming-y: 548px;
+$synswimming-offset-x: 0px;
+$synswimming-offset-y: -548px;
+$synswimming-width: 122px;
+$synswimming-height: 133px;
+$synswimming-total-width: 878px;
+$synswimming-total-height: 681px;
+$synswimming-image: '../images/olympics-sprite.png';
+$synswimming: 0px 548px 0px -548px 122px 133px 878px 681px '../images/olympics-sprite.png' 'synswimming';
+$tabletennis-name: 'tabletennis';
+$tabletennis-x: 126px;
+$tabletennis-y: 548px;
+$tabletennis-offset-x: -126px;
+$tabletennis-offset-y: -548px;
+$tabletennis-width: 122px;
+$tabletennis-height: 133px;
+$tabletennis-total-width: 878px;
+$tabletennis-total-height: 681px;
+$tabletennis-image: '../images/olympics-sprite.png';
+$tabletennis: 126px 548px -126px -548px 122px 133px 878px 681px '../images/olympics-sprite.png' 'tabletennis';
+$taekwondo-name: 'taekwondo';
+$taekwondo-x: 252px;
+$taekwondo-y: 548px;
+$taekwondo-offset-x: -252px;
+$taekwondo-offset-y: -548px;
+$taekwondo-width: 122px;
+$taekwondo-height: 133px;
+$taekwondo-total-width: 878px;
+$taekwondo-total-height: 681px;
+$taekwondo-image: '../images/olympics-sprite.png';
+$taekwondo: 252px 548px -252px -548px 122px 133px 878px 681px '../images/olympics-sprite.png' 'taekwondo';
+$tennis-name: 'tennis';
+$tennis-x: 378px;
+$tennis-y: 548px;
+$tennis-offset-x: -378px;
+$tennis-offset-y: -548px;
+$tennis-width: 122px;
+$tennis-height: 133px;
+$tennis-total-width: 878px;
+$tennis-total-height: 681px;
+$tennis-image: '../images/olympics-sprite.png';
+$tennis: 378px 548px -378px -548px 122px 133px 878px 681px '../images/olympics-sprite.png' 'tennis';
+$triathlon-name: 'triathlon';
+$triathlon-x: 504px;
+$triathlon-y: 548px;
+$triathlon-offset-x: -504px;
+$triathlon-offset-y: -548px;
+$triathlon-width: 122px;
+$triathlon-height: 133px;
+$triathlon-total-width: 878px;
+$triathlon-total-height: 681px;
+$triathlon-image: '../images/olympics-sprite.png';
+$triathlon: 504px 548px -504px -548px 122px 133px 878px 681px '../images/olympics-sprite.png' 'triathlon';
+$volleyball-name: 'volleyball';
+$volleyball-x: 630px;
+$volleyball-y: 548px;
+$volleyball-offset-x: -630px;
+$volleyball-offset-y: -548px;
+$volleyball-width: 122px;
+$volleyball-height: 133px;
+$volleyball-total-width: 878px;
+$volleyball-total-height: 681px;
+$volleyball-image: '../images/olympics-sprite.png';
+$volleyball: 630px 548px -630px -548px 122px 133px 878px 681px '../images/olympics-sprite.png' 'volleyball';
+$waterpolo-name: 'waterpolo';
+$waterpolo-x: 756px;
+$waterpolo-y: 0px;
+$waterpolo-offset-x: -756px;
+$waterpolo-offset-y: 0px;
+$waterpolo-width: 122px;
+$waterpolo-height: 133px;
+$waterpolo-total-width: 878px;
+$waterpolo-total-height: 681px;
+$waterpolo-image: '../images/olympics-sprite.png';
+$waterpolo: 756px 0px -756px 0px 122px 133px 878px 681px '../images/olympics-sprite.png' 'waterpolo';
+$weightlifting-name: 'weightlifting';
+$weightlifting-x: 0px;
+$weightlifting-y: 274px;
+$weightlifting-offset-x: 0px;
+$weightlifting-offset-y: -274px;
+$weightlifting-width: 122px;
+$weightlifting-height: 133px;
+$weightlifting-total-width: 878px;
+$weightlifting-total-height: 681px;
+$weightlifting-image: '../images/olympics-sprite.png';
+$weightlifting: 0px 274px 0px -274px 122px 133px 878px 681px '../images/olympics-sprite.png' 'weightlifting';
+$wrestling-name: 'wrestling';
+$wrestling-x: 126px;
+$wrestling-y: 0px;
+$wrestling-offset-x: -126px;
+$wrestling-offset-y: 0px;
+$wrestling-width: 122px;
+$wrestling-height: 133px;
+$wrestling-total-width: 878px;
+$wrestling-total-height: 681px;
+$wrestling-image: '../images/olympics-sprite.png';
+$wrestling: 126px 0px -126px 0px 122px 133px 878px 681px '../images/olympics-sprite.png' 'wrestling';
+$spritesheet-width: 878px;
+$spritesheet-height: 681px;
+$spritesheet-image: '../images/olympics-sprite.png';
+$spritesheet-sprites: $archery $athletics $badminton $basketball $beachvolleyball $boxing $canoeing $cycling $diving $equestrian $fencing $football $golf $gymnastics $handball $hockey $judo $olimpicsspesial $pentathlon $rowing $rugbyunion $sailing $shooting $swimming $synswimming $tabletennis $taekwondo $tennis $triathlon $volleyball $waterpolo $weightlifting $wrestling;
+$spritesheet: 878px 681px '../images/olympics-sprite.png' $spritesheet-sprites;
+
+/*
+The provided classes are intended to be used with the array-like variables
+
+.icon-home {
+  @include sprite-width($icon-home);
+}
+.icon-email {
+  @include sprite($icon-email);
+}
+
+Example usage in HTML:
+
+`display: block` sprite:
+<div class="icon-home"></div>
+
+To change `display` (e.g. `display: inline-block;`), we suggest using a common CSS class:
+
+// CSS
+.icon {
+  display: inline-block;
+}
+
+// HTML
+<i class="icon icon-home"></i>
+*/
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 5);
+}
+
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 6);
+}
+
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 3);
+  $sprite-offset-y: nth($sprite, 4);
+  background-position: $sprite-offset-x $sprite-offset-y;
+}
+
+@mixin sprite-image($sprite) {
+  $sprite-image: nth($sprite, 9);
+  $sprite-image-bare: slice($sprite-image,1, -1);
+  background-image: url($sprite-image-bare);
+}
+
+@mixin sprite($sprite) {
+  @include sprite-image($sprite);
+  @include sprite-position($sprite);
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}
+
+/*
+The `.sprites` mixin generates identical output to the CSS template
+  but can be overridden inside of LESS
+
+This must be run when you have at least 2 sprites.
+  If run with a single sprite, then there will be reference errors.
+
+@include sprites($spritesheet-sprites);
+*/
+@mixin sprites($sprites, $i: 1) {
+  @if ($i <= length($sprites)) {
+    $sprite: nth($sprites, $i);
+    $sprite-name: e(nth($sprite, 10));
+    .#{$sprite-name} {
+      @include sprite($sprite);
+    }
+    @include sprites($sprites, $i + 1);
+  }
+}

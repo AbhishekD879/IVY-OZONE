@@ -1,0 +1,39 @@
+<ng-container *ngIf="module">
+  <breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+  <div class="card">
+    <div class="header">
+      <h2 class="waves-effect waves-block has-activity-badge">
+        Title: {{module.title}}
+        <create-updated-at-by [collection]="module"></create-updated-at-by>
+      </h2>
+      <header-activity-badge [state]="module.disabled"></header-activity-badge>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-2 m-b-0">
+          <mat-checkbox color="primary"
+                        [checked]="!module.disabled"
+                        (change)="module.disabled = !module.disabled">
+            Active
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row"  *ngIf="module.moduleType === 'POPULAR_ACCA'">
+        <mat-hint class="col-md-10 m-b-0">Kindly Note that Widget cards have been configured in the <a href="/most-popular/popular-accas-widget">Popular Acca Widget</a> section</mat-hint>
+      </div>
+    </div>
+  </div>
+
+  <app-featured-modules-list *ngIf="isFeaturedEventsActive"></app-featured-modules-list>
+
+  <action-buttons
+    #actionButtons
+    [fieldOrItemName]="'title'"
+    [collection]="module"
+    [showRemoveButton]="false"
+    (actionsEmitter)="actionsHandler($event);"
+  ></action-buttons>
+</ng-container>

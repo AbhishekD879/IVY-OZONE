@@ -1,0 +1,284 @@
+@import 'global.variables.scss';
+.space-bottom{
+  margin-bottom: 12px;
+}
+
+.race-details-container {
+  display: block;
+}
+.racing-post-media-btns-container{
+  margin:0px;
+  padding: 7px 12px 0px 0px;
+  box-shadow: 0 0px 0px;
+  display: inline-flex;
+}
+.rules-deduction {
+  @include display-flex();
+  @include flex-direction(column);
+  justify-content: space-between;
+  font-family: $alt-font-family;
+
+  .rule-value {
+    font-weight: bold;
+  }
+}
+
+.dividends {
+  white-space: nowrap;
+
+  .section-header {
+    font-size: $font-size-md;
+    font-family: $base-font-family;
+    @include display-flex();
+  }
+
+  .result-card {
+    font-size: $font-size;
+    font-family: $alt-font-family;
+    @include display-flex();
+  }
+
+  .name-col {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    @include flex(1, 1, auto);
+  }
+
+  .value-col {
+    text-align: center;
+    width: 46px;
+    min-width: 46px;
+    margin-left: 30px;
+    display: inline-block;
+  }
+
+  .bold-col {
+    text-align: right;
+    font-weight: bold;
+  }
+
+  .dividend-result-col {
+    text-align: center;
+    width: 45px;
+    min-width: 45px;
+    display: inline-block;
+  }
+}
+
+
+.section-container {
+  background-color: $lGray-bg;
+  color: $color-gray-darkest;
+  box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+
+  &.results-list{
+    .card-bordered{
+      border-top: 2px solid $lGrayLight;
+      &:nth-child(2) {
+        border: 0;
+      }
+    }
+
+    .result-section{
+      height: 25px;
+      font-family: 'Roboto Condensed';
+      font-style: normal;
+      font-weight: 700;
+      font-size: $font-size-md;
+      line-height: $font-size-tablet;
+      display: flex;
+      align-items: center;
+      text-transform: uppercase;
+      color: $color-gray-darkest;
+      padding-left: $font-size;
+      background: $color-white;
+    }
+
+    .unplaced{
+      border-top: 4px solid $lGrayLight;
+    }
+
+    .unplaced-section{
+      border-bottom: 1px solid $lGrayLight;
+     }
+
+    .unplaced-button{
+      padding: 12px;
+      font-family: 'Roboto Condensed';
+      font-style: normal;
+      font-weight: 700;
+      font-size: $font-size-lg;
+      line-height: $line-height-sm;
+      text-align: center;
+      letter-spacing: 0.0009625px;
+      color: $color-blue-alt;
+      background: $color-white;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: 2px solid $lGrayLight;
+    }
+
+    .a-result {
+      padding: $font-size-tablet;
+      pointer-events: none;
+      color: rgba(74, 144, 226, 0.4);
+      border: 2px solid $lGrayLight;
+    }
+
+    .results-supplied {
+      height: $line-height-xs;
+      text-transform: none;
+      font-style: normal;
+      font-weight: 500;
+      font-size: $font-size-md;
+      line-height: $line-height-xs;
+      letter-spacing: 0.00075625px;
+      color: $color-gray-darkest;
+      padding: $font-size;
+      border-top: 4px solid $lGrayLight;
+    }
+  
+    .logo {
+      width: 88px;
+      height: $font-size-pre-xs;
+      vertical-align: baseline;
+      padding-left: 4px;
+    }
+  }
+
+  &.space-top {
+    margin-top: 8px;
+    &.watchreplayenabled{
+      margin-top: 0px;
+    }
+  }
+
+  &.rules-deduction {
+    .result-card {
+      font-size: 13px;
+      .name-col{
+        font-weight: normal;
+      }
+    }
+  }
+
+  .section-header {
+    background-color: $lGrayLight;
+    padding: 9px 24px 9px 12px;
+    font-size: $font-size-md;
+    box-shadow: 0 -1px 0 0 $lGrayDark, 0 1px 0 0 $lGrayDark;
+    margin-bottom: 1px;
+    @include display-flex();
+
+    &.top-section {
+      @include justify-content(space-between);
+    }
+
+    .result-odds-col {
+      width: 36px;
+      text-align: center;
+      font-weight: normal;
+    }
+  }
+
+  .result-card {
+    padding: 12px 24px 12px 12px;
+    background-color: $color-white;
+  }
+
+  ::ng-deep {
+    .card-bordered {
+      border-top: 2px solid $lGrayLight;
+
+      &:nth-child(2) {
+        border-top: none;
+      }
+    }
+  }
+
+  &.each-way-text {
+    .result-card {
+      min-height: 40px;
+      padding: 4px 4px 4px 12px;
+      @include display-flex();
+      @include align-items(center);
+      @include justify-content(space-between);
+
+      .racing-result-icons {
+        @include display-flex();
+        @include align-items();
+        @include justify-content(flex-end);
+
+        ::ng-deep {
+          .prom-icons {
+            .middle-icon {
+              width: 30px;
+              height: 30px;
+              background-color: $color-yellow-alt;
+
+              .event-card-label {
+                width: 17px;
+                height: 17px;
+                fill: $lGray;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .terms-before-market {
+      font-family: $alt-font-family;
+
+      .term-value {
+        line-height: 30px;
+      }
+    }
+  }
+}
+
+.race-details-container.race-result {
+  color: $color-gray-darkest;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+  padding: 12px !important;
+
+  .race-event-container {
+    font-size: $font-size-lg;
+
+    .race-event-time {
+      padding-right: 5px;
+    }
+  }
+
+  .race-title {
+    font-size: $font-size;
+    font-weight: bold;
+  }
+
+  .value {
+    font-weight: normal;
+    padding: 0;
+  }
+
+  .oval {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    background-color: $color-yellow-alt;
+    margin: 0 8px 1px 0;
+
+    &.green {
+      background-color: $color-green;
+    }
+  }
+
+  .race-details-container-l {
+    .label {
+      padding-right: 5px;
+    }
+  }
+
+}

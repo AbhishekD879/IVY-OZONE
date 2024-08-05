@@ -1,0 +1,86 @@
+<div class="custom-dialog">
+  <h3 mat-dialog-title class="m-b-0">{{action}} OB Market ID</h3>
+  <div mat-dialog-content>
+
+    <div class="row clearfix">
+      <div class="col-md-12">
+        <mat-checkbox class="mat-label" color="primary"
+                      [checked]="competitionMarket.enabled"
+                      (change)="competitionMarket.enabled = !competitionMarket.enabled">
+          Active
+        </mat-checkbox>
+      </div>
+    </div>
+
+    <div class="row clearfix">
+      <div class="col-md-12">
+        <mat-checkbox class="mat-label" color="primary"
+                      [checked]="competitionMarket.collapsed"
+                      (change)="competitionMarket.collapsed = !competitionMarket.collapsed">
+          Collapsed
+        </mat-checkbox>
+      </div>
+    </div>
+
+    <div class="row clearfix">
+      <div class="col-md-8 m-b-10 m-t-10">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': marketIsValid || marketExists}">
+          <input [(ngModel)]="competitionMarket.marketId"
+                 (ngModelChange)="marketEdited = true"
+                 matInput
+                 type="number"
+                 placeholder="OB Market ID"
+                 trim="blur"
+                 required min="1">
+          <mat-hint class="col-red" *ngIf="marketIsValid">Market ID is not valid. Try again.</mat-hint>
+          <mat-hint class="col-red" *ngIf="marketExists">Market ID already exists in market list.</mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4 m-b-10 m-t-10">
+        <button mat-button class="btn btn-sm bg-teal float-right m-l-10" (click)="uploadMarketData();"
+                [disabled]="!competitionMarket.marketId">Upload Market Data
+        </button>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-12 m-b-10">
+        <mat-form-field class="full-width">
+          <input [(ngModel)]="competitionMarket.nameOverride" matInput type="text" placeholder="Override Market Name"
+                 trim="blur" required [disabled]="nameIsDisabled">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-12">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !competitionMarket.maxDisplay}">
+          <input [(ngModel)]="competitionMarket.maxDisplay" matInput type="number"
+                 placeholder="Max Display" onkeypress="return event.charCode >= 48 && event.charCode <= 57" step="1"
+                 min="1" required>
+          <mat-hint class="col-red" *ngIf="!competitionMarket.maxDisplay">Max display should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <mat-radio-group class="col-md-12" [(ngModel)]="competitionMarket.viewType">
+        <mat-radio-button class="mat-label col-md-2 p-l-0" color="primary" value="LIST">
+          List
+        </mat-radio-button>
+        <mat-radio-button class="mat-label col-md-2 p-l-0" color="primary" value="GRID">
+          Grid
+        </mat-radio-button>
+        <mat-radio-button class="mat-label col-md-2 p-l-0" color="primary" value="CARD">
+          Card
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button class="btn btn-default m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+    <button mat-button
+            class="btn btn-sm bg-teal float-right"
+            [disabled]="!isValidForSave()"
+            [mat-dialog-close]="competitionMarket">Save</button>
+  </div>
+</div>

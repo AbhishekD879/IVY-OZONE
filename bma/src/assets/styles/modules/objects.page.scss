@@ -1,0 +1,62 @@
+/* Base styles for the page
+ * =============================================================================
+ */
+$widget-column-width: 350px;
+
+.page-inner {
+  @media screen and (min-width: $md-point) {
+    @include display-flex();
+    @include flex-flow(row);
+  }
+}
+
+.page-segment {
+  width: 100%;
+
+  @media screen and (min-width: $md-point) {
+    @include flex(1,1,60%);
+    width: 60%;
+    min-width: 60%;
+  }
+
+  @media screen and (min-width: $xl-point) {
+    @include flex(1,1,55%);
+    width: 55%;
+  }
+}
+
+.widget-column {
+  @include flex(0,0,100%);
+  max-width: 100%;
+
+  @media screen and (min-width: $md-point) {
+    @include flex(0,0,40%);
+    max-width: $widget-column-width;
+    padding-left: 10px;
+  }
+
+  @media screen and (min-width: $xl-point) {
+    @include flex(0,0,45%);
+  }
+
+  &:empty {
+    display: none;
+  }
+}
+.odds-left-scorer{
+  max-width: 100%;
+  display: flex;
+  flex: 1 1 auto;
+  overflow: hidden;
+  flex-direction: column; 
+  align-items: flex-start !important;
+  strong {
+    padding: 0 0 2px 0 !important;
+  }
+}
+.page-container.page-inner-container {
+  .container-content {
+    margin: 0;
+    border-radius: 0;
+  }
+}

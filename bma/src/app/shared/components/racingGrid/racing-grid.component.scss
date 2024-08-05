@@ -1,0 +1,110 @@
+@import 'global.variables.scss';
+
+$racing-font-style: none;
+/*
+ * Racing Grid
+ *----------------------------------------------------------------------
+*/
+.race-grid {
+  background: $color-white;
+  padding: 17px;
+  border-radius: 3px;
+  margin: 0 0 4px;
+
+  &:first-child {
+    margin-top: 2px;
+  }
+
+  .rg-header {
+    color: $color-gray-dark;
+    text-transform: $racing-font-style;
+    font-size: $font-size;
+    font-weight: bold;
+    padding-bottom: 7px;
+    width: 100%;
+    @include display-flex();
+    @include align-items();
+
+    .rg-icon {
+      height: 22px;
+      width: 22px;
+      min-width: 22px;
+      max-width: 22px;
+      margin-right: 10px;
+      fill: $color-gray-dark;
+      @include flex();
+    }
+
+    .rg-title {
+      line-height: 22px;
+      float: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      @include flex();
+    }
+  }
+
+  .rg-section {
+    margin-top: 17px;
+
+    .scroll-container {
+      .scroll-inner {
+        margin-bottom: 0;
+        border-bottom: none;
+        .tab {
+          line-height: 16px;
+          font-weight: normal;
+        }
+      }
+    }
+
+    &:first-child {
+      margin: 0;
+    }
+  }
+
+  .rg-footer {
+    color: $color-gray-dark;
+    line-height: 12px;
+    font-size: 9px;
+    margin-bottom: 0;
+    @include display-flex();
+    background: none;
+
+    .rg-stream-icon {
+      width: 12px;
+      height: 12px;
+      margin: 0 5px 0 10px;
+      fill: $color-gray-dark;
+    }
+
+    .rg-stream-text {
+      font-size: $font-size-sm;
+    }
+  }
+
+  .rd-legend {
+    display: block;
+    background: $color-gray-light;
+    padding: 10px 15px;
+    border-radius: 3px;
+    margin: 5px 0 0;
+  }
+}
+
+/*Resulted tab*/
+.race-resulted {
+  .race-icon {
+    height: 12px;
+    width: 12px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-left: -6px;
+  }
+
+  .race-time {
+    color: lighten($color-gray-dark, 50%);
+  }
+}

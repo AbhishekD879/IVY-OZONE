@@ -1,0 +1,65 @@
+<!-- Time | League Filters -->
+<lazy-component *ngIf="isSportEventFiltersEnabled && competitionFilters.length && displayFilters"
+                data-crlat="competitionFilters"
+                moduleUri="@lazy-modules-module/competitionFilters/competitionFilters.module#CompetitionFiltersModule"
+                [inputs]="{filters: competitionFilters, sportId: categoryId, paddingTop: true, isCompetitionsPage: true}"
+                [outputs]="['filterChange']"
+                (event)="handleCompetitionFilterOutput($event)"
+></lazy-component>
+
+<lazy-component *ngIf="isMarketSwitcherConfigured && eventsBySectionsCopy.length" [ngClass]="{ 'sticky-market-selector': true }"
+                moduleUri="@sharedModule/components/marketSelector/market-selector.module#MarketSelectorModule"
+                data-crlat="marketSelectorModule" entryComponent="MatchesMarketSelectorComponent" [inputs]="{sportId: categoryId,
+                      multipleEventsDataSections: eventsBySectionsCopy,
+                      selectorType:'sportCompetition', targetTab: targetTab }" [outputs]="['filterChange']" (event)="filterEvents($event)">
+</lazy-component>
+
+<ng-container *ngIf="eventsBySections?.length>0">
+  <filter-buttons *ngIf="isMarketSwitcherConfigured" [items]="switchers" [position]="position" data-crlat="switchers">
+  </filter-buttons>
+  <ng-container *ngFor="let eventsByCategory of eventsBySections; trackBy:trackByTypeId;let i = index">
+
+    <ng-container *ngIf="!eventsByCategory.deactivated && loadData">
+      <ng-template *ngTemplateOutlet="VirtualBanner; context :{ index: activeIndex(i) } "></ng-template>
+    </ng-container>
+
+    <accordion data-crlat="accordion" *ngIf="!eventsByCategory.deactivated && loadData"
+      [accordionTitle]="eventsByCategory?.sectionTitle" [isExpanded]="eventsByCategory.isExpanded"
+      [isShowAll]="eventsByCategory.isExpanded && limitedSections[eventsByCategory.typeId]"
+      (function)="updateState($event, eventsByCategory)">
+      <right-side>
+        <see-all-link *ngIf="eventsByCategory.isExpanded && limitedSections[eventsByCategory.typeId]"
+          [link]="goToCompetition(eventsByCategory)"></see-all-link>
+      </right-side>
+      <accordion-body>
+        <competitions-matches-tab [sport]="sport"
+                                  [eventsByCategory]="eventsByCategory"
+                                  [inner]="false"
+                                  [isLoaded]="isLoaded"
+                                  [sportId]="categoryId"
+                                  [targetTab]="targetTab">
+        </competitions-matches-tab>
+      </accordion-body>
+    </accordion>
+
+  </ng-container>
+  <ng-container *ngIf="loadData">
+    <ng-template *ngTemplateOutlet="VirtualBanner; context :{ index : activeIndex(eventsBySections.length) } "></ng-template>
+  </ng-container>
+</ng-container>
+
+<no-events *ngIf="isLoaded && !eventsBySections?.length"></no-events>
+
+<ng-container *ngIf="isLoaded && !eventsBySections.length">
+  <ng-template *ngTemplateOutlet="VirtualBanner; context :{ index: -1 } "></ng-template>
+</ng-container>
+
+<ng-template #VirtualBanner let-index="index">
+  <ng-container *ngIf="targetTab?.interstitialBanners?.bannerEnabled">
+    <lazy-component
+      moduleUri="@lazy-modules-module/virtualEntryPointBanner/virtual-entry-point-banner.module#VirtualEntryPointBannerModule"
+      entryComponent="VirtualEntryPointBannerComponent"
+      [inputs]="{targetTab: targetTab, eventsBySections: eventsBySections, index: index,sportName : sportName}">
+    </lazy-component>
+  </ng-container>
+</ng-template>

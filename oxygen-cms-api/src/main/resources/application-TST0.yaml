@@ -1,0 +1,209 @@
+akamai:
+  workers:
+    count: 5
+  # deprecated, should be replaced with brand.configs
+  root-path: /328873/CORAL/bet-tst2.coral.co.uk
+  upload.cpcode:
+  desktop: ${akamai.root-path}/desktop
+  mobile: ${akamai.root-path}/mobile
+  cms:
+    path: ${akamai.root-path}/cms/
+  root-url: https://bet-tst2.coral.co.uk/,https://bet-tst4.coral.co.uk/
+  url: https://bet-tst2.coral.co.uk/cms/,https://bet-tst4.coral.co.uk/cms/
+  brand.configs:
+    bma:
+      enabled: true
+      storeType: FileStore
+      basePath: ${akamai.root-path}
+      url: ${akamai.root-url}
+    ladbrokes:
+      enabled: true
+      storeType: FileStore
+      basePath: /328873/CORAL/sports-red-tst2.ladbrokes.com
+      url: https://sports-red-tst2.ladbrokes.com
+
+
+
+homeModule:
+  removeExpired:
+    cron: 0 0/5 * 1/1 * ?
+dashboard:
+  removeExpired:
+    cron: 0 0/5 * 1/1 * ?
+
+siteserver:
+  base:
+    url: https://ss-tst2.coral.co.uk/
+
+stats:
+  center:
+    url: https://statscenter-tst0.coralsports.nonprod.cloud.ladbrokescoral.com/
+
+api:
+  buildyourbet:
+    ladbrokes:
+      url: https://buildyourbet-tst0.ladbrokesoxygen.nonprod.cloud.ladbrokescoral.com/
+    bma:
+      url: https://buildyourbet-tst0.coralsports.nonprod.cloud.ladbrokescoral.com/
+
+fastpurge:
+  cp_code: 730748,812270
+
+masterlock:
+  aws:
+    dynamo:
+      url: https://dynamodb.eu-west-2.amazonaws.com
+      lock-table-name: CR-MSLOCKTABLE-NONPROD
+
+google-cloud:
+  big-query:
+    entriesTableId: Entries_STG
+    timelineChangelogTableId: Change_Log_STG
+
+specialpages:
+  specialpageConfig:
+    ladbrokes:
+      url: https://bpp.internal.tst.ladbrokes.com/Proxy/specialpage
+      secret: export MAINTENANCE_KEY=VALUE
+    bma:
+      url: https://bpp.internal.tst.coral.co.uk/Proxy/specialpage
+      secret: export MAINTENANCE_KEY=VALUE
+
+magicurl:
+  longurl: https://qa2.sports.ladbrokes.com/5-a-side/leaderboard/
+
+showdown:
+  base:
+    url: https://showdown2.internal.tst.ladbrokes.com/showdown/api/
+
+# always last few seconds should be sync with featured.cron.expression
+last.view.seconds: 5
+
+cfcache:
+  tags:
+    bma: CSP-tst0-coral
+    ladbrokes : CSP-tst0-ladbrokes
+
+topic:
+  bet-pack:
+    prefix: TST
+
+  lads:
+    cms-push:
+      prefix: TST-LB
+      partitions: 1
+      replicaFactor: 1
+  coral:
+    cms-push:
+      prefix: TST-CR
+      partitions: 1
+      replicaFactor: 1
+
+coral:
+  kafka:
+    bootstrap-servers: 10.152.48.99:9092,10.152.48.100:9092,10.152.48.101:9092
+    admin:
+      properties:
+        bootstrap:
+          servers: ${coral.kafka.bootstrap-servers}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      bootstrap-servers: ${coral.kafka.bootstrap-servers}
+      ssl:
+        key-store-location: classpath:ssl/tst/coral/ozone-publisher.keystore.jks
+        trust-store-location: classpath:ssl/tst/coral/ozone-publisher.truststore.jks
+        key-store-password: changeit
+        key-password: changeit
+        trust-store-password: changeit
+        trust-store-type: JKS
+        key-store-type: JKS
+      security:
+        protocol: SSL
+    properties:
+      security:
+        protocol: SSL
+    topic:
+      ladbrokes: timeline
+      coral: timeline-cr
+      cms-config-map: ${topic.coral.cms-push.prefix}__cms-config-map-topic
+      cms-quiz: ${topic.coral.cms-push.prefix}__cms-quiz
+      cms-sports: ${topic.coral.cms-push.prefix}__cms-sports
+      cms-sportcategories: ${topic.coral.cms-push.prefix}__cms-sportcategories
+      cms-moduleribbontabs: ${topic.coral.cms-push.prefix}__cms-moduleribbontabs
+      cms-homemodules: ${topic.coral.cms-push.prefix}__cms-homemodules
+      cms-sportquicklinks: ${topic.coral.cms-push.prefix}__cms-sportquicklinks
+      cms-ycleagues: ${topic.coral.cms-push.prefix}__cms-ycleagues
+      cms-systemconfigurations: ${topic.coral.cms-push.prefix}__cms-systemconfigurations
+      cms-assetmanagement: ${topic.coral.cms-push.prefix}__cms-assetmanagement
+      cms-fanzones: ${topic.coral.cms-push.prefix}__cms-fanzones
+
+      cms-sportModules: ${topic.coral.cms-push.prefix}__cms-sportModules
+      cms-homeInplaySport: ${topic.coral.cms-push.prefix}__cms-homeInplaySport
+      cms-sporttabs: ${topic.coral.cms-push.prefix}__cms-sporttabs
+      cms-surfaceBet: ${topic.coral.cms-push.prefix}__cms-surfaceBet
+      cms-surfacebetArchive: ${topic.coral.cms-push.prefix}__cms-surfacebetArchive
+      cms-highlightCarousel: ${topic.coral.cms-push.prefix}__cms-highlightCarousel
+      cms-highlightCarouselArchive: ${topic.coral.cms-push.prefix}__cms-highlightCarouselArchive
+      cms-segments: ${topic.coral.cms-push.prefix}__cms-segments
+      cms-segmentedModules: ${topic.coral.cms-push.prefix}__cms-segmentedModules
+    partitions: 1
+    replicaFactor: 1
+  topic:
+    timeline: timeline
+    active-bet-packs: ${topic.bet-pack.prefix}__active-bet-packs-topic
+    partitions: 1
+    replicaFactor: 1
+
+ladbrokes:
+  kafka:
+    bootstrap-servers: 10.152.49.99:9092,10.152.49.100:9092,10.152.49.101:9092
+    admin:
+      properties:
+        bootstrap:
+          servers: ${ladbrokes.kafka.bootstrap-servers}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      bootstrap-servers: ${ladbrokes.kafka.bootstrap-servers}
+      ssl:
+        key-store-location: classpath:ssl/tst/ladbrokes/ozone-publisher.keystore.jks
+        trust-store-location: classpath:ssl/tst/ladbrokes/ozone-publisher.truststore.jks
+        key-store-password: changeit
+        key-password: changeit
+        trust-store-password: changeit
+        trust-store-type: JKS
+        key-store-type: JKS
+      security:
+        protocol: SSL
+    properties:
+      security:
+        protocol: SSL
+    topic:
+      leaderboard-contest: ${distributed.prefix}-LDRBRD-leaderboard-contest
+      cms-config-map: ${topic.lads.cms-push.prefix}__cms-config-map-topic
+      cms-quiz: ${topic.lads.cms-push.prefix}__cms-quiz
+      cms-games: ${topic.lads.cms-push.prefix}__cms-games
+      cms-season: ${topic.lads.cms-push.prefix}__cms-season
+      cms-qualification-rule: ${topic.lads.cms-push.prefix}__cms-qualification-rule
+      cms-gamification: ${topic.lads.cms-push.prefix}__cms-gamification
+      cms-sports: ${topic.lads.cms-push.prefix}__cms-sports
+      cms-sportcategories: ${topic.lads.cms-push.prefix}__cms-sportcategories
+      cms-moduleribbontabs: ${topic.lads.cms-push.prefix}__cms-moduleribbontabs
+      cms-homemodules: ${topic.lads.cms-push.prefix}__cms-homemodules
+      cms-sportquicklinks: ${topic.lads.cms-push.prefix}__cms-sportquicklinks
+      cms-ycleagues: ${topic.lads.cms-push.prefix}__cms-ycleagues
+      cms-systemconfigurations: ${topic.lads.cms-push.prefix}__cms-systemconfigurations
+      cms-assetmanagement: ${topic.lads.cms-push.prefix}__cms-assetmanagement
+      cms-fanzones: ${topic.lads.cms-push.prefix}__cms-fanzones
+      cms-sportModules: ${topic.lads.cms-push.prefix}__cms-sportModules
+      cms-homeInplaySport: ${topic.lads.cms-push.prefix}__cms-homeInplaySport
+      cms-sporttabs: ${topic.lads.cms-push.prefix}__cms-sporttabs
+      cms-surfaceBet: ${topic.lads.cms-push.prefix}__cms-surfaceBet
+      cms-surfacebetArchive: ${topic.lads.cms-push.prefix}__cms-surfacebetArchive
+      cms-highlightCarousel: ${topic.lads.cms-push.prefix}__cms-highlightCarousel
+      cms-highlightCarouselArchive: ${topic.lads.cms-push.prefix}__cms-highlightCarouselArchive
+      cms-segments: ${topic.lads.cms-push.prefix}__cms-segments
+      cms-segmentedModules: ${topic.lads.cms-push.prefix}__cms-segmentedModules
+    partitions: 1
+    replicaFactor: 1
+  topic:
+    timeline: timeline

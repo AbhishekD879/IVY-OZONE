@@ -1,0 +1,118 @@
+@import "global.variables.scss";
+
+:host {
+  ::ng-deep .modal-dialog {
+    .modal-content {
+      .modal-header {
+        height: $fanzone-syt-header-height;
+        border-radius: $fanzone-syt-header-border-radius;
+        padding: 18px;
+      }
+      .modal-body {
+        padding: $fanzone-syt-modal-padding;
+      }
+      .modal-footer {
+        text-align: center;
+        border-top: 1px solid $lGrayLight;
+        padding: 12px;
+      }
+    }
+  }
+}
+
+.SYT-Popup-title {
+  height: $fanzone-syt-popup-title-height;
+  margin: 24px 0px 8px 0px;
+  font-family: $fanzone-syt-popup-title-font-family;
+  font-size: $fanzone-syt-popup-font-size;
+  font-weight: $fanzone-syt-popup-font-weight;
+  font-stretch: $fanzone-syt-popup-title-font-stretch;
+  font-style: $fanzone-syt-popup-title-style;
+  line-height: $fanzone-syt-popup-title-style;
+  letter-spacing: $fanzone-syt-popup-title-style;
+  color: $lGray;
+  text-align: left;
+}
+.SYT-Popup-text {
+  font-size: 11px;
+  line-height: $fanzone-syt-line-height;
+  letter-spacing: $fanzone-syt-popup-title-style;
+  text-align: left;
+  padding: $fanzone-syt-popup-text-padding;
+  padding-top: 0px;
+  padding-bottom: 12px;
+}
+.SYT-Popup-img {
+  svg {
+    margin-bottom: $fanzone-syt-popup-eighteen;
+    height: 58px;
+  }
+}
+.remind-later {
+  border: $fanzone-syt-border;
+  background-color: $fanzone-transparent-color;
+  font-weight: bold;
+  color: $color-gray-darkest;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-family: 'Roboto';
+  &:hover{
+    text-decoration: underline;
+  }
+  &:active{
+    color: $lGrayMedium;
+    text-decoration: none;
+  }
+}
+.remind-later-button {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 12px 0px;
+}
+.i-m-in {
+  padding: 11px 22.7px 10px 23px;
+  background-color: $color-yellow-alt;
+  font-weight: bold;
+  color: $lGray;
+  border: $fanzone-syt-border;
+  height: $fanzone-syt-popup-thirtyFivePx;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-family: 'Roboto';
+  &:hover{
+    background: $color-yellow-alt;
+    opacity:0.85;
+  }
+  &:active{
+    background: $color-orange-light2;
+  }
+}
+.dont-show-me {
+  font-weight: bold;
+  color: $color-blue-alt;
+  font-size: 11px;
+  border: $fanzone-syt-border;
+  background-color: $fanzone-transparent-color;
+  text-transform: uppercase;
+  font-family: 'Roboto';
+  &:hover{
+    text-decoration: underline;
+  }
+  &:active{
+    text-decoration: none;
+    color: darken($color-blue-alt, 25%);
+  }
+}
+
+@media (max-width: $mobilePoint) {
+  .SYT-Popup-title {
+    font-size: 15px;
+  }
+  .i-m-in, .remind-later {
+    font-size: 13px;
+  }
+  .SYT-Popup-text {
+    font-size: $fanzone-syt-popup-font-size;
+  }
+}

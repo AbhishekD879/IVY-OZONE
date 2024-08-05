@@ -1,0 +1,27 @@
+<switchers *ngIf="isHR && showSwitcher"
+           class="top-switchers"
+           [filter]="filter"
+           [switchers]="switchers">
+</switchers>
+<racing-panel *ngFor="let racesGroup of groupedRaces; trackBy: trackByGroupName"
+              data-crlat="raceGrid.meeting"
+              [events]="racesGroup.events"
+              [groupFlag]="racingGroupFlag"
+              [isShowName]="false"
+              [title]="racesGroup.groupName"
+              [isHrEdp]="false"
+              [showSwitcher]="showSwitcher"
+              [showSignPost]="true"
+              [raceType] = "raceType"
+              [groupFlagText]="groupFlagText">
+  <div class="bog-signposting" header>
+    <promotion-icon [isHeaderBIRAvailable]="racesGroup.isHeaderBIRAvailable" mode="mini" [isGpAvailable]="racesGroup.bogAvailable" [bogIconStyle]="true"></promotion-icon>
+  </div>
+  <watch-label header data-crlat="raceGrid.iconStream" *ngIf="racesGroup.liveStreamAvailable"></watch-label>
+  <!-- Tote pools indicators -->
+  <racing-pool-indicator list *ngIf="showUKToteIndicators()"
+                         [events]="racesGroup.events"
+                         [emitEvent]="!showSwitcher"
+                         (overlayMenuClose)="overlayMenuClose()">
+  </racing-pool-indicator>
+</racing-panel>

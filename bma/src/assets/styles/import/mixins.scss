@@ -1,0 +1,172 @@
+@use "sass:math";
+
+@mixin aspect-ratio($width, $height) {
+  position: relative;
+
+  &:before {
+    display: block;
+    content: '';
+    width: 100%;
+    padding-top: math.div($height, $width) * 100%;
+  }
+  > .content-ratio {
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+/* word breaking */
+@mixin word-break() {
+  -ms-word-break: break-all;
+  word-break: break-word; /* Non standard for webkit */
+  word-wrap: break-word;
+}
+
+@function rgba-color($color, $opacity: 1) {
+  @return rgba( red($color), green($color), blue($color), $opacity );
+}
+
+@mixin bg-gradient($top-gr, $btm-gr, $position: bottom ) {
+  background-color: $top-gr;
+  background-image: linear-gradient(to $position, $top-gr, $btm-gr);
+  background-image: -moz-linear-gradient($position, $top-gr, $btm-gr);
+  background-image: -webkit-linear-gradient($position, $top-gr, $btm-gr);
+  background-image: -ms-linear-gradient($position, $top-gr, $btm-gr);
+}
+
+@mixin bg-tri-gradient($top-gr, $mid-gr, $btm-gr, $position: bottom ) {
+  background-color: $top-gr;
+  background-image: -moz-linear-gradient($position, $top-gr, $mid-gr, $btm-gr);
+  background-image: -webkit-linear-gradient($position, $btm-gr, $mid-gr, $top-gr);
+  background-image: -ms-linear-gradient($position, $top-gr, $mid-gr, $btm-gr);
+  background-image: linear-gradient(to $position, $top-gr, $mid-gr, $btm-gr);
+}
+
+@mixin bg-deg-gradient($angle: 0deg, $col1, $col2) {
+  background-image: -moz-linear-gradient($angle, $col1, $col2);
+  background-image: -webkit-linear-gradient($angle, $col2, $col1);
+  background-image: -ms-linear-gradient($angle, $col1, $col2);
+  background-image: linear-gradient($angle, $col1, $col2);
+}
+
+@mixin animation($arguments) {
+  -webkit-animation: $arguments;
+  -moz-animation: $arguments;
+  animation: $arguments;
+}
+
+@mixin transition($name: all, $duration: 500ms, $timing: ease, $delay: 0s) {
+  -webkit-transition: $name $duration $timing $delay;
+  -moz-transition: $name $duration $timing $delay;
+  transition: $name $duration $timing $delay;
+}
+
+@mixin user-select() {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@mixin placeholder($color) {
+  color: $color;
+  opacity: 1;
+  @include transition(opacity,.3s,ease);
+}
+
+@mixin placeholder-focus() {
+  opacity: 0;
+  @include transition(opacity,.3s,ease);
+}
+
+@mixin input-placeholder($color) {
+  &::-webkit-input-placeholder {@include placeholder($color);}
+  &::-moz-placeholder          {@include placeholder($color);}
+  &:-moz-placeholder           {@include placeholder($color);}
+  &:-ms-input-placeholder      {@include placeholder($color);}
+
+  &:focus::-webkit-input-placeholder {@include placeholder-focus();}
+  &:focus::-moz-placeholder          {@include placeholder-focus();}
+  &:focus:-moz-placeholder           {@include placeholder-focus();}
+  &:focus:-ms-input-placeholder      {@include placeholder-focus();}
+}
+
+@mixin custom-placeholder {
+  &::placeholder { @content;}
+   &::-webkit-input-placeholder { @content; }
+   &:-ms-input-placeholder { @content; }
+   &:-moz-placeholder { @content; }
+   &::-moz-placeholder { @content; }
+ }
+
+@mixin appearance($val) {
+  appearance: $val;
+  -moz-appearance: $val;
+  -webkit-appearance: $val;
+
+  &::-ms-expand {
+    display: none;
+  }
+}
+
+@mixin transform($string) {
+  will-change: transform;
+  -webkit-transform: $string;
+  -ms-transform:     $string;
+  transform:         $string;
+}
+
+@mixin transform-origin($string) {
+  -webkit-transform-origin: $string;
+  -ms-transform-origin:     $string;
+  transform-origin:         $string;
+}
+
+@mixin transform-style($style) {
+  -webkit-transform-style: $style;
+  -ms-transform-style: $style;
+  transform-style: $style;
+}
+
+@mixin clearfix() {
+  *zoom: 1;
+
+  &:before,
+  &:after {
+    content: '';
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+/* Mixin for setting font properties */
+@mixin setFontProps($font-family,$font-size,$font-weight,$color) {
+  font-family: $font-family;
+  font-size:  $font-size;
+  font-weight: $font-weight;
+  color: $color;
+}
+
+@mixin setTextTransForm($align, $transform) {
+  text-align: $align;
+  text-transform: $transform;
+}
+
+
+@mixin setFanzoneSYTText($fontFamily, $fontSize, $fontWeight, $text-align, $fontStretch, $fontStyle, $lineHeight, $lineSpacing) {
+  font-family: $fontFamily;
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  text-align: $text-align;
+  font-stretch: $fontStretch;
+  font-style: $fontStyle;
+  line-height: $lineHeight;
+  letter-spacing: $lineSpacing;
+}

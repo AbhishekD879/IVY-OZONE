@@ -1,0 +1,16 @@
+<div class="sk-container" [ngClass]="{'sk-loading': state.loading}">
+  <outlet-status [state]="state"></outlet-status>
+  <ng-container *ngIf="!state.loading && !state.error">
+    <div class="heuristic-container" data-crlat="tabContent">
+      <multiple-sports-sections
+        [eventsByGroups]="data"
+        [expandedSportsCount]="expandedSportsCount"
+        [expandedLeaguesCount]="expandedLeaguesCount"
+        [viewByFilters]="viewByFilters"
+        [isWatchLive]="true"
+        [ssError]="ssError"
+        data-crlat="tab.showWatchLiveContent">
+      </multiple-sports-sections>
+    </div>
+  </ng-container>
+</div>

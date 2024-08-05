@@ -1,0 +1,118 @@
+@import 'global.variables.scss';
+@import '../fiveASidePreLeaderBoard/fiveASidePreLeaderBoardMixin/fiveaside-pre-leader-board-mixin.scss';
+
+$grassImagePath: '/assets/images/';
+@mixin terms-rules-font($size, $family) {
+  font-size: $size;
+  font-family: $family;
+}
+
+@mixin rules-content($backgroundColor) {
+   @include terms-rules-font($font-size-tablet, $alt-font-family);
+    background-color: $backgroundColor;
+}
+
+@mixin rules-overlay-content() {
+    overflow: hidden;
+    position: relative;
+    max-height: 100%;
+    height: auto;
+}
+
+.rules-tabs {
+    margin-bottom: 10px;
+}
+
+::ng-deep {
+  .faq {
+    .header-title {
+      display: inline-block;
+      & > p {
+        margin-bottom: 0px;
+        text-transform: none;
+        @include terms-rules-font($font-size-bit-lgr, $alt-font-family);
+      }
+    }
+    .faq-answer {
+      @include rules-content($color-blue-charcoal);
+      .faq-answer-text {
+          padding: 4px 12px 16px 12px;
+          color: $lGrayLighter;
+          & > p {
+            @include terms-rules-font($font-size-tablet, $alt-font-family);
+          }
+      }
+    }
+  }
+}
+
+.rules-terms-conditions {
+    @include rules-content($color-border-bottom-dark-black);
+    .rules-terms-conditions-text {
+        padding: 12px;
+        color: $lGrayLighter;
+    }
+}
+
+.header-content {
+  background: url("#{$grassImagePath}soccerwithgrass.png");
+  background-size: cover;
+  background-position: center;
+  height: 160px;
+  .close-content {
+    cursor: pointer;
+    padding: 15px;
+    text-align: right;
+    .close-icon {
+      height: 15px;
+      width: 15px;
+    }
+  }
+  .flag-content {
+    clear: both;
+    @include display-flex();
+    @include align-items();
+    @include justify-content(space-between);
+    .left-side, .right-side {
+      @include display-flex();
+      @include justify-content(center);
+      @include align-items();
+      @include flex-direction(column);
+      .country-flag {
+        width: 54px;
+        height: 54px;
+      }
+      .flag-name {
+        @include country-name-mixin(100px, 48px, $color-white, 12px, center, $base-font-family, 1px, bold, hidden);
+        text-transform: uppercase;
+        padding: 5px;
+      }
+    }
+    .left-side, .right-side {
+      margin: 5px 0;
+    }
+  }
+}
+
+::ng-deep .fiveasideentry-rules-overlay {
+    @include rules-overlay-content();
+    body {
+      @include rules-overlay-content();
+    }
+}
+
+#fiveaside-terms-rules {
+    display: none;
+    background-color: $color-black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1030;
+    overflow: scroll;
+    &.active {
+      display: block;
+    }
+}
+

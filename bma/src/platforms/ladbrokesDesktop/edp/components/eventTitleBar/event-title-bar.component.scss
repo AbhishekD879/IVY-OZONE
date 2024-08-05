@@ -1,0 +1,11 @@
+@import 'global.variables.scss';
+
+.event-title-bar {
+  box-shadow: none;
+  background-color: $footer-bg;
+  @include align-items();
+
+  &__fallback-container {
+    width: 100%;
+  }
+}

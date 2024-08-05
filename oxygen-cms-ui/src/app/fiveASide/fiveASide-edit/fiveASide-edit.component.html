@@ -1,0 +1,228 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="!isLoading">
+  <div class="header">
+    <h2>Edit Formation: <span class="font-italic">{{ fiveASideFormation.title }}</span></h2>
+    <create-updated-at-by [collection]="fiveASideFormation"></create-updated-at-by>
+  </div>
+</div>
+
+<form [formGroup]="form">
+  <div class="card" *ngIf="!isLoading">
+    <div class="body">
+      <div class="row clearfix">
+        <div class="col-md-3">
+            <span class="mat-label">
+              Title
+            </span>
+        </div>
+        <div class="col-md-7">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !fiveASideFormation.title}">
+            <input matInput type="text"
+                   placeholder="Title"
+                   [(ngModel)]="fiveASideFormation.title"
+                   formControlName="title"
+                   required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-3">
+            <span class="mat-label">
+              Actual formation
+            </span>
+        </div>
+        <div class="col-md-7">
+          <mat-form-field class="full-width">
+            <mat-select required placeholder="Actual formation" formControlName="actualFormation" [(ngModel)]="fiveASideFormation.actualFormation">
+              <mat-option *ngFor="let actualFormation of formations" [value]="actualFormation">
+                {{ actualFormation | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+
+      <div class="row clearfix">
+        <div class="col-md-3">
+            <span class="mat-label">
+              Position 1
+            </span>
+        </div>
+        <div class="col-md-7">
+          <mat-form-field class="full-width">
+            <input matInput type="text"
+                   placeholder="Position 1"
+                   [(ngModel)]="fiveASideFormation.position1"
+                   formControlName="position1"
+                   trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row clearfix">
+        <div class="col-md-3">
+            <span class="mat-label">
+              Stat 1
+            </span>
+        </div>
+        <div class="col-md-7">
+          <mat-form-field class="full-width">
+            <mat-select required placeholder="Stat 1" formControlName="stat1" [(ngModel)]="fiveASideFormation.stat1.title">
+              <mat-option *ngFor="let stat1 of marketTemplateNames" [value]="stat1">
+                {{ stat1 | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+
+      <div class="row clearfix">
+        <div class="col-md-3">
+            <span class="mat-label">
+              Position 2
+            </span>
+        </div>
+        <div class="col-md-7">
+          <mat-form-field class="full-width">
+            <input matInput type="text"
+                   placeholder="Position 2"
+                   [(ngModel)]="fiveASideFormation.position2"
+                   formControlName="position2"
+                   trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row clearfix">
+        <div class="col-md-3">
+            <span class="mat-label">
+              Stat 2
+            </span>
+        </div>
+        <div class="col-md-7">
+          <mat-form-field class="full-width">
+            <mat-select required placeholder="Stat 2" formControlName="stat2" [(ngModel)]="fiveASideFormation.stat2.title">
+              <mat-option *ngFor="let stat2 of marketTemplateNames" [value]="stat2">
+                {{ stat2 | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row clearfix">
+        <div class="col-md-3">
+            <span class="mat-label">
+              Position 3
+            </span>
+        </div>
+        <div class="col-md-7">
+          <mat-form-field class="full-width">
+            <input matInput type="text"
+                   placeholder="Position 3"
+                   [(ngModel)]="fiveASideFormation.position3"
+                   formControlName="position3"
+                   trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row clearfix">
+        <div class="col-md-3">
+            <span class="mat-label">
+              Stat 3
+            </span>
+        </div>
+        <div class="col-md-7">
+          <mat-form-field class="full-width">
+            <mat-select required placeholder="Stat 3" formControlName="stat3" [(ngModel)]="fiveASideFormation.stat3.title">
+              <mat-option *ngFor="let stat3 of marketTemplateNames" [value]="stat3">
+                {{ stat3 | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row clearfix">
+        <div class="col-md-3">
+            <span class="mat-label">
+              Position 4
+            </span>
+        </div>
+        <div class="col-md-7">
+          <mat-form-field class="full-width">
+            <input matInput type="text"
+                   placeholder="Position 4"
+                   [(ngModel)]="fiveASideFormation.position4"
+                   formControlName="position4"
+                   trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row clearfix">
+        <div class="col-md-3">
+            <span class="mat-label">
+              Stat 4
+            </span>
+        </div>
+        <div class="col-md-7">
+          <mat-form-field class="full-width">
+            <mat-select required placeholder="Stat 4" formControlName="stat4" [(ngModel)]="fiveASideFormation.stat4.title">
+              <mat-option *ngFor="let stat4 of marketTemplateNames" [value]="stat4">
+                {{ stat4 | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row clearfix">
+        <div class="col-md-3">
+            <span class="mat-label">
+              Position 5
+            </span>
+        </div>
+        <div class="col-md-7">
+          <mat-form-field class="full-width">
+            <input matInput type="text"
+                   placeholder="Position 5"
+                   [(ngModel)]="fiveASideFormation.position5"
+                   formControlName="position5"
+                   trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row clearfix">
+        <div class="col-md-3">
+            <span class="mat-label">
+              Stat 5
+            </span>
+        </div>
+        <div class="col-md-7">
+          <mat-form-field class="full-width">
+            <mat-select required placeholder="Stat 5" formControlName="stat5" [(ngModel)]="fiveASideFormation.stat5.title">
+              <mat-option *ngFor="let stat5 of marketTemplateNames" [value]="stat5">
+                {{ stat5 | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>
+
+<action-buttons
+    #actionButtons
+    *ngIf="!isLoading"
+    [validateHandler]="isValidModel"
+    [fieldOrItemName]="'title'"
+    [collection]="this.fiveASideFormation"
+    (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

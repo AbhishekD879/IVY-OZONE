@@ -1,0 +1,97 @@
+{
+  "legs": [
+    {
+      "documentId": "1",
+      "sportsLeg": {
+        "winPlaceRef": {
+          "id": "WIN"
+        },
+        "legPart": [
+          {
+            "outcomeRef": {
+              "id": "2193493591"
+            }
+          }
+        ],
+        "price": {
+          "priceNum": "1",
+          "priceDen": "1000",
+          "priceTypeRef": {
+            "id": "LP"
+          }
+        }
+      }
+    }
+  ],
+  "bets": [
+    {
+      "documentId": "1",
+      "betLegSort": "--",
+      "betTypeRef": {
+        "id": "SGL",
+        "ordering": "1"
+      },
+      "stake": {
+        "minAllowed": "0.01",
+        "maxAllowed": "50000.00",
+        "currencyRef": {
+          "id": "GBP"
+        }
+      },
+      "payout": [
+        {
+          "potential": "1.001",
+          "legType": "W"
+        }
+      ],
+      "lines": {
+        "number": 1
+      },
+      "legRef": [
+        {
+          "documentId": "1"
+        }
+      ],
+      "isCashoutAvailable": "Y",
+      "eachWayAvailable": "N",
+      "maxPayout": "1000000",
+      "betErrors": {
+        "errorDesc": "Bet override found",
+        "subErrorCode": "EVENT_STARTED",
+        "code": "CHANGE_ERROR"
+      }
+    }
+  ],
+  "outcomeDetails": [
+    {
+      "id": "2193493591",
+      "priceNum": "1",
+      "priceDen": "1000",
+      "startPriceNum": "",
+      "startPriceDen": "",
+      "fbResult": "H",
+      "eventMarketSort": "HH",
+      "handicap": "",
+      "eachWayNum": "",
+      "eachWayDen": "",
+      "eachWayPlaces": "",
+      "previousOfferedPlaces": "",
+      "name": "MIA Marlins",
+      "marketId": "181733347",
+      "marketDesc": "Money Line",
+      "eventId": "14722477",
+      "eventDesc": "MIA Marlins v LA Angels",
+      "typeId": "33",
+      "typeDesc": "|MLB|",
+      "classId": "12",
+      "className": "|Baseball All Baseball|",
+      "categoryId": "5",
+      "category": "BASEBALL",
+      "status": "S",
+      "birIndex": "",
+      "accMin": "1",
+      "accMax": "25",
+      "bybEnabled": false
+    }
+  ]
+}

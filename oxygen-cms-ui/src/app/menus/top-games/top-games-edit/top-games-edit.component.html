@@ -1,0 +1,88 @@
+<breadcrumbs *ngIf="topGame" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="topGame">
+  <div class="header">
+    <h2 class="has-activity-badge">Top Games: 
+      <span class="font-italic">{{topGame.imageTitle}}</span>
+      <create-updated-at-by [collection]="topGame"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="topGame.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="topGame">
+  <form [formGroup]="form" novalidate>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-12">
+          <mat-checkbox color="primary" formControlName="disabled"
+                        (change)="topGame.disabled=!topGame.disabled"> Active</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Image Title
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Image Title" [(ngModel)]="topGame.imageTitle" formControlName="imageTitle" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+              Target Uri
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Target Uri" [(ngModel)]="topGame.targetUri" formControlName="targetUri" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+              Alt
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Alt" [(ngModel)]="topGame.alt" formControlName="alt">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <cms-upload
+            [label]="'Filename'"
+            [filename]="topGame.filename"
+            (onImageUpload)="uploadFileHandler($event)"
+            (onImageRemove)="removeFileHandler()">
+          </cms-upload>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <cms-upload
+            [label]="'Icon Filename'"
+            [filename]="topGame.icon"
+            (onImageUpload)="uploadIconHandler($event)"
+            (onImageRemove)="removeIconHandler()">
+          </cms-upload>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="topGame"
+  [form]="form"
+  [fieldOrItemName]="'imageTitle'"
+  [collection]="topGame"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

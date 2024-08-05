@@ -1,0 +1,114 @@
+<div class="card">
+  <div class="body">
+    <!-- search and download button.-->
+    <div class="row">
+      <div class="col-md-6">
+        <a routerLink="bet/create" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create Surface Bet</span>
+        </a>
+        <div class="segment-dropdown" class="m-b-0" *ngIf="isHomePage">
+          <cms-segment-dropdown 
+          [activeSegment]='selectedSegment'
+          (selectedSegment)="segmentHandler($event)"
+          [disabled]='!filteredBySport'>
+          </cms-segment-dropdown>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <mat-radio-group [(ngModel)]="filteredBySport" (change)="onFilterChange(selectedSegment)">
+          <mat-radio-button [value]="true" class="m-r-5">Filter by Category</mat-radio-button>
+          <mat-radio-button [value]="false">Show All</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+
+    <div *ngIf="surfaceBets && surfaceBets.length === 0">
+      <h5>Surface bets list is empty.</h5>
+    </div>
+
+    <div class="row" *ngIf="activeBets && activeBets.length > 0">
+      <div class="col-md-6 m-b-0">
+        <h5>Active Surface Bets</h5>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Active Surface Bets" [(ngModel)]="activeSearchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="activeBets && activeBets.length > 0 && segmentChanged" class="m-b-10 layoutAuto">
+      <div *ngIf="orderMessage && isHomePage" class="order-message">
+        {{ orderMessage }}
+      </div>
+      <cms-segment-data-table 
+        [selectedSegment]="selectedSegment"
+        [customTableData]="activeBets"
+        [pageId]="getTypeId"
+        [pageType]="getPageType"
+        [customTableColumns]="dataTableColumns"
+        [actions]="['remove', 'edit']"
+        [filterString]="activeSearchField"
+        [filterProperties]="searchableProperties"
+        [surfaceBetsFlag]="surfaceBetsFlag"
+        [reorder]="filteredBySport"
+        (onElementsOrder)="reorderHandler($event)"
+        (onRemoveTableElement)="removeHandler($event)"
+        (showOnSportsFlagChange)="saveSurfaceBetsFlagChange($event,rowIndex)">
+      </cms-segment-data-table>
+    </div>
+
+    <div class="row" *ngIf="expiredBets && expiredBets.length > 0 && segmentChanged">
+      <div class="col-md-6 m-b-0">
+        <h5>Expired Surface Bets</h5>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Expired Surface Bets" [(ngModel)]="expiredSearchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="expiredBets && expiredBets.length > 0 && segmentChanged" class="m-b-10 layoutAuto">
+      <cms-data-table *ngIf="!isHomePage"
+        [background]="'bg-orange'"
+        [customTableData]="expiredBets"
+        [customTableColumns]="dataTableColumns"
+        [actions]="['remove', 'edit']"
+        [filterString]="expiredSearchField"
+        [filterProperties]="searchableProperties"
+        [multyRemove]="true"
+        (onMultyRemove)="removeHandlerMulty($event)"
+        (onRemoveTableElement)="removeHandler($event)">
+      </cms-data-table>
+      <cms-segment-data-table *ngIf="isHomePage"
+        [background]="'bg-orange'"
+        [selectedSegment]="selectedSegment"   
+        [customTableData]="expiredBets"
+        [customTableColumns]="dataTableColumns"
+        [actions]="['remove', 'edit']"
+        [filterString]="expiredSearchField"
+        [filterProperties]="searchableProperties"
+        [multyRemove]="true"
+        (onMultyRemove)="removeHandlerMulty($event)"
+        (onRemoveTableElement)="removeHandler($event)">
+      </cms-segment-data-table>
+    </div>
+  </div>
+</div>
+
+<action-buttons #actionButtons 
+  *ngIf="surfaceBetsData"
+  [collection]="surfaceBetsData"
+  [fieldOrItemName]="'activeBets'"
+  fieldOrItemName="title" 
+  (actionsEmitter)="actionsHandler($event);"
+  [showRemoveButton]="false">
+</action-buttons>

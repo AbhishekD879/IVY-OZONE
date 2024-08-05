@@ -1,0 +1,13 @@
+import groovy.json.JsonBuilder
+
+
+def fullImageName = "${project.name}:${version}"
+
+task buildDockerImage(type: Exec, dependsOn: bootRepackage) {
+    group 'Docker'
+    description = 'Builds a docker image'
+    commandLine 'docker', 'build', '--tag', fullImageName, '--pull', '.'
+    doFirst {
+        logger.quiet "Building docker image $fullImageName based on the Dockerfile"
+    }
+}

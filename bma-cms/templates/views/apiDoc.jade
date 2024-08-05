@@ -1,0 +1,385 @@
+html
+  head
+    title API doc
+
+    link(rel="stylesheet", href="/styles/highlightjs.min.css")
+    script(src="/js/lib/highlight.js/highlight.min.js")
+    script.
+      hljs.initHighlightingOnLoad();
+
+  body
+    h1 API doc
+
+    section
+      h2 Left Menu
+      p Services for Left Menu
+
+      article.endpoint-method
+        h3.method Method: GET
+        h3 /:brand/left-menu
+        p Return list of left menu items. Can be filtered by parameter "isLoggedIn". If brand is not provided will be used brand "bma" by default
+          div.request
+            h4 Request params
+            pre
+              code
+                /:brand
+                ?isLoggedId=1
+                ?isLoggedId=0
+          div.response
+            h4 Response example
+
+            pre
+              code
+                |[
+                |  {
+                |    "targetUri": "string",
+                |    "linkTitle": "string",
+                |    "uriMedium": "string",
+                |    "uriSmall": "string",
+                |    "inApp": "boolean",
+                |    "showItemFor": "boolean",
+                |    "iconAligment": "string",
+                |    "disabled": "boolean"
+                |  },
+                |  ...,
+                |  {...}
+                |]
+
+    section
+      h2 Right Menu
+      p Services for Right Menu
+
+      article.endpoint-method
+        h3 /:brand/right-menu
+        h3.method Method: GET
+        p Return list of right menu items. Can be filtered by parameter "isLoggedIn". If brand is not provided will be used brand "bma" by default
+          div.request
+            h4 Request params
+            pre
+              code
+                /:brand
+                ?isLoggedId=1
+                ?isLoggedId=0
+          div.response
+            h4 Response example
+            pre
+              code
+                |[
+                |  {
+                |    "targetUri": "string",
+                |    "linkTitle": "string",
+                |    "uriMedium": "string",
+                |    "uriSmall": "string",
+                |    "inApp": "boolean",
+                |    "showItemFor": "boolean",
+                |    "iconAligment": "string",
+                |    "section": "string"
+                |    "disabled": "boolean"
+                |  },
+                |  ...,
+                |  {...}
+                |]
+
+    section
+      h2 My Accont Menu
+      p Services for My Accont Menu
+
+      article.endpoint-method
+        h3 /:brand/user-menu
+        h3.method Method: GET
+        p Return list of my-accont page items. Brand "bma" by default
+          div.request
+            h4 Request params
+            pre
+              code
+                /:brand
+          div.response
+            h4 Response example
+            pre
+              code
+                |[
+                |  {
+                |    "targetUri": "string",
+                |    "linkTitle": "string",
+                |    "uriMedium": "string",
+                |    "uriSmall": "string",
+                |    "activeIfLogout": "boolean",
+                |    "disabled": "boolean"
+                |  },
+                |  ...,
+                |  {...}
+                |]
+
+    section
+      h2 Static Blocks
+      p Services for static blocks
+
+      article.endpoint-method
+        h3 /:brand/static-block
+        h3.method Method: GET
+        p Return list of all enable static blocks. If brand is not provided will be used brand "bma" by default
+          div.request
+            h4 Request params
+              pre
+                code
+                  /:brand
+          div.response
+            h4 Response example
+            pre
+              code
+                |[
+                |  {
+                |    "title": "string",
+                |    "uri": "string",
+                |    "htmlMarkup": "text",
+                |    "enabled": "boolean"
+                |  },
+                |  ...,
+                |  {...}
+                |]
+
+      article.endpoint-method
+        h3 /:brand/static-block/:uri
+        h3.method Method: GET
+        p Return static block by uri. If brand is not provided will be used brand "bma" by default
+            div.request
+            h4 Request params
+            pre
+              code
+                /:brand
+                /:uri
+          div.response
+            h4 Response example
+            pre
+              code
+                |[
+                |  {
+                |    "title": "string",
+                |    "uri": "string",
+                |    "htmlMarkup": "text",
+                |    "enabled": "boolean"
+                |  },
+                |  ...,
+                |  {...}
+                |]
+
+    section
+      h2 Banners
+      p Return list of banners by "categoryUri" parameter. Wiil be returned all banners with category uri "default". If brand is not provided will be used brand "bma" by default
+
+      article.endpoint-method
+        h3 /:brand/banners
+        h3.method Method: GET
+        p Method description
+        div.request
+          h4 Request Parameters
+            pre
+              code
+                /:brand
+                ?categoryUri=home
+        div.response
+          h4 Response example
+          pre
+            code
+              |[
+              |  {
+              |    "alt": "480x100cta-Alternate text",
+              |    "imageTitle": "Banner 1",
+              |    "targetUri": "javascript://",
+              |    "filename": "480x100cta-beaten-by-a-head-standardv2_0.jpg",
+              |    "link": "/football",
+              |    "uriMedium": "/images/uploads/banners/medium/480x100cta-beaten-by-a-head-standardv2_0-720x150.jpg",
+              |    "widthMedium": 720,
+              |    "heightMedium": 150,
+              |    "uriSmall": "/images/uploads/banners/small/480x100cta-beaten-by-a-head-standardv2_0-480x100.jpg",
+              |    "widthSmall": 480,
+              |    "heightSmall": 100,
+              |    "disabled": true,
+              |    "inApp": true
+              |  },
+              |  ...,
+              |  {...}
+              |]
+
+    section
+      h2 Quick Links
+      p General description - describe entity
+
+      article.endpoint-method
+        h3 /:brand/quick-links
+        h3.method Method: GET
+        p Method description
+        div.request
+          h4 Request Parameters
+            pre
+              code
+                /:brand
+        div.response
+          h4 Response example
+          pre
+            code
+              |{
+              |  "collapsed": false,
+              |  "quick_links": [
+              |    ...,
+              |    {...}
+              |  ]
+              |}
+
+    section
+      h2 Top Menu
+      p Get list of all enabled top menu items. If brand is not provided will be used brand "bma" by default
+
+      article.endpoint-method
+        h3 /:brand/top-menu
+        h3.method Method: GET
+        p Method description
+        div.request
+          h4 Request Parameters
+            pre
+              code
+                /:brand
+        div.response
+          h4 Response example
+          pre
+            code
+              |[
+              |  {
+              |    "linkTitle": "TEST",
+              |    "targetUri": "/t",
+              |    "disabled": true
+              |  },
+              |  ...,
+              |  {...}
+              |]
+
+    section
+      h2 Modular Content
+      p Returns a list of tabs to be shown on home page, with each tab object listing module configurations for that tab.
+
+      article.endpoint-method
+        h3 /api/:brand/modular-content?tsStart=1426727558&tsEnd=1426122758
+        h3.method Method: GET
+        p Get a list of tabs and modules within them for a particular brand.
+        div.request
+          h4 Request Parameters
+          p Paramter :brand can be one of defined brand codes, e.g. 'bma', 'gf'
+          p
+            |DateTime range can be provided using query string:
+            ul
+              li tsStart=1426727558
+              li tsEnd=1426122758
+            |Both QS params are optional. They take UNIX timestamps (without ms) as values.
+            |If tsStart is ommited current datetime will be used for that offset.
+            |If tsEnd is ommited a default 3 months into the future will be used instead.
+
+        div.response
+          h4 Response example
+          pre
+            code
+              |[
+              | {
+              |   "title": "Featured",
+              |   "targetUri": "featured",
+              |   "visible": true,
+              |   "modules": [
+              |     {
+              |       "_id": "54e7046f5b51003c36d6db9c",
+              |       "title": "My New Module",
+              |       "displayOrder": -2,
+              |       "showExpanded": true,
+              |       "badge": "specials",
+              |       "navItem": "Featured",
+              |       "maxRows": 5,
+              |       "__v": 2,
+              |       "data": [],
+              |       "dataSelection": {
+              |         "selectionType": "Type",
+              |         "selectionId": "442"
+              |       },
+              |       "footerLink": {
+              |         "text": "",
+              |         "url": ""
+              |       },
+              |       "publishToChannels": [
+              |         "bma",
+              |         "gf"
+              |       ],
+              |       "visibility": {
+              |         "enabled": true,
+              |         "displayFrom": "2015-02-20T09:54:04.820Z",
+              |         "displayTo": "2015-02-20T09:54:04.820Z"
+              |       }
+              |     },
+              |     ...
+              |     {}
+              |   ]
+              | },
+              | ...
+              | {}
+              |]
+
+    section
+      h2 Sport Categories
+      p Get list of all enabled items of sport category menu. If brand is not provided will be used brand "bma" by default
+
+      article.endpoint-method
+        h3 /:brand/sport-category
+        h3.method Method: GET
+        p Method description
+        div.request
+          h4 Request Parameters
+            pre
+              code
+                /:brand
+        div.response
+          h4 Response example
+          pre
+            code
+              |[
+              |  {
+              |    "alt": "Football",
+              |    "imageTitle": "Football",
+              |    "categoryId": 0,
+              |    "targetUri": "football",
+              |    "filename": "iphone_menu_01_07.png",
+              |    "uriMedium": "/images/uploads/sport_category/medium/iphone_menu_01_07-78x78.png",
+              |    "widthMedium": 78,
+              |    "heightMedium": 78,
+              |    "uriSmall": "/images/uploads/sport_category/small/iphone_menu_01_07-52x52.png",
+              |    "widthSmall": 52,
+              |    "heightSmall": 52,
+              |    "disabled": false
+              |  },
+              |  ...,
+              |  {...}
+              |]
+
+    section
+      h2 System Configuration
+      p Get list of system configurations grouped by sections.
+
+      article.endpoint-method
+        h3 /:brand/sport-category
+        h3.method Method: GET
+        p Method description
+        div.request
+          h4 Request Parameters
+            pre
+              code
+                /:brand
+        div.response
+          h4 Response example
+          pre
+            code
+              |{
+              |  "Section1" : {
+              |    "field1": "value1",
+              |    "field2": "value2",
+              |  },
+              |  "Section2" : {
+              |    "field1": "value1",
+              |  },
+              |  ...,
+              |  {...}
+              |}

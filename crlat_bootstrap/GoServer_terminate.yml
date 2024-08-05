@@ -1,0 +1,13 @@
+---
+- name: Terminate GoServer server
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    action: terminate
+    node_type: SingleNode
+    tag_name: goserver
+  tasks:
+  - name: crlat.vpc
+    include_role:
+      name: crlat.vpc

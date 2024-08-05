@@ -1,0 +1,52 @@
+{
+  "betChannel": "M",
+  "betslipDateTime": "2019-01-30T15:20:29.000+0000",
+  "customerID": "147309",
+  "username": "Lyuban",
+  "captureDateTime": "2019-01-30T15:20:29.000+0000",
+  "captureMethod": "Auto",
+  "isSettled": false,
+  "bets": {
+    "bet": [{
+      "betKey": "587437",
+      "betType": "SGL",
+      "stake": 0.88,
+      "leg": [{
+        "part": [{
+          "betPrice": {
+            "priceType": "LP",
+            "num": 258,
+            "den": 25,
+            "isEarlyPrice": false,
+            "decimalPrice": 11.32
+          },
+          "rawHandicapValue": "0",
+          "selectionKey": 523754050,
+          "marketKey": 140375481,
+          "eventKey": 9458507,
+          "handicapValue": "0",
+          "winPlace": "WIN",
+          "isInRunning": true
+        }],
+        "legSort": "--"
+      }],
+      "freebetAmount": 0.0,
+      "betReceipt": "O/0147309/0000454",
+      "createDateTime": "2019-01-30T15:20:29.000+0000",
+      "stakePerLine": 1.0,
+      "fundedAmount": 1.0,
+      "currencyCode": "GBP",
+      "pending": false,
+      "poolbet": false
+    }],
+    "numLines": 1,
+    "numVoidLines": 0,
+    "numWinLines": 0,
+    "numLoseLines": 0
+  },
+  "meta": {
+    "messageType": "Capture",
+    "source": "OB-kafka"
+  },
+  "cancelled": false
+}

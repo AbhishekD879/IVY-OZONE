@@ -1,0 +1,17 @@
+<div [ngClass]="{'multi-market-cm': isMultiMarketTemplate === true}">
+  <div class="odds-card-header" [hidden]="!isHeaderAlwaysVisible && !showOddsCardHeader" data-crlat="eventOddsHeader">
+    <div class="odds-left" *ngIf="dateTitle">
+      <span class="odds-header-title" [textContent]="dateTitle" data-crlat="dateTitle"></span>
+    </div>
+    <div class="odds-right multi-market-tooltip-headers" *ngIf="!hideOddsTitles && !isListTemplate">
+      <span class="odds-header-score" *ngIf="eventScoreLabel" data-crlat="scoreHeader">
+        <span *ngFor="let scoreHeader of scoreHeaders" [textContent]="scoreHeader" data-crlat="scoreHeader.item"></span>
+      </span>
+      <span class="odds-header-score" *ngIf="dartsOnlyLegs">
+        <span [textContent]="scoreLabels.DARTLEGLABEL"></span>
+      </span>
+      <span class="odds-header-col" *ngFor="let title of headTitles" [textContent]="getHeader(title)" data-crlat="headTitles" 
+      [tooltip]="title" [enableTooltip]="isMultiMarketTemplate && showTootltip" [toolTipArgs]="toolTipArgs" [dynamicTooltipTitle]="true"></span>
+    </div>
+  </div>
+</div>

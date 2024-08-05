@@ -1,0 +1,19 @@
+<div class="sk-container" [ngClass]="{'sk-loading': state.loading}" >
+  <outlet-status [skeletonType]="'GENERIC_FULL'" [state]="state">
+    <tote-request-error [activeTab]="activeTab" (reload)="reloadSport()"></tote-request-error>
+  </outlet-status>
+  <div class="heuristic-container top-padding" *ngIf="!state.loading && !state.error">
+    <switchers
+      [filter]="filter"
+      [switchers]="switchers">
+    </switchers>
+
+    <tote-events-by-meeting *ngIf="filter === 'by-meeting'"
+                  [meetings]="eventsData.meetings">
+    </tote-events-by-meeting>
+
+    <tote-events-by-time *ngIf="filter === 'by-time'"
+                [events]="eventsData.events">
+    </tote-events-by-time>
+  </div>
+</div>

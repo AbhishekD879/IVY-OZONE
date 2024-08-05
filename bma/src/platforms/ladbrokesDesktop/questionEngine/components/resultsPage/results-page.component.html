@@ -1,0 +1,94 @@
+<div class="results-page qe-bg navigation-container"
+     *ngIf="qeData"
+     [ngStyle]="{'background-image': resultPageBg }">
+
+  <a class="qe-btn-back" (click)="handleBackArrow()" href="javascript:void(0)">
+    <svg class="qe-btn-back-svg">
+      <use xlink:href="#back-arrow"></use>
+    </svg>
+  </a>
+
+  <div class="qe-container">
+    <header class="qe-header">
+      <img class="logo"
+           *ngIf="qeData.baseQuiz?.splashPage?.logoSvgUrl"
+           [src]="qeData.baseQuiz.splashPage.logoSvgUrl"
+           alt="logo">
+    </header>
+
+    <div class="qe-main-section">
+      <div
+        [ngClass]="{'qe-dashed-baseline' : isQuizResultPage}"
+        class="result-page-wrapper">
+
+        <div class="qe-endpage-container" *ngIf="!isQuizResultPage">
+          <p
+            class="qe-endpage-title"
+            *ngIf="qeData.baseQuiz.resultsPage?.gameDescription"
+            [textContent]="qeData.baseQuiz.resultsPage?.gameDescription"></p>
+
+          <p *ngIf="(qeData.baseQuiz.quizConfiguration?.showPreviousAndLatestTabs &&
+            qeData.baseQuiz.resultsPage.noLatestRoundMessage) else submitMessageContent"
+             class="qe-endpage-description"
+             [textContent]="qeData.baseQuiz.resultsPage.noLatestRoundMessage"></p>
+
+          <ng-template #submitMessageContent>
+            <p *ngIf="qeData.baseQuiz.resultsPage.submitMessage" class="qe-endpage-description"
+               [innerHtml]="qeData.baseQuiz.resultsPage.submitMessage"></p>
+          </ng-template>
+
+          <button
+            class="qe-endpage-cta"
+            (click)="closeApp()"
+            *ngIf="qeData.baseQuiz.resultsPage.submitCta"
+            [textContent]="qeData.baseQuiz.resultsPage.submitCta">
+          </button>
+        </div>
+
+        <div class="full-body-width-wrapper">
+          <div class="tabs-switcher-container" *ngIf="isQuizResultPage">
+            <div
+              class="tab-item tab-item-latest"
+              [ngClass]="{'tab-item--active': activeTab === 'latest'}"
+              (click)="changeTab('latest')"
+              [i18n]="'qe.latestTab'">
+            </div>
+            <div
+              class="tab-item tab-item-previous"
+              [ngClass]="{'tab-item--active': activeTab === 'previous'}"
+              (click)="changeTab('previous')"
+              [i18n]="'qe.previousTab'">
+            </div>
+          </div>
+          <div
+            *ngIf="showSubmitNotification"
+            [ngClass]="hideNotifier ? 'notificator--hidden notificator' : 'notificator'"
+            #submitMessage
+          >
+            <div class="notificator-content">
+              <svg class="notify-icon">
+                <use xlink:href="#check-mark"></use>
+              </svg>
+              <span class="notify-content" [innerHtml]="resultPageContent.submitMessage"></span>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="isQuizResultPage">
+          <latest-tab
+            *ngIf="activeTab === 'latest'"
+            [qeData]="qeData">
+          </latest-tab>
+
+          <previous-tab
+            *ngIf="activeTab === 'previous'"
+            [qeData]="qeData">
+          </previous-tab>
+        </div>
+      </div>
+
+      <qe-footer></qe-footer>
+    </div>
+
+  </div>
+</div>

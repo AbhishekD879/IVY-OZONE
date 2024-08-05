@@ -1,0 +1,60 @@
+@import 'global.variables.scss';
+
+.tooltip {
+  width: 185px;
+  background-color: $color-blue-dark;
+  color: $color-white;
+  text-align: left;
+  border-radius: 1px;
+  position: absolute;
+  will-change: transform;
+  transform: translateY(10px) translateX(-150px);
+  z-index: 6;
+  margin-top: 8px;
+  padding: 10px;
+  line-height: 1.2;
+  font-size: 13px;
+  font-weight: 100;
+  white-space: normal;
+
+  &:after {
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    top: -15px;
+    right: 35px;
+    border-bottom-color: $color-blue-dark;
+    border-width: 8px;
+    margin-left: -10px;
+  }
+  
+  &:before {
+    display: none;
+  }
+}
+
+:host-context(.market-tooltip) {
+  .tooltip {
+    @include transform(translate(-5%, -100%));
+    right: 0;
+    width: 182px;
+    top: -55px;
+    font-size: 13px;
+  }
+  .tooltip:after {
+    bottom: -15px;
+    right: 35px;
+    top: auto;
+    border-top: 8px solid $color-blue-dark;
+    border-bottom: 8px solid transparent;
+  }
+}
+
+:host-context(.has-description) {
+  .tooltip {
+    top: -50px;
+  }
+}

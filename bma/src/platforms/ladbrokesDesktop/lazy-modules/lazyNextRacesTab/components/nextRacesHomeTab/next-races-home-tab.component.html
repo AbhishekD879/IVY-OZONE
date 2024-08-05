@@ -1,0 +1,7 @@
+<extra-place-home-module *ngIf="moduleType == 'horseracing'" [limit]="extraPlaceLimit" data-crlat="extraPlaceHomeMod"></extra-place-home-module>
+<loading-screen [displayed]="showLoader"></loading-screen>
+<next-races-home  [moduleType]="moduleType"
+                  (dataLoaded)="toggleLoader($event)"
+                    data-crlat="tabContent"
+                    [compName]="compName">
+</next-races-home>

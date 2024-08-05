@@ -1,0 +1,17 @@
+<modal #cashOutPopUp class="styled-one-box">
+  <ng-template #modalHeader>
+    <div class="cashout-popup-header">
+      <span [i18n]="'bethistory.cashOutUnavailableHeader'"></span>
+    </div>
+  </ng-template>
+  <ng-template #modalBody>       
+    <div class="modal-body-content cashout-popup-reason">
+      <static-block *ngIf="message === 'cashout-event-suspension'" [service]="'cashout-event-suspension'"></static-block>
+      <static-block *ngIf="message === 'cashout-market-suspension'" [service]="'cashout-market-suspension'"></static-block>
+      <div class='cashout-popup-event-names' *ngIf="eventFlag">
+        <div *ngFor="let event of eventNames; let i=index;" [textContent]="event"></div>
+      </div>
+    </div>
+    <a class="flat-btn-cashout" [i18n]="brand === 'ladbrokes' ? 'bethistory.gotIt' : 'bethistory.ok'" (click)="closeDialog()"></a>
+  </ng-template>
+</modal>

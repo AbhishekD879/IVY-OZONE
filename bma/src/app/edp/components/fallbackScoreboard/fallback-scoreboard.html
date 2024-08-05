@@ -1,0 +1,98 @@
+<div class="fallback-scoreboard">
+  <!-- Cricket competition name -->
+  <div class="competition-name" *ngIf="event.typeName && scoreType === 'BoxScore'">
+    <span class="team-label" [textContent]="event.typeName"></span>
+  </div>
+
+  <!-- Team A <x> vs <y> Team B and Team A <x>-<y> vs <v>-<z> Team B (GAA aka Gaelic Football) -->
+  <div class="fb-container" *ngIf="scoreType === 'Simple' || scoreType === 'GAA'">
+    <div class="team home">
+      <span class="team-label" [textContent]="score.home.name | eventName" data-crlat="teamH"></span>
+    </div>
+    <div class="score-wrapper" data-crlat="score.GAA">
+      <span class="score-box" [ngClass]="{'gaa': scoreType === 'GAA'}" [textContent]="score.home.score" data-crlat="scoreH"></span>
+      <span class="score-box" [ngClass]="{'gaa': scoreType === 'GAA'}" [textContent]="score.away.score" data-crlat="scoreA"></span>
+    </div>
+    <div class="team away">
+      <span class="team-label" [textContent]="score.away.name | eventName" data-crlat="teamA"></span>
+    </div>
+  </div>
+
+  <!-- box score type container -->
+  <div class="fb-container box-score" *ngIf="isBoxScore">
+    <div class="team-name-wrapper">
+      <div class="team home">
+        <span class="team-label" [textContent]="score.home.name | eventName" data-crlat="teamH"></span>
+        <span class="possession home" *ngIf="score.home.isServing" data-crlat="possH"></span>
+      </div>
+      <div class="team away">
+        <span class="team-label" [textContent]="score.away.name | eventName" data-crlat="teamA"></span>
+        <span class="possession away" *ngIf="score.away.isServing" data-crlat="possA"></span>
+      </div>
+    </div>
+
+    <!-- Tennis Set / Games / points -->
+    <div class="score-group" *ngIf="scoreType === 'SetsGamesPoints'">
+      <div class="labels-wrapper">
+        <span class="score-box label" data-crlat="S">S</span>
+        <span class="score-box label" data-crlat="G">G</span>
+        <span class="score-box stretch label" data-crlat="P">P</span>
+      </div>
+      <div class="score-wrapper home">
+        <span class="score-box transparent" [textContent]="score.home.score"></span>
+        <span class="score-box" [textContent]="score.home.periodScore"></span>
+        <span class="score-box stretch" [textContent]="score.home.currentPoints"></span>
+      </div>
+      <div class="score-wrapper away">
+        <span class="score-box transparent" [textContent]="score.away.score"></span>
+        <span class="score-box" [textContent]="score.away.periodScore"></span>
+        <span class="score-box stretch" [textContent]="score.away.currentPoints"></span>
+      </div>
+    </div>
+
+    <!-- A vs B with Sets/Games and Points -->
+    <div class="score-group" *ngIf="scoreType === 'SetsPoints' || scoreType === 'GamesPoints'">
+      <div class="labels-wrapper">
+        <span class="score-box wide label" [textContent]="scoreType === 'GamesPoints' ? 'G' : 'S'" [attr.data-crlat]="scoreType === 'GamesPoints' ? 'G' : 'S'"></span>
+        <span class="score-box wide label" data-crlat="P">P</span>
+      </div>
+      <div class="score-wrapper home">
+        <span class="score-box wide" [textContent]="score.home.score"></span>
+        <span class="score-box wide" [textContent]="score.home.currentPoints"></span>
+      </div>
+      <div class="score-wrapper away">
+        <span class="score-box wide" [textContent]="score.away.score"></span>
+        <span class="score-box wide" [textContent]="score.away.currentPoints"></span>
+      </div>
+    </div>
+
+    <!-- A vs B with Sets and legs for DART sport -->
+    <div class="score-group" *ngIf="scoreType === fallbackScore.SETSLEGS">
+      <div class="labels-wrapper">
+        <span class="score-box wide label" *ngIf="score.home.currentPoints" [textContent]="fallbackScore.DARTSETSLABEL"></span>
+        <span class="score-box wide label" [textContent]="fallbackScore.DARTLEGLABEL"></span>
+      </div>
+      <div class="score-wrapper home">
+        <span class="score-box wide" [textContent]="score.home.score"></span>
+        <span class="score-box wide" *ngIf="score.home.currentPoints" [textContent]="score.home.currentPoints"></span>
+      </div>
+      <div class="score-wrapper away">
+        <span class="score-box wide" [textContent]="score.away.score"></span>
+        <span class="score-box wide" *ngIf="score.away.currentPoints" [textContent]="score.away.currentPoints"></span>
+      </div>
+    </div>
+
+    <!-- BoxScore (cricket) -->
+    <div class="score-group" *ngIf="scoreType === 'BoxScore'">
+      <div class="score-wrapper home">
+        <span class="score-box wide" [textContent]="score.home.inn1 || '-/-'"></span>
+        <span class="score-box wide" *ngIf="score.home.inn2 || score.away.inn2" [textContent]="score.home.inn2 || '-/-'"></span>
+      </div>
+      <div class="score-wrapper away">
+        <span class="score-box wide" [textContent]="score.away.inn1 || '-/-'"></span>
+        <span class="score-box wide" *ngIf="score.away.inn2 || score.home.inn2" [textContent]="score.away.inn2 || '-/-'"></span>
+      </div>
+    </div>
+
+  </div>
+</div>

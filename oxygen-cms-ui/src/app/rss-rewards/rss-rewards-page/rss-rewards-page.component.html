@@ -1,0 +1,101 @@
+<div class="card">
+    <div class="header">
+        <h2 class="has-activity-badge">RSS Rewards
+            <create-updated-at-by *ngIf="rssRewards.createdBy" [collection]="rssRewards"></create-updated-at-by>
+        </h2>
+        <header-activity-badge *ngIf="rssRewards.createdBy" [state]="!rssRewards.enabled"></header-activity-badge>
+    </div>
+</div>
+<div class="card" *ngIf="rssRewards">
+    <div class="body">
+        <div class="row">
+            <div class="col-md-12">
+                <mat-checkbox color="primary" [checked]="rssRewards.enabled"
+                    (change)="rssRewards.enabled = !rssRewards.enabled">Active
+                </mat-checkbox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <span class="mat-label">
+                    Coins<span class="col-red"> *</span>
+                </span>
+            </div>
+            <div class="col-md-7">
+                <mat-form-field class="full-width">
+                    <input matInput [(ngModel)]="rssRewards.coins" [value]="rssRewards.coins" trim="blur" type="number"
+                        min="1" max="500" required>    
+                        <mat-hint class="col-red" *ngIf="rssRewards.coins > 500 || rssRewards.coins < 1">*coins value should be between 1-500</mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+        <!-- <div class="row">
+            <div class="col-md-3">
+                <span class="mat-label">
+                    Communication Type
+                </span>
+            </div>
+            <div class="col-md-7">
+                <mat-form-field class="full-width">
+                    <input matInput [(ngModel)]="rssRewards.communicationType" [value]="rssRewards.communicationType"
+                        trim="blur" type="text">
+                </mat-form-field>
+            </div>
+        </div> -->
+
+        <div class="row">
+            <div class="col-md-3">
+                <span class="mat-label">
+                    Communication Sitecore ID
+                </span>
+            </div>
+            <div class="col-md-7">
+                <mat-form-field class="full-width">
+                    <input matInput [(ngModel)]="rssRewards.sitecoreTemplateId" [value]="rssRewards.sitecoreTemplateId"
+                        trim="blur" type="text">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <span class="mat-label">
+                    Source<span class="col-red"> *</span>
+                </span>
+            </div>
+            <div class="col-md-7">
+                <mat-form-field class="full-width">
+                    <input matInput [(ngModel)]="rssRewards.source" [value]="rssRewards.source" trim="blur" type="text" required>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <span class="mat-label">Sub-Source<span class="col-red"> *</span></span>
+            </div>
+            <div class="col-md-7">
+                <mat-form-field class="full-width">
+                    <input matInput [(ngModel)]="rssRewards.subSource" [value]="rssRewards.subSource" trim="blur"
+                        type="text" required>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <span class="mat-label">Product<span class="col-red"> *</span></span>
+            </div>
+            <div class="col-md-7">
+                <mat-form-field class="full-width">
+                    <input matInput [(ngModel)]="rssRewards.product" [value]="rssRewards.product" trim="blur"
+                        type="text" required>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</div>
+
+<action-buttons #actionButtons *ngIf="rssRewards" [fieldOrItemName]="'RSS Rewards'" [collection]="rssRewards"
+    (actionsEmitter)="actionsHandler($event);" [showRemoveButton]="false" [validateHandler]="verifyrssRewardsData">
+</action-buttons>

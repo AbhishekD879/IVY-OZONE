@@ -1,0 +1,98 @@
+{
+  "cashoutOfferRequests": [
+    {
+      "cashoutOfferReqRef": "1",
+      "bet": {
+        "stakeAmount": "2.0",
+        "betType": "SGL",
+        "legs": [
+          {
+            "legNo": "1",
+            "parts": [
+              {
+                "partNo": "1",
+                "type": "2.0",
+                "ladder": "STABLE",
+                "result": "-",
+                "strikePrice": {
+                  "num": "3",
+                  "den": "1"
+                },
+                "spotPrice": {
+                  "num": "4",
+                  "den": "1"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cashoutOfferReqRef": "2",
+      "bet": {
+        "stakeAmount": "0.5",
+        "betType": "TBL",
+        "legs": [
+          {
+            "legNo": "1",
+            "parts": [
+              {
+                "partNo": "1",
+                "type": "2.0",
+                "ladder": "STABLE",
+                "result": "-",
+                "strikePrice": {
+                  "num": "1",
+                  "den": "4"
+                },
+                "spotPrice": {
+                  "num": "1",
+                  "den": "4"
+                }
+              }
+            ]
+          },
+          {
+            "legNo": "2",
+            "parts": [
+              {
+                "partNo": "1",
+                "type": "2.0",
+                "ladder": "STABLE",
+                "result": "-",
+                "strikePrice": {
+                  "num": "3",
+                  "den": "10"
+                },
+                "spotPrice": {
+                  "num": "3",
+                  "den": "10"
+                }
+              }
+            ]
+          },
+          {
+            "legNo": "3",
+            "parts": [
+              {
+                "partNo": "1",
+                "type": "2.0",
+                "ladder": "VOLATILE",
+                "result": "-",
+                "strikePrice": {
+                  "num": "1",
+                  "den": "18"
+                },
+                "spotPrice": {
+                  "num": "1",
+                  "den": "20"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

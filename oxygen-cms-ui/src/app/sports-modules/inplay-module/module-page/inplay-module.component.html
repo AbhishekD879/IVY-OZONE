@@ -1,0 +1,103 @@
+<breadcrumbs *ngIf="module" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="module">
+  <div class="header">
+    <h2 class="waves-effect waves-block has-activity-badge">
+      Title: {{module.title}}
+      <create-updated-at-by [collection]="module"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="module.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="module">
+  <div class="body">
+    <div *ngIf="isHomePageModule()" class="row m-b-20">
+      <div class="col-md-2">
+        <button (click)="createSportConfigRow()" type="button"
+                class="btn bg-teal float-left">
+          <i class="material-icons">add_box</i>
+          <span>Add Sport</span>
+        </button>
+      </div>
+      <div class="col-md-5 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Sports" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="!isHomePageModule()">
+      <div class="col-md-2">
+        <mat-checkbox color="primary"
+                      [checked]="!module.disabled"
+                      (change)="module.disabled = !module.disabled">
+          Active
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row" *ngIf="!isHomePageModule()">
+      <div class="col-md-12 m-b-10">
+        <mat-form-field class="full-width">
+          <input [(ngModel)]="module.inplayConfig.maxEventCount" matInput type="number" placeholder="Inplay Event Count"
+                 trim="blur" required>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row" *ngIf="isHomePageModule()">
+      <div class="col-md-1 home-active">
+        <mat-checkbox color="primary"
+                      [checked]="!module.disabled"
+                      (change)="module.disabled = !module.disabled">
+          Active
+        </mat-checkbox>
+      </div>
+      <div class="m-b-10 col-md-6">
+        <mat-form-field class="full-width">
+          <input [(ngModel)]="module.inplayConfig.maxEventCount" [disabled]="selectedSegment !== 'Universal'" matInput type="number" placeholder="Inplay Event Count"
+                 required>
+        </mat-form-field>
+      </div>
+      <div>
+        <button [disabled]="isEqualCollection()" type="button" class="btn bg-teal float-right" (click)="actionsHandler('save')">
+          <i class="material-icons">save</i>
+          <span>Save Changes</span>
+        </button>
+      </div>
+    </div>
+    <div class="col-md-4 m-b-0 row segment-dropdown" *ngIf="isHomePageModule()">
+      <cms-segment-dropdown *ngIf="showSegmentDropdown" #segmentDropdown [activeSegment]='selectedSegment'
+                            (selectedSegment)="segmentHandler($event)">
+      </cms-segment-dropdown>
+    </div>
+    <div *ngIf="isHomePageModule() && inplaySportsList?.length && segmentChanged" class="row">
+      <div class="inplay-sports">
+        <div *ngIf="orderMessage" class="order-message">
+          {{ orderMessage }}
+        </div>
+        <cms-segment-data-table
+          [selectedSegment]="selectedSegment"
+          [customTableData]="inplaySportsList"
+          [customTableColumns]="dataTableColumns"
+          [actions]="['remove', 'edit']"
+          [filterString]="searchField"
+          [filterProperties]="searchableProperties"
+          [reorder]="true"
+          (onElementsOrder)="reorderHandler($event)"
+          (onRemoveTableElement)="removeHandler($event)">
+        </cms-segment-data-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="module && !isHomePageModule()"
+  [validateHandler]="isValidModule"
+  [fieldOrItemName]="'title'"
+  [collection]="module"
+  [showRemoveButton]="false"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

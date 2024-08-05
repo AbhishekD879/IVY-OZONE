@@ -1,0 +1,85 @@
+{
+  "config" : {
+    "title" : "American Football",
+    "name" : "americanfootball",
+    "path" : "american-football",
+    "tier" : 2,
+    "categoryType" : "gaming",
+    "isOutrightSport" : false,
+    "isMultiTemplateSport" : false,
+    "oddsCardHeaderType" : "oneTwoType",
+    "request" : {
+      "categoryId" : "1",
+      "siteChannels" : "M",
+      "marketsCount" : true,
+      "isActive" : false,
+      "dispSortName" : [ "HH", "MH", "WH" ],
+      "dispSortNameIncludeOnly" : [ "HH", "MH", "WH" ],
+      "marketTemplateMarketNameIntersects" : "|Money Line|,|Handicap Match Result|"
+    },
+    "tabs" : {
+      "live" : { },
+      "coupons" : {
+        "date" : "today",
+        "isActive" : true
+      },
+      "today" : {
+        "isNotStarted" : true
+      },
+      "tomorrow" : { },
+      "future" : { },
+      "outrights" : {
+        "isActive" : true,
+        "marketsCount" : false
+      }
+    }
+  },
+  "tabs" : [ {
+    "id" : "tab-matches",
+    "name" : "matches",
+    "label" : "Matches",
+    "url" : "/sport/american-football/matches",
+    "hidden" : true,
+    "sortOrder" : 1.0,
+    "subTabs" : [ {
+      "id" : "tab-today",
+      "name" : "today",
+      "label" : "Today",
+      "url" : "/sport/american-football/matches/today",
+      "hidden" : false
+    }, {
+      "id" : "tab-tomorrow",
+      "name" : "tomorrow",
+      "label" : "Tomorrow",
+      "url" : "/sport/american-football/matches/tomorrow",
+      "hidden" : false
+    }, {
+      "id" : "tab-future",
+      "name" : "future",
+      "label" : "Future",
+      "url" : "/sport/american-football/matches/future",
+      "hidden" : false
+    } ]
+  }, {
+    "id" : "tab-competitions",
+    "name" : "competitions",
+    "label" : "Competitions",
+    "url" : "/sport/american-football/competitions",
+    "hidden" : true,
+    "sortOrder" : 2.0
+  }, {
+    "id" : "tab-outrights",
+    "name" : "outrights",
+    "label" : "Outrights",
+    "url" : "/sport/american-football/outrights",
+    "hidden" : true,
+    "sortOrder" : 3.0
+  }, {
+    "id" : "tab-coupons",
+    "name" : "coupons",
+    "label" : "Coupons",
+    "url" : "/sport/american-football/coupons",
+    "hidden" : true,
+    "sortOrder" : 4.0
+  } ]
+}

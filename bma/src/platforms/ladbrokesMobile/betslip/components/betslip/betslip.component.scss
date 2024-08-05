@@ -1,0 +1,175 @@
+@import 'global.variables.scss';
+
+.total-fee.total-fee-betslip {
+  padding-top: 0;
+  padding-bottom: 16px;
+}
+
+.total-fee.total-fee-place {
+  text-align: left;
+  padding: 0 16px 16px;
+}
+
+.bs-selections-wrapper {
+  &.prevent-flickering {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+betslip:host {
+  .bs-content {
+    &:not(.bs-content-height) {
+      @media only screen and (min-width: $tabletPoint) {
+        max-height: none;
+        padding-top: $bs-content-margin-top;
+      }
+    }
+
+    .bs-selections-wrapper {
+      overflow: auto;
+      max-height: none;
+      padding-top: 0;
+    }
+
+    .bs-selections-wrapper:has(.bs-each-way-position) {
+      overflow: visible;
+    }
+  }
+
+  .sk-container {
+    height: 100%;
+  }
+}
+.icon-layout {
+  margin-left: 22px;
+}
+
+.restricted-HR-msg-container {
+  left: 1280px;
+  top: 254px;
+  background: #FFFFFF;
+  border: 1px solid #CEF2F8;
+  box-shadow: 0px 1px 0px #EFEFF3;
+
+  .restricted-horse-content {
+    padding: 12px;
+    height: 50px;
+    left: 1280px;
+    top: 246px;
+    background: #CEF2F8;
+
+    .restricted-horse-msg {
+      width: 262px;
+      height: 30px;
+      left: 1294px;
+      top: calc(50% - 30px/2 - 706.5px);
+      font-family: 'Helvetica';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 15px;
+      color: #252835;
+    }
+
+    .restricted-msg{
+      font-size: 13px;
+    }
+
+    .info-mark {
+      position: absolute;
+      display: inline-flex;
+      margin: 0 5px;
+
+      svg {
+        width: 14px;
+        height: 14px;
+        cursor: pointer;
+      }
+    }
+
+  }
+
+  .restricted-content{
+    height: 68px;
+  }
+  
+  .horse-info {
+    padding: 12px;
+    left: 1296px;
+    top: calc(50% - 15px/2 - 668px);
+    font-family: 'Helvetica';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #2B2B2B;
+  }
+}
+
+.isMobile {
+  font-size: 11.5px;
+}
+
+.mb-eventName {
+  margin-bottom: 5px;
+}
+
+.betslip-sub-header {
+  margin-bottom: -5px;
+}
+ 
+.luckynewbonus{
+  margin-top: 6px;
+  border-radius: 1px;
+  span {
+       background-color: #FAC031;
+       padding: 2px 3px;
+       min-width: 50px;
+       color: #252835;
+       font-weight: 700;
+       text-transform: uppercase;
+       line-height: 12.89px;
+       font-size: 11px; 
+       font-family: 'Roboto Condensed';
+      }
+ 
+.luckyflower{
+  background-image: url('/assets/images/lucky-bg-flower.svg');
+  background-size: 10px;
+  background-repeat: no-repeat;
+  padding-left: 16px !important;
+  background-position: left;
+  background-position-y: 54%;
+  background-position-x: 9%;
+}
+}
+
+.betslip-sub-header {
+  margin-bottom: -5px;
+}
+.infolabel {
+  width: 14px;
+  height: 14px;
+  position: relative;
+  left: 5px;
+  top: 3px;
+}
+
+.allWinnerBonus {
+  color: #4A90E2;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: -0.05px;
+  line-height: 12.21px;
+}
+::ng-deep modal {
+  .modal-dialog .modal-content .modal-body .more-link-lucky{
+    font-size: 13px;
+    font-family: 'Roboto Condensed';
+    color:#252835;
+  }
+
+}
+::ng-deep .modal-dialog .modal-content .modal-body .btn-style2 {
+  background-color: #FAC031 !important;
+}

@@ -1,0 +1,54 @@
+<div class="bs-stake-body"
+     [ngClass]="{
+       'stake-offered': isStakeChanged,
+       'price-offered': isOddsChanged || multiplePriceChanged
+     }">
+  <div class="bs-stake-body-row" data-crlat="stBodyRow">
+    <div class="stake-odds" data-crlat="stakeOdds">
+      <span class="stake-odd-number-prev"
+            *ngIf="isOddsChanged">
+        <ng-container *ngIf="isPrevPriceSP">
+          <span [i18n]="'bs.SP'"></span>
+        </ng-container>
+        <ng-container
+          *ngIf="!isPrevPriceSP && oldPriceText">
+          <span [textContent]="oldPriceText"></span>
+        </ng-container>
+      </span>
+      <ng-container *ngIf="isSp">
+        <span class="stake-odd-number">
+          <span [i18n]="'bs.SP'"></span>
+          <span *ngIf="stake"> x</span>
+        </span>
+      </ng-container>
+      <ng-container *ngIf="!isSp && price">
+        <span class="stake-odd-number">
+          <span [textContent]="price"></span>
+          <span *ngIf="stake"> x</span>
+        </span>
+      </ng-container>
+
+      <ng-container *ngIf="multiplePriceChanged">
+        <span class="stake-odd-number-prev" [textContent]="multiplePriceChanged[0]"></span>
+        <span class="stake-odd-number" [textContent]="multiplePriceChanged[1]" data-crlat="stOddNumber"></span>
+      </ng-container>
+    </div>
+    <div *ngIf="!multiplePriceChanged && stake" class="bs-stake-number" data-crlat="stakeValue"
+         [textContent]="currencySymbol + '' + (stake | numberNormalizer)"></div>
+  </div>
+  <div class="stake-est-return" *ngIf="returns" data-crlat="oEstRet">
+    <span [i18n]="'bs.estimatedResults'"></span>
+    <span class="stake-est-return-number" data-crlat="oEstRetValue"
+          [textContent]="returns"></span>
+  </div>
+  <div class="bs-stake-each-way"
+       data-crlat="oEachWay"
+       *ngIf="eachWay">
+    <span [i18n]="'bs.EW'" data-crlat="oEWText"></span>
+    <span class="bs-stake-check" data-crlat="oEWTick"></span>
+  </div>
+  <div class="bs-stake-each-way bs-stake-no-padding"
+       *ngIf="isTraderChangedLegType && !eachWay"
+       [i18n]="'bs.winOnly'">
+  </div>
+</div>

@@ -1,0 +1,150 @@
+<div class="lottoBetsContainer" #lottoBetsContainer>
+  <div class="lotto-text lotto-text-format" *ngFor="let betslipStake of lottobetslipData; index as lottoIndex; trackBy: trackById">
+      <div class="lotto-wrapper">
+        <div class="lotto-content" (click)="clearErrorMessage()">
+          <div class="lotto-details-layout lotto-padding lotto-top-pad">
+            <div class="lotto-heading" data-uat="selectionName">
+              {{betslipStake.details.name}}
+            </div>
+            <div class="show-hide-accordion" (click)=" onExpandSummary(lottoIndex,$event)">
+              <span [textContent]="betslipStake?.details?.draws?.expanded? 'Show Summary':'Hide Summary'"></span>
+              <svg *ngIf="!betslipStake?.details?.draws?.expanded">
+                <use xlink:href="#up-arrow"></use>
+              </svg>
+              <svg *ngIf="betslipStake?.details?.draws?.expanded">
+                <use xlink:href="#down-arrow"></use>
+              </svg>
+            </div>
+          </div>
+          <div class="lotto-top-pad on-expand" [ngStyle]="{'display': betslipStake?.details?.draws?.expanded ?  'none': 'block'}">
+            <div class="lotto-heading">{{betslipStake.details.draws[0].description}} </div>
+            <div *ngFor="let draw of betslipStake.details.draws; trackBy: trackByDrawId;">
+              <div class="lotto-desc lotto-text-format" data-uat="selectionName" [dateTimeFmt]="draw.drawAtTime">
+              </div>
+            </div>
+            <div class="lotto-details-layout lotto-text-format ">
+              <span class="total-lable" [i18n]="'bs.totalStake'"></span>
+              <span class="est-Returns-Amt " [ngClass]="{'offered': betslipStake.traderChangedStake}"
+              [textContent]="returnStakeValue(betslipStake.totalStakeAmount)">
+              </span>
+            </div>
+            <span class="lotto-details-layout lotto-text-format">
+              <span [i18n]="'Est. Returns'" data-crlat="estReturn.label"></span>
+              <span class="est-Returns-Amt  " [ngClass]="{'offered': betslipStake.traderChangedStake}"
+              [textContent]="getSelectionTotalEstimate(lottoIndex, betslipStake)">
+               </span>
+            </span>
+          </div>
+          <div class="lotto-details-layout lotto-padding">
+            <div class="lotto-info">
+              <div class="" (click)="removeFromBetslip(lottoIndex)">
+                <svg class="remove-line">
+                  <use xlink:href="#close-icon"></use>
+                </svg>
+              </div>
+              <div class="numbercol"
+                *ngFor="let number of betslipStake.details.selections.split('|'); index as i; trackBy: numbersTrackBy">
+                <span class="">{{ number }}</span>
+              </div>
+            </div>
+            <div class="bs-lotto-stake-body">
+              <form class="stake-input" [ngClass]="{'offered': betslipStake.traderChangedStake }" [showCurrency]="{ currency: betslipStake.currencySymbol,
+                value: betslipStake.accaBets[0].stake,
+                limit: 8 }" data-crlat="stake.amountInputForm" novalidate>
+                <label class="currency-label" [ngClass]="{'show-currency': +betslipStake.accaBets[0].stake }"
+                  [attr.data-currency]="currencySymbol" [textContent]="+betslipStake.accaBets[0].stake ? currencySymbol :
+              ''">
+                </label>
+                 <input id="lottoStake-{{lottoIndex}}0" class="lotto-stake" name="lottoStake-{{lottoIndex}}0" placeholder="Stake"
+                  autocomplete="off"
+                  [value]="betslipStake.accaBets[0].stake" 
+                  [isInit]="onDidigitKeyboardInit()"
+                  [(ngModel)]="betslipStake.accaBets[0].stake"
+                  (ngModelChange)="setAmount(lottoIndex,0)"
+                  [digit-keyboard-input]
+                  [componentId]="'slide-out-betslip'"
+                  [showDecimalPoint]="true"
+                  [showQuickDepositButtons]="true"
+                  [eventAction]="'betslip'"
+                  [patternRestrict]="'^(\\d{0,12}(\\.\\d{0,2})?)?$'"
+                  [patternToFixed]="true"
+                  data-money-validate="true" data-crlat="value" />
+              </form>
+            </div>
+          </div>
+          <div class="lotto-details-layout lotto-summary" *ngIf="betslipStake.accaBets && betslipStake.accaBets.length > 1">
+            <div class="show-hide-accordion" (click)=" onExpandMultiples(lottoIndex,$event)">
+              <span [textContent]="betslipStake?.expanded?'Hide Multiples':'Show Multiples'"></span>
+              <svg *ngIf="betslipStake?.expanded">
+                <use xlink:href="#up-arrow"></use>
+              </svg>
+              <svg *ngIf="!betslipStake?.expanded">
+                <use xlink:href="#down-arrow"></use>
+              </svg>
+            </div>
+            <span class="lotto-details-layout">
+              <span class="total-lable" [i18n]="'bs.estimatedResults'" data-crlat="estReturn.label"></span>&nbsp;
+              <span class="est-Returns-Amt " [ngClass]="{'offered': betslipStake.traderChangedStake}"
+                [textContent]="calculateEstReturns(lottoIndex,0)">
+              </span>
+            </span>
+          </div>
+          <ng-container *ngIf="betslipStake?.expanded">
+          <ng-container
+            *ngFor="let multipleBetslipStake of betslipStake.accaBets; let multiplesIndex = index; trackBy: trackByAccaBets;">
+            <div class="lotto-details-layout lotto-wrapper lotto-padding padng"
+              *ngIf="multiplesIndex !== 0 && multipleBetslipStake.lines.number !==1">
+              <div class="lotto-mul-stake">
+                <span class="lotto-heading lotto-btm-pad" (click)="openSelectionMultiplesDialog(multipleBetslipStake)">
+                  <span [textContent]="getTypeLocale(multipleBetslipStake)" data-uat="selectionName"></span>
+                  <span class="lotto-stake-title-lines" data-crlat="stakeMultiplier"
+                    *ngIf="multipleBetslipStake?.lines?.number"
+                    [textContent]="' (x' + multipleBetslipStake?.lines?.number + ')'">
+                  </span>
+                </span>
+                <div class="bs-stake-subtitle">
+                  <span *ngIf="getTypeinfo(multipleBetslipStake)" class="bs-stake-type" data-uat="marketName"
+                    [textContent]="getTypeinfo(multipleBetslipStake)"></span>
+                </div>
+              </div>
+              <div class="lotto-mul-stake end-flex-layout">
+                <div class="bs-lotto-stake-body">
+                  <form class="stake-input" [ngClass]="{'offered': multipleBetslipStake.traderChangedStake }"
+                    [showCurrency]="{ currency: multipleBetslipStake.currencySymbol,
+                  value: multipleBetslipStake.stake,
+                  limit: 8 }" data-crlat="stake.amountInputForm" novalidate>
+                    <label class="currency-label" [ngClass]="{'show-currency': +multipleBetslipStake.stake }"
+                      [attr.data-currency]="currencySymbol" [textContent]="+multipleBetslipStake.stake ? currencySymbol :
+                ''">
+                    </label>
+                    <input id="lottoStake-{{lottoIndex}}{{multiplesIndex}}" class="lotto-stake margin-layout"
+                      name="lottoStake-{{lottoIndex}}{{multiplesIndex}}" placeholder="Stake" autocomplete="off"
+                      [value]="multipleBetslipStake.stake" [isInit]="onDidigitKeyboardInit()"
+                      [(ngModel)]="multipleBetslipStake.stake"
+                      (ngModelChange)="setAmount(lottoIndex,multiplesIndex)"
+                      [digit-keyboard-input]
+                      (click)="setFocusMultipleIndex(multipleBetslipStake.stake,lottoIndex,multiplesIndex)"
+                      [componentId]="'slide-out-betslip'" 
+                      [showDecimalPoint]="true" 
+                      [showQuickDepositButtons]="true"
+                      [eventAction]="'betslip'"
+                      [patternRestrict]="'^(\\d{0,12}(\\.\\d{0,2})?)?$'" 
+                      [patternToFixed]="true"
+                      data-money-validate="true" data-crlat="value" />
+                  </form>
+                </div>
+                <span class="lotto-info estreturns">
+                  <span class="total-lable" [i18n]="'Est. Returns: '"></span>
+                  <span class="est-Returns-Amt  "
+                    [ngClass]="{'offered': multipleBetslipStake.traderChangedStake}"
+                    [textContent]="calculateEstReturns(lottoIndex,multiplesIndex)">
+                </span>
+                </span>
+            </div>
+            </div>
+          </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    </div>

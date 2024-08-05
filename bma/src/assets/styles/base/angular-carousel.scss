@@ -1,0 +1,147 @@
+.ng-carousel {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+
+  .slide-link {
+    display: block;
+    height: 100%;
+    width: 100%;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    &.img-not-found {
+      @include display-flex();
+      @include align-items(center);
+      @include justify-content(center);
+      text-transform: uppercase;
+      font-weight: bold;
+      color: $brand-color-main;
+    }
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .carousel-slides {
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    font-size: 0;
+    transition: transform;
+    will-change: transition, transform;
+
+    &.center-mode {
+      @include transform(translate(-200%, 0));
+    }
+
+    &.carousel-ignore-first-slide {
+      @include transform(translate(-100%, 0));
+    }
+
+    &.carousel-no-scroll {
+      @include transform(translate(0, 0) !important);
+
+      .carousel-slide-copy {
+        display: none;
+      }
+    }
+
+    &.carousel-animate {
+      transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1);
+      transition-duration: 400ms;
+      transition-property: transform;
+    }
+
+    &.carousel-is-sliding {
+      transition: none;
+
+      .lc-offer {
+        pointer-events: none;
+      }
+    }
+
+  }
+
+  .slide, .carousel-slide-copy {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 16px;
+    width: 100%;
+    min-width: 100%;
+    height: calc(100% - #{$banner-shadow-height});
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: center;
+    max-height: 400px;
+  }
+}
+
+/* Dots */
+.slide-dots {
+  position: absolute;
+  bottom: 10px;
+  display: inline-block;
+  list-style: none;
+  text-align: center;
+  z-index: 5;
+  background: rgba(0, 0, 0, .5);
+  margin: 0;
+  line-height: 0;
+  border-radius: 3px;
+  padding: 0 5px 2px;
+  white-space: nowrap;
+  left: 50%;
+  @include transform(translate(-50%, 0));
+
+  li {
+    position: relative;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin: 0 3px;
+    padding: 0;
+    cursor: pointer;
+
+    &.slide-active button:before {
+      background: $color-green;
+    }
+
+    button {
+      font-size: 0;
+      line-height: 0;
+      display: block;
+      width: 15px;
+      height: 15px;
+      padding: 0;
+      cursor: pointer;
+      border: 0;
+      outline: none;
+      background: transparent;
+
+      &:hover, &:focus {
+        outline: none;
+      }
+
+      &:before {
+        border-radius: 4px;
+        line-height: 15px;
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        content: '●';
+        background: $color-white;
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+<div>
+  <div id="retail-overlay" *ngIf="isVisible" class="cookie-margin-top" data-crlat="retailOverlay">
+    <a data-crlat="overlayCloseBtn" class="close-icon" (click)="hideOverlay()">
+      <svg>
+        <use xlink:href="#close-icon"></use>
+      </svg>
+    </a>
+    <div class="swipe-arrow">
+      <span class="arrow-text" [i18n]="'retail.scrollRightText'" data-crlat="arrowText"></span>
+      <svg>
+        <use xlink:href="#swipe_right_arrow" data-crlat="swipeArrow"></use>
+      </svg>
+    </div>
+    <div class="retail-icon" (click)="navigateToRetail()" data-crlat="connectIcon"></div>
+    <div class="text-panel" data-crlat="overlayTextPanel">
+      <!-- TODO: rename to retail after changes in cms. -->
+      <static-block service="'connect-overlay'"></static-block>
+    </div>
+
+    <div class="buttons-panel" data-crlat="overlayButtons">
+      <button class="btn btn-style1" [i18n]="'retail.overlayButton'" data-crlat="navigateToConnect" (click)="navigateToRetail()">
+      </button>
+      <div class="closeLink" data-crlat="">
+        <a href="javascript:void(0)" data-crlat="dontShowOverlay" (click)="hideOverlay(true)">
+          <span [i18n]="'retail.overlayClose'"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

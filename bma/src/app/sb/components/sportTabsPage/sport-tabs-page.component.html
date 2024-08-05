@@ -1,0 +1,68 @@
+<div class="sk-container" [ngClass]="{'sk-loading': state.loading || isLazyComponentLoading}">
+  <outlet-status [state]="state">
+    <request-error (reloadFn)="reloadComponent()"></request-error>
+  </outlet-status>
+  <loading-screen [displayed]="isLazyComponentLoading" [templateType]="'GENERIC'"></loading-screen>
+
+  <ng-container *ngIf="!state.loading && !state.error" [ngSwitch]="display">
+    <div id="tab-inplay"
+         *ngSwitchCase="'live'"
+         data-crlat="inplaySportTab">
+      <lazy-component
+        moduleUri="@inplayModule/inplay.module#InplayModule"
+        [inputs]="{
+          id: sportId,
+          singleSport: true,
+          topMarkets: topMarkets
+        }"
+        (init)="initLazyHandler()"
+        entryComponent="InplayTabComponent">
+      </lazy-component>
+    </div>
+
+    <lazy-component
+    id="tab-competitions"
+    *ngSwitchCase="'competitions'"
+    [inputs]="{ sport: sport, sportTabs: sportTabs }"
+    (init)="initLazyHandler()"
+    data-crlat="accordionsList"
+    [outputs]="['isLoadedEvent']"
+    (event)="updateLoadStatus($event)"
+    moduleUri="@lazy-modules-module/competitionsSportTab/competitionsSportTab.module#CompetitionsTabModule"
+    entryComponent="{{isDesktop ? 'DesktopCompetitionsSportTabComponent' : 'CompetitionsSportTabComponent'}}"></lazy-component>
+
+  <lazy-component id="tab-coupons" moduleUri="@lazy-modules-module/couponsModule/coupons.module#CouponsModule"
+  *ngSwitchCase="showSportTab('coupons', true)"
+    [inputs]="{ sport: sport}" 
+    data-crlat="accordionsList"
+    entryComponent="CouponsListSportTabComponent">
+  </lazy-component>
+  
+  <lazy-component id="tab-coupons" moduleUri="@lazy-modules-module/couponsModule/coupons.module#CouponsModule"
+  *ngSwitchCase="showSportTab('coupons', false)" [inputs]="{ sport: sport}"
+   data-crlat="couponsSportTab"
+    entryComponent="CouponsContentSportTabComponent">
+  </lazy-component>
+
+    <outrights-sport-tab id="tab-outrights"
+                         *ngSwitchCase="'outrights'"
+                         [sport]="sport"
+                         [display]="display"
+                         data-crlat="accordionsList">
+    </outrights-sport-tab>
+
+    <lazy-component
+      id="tab-jackpot"
+      *ngSwitchCase="showSportTab('jackpot', true)"
+      [inputs]="{ sport: sport }"
+      (init)="initLazyHandler()"
+      data-crlat="accordionsList"
+      moduleUri="@lazy-modules/jackpot/jackpot.module#JackpotModule"></lazy-component>
+
+    <lazy-component id="tab-specials"
+                    *ngSwitchCase="'specials'"
+                    [inputs]="{ sport: sport, display: display }"
+                    data-crlat="accordionsList"
+                    moduleUri="@specialsModule/specials-sport-tab.module#SpecialsSportTabModule"></lazy-component>
+  </ng-container>
+</div>

@@ -1,0 +1,30 @@
+@import 'global.variables.scss';
+
+:host {
+  margin: 0;
+  display: block;
+  background: $color-white;
+  border-radius: 4px;
+  box-shadow: $global-box-shadow;
+
+  ::ng-deep {
+    accordion {
+      box-shadow: none;
+      margin: 0 0 11px 0;
+    }
+
+    accordion:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.header-panel {
+  background: none;
+  color: $lGray;
+  height: 36px;
+  font-size: 14px;
+  border-bottom: solid 1px $lGrayLight;
+  border-radius: 4px 4px 0 0;
+  padding: 0 12px;
+}

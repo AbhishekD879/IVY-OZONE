@@ -1,0 +1,206 @@
+@import 'global.variables.scss';
+
+.racing-event-desktop {
+  .tab-item {
+    ::ng-deep .event-card-label-wrapper {
+      &:last-of-type {
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .livesim-btn {
+    .btn-spinner.quantum-leap {
+      top: 0;
+    }
+  }
+}
+.race-details-container {
+  height: auto;
+  @include display-flex();
+  @include justify-content(space-between);
+  @include flex-direction(row);
+  
+  .left{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    .race-details-container-l,
+    .race-details-container-r {
+      display: inline-block;
+    }
+    .race-details-container-l {
+      .race-distance, .race-going {
+        .lable,
+        .value {
+          display: inline-block;
+        }
+      }
+    }
+    .event-header {
+      padding: 4px 0;
+      .event-time, .event-title {
+        display: inline-block;
+        font-size: $font-size-lgr;
+      }
+    }
+    .value {
+      font-weight: bold;
+      margin-right: 5px;
+      padding-left: 5px;
+    }
+    .event-header {
+      padding: 4px 0;
+
+      .event-title {
+        margin-bottom: 0;
+        color: $color-blue-dark;
+      }
+    }
+    .race-title {
+      padding: 4px 0;
+      margin: 0;
+    }
+    .race-details-container-l {
+      padding-top: 4px;
+      display: inline-block;
+
+      .race-type,
+      .race-distance,
+      .race-going {
+        display: inline-block;
+      }
+      .race-type {
+        margin-right: 24px;
+        .value {
+          padding-left: 0;
+        }
+      }
+      .racing-post-pick-container{
+        float: right;
+        @include align-self(flex-end);
+      
+      }
+    }
+  }
+}
+.media-area-container-greyhound{
+  .racing-post-media-btns-container {
+  background: #07294b;
+  margin-top: 8px;
+}
+
+}
+
+.media-area-container-greyhound, .media-area-container {
+  .racing-post-media-btns-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 12px;
+
+    .media-btns-left {
+      .watch-btn {
+        width: 180px;
+        color: $color-blue-rich;
+        font-size: 11px;
+        font-family: lato;
+        background-color: $color-yellow-alt;
+        &:hover{
+          background: $color-yellow-alt;
+          opacity:0.85;
+          color: $color-blue-rich;
+        }
+        &:active{
+          background: $color-yellow-darkest;
+          opacity: 1;
+          color: $color-blue-rich;
+        }
+
+        &.disabled {
+          svg {
+            display: none;
+          }
+        }
+      }
+
+      .btn.watch-btn.active{
+        width: 180px;
+        color: $color-white;
+        font-size: 11px;
+        font-family: lato;
+        background-color: $color-blue;
+        &:hover{
+          background: $color-blue-alt2;
+          color: $color-white;
+        }
+        &:active{
+          background: $color-blue-rich2;
+          color: $color-white;
+        }
+      }
+      .livesim-btn {
+        width: 180px;
+        font-size: 11px;
+        border: 1px solid $color-blue;
+        background: $color-white;
+        color: $color-blue;
+        &:hover{
+          background: $color-blue-alt2;
+          color: $color-white;
+        }
+        &:active{
+          background: $color-blue-rich-heavy;
+          color: $color-white;
+          opacity: 1;
+        }
+      }
+      .btn-icon {
+        display: inline-block;
+        fill: currentColor;
+
+        &.video-stream-icon {
+          right: 0;
+          top: 0;
+          cursor: pointer;
+          height: 9px;
+          width: 9px;
+         margin: 2px 3px 0px 0;
+       }
+    }
+ }
+
+    .media-btns-right {
+      .btn-live-commentary {
+        color: $color-white;
+        font-size: 12px;
+        font-family: $alt-font-family;
+        position: relative;
+        text-decoration: underline;
+
+        .live-commentary-icon {
+          width: 14px;
+          height: 14px;
+          position: absolute;
+          bottom: 1px;
+          left: -19px;
+        }
+      }
+    }
+  }
+
+  ::ng-deep .desktop-error-message {
+    background: $lGrayLight;
+    color: $color-gray-darkest;
+    font-family:  $alt-font-family;
+  }
+}
+.media-area-container{
+  background: none !important;
+}
+.horse-racing-icons promotion-icon {
+  font-size: 10px;
+}
+.eprSection{
+  justify-content: space-between;
+  align-content: space-around;
+}

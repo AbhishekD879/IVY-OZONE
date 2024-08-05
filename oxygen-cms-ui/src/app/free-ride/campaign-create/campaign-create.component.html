@@ -1,0 +1,77 @@
+<breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card">
+    <div class="body">
+        <div class="row">
+            <div class="col-md-2">
+                <span class="mat-label">
+                    Name
+                </span>
+            </div>
+            <div class="col-md-8">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Name" [(ngModel)]="newCampaign.name" [value]="newCampaign.name"
+                        required trim="blur">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <date-range [startDate]="newCampaign && newCampaign.displayFrom"
+                    [endDate]="newCampaign && newCampaign.displayTo" [startPlaceholder]="'Start Date'"
+                    [endPlaceholder]="'End Date'" [placeholderColumn]="true"
+                    (onDateUpdate)="handleDisplayDateUpdate($event)">
+                </date-range>
+                <mat-hint class="col-red" *ngIf="!isEndDateValid()">
+                    Display end date cannot be greater than display start date
+                </mat-hint>
+                <br/>
+                <mat-hint class="col-red" *ngIf="isPastDate()">
+                    Cant create campaign with past dates
+                </mat-hint>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <span class="mat-label">
+                    Openbet ID
+                </span>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Openbet ID" [(ngModel)]="newCampaign.openBetCampaignId"
+                        [value]="newCampaign.openBetCampaignId" required trim="blur">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <span class="mat-label">
+                    Optimove ID
+                </span>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder=" Optimove ID" [(ngModel)]="newCampaign.optimoveId"
+                        [value]="newCampaign.optimoveId" required trim="blur">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <br>
+    </div>
+</div>
+<div class="card">
+    <div class="body">
+        <div class="row --m-t-10">
+            <div class="col-md-3 m-b-0">
+                <button mat-button type="button" class="btn bg-teal waves-effect" (click)="saveCampaignChanges()"
+                    [disabled]="!isValidModel()">
+                    <mat-icon>save</mat-icon>
+                    <span>Create Campaign</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

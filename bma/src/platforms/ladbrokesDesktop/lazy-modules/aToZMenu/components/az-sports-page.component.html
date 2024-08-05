@@ -1,0 +1,24 @@
+<div class="az-sports-page"
+     data-crlat="az-sports-page">
+  <top-bar [title]="'sb.allSports'"></top-bar>
+
+  <vertical-menu *ngIf="topItems"
+                 class="top-sports"
+                 [menuItems]="topItems"
+                 data-crlat="top-sports"
+                 [gtmDimension]="'featured'">
+  </vertical-menu>
+
+  <vertical-menu class="az-sports"
+                 [menuItems]="azItems"
+                 [showHeader]="true"
+                 [header]="'sb.azSports'"
+                 data-crlat="az-sports"
+                 [gtmDimension]="'a-z betting'">
+  </vertical-menu>
+<!-- Removed showFootballFilterConfirmDialog for strict mode issue -->
+  <retail-menu *ngIf="showRetailMenu" [showHeader]="true" [showDescription]="true"
+    [trackingLocation]="CONST.trackingLocation" [disableDefaultNavigation]="disableDefaultNavigation"
+    data-crlat="connect">
+  </retail-menu>
+</div>

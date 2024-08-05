@@ -1,0 +1,88 @@
+<ng-container *ngIf="showPlayer">
+  <!-- Stream n Bet  -- START (Tennis, football and HR)-->
+  <div *ngIf="isStreamBetAvailable(); else loadNativeStream" [ngClass]="{'snb-sticky': deviceService.isWrapper}">
+    <ng-container *ngIf="deviceService.isIos; else loadAndroidStreamBet">
+      <stream-bet-ios-provider [ngClass]="videoStreamProvidersCssClasses" [eventEntity]="eventEntity"
+        [performConfig]="performConfig" [colorSchema]="colorSchema" [autoPlay]="autoPlay" [providerInfo]="providerInfo"
+        [streamCache]="streamCache" [streamUniqueId]="streamUniqueId" [isMyBets]="isMyBets"
+        (playStreamError)="onPlayLiveStreamError($event)" (liveStreamStarted)="onLiveStreamStarted()"
+        [showCSBIframe]="showCSBIframe">
+      </stream-bet-ios-provider>
+    </ng-container>
+    <ng-template #loadAndroidStreamBet>
+      <stream-bet-provider [ngClass]="videoStreamProvidersCssClasses" [eventEntity]="eventEntity"
+        [performConfig]="performConfig" [colorSchema]="colorSchema" [autoPlay]="autoPlay" [providerInfo]="providerInfo"
+        [streamCache]="streamCache" [streamUniqueId]="streamUniqueId" [isMyBets]="isMyBets"
+        (playStreamError)="onPlayLiveStreamError($event)" (liveStreamStarted)="onLiveStreamStarted()"
+        [showCSBIframe]="showCSBIframe">
+      </stream-bet-provider>
+    </ng-template>
+  </div>
+  <!-- Stream n Bet  -- END -->
+  <ng-template #loadNativeStream> 
+  
+    <csb-player *ngIf="showCSBIframe"
+                [providerInfo]="providerInfo"
+                [performConfig]="performConfig"
+                [streamCache]="streamCache"
+                [eventEntity]="eventEntity"
+                (playStreamError)="onPlayLiveStreamError($event)"
+                (liveStreamStarted)="onLiveStreamStarted()"></csb-player>
+  
+    <ng-container *ngIf="!showCSBIframe">
+      <!-- IMG, Perform, AtTheRaces, RacingUK, RPGTV stream providers-->
+      <video-stream-providers *ngIf="!eventEntity.streamProviders.iGameMedia && providerInfoAvailable"
+                              [ngClass]="videoStreamProvidersCssClasses"
+                              [eventEntity]="eventEntity"
+                              [performConfig]="performConfig"
+                              [colorSchema]="colorSchema"
+                              [autoPlay]="autoPlay"
+                              [providerInfo]="providerInfo"
+                              [streamCache]="streamCache"
+                              [streamUniqueId]="streamUniqueId"
+                              [isMyBets]="isMyBets"
+                              (playStreamError)="onPlayLiveStreamError($event)"
+                              (liveStreamStarted)="onLiveStreamStarted()"></video-stream-providers>
+      <!-- iGameMedia -->
+      <i-game-media *ngIf="eventEntity.streamProviders.iGameMedia && providerInfoAvailable"
+                    [ngClass]="iGameMediaCssClasses"
+                    [eventEntity]="eventEntity"
+                    [providerInfo]="providerInfo"
+                    [isMyBets]="isMyBets"
+                    (playStreamError)="onPlayLiveStreamError($event)"
+                    (liveStreamStarted)="onLiveStreamStarted()"></i-game-media>
+    </ng-container>
+  </ng-template>
+  </ng-container>
+  <div [ngClass]="{'my-bets-stream' : videoStreamProvidersCssClasses==='my-bets-stream'}">
+    <div *ngIf="errorMessage && errorMessage.length > 0 && isDesktop" class="eventVideoStream clearfix">
+      <div class="error-message desktop-error-message" data-crlat="videoStreamErrorMessage">
+        <svg class="horseracing-info-icon">
+          <use xlink:href="#info-icon"></use>
+        </svg>
+        <span [textContent]="errorMessage"></span>
+      </div>
+    </div>
+  </div>
+<ng-container *ngIf="showPlayerReplay">
+  <ng-container *ngIf="!showCSBIframeReplay">
+    <!-- IMG, Perform, AtTheRaces, RacingUK, RPGTV stream providers-->
+
+    <video-stream-providers 
+                            [ngClass]="videoStreamProvidersCssClasses"
+                            [eventEntity]="eventEntity"
+                            [colorSchema]="colorSchema"
+                            [autoPlay]="autoPlay"
+                            [streamUniqueId]="streamUniqueId"
+                            [isMyBets]="isMyBets"
+                            [videoStreamData]="replayUrl"
+                            [isReplayVideo]="isReplayVideo"
+                            [tabName]="tabName"
+                            [eventName]="eventName"                            
+                            (playStreamError)="onPlayLiveStreamError($event)"
+                            (liveStreamStarted)="onLiveStreamStarted()"
+                            [showCSBIframeReplay]="showCSBIframeReplay"
+                            ></video-stream-providers>  
+  </ng-container>
+</ng-container>
+

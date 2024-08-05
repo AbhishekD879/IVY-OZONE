@@ -1,0 +1,37 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>Create a New BYB Switcher</h1>
+  <form [formGroup]="form" autocomplete="off" id="byb-switchers">
+    <div mat-dialog-content>
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="BYB Switcher Title" formControlName="name" trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="BYB Switcher Provider" formControlName="provider" trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <mat-checkbox class="mat-label" color="primary" formControlName="enabled"> Enabled
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <mat-checkbox class="mat-label" color="primary" formControlName="default"> Default Tab
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div mat-dialog-actions>
+    <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+    <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="form.invalid" [mat-dialog-close]="getBYBSwitcher()">Save</button>
+  </div>
+</div>

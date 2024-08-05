@@ -1,0 +1,28 @@
+@import 'global.variables.scss';
+
+.is-horizontal .col-vertical, ::ng-deep .is-horizontal .col-bordered .col-inner.col-vertical {
+  height: 100%;
+
+  price-odds-button {
+    margin-top: auto;
+  }
+}
+
+.hwdw-margin {
+  price-odds-button {
+    ::ng-deep .btn-bet {
+      .handicap-btn {
+        margin-bottom: 4px;
+        color: $color-blue-cornflower;
+      }
+    }
+  }
+}
+
+.col-inner:first-child {
+  margin-top: 0;
+}
+#wdw-name {
+  padding-right: 4px;
+  word-break: break-word;
+}

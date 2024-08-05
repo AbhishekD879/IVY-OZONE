@@ -1,0 +1,1295 @@
+<breadcrumbs *ngIf="quiz" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="quiz">
+  <div class="header">
+    <div class="row">
+      <div class="col-md-10">
+        <h2 class="waves-effect waves-block has-activity-badge">
+          Quiz: {{quiz.title}}
+          <create-updated-at-by [collection]="quiz"></create-updated-at-by>
+        </h2>
+      </div>
+      <div class="col-md-2">
+        <mat-checkbox color="primary"
+                      [checked]="quiz.active"
+                      (change)="handleQuizActivation(); displayedCheckboxDisabled = false;"
+                      [disabled]="displayedCheckboxDisabled">
+          Displayed
+        </mat-checkbox>
+        <mat-icon *ngIf="displayedCheckboxDisabled"
+           [matTooltip]="'`Displayed` button has been deactivated since some users might have already submitted their answers.' +
+            'If you want to deactivate this Quiz please change `Display To` date to any date in the PAST'">
+          help
+        </mat-icon>
+      </div>
+    </div>
+    <br>
+    <mat-hint class="col-red questionText-error" style="margin-bottom: 5px" *ngIf="questionTextMissing">
+      {{ saveQuizErrorMsg }}
+    </mat-hint>
+    <mat-hint class="col-red questionText-error" style="margin-bottom: 5px" *ngIf="quiz && quizEditingWarning && questionsList.length === 0">
+      {{ saveEmptyQuizQuestionsErrorMsg }}
+    </mat-hint>
+
+    <div class="row">
+      <div class="col-md-9">
+        <button
+          (click)="openCreateWindow()"
+          type="button"
+          class="btn bg-teal waves-effect">
+          Clone Quiz
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="{{ quiz && quizEditingWarning ? 'quizEditWarning' : '' }}" style="margin-bottom: 30px">
+  <div class="row" *ngIf="quiz && quizEditingWarning">
+    <div class="col-md-12 quizEditWarningMessage">
+      <h4>WARNING! The quiz you are editing is live. Any addition of questions or answer options, or any changing of answer bands will affect our ability to pay our customers accurately. Please ensure you have permission to make changes before you proceed.</h4>
+    </div>
+  </div>
+<mat-tab-group (selectedTabChange)="handleNeededChange($event)">
+
+  <mat-tab label="Quiz details">
+    <div class="card" style="margin-bottom: 0px" *ngIf="quiz">
+      <div class="body">
+        <div class="row">
+          <div class="col-md-12">
+            <h4>Quiz info</h4>
+          </div>
+          <div class="col-md-10 game-name">
+            <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !quiz.id}">
+              <input matInput required placeholder="Quiz name" [(ngModel)]="quiz.title" [value]="quiz.title"
+                     trim="blur">
+              <mat-hint class="col-red" *ngIf="!quiz.title">Quiz name should be entered</mat-hint>
+            </mat-form-field>
+          </div>
+
+
+          <div class="col-md-10">
+            <mat-form-field class="full-width">
+              <mat-icon *ngIf="isQuizActiveAndStarted()"
+                        [matTooltip]="'Source Id editing is restricted since it may negatively affect customers'"
+                        matSuffix>
+                help
+              </mat-icon>
+              <input matInput placeholder="Source Id" [(ngModel)]="quiz.sourceId" [value]="quiz.sourceId" required
+                     trim="blur" [disabled]="isQuizActiveAndStarted()">
+              <mat-hint class="col-red" *ngIf="(quiz && quiz.sourceId && quiz.sourceId.length) && !isValidSourceId()">
+                Source
+                id should begin with the
+                sign '/'
+              </mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+        <span class="mat-label">
+          Splash Page
+        </span>
+          </div>
+          <div class="col-md-3">
+            <cms-simple-select-list
+              [clearSpaces]="false"
+              [selected]="quiz.splashPage && quiz.splashPage.id"
+              [optionsData]='selectSplashPages'
+              [optionsDataTitle]="'title'"
+              [optionsDataValue]="'id'"
+              (onDataChange)="onChangeSelectedSplashPage($event)">
+            </cms-simple-select-list>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+        <span class="mat-label">
+          Quick Links Set
+        </span>
+          </div>
+          <div class="col-md-3">
+            <cms-simple-select-list
+              [clearSpaces]="false"
+              [selected]="quiz.qeQuickLinks && quiz.qeQuickLinks.id"
+              [optionsData]='selectQuickLinks'
+              [optionsDataTitle]="'title'"
+              [optionsDataValue]="'id'"
+              (onDataChange)="onChangeSelectedQuickLinks($event)">
+            </cms-simple-select-list>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+        <span class="mat-label">
+          End Page*
+        </span>
+          </div>
+          <div class="col-md-3">
+            <cms-simple-select-list
+              [clearSpaces]="false"
+              [optionsData]='endPages'
+              [optionsDataTitle]="'title'"
+              [optionsDataValue]="'id'"
+              [selected]="quiz.endPage && quiz.endPage.id"
+              (onDataChange)="onEndPageSelection($event)">
+            </cms-simple-select-list>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 m-b-0 m-t-20">
+            <date-range
+              [isSetDateButtons]="true"
+              [startDate]="quiz.displayFrom"
+              [endDate]="quiz.displayTo"
+              [startPlaceholder]="'Display From Date'"
+              [endPlaceholder]="'Display To Date'"
+              [placeholderColumn]="true"
+              (onDateUpdate)="handleVisibilityDateUpdate($event)">
+            </date-range>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <date-time-inputs class="full-width"
+                              [placeholderColumn]="true"
+                              [isSetDateButtons]="true"
+                              [initialDate]="quiz.entryDeadline"
+                              [placeholder]="'Entry deadline'"
+                              (outputIsoTime)="handelEntryDeadline($event)">
+            </date-time-inputs>
+            <mat-hint class="col-red" *ngIf="!isEntryDeadlineValid()">Entry deadline has to be between
+              displayFrom & displayTo dates
+            </mat-hint>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+        <span class="mat-label">
+          Login Rule
+        </span>
+          </div>
+          <div class="col-md-9">
+            <cms-simple-select-list
+              [options]='loginRules'
+              [selected]='quiz.quizLoginRule'
+              (onDataChange)="onChangeLoginRule($event)">
+            </cms-simple-select-list>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+        <span class="mat-label">
+          Quiz Logo SVG
+        </span>
+          </div>
+          <div class="col-md-5">
+            <mat-form-field class="full-width">
+              <input matInput placeholder=""
+                     [(ngModel)]="quiz.quizLogoSvg.originalname"
+                     [value]="quiz.quizLogoSvg.originalname" disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <div style="display:none;"><input id="upload-logo"
+                                              (change)="uploadQuizLogoSvgHandler($event)"
+                                              type="file"
+                                              value="upload"/>
+            </div>
+            <button type="button" (click)="uploadSvgHandler($event)"
+                    class="main-image-btn btn bg-teal waves-effect">
+              {{getButtonName(quiz.quizLogoSvg.originalname)}}
+            </button>
+            <button type="button" (click)="removeQuizLogoSvgHandler($event)"
+                    class="main-image-btn btn bg-red waves-effect">Remove File
+            </button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+        <span class="mat-label">
+          Quiz Background SVG
+        </span>
+          </div>
+          <div class="col-md-5">
+            <mat-form-field class="full-width">
+              <input matInput placeholder=""
+                     [(ngModel)]="quiz.quizBackgroundSvg.originalname"
+                     [value]="quiz.quizBackgroundSvg.originalname" disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <div style="display:none;"><input id="upload-background"
+                                              (change)="uploadQuizBackgroundSvgHandler($event)"
+                                              type="file"
+                                              value="upload"/>
+            </div>
+            <button type="button" (click)="uploadSvgHandler($event)"
+                    class="main-image-btn btn bg-teal waves-effect">
+              {{getButtonName(quiz.quizBackgroundSvg.originalname)}}
+            </button>
+            <button type="button" (click)="removeQuizBackgroundSvgHandler($event)"
+                    class="main-image-btn btn bg-red waves-effect">Remove File
+            </button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+        <span class="mat-label">
+          Upsell
+        </span>
+          </div>
+          <div class="col-md-9">
+            <button
+              (click)="openUpsellConfig()"
+              type="button"
+              class="btn bg-teal waves-effect">
+              Upsell Configuration
+            </button>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Questions">
+
+    <div class="card" style="margin-bottom: 0px" *ngIf="quiz">
+      <div class="body">
+        <div class="row">
+          <div class="col-md-11">
+            <h4>Questions List:</h4>
+          </div>
+        </div>
+        <div class="row">
+          <mat-accordion *ngIf="showAccordionBool" class="col p-0">
+            <mat-expansion-panel class="test" style="margin-left: 15px; margin-right: 10px; margin-bottom: 10px"
+                                 [expanded]="false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <strong>Default details for ALL questions:</strong>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <div class="body">
+                <div class="row">
+                  <div class="col-md-2">
+                    <span class="mat-label">
+                      Top left header
+                    </span>
+                  </div>
+                  <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                      <input matInput placeholder="Top left header"
+                             (input)="quiz.isChanged = true"
+                             [(ngModel)]="quiz.defaultQuestionsDetails.topLeftHeader"
+                             value="{{quiz.defaultQuestionsDetails.topLeftHeader}}" trim="blur">
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-2">
+                    <span class="mat-label">
+                      Top right header
+                    </span>
+                  </div>
+                  <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                      <input matInput placeholder="Top right header"
+                             (input)="quiz.isChanged = true"
+                             [(ngModel)]="quiz.defaultQuestionsDetails.topRightHeader"
+                             value="{{ quiz.defaultQuestionsDetails.topRightHeader }}" trim="blur">
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-2">
+                    <span class="mat-label">
+                      Middle header
+                    </span>
+                  </div>
+                  <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                      <input matInput placeholder="Middle header"
+                             (input)="quiz.isChanged = true"
+                             [(ngModel)]="quiz.defaultQuestionsDetails.middleHeader"
+                             value="{{ quiz.defaultQuestionsDetails.middleHeader }}" trim="blur">
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-2">
+                    <span class="mat-label">
+                      Home Team Name
+                    </span>
+                  </div>
+                  <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                      <input matInput placeholder="Home Team Name"
+                             (input)="quiz.isChanged = true"
+                             [(ngModel)]="quiz.defaultQuestionsDetails.homeTeamName"
+                             value="{{ quiz.defaultQuestionsDetails.homeTeamName }}" trim="blur">
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">
+                      <span class="mat-label">
+                          Home Team Kit
+                      </span>
+                  </div>
+                  <div class="col-md-5">
+                    <mat-form-field class="full-width">
+                      <input matInput placeholder=""
+                             [(ngModel)]="quiz.defaultQuestionsDetails.homeTeamSvg.originalname"
+                             value="{{ quiz.defaultQuestionsDetails.homeTeamSvg.originalname }}" disabled>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <div style="display:none;"><input id="upload-default-home"
+                                                      (change)="uploadDefaultQuestionDetailsSvgHandler($event, 'home')"
+                                                      type="file"
+                                                      value="upload"/>
+                    </div>
+                    <button type="button" (click)="uploadSvgHandler($event)"
+                            class="main-image-btn btn bg-teal waves-effect">
+                      {{getButtonName(quiz.defaultQuestionsDetails.homeTeamSvg.originalname)}}
+                    </button>
+                    <button type="button" (click)="removeDefaultQuestionDetailsSvgHandler($event, 'home')"
+                            class="main-image-btn btn bg-red waves-effect">Remove File
+                    </button>
+                  </div>
+
+                </div>
+
+                <div class="row">
+                  <div class="col-md-2">
+                    <span class="mat-label">
+                      Away Team Name
+                    </span>
+                  </div>
+                  <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                      <input matInput placeholder="Away Team Name"
+                             (input)="quiz.isChanged = true"
+                             [(ngModel)]="quiz.defaultQuestionsDetails.awayTeamName"
+                             value="{{ quiz.defaultQuestionsDetails.awayTeamName }}" trim="blur">
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">
+                      <span class="mat-label">
+                          Away Team Kit
+                      </span>
+                  </div>
+                  <div class="col-md-5">
+                    <mat-form-field class="full-width">
+                      <input matInput placeholder=""
+                             [(ngModel)]="quiz.defaultQuestionsDetails.awayTeamSvg.originalname"
+                             value="{{ quiz.defaultQuestionsDetails.awayTeamSvg.originalname }}" disabled>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <div style="display:none;"><input id="upload-default-away"
+                                                      (change)="uploadDefaultQuestionDetailsSvgHandler($event, 'away')"
+                                                      type="file"
+                                                      value="upload"/>
+                    </div>
+                    <button type="button" (click)="uploadSvgHandler($event)"
+                            class="main-image-btn btn bg-teal waves-effect">
+                      {{getButtonName(quiz.defaultQuestionsDetails.awayTeamSvg.originalname)}}
+                    </button>
+                    <button type="button" (click)="removeDefaultQuestionDetailsSvgHandler($event, 'away')"
+                            class="main-image-btn btn bg-red waves-effect">Remove File
+                    </button>
+                  </div>
+
+                </div>
+
+                <div class="row">
+                  <div class="col-md-2">
+                      <span class="mat-label">
+                          Channel
+                      </span>
+                  </div>
+                  <div class="col-md-5">
+                    <mat-form-field class="full-width">
+                      <input matInput placeholder=""
+                             [(ngModel)]="quiz.defaultQuestionsDetails.channelSvg.originalname"
+                             value="{{ quiz.defaultQuestionsDetails.channelSvg.originalname }}" disabled>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <div style="display:none;"><input id="upload-default-channel"
+                                                      (change)="uploadDefaultQuestionDetailsSvgHandler($event, 'channel')"
+                                                      type="file"
+                                                      value="upload"/>
+                    </div>
+                    <button type="button" (click)="uploadSvgHandler($event)"
+                            class="main-image-btn btn bg-teal waves-effect">
+                      {{getButtonName(quiz.defaultQuestionsDetails.channelSvg.originalname)}}
+                    </button>
+                    <button type="button" (click)="removeDefaultQuestionDetailsSvgHandler($event, 'channel')"
+                            class="main-image-btn btn bg-red waves-effect">Remove File
+                    </button>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-2">
+                    <span class="mat-label">
+                      Description
+                    </span>
+                  </div>
+                  <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                      <input matInput placeholder="Description"
+                             (input)="quiz.isChanged = true"
+                             [(ngModel)]="quiz.defaultQuestionsDetails.description"
+                             value="{{ quiz.defaultQuestionsDetails.description }}" trim="blur">
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-2">
+                    <span class="mat-label">
+                      Signposting
+                    </span>
+                  </div>
+                  <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                      <input matInput placeholder="Signposting"
+                             (input)="quiz.isChanged = true"
+                             [(ngModel)]="quiz.defaultQuestionsDetails.signposting"
+                             value="{{ quiz.defaultQuestionsDetails.signposting }}" trim="blur">
+                    </mat-form-field>
+                  </div>
+                </div>
+
+
+              </div>
+
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+        <div class="questions-wrapper">
+          <div *ngFor="let question of questionsList; index as i" class="question-item row">
+            <hr class="w-100">
+            <div class="col-md-1" style="padding-left: 0; padding-right: 0; max-width: 70px">
+              <div class="row">
+                <button class="up-down" mat-button (click)="clickUp(question)">
+                  <mat-icon>keyboard_arrow_up</mat-icon>
+                </button>
+              </div>
+              <div class="row">
+                <button class="up-down" mat-button (click)="clickDown(question)">
+                  <mat-icon>keyboard_arrow_down</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div class="col-md-11" style="padding-left: 0; padding-right: 0;">
+              <div class="question-header">
+                <strong>QUESTION: {{ questionsList.indexOf(question) + 1 }} </strong>
+                |
+                <span [ngClass]="{'lengthExceeded' : (question && !question.titleLength.isValid)}">
+              <i>Length: {{ question.text ? question.text.length : 0 }}/200 chars</i>
+            </span>
+
+                |
+                <button
+                  (click)="removeQuestion(i)"
+                  type="button"
+                  class="utility-btn remove-question"
+                >remove
+                </button>
+                <mat-form-field class="full-width">
+                  <input
+                    type="text"
+                    matInput
+                    (input)="checkQuestionDescInput($event, question)"
+                    [(ngModel)]="questionsList[i].text"
+                    value="{{ question.text }}"
+                  >
+                  <mat-hint class="col-red" *ngIf="!question.titleLength.isValid">
+                    Question text can be max 200 characters long
+                  </mat-hint>
+                </mat-form-field>
+              </div>
+              <div class="answers-list-wrapper">
+                <div class="answers-list-item row mb-0 p-0">
+                  <div class="col-md-8 no-bottom-mrgn">
+                    <strong>Answers:</strong>
+                  </div>
+                  <div class="col-md-4 no-bottom-mrgn">
+                    <strong>End Page:</strong>
+                  </div>
+                </div>
+
+                <div *ngFor="let answer of question.answers; index as ai" class="answers-list-item"
+                  [ngClass]="{'answers-list-item--correct' : answer.correctAnswer, 'mt-0': ai === 0}">
+                  <div class="row clearfix">
+                    <div class="col-md-8 no-bottom-mrgn">
+                      <mat-form-field class="full-width">
+                        <input
+                          type="text"
+                          [(ngModel)]="questionsList[i].answers[ai].text"
+                          value="{{ answer.text }}"
+                          (input)="checkAnswerInput(answer)"
+                          placeholder="Option {{ ai + 1 }}"
+                          aria-label="answer"
+                          matInput
+                        >
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-2 no-bottom-mrgn" style="width: 200px">
+                      <cms-simple-select-list
+                        [clearSpaces]="false"
+                        [optionsData]='answerEndPages'
+                        [optionsDataTitle]="'title'"
+                        [optionsDataValue]="'id'"
+                        [selected]="answer.endPage && answer.endPage.id"
+                        (onDataChange)="onAnswerEndPageSelection($event, answer)">
+                      </cms-simple-select-list>
+                    </div>
+                    <div class="col-md-2 no-bottom-mrgn" style="text-align: right">
+                      <button
+                        type="button"
+                        class="utility-btn isCorrect"
+                        [ngClass]="{'isCorrect--true' : answer.correctAnswer, 'isCorrect-disabled' : !answer.text}"
+                        (click)="handleCorrectAnswer(question, answer)"
+                        [disabled]="!answer.text"
+                      >{{ answer.correctAnswer ? 'is correct' : answer.text ? 'set correct' : 'is empty' }}</button>
+                      |
+                      <button
+                        (click)="removeAnswer(i, ai)"
+                        type="button"
+                        class="utility-btn remove-answer"
+                      >remove
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  (click)="addAnswer(question)"
+                  type="button"
+                  class="btn bg-teal waves-effect"
+                >+ add option
+                </button>
+              </div>
+
+              <mat-accordion *ngIf="showAccordionBool">
+                <mat-expansion-panel style="margin-left: 25px; margin-top: 10px" [expanded]="false">
+                  <mat-expansion-panel-header style="background-color: #f7f7f7">
+                    <mat-panel-title style="color: #333333; font-weight: 500">
+                      Additional question details:
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+
+                  <div class="body">
+                    <div class="row">
+                      <div class="col-md-2">
+                    <span class="mat-label">
+                      Top left header
+                    </span>
+                      </div>
+                      <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                          <input matInput placeholder="Top left header"
+                                 (input)="quiz.isChanged = true"
+                                 [(ngModel)]="question.questionDetails.topLeftHeader"
+                                 value="{{question.questionDetails.topLeftHeader}}" trim="blur">
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-2">
+                    <span class="mat-label">
+                      Top right header
+                    </span>
+                      </div>
+                      <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                          <input matInput placeholder="Top right header"
+                                 (input)="quiz.isChanged = true"
+                                 [(ngModel)]="question.questionDetails.topRightHeader"
+                                 value="{{ question.questionDetails.topRightHeader }}" trim="blur">
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-2">
+                    <span class="mat-label">
+                      Middle header
+                    </span>
+                      </div>
+                      <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                          <input matInput placeholder="Middle header"
+                                 (input)="quiz.isChanged = true"
+                                 [(ngModel)]="question.questionDetails.middleHeader"
+                                 value="{{ question.questionDetails.middleHeader }}" trim="blur">
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-2">
+                    <span class="mat-label">
+                      Home Team Name
+                    </span>
+                      </div>
+                      <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                          <input matInput placeholder="Home Team Name"
+                                 (input)="quiz.isChanged = true"
+                                 [(ngModel)]="question.questionDetails.homeTeamName"
+                                 value="{{ question.questionDetails.homeTeamName }}" trim="blur">
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-2">
+                      <span class="mat-label">
+                          Home Team Kit
+                      </span>
+                      </div>
+                      <div class="col-md-5">
+                        <mat-form-field class="full-width">
+                          <input matInput placeholder=""
+                                 [(ngModel)]="question.questionDetails.homeTeamSvg.originalname"
+                                 value="{{ getImageToUploadValue(question, 'home') }}" disabled>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-4">
+                        <div style="display:none;"><input id="upload-home"
+                                                          (change)="prepareToUploadQuestionDetailsImages($event, question, 'home')"
+                                                          type="file"
+                                                          value="upload"/>
+                        </div>
+                        <button type="button" (click)="uploadSvgHandler($event)"
+                                class="main-image-btn btn bg-teal waves-effect">
+                          {{getButtonName(question.questionDetails.homeTeamSvg.originalname)}}
+                        </button>
+                        <button type="button" (click)="removeQuestionDetailsImagesHandler($event, question, 'home')"
+                                class="main-image-btn btn bg-red waves-effect">Remove File
+                        </button>
+                      </div>
+
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-2">
+                    <span class="mat-label">
+                      Away Team Name
+                    </span>
+                      </div>
+                      <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                          <input matInput placeholder="Away Team Name"
+                                 (input)="quiz.isChanged = true"
+                                 [(ngModel)]="question.questionDetails.awayTeamName"
+                                 value="{{ question.questionDetails.awayTeamName }}" trim="blur">
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-2">
+                      <span class="mat-label">
+                          Away Team Kit
+                      </span>
+                      </div>
+                      <div class="col-md-5">
+                        <mat-form-field class="full-width">
+                          <input matInput placeholder=""
+                                 [(ngModel)]="question.questionDetails.awayTeamSvg.originalname"
+                                 value="{{ getImageToUploadValue(question, 'away') }}" disabled>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-4">
+                        <div style="display:none;"><input id="upload-away"
+                                                          (change)="prepareToUploadQuestionDetailsImages($event, question, 'away')"
+                                                          type="file"
+                                                          value="upload"/>
+                        </div>
+                        <button type="button" (click)="uploadSvgHandler($event)"
+                                class="main-image-btn btn bg-teal waves-effect">
+                          {{getButtonName(question.questionDetails.awayTeamSvg.originalname)}}
+                        </button>
+                        <button type="button" (click)="removeQuestionDetailsImagesHandler($event, question, 'away')"
+                                class="main-image-btn btn bg-red waves-effect">Remove File
+                        </button>
+                      </div>
+
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-2">
+                      <span class="mat-label">
+                          Channel
+                      </span>
+                      </div>
+                      <div class="col-md-5">
+                        <mat-form-field class="full-width">
+                          <input matInput placeholder=""
+                                 [(ngModel)]="question.questionDetails.channelSvg.originalname"
+                                 value="{{ getImageToUploadValue(question, 'channel') }}" disabled>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-4">
+                        <div style="display:none;"><input id="upload-channel"
+                                                          (change)="prepareToUploadQuestionDetailsImages($event, question, 'channel')"
+                                                          type="file"
+                                                          value="upload"/>
+                        </div>
+                        <button type="button" (click)="uploadSvgHandler($event)"
+                                class="main-image-btn btn bg-teal waves-effect">
+                          {{getButtonName(question.questionDetails.channelSvg.originalname)}}
+                        </button>
+                        <button type="button" (click)="removeQuestionDetailsImagesHandler($event, question, 'channel')"
+                                class="main-image-btn btn bg-red waves-effect">Remove File
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-2">
+                    <span class="mat-label">
+                      Description
+                    </span>
+                      </div>
+                      <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                          <input matInput placeholder="Description"
+                                 (input)="quiz.isChanged = true"
+                                 [(ngModel)]="question.questionDetails.description"
+                                 value="{{ question.questionDetails.description }}" trim="blur">
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-2">
+                    <span class="mat-label">
+                      Signposting
+                    </span>
+                      </div>
+                      <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                          <input matInput placeholder="Signposting"
+                                 (input)="quiz.isChanged = true"
+                                 [(ngModel)]="question.questionDetails.signposting"
+                                 value="{{ question.questionDetails.signposting }}" trim="blur">
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                </mat-expansion-panel>
+              </mat-accordion>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <button
+              (click)="addQuestion()"
+              type="button"
+              class="btn bg-teal waves-effect"
+            >+ add question
+            </button>
+          </div>
+        </div>
+        <mat-hint class="col-red questionText-error" *ngIf="questionTextMissing">
+          {{ saveQuizErrorMsg }}
+        </mat-hint>
+        <mat-hint class="col-red questionText-error" *ngIf="quiz && quizEditingWarning && questionsList.length === 0">
+          {{ saveEmptyQuizQuestionsErrorMsg }}
+        </mat-hint>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Prizes">
+    <div class="card" style="margin-bottom: 0px" *ngIf="quiz">
+      <div class="body">
+
+        <div class="row" *ngIf="questionsList.length > 0">
+          <div class="col-md-12">
+            <h4>Prizes:</h4>
+          </div>
+          <div class="col-md-12 prize-header row">
+            <div class="col-md-1">Allocate on</div>
+            <div class="col-md-6">Prize type</div>
+            <div class="col-md-2">Amount</div>
+            <div class="col-md-1">Currency</div>
+            <div class="col-md-2">Promotion id</div>
+          </div>
+          <div class="col-md-12 row" style="text-align: center"
+               *ngFor="let prize of this.quiz.correctAnswersPrizes; let i = index">
+            <div *ngIf="prize.correctSelections > 0" class="col-md-1 column-align">{{prize.correctSelections}} Correct Answers</div>
+            <div *ngIf="prize.correctSelections === 0" class="col-md-1 column-align">Submit</div>
+            <div class="col-md-6">
+              <mat-radio-group class="mat-label-prize" [(ngModel)]="prize.prizeType">
+                <mat-radio-button class="m-r-20" color="primary" *ngFor="let key of getKeys()" [value]="key">
+                  {{getLabel(key)}}
+                </mat-radio-button>
+                <mat-radio-button *ngIf="!isBrandLads && prize.correctSelections === 0" (click)="openCoinRewardsPopup(prize.prizeType)" class="m-r-20" color="primary" [value]="'COIN'">
+                  Coins<span *ngIf="quiz.coin && quiz.coin.value"> (<a class="coinsLink">Value: {{quiz.coin.value}}</a>)</span>
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div class="col-md-2">
+              <mat-form-field class="full-width form-inline">
+                <input
+                  matInput
+                  [(ngModel)]="prize.amount"
+                  placeholder="Amount"
+                  type="number"
+                  min="0"
+                  onkeypress="return event.charCode != 45"
+                  disabled="{{prize.prizeType === 'NONE' || prize.prizeType === 'COIN'}}"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-md-1">
+              <mat-form-field class="full-width form-inline">
+                <input
+                  matInput
+                  [(ngModel)]="prize.currency"
+                  placeholder="Currency"
+                  disabled="{{prize.prizeType === 'NONE' || prize.prizeType === 'COIN'}}"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-md-2">
+              <mat-form-field class="full-width form-inline">
+                <input
+                  matInput
+                  [(ngModel)]="prize.promotionId"
+                  placeholder="Promotion id"
+                  disabled="{{prize.prizeType !== 'FREE_BETS' || prize.prizeType === 'COIN'}}"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Popups">
+    <div class="card" *ngIf="quiz">
+      <div class="body">
+        <div class="row">
+          <div class="col-md-12">
+            <h4>Submit popup</h4>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+        <span class="mat-label">
+          Icon SVG
+        </span>
+          </div>
+          <div class="col-md-5">
+            <mat-form-field class="full-width">
+              <input matInput placeholder=""
+                     [(ngModel)]="quiz.submitPopup.icon.originalname"
+                     [value]="quiz.submitPopup.icon.originalname" disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <div style="display:none;"><input id="upload-submit-icon"
+                                              (change)="uploadPopupIconSvgHandler($event, 'submit')"
+                                              type="file"
+                                              value="upload"/>
+            </div>
+            <button type="button" (click)="uploadSvgHandler($event)"
+                    class="main-image-btn btn bg-teal waves-effect">
+              {{getButtonName(quiz.submitPopup.icon.originalname)}}
+            </button>
+            <button type="button" (click)="removePopupIconSvgHandler($event, 'submit')"
+                    class="main-image-btn btn bg-red waves-effect">Remove File
+            </button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+        <span class="mat-label">
+          Header
+        </span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Header" [(ngModel)]="quiz.submitPopup.header"
+                     [value]="quiz.submitPopup.header"
+                     trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+        <span class="mat-label">
+          Description
+        </span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Description" [(ngModel)]="quiz.submitPopup.description"
+                     [value]="quiz.submitPopup.description"
+                     trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+        <span class="mat-label">
+          Submit Quiz cta
+        </span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Submit Quiz cta" [(ngModel)]="quiz.submitPopup.submitCTAText"
+                     [value]="quiz.submitPopup.submitCTAText"
+                     trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+        <span class="mat-label">
+          Edit Quiz cta
+        </span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Edit Quiz cta" [(ngModel)]="quiz.submitPopup.closeCTAText"
+                     [value]="quiz.submitPopup.closeCTAText"
+                     trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom: 0px" *ngIf="quiz">
+      <div class="body">
+        <div class="row">
+          <div class="col-md-12">
+            <h4>Exit popup</h4>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+        <span class="mat-label">
+          Icon SVG
+        </span>
+          </div>
+          <div class="col-md-5">
+            <mat-form-field class="full-width">
+              <input matInput placeholder=""
+                     [(ngModel)]="quiz.exitPopup.icon.originalname"
+                     [value]="quiz.exitPopup.icon.originalname" disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <div style="display:none;"><input id="upload-exit-icon"
+                                              (change)="uploadPopupIconSvgHandler($event, 'exit')"
+                                              type="file"
+                                              value="upload"/>
+            </div>
+            <button type="button" (click)="uploadSvgHandler($event)"
+                    class="main-image-btn btn bg-teal waves-effect">
+              {{getButtonName(quiz.exitPopup.icon.originalname)}}
+            </button>
+            <button type="button" (click)="removePopupIconSvgHandler($event, 'exit')"
+                    class="main-image-btn btn bg-red waves-effect">Remove File
+            </button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+        <span class="mat-label">
+          Header
+        </span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Header" [(ngModel)]="quiz.exitPopup.header" [value]="quiz.exitPopup.header"
+                     trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+        <span class="mat-label">
+          Description
+        </span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Description" [(ngModel)]="quiz.exitPopup.description"
+                     [value]="quiz.exitPopup.description"
+                     trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+        <span class="mat-label">
+          Keep Playing cta
+        </span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Keep Playing cta" [(ngModel)]="quiz.exitPopup.submitCTAText"
+                     [value]="quiz.exitPopup.submitCTAText"
+                     trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+        <span class="mat-label">
+          Exit Quiz cta
+        </span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Exit Quiz cta" [(ngModel)]="quiz.exitPopup.closeCTAText"
+                     [value]="quiz.exitPopup.closeCTAText"
+                     trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Event Details">
+    <div class="card" style="margin-bottom: 0px" *ngIf="quiz">
+      <div class="body">
+        <div class="row">
+          <div class="col-md-2">
+        <span class="mat-label">
+          Event ID
+        </span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Event ID" [(ngModel)]="quiz.eventDetails.eventId"
+                     [value]="quiz.eventDetails.eventId"
+                     trim="blur"
+                     (change)="eventIdChanged()"
+              >
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+        <span class="mat-label">
+          Event Name
+        </span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Event Name" [(ngModel)]="quiz.eventDetails.eventName"
+                     [value]="quiz.eventDetails.eventName"
+                     trim="blur"
+                     >
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+        <span class="mat-label">
+          Start Time
+        </span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Start Time" [(ngModel)]="quiz.eventDetails.startTime"
+                     [value]="quiz.eventDetails.startTime"
+                     trim="blur"
+                     >
+              <mat-hint class="col-red" *ngIf="!validEventDetailsStartTime()">Please follow date format YYYY-MM-DDTHH:MM:SSZ
+              </mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+        <span class="mat-label">
+          Scores
+        </span>
+          </div>
+          <div class="col-md-5">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Home" [(ngModel)]="quiz.eventDetails.actualScores[0]"
+                     [value]="quiz.eventDetails.actualScores[0]"
+                     trim="blur"
+                     type="number">
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-5">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Away" [(ngModel)]="quiz.eventDetails.actualScores[1]"
+                     [value]="quiz.eventDetails.actualScores[1]"
+                     trim="blur"
+                     type="number">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Quiz Configuration">
+
+    <div class="card" style="margin-bottom: 0px" *ngIf="quiz">
+      <div class="body">
+
+        <div class="row">
+          <div class="col-md-10">
+            <mat-slide-toggle [(ngModel)]="quiz.quizConfiguration.showSubmitPopup"
+                              [color]="'primary'"
+                              [checked]="quiz.quizConfiguration.showSubmitPopup"
+                              [disabled]="false">
+              Show Submit Popup
+            </mat-slide-toggle>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-10">
+            <mat-slide-toggle [(ngModel)]="quiz.quizConfiguration.showExitPopup"
+                              [color]="'primary'"
+                              [checked]="quiz.quizConfiguration.showExitPopup"
+                              [disabled]="false">
+              Show Exit Popup
+            </mat-slide-toggle>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-10">
+            <mat-slide-toggle [(ngModel)]="quiz.quizConfiguration.showSplashPage"
+                              [color]="'primary'"
+                              [checked]="quiz.quizConfiguration.showSplashPage"
+                              [disabled]="false">
+              Show Splash Page
+            </mat-slide-toggle>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-10">
+            <mat-slide-toggle [(ngModel)]="quiz.quizConfiguration.showEventDetails"
+                              [color]="'primary'"
+                              [checked]="quiz.quizConfiguration.showEventDetails"
+                              [disabled]="false">
+              Show Event Details (team names, T-Shirts, TV channel, etc.)
+            </mat-slide-toggle>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-10">
+            <mat-slide-toggle [(ngModel)]="quiz.quizConfiguration.showProgressBar"
+                              [color]="'primary'"
+                              [checked]="quiz.quizConfiguration.showProgressBar"
+                              [disabled]="false">
+              Show Progress Bar
+            </mat-slide-toggle>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-10">
+            <mat-slide-toggle [(ngModel)]="quiz.quizConfiguration.showQuestionNumbering"
+                              [color]="'primary'"
+                              [checked]="quiz.quizConfiguration.showQuestionNumbering"
+                              [disabled]="false">
+              Show Question Numbering
+            </mat-slide-toggle>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-10">
+            <mat-slide-toggle [(ngModel)]="quiz.quizConfiguration.showSwipeTutorial"
+                              [color]="'primary'"
+                              [checked]="quiz.quizConfiguration.showSwipeTutorial"
+                              [disabled]="false">
+              Show Swipe Tutorial
+            </mat-slide-toggle>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-10">
+            <mat-slide-toggle [(ngModel)]="quiz.quizConfiguration.showPreviousAndLatestTabs"
+                              [color]="'primary'"
+                              [checked]="quiz.quizConfiguration.showPreviousAndLatestTabs"
+                              [disabled]="false">
+              Show Previous and Latest tabs
+            </mat-slide-toggle>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-10">
+            <mat-slide-toggle [(ngModel)]="quiz.quizConfiguration.useBackButtonToExitAndHideXButton"
+                              [color]="'primary'"
+                              [checked]="quiz.quizConfiguration.useBackButtonToExitAndHideXButton"
+                              [disabled]="false">
+              Use back button to exit and hide X button
+            </mat-slide-toggle>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="quiz"
+  [validateHandler]="isValidModel"
+  [fieldOrItemName]="'title'"
+  [collection]="quiz"
+  (actionsEmitter)="actionsHandler($event);">
+</action-buttons>

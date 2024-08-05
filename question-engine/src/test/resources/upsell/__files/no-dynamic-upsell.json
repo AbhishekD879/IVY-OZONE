@@ -1,0 +1,108 @@
+{
+  "SSResponse": {
+    "xmlns": "http://schema.openbet.com/SiteServer/2.34/SSResponse.xsd",
+    "children": [
+      {
+        "event": {
+          "id": "13437791",
+          "name": "|Brighton| |vs| |Tottenham|",
+          "eventStatusCode": "A",
+          "isActive": "true",
+          "displayOrder": "0",
+          "siteChannels": "P,Q,C,U,I,M,",
+          "eventSortCode": "MTCH",
+          "startTime": "2019-10-05T11:30:00Z",
+          "rawIsOffCode": "N",
+          "classId": "97",
+          "typeId": "442",
+          "sportId": "16",
+          "liveServChannels": "sEVENT0013437791,",
+          "liveServChildrenChannels": "SEVENT0013437791,",
+          "categoryId": "16",
+          "categoryCode": "FOOTBALL",
+          "categoryName": "|Football|",
+          "categoryDisplayOrder": "-10015",
+          "className": "|Football England|",
+          "classDisplayOrder": "-9998",
+          "classSortCode": "FB",
+          "typeName": "|Premier League|",
+          "typeDisplayOrder": "-32000",
+          "typeFlagCodes": "RD,IVA,",
+          "isOpenEvent": "true",
+          "isLiveNowOrFutureEvent": "true",
+          "drilldownTagNames": "EVFLAG_ST,EVFLAG_BL,",
+          "isAvailable": "true",
+          "cashoutAvail": "Y",
+          "children": [
+            {
+              "market": {
+                "id": "321295753",
+                "eventId": "13437791",
+                "templateMarketId": "37241",
+                "templateMarketName": "|Match Betting|",
+                "dispSortId": "391",
+                "dispSortName": "MR",
+                "collectionIds": "1297,619,252,",
+                "collectionNames": "|Main|,|Match Betting|,",
+                "marketMeaningMajorCode": "-",
+                "marketMeaningMinorCode": "MR",
+                "name": "|Match Result|",
+                "isLpAvailable": "true",
+                "isMarketBetInRun": "true",
+                "displayOrder": "-500",
+                "marketStatusCode": "A",
+                "isActive": "true",
+                "siteChannels": "P,Q,C,U,I,M,",
+                "liveServChannels": "sEVMKT0321295753,",
+                "liveServChildrenChannels": "SEVMKT0321295753,",
+                "priceTypeCodes": "LP,",
+                "isAvailable": "true",
+                "maxAccumulators": "25",
+                "minAccumulators": "1",
+                "cashoutAvail": "Y",
+                "termsWithBet": "N",
+                "children": [
+                  {
+                    "outcome": {
+                      "id": "1043120068",
+                      "marketId": "321295753",
+                      "name": "|Draw|",
+                      "outcomeMeaningMajorCode": "MR",
+                      "outcomeMeaningMinorCode": "D",
+                      "displayOrder": "2",
+                      "outcomeStatusCode": "A",
+                      "isActive": "true",
+                      "siteChannels": "P,Q,C,U,I,M,",
+                      "liveServChannels": "sSELCN1043120068,",
+                      "liveServChildrenChannels": "SSELCN1043120068,",
+                      "isAvailable": "true",
+                      "children": [
+                        {
+                          "price": {
+                            "id": "1",
+                            "isActive": "true",
+                            "displayOrder": "1",
+                            "priceType": "LP",
+                            "priceNum": "13",
+                            "priceDen": "5",
+                            "priceDec": "3.60"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "responseFooter": {
+          "cost": "10",
+          "creationTime": "2019-10-04T08:54:39.966Z"
+        }
+      }
+    ]
+  }
+}

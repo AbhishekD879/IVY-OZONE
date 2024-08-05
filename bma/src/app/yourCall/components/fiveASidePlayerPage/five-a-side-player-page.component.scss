@@ -1,0 +1,186 @@
+@import 'global.variables.scss';
+
+:host {
+  font-family: $alt-font-family;
+}
+
+.content {
+  @include display-flex();
+  @include flex-direction(column);
+  height: 100%;
+}
+
+.btn-odds-container {
+  margin-top: auto;
+  padding: 0 32px 32px;
+  width: 100%;
+}
+.remove-container {
+  width: 100%;
+}
+
+.remove-button {
+  color: $color-blue-selected;
+  font-family: $base-font-family;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: $font-size;
+  padding: 16px 0 0;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.title {
+  .title-text {
+    margin-top: 7px;
+    margin-bottom: 0;
+    font-size: $font-size-xl;
+    line-height: 1.39;
+    font-weight: bold;
+    display: block;
+  }
+
+  .player-team, .player-position {
+    text-transform: capitalize;
+    font-size: $font-size-tablet;
+  }
+
+  .delimeter {
+    display: inline-block;
+    margin: -1px 8px 0;
+    width: 1px;
+    height: 10px;
+    opacity: 0.4;
+    background: $color-white;
+  }
+}
+
+
+.subheader {
+  border-radius: 9px 9px 0px 0px;
+  background-color: #ffffff;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 16px -16px -15px;
+  flex-wrap: wrap;
+
+  .title-text {
+    font-size: $font-size-lgr;
+    font-weight: 500;
+    margin: 0 0 5px;
+    color: #02060b;
+    letter-spacing: 0.1px;
+  }
+
+  .left-info {
+    letter-spacing: 0.1px;
+    width: 100%;
+    min-width: 0;
+    @include display-flex();
+
+    .titles {
+      min-width: 0;
+    }
+
+    .subtitle {
+      color: $lBlack-light;
+      font-size: $font-size-tablet;
+      font-weight: normal;
+      margin: 0;
+      display: block;
+      line-height: 14.3px;
+
+      .value {
+        font-weight: bold;
+        color: $color-blue-selected;
+      }
+    }
+  }
+
+  .right-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: $color-blue-selected;
+    font-size: 22px;
+    padding: 0 8px;
+    min-width: 110px;
+    margin-left: auto;
+
+    .round-button {
+      width: 26px;
+      height: 26px;
+      font-size: 22px;
+      line-height: 22px;
+      border-radius: 13px;
+      border: solid 0.8px rgba(0, 0, 0, 0.08);
+      background-color: rgba(0, 0, 0, 0.06);
+      position: relative;
+      cursor: pointer;
+
+      &:after, &:before {
+        content: " ";
+        position: absolute;
+        display: block;
+        background-color: $color-blue-selected;
+        border-radius: 1px;
+        top: 50%;
+        left: 50%;
+      }
+      &.plus:after {
+        height: 2px;
+        width: 12px;
+        margin-top: -1px;
+        margin-left: -6px;
+      }
+      &.minus:after {
+        height: 2px;
+        width: 10px;
+        margin-top: -1px;
+        margin-left: -5px;
+      }
+      &.plus:before {
+        width: 2px;
+        height: 12px;
+        margin-left: -1px;
+        margin-top: -6px;
+      }
+
+      &.disabled {
+        opacity: .6;
+        pointer-events: none;
+      }
+    }
+
+    .value {
+      width: 42px;
+      height: 26px;
+      line-height: 26px;
+      font-weight: bold;
+    }
+
+  }
+}
+
+.player-stats {
+  padding-left: 14px;
+  padding-top: 14px;
+  margin-bottom: 14px;
+  border-top: 1px solid $color-gray;
+}
+
+.stats-unavailable {
+  background: $lGrayLight;
+  padding: 13px 14px 10px;
+  line-height: 15px;
+  .stats-unavailable-text {
+    font-size: $font-size-md;
+    font-family: $alt-font-family;
+    color: $lGray;
+    display: inline-block;
+    line-height: 12px;
+  }
+}

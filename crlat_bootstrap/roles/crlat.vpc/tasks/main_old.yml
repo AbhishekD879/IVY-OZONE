@@ -1,0 +1,19 @@
+- name: Action Dispatcher
+  include_tasks: "{{actions[action][node_type]}}"
+
+- name: Add new instance to host group
+  add_host:
+    hostname: "{{ item.private_ip }}"
+    groupname: launched
+  with_items: "{{ ec2.instances }}"
+  when: action == "create"
+
+- name: Wait for SSH to come up
+  wait_for:
+    host: "{{ item.private_ip }}"
+    port: 22
+    delay: 5
+    timeout: 180
+    state: started
+  with_items: "{{ ec2.instances }}"
+  when: action == "create"

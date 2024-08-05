@@ -1,0 +1,43 @@
+<div data-crlat="tabContent" class="heuristic-container sk-container" [ngClass]="{'sk-loading': !dataReady}">
+  <loading-screen [displayed]="!dataReady && !wsError.reconnectFailed" [templateType]="'GENERIC'"></loading-screen>
+
+  <div *ngIf="appReady && dataReady" data-crlat="tab.showInPlayModule">
+    <ng-container *ngIf="data && !ssError && !wsError.reconnectFailed">
+      <ng-container *ngIf="singleSport">
+        <ng-container *ngFor="let filter of viewByFilters; trackBy: trackById; let filterIndex = index">
+          <single-sport-section
+            *ngIf="data[filter]"
+            [filter]="filter"
+            [inner]="false"
+            [expandedLeaguesCount]="filterIndex === 0 ? expandedLeaguesCount : 0"
+            [eventsBySports]="data[filter]"
+            (reloadData)="onDataReload(filter, $event)"
+            data-crlat="accordionsList">
+          </single-sport-section>
+          <!-- Shown for single sport -->
+          <no-events data-crlat="label.noLiveEvents"
+                     *ngIf="showNoEventsSection(filter)"
+                     [message]="isLiveNowFilter(filter) ? 'inplay.noLiveEventsFound' : 'inplay.noUpcomingEventsFound'">
+          </no-events>
+        </ng-container>
+      </ng-container>
+
+      <multiple-sports-sections *ngIf="!singleSport"
+                      [showExpanded]="showExpanded"
+                      [expandedSportsCount]="expandedSportsCount"
+                      [expandedLeaguesCount]="expandedLeaguesCount"
+                      [eventsByGroups]="data"
+                      [viewByFilters]="viewByFilters"
+                      [ssError]="ssError"
+                      data-crlat="accordionsList">
+      </multiple-sports-sections>
+    </ng-container>
+  </div>
+
+  <!-- Shown error field for single sport -->
+  <request-error *ngIf="ssError || wsError.reconnectFailed"
+                 [loadFailed]="(ssError || wsError.reconnectFailed)"
+                 (reloadFn)="reloadComponent()"
+                 data-crlat="errorField">
+  </request-error>
+</div>

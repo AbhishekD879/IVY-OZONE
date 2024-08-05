@@ -1,0 +1,120 @@
+@import 'global.variables.scss';
+.five-a-side-journey-wrapper {
+  width: 100%;
+  height: 170px;
+  background: #fcfdfd;
+  border-top-left-radius: 13px;
+  border-top-right-radius: 13px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  header {
+    padding: 14px 14px 7px;
+    line-height: 20px;
+    @include display-flex();
+    @include justify-content(space-between);
+    .wrapper {
+      width: 40px;
+    }
+    .close-icon {
+      width: 22px;
+      height: 22px;
+      background: $light-grey;
+      border-radius: 11px;
+      text-align: center;
+      line-height: 24px;
+      cursor: pointer;
+      svg {
+        width: 10px;
+        height: 10px;
+        fill: $color-white;
+      }
+    }
+    .next-btn {
+      color: $lBlack-light;
+      padding: 0 5px;
+      cursor: pointer;
+    }
+    .free-bet-logo {
+      @include display-flex();
+      @include justify-content(space-around); // space-evenly isn't supported by IE
+      @include justify-content(space-evenly);
+      margin-top: 3px;
+      min-width: 79px;
+      height: 15px;
+      border-radius: 2px;
+      background-color: $color-yellow-alt;
+      font-family: $base-font-family;
+      font-size: 11px;
+      font-weight: bold;
+      svg {
+        width: 10px;
+        height: 12px;
+        margin: 1px;
+      }
+      span {
+        position: relative;
+        text-transform: uppercase;
+        line-height: 16px;
+        white-space: nowrap;
+        color: $color-black;
+      }
+    }
+  }
+  .five-a-side-journey-carousel {
+    width: 100%;
+    height: 81px;
+    overflow-y: auto;
+  }
+  .slide {
+    width: 100%;
+    text-align: center;
+    max-height: 95px;
+    overflow-y: auto;
+    ::ng-deep {
+      h1, h2 {
+        font-size: 16px;
+        font-weight: 500;
+        margin: 0 0 7px;
+        color: $lGray;
+      }
+      p {
+        color: $lGray;
+        font-family: $alt-font-family;
+        font-size: 13px;
+        line-height: 18px;
+        padding: 0 47px;
+        white-space: break-spaces;
+        margin-bottom: 0;
+      }
+    }
+  }
+  .slide-dots {
+    bottom: 20px;
+    background-color: transparent;
+    li {
+      margin: 0;
+      button:before {
+        background-color: $light-grey;
+      }
+      &.slide-active {
+        button:before {
+          background-color: $color-matterhorn;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $mobileSmallPoint + 40) {
+  .five-a-side-journey-wrapper {
+    &.one-slide {
+      height: 170px;
+    }
+    height: 185px;
+    .five-a-side-journey-carousel {
+      height: 100px;
+    }
+  }
+}

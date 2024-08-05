@@ -1,0 +1,11 @@
+<modal #connectionLostDialog class="connection-lost-popup dialog-top-priority" data-crlat="d.connectionLost">
+  <ng-template #modalHeader>
+    <span [i18n]="'app.internetError'" data-crlat="dTitle" data-uat="popUpTitle"></span>
+  </ng-template>
+  <ng-template #modalBody>
+    <div [i18n]="'app.connectionLostMessage'" data-crlat="connectionLostMessage"></div>
+    <div class="btn-list">
+      <button type="button" class="btn btn-style2" (click)="closeDialog()">OK</button>
+    </div>
+  </ng-template>
+</modal>

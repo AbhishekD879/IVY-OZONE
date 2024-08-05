@@ -1,0 +1,32 @@
+version: '2'
+
+services:
+  quick-bet:
+    image: openjdk:8u131-jdk-alpine
+    container_name: quick-bet
+    volumes:
+      - ./build/libs/application-81.0.0.jar:/tmp/application-81.0.0.jar
+    command: "java -jar tmp/application-81.0.0.jar"
+    environment:
+      - spring.profiles.active=DEV1
+      #- remote-betslip.elasticache.host=redishost
+      #- remote-betslip.elasticache.port=6379
+      - spring.redis.host=redishost
+      - spring.redis.port=6379
+      - AWS_ACCESS_KEY_ID=
+      - AWS_SECRET_ACCESS_KEY=
+      - remote-betslip.websocket.port=8080
+      - remote-betslip.http.port=8081
+      - remote-betslip.loglevel=DEBUG
+      - prometheus.pushgataway.host=127.0.1
+      - prometheus.pushgataway.port=9091
+    links:
+      - "redis:redishost"
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+  redis:
+    image: redis:3.2.4
+    container_name: qb-redis
+    ports:
+      - "6379:6379"

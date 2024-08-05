@@ -1,0 +1,124 @@
+
+<div class="sb-quickbet-panel" id="quickbet-panel" data-crlat="quickbetPanel"
+     [ngClass]="{'quickbet-slide-up': slideUpAnimation, 'quickbet-panel-receipt': isState('receipt'),
+     'overlay-flex': isStreamAndBet}">
+
+    <div class="overlay-qb-info">
+      <!-- Quick Bet Information Panel -->
+      <sb-quickbet-info-panel *ngIf="(isState('initial') || !iframeLoaded) && !isReceiptAvailable && !selection?.error"
+        [isBrandLadbrokes]="isBrandLadbrokes"
+        (externalLinksFn)="closeFnHandler()"
+        data-crlat="infPan.msg">
+      </sb-quickbet-info-panel>
+      <div *ngIf="isStreamAndBet" class="overlay-qb-selection-info" [ngClass]="{'hide-section': selection?.error}">
+        <div>
+          <div class="overlay-outcome-name" [textContent]="selection?.outcomeName | callBack : filterPlayerName : this "></div>
+          <div class="market-name" [textContent]="filterAddScore(selection.marketName, selection.outcomeName)"></div>
+        </div> 
+        <div>
+          <div *ngIf="selection.disabled" [i18n]="'quickbet.snbSuspended'" class="snb-suspended"></div>
+          <span *ngIf="selection.hasSP && !selection.disabled && !isReceiptAvailable" class="overlay-odds-value" [i18n]="'quickbet.isSP'" data-crlat="odds"></span>
+          <span *ngIf="(selection.hasLP || selection.isLP) && !selection.disabled"
+                  class="overlay-odds-value"
+                  [textContent]="'@ '"></span>
+          <span *ngIf="(selection.hasLP || selection.isLP) && !selection.disabled && !isReceiptAvailable"
+                  class="overlay-odds-value"
+                  [class]="outcome.prices[0]?.liveShowTimer?.type"
+                  [textContent]="selection.newOddsValue || selection.oldOddsValue" data-crlat="odds"></span>
+
+          <span *ngIf="isReceiptAvailable"
+                  class="overlay-odds-value"
+                  [textContent]="odds" data-crlat="odds"></span>
+        </div>
+        <sb-bet-summary *ngIf="!isReceiptAvailable && !selection.disabled && selection.freebetValue"
+                        [selection]="selection" 
+                        [jump]="'jump'" 
+                        [isBetSummaryInReceipt]="true"></sb-bet-summary>
+        <div class="qb-receipt-data" *ngIf="isReceiptAvailable">
+          <div class="qb-stake">
+            <span class="stake-text" [i18n]="'quickbet.snbSummaryStake'" data-crlat="totalStake.label"></span>
+            <span class="free-bet-label">
+              <free-bet-label *ngIf="freeBetData?.hasFreebet"
+                              [plusSuffix]="freeBetData?.selection?.stakeAmount > 0"
+                              [freeBetLabelText]="freeBetData?.betReceipt.stake.freebetOfferCategory"
+                              [selected]="freeBetData?.betReceipt.stake.freebet"
+                              >
+              </free-bet-label>
+            </span>
+            <span class="stake-value" [textContent]="finalStake"
+                data-crlat="totalStake"></span>
+          </div>
+          <div class="qb-returns">
+            <span class="stake-text" [i18n]="'quickbet.qbOverlayEstReturns'" data-crlat="estimatedResults.label"></span>
+            <span class="stake-value" [textContent]="returns"
+                    data-uat="estReturns"
+                    data-crlat="estimatedResults.value"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div class="show-iframe" [ngClass]="{'hidden': showIFrame, 'transparent-iframe': isStreamAndBet}">
+
+    <!-- Quickbet MS unavailable panel -->
+    <div *ngIf="selection && selection.error">
+      <request-error *ngIf="!selection.error.selectionUndisplayed"
+                     [loadFailed]="selection.error"
+                     (reloadFn)="reuseSelection()">
+      </request-error>
+      <div class="selection-undisplayed-error"
+           *ngIf="selection.error.selectionUndisplayed"
+           [i18n]="'quickbet.betPlacementErrors.' + selection.error.selectionUndisplayed"
+           data-crlat="selectionUndisplayed"></div>
+      <div class="sb-quickbet-controls">
+        <button class="qb-del-cta-btn qb-left-cta-btn" (click)="closePanel($event)">
+          <svg class="sb-qb-close">
+            <use xlink:href="#close-icon"></use>
+          </svg>
+        </button>
+        <button class="qb-right-cta-btn" disabled>
+          <span [i18n]="'quickbet.buttons.placeBet'"></span>
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="serviceClosureService.userServiceClosureOrPlayBreak" class='closure-message-container'
+      [textContent]='serviceClosureService.userAccountInfo || "undefined"'>
+    </div>
+
+    <sb-quickbet-selection *ngIf="isState('initial') && !showIFrame"
+                        [isLogAndQuickBetPending]="loginAndPlaceBets"
+                        [selection]="selection"
+                        [placeBetPending]="placeBetPending"
+                        [ycOddsValue]="ycOddsValue"
+                        [quickDepositFormExpanded]="quickDepositFormExpanded"
+                        [showIFrame]="showIFrame"
+                        [isStreamAndBet]="true"
+                        [isBrandLadbrokes]="isBrandLadbrokes"
+                        (placeBetFn)="placeBet()"
+                        (closeFn)="closePanel($event)"
+                        [getFreeBetName]="sysConfig.FiveASide && sysConfig.FiveASide.freeBetName"
+                        (addToBetslipFn)="addToBetslipFnHandler()"
+                        [leftBtnLocale]="leftBtnLocale"
+                        (openQuickDepositFn)="quickDepositFormExpanded = true"
+                        data-crlat="quickbet.selection"
+                        (firstBetBoostEmit)="firstBetBoostEmit($event)"
+                        [eventName]="eventName"
+                        [categoryName]="categoryName">
+      <ng-content select="your-call-body" ngProjectAs="your-call-body-details"></ng-content>
+    </sb-quickbet-selection>
+
+    <sb-quickbet-receipt *ngIf="isState('receipt')"
+                      [selection]="selection"
+                      [betReceipt]="betReceipt"
+                      [ycOddsValue]="ycOddsValue"
+                      [racingPostToggle]="sysConfig.racingPostTip"
+                      [nextRacesToBetslipToggle]="sysConfig.nextRacesToBetslip?.enabled"
+                      [winAlertsEnabled] = "sysConfig.winAlerts && sysConfig.winAlerts.enabled && device.isWrapper"
+                      (closeQuickbetPanel)="closePanel()"
+                      (reuseSelectionFn)="reuseSelection()"
+                      data-crlat="quickbetReceipt">
+      <ng-content select="your-call-receipt" ngProjectAs="your-call-body-receipt-details"></ng-content>
+    </sb-quickbet-receipt>
+  </div>
+</div>

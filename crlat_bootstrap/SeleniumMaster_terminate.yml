@@ -1,0 +1,13 @@
+---
+- name: Terminate SeleniumCluster EC2 node
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    action: terminate
+    node_type: cluster_node
+    tags_ClusterNodeType: SelenumClusterNode
+  tasks:
+  - name: crlat.vpc
+    include_role:
+      name: crlat.vpc

@@ -1,0 +1,29 @@
+@import "../../../../../app/euro/components/matchRewardsMain/match-rewards-main.component.scss";
+
+.container-works {
+  padding: 5px 15px 15px 15px;
+  .howItWorksHeader {
+    @include how-it-works-mixin($how-it-works-bg-color, 0, auto, $color-white, 95%, 3%, 5px, 25px, middle, 14px, 200);
+    width: 45%;
+    .icons-area {
+      margin-top: -17px;
+    }
+  }
+}
+.container {
+  width: 40%;
+  background-color: $color-blue;
+  text-align: center;
+}
+
+.outer-container {
+  background-color: $color-blue;
+  .grid-container {
+    grid-template-columns: repeat(6, 1fr);
+    width: 75%;
+    margin: 0px auto;
+    .box {
+        grid-column-end: 7;
+      }
+  }
+}

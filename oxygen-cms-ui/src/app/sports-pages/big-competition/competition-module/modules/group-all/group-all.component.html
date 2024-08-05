@@ -1,0 +1,121 @@
+<!-- Qualified countries field -->
+<div class="row">
+  <div class="col-md-2">
+        <span class="mat-label">
+          Qualified teams
+        </span>
+  </div>
+  <div class="col-md-10">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Qualified Place" type="number"
+             [(ngModel)]="module.groupModuleData.numberQualifiers"
+             [value]="module.groupModuleData.numberQualifiers"
+             onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+             step="1" min="1">
+    </mat-form-field>
+  </div>
+</div>
+<!-- Available Seasons -->
+<div class="row" *ngIf="!groupsNotFound">
+  <div class="col-md-2">
+    <span class="mat-label">
+      Available Seasons
+    </span>
+  </div>
+  <div class="col-md-3">
+    <mat-form-field class="full-width">
+      <mat-select placeholder="Show seasons"
+                  (selectionChange)="onSelectSeasonChanged($event.value)"
+                  [(ngModel)]="currentSeasonName"
+                  required>
+        <mat-option *ngFor="let season of seasonsNames" [value]="season">
+          {{ season }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+<!-- Available Groups -->
+<div class="row" *ngIf="!groupsNotFound && currentSeasonName">
+  <div class="col-md-2">
+    <span class="mat-label">
+      Available Groups
+    </span>
+  </div>
+  <div class="col-md-3">
+    <mat-form-field class="full-width">
+      <mat-select placeholder="Show groups"
+                  (selectionChange)="onSelectGroupChanged($event.value)"
+                  [(ngModel)]="currentGroupName"
+                  required>
+        <mat-option *ngFor="let group of groupsNames" [value]="group.name">
+          {{ group.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+ 
+
+<div class="m-l--20 m-r--20">
+  <div class="header bg-teal">
+    <h2>Add Outright Market ID</h2>
+  </div>
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2 mat-label">
+        Outright Market ID:
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="full-width"
+                        [ngClass]="{ 'mat-form-field-invalid': !marketIdIsValid || marketIdExists || isMarketsMaxLength}">
+          <input [(ngModel)]="marketId" matInput type="number" placeholder="OB Outright Market ID"
+                 onkeypress="return event.charCode >= 48 && event.charCode <= 57" trim="blur" min="1"
+                 [placeholder]="'Enter Outright Market ID'">
+          <mat-hint class="col-red" *ngIf="!marketIdIsValid">Outright Market ID is not valid. Try again.</mat-hint>
+          <mat-hint class="col-red" *ngIf="marketIdExists">Outright Market ID already exists in markets id`s list.
+          </mat-hint>
+          <mat-hint class="col-red" *ngIf="isMarketsMaxLength">Outright Market ID`s quantity shouldn`t be more than 2.
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <button mat-button class="btn btn-sm bg-teal m-l-10" (click)="uploadMarketData();"
+                [disabled]="!marketId">Upload Market ID
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Outright Market loaded from OB for validation -->
+      <div class="col-md-6 items-block">
+        <div class="p-l-20 p-t-5 p-b-5 mat-label bg-teal full-width">
+          <span class="font-16">Loaded Outright Markets from OpenBet</span>
+        </div>
+
+        <div class="mat-label" *ngIf="!module.markets.length">
+          <b>No Outright Markets ID`s Found</b>
+        </div>
+
+        <!-- List of outright markets id`s and names -->
+        <ol class="m-t-30">
+          <li class="full-width m-t-15 m-b-15" *ngFor="let market of module.markets; let i = index;">
+            <span>{{ market.marketId }}</span>
+            <span>{{ market.defaultName }}</span>
+            <a (click)="removeMarketId(market);" class="float-right"><i class="material-icons col-red">remove_circle</i></a>
+          </li>
+        </ol>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <button mat-button class="btn btn-sm bg-teal m-l-10" (click)="removeModuleMarkets();"
+                [disabled]="!module.markets.length">
+          <mat-icon>delete_forever</mat-icon>
+          <span>Remove All</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

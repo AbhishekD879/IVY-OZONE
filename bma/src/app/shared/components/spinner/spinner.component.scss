@@ -1,0 +1,33 @@
+@import 'global.variables.scss';
+
+$spinner-size: 17px;
+$spinner-color: #fff;
+$spinner-border: 2px;
+
+spinner:host {
+  position: relative;
+  margin: -$spinner-border 5px;
+  border: $spinner-border solid rgba-color($spinner-color, .4);
+  border-left-color: $spinner-color;
+  display: inline-block;
+  border-radius: 50%;
+  width: $spinner-size;
+  height: $spinner-size;
+  line-height: $spinner-size;
+  transform: translateZ(0);
+  will-change: transform;
+  @include animation(spinner 1.1s infinite linear);
+
+  @-webkit-keyframes spinner {
+    0% { -webkit-transform: rotate(0deg);  will-change: transform;
+    }
+    100% { -webkit-transform: rotate(360deg);  will-change: transform;
+    }
+  }
+  @keyframes spinner {
+    0% { transform: rotate(0deg) translateZ(0);
+ }
+    100% { transform: rotate(360deg) translateZ(0);
+ }
+  }
+}

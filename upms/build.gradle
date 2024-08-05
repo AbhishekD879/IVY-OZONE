@@ -1,0 +1,89 @@
+plugins {
+  id 'org.springframework.boot' version '2.7.0'
+  id 'com.coral.tools' version "3.0-SNAPSHOT"
+}
+
+apply plugin: "io.spring.dependency-management"
+
+def nexusMavenRepo = 'https://nexus-vie.coral.co.uk/repository/maven-public/'
+ext.nexusUser = System.getenv("NEXUS_USER") ?: project.properties.nexusUser
+ext.nexusPass = System.getenv("NEXUS_PASS") ?: project.properties.nexusPass
+
+configurations {
+  all {
+    exclude module: 'spring-boot-starter-logging'
+  }
+  compileOnly {
+    extendsFrom annotationProcessor
+  }
+}
+
+
+repositories {
+  maven {
+    credentials {
+      username = "${nexusUser}"
+      password = "${nexusPass}"
+    }
+    url nexusMavenRepo
+  }
+
+  mavenCentral()
+}
+
+dependencies {
+  developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+  implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+  implementation 'org.springframework.boot:spring-boot-starter-webflux'
+  implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+  implementation 'org.springframework.boot:spring-boot-starter-actuator'
+  implementation 'org.springframework.boot:spring-boot-starter-cache'
+  implementation 'com.coral:bpp-api:release-149.0.1'
+  //gson
+  implementation 'com.google.code.gson:gson:2.9.0'
+  //caffine cache
+  implementation 'com.github.ben-manes.caffeine:caffeine:2.8.6'
+  //project reactor tools
+  implementation 'io.projectreactor:reactor-tools:3.4.17'
+
+  // Spring - Kafka
+  implementation 'org.springframework.kafka:spring-kafka'
+  implementation 'com.google.code.gson:gson:2.8.6'
+  implementation 'com.mikesamuel:json-sanitizer:1.2.1'
+
+  // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
+  implementation 'org.modelmapper:modelmapper:3.1.1'
+  implementation group: 'commons-codec', name: 'commons-codec', version: '1.11'
+  // implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
+  //implementation 'org.redisson:redisson-spring-boot-starter:3.21.1'
+
+  implementation 'com.egalacoral.spark:siteserver-api:release-155.1.1-jdk-17'
+  implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+
+  implementation 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+  implementation 'com.ladbrokescoral.lib:master-slave-lock-starter:1.5'
+
+  implementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20240325.1'
+
+  compileOnly  'joda-time:joda-time:2.12.5'
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testImplementation 'io.projectreactor:reactor-test'
+}
+
+// Use JUnit test framework
+test {
+  useJUnitPlatform()
+}
+
+jar{
+  enabled = false
+}
+
+sonarqube{
+  properties{
+    property('sonar.coverage.exclusions',"**/configuration/**/*,**/Application.java,**/router/UserStableRouter.java")
+  }
+}
+
+jacocoTestReport.reports.xml.enabled = true

@@ -1,0 +1,53 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="!isLoading">
+  <div class="header">
+    <h2 class="has-activity-badge">Edit Promotions Sections: <span class="font-italic">{{promotionsSections.name}}</span></h2>
+    <create-updated-at-by class="has-activity-badge" [collection]="promotionsSections"></create-updated-at-by>
+    <header-activity-badge [state]="promotionsSections.disabled"></header-activity-badge>
+  </div>
+</div>
+<div class="card" *ngIf="!isLoading">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox color="primary"
+                      [checked]="!promotionsSections.disabled"
+                      (change)="promotionsSections.disabled = !promotionsSections.disabled">
+          Active
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-2">
+        <span class="mat-label">Name</span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !promotionsSections.name}">
+          <input matInput placeholder="Name" [(ngModel)]="promotionsSections.name" [value]="promotionsSections.name" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!promotionsSections.name">Name should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-2">
+        <span class="mat-label">Promotions Ids</span>
+      </div>
+      <div class="col-md-6">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !promotionsSections.promotionIds}">
+            <input matInput placeholder="Promotions IDs" [(ngModel)]="promotionsSections.promotionIds" [value]="promotionsSections.promotionIds" required trim="blur">
+            <mat-hint class="col-red" *ngIf="!promotionsSections.promotionIds">Promotions IDs should be entered</mat-hint>
+          </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="!isLoading"
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'name'"
+  [collection]="promotionsSections"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>
+

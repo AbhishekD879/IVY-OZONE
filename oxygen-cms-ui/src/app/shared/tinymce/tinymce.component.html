@@ -1,0 +1,7 @@
+<textarea name="{{elementId}}" id="{{elementId}}" [value]="initialEditorContent" cols="30" rows="10"></textarea>
+<div class="d-none">
+  <input id='file-form-input-{{elementId}}' name="image" type="file"
+         (change)="handleFileInputChange($event)"/>
+  <input name="table" type="file" accept=".csv, text/csv"
+         (change)="handleFileInputChange($event, 'table')"/>
+</div>

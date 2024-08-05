@@ -1,0 +1,301 @@
+@import 'global.variables.scss';
+
+$featureZone-carousel-button-color: #41494E;
+$featureZone-carousel-box-shadow: rgba(162, 162, 162, 0.26);
+$featureZone-carousel-bg-color: #ffffff;
+$featureZone-carousel-button-width: 20px;
+
+/**
+* Highlight card slide width is constant
+* Odds buttons widths inside the card are equal automatically
+ */
+$featureZone-carousel-card-width: 219px;
+
+
+.virtual-class-header-name {
+  font-family: Lato;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: -0.006px;
+  color: #102948;
+  height: 18px;
+  margin-bottom: 7px;
+}
+
+:host {
+  position: relative;
+}
+
+@mixin featureZone-carousel-font {
+  font-size: 13px;
+  line-height: 16px;
+  color: $color-gray-dark;
+}
+
+.featureZone-carousel-container {
+  background-color: $featureZone-carousel-bg-color;
+  position: relative;
+  overflow: hidden;
+  min-height: 170px;
+  margin: 4px 0;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  text-align: center;
+}
+
+.featureZone-carousel-header {
+  @include display-flex();
+  @include featureZone-carousel-font;
+  position: relative;
+  padding: 15% 0px 5% 0px;
+
+  .icon {
+    height: 18px;
+    width: 18px;
+    margin-right: 8px;
+
+    svg {
+      height: 18px;
+      width: 18px;
+    }
+  }
+
+  .desktop-header-font {
+    font-weight: 700;
+    font-size: 12px;
+  }
+
+  .more-link {
+    margin: 0 7px 0 auto;
+    font-size: 11px;
+    line-height: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+    padding-left: 5px;
+    color: $brand-color-dark;
+    text-transform: uppercase;
+
+    &:after {
+      content: '';
+      position: relative;
+      top: -1px;
+      left: 4px;
+      border: solid black;
+      border-width: 0 1px 1px 0;
+      display: inline-block;
+      padding: 2px;
+      @include transform(rotate(-45deg));
+    }
+  }
+}
+
+.featureZone-carousel {
+  width: 100%;
+  overflow: visible;
+
+  .carousel-slides {
+    overflow: visible;
+    position: relative;
+    width: $featureZone-carousel-card-width;
+  }
+
+  .slide {
+    min-width: auto;
+    padding-left: 10px;
+    width: $featureZone-carousel-card-width;
+  }
+
+  &:hover {
+    .featureZone-carousel-buttons .hc-arrow {
+      opacity: 1;
+
+      &.prev-hc-card {
+        left: 0;
+      }
+
+      &.next-hc-card {
+        right: 0;
+      }
+    }
+  }
+
+  &:active {
+    .featureZone-carousel-buttons .hc-arrow:not(:hover) {
+      pointer-events: none;
+    }
+  }
+
+  .featureZone-carousel-buttons {
+    background: transparent;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+
+    &:after,
+    &:before {
+      content: '';
+      display: table;
+    }
+
+    &:after {
+      clear: both;
+    }
+
+    .hc-arrow {
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      width: $featureZone-carousel-button-width;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      background: rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      @include transition();
+      border: none;
+
+      &.hc-arrow-hide {
+        display: block;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      &.prev-hc-card,
+      &.hc-arrow-hide.prev-hc-card {
+        left: -$featureZone-carousel-button-width;
+      }
+
+      &.next-hc-card,
+      &.hc-arrow-hide.next-hc-card {
+        right: -$featureZone-carousel-button-width;
+      }
+
+      &>svg {
+        position: static;
+        left: auto;
+        top: auto;
+        height: 10px;
+        width: 5px;
+        margin: 0;
+        padding: 0;
+        fill: $color-white;
+        text-shadow: none;
+      }
+
+      &>span {
+        display: none;
+      }
+    }
+
+    .hc-arrow.hc-arrow-hide.prev-hc-card {
+      left: -20px;
+    }
+  }
+
+  &.one-card-mode {
+    @include display-flex();
+    @include justify-content(center);
+  }
+
+  .slide-img-container {
+    width: fit-content;
+  }
+
+  .feature-image {
+    height: 250px;
+    width: fit-content;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+
+
+}
+
+
+.feature-images-container {
+  display: inline-flex;
+  margin: 10px 0 44px 0;
+}
+
+.feature-image-wrapper {
+  margin: auto;
+  border-radius: 8px;
+  padding: 5px;
+  width: 180px;
+}
+
+.feature-static-image {
+  border-radius: 8px;
+  cursor: pointer;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.sport-tile-container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.sport-tile-wrapper {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  width: 100%;
+  padding: 2px;
+}
+
+.sport-tile-title {
+  color: #102948;
+  text-align: center;
+  font-family: Lato;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.006px;
+}
+
+.sport-tile-description {
+  color: #102948;
+  text-align: center;
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.006px;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.feature-bg-wrapper {
+  margin-top: 40px;
+}
+
+.feature-bg-title {
+  color: #FFF;
+  text-align: center;
+  font-family: Lato;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.006px;
+}
+
+.feature-bg-description {
+  color: #FFF;
+  text-align: center;
+  font-family: Lato;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.006px;
+}

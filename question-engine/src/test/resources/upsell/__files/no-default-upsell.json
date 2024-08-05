@@ -1,0 +1,233 @@
+{
+  "SSResponse": {
+    "xmlns": "http://schema.openbet.com/SiteServer/2.34/SSResponse.xsd",
+    "children": [
+      {
+        "event": {
+          "id": "13437791",
+          "name": "|Brighton| |vs| |Tottenham|",
+          "eventStatusCode": "A",
+          "isActive": "true",
+          "displayOrder": "0",
+          "siteChannels": "P,Q,C,U,I,M,",
+          "eventSortCode": "MTCH",
+          "startTime": "2019-10-05T11:30:00Z",
+          "rawIsOffCode": "N",
+          "classId": "97",
+          "typeId": "442",
+          "sportId": "16",
+          "liveServChannels": "sEVENT0013437791,",
+          "liveServChildrenChannels": "SEVENT0013437791,",
+          "categoryId": "16",
+          "categoryCode": "FOOTBALL",
+          "categoryName": "|Football|",
+          "categoryDisplayOrder": "-10015",
+          "className": "|Football England|",
+          "classDisplayOrder": "-9998",
+          "classSortCode": "FB",
+          "typeName": "|Premier League|",
+          "typeDisplayOrder": "-32000",
+          "typeFlagCodes": "RD,IVA,",
+          "isOpenEvent": "true",
+          "isLiveNowOrFutureEvent": "true",
+          "drilldownTagNames": "EVFLAG_ST,EVFLAG_BL,",
+          "isAvailable": "true",
+          "cashoutAvail": "Y",
+          "children": [
+            {
+              "market": {
+                "id": "321295794",
+                "eventId": "13437791",
+                "templateMarketId": "37220",
+                "templateMarketName": "|Both Teams to Score|",
+                "dispSortId": "409",
+                "dispSortName": "BO",
+                "collectionIds": "2113,1144,262,619,",
+                "collectionNames": "|Both Teams to Score|,|Main|,|Scores|,",
+                "marketMeaningMajorCode": "-",
+                "marketMeaningMinorCode": "--",
+                "name": "|Both Teams to Score|",
+                "isLpAvailable": "true",
+                "isMarketBetInRun": "true",
+                "displayOrder": "20",
+                "marketStatusCode": "A",
+                "isActive": "true",
+                "siteChannels": "P,Q,C,U,I,M,",
+                "liveServChannels": "sEVMKT0321295794,",
+                "liveServChildrenChannels": "SEVMKT0321295794,",
+                "priceTypeCodes": "LP,",
+                "isAvailable": "true",
+                "maxAccumulators": "25",
+                "minAccumulators": "1",
+                "cashoutAvail": "Y",
+                "termsWithBet": "N",
+                "children": [
+                  {
+                    "outcome": {
+                      "id": "1043120188",
+                      "marketId": "321295794",
+                      "name": "|No|",
+                      "outcomeMeaningMajorCode": "--",
+                      "displayOrder": "2",
+                      "outcomeStatusCode": "A",
+                      "isActive": "true",
+                      "siteChannels": "P,Q,C,U,I,M,",
+                      "liveServChannels": "sSELCN1043120188,",
+                      "liveServChildrenChannels": "SSELCN1043120188,",
+                      "isAvailable": "true",
+                      "children": [
+                        {
+                          "price": {
+                            "id": "2",
+                            "isActive": "true",
+                            "displayOrder": "1",
+                            "priceType": "LP",
+                            "priceNum": "6",
+                            "priceDen": "5",
+                            "priceDec": "2.20"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "market": {
+                "id": "321295797",
+                "eventId": "13437791",
+                "templateMarketId": "37253",
+                "templateMarketName": "|Over/Under Total Goals|",
+                "dispSortId": "398",
+                "dispSortName": "HL",
+                "collectionIds": "623,701,261,619,",
+                "collectionNames": "|Total Goals Over/Under|,|Main|,|Over/Under Total Goals|,|Goals|,",
+                "marketMeaningMajorCode": "L",
+                "marketMeaningMinorCode": "HL",
+                "name": "|Over/Under Total Goals| |1.5|",
+                "isLpAvailable": "true",
+                "rawHandicapValue": "1.5",
+                "isMarketBetInRun": "true",
+                "displayOrder": "41",
+                "marketStatusCode": "A",
+                "isActive": "true",
+                "siteChannels": "P,Q,C,I,M,",
+                "liveServChannels": "sEVMKT0321295797,",
+                "liveServChildrenChannels": "SEVMKT0321295797,",
+                "priceTypeCodes": "LP,",
+                "isAvailable": "true",
+                "maxAccumulators": "25",
+                "minAccumulators": "1",
+                "cashoutAvail": "Y",
+                "termsWithBet": "N",
+                "children": [
+                  {
+                    "outcome": {
+                      "id": "1043120210",
+                      "marketId": "321295797",
+                      "name": "|Under|",
+                      "outcomeMeaningMajorCode": "HL",
+                      "outcomeMeaningMinorCode": "L",
+                      "displayOrder": "20",
+                      "outcomeStatusCode": "A",
+                      "isActive": "true",
+                      "siteChannels": "P,Q,C,I,M,",
+                      "liveServChannels": "sSELCN1043120210,",
+                      "liveServChildrenChannels": "SSELCN1043120210,",
+                      "isAvailable": "true",
+                      "children": [
+                        {
+                          "price": {
+                            "id": "3",
+                            "isActive": "true",
+                            "displayOrder": "1",
+                            "priceType": "LP",
+                            "priceNum": "3",
+                            "priceDen": "1",
+                            "priceDec": "4.00",
+                            "handicapValueDec": "1.5,",
+                            "rawHandicapValue": "1.5"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "market": {
+                "id": "321295801",
+                "eventId": "13437791",
+                "templateMarketId": "37253",
+                "templateMarketName": "|Over/Under Total Goals|",
+                "dispSortId": "398",
+                "dispSortName": "HL",
+                "collectionIds": "623,701,261,619,",
+                "collectionNames": "|Total Goals Over/Under|,|Main|,|Over/Under Total Goals|,|Goals|,",
+                "marketMeaningMajorCode": "L",
+                "marketMeaningMinorCode": "HL",
+                "name": "|Over/Under Total Goals| |5.5|",
+                "isLpAvailable": "true",
+                "rawHandicapValue": "5.5",
+                "isMarketBetInRun": "true",
+                "displayOrder": "45",
+                "marketStatusCode": "A",
+                "isActive": "true",
+                "siteChannels": "P,Q,C,I,M,",
+                "liveServChannels": "sEVMKT0321295801,",
+                "liveServChildrenChannels": "SEVMKT0321295801,",
+                "priceTypeCodes": "LP,",
+                "isAvailable": "true",
+                "maxAccumulators": "25",
+                "minAccumulators": "1",
+                "cashoutAvail": "Y",
+                "termsWithBet": "N",
+                "children": [
+                  {
+                    "outcome": {
+                      "id": "1043120229",
+                      "marketId": "321295801",
+                      "name": "|Over|",
+                      "outcomeMeaningMajorCode": "HL",
+                      "outcomeMeaningMinorCode": "H",
+                      "displayOrder": "10",
+                      "outcomeStatusCode": "A",
+                      "isActive": "true",
+                      "siteChannels": "P,Q,C,I,M,",
+                      "liveServChannels": "sSELCN1043120229,",
+                      "liveServChildrenChannels": "SSELCN1043120229,",
+                      "isAvailable": "true",
+                      "children": [
+                        {
+                          "price": {
+                            "id": "4",
+                            "isActive": "true",
+                            "displayOrder": "1",
+                            "priceType": "LP",
+                            "priceNum": "10",
+                            "priceDen": "1",
+                            "priceDec": "11.00",
+                            "handicapValueDec": "5.5,",
+                            "rawHandicapValue": "5.5"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "responseFooter": {
+          "cost": "10",
+          "creationTime": "2019-10-04T08:54:39.966Z"
+        }
+      }
+    ]
+  }
+}

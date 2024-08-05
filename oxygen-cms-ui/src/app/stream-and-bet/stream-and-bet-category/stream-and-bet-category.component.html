@@ -1,0 +1,50 @@
+<div class="header bg-teal edit-config-group">
+  <h2>
+    {{category.name}}
+  </h2>
+  <ul class="header-dropdown">
+    <li>
+      <button (click)="removeCategory()" type="button"
+              class="btn btn-xs bg-teal waves-effect header-edit-btn">
+        <i class="material-icons">delete_forever</i>
+        <span>Remove category</span>
+      </button>
+    </li>
+    <!--<li>-->
+      <!--<button *ngIf="isDataChanged" (click)="revertCategoryChanges()" type="button"-->
+              <!--class="btn btn-xs bg-teal waves-effect header-edit-btn">-->
+        <!--<i class="material-icons">undo</i>-->
+        <!--<span>Revert changes</span>-->
+      <!--</button>-->
+    <!--</li>-->
+    <li>
+      <button *ngIf="isDataChanged" (click)="saveCategoryChanges()" type="button"
+              class="btn btn-xs bg-teal waves-effect header-edit-btn">
+        <i class="material-icons">save</i>
+        <span>Save changes</span>
+      </button>
+    </li>
+  </ul>
+</div>
+
+<div class="body edit-config-group">
+  <div class="tree-container">
+    <tree-root #tree [nodes]="categoryArray" [options]="options">
+      <ng-template #treeNodeTemplate let-node let-index="index">
+        <div class="node-block inline-block">
+          <span>{{node.data.name}}</span>
+          <span class="label label-default" *ngIf="!isIOSEnabled(node.data.showItemFor)">Ios</span>
+          <span class="label label-success" *ngIf="isIOSEnabled(node.data.showItemFor)">Ios</span>
+          <span class="label label-default" *ngIf="!isAnroidEnabled(node.data.showItemFor)">Android</span>
+          <span class="label label-success" *ngIf="isAnroidEnabled(node.data.showItemFor)">Android</span>
+          <a><i class="material-icons col-black" (click)="editNode(node.data)">create</i></a>
+          <a *ngIf="node.data.selection != 'event'" (click)="addChildNode(node.data)"><i
+            class="material-icons col-black">add</i></a>
+          <a *ngIf="node.data.selection != 'category'"><i class="material-icons col-black"
+                                                          (click)="removeNode(node.data)">clear</i></a>
+        </div>
+      </ng-template>
+    </tree-root>
+  </div>
+</div>
+

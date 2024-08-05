@@ -1,0 +1,10 @@
+<accordion *ngFor="let eventsGroup of eventsByType; trackBy: trackByOrder"
+           [accordionTitle]="eventsGroup.typeName"
+           [isExpanded]="eventsGroup['isExpandedGroup']"
+           data-crlat="outerAccordion">
+  <accordion-body>
+    <list-card *ngFor="let eventEntity of eventsGroup.events; trackBy: trackById" data-crlat="raceCard.event"
+               [item]="eventEntity" [link]="formEdpUrl(eventEntity)"></list-card>
+  </accordion-body>
+</accordion>
+<no-events *ngIf="!eventsByType?.length"></no-events>

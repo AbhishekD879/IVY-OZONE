@@ -1,0 +1,41 @@
+<div class="card">
+    <div class="header">
+        <h2 class="waves-effect waves-block" [textContent]="signpostingConstants.FREEBET_SIGNPOSTING"></h2>
+    </div>
+</div>
+<div class="card">
+    <div class="body">
+        <div class="row">
+            <div class="col-md-3 m-b-0">
+                <a routerLink="create-signpost" type="button" class="btn bg-teal waves-effect float-left">
+                    <i class="material-icons">add_box</i>
+                    <span [textContent]="signpostingConstants.CREATE_NEW_SIGNPOSTING"></span>
+                </a>
+            </div>
+            <div class="col-md-3 m-b-0">
+                <ng-container *ngIf="signpostData.length > 0">
+                    <download-cvs [cvsData]="signpostData" [cvsDataTable]="dataTableColumns"></download-cvs>
+                </ng-container>
+            </div>
+            <div class="col-md-6 m-b-0">
+                <div class="input-with-icon m-b-0">
+                    <i class="material-icons">search</i>
+                    <mat-form-field>
+                        <input matInput placeholder="Search For signposts" [(ngModel)]="searchField"
+                            [value]="searchField">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 m-b-0">
+                <ng-container *ngIf="signpostData">
+                    <cms-data-table [customTableData]="signpostData" [customTableColumns]="dataTableColumns"
+                        [actions]="['remove','edit']" [filterString]="searchField"
+                        [filterProperties]="searchableProperties" (onRemoveTableElement)="removeSignposting($event)">
+                    </cms-data-table>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,102 @@
+.groups .redirect-link {
+  text-decoration: none;
+}
+
+.single-card {
+  @include display-flex();
+  font-family: $base-font-family;
+
+  .name-section {
+    background: $color-gray-light;
+    width: 50px;
+    min-height: 100px;
+
+    .name-title,
+    .name-group {
+      color: $color-gray-dark;
+      text-transform: uppercase;
+      text-align: center;
+      font-weight: bold;
+      @include user-select();
+    }
+    .name-title {
+      font-size: 9px;
+      margin-bottom: 5px;
+    }
+    .name-group {
+      font-size: 36px;
+      font-weight: bold;
+      margin: 0;
+    }
+    .view-label {
+      display: block;
+      width: 100%;
+      text-align: center;
+      height: 16px;
+      margin-top: 5px;
+      color: $color-gray-dark;
+      text-transform: uppercase;
+      text-decoration: underline;
+      font-size: 9px;
+      font-weight: normal;
+    }
+  }
+  .team-info-section {
+    .team-row {
+      @include display-flex();
+      height: 25px;
+      background: $color-white;
+      .team-order,
+      .team-points,
+      .team-name {
+        display: block;
+        height: 100%;
+        padding-top: 5px;
+        text-align: center;
+        font-weight: bold;
+        color: $color-gray-dark;
+        &.big-team-name{
+          border-top: 1px solid $color-gray;
+          border-bottom: 1px solid $color-gray;
+          padding: 5px 0 5px 0px;
+          display: flex;
+          text-align: center;
+          align-items: center;
+          justify-content: space-around;
+          background: $color-white;
+          span {
+            width: 33%;
+            font-size: 11px;
+            color: $color-gray-darkest;
+          }
+        }
+      }
+
+      &:last-child .team-order {
+        border-bottom: none;
+      }
+      .team-order {
+        width: 25px;
+        background: $color-gray-light;
+        border-width: 0 0 1px 1px;
+        border-color: $color-white;
+        border-style: solid;
+        padding-top: 3px;
+        &.team-qualified {
+          background: $brand-color-main;
+          color: $color-white;
+        }
+      }
+      .team-name {
+        position: relative;
+        @include display-flex();
+        width: 55px;
+        font-size: 10px;
+      }
+      .team-points {
+        width: 35px;
+        font-size: 11px;
+      }
+    }
+  }
+}

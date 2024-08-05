@@ -1,0 +1,15 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>{{data.title}}</h1>
+  <div mat-dialog-content>
+    <p *ngIf="data.message">{{data.message}}</p>
+
+    <ul *ngIf="data.messagesArray">
+      <li *ngFor="let message of messagesArray">
+        <p>{{message}}</p>
+      </li>
+    </ul>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button class="btn btn-sm bg-teal float-right" mat-dialog-close>OK</button>
+  </div>
+</div>

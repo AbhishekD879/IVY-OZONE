@@ -1,0 +1,14 @@
+extends ../layouts/default
+
+block intro
+	.container
+		h1 featuredEventsTypes
+	
+block content
+	.container
+		if featuredEventsTypess.length
+			each featuredEventsTypes in featuredEventsTypess
+				h2= featuredEventsTypes.imageTitle
+
+		else
+			h3.text-muted There are no featuredEventsTypess yet.

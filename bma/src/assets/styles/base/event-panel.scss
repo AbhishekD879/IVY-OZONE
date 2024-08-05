@@ -1,0 +1,523 @@
+.event-panel:not(.list-panel) {
+  background: $color-white;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.8);
+  border-bottom: 1px solid $color-gray;
+  font-size: 11px;
+  max-width: 100%;
+  min-height: 30px;
+  padding: 10px 15px;
+  position: relative;
+  width: 100%;
+  text-decoration: none;
+  @include display-flex();
+  @include flex-flow();
+  @include align-items();
+  @include justify-content();
+
+  &.star-down{
+   @include align-items(flex-end);
+   border-bottom: none;
+   padding-top: 0px;
+   padding-bottom: 0px;
+}
+
+  &.m-event-panel .item-col,
+  &.m-panel .item-col,
+  &.h-panel .item-col {
+    &.item-col-middle {
+      @include flex(1, 1);
+      width: 75%;
+    }
+    &.item-col-right {
+      width: auto;
+      text-align: right;
+      @include flex(1, 0);
+      padding: 0;
+
+      .empty-div {
+        margin: 0 0 0 5px;
+        min-width: 60px;
+      }
+
+      .propagation-wrapper {
+        display: inline-block;
+      }
+    }
+  }
+
+  &.h-panel {
+    padding: 15px 15px 0;
+    min-height: 0;
+  }
+
+  &.m-panel {
+    border: none;
+    box-shadow: none;
+
+    .btn {
+      margin: 0 0 0 5px;
+    }
+  }
+
+  &.h-panel .item-col {
+    font-size: 11px;
+    color: lighten($color-gray-dark, 50%);
+    text-shadow: 0 1px 0 rgba(255,255,255,.8);
+
+    &.item-col-middle {
+      font-size: 11px;
+      font-weight: normal;
+    }
+
+    .item-h {
+      display: inline-block;
+      min-width: 60px;
+      text-align: center;
+      margin: 0 0 0 5px;
+    }
+  }
+
+  &.l-event-panel {
+    @include justify-content(flex-start);
+
+    .item-col {
+      &.item-col-left {
+        width: 20%;
+        max-width: 30px;
+        text-align: left;
+
+        .item-sport-icon {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  &.r-event-panel {
+    width: 100%;
+
+    .item-col {
+      @include flex(1,3);
+      @include display-flex();
+
+      &.item-col-left {
+        width: auto;
+        max-width: 45px;
+        min-width: 45px;
+        text-align: left;
+
+        .item-sport-icon {
+          margin: 0;
+        }
+
+        .item-number {
+          padding: 2px 10px 0 0;
+        }
+      }
+
+      &.item-col-middle {
+        @include flex-flow(column);
+        font-weight: normal;
+
+        .item-name {
+          padding: 0 0 10px;
+        }
+      }
+
+      &.item-col-right {
+        width: auto;
+        @include justify-content(flex-end);
+      }
+    }
+  }
+
+  .item-col {
+
+    &.item-col-left {
+      width: 10%;
+      min-width: 40px;
+
+      .item-sport-icon {
+        margin: 0 auto 5px;
+      }
+
+     .item-day {
+        font-size: 9px;
+        line-height: 12px;
+        text-align: center;
+      }
+
+      .item-time {
+        font-size: 10px;
+        line-height: 12px;
+        font-weight: bold;
+        text-align: center;
+      }
+    }
+
+    &.item-col-middle {
+      width: 50%;
+      font-size: 12px;
+      font-weight: bold;
+      @include flex(1,1);
+    }
+
+    .centered {
+      text-align: center;
+    }
+
+    .item-live {
+      display: inline-block;
+      color: $color-white;
+      padding: 4px 7px;
+      border-radius: 5px;
+      background: $color-orange;
+      font-size: 10px;
+      font-weight: bold;
+      text-transform: uppercase;
+      white-space: nowrap;
+      min-width: 45px;
+    }
+
+    .item-wrap {
+      width: 100%;
+      padding: 5px;
+      text-align: center;
+      @include display-flex();
+      @include flex-flow();
+      @include align-items();
+      @include justify-content();
+
+      &.item-wrap-start {
+        @include justify-content(flex-start);
+        padding: 0;
+        &.text-left {
+          text-align: left;
+        }
+      }
+      &.no-pad {
+        padding: 0;
+      }
+
+      &.item-wrap-btn {
+        @include align-items(stretch);
+
+        .btn-wrapper {
+          @include display-flex();
+
+          .small-price {
+            @include display-flex();
+            @include align-items();
+            font-size: 9px;
+            white-space: nowrap;
+          }
+        }
+
+        .item-w-col {
+          @include display-flex();
+          @include justify-content();
+
+          .btn-div {
+            @include display-flex();
+          }
+        }
+      }
+
+      .item-w-col {
+        width: 33.333%;
+        @include word-break();
+
+        .btn-div {
+          padding: 0 3px;
+        }
+      }
+
+      .item-l-col {
+        text-align: left;
+        min-width: 55px;
+
+        &.info-full {
+          min-width: 75px;
+        }
+
+        &.info-full-event {
+          min-width: 85px;
+        }
+
+        .runner-info {
+          @include display-flex();
+          @include align-items();
+          @include justify-content(flex-start);
+          padding: 0 3px 0 0;
+
+          .runner-id {
+            padding: 0 3px 0 0;
+            text-align: right;
+            min-width: 17px;
+          }
+        }
+      }
+
+      .item-r-col {
+        text-align: left;
+        font-weight: normal;
+        margin: 0 5px 0 0;
+        @include word-break();
+
+        &.item-overflow {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          position: relative;
+          line-height: 14px;
+
+          & > * {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+        }
+
+        &.jockey-no-details {
+          padding-left: 30px;
+        }
+
+        .label-text {
+          font-size: 11px;
+        }
+      }
+    }
+
+    &.item-col-right {
+      width: 10%;
+      position: relative;
+      text-align: right;
+
+      .item-col-top {
+        padding: 0 0 5px;
+      }
+
+      .item-col-btm {
+
+        .event-view {
+          color: $brand-color-main;
+          display: block;
+        }
+      }
+    }
+  }
+
+  &.one-way-panel {
+
+    .item-col {
+
+      &.item-col-right {
+        @include align-self();
+      }
+
+      .item-wrap .item-w-col:first-child {
+        text-align: left;
+      }
+    }
+
+    &.one-panel .item-w-col {
+      width: 33.333%;
+
+      &:first-child {
+        width: 66.777%;
+      }
+    }
+  }
+
+  /**** Horse Racing Event details page (desktop only) *****/
+  &.h-header-panel {
+    font-size: 13px;
+    border-bottom: none;
+    padding: 0 5px;
+  }
+
+  .h-header-item-panel-l {
+    @include flex(1,0);
+    font-size: 13px;
+    text-align: left;
+    justify-content: flex-start;
+    &.card-col {
+      padding-right: 55px;
+      @include flex(0,0);
+    }
+  }
+
+  .h-header-item-panel-r {
+    @include flex(0,0);
+    font-size: 13px;
+    text-align: center;
+    width: 7%;
+    justify-content: flex-end;
+    box-sizing: border-box;
+    .btn-bet {
+      font-size: 12px;
+    }
+  }
+
+  .h-header-item-panel {
+    @include flex(2,0);
+    font-size: 13px;
+    text-align: right;
+    justify-content: flex-end;
+    &.rating-col {
+      width: 11%;
+      text-align: center;
+      &.no-previous-col {
+        width: 19%;
+      }
+    }
+    &.form-col {
+      width: 7%;
+      text-align: left;
+      &.no-previous-col {
+        width: 1%;
+      }
+    }
+    &.weight-age-col {
+      width: 18%;
+      text-align: center;
+      &.no-previous-col {
+        width: 1%;
+      }
+    }
+    &.previous-col {
+      width: 19%;
+      text-align: center;
+      .previous-col-value {
+        display: inline-block;
+        width: 80px;
+      }
+    }
+  }
+
+  .card-horse-col {
+    width: 320px;
+    font-size: 13px;
+    .label-text {
+      font-size: 13px;
+    }
+  }
+
+  .h-horse-col {
+    font-weight: bold;
+  }
+  /**********************************/
+
+}
+
+.non-runner,
+.non-runner .label-text {
+  color: $color-gray;
+}
+
+.col-bordered {
+  border-left: 1px solid $color-gray;
+  border-bottom: 1px solid $color-gray;
+  &.col-content {
+    height: 60px;
+    overflow: hidden;
+  }
+  &:first-child {
+    border-left: none;
+  }
+
+  .col-inner {
+    @include display-flex();
+    @include flex-flow(column);
+    padding: 10px 5px;
+    height: 100%;
+    overflow: hidden;
+    .col-header{
+      padding: 0px;
+      text-align: center;
+      border: none;
+    }
+
+    &.col-vertical {
+      height: auto;
+      position: relative;
+      border-bottom: 1px solid $color-gray;
+
+      &:last-child {
+        border: none;
+      }
+    }
+
+    .col-name {
+      padding: 0 0 45px;
+      width: 100%;
+      display: block;
+      font-size: 11px;
+      color: $color-gray-dark;
+      @include col-name();
+      &.col-header{
+        padding: 10px;
+      }
+    }
+
+    .col-btn {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      @include transform(translateX(-50%));
+    }
+  }
+}
+
+.row-last .col-bordered .col-inner,
+.row-col-last .col-bordered,
+.row-last .col-bordered {
+  border-bottom: none;
+  padding-bottom: 5px;
+}
+
+.row-pad {
+  padding: 5px 10px;
+
+  .col-bordered {
+
+    &:nth-child(1):last-child .col-inner {
+      .btn-bet {
+        margin-left: -23px;
+      }
+    }
+
+    &:first-child .col-inner {
+      padding-left: 0;
+
+      .btn-bet {
+        margin-left: -29px;
+      }
+    }
+
+    &:last-child .col-inner {
+      padding-right: 0;
+    }
+
+    .col-inner {
+      padding: 0 10px 5px;
+      @include align-items();
+      height: auto;
+
+      &:last-child {
+        padding-bottom: 0;
+
+        .btn-bet {
+          bottom: 0;
+        }
+      }
+    }
+
+    .btn-bet {
+      position: absolute;
+      bottom: 10px;
+      margin-left: -23px;
+      left: 50%;
+    }
+  }
+}

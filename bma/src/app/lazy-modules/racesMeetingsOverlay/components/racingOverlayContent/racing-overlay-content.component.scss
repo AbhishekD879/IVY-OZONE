@@ -1,0 +1,235 @@
+@import 'global.variables.scss'; 
+
+.overlay-content {
+    background-color: #E0E2EB;
+    padding: 0px 4px;
+}
+
+::ng-deep {
+
+  #desktop-switcher {
+    .switchers {
+      .switch-btn-text {
+        text-transform: uppercase !important;
+      }
+    }
+  }
+
+  .desktop-list {
+    &.active {
+      background: $bch-blue !important;
+      max-width: 351px !important;
+  
+      &.coupons-list {
+        .coupons-wrap:host {
+          background: $bch-blue !important;
+        }
+      }
+  
+      &.coral {
+        background: $bch-blue !important;
+      }
+
+      .accordion,
+      accordion {
+        margin-bottom: 0px !important;
+      }
+      .accordion {
+          .container-content {
+          background: $color-blue-principal !important;
+          }
+      }
+
+      .horserace {
+        &.race-grid {
+          background: $color-blue-principal !important;
+
+          .rg-header {
+            color: $color-white !important;
+            padding: 0px;
+            .rg-stream-icon {
+              width: 12px !important;
+              height: 12px !important;
+              margin: 0 0 0 7.8px !important;
+              fill: $color-white !important;
+            }
+          }
+
+          .rg-title {
+            font-size: 13px !important;
+            font-weight: 700 !important;
+            font-family: 'Lato' !important;
+            text-transform: capitalize !important;
+          }
+
+          .early-price-sign-post{
+            color: white !important;
+            padding-left: 0px !important;
+            position: relative !important;
+            top: -13px !important;
+            height: 10px !important;
+        
+          }
+          .move-left {
+            padding-left: 0px !important;
+            margin-top: 9px;
+          }
+          .rg-section {
+            background-color: $color-blue-principal !important;
+            padding: 10px  16px 0px!important;
+            &:not(:last-child) .tabs-panel {
+              border-bottom: 1px solid $color-white !important;
+            }
+          }
+
+          .tabs-panel {
+            background-color: $color-blue-principal !important;
+
+            &:last-child {
+              border-bottom: none !important;
+            }
+            .scroll-container {
+              .scroll-inner {
+                .pool-indicators-container {
+                  li {
+                    &:first-child {
+                      margin-left: -2px !important;
+                    }
+                  }
+                }
+                li {
+                  margin-bottom: 6px;
+                  &:first-child {
+                    margin-left: -11px !important;
+                  }
+                  &:first-child{
+                    &:after {
+                      display: none !important;
+                    }
+                  }
+                  &.tote-indicator-container:after{
+                    display: none !important;
+                  }
+                  .tote-indicator {
+                    background-color: $bch-blue !important;
+                    margin-left: 10px !important;
+                    margin-right: 0px !important;
+                    font-size: 10px !important;
+                  }
+
+                  .tab {
+                    color: $color-white !important;
+                    font-family: 'Lato' !important;
+
+                   
+                  }
+                }
+              }
+            }
+          }
+        }
+        &.desktop-race-grid {
+          .prom-icons-wrap {
+            padding-top: 12px !important;
+          }
+        }
+      }
+
+      .event-card-label-wrapper {
+        &.bog-promotion {
+          width: 17px !important;
+          height: 17px !important;
+          .event-card-label {
+            &.bog-text{
+              width: 15px !important;
+            }
+          }
+        }
+        &.race-label-wrapper {
+          .event-card-label {
+            width: 12.24px !important;
+            height: 12.24px !important;
+          }
+        }
+      }
+      .middle-icon {
+        width: 17px !important;
+        height: 17px !important;
+        margin-right: 1px !important;
+        .cashout-label {
+          width: 12.24px !important;
+          height: 12.24px !important;
+        }
+      }
+      .secondary-header {
+        .left-title-text {
+          text-transform: uppercase !important;
+        }
+      }
+
+      .accordion-header {
+        .left-title-text{
+          font: bold 11px Lato !important;
+        }
+      }
+      .overlay-content {
+        padding: 0px;
+      }
+
+      .overlay {
+        background: none;
+      }
+      racing-status {
+        .racing-icon {
+          margin-right: 1px;
+        }
+        .race-off {
+          font-size: 9px;
+          color: $color-white !important;
+        }
+        span {
+          &.resulted {
+            font-size: 9px;
+            color: $color-white !important;
+          }
+        }
+      }
+
+      .switchers {
+        background: $bch-blue !important;
+        color: $color-white;
+        box-shadow: none !important;
+        padding: 4px 6px;
+        a {
+            &.switch-btn{
+              &.overlay {
+                border-bottom: none !important;
+                color: $rock-blue !important;
+                background: $color-blue-principal;
+                font-family: 'Roboto Condensed' !important;
+                font-size: 12px !important;
+          
+                &.active {
+                  color: $color-white !important;
+                  position: unset;
+                  border-bottom: 3px solid $color-white !important;
+                }
+              }
+            }
+        }
+      }
+
+      .accordion-header {
+        background: $bch-blue !important;
+        color: $color-white;
+        padding: 16px !important;
+        border-bottom: 0.5px solid $header-border-grey-dark;
+        border-top: 0.5px solid $header-border-grey-dark;
+      }
+      svg.racing-icon use {
+        fill: $color-white !important;
+      }
+      }
+      
+    }
+  }

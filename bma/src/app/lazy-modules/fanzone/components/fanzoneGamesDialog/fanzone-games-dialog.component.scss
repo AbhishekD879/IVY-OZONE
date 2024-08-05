@@ -1,0 +1,79 @@
+@import "global.variables.scss";
+
+:host {
+  ::ng-deep .modal-dialog {
+    .modal-content {
+      border-radius: $fanzone-syt-header-border-radius;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+      .modal-header {
+        padding: 24px 24px 13px;
+      }
+      .modal-body {
+        padding: 0 24px;
+      }
+    }
+    @media (max-width: $mobilePoint) {
+      width: 280px;
+      .modal-content {
+        .modal-header {
+          padding: 24px 22.78px 13px;
+        }
+        .modal-body {
+          padding: 0 22.78px;
+        }
+      }
+    }
+  }
+}
+
+.games-title {
+  @include setFontProps($fanzone-syt-popup-title-font-family, 15px, 700, $lGray);
+  font-style: $fanzone-syt-popup-title-style;
+  line-height: 17px;
+}
+
+.games-text {
+  @include setFontProps($fanzone-syt-popup-title-font-family, 13px, 400, $lBlack-light);
+  font-style: $fanzone-syt-popup-title-style;
+  line-height: 15px;
+}
+
+.fanzone-games-buttons {
+  padding: 20px 24px 24px 0;
+  float: right;
+  .close-button, .play-button {
+    @include setFontProps($base-font-family, 13px, 700, $lGray);
+    @include setTextTransForm(right, uppercase);
+    font-style: $fanzone-syt-popup-title-style;
+    line-height: 15px;
+    border: none;
+    display: inline;
+  }
+  .close-button {
+    letter-spacing: -0.00660833px;
+    margin-right: 28px;
+    background-color:$color-white;
+    padding: 0;
+    width: 35px;
+    color:$color-gray-darkest;
+    &:hover{
+      text-decoration: underline;
+    }
+    &:active{
+      color: $lGrayMedium;
+      text-decoration: none;
+    }
+  }
+  .play-button {
+    padding: 10px 36px;
+    background-color: $color-yellow-alt;
+    width: 100px;
+    &:hover{
+      background-color: $color-yellow-alt;
+      opacity: 0.85;
+    }
+    &:active{
+      background-color: $color-orange-light2;
+    }
+  }
+}

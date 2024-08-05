@@ -1,0 +1,16 @@
+<div class="sk-container" [ngClass]="{'sk-loading': !couponSegments}">
+  <loading-screen [displayed]="!couponSegments" [templateType]="'GENERIC'"></loading-screen>
+  <div  class="heuristic-container">
+    <ng-container *ngFor="let couponSegment of couponSegments; trackBy: trackById">
+      <ng-container *ngIf="couponSegment.coupons?.length">
+        <header class="split-header" [textContent]="couponSegment.title" data-crlat="couponSegmentTitle"></header>
+        <div class="list-container" data-crlat="couponContainer">
+          <list-card *ngFor="let coupon of couponSegment.coupons; trackBy: trackById"
+                     [item]="coupon" [link]="couponUrl(coupon)" data-crlat="couponItem">
+            <new-label *ngIf="coupon.enableCouponNewBadge" data-crlat="couponNewBadge"></new-label>
+          </list-card>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

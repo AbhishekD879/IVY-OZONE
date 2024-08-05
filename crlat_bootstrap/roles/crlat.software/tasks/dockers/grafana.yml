@@ -1,0 +1,67 @@
+#- name: Init variables
+#  include_tasks: find_influxdb.yml
+#  when: not influxdb_ip_address
+
+- name: Create Grafana Container
+  include_tasks: restart_grafana.yml
+
+- uri:
+    url: "http://localhost:3000/api/datasources/name/crlat-monitor"
+    user: "{{ grafana_admin_user }}"
+    password: "{{ grafana_admin_password }}"
+    force_basic_auth: yes
+  register: grafana_influxdb
+  failed_when: false
+  changed_when: false
+
+- name: datasource status
+  debug:
+    msg: "{{ grafana_influxdb.status }}"
+
+- name: Enable InfluxDB Datasource
+  uri:
+    url: http://localhost:3000/api/datasources
+    method: POST
+    user: "{{ grafana_admin_user }}"
+    password: "{{ grafana_admin_password }}"
+    body:
+      name: "crlat-monitor"
+      type: "influxdb"
+      url: "{{ influx_url }}"
+      database: "{{ influx_db_name }}"
+      access: "proxy"
+      isDefault: true
+    force_basic_auth: yes
+    status_code: 200
+    body_format: json
+  when: grafana_influxdb.status != 200
+
+- name: Check if Telegraf board exists
+  uri:
+    url: "http://localhost:3000/api/dashboards/db/automation-nodes-monitoring"
+    user: "{{ grafana_admin_user }}"
+    password: "{{ grafana_admin_password }}"
+    force_basic_auth: yes
+  register: grafana_telegraf_board
+  failed_when: false
+  changed_when: false
+
+- name: Status code check
+  debug:
+    msg: "{{ (grafana_telegraf_board.status == 200) }}"
+
+- name: Overwrite Monitoring Dasboard
+  uri:
+    url: http://localhost:3000/api/dashboards/db
+    method: POST
+    user: "{{ grafana_admin_user }}"
+    password: "{{ grafana_admin_password }}"
+    body:
+      dashboard: "{{ lookup('file','automation-nodes-monitoring.json') }}"
+      overwrite: "{{ (grafana_telegraf_board.status == 200) }}"
+    force_basic_auth: yes
+    status_code: 200
+    body_format: json
+
+- name: Create Grafana Container
+  include_tasks: restart_grafana.yml

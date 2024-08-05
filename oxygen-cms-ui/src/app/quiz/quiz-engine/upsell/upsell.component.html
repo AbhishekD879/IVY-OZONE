@@ -1,0 +1,147 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>Configure Upsell for the Quiz</h1>
+  <div class="row warning">
+    <div class="col-md-12">
+      <mat-icon>
+        warning
+      </mat-icon>
+      <span>Please don't forget to save the quiz itself or your changes will be lost</span>
+    </div>
+  </div>
+
+  <br>
+  <div mat-dialog-content>
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label">
+          <b>Default Upsell Option</b>
+        </span>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Default Upsell" [(ngModel)]="upsell.defaultUpsellOption"
+                 [value]="upsell.defaultUpsellOption"
+                 trim="blur" type="number"
+                 min="0">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label">
+          <b>Fallback image</b>
+        </span>
+      </div>
+      <div class="col-md-6">
+        <div style="display:none;">
+          <input id="upload-fallback-image"
+                 (change)="prepareToUploadFile($event)"
+                 type="file" value="upload"/>
+        </div>
+        <button type="button" (click)="handleUploadImageClick($event)"
+                class="main-image-btn btn bg-teal waves-effect">
+          {{((upsell.fallbackImageToUpload && upsell.fallbackImageToUpload.name) || (upsell.fallbackImage && upsell.fallbackImage.originalname)) || 'Upload Image'}}
+        </button>
+        <button type="button" (click)="removeImage()"
+                class="main-image-btn btn bg-red waves-effect">
+          Remove Image
+        </button>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Fallback image URL" [(ngModel)]="upsell.imageUrl"
+                 [value]="upsell.imageUrl"
+                 trim="blur">
+        </mat-form-field>
+        <mat-hint class="">Relative path only, e.g. /football/event/some-id</mat-hint>
+      </div>
+    </div>
+    <hr>
+    <br>
+    <div class="row" style="text-align: center">
+      <div class="col-md-12">
+        <h4 class="mat-label">Dynamic Upsell Options</h4>
+        <mat-icon matTooltip="To make configuration more easy we use Question-Answer notation followed by it's position in a Quiz.
+          For instance Q3A4 is 4th answer of 3rd question an so on.
+          Please note that in the following table the vertical row is the first question you've chosen
+          and the horizontal row is the second one">
+          live_help
+        </mat-icon>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          <b>Questions</b>
+        </span>
+      </div>
+      <div class="col-md-5">
+        <mat-form-field [formGroup]="selectQuestionsFromGroup">
+          <mat-select
+            formControlName="firstQuestionSelect"
+            placeholder="Select first question"
+            [matTooltip]="firstSelectedQuestionOption && firstSelectedQuestionOption.data.text"
+            (selectionChange)="assignFirstQuestion($event.value);">
+            <mat-option *ngFor="let option of allQuestionsOptions" [value]="option" [matTooltip]="option.data.text">
+              {{ option.title }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-5">
+        <mat-form-field [formGroup]="selectQuestionsFromGroup">
+          <mat-select
+            formControlName="secondQuestionSelect"
+            placeholder="Select second question"
+            [matTooltip]="secondSelectedQuestionOption && secondSelectedQuestionOption.data.text"
+            (selectionChange)="assignSecondQuestion($event.value);">
+            <mat-option *ngFor="let option of allQuestionsOptions" [value]="option" [matTooltip]="option.data.text">
+              {{option.title}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-table *ngIf="upsellTable" [dataSource]="upsellTable">
+      <ng-container *ngFor="let tipAndName of upsellTable.headerRowTipsAndNames; let i = index;"
+                    matColumnDef="{{tipAndName.name}}">
+        <span *ngIf="i > 0">
+          <mat-cell *matHeaderCellDef
+                    class="horizontal-header"
+                    [matTooltip]="tipAndName.tip">
+            <b>{{tipAndName.name}}</b>
+          </mat-cell>
+        </span>
+        <span *ngIf="i === 0">
+          <mat-cell class="vertical-header" *matHeaderCellDef></mat-cell>
+        </span>
+        <span *ngIf="i > 0">
+            <mat-cell *matCellDef="let row" class="cell">
+              <mat-form-field class="option-input">
+                <input matInput placeholder="Selection Id"
+                       [(ngModel)]="row.options[row.verticalAnswer.id + ';' + row.horizontalAnswers[i - 1].id]"
+                       [value]="row.options[row.verticalAnswer.id + ';' + row.horizontalAnswers[i - 1].id]"
+                       trim="blur"
+                       type="number"
+                       min="0">
+              </mat-form-field>
+            </mat-cell>
+          </span>
+        <span *ngIf="i === 0">
+          <mat-cell class="vertical-header" *matCellDef="let row" [matTooltip]="row.verticalAnswer.text">
+            <b>{{row.verticalHeader}}</b>
+          </mat-cell>
+        </span>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="upsellTable.columns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: upsellTable.columns;"></mat-row>
+    </mat-table>
+  </div>
+</div>
+<div mat-dialog-actions class="col-sm-12">
+  <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+  <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="false"
+          [mat-dialog-close]="true" (click)="save()">
+    Ok
+  </button>
+</div>

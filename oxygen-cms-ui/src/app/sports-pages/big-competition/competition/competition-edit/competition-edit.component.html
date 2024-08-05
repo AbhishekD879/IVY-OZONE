@@ -1,0 +1,100 @@
+<breadcrumbs *ngIf="competition" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+
+<div class="card" *ngIf="competition">
+  <div class="header">
+    <h2 class="has-activity-badge">Edit Big Competition: <span class="font-italic">{{competition.name}}</span></h2>
+    <create-updated-at-by class="has-activity-badge" [collection]="competition"></create-updated-at-by>
+    <header-activity-badge [state]="!competition.enabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="competition">
+  <div class="body">
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-md-2">
+          <mat-checkbox color="primary"
+            formControlName="enabled"
+            [checked]="competition.enabled"
+            (change)="competition.enabled = !competition.enabled">
+            Active
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !competition.name}">
+            <input [(ngModel)]="competition.name"
+                   matInput type="text"
+                   (change)="onNameChanged()"
+                   placeholder="Competition Name"
+                   formControlName="name"
+                   required>
+            <mat-hint class="col-red" *ngIf="!competition.name">Competition Name should be entered</mat-hint>
+          </mat-form-field>
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !competition.uri}">
+            <input [(ngModel)]="competition.uri"
+                   matInput
+                   type="text"
+                   formControlName="url"
+                   placeholder="URL"
+                   readonly>
+            <mat-hint class="col-red" *ngIf="!competition.uri">URL should be entered</mat-hint>
+          </mat-form-field>
+          <mat-form-field class="full-width" [ngClass]="{'mat-form-field-invalid': !competition.typeId}">
+            <input [(ngModel)]="competition.typeId"
+                   matInput
+                   type="number"
+                   placeholder="OB Type ID"
+                   formControlName="typeId"
+                   onkeypress="return event.charCode >= 48 && event.charCode <= 57" step="1" min="1"
+                   required>
+            <mat-hint class="col-red" *ngIf="!competition.typeId">OB TypeId should be entered</mat-hint>
+          </mat-form-field>
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !competition.title}">
+            <input [(ngModel)]="competition.title"
+                   matInput
+                   type="text"
+                   formControlName="title"
+                   placeholder="Title">
+            <mat-hint class="col-red" *ngIf="!competition.uri">Title should be entered</mat-hint>
+          </mat-form-field>
+          <div class="full-width">
+            <ng-container>
+                <common-svg-input-select 
+                [type]="'svgBgId'" 
+                [path]="'background'" 
+                [formFieldsModels]="competition"
+                [externalForm]="form"
+                [labelShown]=labelShown>
+                </common-svg-input-select>
+            </ng-container>
+          </div>
+      </div>
+    </div>
+  </form>
+</div>
+</div>
+
+<app-competition-tabs-list *ngIf="competition" [tabs]="tabsList"></app-competition-tabs-list>
+<participants-list *ngIf="competition" [participants]="participantsList"></participants-list>
+
+<action-buttons
+  *ngIf="competition"
+  #actionButtons
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'name'"
+  [collection]="competition"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>
+
+<div class="card" *ngIf="competitionNotFound">
+  <div class="header">
+    <h2>Failed to Load Competition Data</h2>
+  </div>
+  <div class="body">
+    <a href="/sports-pages/big-competition">
+      <span>Back to Competitions Page</span>
+    </a>
+  </div>
+</div>

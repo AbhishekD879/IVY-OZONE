@@ -1,0 +1,301 @@
+@import 'global.variables.scss';
+$desc-color: #ffffff;
+
+.bet-progress {
+  margin: 4px 0 4px 8px;
+  object-fit: contain;
+  width: 101px;
+  height: 7px;
+  border-radius: 3px;
+  background-color: #fff;
+}
+
+.display-none {
+  display: none;
+}
+
+left-side {
+  color: #fff !important;
+}
+
+.progress {
+  height: 7px;
+  border-radius: 3px;
+  background-color: #2694ed;
+  transition: width 1s ease-in;
+  //check
+  //position: absolute;
+}
+
+.divLayout {
+  display: flex;
+  background-color: #072a4b !important;
+  opacity: 0.9;
+  border-left: solid 8px;
+  color: #ffffff;
+  border-left-color: #5094e2;
+  flex-direction: column;
+  padding: 0 1px 0 12px;
+
+  .pLayout {
+    color: #ffffff;
+    text-transform: uppercase;
+    font-family: Lato-Bold, 'Lato', 'Arial' !important;
+    margin: 4px 28px 3px 0;
+    font-size: 12px;
+    font-weight: bold;
+    font-stretch: normal;
+    letter-spacing: 0.01px;
+  }
+
+  .pLayoutDesc {
+    font-weight: normal;
+    font-stretch: normal;
+    margin: 0px 10px 10px 0px;
+    font-family: Lato-Regular, 'Lato', 'Arial' !important;
+    font-size: 12px !important;
+    letter-spacing: 0.01px;
+  }
+
+  ::ng-deep .pLayoutDesc p {
+    font-size: 12px !important;
+    font-family: Lato-Regular, 'Lato', 'Arial' !important;
+    margin: 0px;
+
+    span {
+      font-size: 12px !important;
+      font-family: Lato-Regular, 'Lato', 'Arial' !important;
+      margin: 0px !important;
+      color: white !important;
+    }
+  }
+
+  ::ng-deep .pLayoutDesc p strong {
+    font-size: 12px !important;
+    font-family: Lato-Bold, 'Lato', 'Arial' !important;
+    margin: 0px;
+  }
+     
+  ::ng-deep .pLayoutDesc span {
+    font-size: 12px !important;
+    font-family: Lato-Regular, 'Lato', 'Arial' !important;
+    margin: 0px;
+    color: white;
+  }
+
+  ::ng-deep .pLayoutDesc span {
+    font-size: 12px !important;
+    font-family: Lato-Regular, 'Lato', 'Arial' !important;
+    margin: 0px;
+    color: white;
+  }
+
+  .description-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    button {
+      background: #072a4b !important;
+      border: 1px solid white;
+      font-size: 12px;
+      min-width: 71px;
+      height: 31px;
+      margin: 0px 15px 15px 0px;
+      white-space: nowrap;
+    }
+  }
+}
+
+.firstBet {
+
+  ::ng-deep accordion {
+    // color:#ffffff !important;
+    margin:0px !important;
+
+    .container-header {
+        background-color: #072a4b !important;
+        opacity: 0.9;
+        color: #ffffff;
+        border-left: solid 8px;
+        border-left-color: #5094e2;
+      }
+      .page-container{
+        background: none !important;
+      }
+      // accordion{
+      //   margin:0px !important;
+      // }
+  
+    .chevron {
+      &:before {
+        content: 'x' !important;
+        display: flex;
+        align-items: center !important;
+        color: #fff;
+        font-size: 14px;
+        visibility: visible !important;
+        position: absolute;
+        top: 3px;
+        will-change: transform;
+        transform: rotate(0deg) !important;
+      }
+    }
+  
+    .accordion-right-side{
+      padding-right:12px;
+    }
+    .chevron-down.right{
+      display: none !important;
+    }
+    .chevron-up.right {
+      display: none !important;
+    }
+  }
+
+  font-size: 12px;
+  font-family: Lato !important;
+
+  ::ng-deep .page-container>.container-header
+  {
+    font-family: Lato !important;
+  .toggle-header {
+    padding: 0 1px 0 12px !important;
+    min-height: 0px;
+    height: 35px;
+  }
+  }
+  .header.container-header.toggle-header {
+    background-color: #072a4b !important;
+    opacity: 0.9;
+    color: #ffffff;
+    border-left: solid 8px;
+    border-left-color: #5094e2;
+  }
+
+  .left-title-text {
+    text-transform: capitalize;
+    font-size: 12px;
+    letter-spacing: 0.01px;
+    font-weight: bold;
+  }
+
+  .textLayout {
+    font-style: normal;
+    line-height: normal;
+    font-family: Lato-Regular, 'Lato', 'Arial' !important;
+  }
+
+  .undo-left-border {
+    width: 2%;
+    min-height: 100%;
+    border: none;
+    margin: 0px 0px 10px 5px;
+    background-color: #2694ed;
+  }
+
+  .undo {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: #1b3c5b;
+    border-left: solid 8px;
+    border-left-color: #5094e2;
+
+    .undo-content {
+      margin: 10px;
+      width: 70%;
+
+      .undo-title {
+        margin-bottom: 5px;
+        color: $color-gray;
+        font-size: 12px;
+        letter-spacing: 0.01px;
+        font-family: Lato-Bold, 'Lato', 'Arial' !important;
+        font-weight: bold;
+      }
+
+      .undo-desc {
+        margin-bottom: 0px;
+        color: $color-gray;
+        font-size: 12px;
+        letter-spacing: 0.01px;
+        font-family: Lato-Regular, 'Lato', 'Arial' !important;
+      }
+
+      ::ng-deep .undo-desc p {
+        font-size: 12px !important;
+        margin: 0px;
+        font-family: Lato-Regular, 'Lato', 'Arial' !important;
+      }
+    }
+
+    .undo-btn {
+      width: 15%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+
+      .undo-btn-txt {
+        color: white;
+        margin-bottom: 0px;
+        font-size: 12px;
+        font-family: Lato-Regular, 'Lato', 'Arial' !important;
+        letter-spacing: 0.01px;
+      }
+    }
+
+    .dismiss-btn {
+      width: 15%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 20px;
+
+      .dismiss-btn-txt {
+        color: white;
+        border: 1px solid white;
+        padding: 10px;
+        margin-bottom: 0px;
+        font-size: 12px;
+        letter-spacing: 0.01px;
+        font-family: Lato-Regular, 'Lato', 'Arial' !important;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .close-btn {
+    margin-top: 15px;
+    position: absolute;
+    right: 0;
+
+    .btn-close {
+      margin: -14px 0 0;
+    }
+
+    svg {
+      fill: white;
+    }
+    .acButtonLayout{
+      white-space: nowrap;
+      min-width: 71px;
+      height: 31px;
+      padding: 14px 8px 9px 14px;
+      border-radius: 2px;
+      font-size: 12px;
+      border: solid 1px #fff;
+      background: none;
+    } 
+  }
+
+  .tutorialColor{
+    color: #2694ed;
+    margin-right: 10px !important;
+    font-family: Lato-Bold, 'Lato', 'Arial' !important;
+  }
+
+}

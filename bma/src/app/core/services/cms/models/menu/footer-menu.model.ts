@@ -1,0 +1,43 @@
+import { ISvgFilename } from '../svg-filename.model';
+
+export interface IFooterMenu {
+  svgId: string;
+  targetUri: string;
+  target: string;
+  hidden: boolean;
+  targetUriCopy: string;
+  sportName: string;
+  relUri: boolean;
+  desktop?: boolean;
+  disabled?: boolean;
+  heightMedium?: number;
+  heightSmall?: number;
+  imageTitle?: string;
+  imageTitle_brand?: string;
+  inApp?: boolean;
+  lang?: string;
+  linkTitle?: string;
+  linkTitle_brand?: string;
+  mobile?: boolean;
+  path?: string;
+  showItemFor?: string;
+  sortOrder?: number;
+  alt?: string;
+  spriteClass?: string;
+  svg?: string;
+  categoryId?: string;
+  imageUrl?: string;
+  isGibraltarGov?: boolean;
+  tablet?: boolean;
+  title?: string;
+  id?: string;
+  isActive?: boolean;
+  widthMedium?: number;
+  widthSmall?: number;
+  redirectUrl?: string;
+  collectionType?: string;
+  itemType?: string;
+  filename?: ISvgFilename;
+  svgFilename?: ISvgFilename;
+  self?: RegExpMatchArray;
+}

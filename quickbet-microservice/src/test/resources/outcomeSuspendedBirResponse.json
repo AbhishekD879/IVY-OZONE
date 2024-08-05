@@ -1,0 +1,67 @@
+{
+  "bet": [
+    {
+      "betTypeRef": {
+        "id": "SGL"
+      },
+      "id": 44709,
+      "isConfirmed": "N",
+      "leg": [
+        {
+          "documentId": "1",
+          "sportsLeg": {
+            "legPart": [
+              {
+                "outcomeRef": {
+                  "id": "442410088"
+                }
+              }
+            ],
+            "placeTerms": "",
+            "price": {
+              "priceDen": "1",
+              "priceNum": "5",
+              "priceTypeRef": {
+                "id": "LP"
+              }
+            },
+            "winPlaceRef": {
+              "id": "WIN"
+            }
+          }
+        }
+      ],
+      "lines": {
+        "number": 1
+      },
+      "payout": [
+        {
+          "bonus": "0.0"
+        }
+      ],
+      "provider": "OpenBetBir",
+      "stake": {
+        "amount": "2.0",
+        "currencyRef": {
+          "id": "USD"
+        },
+        "stakePerLine": "2.00"
+      },
+      "timeStamp": "2017-11-23T16:21:19.000Z"
+    }
+  ],
+  "betError": [{
+    "betRef": [
+      {
+        "id": "44709",
+        "provider": "OpenBetBir"
+      }
+    ],
+    "code": "EVENT_ERROR",
+    "errorDesc": "outcome is suspended",
+    "outcomeRef": {
+      "id": "442410088"
+    },
+    "subErrorCode": "OUTCOME_SUSPENDED"
+  }]
+}

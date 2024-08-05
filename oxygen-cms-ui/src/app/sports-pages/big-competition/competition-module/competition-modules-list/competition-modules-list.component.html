@@ -1,0 +1,34 @@
+<div class="card" *ngIf="modulesList">
+  <div class="body">
+    <div class="row clearfix">
+      <div class="col-md-6 m-b-0">
+        <button (click)="createModule();" mat-button type="button" class="btn bg-teal waves-effect float-left">
+          <mat-icon>add_box</mat-icon>
+          <span>Create Module</span>
+        </button>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Modules" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="modulesList.length">
+      <cms-data-table
+        [customTableData]="modulesList"
+        [customTableColumns]="dataTableColumns"
+        [reorder]="true"
+        [filterString]="searchField"
+        [filterProperties]="filterProperties"
+        [actions]="['remove','edit']"
+        (onElementsOrder)="reorderHandler($event)"
+        (onRemoveTableElement)="removeModule($event)">
+      </cms-data-table>
+    </div>
+    <div *ngIf="!modulesList.length">Modules List is Empty</div>
+  </div>
+</div>

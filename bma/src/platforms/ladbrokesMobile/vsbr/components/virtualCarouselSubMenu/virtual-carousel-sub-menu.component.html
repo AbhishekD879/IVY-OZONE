@@ -1,0 +1,26 @@
+<nav class="vc-submenu">
+  <div class="scroll-container" scrollable>
+    <ul class="scroll-inner scroll-inner--no-padding">
+      <li *ngFor="let menuElement of elementsInMenu; trackBy: trackByMenu">
+        <a (click)="goToVirtual(menuElement, true)"
+           [ngClass]="{active: menuElement.isActive}"
+           target="{{menuElement.inApp ? '' : '_blank'}}"
+           class="vc-item"
+           [title]="menuElement.name"
+           [linkHref]
+           [routerLink]="menuElement.targetUri"
+           data-crlat="menuElement">
+
+          <span *ngIf="menuElement.label"
+                class="vc-time"
+                [ngClass]="menuElement.label.className"
+                [textContent]="menuElement.label.text"
+                data-crlat="timer">
+          </span>
+
+          <span class="sport-name" [textContent]="menuElement.name" data-crlat="name"></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>

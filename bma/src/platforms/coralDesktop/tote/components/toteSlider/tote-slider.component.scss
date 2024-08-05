@@ -1,0 +1,58 @@
+@import 'global.variables.scss';
+
+$item-width: 66px;
+
+section {
+  background-color: $color-white;
+  margin: 5px 0;
+  padding-top: 12px;
+  position: relative;
+}
+
+header {
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 0 12px 12px;
+}
+
+.scroll-inner {
+  padding: 0;
+}
+
+li {
+  position: relative;
+  padding-bottom: 14px;
+}
+
+.race-icon {
+  left: calc(50% - 6px);
+}
+
+a {
+  position: relative;
+  min-width: $item-width;
+  color: $color-gray-dark;
+  div {
+    font-size: 15px;
+    font-weight: bold;
+  }
+  span {
+    font-size: 11px;
+  }
+  .race-resulted & {
+    div, span {
+      opacity: .5;
+    }
+  }
+  li:not(:last-of-type) &::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 25%;
+    display: block;
+    width: 1px;
+    height: 50%;
+    background: $color-red-lightest;
+  }
+}

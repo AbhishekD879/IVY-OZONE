@@ -1,0 +1,34 @@
+<div class="questions-info" >
+    <ul class="info-list">
+      <li class="info-list__item">
+        <img class="info-list__kit"
+             *ngIf="qeData.defaultQuestionsDetails.homeTeamSvgFilePath"
+             [src]="qeData.defaultQuestionsDetails.homeTeamSvgFilePath">
+        <span class="info-list__title"
+            *ngIf="qeData.defaultQuestionsDetails.homeTeamName"
+            [textContent]="qeData.defaultQuestionsDetails.homeTeamName"
+        >
+        </span>
+      </li>
+      <li class="info-list__item">
+        <p class="info-list__date"
+           *ngIf="qeData.defaultQuestionsDetails.middleHeader"
+           [textContent]="qeData.defaultQuestionsDetails.middleHeader"
+        >
+        </p>
+        <img class="info-list__logo scalable-image"
+             *ngIf="qeData.defaultQuestionsDetails.channelSvgFilePath"
+             [src]="qeData.defaultQuestionsDetails.channelSvgFilePath">
+      </li>
+      <li class="info-list__item">
+        <img class="info-list__kit"
+             *ngIf="qeData.defaultQuestionsDetails.awayTeamSvgFilePath"
+             [src]="qeData.defaultQuestionsDetails.awayTeamSvgFilePath">
+        <span class="info-list__title"
+            *ngIf="qeData.defaultQuestionsDetails.awayTeamName"
+            [textContent]="qeData.defaultQuestionsDetails.awayTeamName"
+        >
+      </span>
+      </li>
+    </ul>
+  </div>

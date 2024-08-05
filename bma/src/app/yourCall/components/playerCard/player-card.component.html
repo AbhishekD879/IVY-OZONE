@@ -1,0 +1,28 @@
+<div class="player-card" (click)="showPlayerPage()" data-crlat="playerCard"
+  [class.unavailable]="unavailable">
+  <div class="team">
+    <div class="team-chevron">
+      <img class="player-image" *ngIf="(teamsImgExistOnHomeAway && fiveASideToggle && teamsImage)" [attr.src]="teamsImage"/>
+      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 15 17"  *ngIf="!(teamsImgExistOnHomeAway && fiveASideToggle && teamsImage)">
+        <g fill="none" fill-rule="evenodd">
+          <path [attr.fill]="secondaryColour" style="opacity: .9"
+                d="M14.834 1.244L7.617.003A.1.1 0 0 0 7.5.1V17l.136-.016A8.354 8.354 0 0 0 15 8.688V1.441a.2.2 0 0 0-.166-.197z"/>
+          <path [attr.fill]="secondaryColour"
+                d="M13.839 1.237L7.619.003A.1.1 0 0 0 7.5.1V17A7.528 7.528 0 0 0 14 9.543v-8.11a.2.2 0 0 0-.161-.196z"/>
+          <path [attr.fill]="primaryColour" style="opacity: .9"
+                d="M.166 1.244L7.383.003A.1.1 0 0 1 7.5.1V17l-.136-.016A8.354 8.354 0 0 1 0 8.688V1.441a.2.2 0 0 1 .166-.197z"/>
+          <path [attr.fill]="primaryColour"
+                d="M1.161 1.237L7.381.003A.1.1 0 0 1 7.5.1V17A7.528 7.528 0 0 1 1 9.543v-8.11a.2.2 0 0 1 .161-.196z"/>
+        </g>
+      </svg>
+    </div>
+    <div class="team-name">
+      {{ player.teamName }}<span class="position" *ngIf="player.position.short">({{ player.position.short }})</span>
+    </div>
+  </div>
+  <div class="player-name" [textContent]="player.name" data-crlat="playerName"></div>
+  <div class="stats">
+    <span class="market">{{ statsTitles[playerFormation.stat] }}:</span>
+    <span class="value" [textContent]="statValue"></span>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<p class="no-boosts-message" *ngIf="!oddsBoosts?.length" [i18n]="'oddsboost.page.noBoostsMessage'"></p>
+<ul *ngIf="oddsBoosts?.length" class="odd-boost-list">
+  <li *ngFor="let categoty of objectKeys(sortedBoosts); trackBy: trackByCategory">
+    <div class="category-name" *ngIf="categoty !== '0'" [textContent]="sortedBoosts[categoty][0].categoryName"></div>
+    <div *ngFor="let oddBoost of sortedBoosts[categoty]; trackBy: trackByOddsBoosts"
+         class="odd-boost-item" data-crlat="oddsBoostCard"
+         [routerLink]="[oddBoost.betNowLink]">
+      <div class="odd-boost-title" [textContent]="oddBoost.freebetOfferName" data-crlat="oddsBoostTitle"></div>
+      <div class="odd-boost-location" [textContent]="oddBoost.freebetOfferDesc" data-crlat="oddsBoostLocation"></div>
+      <div class="odd-boost-details" data-crlat="oddsBoostDetails">
+        <span class="odd-boost-details-item" *ngIf="oddBoost.freebetMaxStake" data-crlat="boostUpTo">
+          <span class="odd-boost-details-label" [i18n]="'oddsboost.page.boostUpTo'"></span>
+          <span [textContent]="oddBoost.freebetMaxStake"></span>
+        </span>
+        <span class="odd-boost-details-item" *ngIf="oddBoost.freebetTokenStartDate && type === 'upcoming'">
+          <span class="odd-boost-details-label" [i18n]="'oddsboost.page.boostValidFrom'"></span>
+          <span [textContent]="oddBoost.freebetTokenStartDate | date: 'dd/MM/yyyy HH:mm'"></span>
+        </span>
+        <span class="odd-boost-details-item" *ngIf="oddBoost.freebetTokenExpiryDate" data-crlat="useByDate">
+          <span class="odd-boost-details-label" [i18n]="'oddsboost.page.boostUseBy'"></span>
+          <span [textContent]="oddBoost.freebetTokenExpiryDate | date: 'dd/MM/yyyy HH:mm'"></span>
+        </span>
+      </div>
+      <svg class="odd-boost-details-icon" viewBox="0 0 150 100" data-crlat="oddsBoostIcon">
+        <use xlink:href="#next-arrow"></use>
+      </svg>
+    </div>
+  </li>
+</ul>

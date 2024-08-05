@@ -1,0 +1,69 @@
+<breadcrumbs *ngIf="moduleData" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+
+<div class="card" *ngIf="moduleData">
+    <form [formGroup]="form" novalidate>
+        <div class="body">
+        <div class="row">
+            <div class="col-md-6">
+                <mat-checkbox color="primary"
+                [checked]="!moduleData.disabled"
+                (change)="moduleData.disabled = !moduleData.disabled">Active
+                </mat-checkbox>
+            </div>
+            
+            <div class="col-md-6">
+                <mat-checkbox color="primary" formControlName="enableBackedTimes" [(ngModel)]="moduleData.teamAndFansBetsConfig.enableBackedTimes">
+                  Enable backed times
+                </mat-checkbox>
+            </div>     
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+            <span class="mat-label">
+                Module Name
+            </span>
+            </div>
+            <div class="col-md-10">
+            <mat-form-field class="full-width" >
+                <input matInput placeholder="Module Name" formControlName="title"  [(ngModel)]="moduleData.title" required trim="blur">
+                <mat-hint class="col-red" *ngIf="form.get('title').errors?.required">The module name should be entered</mat-hint>
+                <mat-hint class="col-red" *ngIf="form.get('title').value.length > 50">The module name should not exceed 50 characters</mat-hint>
+            </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+            <span class="mat-label">
+                Module Type
+            </span>
+            </div>
+            <div class="col-md-10">
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Module Type" formControlName="moduleType" required trim="blur">
+            </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <span class="mat-label">
+                    Max Number of selections
+                </span>
+            </div>
+            <div class="col-md-10">
+            <mat-form-field class="full-width">
+                <input type="number" min="0" formControlName="noOfMaxSelections" [(ngModel)]="moduleData.teamAndFansBetsConfig.noOfMaxSelections"
+                matInput placeholder="Number of MaxSelections" trim="blur">
+                <mat-hint class="col-red"
+                *ngIf="(form.get('noOfMaxSelections').invalid) && form.get('noOfMaxSelections').hasError('min')">
+                The number of max selections should not less than 1</mat-hint>
+                <mat-hint class="col-red"
+                *ngIf="form.get('noOfMaxSelections').value.toString().length <= 0">
+                The number of max selections should be entered</mat-hint>
+            </mat-form-field>
+            </div>
+        </div>
+        </div>
+    </form>
+</div>
+  <action-buttons #actionButtons *ngIf="moduleData" [fieldOrItemName]="'title'" [form]="form" [collection]="moduleData"
+  [showRemoveButton]="false" (actionsEmitter)="actionsHandler($event)"></action-buttons> 

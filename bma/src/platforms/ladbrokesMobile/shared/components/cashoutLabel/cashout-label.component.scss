@@ -1,0 +1,66 @@
+@import 'global.variables.scss';
+
+.cashout-label-wrapper {
+  text-transform: none;
+  background-color: $color-bleach-white;
+
+  .cashout-label-text {
+    font-family: $base-font-family;
+    font-weight: bold;
+    font-stretch: condensed;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+
+  &.big-icon {
+    @include flex-direction(column);
+    border-radius: 0;
+    .cashout-label {
+      width: 18px;
+      height: 17px;
+      margin: 0 0 3px;
+    }
+    .cashout-label-text {
+      font-size: 7px;
+      color: $lGray;
+      line-height: 1.43;
+      letter-spacing: 0px;
+    }
+  }
+
+  &.middle-icon {
+    @include flex-direction(row);
+    .cashout-label {
+      width: 18px;
+      height: 17px;
+      margin: 0;
+    }
+    .cashout-label-text {
+      display: none;
+    }
+  }
+
+  &.small-icon {
+    @include flex-direction(row);
+    margin-left: 0px;
+    .cashout-label {
+      width: 11px;
+      height: 11px;
+    }
+    .cashout-label-text {
+      color: $lBlack-medium;
+      padding-left: 4px;
+      line-height: normal;
+      font-size: $font-size-md;
+      font-stretch: condensed;
+      font-weight: bold;
+    }
+  }
+
+  &.mini-icon {
+    @extend .small-icon;
+    .cashout-label-text {
+      display: none;
+    }
+  }
+}

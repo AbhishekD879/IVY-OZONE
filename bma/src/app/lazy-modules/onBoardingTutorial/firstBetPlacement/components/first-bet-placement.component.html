@@ -1,0 +1,47 @@
+<ng-container *ngIf="activeStep && firstBetTutorialAvailable && user.status">
+  <div class="firstBet" [ngClass]="{'display-none': hideTutorial}">
+    <accordion data-crlat="accordion" class="firstBet" *ngIf="!isCloseTutorial" 
+    (function)="expand()" [isExpanded]="isExpanded">
+      <left-side>
+        <span *ngIf="!isExpanded" class="left-title-text textLayout tutorialColor" id="firstbetTutorialHeader">Tutorial</span>
+        <span class="left-title-text textLayout" id="firstbetTutorialHeader" [textContent]="accordionHeader"></span>
+        <div class="bet-progress">
+          <div class="progress" [style.width.%]="(activeStep.step/activeStep.totalSteps) * 100"></div>
+        </div>
+      </left-side>
+      <right-side *ngIf="closeIconCheck">
+        <div class="close-btn">
+          <a class="btn-close" (click)="openUndo(); $event.stopPropagation()">
+            <svg>
+              <use xlink:href="#close-icon"></use>
+            </svg>
+          </a>
+        </div>
+      </right-side>
+      <accordion-body>
+        <div class="divLayout textLayout">
+          <p class="pLayout">{{activeStep.title}}</p>
+          <div class="description-content">
+            <p class="pLayoutDesc" [innerHTML]="activeStep.description | safe: 'html'"></p>
+            <button class="acButtonLayout" (click)="handleNextClick()" *ngIf="showButton" [textContent]="buttonText"></button>
+          </div>
+        </div>
+      </accordion-body>
+    </accordion>
+    <div class="first-bet" *ngIf="isCloseTutorial">
+      <div class="undo">
+        <div class="undo-content">
+          <p class="undo-title">{{firstBetTutorialData.button.title | uppercase}}</p>
+          <p class="undo-desc" [innerHTML]="firstBetTutorialData.button.description"></p>
+        </div>
+        <div class="undo-btn">
+          <p class="undo-btn-txt" (click)="closeUndo()">{{firstBetTutorialData.button.leftButtonDesc | uppercase}}</p>
+        </div>
+        <div class="dismiss-btn">
+          <p class="dismiss-btn-txt" (click)="dismiss()">{{firstBetTutorialData.button.rightButtonDesc | uppercase}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

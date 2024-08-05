@@ -1,0 +1,9 @@
+<div *ngIf="serviceClosureService.userServiceClosureOrPlayBreakCheck() &&
+      serviceClosureService.userServiceClosureOrPlayBreak" class='closure-message-container'
+      [textContent]='serviceClosureService.userAccountInfo'>
+</div>
+<div class="empty-betslip-container" [ngClass]="{'desktop-container' : !showButton}">
+  <span class="title" [i18n]="'bs.noSelectionsTitle'" data-crlat="noSelTitle"></span>
+  <span class="msg" [i18n]="'bs.noSelectionsMsg'" data-crlat="noSelMsg"></span>
+  <button *ngIf="showButton" class="button btn-secondary" (click)="goToHomePage()" [i18n]="'bs.startBetting'" data-crlat="startBetting"></button>
+</div>

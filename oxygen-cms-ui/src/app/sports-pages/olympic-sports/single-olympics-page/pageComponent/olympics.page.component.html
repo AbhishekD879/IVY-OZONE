@@ -1,0 +1,270 @@
+<breadcrumbs *ngIf="olympicsPage" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="olympicsPage">
+  <div class="header">
+    <h2 class="has-activity-badge">{{olympicsPage.imageTitle}}:
+        <create-updated-at-by [collection]="olympicsPage"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="olympicsPage.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="olympicsPage">
+  <div class="body">
+
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox color="primary"
+                      [checked]="!olympicsPage.disabled"
+                      (change)="olympicsPage.disabled = !olympicsPage.disabled">Active</mat-checkbox>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Name*</span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !olympicsPage.imageTitle}">
+          <input matInput [(ngModel)]="olympicsPage.imageTitle" [value]="olympicsPage.imageTitle" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!olympicsPage.imageTitle">Name should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Category Id*</span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !olympicsPage.categoryId}">
+          <input matInput [(ngModel)]="olympicsPage.categoryId" type="number" [value]="olympicsPage.categoryId" required trim="blur" onkeypress="return event.charCode >= 48 && event.charCode <= 57" step="1" min="0">
+          <mat-hint class="col-red" *ngIf="!olympicsPage.categoryId">Category Id should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Type ID's*</span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !olympicsPage.typeIds}">
+          <input matInput placeholder="Coma separated" [(ngModel)]="olympicsPage.typeIds" [value]="olympicsPage.typeIds" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!olympicsPage.typeIds">Type ID's should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Alt</span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width">
+          <input matInput [(ngModel)]="olympicsPage.alt" [value]="olympicsPage.alt">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Target Uri</span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width">
+          <input matInput [(ngModel)]="olympicsPage.targetUri" [value]="olympicsPage.targetUri">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Disp sort name*</span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': olympicsPage && !olympicsPage.dispSortName}">
+          <input matInput placeholder="Coma separated" [(ngModel)]="olympicsPage.dispSortName" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!olympicsPage.dispSortName">Disp sort name should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Primary markets*</span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': olympicsPage && !olympicsPage.primaryMarkets}">
+          <input matInput [(ngModel)]="olympicsPage.primaryMarkets" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!olympicsPage.primaryMarkets">Primary markets should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Template type 1</span>
+      </div>
+      <div class="col-md-4">
+        <cms-simple-select-list
+          [options]='templateType1Variants'
+          [selected]='olympicsPage.outcomesTemplateType1'
+          (onDataChange)="onChangeFirstTemplate($event)">
+        </cms-simple-select-list>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="card" *ngIf="olympicsPage">
+  <div class="body">
+
+    <cms-upload
+      [filename]="olympicsPage.filename"
+      [label]="'Filename'"
+      [name]="'imageFile'"
+      (onImageUpload)="uploadImage($event, 'filename')"
+      (onImageRemove)="removeImage('imageFile', 'filename')">
+    </cms-upload>
+
+    <cms-upload
+      [filename]="olympicsPage.icon"
+      [label]="'Icon'"
+      [name]="'icon'"
+      (onImageUpload)="uploadImage($event, 'icon')"
+      (onImageRemove)="removeImage('icon', 'icon')">
+    </cms-upload>
+
+    <cms-upload
+      [filename]="olympicsPage.svgFilename"
+      [label]="'SVG Icon'"
+      [name]="'svgIcon'"
+      (onImageUpload)="uploadImage($event, 'svgFilename')"
+      (onImageRemove)="removeImage('svgicon', 'svgFilename')">
+    </cms-upload>
+
+  </div>
+</div>
+
+<div class="card" *ngIf="olympicsPage">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2 m-b-0">
+        <mat-checkbox color="primary"
+          [checked]="olympicsPage.inApp"
+          (change)="olympicsPage.inApp = !olympicsPage.inApp">In App</mat-checkbox>
+      </div>
+      <div class="col-md-2 m-b-0">
+        <mat-checkbox color="primary"
+          [checked]="olympicsPage.showInPlay"
+          (change)="olympicsPage.showInPlay = !olympicsPage.showInPlay">Show in Inplay</mat-checkbox>
+      </div>
+      <div class="col-md-2 m-b-0">
+        <mat-checkbox color="primary"
+          [checked]="olympicsPage.isOutrightSport"
+          (change)="olympicsPage.isOutrightSport = !olympicsPage.isOutrightSport">Is Outright Sport</mat-checkbox>
+      </div>
+      <div class="col-md-2 m-b-0">
+        <mat-checkbox color="primary"
+          [checked]="olympicsPage.isMultiTemplateSport"
+          (change)="olympicsPage.isMultiTemplateSport = !olympicsPage.isMultiTemplateSport">Is Multi-template Sport</mat-checkbox>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="olympicsPage">
+  <div class="body">
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Tab Live</span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput [(ngModel)]="olympicsPage.tabLive.tablabel" [value]="olympicsPage.tabLive.tablabel">
+        </mat-form-field>
+      </div>
+      <div class="col-md-2">
+        <mat-checkbox
+          class="mat-label" color="primary"
+          [checked]="olympicsPage.tabLive.visible"
+          (change)="olympicsPage.tabLive.visible = !olympicsPage.tabLive.visible">Visible</mat-checkbox>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Tab Matches</span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput [(ngModel)]="olympicsPage.tabMatches.tablabel" [value]="olympicsPage.tabMatches.tablabel">
+        </mat-form-field>
+      </div>
+      <div class="col-md-2">
+        <mat-checkbox
+          class="mat-label" color="primary"
+          [checked]="olympicsPage.tabMatches.visible"
+          (change)="olympicsPage.tabMatches.visible = !olympicsPage.tabMatches.visible">Visible</mat-checkbox>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Tab Outrights</span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput [(ngModel)]="olympicsPage.tabOutrights.tablabel" [value]="olympicsPage.tabOutrights.tablabel">
+        </mat-form-field>
+      </div>
+      <div class="col-md-2">
+        <mat-checkbox
+          class="mat-label" color="primary"
+          [checked]="olympicsPage.tabOutrights.visible"
+          (change)="olympicsPage.tabOutrights.visible = !olympicsPage.tabOutrights.visible">Visible</mat-checkbox>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Tab Specials</span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput [(ngModel)]="olympicsPage.tabSpecials.tablabel" [value]="olympicsPage.tabSpecials.tablabel">
+        </mat-form-field>
+      </div>
+      <div class="col-md-2">
+        <mat-checkbox
+          class="mat-label" color="primary"
+          [checked]="olympicsPage.tabSpecials.visible"
+          (change)="olympicsPage.tabSpecials.visible = !olympicsPage.tabSpecials.visible">Visible</mat-checkbox>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Default Tab</span>
+      </div>
+      <div class="col-md-4">
+        <cms-simple-select-list
+          [options]='defaultTabVariants'
+          [selected]='olympicsPage.defaultTab'
+          (onDataChange)="onChangeDefaultTab($event)">
+        </cms-simple-select-list>
+      </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="olympicsPage"
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'imageTitle'"
+  [collection]="olympicsPage"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

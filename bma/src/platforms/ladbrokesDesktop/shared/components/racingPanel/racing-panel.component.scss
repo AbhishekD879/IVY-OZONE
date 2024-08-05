@@ -1,0 +1,108 @@
+@import 'global.variables.scss';
+
+$racing-panel-time-height: 21px;
+
+racing-panel:host {
+  background: $color-white;
+  display: block;
+  box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, .05), 0 2px 4px 0 rgba(0, 0, 0, .15);
+  margin: 0 0 10px;
+
+  &:last-child {
+    border: none;
+  }
+
+  &.racing-tabs-panel {
+    .scroll-container {
+      .scroll-inner {
+        li {
+          .tab {
+            color: $color-gray-darkest;
+
+            &:before {
+              top: 3px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .racing-panel-header {
+    font-size: 14px;
+    padding: 12px;
+    color: $color-gray-darkest;
+    font-family: $alt-font-family;
+    @include display-flex();
+    @include align-items();
+
+    .racing-panel-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+  }
+
+  .racing-time {
+    font-size: $font-size-header1;
+    line-height: $racing-panel-time-height;
+    font-weight: bold;
+    display: block;
+  }
+
+  .racing-name {
+    font-size: $font-size-md;
+    line-height: $line-height-xs;
+    display: block;
+    color: $color-gray-darkest;
+    font-family: $alt-font-family;
+    padding-top: 8px;
+
+    &.display-name {
+      font-size: $font-size-sm;
+    }
+  }
+
+  .scroll-container .scroll-inner {
+    margin: 0;
+    padding: 0;
+    @include inline-flex();
+
+    li {
+      text-align: left;
+      padding: 8px 0 10px;
+      flex: 0 0 auto;
+    
+      &:hover {
+        background: $IGreyLightDark;
+      }
+
+      &.active {
+        border-bottom: 3px solid $red;
+        background: transparent;
+      }
+
+      &:last-child .tab::before {
+        display: none;
+      }
+
+      .tab {
+        font-family: $base-font-family;
+        color: $color-gray-dark;
+        padding: 0 12px;
+        position: relative;
+        text-decoration: none;
+
+        &::before {
+          content: '';
+          position: absolute;
+          right: 0;
+          top: 3px;
+          width: 1px;
+          height: 20px;
+          background: $color-red-lightest;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,140 @@
+@import 'global.variables.scss';
+
+$sidebar-header-height: 50px;
+$header-title-betslip: 64px;
+$header-title-betreceipt: 106px;
+
+// TODO remove id#sidebar-container-full-height
+// when global app/betslip/assets/.../slide-out-betslip.scss is moved into component
+#sidebar-container-full-height {
+  .sidebar-container {
+    padding-top: $sidebar-header-height;
+
+    .sidebar-menu-header {
+      font-family: $alt-font-family;
+      padding: 9px 6px 8px 6px;
+      height: $sidebar-header-height;
+      margin-top: -$sidebar-header-height;
+
+      .betslip-label {
+        width: $header-title-betslip;
+        padding-right: 8px;
+        line-height: 31px;
+        font-size: $font-size-lgst;
+      }
+
+      .centering-title {
+        min-width: calc((100% - #{$header-title-betslip})/2);
+      }
+
+      &.receipt {
+        h2 {
+          width: $header-title-betreceipt;
+        .betslip-label {
+          width: $header-title-betreceipt;
+        }
+        .centering-title {
+          min-width: calc((100% - #{$header-title-betreceipt})/2);
+        }
+      }
+
+      .btn-balance {
+        right: 6px;
+        top: 9px;
+        height: 33px;
+        min-width: 68px;
+        background-color: $red3;
+        font-size: $font-size;
+      }
+
+      .drop-down-menu {
+        top: 42px;
+        right: 6px;
+        box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+
+        .menu-item {
+          padding: 12px 21px;
+          color: $lGray;
+          border-bottom: 1px solid $lGrayLight;
+        }
+      }
+    }
+  }
+}
+
+#slide-out-betslip {
+  .sidebar-menu-header {
+    .sidebar-header-bottom {
+      height: 25px;
+      background-color: $color-gray-dark;
+    }
+    .sidebar-user-balance {
+      color: $color-gray-light;
+      background-color: lighten($color-gray-dark, 10%);
+      font-size: 10px;
+      position: relative;
+      padding: 7px 10px;
+    }
+
+    .free-bet-ico {
+      position: static;
+      float: right;
+      margin-top: -2px;
+      @media #{$mqMobile} {
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+}
+
+.slide-out-betslip {
+  @include transition(opacity, .5s, ease-in-out);
+
+  .sidebar-inner {
+    background: $lGray-bg;
+    position: absolute;
+    max-width: 100%;
+
+    @include transform(translateY(100vh));
+    @include transition(transform, .5s, ease-in-out);
+  }
+
+  &.sidebar.bottom-side {
+    .sidebar-close {
+      top: 10px;
+    }
+  }
+}
+
+.slide-out-betslip-open {
+  position: relative;
+  overflow-y: hidden;
+  height: 100%;
+
+  .slide-out-betslip  .sidebar-inner {
+    @include transform(translateY(0));
+  }
+
+  #slide-out-betslip .sidebar-container .slide-content {
+    display: block;
+  }
+}
+
+// fix to not overlap with Iphone X bottom software button.
+@supports (height: constant(safe-area-inset-bottom)) {
+  .slide-out-betslip-open {
+    --safe-area-inset-bottom: constant(safe-area-inset-bottom);
+    height: calc(100% + var(--safe-area-inset-bottom));
+    padding-bottom: var(--safe-area-inset-bottom);
+  }
+}
+
+@supports (height: env(safe-area-inset-bottom)) {
+  .slide-out-betslip-open {
+    --safe-area-inset-bottom: env(safe-area-inset-bottom);
+    height: calc(100% + var(--safe-area-inset-bottom));
+    padding-bottom: var(--safe-area-inset-bottom);
+  }
+ }
+}

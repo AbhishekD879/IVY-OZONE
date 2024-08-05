@@ -1,0 +1,90 @@
+<div class="your-call-player-stats" *ngIf="isDisplayed()">
+  <accordion
+    [headerClass]="'secondary-header'"
+    [accordionTitle]="marketsGroup.name"
+    [memoryId]="memoryId"
+    [memoryLocation]="memoryLocation"
+    [isExpanded]="isExpanded"
+    (function)="sendMainMarketsGTM(isExpanded)">
+    <right-side>
+      <cashout-label *ngIf="eventEntity.cashoutAvail === 'Y'" ></cashout-label>
+    </right-side>
+
+    <accordion-body>
+      <switchers [filter]="filter"
+                 [switchers]="switchers"></switchers>
+      <div *ngFor="let marketEntity of filteredMarkets; trackBy: trackByIndex; index as i;">
+          <accordion
+            [accordionTitle]="marketEntity.name"
+            [inner]="true"
+            [isExpanded]="i === 0"
+            *ngIf="getFilteredCleanOutcomes(marketEntity, filter).length > 0"
+            (function)="sendToggleMarketsGTM(i, i === 0)">
+            <right-side>
+              <cashout-label *ngIf="marketEntity.cashoutAvail === 'Y'"></cashout-label>
+            </right-side>
+
+            <accordion-body>
+              <div class="odds-card-header" *ngIf="!playersScoresData(marketEntity.id, filter)">
+                <div class="odds-left">
+                  <span class="odds-header-title" [i18n]="'sb.player'"></span>
+                </div>
+                <div class="odds-right">
+                  <span class="odds-header-col odds-header-col-full" [textContent]="setHeaderTitle(marketEntity.name)"></span>
+                </div>
+              </div>
+              <div *ngFor="let outcomeEntity of marketEntity.filteredOutcomes; trackBy: trackByIndex">
+                <div class="odds-card"
+                     *ngIf="!playersScoresData(marketEntity.id, filter)">
+                  <div class="odds-content">
+                    <div class="odds-left">
+                      <div class="odds-names odds-names-wrap" [textContent]="outcomeEntity.filteredName"></div>
+                    </div>
+                    <div class="odds-right">
+                      <price-odds-button [event]="eventEntity"
+                                         [market]="marketEntity"
+                                         [outcome]="outcomeEntity">
+                      </price-odds-button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="odds-card-header" *ngIf="playersScoresData(marketEntity.id, filter)">
+                <div class="odds-left">
+                  <span class="odds-header-title" [i18n]="'sb.player'"></span>
+                </div>
+                <div class="odds-right">
+                  <span class="odds-header-col odds-header-ps-col" [i18n]="'sb.number'"></span>
+                  <span class="odds-header-col" [i18n]="'sb.odds'"></span>
+                </div>
+              </div>
+              <div *ngFor="let player of marketEntity.players; trackBy: trackByIndex">
+                <div class="odds-card"
+                     *ngIf="playersScoresData(marketEntity.id, filter)">
+                  <div class="odds-content">
+                    <div class="odds-left">
+                      <div class="odds-names odds-names-wrap" [textContent]="player.name"></div>
+                    </div>
+                    <div class="odds-right">
+                      <custom-select [ngClass]="{'disabled': isDisabled(marketEntity, player.name, filter)}">
+                        <select [(ngModel)]="player.activeScoreOutcome"
+                                [disabled]="isDisabled(marketEntity, player.name, filter)"
+                                (change)="sendUpdateStatisticGTM(marketEntity, player, ($event.target.value))">
+                          <option *ngFor="let score of player.filteredScore; let j = index; trackBy: trackByIndex"
+                                  [value]="score.outcomeid">{{ score.score }}</option>
+                        </select>
+                      </custom-select>
+                      <price-odds-button [event]="eventEntity"
+                                         [market]="marketEntity"
+                                         [outcome]="getPlayerScoreOutcome(marketEntity.id, player.activeScoreOutcome, filter)">
+                      </price-odds-button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </accordion-body>
+          </accordion>
+        </div>
+    </accordion-body>
+  </accordion>
+</div>

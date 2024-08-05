@@ -1,0 +1,35 @@
+@import 'global.variables.scss';
+
+.show-more {
+  font-family: $base-font-family;
+  background: $color-gray-light;
+  color: $brand-color-main;
+  display: block;
+  padding: 10px 30px 10px 10px;
+  position: relative;
+  text-align: right;
+
+  &:hover {
+    text-decoration: none;
+  }
+  &:active {
+    text-decoration: underline;
+  }
+
+  svg {
+    right: 15px;
+    margin: -5px 0 0 0;
+    position: absolute;
+    text-align: center;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .6);
+    top: 50%;
+    height: 11px;
+    width: 6px;
+    fill: $color-blue-light;
+  }
+
+  &.rounded-more {
+    margin: 0 0 4px;
+    border-radius: 3px;
+  }
+}

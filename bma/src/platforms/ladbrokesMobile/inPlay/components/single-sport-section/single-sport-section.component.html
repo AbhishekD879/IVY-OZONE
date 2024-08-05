@@ -1,0 +1,96 @@
+<div *ngIf="eventsBySports" [ngClass]="{'single-sport' : !inner}">
+  <div *ngIf="(!inner && !isHR) || liveLabel" class="in-play-header-counter in-play-single-header">
+    <div class="in-play-count"><span [i18n]="filter === 'livenow' ? 'inplay.byLiveNow' : 'inplay.upcomingEvents'"
+        [attr.data-crlat]="'inplay.' + filter"></span>&nbsp;
+      <span class="live-now-label" data-crlat="inplayCountLabel"
+        [textContent]="'(' + (eventsBySports.eventCount || 0) +')'"></span>
+    </div>
+  </div>
+  <lazy-component *ngIf="isMarketSelectorAvailable && isMarketSwitcherConfigured" 
+    class="sticky-market-selector"
+    [hidden]="!eventsBySports.eventsByTypeName?.length"
+    moduleUri="@sharedModule/components/marketSelector/market-selector.module#MarketSelectorModule"
+    data-crlat="marketSelectorModule" entryComponent="LadbrokesInplayMarketSelectorComponent" [inputs]="{sportId: eventsBySports.categoryId, 
+                          eventDataSection: eventsBySports,
+                          marketSelectorOptions: eventsBySports.marketSelectorOptions,sticky:false,
+                          selectorType:'sportInplay'}" [outputs]="['reloadData','selectedMarketName']"
+    (event)="handleOutput($event)" (init)= "initMarketSelector()">
+  </lazy-component>
+  <ng-container *ngIf="!isHR">
+    <accordion *ngFor="let competitionSection of eventsBySports.eventsByTypeName; trackBy: trackByTypeId; let i = index;"
+      [accordionTitle]="getSectionTitle(competitionSection)" [inner]="inner" [card]="true" data-crlat="accordion"
+      [isExpanded]="expandedFlags[competitionSection.typeId]"
+      (function)="toggleCompetitionSection(competitionSection, eventsBySports.eventsByTypeName, i)" [isHeaderHidden]="inner"
+      [isShowAll]="expandedFlags[competitionSection.typeId]" [ngClass]="{'inner-accordion' : !inner}"
+      class="single-accordion">
+      <right-side *ngIf="expandedFlags[competitionSection.typeId]">
+        <see-all-link *ngIf="competitionsAvailability[competitionSection.classId]"
+          [link]="goToCompetition(competitionSection)"></see-all-link>
+      </right-side>
+      <accordion-body>
+        <odds-card-header *ngIf="competitionSection.events && competitionSection.events.length"
+          [sportConfig]="sportInstance?.sportConfig" [events]="competitionSection.events"
+          data-crlat="section.header.league" [isHeaderAlwaysVisible]="inner"
+          [isMarketSwitcherConfigured]="isMarketSelectorAvailable && isMarketSwitcherConfigured"
+          [dateTitle]="inner ? getSectionTitle(competitionSection) : ''"
+          [selectedMarket]="(competitionSection.events[0].markets[0] ? competitionSection.events[0].markets[0].name : '')">
+        </odds-card-header>
+        <sticky-virtual-scroller
+          *ngIf="inner && virtualScroll && competitionSection.events && competitionSection.events.length"
+          [scrollUniqueId]="scrollSportUId" [items]="competitionSection.events" [stickyHeaderTag]="'header'"
+          [stickyHeaderLevel]="6" [stickyContainerTag]="'ACCORDION'" [stickyContainerLevel]="7"
+          [scrollableElementLevel]="2" [scrollableHeaderSelector]="'.sport-card-header'"
+          (preFetchNext)="prefetchNext(eventsBySports.eventsByTypeName[i+1])"
+          (toggleVisibility)="handleLiveUpdatesSubscriptions($event, competitionSection)">
+          <odds-card-component
+            *ngFor="let eventEntity of competitionSection.events; trackBy: trackByEventId; let i = index;"
+            [sportConfig]="sportInstance?.sportConfig" [showLocalTime]="true" [event]="eventEntity"
+            [selectedMarket]="(eventEntity.markets[0] ? eventEntity.markets[0].name : '')" [gtmModuleTitle]="'event card'"
+            data-crlat="eventEntity">
+          </odds-card-component>
+        </sticky-virtual-scroller>
+        <ng-container *ngIf="inner && !virtualScroll || !inner">
+          <odds-card-component
+            *ngFor="let eventEntity of competitionSection.events; trackBy: trackByEventId; let i = index;"
+            [sportConfig]="sportInstance?.sportConfig" [showLocalTime]="true" [event]="eventEntity"
+            [selectedMarket]="(eventEntity.markets[0] ? eventEntity.markets[0].name : '')" [gtmModuleTitle]="'event card'"
+            data-crlat="eventEntity">
+          </odds-card-component>
+        </ng-container>
+      </accordion-body>
+    </accordion>
+  </ng-container>
+  <ng-container *ngIf="isHR">    
+    <accordion *ngFor="let eventEntity of HREvents; trackBy: trackByEventId; let j = index;"
+      [accordionTitle]="eventEntity.name" [isCustomElement]="true" [eventEntity]="eventEntity" [inner]="inner" [card]="true"
+      data-crlat="accordion" [isExpanded]="expandedFlags[eventEntity.id]"
+      (function)="toggleCompetitionSection(null, eventEntity, eventEntity.compIndex)"
+      [isShowAll]="expandedFlags[eventEntity.id]" class="single-accordion hr-accordion" [showRaceDetails]="true">
+        <accordion-body>
+          <sticky-virtual-scroller
+            *ngIf="inner && virtualScroll && eventEntity"
+            [scrollUniqueId]="scrollSportUId" [items]="eventsBySports.eventsByTypeName[eventEntity.compIndex]" [stickyHeaderTag]="'header'"
+            [stickyHeaderLevel]="6" [stickyContainerTag]="'ACCORDION'" [stickyContainerLevel]="7"
+            [scrollableElementLevel]="2" [scrollableHeaderSelector]="'.sport-card-header'"
+            (preFetchNext)="prefetchNext(eventsBySports.eventsByTypeName[eventEntity.compIndex+1])">
+              <race-card-home [showHeader]="false" [trackGa]="trackGa" data-crlat="raceCard"
+                [raceData]="[eventEntity]" [raceMaxSelections]="3" [raceNewStyleCard]="true"
+                [showTimer]="showTimer" [gtmModuleTitle]="'next races'" [moduleType]="moduleType">
+              </race-card-home>
+          </sticky-virtual-scroller>
+          <ng-container *ngIf="inner && !virtualScroll || !inner">        
+              <race-card-home [showHeader]="false" [trackGa]="trackGa"
+                [moduleType]="moduleType" data-crlat="raceCard" [gtmModuleTitle]="'next races'" [showTimer]="showTimer"
+                [raceNewStyleCard]="true" [raceData]="[eventEntity]" [raceMaxSelections]="3">
+              </race-card-home>
+          </ng-container>  
+      </accordion-body>      
+    </accordion>   
+  </ng-container>
+  <div *ngIf="inner && virtualScroll && isLoading" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+  <div *ngIf="inner && !isAllExpanded && eventsBySports.eventsByTypeName && eventsBySports.eventsByTypeName.length > expandedLeaguesCount"
+    (click)="showMoreSport(eventsBySports.eventsByTypeName)" class="show-more-leagues" data-crlat="showMoreLeagues">
+    <div><span [i18n]="'sb.showAll'"></span><span
+        [textContent]="eventsBySports.categoryName + ' (' + eventsBySports.eventCount + ')'"></span></div>
+  </div>
+</div>

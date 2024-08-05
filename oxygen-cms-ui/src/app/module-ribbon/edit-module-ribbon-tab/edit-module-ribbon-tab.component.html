@@ -1,0 +1,162 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="!isLoading">
+  <div class="header">
+    <h2 class="has-activity-badge">
+      Module Ribbon Tab: <span class="font-italic">{{ moduleRibbonTab.title }}</span>
+      <create-updated-at-by [collection]="moduleRibbonTab"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="!moduleRibbonTab.visible"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="!isLoading">
+  <div class="body">
+    <div class="row checkBoxList">
+      <div class="col-md-2">
+        <mat-checkbox class="mat-label" color="primary"
+                      [checked]="moduleRibbonTab.visible"
+                      (change)="moduleRibbonTab.visible = !moduleRibbonTab.visible">
+          Active
+        </mat-checkbox>
+      </div>
+      <div class="col-md-2">
+        <mat-checkbox class="mat-label" color="primary"
+                      [checked]="moduleRibbonTab.devices.ios"
+                      (change)="moduleRibbonTab.devices.ios = !moduleRibbonTab.devices.ios">
+          Ios
+        </mat-checkbox>
+      </div>
+      <div class="col-md-2">
+        <mat-checkbox class="mat-label" color="primary"
+                      [checked]="moduleRibbonTab.devices.android"
+                      (change)="moduleRibbonTab.devices.android = !moduleRibbonTab.devices.android">
+          Android
+        </mat-checkbox>
+      </div>
+      <div class="col-md-2">
+        <mat-checkbox class="mat-label" color="primary"
+                      [checked]="moduleRibbonTab.devices.wp"
+                      (change)="moduleRibbonTab.devices.wp = !moduleRibbonTab.devices.wp">
+          Windows Phone
+        </mat-checkbox>
+      </div>
+      <div class="col-md-2" *ngIf="this.moduleRibbonTab.directiveName == 'BuildYourBet'">
+        <mat-checkbox class="mat-label" color="primary" [checked]="moduleRibbonTab?.bybVisble"
+                      (change)="moduleRibbonTab.bybVisble = !moduleRibbonTab.bybVisble">
+          Byb Widget
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Module Ribbon Tab Name
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !moduleRibbonTab.title}">
+          <input matInput placeholder="Module Ribbon Tab Name"  [(ngModel)]="moduleRibbonTab.title" [value]="moduleRibbonTab.title" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!moduleRibbonTab.title">Title should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Directive Name
+        </span>
+      </div>
+      <div class="col-md-4">
+        <cms-simple-select-list
+          [options]='directiveNames'
+          [selected]='moduleRibbonTab.directiveName'
+          [disabled]="isEventHubTab()"
+          (onDataChange)="onChangeDirectiveName($event)">
+        </cms-simple-select-list>
+      </div>
+    </div>
+    <ng-container *ngIf="isEventHubTab()">
+      <div class="row">
+        <div class="col-md-2">
+        <span class="mat-label">
+          Event Hub Name
+        </span>
+        </div>
+        <div class="col-md-3">
+          <cms-simple-select-list
+            [clearSpaces]="false"
+            [options]="eventHubsNames"
+            [selected]="selectedHubName"
+            (onDataChange)="onChangeSelectedHub($event)">
+          </cms-simple-select-list>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <date-range
+            [isSetDateButtons]="true"
+            [startDate]="moduleRibbonTab.displayFrom"
+            [endDate]="moduleRibbonTab.displayTo"
+            [startPlaceholder]="'Visible from *'"
+            [endPlaceholder]="'Visible to *'"
+            [placeholderColumn]="true"
+            (onDateUpdate)="handleVisibilityDateUpdate($event)">
+          </date-range>
+        </div>
+      </div>
+    </ng-container>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          ID
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="ID"  [(ngModel)]="moduleRibbonTab.internalId" [value]="moduleRibbonTab.internalId" disabled>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          URL
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Url"  [(ngModel)]="moduleRibbonTab.url" [value]="moduleRibbonTab.url" disabled>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Show Tab On
+        </span>
+      </div>
+      <div class="col-md-4">
+        <customer-variants-select
+          [optionsType]="'init'"
+          [customerType]="moduleRibbonTab.showTabOn"
+          (onChange)="onChangeShowTabOn($event)">
+        </customer-variants-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-10">
+        <cms-universal-segmented [segmentsDataObj]='segmentsList' [isRevert]="isRevert" (isFormValid)="isSegmentFormValid($event)"
+        (segmentsModifiedData)="modifiedSegmentsHandler($event)"></cms-universal-segmented>
+      </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons
+  *ngIf="!isLoading"
+  #actionButtons
+  [validateHandler]="validationHandler"
+  [fieldOrItemName]="'title'"
+  [collection]="moduleRibbonTab"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

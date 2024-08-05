@@ -1,0 +1,43 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>Create a New Football 3D Banner</h1>
+  <div mat-dialog-content>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Name" [(ngModel)]="banner.name" [value]="banner.name" required trim="blur">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Description" [(ngModel)]="banner.description" [value]="banner.description" trim="blur">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput type="number" placeholder="Display Duration" [(ngModel)]="banner.displayDuration" [value]="banner.displayDuration" required>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <date-range
+          [isSetDateButtons]="true"
+          [startDate]="banner.validityPeriodStart"
+          [endDate]="banner.validityPeriodEnd"
+          [startPlaceholder]="'Validity Period Start Date'"
+          [endPlaceholder]="'Validity Period End Date'"
+          (onDateUpdate)="handleDateUpdate($event)">
+        </date-range>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-checkbox color="primary"
+                  [checked]="!banner.disabled"
+                  (change)="banner.disabled = !banner.disabled">
+        Active
+        </mat-checkbox>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+    <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="!isValidBanner()" (click)="getFootballBanner();" [mat-dialog-close]="banner">Save</button>
+  </div>
+</div>

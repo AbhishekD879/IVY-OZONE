@@ -1,0 +1,33 @@
+@import '../../../../../../app/questionEngine/components/shared/infoDialog/info-dialog.component.scss';
+@import '../../../assets/styles/general.scss';
+::ng-deep {
+  .confirm-dialog, .confirm-exit-dialog {
+    .modal-dialog {
+      .modal-header {
+        img {
+          margin: 0 auto 10px;
+          max-height: 60px;
+        }
+        span {
+          font-size: $font-size-lgr;
+          color: $color-dark-red;
+          font-weight: bold;
+          font-family: $base-font-family;
+        }
+        div {
+          font-size: $font-size;
+          line-height: 1.33;
+        }
+      }
+      .modal-body {
+        .btn-list {
+          .btn-handle {
+            font-weight: normal;
+            font-family: $alt-font-family;
+            color: $color-black;
+          }
+        }
+      }
+    }
+  }
+}

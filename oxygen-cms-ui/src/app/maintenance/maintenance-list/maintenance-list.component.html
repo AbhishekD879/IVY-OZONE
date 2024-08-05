@@ -1,0 +1,44 @@
+<div class="card" *ngIf="!isLoading">
+  <div class="header">
+    <h2>Maintenance Pages List</h2>
+    <small>This is the List of Maintenance Pages Used by Currently Selected Brand</small>
+  </div>
+</div>
+<div class="card" *ngIf="!isLoading">
+  <div class="body">
+    <div class="row clearfix">
+      <div class="col-md-3">
+        <button mat-button type="button" class="btn bg-teal waves-effect float-left" (click)="addNewPage();">
+          <mat-icon>add_box</mat-icon>
+          <span>Create New Maintenance Page</span>
+        </button>
+      </div>
+      <div class="col-md-3" *ngIf="maintenancePages && maintenancePages.length > 0">
+        <download-cvs [cvsData]="maintenancePages" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div class="col-md-6 m-b-0" *ngIf="maintenancePages && maintenancePages.length > 0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Maintenance Page" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="!isLoading && (!maintenancePages || !maintenancePages.length)">
+      <div class="col-md-12">
+        <h3>No Maintenance Pages Found <span class="font-italic font-underline"></span></h3>
+      </div>
+    </div>
+    <div *ngIf="maintenancePages && maintenancePages.length > 0">
+      <cms-data-table
+        [customTableData]="maintenancePages"
+        [customTableColumns]="dataTableColumns"
+        [filterString]="searchField"
+        [filterProperties]="filterProperties"
+        [actions]="['remove', 'edit']"
+        (onRemoveTableElement)="removeMaintenancePage($event)">
+      </cms-data-table>
+    </div>
+  </div>
+</div>

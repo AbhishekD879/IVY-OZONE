@@ -1,0 +1,26 @@
+<modal #luckyDipDialog data-uat="popUpWindow" data-crlat="d.luckyDip">
+  <ng-template #modalHeader>
+    <span [i18n]="'sb.warning'" data-crlat="dTitle" data-uat="popUpTitle"></span>
+    <a data-uat="popUpCloseButton" class="btn-close" (click)="closeDialog()">
+      <svg>
+        <use xlink:href="#close-icon"></use>
+      </svg>
+    </a>
+  </ng-template>
+  <ng-template #modalBody>
+    <div class="item-inner item-btm-pad" [i18n]="'sb.proceedLuckyDip'" data-crlat="proceedLuckyDipText"></div>
+    <div class="group-buttons">
+      <div class="group-btn" data-crlat="buttonGroup">
+        <div class="group-col group-default">
+          <button class="btn btn-style1" (click)="makeLuckyDip()" [i18n]="'sb.accept'"
+          data-crlat="acceptButton"></button>
+        </div>
+        <div class="group-col group-default">
+          <button class="btn btn-style3" (click)="closeDialog()" [i18n]="'sb.cancel'"
+          data-crlat="cancelButton"></button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</modal>
+

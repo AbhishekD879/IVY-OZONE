@@ -1,0 +1,62 @@
+$bet-finder-link-line-height: 17px;
+@import './components/cahout-icon.scss';
+@import './components/odds-boost-page.scss';
+@import './global.variables.scss';
+.bet-finder-link {
+  font-size: 11px;
+  color: $color-white;
+  min-width: 0;
+  font: #{$font-size}/#{$bet-finder-link-line-height} $alt-font-family;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  .bet-finder-icon {
+    fill: $color-white;
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    margin-right: 5px;
+    z-index: 1;
+  }
+
+  .bet-finder-title {
+    text-decoration: none;
+    &:hover{
+      text-decoration: underline;
+    }
+    &:active {
+      text-decoration: none;
+    }
+  }
+}
+
+@import '../../promotions/assets/styles/main.scss';
+@import '../../../ladbrokesMobile/assets/styles/components/racing-event.scss';
+@import '../../../ladbrokesMobile/assets/styles/modules/race-card.scss';
+
+/* Default styles for bma app */
+#page-wrapper {
+  line-height: normal;
+  color: $color-black;
+}
+
+#content {
+  margin: 0 5px;
+  padding: 0 5px;
+  background: $lGray-bg;
+  overflow: hidden;
+  width: 100%;
+
+  .yourcall-bs-opened & {
+    z-index: 5;
+  }
+}
+
+.split-header {
+  padding: 12px 8px;
+  font-size: 12px;
+  font-family: $alt-font-family;
+  color: $lBlack-light;
+}

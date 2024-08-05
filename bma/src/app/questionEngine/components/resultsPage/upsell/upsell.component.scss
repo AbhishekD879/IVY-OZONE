@@ -1,0 +1,99 @@
+@import '../../../assets/styles/general.scss';
+
+$color-green-hover: #8fc325;
+$tomato: #f56b23;
+
+.qe-upsell-container {
+  &.main-upsell {
+    background-color: $color-white;
+    border-radius: 8px;
+    padding: 15px;
+    color: $color-blue-dark;
+    font-size: 11px;
+    margin-bottom: 29px;
+  }
+
+  .qe-upsell-header {
+    &-betinplay {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    &-silks {
+      display: flex;
+      img {
+        width: 30px;
+        height: 30px;
+        margin-right: 6px;
+      }
+    }
+    &-live {
+      background-color: $tomato;
+      height: 21px;
+      color: $color-white;
+      font-size: 9px;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 3px;
+    }
+    &-infobar {
+      border: 1px solid $color-yellow;
+      display: inline-flex;
+      text-transform: uppercase;
+      font-weight: bold;
+      color: $color-blue-dark;
+      div {
+        padding: 2px 7px;
+      }
+    }
+    &-filled {
+      background-color: $color-yellow;
+    }
+  }
+
+  .qe-upsell-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 12px;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+  .qe-upsell-caption {
+    margin-top: 12px;
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  button.qe-upsell-cta {
+    background-color: $color-green;
+    color: $color-white;
+    margin-top: 15px;
+    padding: 5px 20px;
+    height: 32px;
+    max-width: 430px;
+    width: 100%;
+    border: none;
+    border-radius: 28px;
+    text-transform: uppercase;
+    transition: 0.2s;
+    &:hover {
+      background-color: $color-green-hover;
+    }
+  }
+}
+
+@media #{$mqMobile} {
+  button.qe-upsell-cta {
+    line-height: 10px;
+  }
+}
+
+@media #{$mqTabletAndDesktop} {
+  .qe-upsell-container {
+    .qe-upsell-header {
+      &-infobar {
+        font-size: 12px;
+      }
+    }
+  }
+}

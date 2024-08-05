@@ -1,0 +1,193 @@
+@import 'global.variables.scss';
+
+$color-gray-boulder: #7d7d7d;
+
+.promo-labels {
+  @include display-flex();
+  @include align-items();
+  flex-wrap: wrap;
+  font-size: 8px;
+  color: $pl-cashout-color;
+  text-transform: uppercase;
+  line-height: 17px;
+  font-weight: 900;
+  padding: 5px 0 15px;
+  .promo-icon {
+    margin-right: 3px;
+    fill: $color-cobalt;
+    height: 8px;
+    margin-bottom: 2px;
+  }
+
+  .cashout-label-wrapper, .promo-label {
+    background: $color-blue-lightest;
+    border-radius: 1px;
+    padding: 0 4px;
+    margin-right: 8px;
+  }
+
+  .cashout-label {
+    margin-left: 3px;
+  }
+
+  .cashout-icon {
+    width: 13px;
+    height: 12px;
+    vertical-align: text-top;
+  }
+
+  .promo-label {
+    display: inline-flex;
+    align-items: center;
+    font-family: $pl-label-font-family;
+  }
+
+  &.bet-history-mode {
+    height: 10px;
+    padding-top: 10px;
+    color: $gold-level-text;
+    border: none;
+    line-height: normal;
+    text-transform: none;
+    letter-spacing: -0.1px;
+    .extra-place-icon .promo-icon {
+      fill: $color-gray-boulder;
+    }
+    .extra-place-icon {
+      color: $color-gray-boulder;
+    }
+    .promo-label {
+      background: none;
+      padding: 0;
+      font-size: 10px;
+    }
+    .promo-icon {
+      margin-right: 5px;
+      fill: $gold-level-text;
+    }
+  }
+
+  &.selection-info {
+    padding: 0;
+    .promo-label {
+      line-height: 17px;
+    }
+    .evflag_pb {
+      background: $color-yellow;
+      padding: 0 5px;
+      border-radius: 1px;
+      font-size: $pl-label-font-size;
+      font-weight: bold;
+      .promo-icon {
+        width: 9px;
+      }
+    }
+    .promo-label,
+    .cashout-label-wrapper {
+      margin: 0 8px 6px 0;
+    }
+  }
+}
+
+.promo-labels.quickbet {
+  margin-top: -5px;
+  padding: 0 15px 15px;
+  display: inline-flex;
+  &:last-child {
+    padding-right: 0;
+    margin-right: -15px;
+  }
+}
+
+.promo-labels {
+  &.betslip, &.quickbetslip {
+    padding: 0;
+  }
+  &.betslip, &.quickbetslip, &.quickbet {
+    ::ng-deep {
+      .cashout-label-wrapper, .promo-label,
+      .cashout-label-wrapper + bog-label,
+      .extra-place-icon + bog-label, .money-back + bog-label {
+        margin-top: 5px;
+      }
+      bog-label .bog-block.bog-bg {
+        margin-bottom: 0;
+
+      }
+    }
+  }
+}
+
+.promo-labels.quickbetslip {
+  font-weight: bold;
+}
+
+.promo-labels.betslip,
+.promo-labels.quickbetslip,
+.promo-labels.quickbet,
+.promo-labels.selection-info {
+  .extra-place-icon, .price-boost, .money-back {
+    background-color: $color-yellow;
+    fill: $color-blue;
+    font-size: $pl-label-font-size;
+    line-height: 17px;
+    border-radius: 2px;
+    padding: 0 7px;
+    font-weight: bold;
+    &:hover{
+      background-color: $color-yellow;
+      opacity: 0.85;
+    }
+    &:active{
+      background-color: $color-orange-light2;
+    }
+  }
+
+}
+
+:host(.my-bets-promo-labels) {
+  display: block;
+  .promo-labels {
+    height: auto;
+    padding: 9px 12px;
+    border-bottom: 1px solid $color-gray;
+    .promo-label {
+      font-size: 13px;
+      font-weight: normal;
+      letter-spacing: 0;
+    }
+    .promo-icon {
+      width: 14px;
+      height: 14px;
+      fill: #014596;
+      box-sizing: content-box;
+      padding: 4px;
+      background: $color-yellow;
+      border-radius: 2px;
+      margin: 0 12px 0 0;
+    }
+  }
+}
+
+:host(.my-bets-promo-labels.bottom-extra-place-label) {
+  .promo-labels {
+    height: auto;
+    padding: 0;
+    border-bottom: none;
+    .promo-label {
+      font-size: 10px;
+      font-weight: normal;
+      letter-spacing: 0;
+    }
+    .promo-icon {
+      width: 16px;
+      height: 13px;
+      fill: $color-gray-boulder;
+      padding-left: 0;
+      box-sizing: content-box;
+      background: initial;
+      border-radius: 2px;
+      margin: 0;
+    }
+  }
+}

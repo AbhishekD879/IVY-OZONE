@@ -1,0 +1,305 @@
+@import 'global.variables.scss';
+
+.btn-group {
+  @include display-flex();
+  @include align-items();
+  background-color: $color-white;
+}
+
+.btn-group button {
+  color: $color-gray-darkest;
+  /* White text */
+  padding: 10px 24px;
+  /* Some padding */
+  cursor: pointer;
+  /* Pointer/hand icon */
+  float: left;
+  /* Float the buttons side by side */
+  border-radius: 21px;
+  margin: 5px;
+  min-height: 32px;
+  font-size: 12px;
+  box-shadow: 0 2px 5px 0 rgba(84, 84, 84, 0.26);
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.btn-group button:not(:last-child) {
+  border-right: none;
+  /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: $color-blue-shade-heavy;
+}
+
+.switchers-1 {
+  padding-bottom: 20px !important;
+  display: flex;
+  justify-content: center;
+  width: 343px;
+  margin: 0px auto;
+}
+
+.switch-btn.active:after {
+  content: '';
+  position: absolute;
+  width: 0px;
+  height: 3px;
+  background: $switch-btn-active-color;
+  bottom: -3px;
+  left: 0;
+}
+
+.switch-btn.active {
+  background-color: $color-blue !important;
+  span {
+    color: $color-white !important;
+  }
+}
+
+.switch-btn>span {
+  color: $selection-btn-text-color;
+  background-color: none;
+}
+
+a {
+  box-shadow: 0 2px 5px 0 rgba(84, 84, 84, 0.26);
+  border-radius: 21px;
+}
+
+.switch-btn {
+  &.switch-btn-coral {
+    &:hover {
+      background-color: $color-blue !important;
+      span {
+        color: $color-white !important;
+      }
+    }
+    &:active {
+      background-color: $color-blue-rich-heavy !important;
+      span {
+        color: $color-white !important;
+      }
+    }
+  }
+
+  &.switch-btn-lads {
+    &.active-lads {
+      background-color: $color-blue-alt !important;
+      span {
+        color: $color-white !important;
+      }
+    }
+    &:hover {
+      background-color: $color-blue-alt !important;
+      span {
+        color: $color-white !important;
+      }
+    }
+    &:active {
+      background-color: $color-blue-alt-heavy !important;
+      span {
+        color: $color-white !important;
+      }
+    }
+  }
+  &.active {
+    &:after {
+      content: '';
+      position: absolute;
+      width: 0px !important;
+    }
+  }
+}
+
+.switch-btn.active>span {
+  background-color: none;
+  color: $color-white;
+  font-weight: normal;
+}
+
+.market-name {
+  background-color: $color-white;
+  padding: 5px 10px 5px 18px;
+  margin: 0px;
+  font-size: 12px;
+}
+
+
+@mixin truncate-text() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+  .switchers {
+    @include user-select();
+    padding: 5px 10px 0;
+    margin-bottom: 0px !important;
+  }
+
+  .switch-btn {
+    box-shadow: 0 2px 5px 0 rgba(84, 84, 84, 0.26);
+    text-transform: none;
+    font-size: 12px;
+
+    >span {
+      @include truncate-text();
+    }
+  }
+
+.btn-group-parent {
+  display: flex;
+  flex-direction: column;
+  background-color: $color-white;
+}
+
+.btn-group {
+  @include display-flex();
+  @include align-items();
+  background-color: $color-white;
+  justify-content: center;
+}
+
+.align {
+  text-align: center;
+  background-color: $color-white;
+}
+
+.btn {
+  width: 343px;
+  height: 40px;
+  margin: 0px auto;
+  margin-bottom: 15px;
+  background-color: $color-green-shade !important;
+  color :$color-white !important;
+  font-family: $base-font-family;
+  font-size: $bet-buildbet-font-size;
+  text-shadow: none;
+  opacity: 0.50;
+}
+
+.btn-select {
+  width: 100%;
+  border-radius: 21px;
+  min-height: 40px;
+  background-color: $color-white;
+  box-shadow: 0 2px 5px 0 rgb(84 84 84 / 26%);
+  border: 0px;
+}
+
+.btn-active {
+  background-color: $color-green-shade !important;
+  color: $color-white !important;
+  box-shadow: none;
+  opacity: 1;
+
+  &:hover {
+    background-color: $color-green-light-leaf !important;
+    color: $color-white !important;
+    box-shadow: none;
+  }
+
+  &:active {
+    background-color: $color-green-dark-leaf !important;
+    color: $color-white !important;
+  }
+}
+.btn-active-lads {
+  background-color: $color-light-green-leaf !important;
+  color: $color-white !important;
+  box-shadow: none;
+  opacity: 1;
+  &:hover {
+    background-color: $color-green-light2 !important;
+    color: $color-white !important;
+    box-shadow: none;
+  }
+  &:active {
+    background-color: $color-green-shine !important;
+    color: $color-white !important;
+  }
+}
+
+.active {
+  background-color: $color-blue-shade-heavy;
+}
+
+.sign-button {
+  width: 32px;
+  height: 32px;
+  flex-grow: 0;
+  border: solid 1px $color-grey-darker-byb-2;
+  background-color: $lGrayLight;
+}
+
+.text-btn {
+  width: 26px;
+  height: 27px;
+  flex-grow: 0;
+  margin: 3px 24px 2px 23px;
+  font-family: $alt-font-family;
+  font-size: 22px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.01px;
+  text-align: center;
+  color: $color-blue-selected;
+}
+
+.select-name {
+  text-align: center;
+  background-color: $color-white;
+  padding: 10px 0px;
+  margin: 0px;
+  font-size: 14px;
+  font-family: $font-increment-number;
+}
+
+.partition {
+  height: 1px;
+  background-color: $lGrayLight;
+}
+
+#switch-custom {
+  height: 100%;
+  width: 109px;
+  margin: 0px 3px;
+  font-family: $font-increment-number;
+  font-size: 12px;
+  min-height: 32px;
+  text-transform: none;
+  color: $selection-btn-text-color;
+  border-bottom: none;
+}
+
+#switch-custom:active {
+  font-weight: normal;
+}
+
+.switcher-name {
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
+
+.switchers-container {
+  width: 100%;
+  background-color: $color-white;
+}
+
+.switch-custom-truncate {
+  max-width: 125px;
+  max-height: 20px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

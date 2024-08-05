@@ -1,0 +1,25 @@
+@import 'global.variables.scss';
+
+.qb-info-panel {
+  padding: 10px 15px;
+  position: relative;
+  z-index: 5;
+  font-size: 12px;
+  text-align: center;
+  line-height: 15px;
+  background: $color-yellow-light;
+  color: $color-blue-dark;
+  font-weight: bold;
+
+  &.qd-info-panel.warning-panel {
+    background: $color-yellow;
+    color: $color-gray-dark;
+    font-weight: normal;
+  }
+
+  &.deposit-panel {
+    color: $color-white;
+    background: $color-red;
+    font-weight: normal;
+  }
+}

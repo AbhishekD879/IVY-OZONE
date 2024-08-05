@@ -1,0 +1,53 @@
+<div class="card" *ngIf="systemConfig">
+  <div class="header">
+    <h2 class="has-activity-badge">Timeline System Config
+      <create-updated-at-by [collection]="systemConfig"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="!systemConfig.enabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="systemConfig">
+  <div class="body">
+    <div class="row">
+      <div class="col-2">
+        <span>
+          Enabled
+        </span>
+      </div>
+      <div class="col-2">
+        <mat-checkbox color="primary"
+                      [checked]="systemConfig.enabled"
+                      (change)="systemConfig.enabled = !systemConfig.enabled">
+        </mat-checkbox>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Page Urls
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input
+            matInput placeholder="Page Urls (separated by comma)"
+            [(ngModel)]="systemConfig.pageUrls"
+            [value]="systemConfig.pageUrls"
+            trim="blur" required>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="systemConfig"
+  [collection]="systemConfig"
+  (actionsEmitter)="actionsHandler($event);"
+  [fieldOrItemName]="'Timeline System Config'"
+  [showRemoveButton]="false"
+  [validateHandler]="verifySystemConfigData">
+</action-buttons>

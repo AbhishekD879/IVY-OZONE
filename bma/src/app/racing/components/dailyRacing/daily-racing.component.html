@@ -1,0 +1,39 @@
+<ng-container  *ngFor="let eventsBySection of filteredEventsBySection; trackBy: trackByIndex;">
+
+  <ng-container *ngIf="isDisplayBanner(eventsBySection.sectionName) && targetTab?.interstitialBanners?.bannerEnabled">
+    <ng-template *ngTemplateOutlet="VirtualBanner "></ng-template>
+  </ng-container>
+
+<accordion data-crlat="outerAccordion" [ngClass]="{'outerAccordionFeatured' : isRacingFeatured}"
+           [accordionTitle]="eventsBySection.sectionName"
+           [isExpanded]="true"
+           [card]="true"
+          >
+  <accordion-body>
+    <a class="odds-card" data-crlat="oddsCard" [attr.data-eventid]="eventEntity.id" [routerLink]="formEdpUrl(eventEntity)"
+     *ngFor="let eventEntity of eventsBySection.events; trackBy: trackByIndex">
+    <div class="odds-content" data-crlat="oddsContent">
+      <div class="odds-left" data-crlat="oddsLeft">
+        <div class="odds-names" data-crlat="horseracing.odds" *ngIf="sportName === 'horseracing'">
+          <span [textContent]="eventEntity.localTime"></span>
+          <span [textContent]="eventEntity.name"></span>
+        </div>
+        <div class="odds-names" data-crlat="greyhound.odds" [textContent]="eventEntity.name" *ngIf="sportName === 'greyhound'"></div>
+      </div>
+      <div class="odds-right" data-crlat="oddsRight" *ngIf="eventEntity.liveStreamAvailable">
+        <svg class="odds-icon-stream">
+          <use xlink:href="#stream"></use>
+        </svg>
+      </div>
+    </div>
+  </a>
+  </accordion-body>
+</accordion>
+</ng-container>
+<ng-template #VirtualBanner>
+  <lazy-component
+    moduleUri="@lazy-modules-module/virtualEntryPointBanner/virtual-entry-point-banner.module#VirtualEntryPointBannerModule"
+    entryComponent="VirtualEntryPointBannerComponent"
+    [inputs]="{targetTab: targetTab,isUnTiedSport:true,sportName : sportName}">
+  </lazy-component>
+</ng-template>

@@ -1,0 +1,16 @@
+@import 'global.variables.scss';
+
+horseracing-tabs {
+  display: block;
+  margin: 0 $platform-padding;
+
+  .fade-out-screen-container {
+    margin-left: -$platform-padding;
+    margin-right: -$platform-padding;
+  }
+
+  .enhanced-multiples-carousel-section {
+    background: none;
+    margin-top: -$platform-padding;
+  }
+}

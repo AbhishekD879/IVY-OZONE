@@ -1,0 +1,89 @@
+@import 'global.variables.scss';
+
+@mixin height-width($hgt,$wdt){
+    height:$hgt;
+    width:$wdt;
+}
+
+.splashModal {
+    @include height-width(auto, 100%);
+    &-bContainer {
+        &_logoBanner {
+            &-img {
+                @include height-width(26.52vh, 51%);
+            }
+        }
+    
+        &_redBanner {
+            height: 25vh;
+        }
+    }
+}
+
+:host {
+    ::ng-deep .modal-dialog {
+        margin: auto;
+        overflow:hidden;
+        user-select: text;
+    }
+
+    ::ng-deep .modal {
+        background-color: $ld-modal-background-color  !important;
+        overflow: hidden;
+    }
+    
+    ::ng-deep .modal-dialog .modal-content .modal-body{
+        overflow:hidden
+       
+    }
+
+    ::ng-deep .input-stake-label {
+        color:$lGray;
+        font-weight: 500;
+        font-family: $robo-font-family;
+    }
+    ::ng-deep .deposit-info-msg {
+        p {
+            font-size: 11.9px !important;
+        }
+    }
+}
+
+.closePopup svg {
+    @include height-width(16px !important,  16px !important);
+}
+
+.luckydip-content-steps {
+    margin: 5px 0 8px;
+    justify-content: center;
+}
+
+.luckydip-content-steps-step {
+    flex-basis: 20%;
+    padding: 6px 8px 9px;
+    height:44px;
+}
+
+.luckydip-content-container {
+    margin-top: -6vh;
+}
+
+.luckydip-content-steps-step_number {
+    font-weight: 700 !important;
+    color: $ld-steps-number-color;
+}
+
+.luckydip-content-tnc {
+    padding: 5px 0px 13px;
+    ::ng-deep p>span{
+    font-family: $basic-font-family !important ;	
+    }
+}
+
+.closure-message-container {
+    font-size: $font-size-md !important;
+    font-weight: 400;
+    text-align: center !important;
+    margin-bottom: 0px;
+    padding: 5px 12px;
+}

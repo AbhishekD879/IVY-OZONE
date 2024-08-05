@@ -1,0 +1,103 @@
+<div *ngIf="!onlySpinner && skeletonFeatureEnabled && !hide"
+     class="fade-out-screen-container"
+     [ngClass]="{
+        'full-page': templateType === 'GENERIC_FULL' || isFullPage,
+        'fade-out-compcat': templateType === 'GENERIC_COMPETITION' && !displayed && !skeletonOnlyDisplayed,
+        'coral-home': this.isHome
+      }"
+     data-crlat="fadeOutCont">
+  <div class="fade-out-screen animate" [ngClass]="{
+                    'fade-out-active': !displayed && !skeletonOnlyDisplayed,
+                    'fade-accord': templateType === 'GENERIC_ACCORDION' && displayed && skeletonOnlyDisplayed,
+                    'long-render-view': longRenderView,
+                    'banner': templateType === 'BANNER'}">
+
+    <!--  SKELETON TEMPLATES START   -->
+    <div class="skeleton-container">
+      <section class="skeleton-inner" [ngClass]="{ 'tablet': isTablet && !isUsedFromWidget, 'widget': isUsedFromWidget }">
+        <!-- Aem Banner -->
+        <div class="aem-banner-container" *ngIf="templateType === 'GENERIC_FULL'
+             || templateType === 'BANNER'">
+          <div class="aem-banner"></div>
+        </div>
+        <!-- scoreboard -->
+        <div class="scoreboard-container" *ngIf="templateType === 'SCOREBOARD'">
+          <svg xmlns="http://www.w3.org/2000/svg" width="268" height="159" viewBox="0 0 268 159">
+            <g fill="none" fill-rule="evenodd">
+              <path fill="#ECEEF3"
+                    d="M0 147h268v12H0zm30-90v83H15V57zm37 26v57H52V83zm37-9v66H89V74zm112 4v62h-16V78zm-75 15v47h-15V93zm37-48v95h-15V45zm75-16v111h-15V29z"/>
+              <circle cx="96.5" cy="52.5" r="7.5" fill="#ECEEF3"/>
+              <circle cx="133.5" cy="71.5" r="7.5" fill="#ECEEF3"/>
+              <circle cx="59.5" cy="61.5" r="7.5" fill="#ECEEF3"/>
+              <circle cx="22.5" cy="35.5" r="7.5" fill="#ECEEF3"/>
+              <circle cx="245.5" cy="7.5" r="7.5" fill="#ECEEF3"/>
+              <circle cx="170.5" cy="23.5" r="7.5" fill="#ECEEF3"/>
+              <circle cx="207.5" cy="56.5" r="7.5" fill="#ECEEF3"/>
+              <path stroke="#ECEEF3" stroke-linecap="square" stroke-width="3"
+                    d="M22.5 35.5l37 26 37-9 37 19 37-48 37 33 38-49"/>
+            </g>
+          </svg>
+        </div>
+        <!-- Tabs -->
+        <div class="tabs-container" *ngIf="templateType === 'GENERIC_FULL'">
+          <div class="tab" *ngFor="let number of blocks(numberOfElements)"></div>
+        </div>
+        <div class="second-tabs-container" *ngIf="templateType === 'GENERIC_FULL' && isTablet">
+          <div class="tab" *ngFor="let number of blocks(numberOfElements)">
+            <div class="tab-line"></div>
+          </div>
+        </div>
+
+        <div class="simple-content" *ngIf="templateType === 'GENERIC'">
+          <div class="simple-content-line" *ngFor="let number of blocks(numberOfPricesOrLines)"></div>
+        </div>
+        <div *ngIf="templateType === 'GENERIC_FULL' || templateType === 'GENERIC'">
+          <div class="home-content-block" *ngFor="let number of blocks(numberOfPricesOrLines)">
+            <div class="generic-header"></div>
+            <div class="generic-content" *ngFor="let number of blocks(numberOfGenericElements)">
+              <div>
+                <div class="generic-content-line"></div>
+                <div class="generic-content-line"></div>
+              </div>
+              <div class="prices">
+                <div class="generic-content-price" *ngFor="let number of blocks(numberOfPricesOrLines)"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="templateType === 'GENERIC_ACCORDION'">
+          <div class="generic-content">
+            <div>
+              <div class="generic-content-line"></div>
+              <div class="generic-content-line"></div>
+              <div class="generic-content-line"></div>
+            </div>
+            <div class="prices">
+              <div class="generic-content-price"></div>
+            </div>
+          </div>
+        </div>
+        <div class="simple-content" *ngIf="templateType === 'GENERIC_COMPETITION'">
+          <div class="simple-content-line"></div>
+        </div>
+        <!-- Template for Betslip/MyBets Area -->
+        <div class="coral-content-block" *ngIf="templateType === 'GENERIC_BET'">
+          <div class="content-container">
+            <div class="generic-content" *ngFor="let number of blocks(numberOfElements)">
+              <div class="line">
+                <div class="generic-content-line"></div>
+                <div class="generic-content-line"></div>
+              </div>
+              <div class="generic-content-price"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!--  SKELETON TEMPLATES END   -->
+
+  </div>
+</div>
+
+<!-- SPINNER USED FOR RIGHT COLUMN WIDGET ON TABLET -->
+<div *ngIf="!skeletonFeatureEnabled && !skeletonOnly && displayed" class='loading-v3'><div class='dot-flashing'></div></div>

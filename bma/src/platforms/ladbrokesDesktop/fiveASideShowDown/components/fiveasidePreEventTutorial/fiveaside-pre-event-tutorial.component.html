@@ -1,0 +1,256 @@
+    <div class="pre-parent-div">
+    <div id="fiveaside-pre-event-tutorial" class="cookie-top vn-smart-banner-margin-top">
+        <div class="header-content">
+            <div id="close-div" class="close-content" (click)="onCloseWelcomeOverlay()">
+                <svg id="close-svg" class="close-icon">
+                    <use id="close-x" xlink:href="#close_qb"></use>
+                </svg>
+            </div>
+        </div>
+        <div class="centered">
+            <section class="welcome-cards">
+                <div class="welcome-card">
+                    <div class="overlay-context">
+                        <div>
+                            <p id="welcome-header" class="overlay-header animating fadeIn" [textContent]="preEventData?.plWelcomeTitle"></p>
+
+                            <p class="overlay-content animating fadeIn" [textContent]="preEventData?.plWelcomeContent"></p>
+
+                            <p class="overlay-content animating fadeIn" [textContent]="preEventData?.plWelcomeFooter"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="welcome-card">
+                    <div (click)="goToPrizepool()" id="getStarted" class="animating-start fadeIn">
+                        <svg class="nxt-btn-svg">
+                            <use xlink:href="#next-button-5-a-side"></use>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div id="fiveaside-prizepool-tutorial" class="cookie-top vn-smart-banner-margin-top">
+        <div class="header-content">
+            <div id="close-div" class="close-content" (click)="onCloseWelcomeOverlay()">
+                <svg id="close-svg" class="close-icon">
+                    <use id="close-x" xlink:href="#close_qb"></use>
+                </svg>
+            </div>
+        </div>
+        <div class="centered">
+            <section class="welcome-cards">
+                <div class="welcome-card">
+                    <div id="rectangle"></div>
+                </div>
+                <div class="welcome-card">
+                    <div class="top-arrow">
+                        <svg class="top-right-arrow-icon">
+                            <use xlink:href="#top-right-arrow-5-a-side"></use>
+                        </svg>
+                    </div>
+                </div>
+                <div class="welcome-card">
+                    <div class="overlay-context">
+                        <div>
+                            <p id="prize-pool-text" class="overlay-content animated fadeIn" [textContent]="preEventData?.plPrizePoolInfo"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="welcome-card">
+                    <div (click)="goToRulesArea()" id="go-to-rules" class="getStarted animated fadeIn">
+                        <svg class="nxt-btn-svg">
+                            <use xlink:href="#next-button-5-a-side"></use>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div id="fiveaside-rulesarea-tutorial" class="cookie-top vn-smart-banner-margin-top">
+        <div class="header-content">
+            <div id="close-div" class="close-content" (click)="onCloseWelcomeOverlay()">
+                <svg id="close-svg" class="close-icon">
+                    <use id="close-x" xlink:href="#close_qb"></use>
+                </svg>
+            </div>
+        </div>
+        <div class="centered">
+            <section class="welcome-cards">
+                <div class="welcome-card">
+                    <div id="rules-area"></div>
+                </div>
+                <div class="welcome-card">
+                    <div class="rules-top-arrow">
+                        <svg class="top-right-arrow-icon">
+                            <use xlink:href="#top-right-arrow-5-a-side"></use>
+                        </svg>
+                    </div>
+                </div>
+                <div class="welcome-card">
+                    <div id="rules-area-text-overlay" class="overlay-context">
+                        <div>
+                            <p id="rules-area-text" class="overlay-content animated fadeIn" [textContent]="preEventData?.plRulesEntryInfo"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="welcome-card">
+                    <div id="go-to-entry" (click)="goToEntryButton()" class="getStarted animated fadeIn">
+                        <svg class="nxt-btn-svg">
+                            <use xlink:href="#next-button-5-a-side"></use>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div id="fiveaside-entrybutton-tutorial" class="cookie-top vn-smart-banner-margin-top">
+        <div class="header-content">
+            <div id="close-div" class="close-content" (click)="onCloseWelcomeOverlay()">
+                <svg id="close-svg" class="close-icon">
+                    <use id="close-x" xlink:href="#close_qb"></use>
+                </svg>
+            </div>
+        </div>
+        <div class="centered">
+            <section class="welcome-cards">
+                <div class="welcome-card">
+                    <div id="entry-area">
+                    </div>
+                    <div id="entry-area-button"></div>
+                </div>
+                <div class="welcome-card">
+                    <div class="entry-top-arrow">
+                        <svg class="top-right-arrow-icon">
+                            <use xlink:href="#top-right-arrow-5-a-side"></use>
+                        </svg>
+                    </div>
+                </div>
+                <div class="welcome-card">
+                    <div id="entry-area-text-overlay" class="overlay-context">
+                        <div>
+                            <p id="entry-area-text" class="overlay-content animated fadeIn" [textContent]="preEventData?.plBuildTeamInfo"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="welcome-card">
+                    <div id="go-to-rules-button" (click)="getRulesButton()" class="getStarted animated fadeIn">
+                        <svg class="nxt-btn-svg">
+                            <use xlink:href="#next-button-5-a-side"></use>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div id="fiveaside-rulesbutton-tutorial" class="cookie-top vn-smart-banner-margin-top">
+        <div class="header-content">
+            <div id="close-div" class="close-content" (click)="onCloseWelcomeOverlay()">
+                <svg id="close-svg" class="close-icon">
+                    <use id="close-x" xlink:href="#close_qb"></use>
+                </svg>
+            </div>
+        </div>
+        <div id="centered-rules" class="centered">
+            <section class="welcome-cards">
+                <div class="welcome-card">
+                    <div id="rules-button-content">
+                        <div id="rules-button-area"></div>
+                    </div>
+                </div>
+                <div class="welcome-card">
+                    <div class="animated-rules fadeIn side-arrow">
+                        <svg class="side-arrow-rules-icon">
+                            <use xlink:href="#right-arrow-5-a-side"></use>
+                        </svg>
+                    </div>
+                </div>
+                <div class="welcome-card">
+                    <div id="entry-area-text-overlay" class="overlay-context">
+                        <div>
+                            <p id="rules-button-text" class="overlay-content animated-rules fadeIn" [textContent]="preEventData?.plBulesButtonInfo"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="welcome-card">
+                    <div id="go-to-end" (click)="getEnded()" class="getEnded animated-rules fadeIn">
+                        <svg class="nxt-btn-svg">
+                            <use xlink:href="#finish-btn-5-a-side"></use>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div> 
+    <div id="fiveaside-buildanother-team-entries" [scroll-fix] class="cookie-top vn-smart-banner-margin-top">
+        <div class="header-content">
+            <div id="close-div" class="close-content" (click)="onCloseWelcomeOverlay()">
+                <svg id="close-svg" class="close-icon">
+                    <use id="close-x" xlink:href="#close_qb"></use>
+                </svg>
+            </div>
+        </div>
+        <div class="centered">
+            <section class="welcome-cards">
+                <div class="welcome-card">
+                    <div id="another-build-footer" class="overlay-context">
+                        <div class="overlay-context">
+                            <div id="another-footer">
+                                <p class="overlay-header animatedarrow fadeIn" [textContent]="preEventData?.plBuildAnotherTeamHeader"></p>
+                                <p class="overlay-content animatedarrow fadeIn" [textContent]="preEventData?.plBuildAnotherTeamContent"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="welcome-card">
+                    <div id="user-entry"></div>
+                </div>
+                
+                <div class="welcome-card">
+                    <div id="go-to-second-half" (click)="goToBuildAnotherTeamButton()" class="getStarted animatedarrow fadeIn">
+                        <svg class="nxt-btn-svg">
+                            <use xlink:href="#next-button-5-a-side"></use>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div id="fiveaside-buildanother-team" [scroll-fix] class="cookie-top vn-smart-banner-margin-top">
+        <div class="header-content">
+            <div id="close-div" class="close-content" (click)="onCloseWelcomeOverlay()">
+                <svg id="close-svg" class="close-icon">
+                    <use id="close-x" xlink:href="#close_qb"></use>
+                </svg>
+            </div>
+        </div>
+        <div class="centered">
+            <section class="welcome-cards">
+                <div class="welcome-card">
+                    <div class="overlay-context">
+                        <div>
+                            <p id="another-build-text" class="animatedarrow fadeIn" [textContent]="preEventData?.plBuildAnotherTeamInfo" ></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="welcome-card">
+                    <div id="another-build-arrow">
+                        <svg class="top-right-arrow-icon">
+                            <use xlink:href="#down-arrow-five-a-side"></use>
+                        </svg>
+                    </div>
+                </div>
+                <div class="welcome-card">
+                    <div id="entry-area-another-new"></div>
+                </div>
+                <div class="welcome-card">
+                    <div id="go-to-finish" (click)="getEnded()" class="getEnded animatedarrow fadeIn">
+                        <svg class="nxt-btn-svg">
+                            <use xlink:href="#finish-btn-5-a-side"></use>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>   
+</div>

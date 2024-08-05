@@ -1,0 +1,50 @@
+@import 'global.variables.scss';
+
+:host {
+  display: inline-block;
+}
+
+.btn.btn-boosted1 {
+  height: auto;
+  font-size: 11px;
+  font-family: $base-font-family;
+  padding: 7px;
+  height: 30px;
+  min-width: 68px;
+  box-shadow: none;
+  border-radius: 2px;
+  border: solid 2px $color-bright-blue;
+  background: transparent;
+
+  .boost-indicator {
+    width: 8px;
+    height: 14px;
+    position: relative;
+    display: inline-block;
+    font-size: 0;
+    vertical-align: middle;
+    opacity: 1;
+
+    svg {
+      width: 11px;
+      height: 13.4px;
+    }
+  }
+
+  .boost-text {
+    vertical-align: middle;
+    display: inline-block;
+    text-align: left;
+    letter-spacing: 0.3px;
+    color: $color-bright-blue;
+    margin-left: 8px;
+    text-shadow: none;
+  }
+  .boosted{
+    color: #ffcd00;
+  }
+}
+.btn.btn-boosted1.boosted-bg{
+  background: $color-bright-blue;
+  border: none;
+}

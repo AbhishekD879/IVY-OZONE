@@ -1,0 +1,53 @@
+@import 'global.variables.scss';
+
+#desktop-header {
+  margin: 0 auto;
+  max-width: $xl-point;
+  background: $brand-color-main;
+  font-family: $base-font-family;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+
+  .header-bottom-menu {
+    height: 45px;
+    background: $brand-color-dark;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    padding: 0 5px;
+
+    @media screen and (max-width: $md-point) {
+      padding: 0 12px;
+    }
+
+    a {
+      display: inline-block;
+      text-transform: uppercase;
+      padding: 15px;
+      font-size: 13px;
+      color: $color-white;
+      height: 45px;
+      transition: color .5s ease;
+
+      @media screen and (max-width: $md-point) {
+        padding: 15px 6px;
+      }
+
+      &:hover {
+        color: $light-blue;
+        text-decoration: none;
+      }
+
+      &.active {
+        font-weight: bold;
+        box-shadow: inset 0 -3px 0 $color-red;
+        pointer-events: none;
+
+        &:hover {
+          color: $color-white;
+        }
+      }
+    }
+  }
+}

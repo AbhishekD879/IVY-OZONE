@@ -1,0 +1,24 @@
+@import 'global.variables.scss';
+
+.i-game-media {
+
+  .video-frame {
+    background-color: $color-black;
+    text-align: center;
+    line-height: 0;
+  }
+
+  iframe {
+    border: none;
+    overflow: hidden;
+  }
+
+  .error-message {
+    position: relative;
+    padding: 15px;
+    color: $color-white;
+    background-color : $color-blue-light;
+    font-size : 12px;
+    margin: 0 -4px 0px;
+  }
+}

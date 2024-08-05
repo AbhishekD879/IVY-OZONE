@@ -1,0 +1,48 @@
+@import 'global.variables.scss';
+
+.in-play-header, .in-play-header-counter{
+  background: $color-white;
+  font-weight: bold;
+  text-transform: capitalize;
+
+
+  .in-play-label, .in-play-count {
+    color: $color-black;
+    font-family: $alt-font-family;
+    font-size: $font-size-bit-lgr;
+  }
+
+  .live-now-label {
+    font-size: $font-size-bit-lgr;
+  }
+
+  .see-all-count, .see-all-count-value {
+    color: $color-blue-alt;
+    font-family: $base-font-family;
+    font-size: $font-size;
+  }
+
+  .next-arrow {
+    fill: $color-blue-alt;
+  }
+}
+
+.in-play-header-counter {
+  margin: 4px 0 0;
+}
+
+.multiples-accordion {
+  &.is-expanded {
+    box-shadow: none;
+   // overflow: visible;
+
+    ::ng-deep > .accordion-header {
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 -1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+  }
+}
+
+.see-all-link {
+  margin-right: 0px;
+}
+

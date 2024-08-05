@@ -1,0 +1,67 @@
+<accordion [accordionTitle]="isLuckyDipMarketAvailable && market.isLuckyDip ? market.templateMarketName : market.name"
+  data-crlat="accordion" [isChevronToLeft]="true" [isExpanded]="i <= openMarketTabs"
+  [isHeaderHidden]="isFeaturedMarkets" [isLuckyDipMarketAvailable]="isLuckyDipMarketAvailable && market.isLuckyDip"
+  *ngFor="let market of eventEntity.markets; trackBy: trackByIndex; let i = index">
+  <right-side>
+    <cashout-label *ngIf="market.cashoutAvail === 'Y'"></cashout-label>
+  </right-side>
+
+  <!-- Each Way terms -->
+
+  <accordion-body>
+    <div *ngIf="isFeaturedMarkets">
+      <div class="market-terms" *ngIf="market.eachWayPlaces !== undefined && showTerms && market.isEachWayAvailable"
+        data-crlat="terms" [textContent]="market.terms"></div>
+      <ng-container *ngIf="isLuckyDipMarketAvailable && market.isLuckyDip else templateOutright">
+        <lazy-component [inputs]="{event: eventEntity, market: market, outcome: market.outcomes[0]}"
+          moduleUri="@lazy-modules-module/luckyDip/luckyDip.module#LuckyDipModule"
+          entryComponent="LadsLuckyDipEntryPageComponent">
+
+        </lazy-component>
+      </ng-container>
+      <ng-template #templateOutright>
+        <event-card [event]="eventEntity" data-crlat="oddsCard" [market]="market" [outcome]="outcomeEntity"
+          *ngFor="let outcomeEntity of market.outcomes | slice:0:limit; trackBy: trackByIndex"></event-card>
+      </ng-template>
+      <show-all-button data-crlat="showAllButton" *ngIf="isFeaturedMarkets && isShowAllActive" (click)="toggleShow()"
+        [showMoreMode]="true" [allShown]="allShown">
+      </show-all-button>
+    </div>
+
+    <div *ngIf="!isFeaturedMarkets">
+
+      <div class="epr-margin">
+        <lazy-component *ngIf="market?.templateMarketName === 'Outright'"
+          moduleUri="@lazy-modules-module/extraPlaceSignposting/extra-place-signposting.module#ExtraPlaceSignpostingModule"
+          [inputs]="{marketData: market,origin:'edp'}" entryComponent="ExtraPlaceSignpostingComponent">
+        </lazy-component></div>
+        <div class="market-terms" [ngClass]="{'no-pad':market?.templateMarketName === 'Outright' && market?.drilldownTagNames && market?.drilldownTagNames.includes('MKTFLAG_EPR')}" 
+        *ngIf="market && market.eachWayPlaces && showTerms && market.isEachWayAvailable"
+         data-crlat="terms" [textContent]="market.terms"></div>
+
+      <ng-container *ngIf="isLuckyDipMarketAvailable && market.isLuckyDip else templateOutrightMarket">
+        <lazy-component [inputs]="{event: eventEntity, market: market, outcome: market.outcomes[0]}"
+          moduleUri="@lazy-modules-module/luckyDip/luckyDip.module#LuckyDipModule"
+          entryComponent="LadsLuckyDipEntryPageComponent">
+
+        </lazy-component>
+
+      </ng-container>
+
+      <ng-template #templateOutrightMarket>
+
+        <event-card [event]="eventEntity" data-crlat="oddsCard" [market]="market" [outcome]="outcomeEntity"
+          *ngFor="let outcomeEntity of market.outcomes | slice:0:market.isAllShown? market.outcomes.length : 6; trackBy: trackByIndex"></event-card>
+
+      </ng-template>
+
+      <show-all-button data-crlat="showAllButton" *ngIf="market.outcomes.length > 6"
+        (click)="market.isAllShown=!market.isAllShown" [allShown]="market.isAllShown">
+
+      </show-all-button>
+
+    </div>
+
+  </accordion-body>
+
+</accordion>

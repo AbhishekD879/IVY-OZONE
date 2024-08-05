@@ -1,0 +1,30 @@
+<loading-screen [displayed]="showLoader" [longRenderView]="true" [templateType]="'GENERIC'"></loading-screen>
+<div *ngIf="!showLoader" class="club-container promotion-container">
+  <div *ngIf="clubsData.length > 0" class="container">
+    <div *ngFor="let club of clubsData" class="club-promo-description">
+      <div class="club-title" [textContent]="club.title"></div>
+      <div class="club-banner">
+        <img [src]="club.bannerImgSrc" alt="banner-link">
+      </div>
+      <!-- <div class="club-data" [innerHtml]="club.description"></div> -->
+      <!-- dynamic price button -->
+      <ng-container *ngFor="let odd of club.dynamicPriceButton">
+        <ng-container *ngIf="!odd.isSelectionIdAvailable; else priceOdds">
+          <div [outerHTML]="odd.htmlCont" [attr.contenteditable]="false"> </div>
+        </ng-container>
+        <ng-template #priceOdds>
+          <div id="dynamic-button" *ngIf="odd.eventInfo">
+            <price-odds-button class='price-odds-promo'[event]="odd.eventInfo.event" [outcome]="odd.eventInfo.outcome" [market]="odd.eventInfo.market" [isShowHistoricPrices]="false"></price-odds-button>
+          </div>
+          <hr> 
+        </ng-template>
+      </ng-container>
+       <!-- dynamic price button -->
+    </div>
+  </div>
+  <div *ngIf="clubsData.length === 0">
+    <div class="item-inner text-center request-error">
+      <p class="error-message" [textContent]="errorMessage"></p>
+    </div>
+  </div>
+</div>

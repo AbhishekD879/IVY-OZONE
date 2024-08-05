@@ -1,0 +1,50 @@
+<modal #footballFilterConfirmDialog data-crlat="d.info">
+  <ng-template #modalHeader>
+    <span class="paramCaption" id="paramCaption" data-crlat="dTitle" data-uat="popUpTitle"
+    [i18n]="'retail.footballFilterCaption'"></span>
+    <a class="btn-close" data-uat="popUpCloseButton" (click)="closeDialog()">
+      <svg>
+        <use xlink:href="#close-icon"></use>
+      </svg>
+    </a>
+  </ng-template>
+  <ng-template #modalBody>
+    <div data-uat="popUpText" class="dialog-content">
+      <div class="item-inner text-section" id="item-inner">
+        <div class="row">
+          <div id="betFliterRadio" class="betFliterRadio">
+            <input class="form-control betFliterRadioButton" type="radio" name="footBallBetFilter"
+              id="football-filter-confirm-inshop" [value]="radioInshop" [(ngModel)]="params.footBallBetFilter"
+              [checked]="params.footBallBetFilter == radioInshop" />
+            <label for="football-filter-confirm-inshop"></label>
+          </div>
+          <div class="betFliterRadioText" id="betFliterRadioText">
+            <div id="betFliterRadioParamText" class="betFliterRadioParamText" [i18n]="'retail.footballFilterInshopText'"></div>
+            <div id="betFliterRadioSubParamText" class="betFliterRadioSubParamText" [innerHtml]="params.inshopCouponText">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="betFliterRadio" id="betFliterRadio">
+            <input class="form-control betFliterRadioButton" type="radio" name="footBallBetFilter"
+              id="football-filter-confirm-online" [value]="radioOnline" [(ngModel)]="params.footBallBetFilter"
+              [checked]="params.footBallBetFilter == radioOnline" />
+            <label for="football-filter-confirm-online"></label>
+          </div>
+          <div class="betFliterRadioText" id="betFliterRadioText">
+            <div id="betFliterRadioParamText" class="betFliterRadioParamText" [i18n]="'retail.footballFilterOnlineText'"></div>
+            <div id="betFliterRadioSubParamText" class="betFliterRadioSubParamText" [innerHtml]="params.onlineCouponText">
+            </div>
+          </div>
+        </div>
+        <div *ngIf="params.buttons?.length" class="btn-list" id="btn-list">
+          <button class="btn btn-style4" (click)="dialog.close()" [i18n]="'retail.cancel'"></button>
+          <button id="goButton" *ngFor="let btn of params.buttons;" class="btn goButton"
+            [ngClass]="btn.cssClass || 'btn-style2'" [i18n]="'retail.footballFilterButtonText'"
+            (click)="handleBtnClick(btn, params.footBallBetFilter)" [attr.data-crlat]="'button.GO BETTING'">
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</modal>

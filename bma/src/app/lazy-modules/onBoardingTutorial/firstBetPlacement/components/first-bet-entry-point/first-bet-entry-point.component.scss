@@ -1,0 +1,169 @@
+@import 'global.variables.scss';
+
+.first-bet-onboarding {
+    .first-bet {
+        display: flex;
+
+        .info-image {
+            width: 12%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            margin: 0px 0px 10px 5px;
+            background-color: #2694ed;
+
+            .img {
+                width:50%
+            }
+        }
+
+        .info-home {
+            width: 88%;
+            height: 100%;
+            border: none;
+            margin: 0px 5px 10px 0px;
+            background-color: #1b3c5b;
+
+            .info-home-margin {
+                margin: 10px;
+
+                .info-home-title {
+                    margin-bottom: 5px;
+                    color: $color-gray;
+                    font-size: 12px;
+                    letter-spacing: 0.01px;
+                    font-weight: bold;
+                    font-family: Lato-Bold, 'Lato', 'Arial';
+                }
+
+                .info-home-desc {
+                    margin-bottom: -5px;
+                    color: $color-gray;
+                    font-size: 12px;
+                    letter-spacing: 0.01px;
+                    font-family: Lato-Regular, 'Lato', 'Arial';
+
+                    ::ng-deep p {
+                        font-size: 12px;
+                        letter-spacing: 0.01px;
+                        font-family: Lato-Regular, 'Lato', 'Arial';
+                    }
+                }
+
+                .info-home-start {
+                    color:#2694ed;
+                    font-size: 13px;
+                    font-weight: bold;
+                    font-size: 11px;
+                    letter-spacing: 0.01px;
+                    font-weight: bold;
+                    text-decoration: none;
+                    font-family: Lato-Bold, 'Lato', 'Arial';
+                }
+            }
+        }
+
+        .close-btn {
+            margin-top: 15px;
+            position: absolute;
+            right: 0;
+
+            .btn-close svg {
+                fill: $color-white;
+            }
+        }
+
+        .undo-left-border {
+            width: 2%;
+            min-height: 100%;
+            border: none;
+            margin: 0px 0px 10px 5px;
+            background-color: #2694ed;
+        }
+
+        .undo {
+            display:flex;
+            width: 98%;
+            height: 100%;
+            border: none;
+            margin: 0px 5px 10px 0px;
+            background-color: #1b3c5b;
+
+            .undo-content {
+                margin: 10px;
+                width: 70%;
+
+                .undo-title {
+                    margin-bottom: 5px;
+                    color: $color-gray;
+                    font-size: 12px;
+                    letter-spacing: 0.01px;
+                    font-weight: bold;
+                    font-family: Lato-Bold, 'Lato', 'Arial';
+                }
+
+                .undo-desc {
+                    margin-bottom: -10px;
+                    color: $color-gray;
+                    font-size: 12px;
+                    letter-spacing: 0.01px;
+                    font-family: Lato-Regular, 'Lato', 'Arial';
+                }
+            }
+
+            .undo-btn {
+                width: 15%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 15px;
+
+                .undo-btn-txt {
+                    color: $color-white;
+                    margin-bottom: 0px;
+                    font-size: 12px;
+                    letter-spacing: 0.01px;
+                    font-family: Lato-Regular, 'Lato', 'Arial';
+                }
+            }
+
+            .dismiss-btn {
+                width: 15%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 20px;
+
+                .dismiss-btn-txt {
+                    color: $color-white;
+                    border: 1px solid $color-white;
+                    padding: 10px;
+                    margin-bottom: 0px;
+                    font-size: 12px;
+                    letter-spacing: 0.01px;
+                    white-space: nowrap;
+                    font-family: Lato-Regular, 'Lato', 'Arial';
+                }
+            }
+        }
+    }
+}
+
+.first-bet-onboarding {
+    perspective: 1000px;
+}
+
+.first-bet-onboarding.hover .first-bet-example {
+    will-change: transform;
+    transform: rotateY(180deg);
+}
+
+.first-bet-example {
+    transition: 0.5s ease-out;
+}
+
+.back {
+    will-change: transform;
+    transform: rotateY(180deg);
+}

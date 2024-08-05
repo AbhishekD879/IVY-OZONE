@@ -1,0 +1,207 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="sportTab">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Sport Tab: {{sportTab.displayName}}
+      <create-updated-at-by [collection]="sportTab"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="!sportTab.enabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="sportTab">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-checkbox color="primary" [checked]="sportTab.enabled" (change)="sportTab.enabled = !sportTab.enabled"
+          [disabled]="isUntiedSport">
+          Enabled
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Tab Name
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !sportTab.name}">
+          <input matInput placeholder="Name" [value]="sportTab.name" disabled required trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Tab Display Name
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !sportTab.displayName}">
+          <input matInput placeholder="Display Name" [(ngModel)]="sportTab.displayName" [value]="sportTab.displayName"
+            required trim="blur" [disabled]="isUntiedSport">
+          <mat-hint class="col-red" *ngIf="!sportTab.displayName">Tab Display Name should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<sport-tab-filters *ngIf="sportTab?.filters" [sportTabFilters]="sportTab?.filters"></sport-tab-filters>
+
+<!--TODO: Add editable MarketSwitcher table here-->
+<div class="card" *ngIf="showMarketSwitcher">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-12">
+        <h6>Market Switcher Labels</h6>
+      </div>
+    </div>
+    <!-- search and create button.-->
+    <div class="row clearfix">
+      <div class="col-md-6">
+        <button (click)="addMarket()" [disabled]="isAddTable" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Add Market</span>
+        </button>
+      </div>
+      <!-- <div class="col-md-3">
+        <download-cvs [cvsData]="sportCategories" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div> -->
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Market Name" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="body">
+        <cms-data-table [customTableData]="sportTab.marketsNames" [customTableColumns]="marketSwitcherColumns"
+          [actions]="['in Line Edit', 'remove']" [reorder]="true" [filterString]="searchField"
+          [filterProperties]="searchableProperties" [addTable]="isAddTable" [showMarketSwitcher]="showMarketSwitcher"
+          (onRemoveTableElement)="removeRow($event)" [sportId]= "sportTab.sportId" (removeMarket)="removeNewMarket($event)"
+          (addMarketsToList)="addNewmarket($event)" (onElementsOrder)="reorderMarkets($event)">
+        </cms-data-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="sportTab && sportTab.interstitialBanners">
+
+  <div class="card" *ngIf="sportTab.interstitialBanners">
+
+    <div class="header">
+      <h2 class="waves-effect waves-block">
+        Virtual Sports Entry Points Section: {{sportTab.displayName}}
+      </h2>
+    </div>
+
+    <div class="body">
+
+      <div class="row">
+        <div class="col-md-12">
+          <mat-checkbox color="primary" [checked]="sportTab.interstitialBanners.bannerEnabled"
+            (change)="sportTab.interstitialBanners.bannerEnabled= !sportTab.interstitialBanners.bannerEnabled">
+            Banner Enabled
+          </mat-checkbox>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Desktop Banner Id
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="desktopBannerId " [(ngModel)]="sportTab.interstitialBanners.desktopBannerId"
+              [value]="sportTab.interstitialBanners.desktopBannerId"
+              [required]="sportTab.interstitialBanners.bannerEnabled && !sportTab.interstitialBanners.mobileBannerId "
+              trim="blur">
+            <mat-hint class="col-red"
+              *ngIf="sportTab.interstitialBanners.bannerEnabled && !sportTab.interstitialBanners.desktopBannerId && !sportTab.interstitialBanners.mobileBannerId">
+              Either MobileBannerId or DesktopBannerId should beentered</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Mobile Banner Id
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="mobileBannerId " [(ngModel)]="sportTab.interstitialBanners.mobileBannerId"
+              [value]="sportTab.interstitialBanners.mobileBannerId"
+              [required]="sportTab.interstitialBanners.bannerEnabled && !sportTab.interstitialBanners.desktopBannerId"
+              trim="blur">
+            <mat-hint class="col-red"
+              *ngIf="sportTab.interstitialBanners.bannerEnabled && !sportTab.interstitialBanners.desktopBannerId && !sportTab.interstitialBanners.mobileBannerId">
+              Either MobileBannerId or DesktopBannerId should be
+              entered</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            CTA Button Label
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="ctaButtonLabel " [(ngModel)]="sportTab.interstitialBanners.ctaButtonLabel"
+              [value]="sportTab.interstitialBanners.ctaButtonLabel" maxlength="10" trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Redirection URL
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="redirectionUrl" [(ngModel)]="sportTab.interstitialBanners.redirectionUrl"
+              [value]="sportTab.interstitialBanners.redirectionUrl" trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Banner Position
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width"
+            [ngClass]="{ 'mat-form-field-invalid': !sportTab.interstitialBanners.bannerPosition && sportTab.interstitialBanners.bannerEnabled }">
+            <input type="number" min="0" matInput placeholder="BannerPosition"
+              [(ngModel)]="sportTab.interstitialBanners.bannerPosition"
+              [value]="sportTab.interstitialBanners.bannerPosition"
+              [required]="sportTab.interstitialBanners.bannerEnabled" trim="blur">
+            <mat-hint class="col-red"
+              *ngIf="!sportTab.interstitialBanners.bannerPosition && sportTab.interstitialBanners.bannerEnabled">
+              Banner Position is a
+              number starting from zero</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<action-buttons #actionButtons *ngIf="sportTab" [validateHandler]="isValidForm" [fieldOrItemName]="'displayName'"
+  [collection]="sportTab" [showRemoveButton]="false" (actionsEmitter)="actionsHandler($event);"></action-buttons>

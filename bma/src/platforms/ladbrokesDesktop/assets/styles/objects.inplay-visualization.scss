@@ -1,0 +1,47 @@
+/* *********************************************************************************************************************
+
+  OBJECTS:
+  So called “cosmetic free design patterns” such as a grid system
+
+********************************************************************************************************************* */
+
+.vis-inplay-widget-container {
+  @include display-flex();
+  @include justify-content();
+  margin-bottom: 0;
+
+  div {
+    max-height: 280px;
+    min-height: 280px;
+  }
+
+  iframe {
+    max-width: 500px;
+    min-width: 500px;
+  }
+}
+
+#scoreboard-panel {
+  background: none;
+  margin-bottom: 0;
+
+  #tennis-vis .tennis-board {
+    height: auto;
+  }
+
+  #gp-scoreboard {
+    margin-bottom: 0;
+  }
+
+  #gci_scoreboard .score-panel {
+    margin: 0 0 5px 0;
+  }
+}
+
+.bet-genius-container {
+  @include display-flex();
+
+  iframe {
+    min-width: 100%;
+  }
+}

@@ -1,0 +1,32 @@
+<div class="svg-icon-select">
+  <mat-form-field class="full-width">
+    <!-- The below label only used in bigcompetition module -->
+      <mat-label *ngIf='labelShown'>{{svgSelectConstants.SVG_BACKGROUND}}</mat-label>
+    <input type="text" 
+    placeholder="start typing to pick one.." 
+    aria-label="Number" 
+    matInput 
+    [formControl]="input"
+    [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" class="test TODO">
+      <mat-option *ngFor="let option of options; index as i" 
+                  [value]="option.svgId"
+        (onSelectionChange)="selectChanges($event)">
+        <div *ngIf="!haveData" [textContent]="svgSelectConstants.NO_DATA_FOUND"></div>
+        <div *ngIf="isError" [textContent]="svgSelectConstants.ERROR_MESSAGE"></div>
+        <div *ngIf="i === 0 && haveData" class="row svg-select-header" (click)="$event.stopPropagation()">
+          <div class="col-2" [textContent]="svgSelectConstants.PREVIEW"></div>
+          <div class="col-5" [textContent]="svgSelectConstants.SVG_NAME"></div>
+          <div class="col-5" [textContent]="svgSelectConstants.SPRITE_NAME"></div>
+        </div>
+        <div *ngIf="i > 0 && haveData" class="row svg-select-item" [title]="option.svgId">
+          <div class="col-sm-2">
+            <div class="svg-wrapper highlight-svg" [innerHTML]="sanitizer.bypassSecurityTrustHtml(option.preview)"></div>
+          </div>
+          <div class="col-sm-5 svg-name" [textContent]="option.svgId"></div>
+          <div class="col-sm-5" [textContent]="option.sprite"></div>
+        </div>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>

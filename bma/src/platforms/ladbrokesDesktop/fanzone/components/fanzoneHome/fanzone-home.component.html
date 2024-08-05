@@ -1,0 +1,45 @@
+<top-bar  [title]="fanzoneHead" (titleFunc)="goToDefaultPage()" ></top-bar>
+<div class="fanzone-wrapper bs-fanzone-game-tooltip">
+  <div class="fanzone-banner">
+    <img  class="fanzone-banner-bg-img" [attr.src]="fanzoneBannerImage"/>
+    <header  [ngStyle]="{'background': backgroundHeaderColor }">
+      <div class="odds-name-row fanzone-icon">
+        <ng-container *ngIf="checkForTeamsExist()">
+          <ng-container *ngIf="teamData?.teamsImage?.filename" class="fanzone-icon">
+            <img class="teams-image" [attr.src]="CMS_UPLOADS_PATH + teamData?.teamsImage?.filename" />
+            <!-- <span [textContent]="teamname" class="odds-name"></span> -->
+
+          </ng-container>
+          <ng-container *ngIf="!teamData?.teamsImage?.filename" class="fanzone-icon">
+            <svg class="crest-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21">
+              <g fill="none" fill-rule="evenodd">
+                <path [attr.fill]="teamData.secondaryColour" style="opacity: .9"
+                  d="M14.834 1.244L7.617.003A.1.1 0 0 0 7.5.1V17l.136-.016A8.354 8.354 0 0 0 15 8.688V1.441a.2.2 0 0 0-.166-.197z" />
+                <path [attr.fill]="teamData.secondaryColour"
+                  d="M13.839 1.237L7.619.003A.1.1 0 0 0 7.5.1V17A7.528 7.528 0 0 0 14 9.543v-8.11a.2.2 0 0 0-.161-.196z" />
+                <path [attr.fill]="teamData.primaryColour" style="opacity: .9"
+                  d="M.166 1.244L7.383.003A.1.1 0 0 1 7.5.1V17l-.136-.016A8.354 8.354 0 0 1 0 8.688V1.441a.2.2 0 0 1 .166-.197z" />
+                <path [attr.fill]="teamData.primaryColour"
+                  d="M1.161 1.237L7.381.003A.1.1 0 0 1 7.5.1V17A7.528 7.528 0 0 1 1 9.543v-8.11a.2.2 0 0 1 .161-.196z" />
+              </g>
+            </svg>
+
+          </ng-container>
+        </ng-container>
+      </div>
+      <div class="fanzone-desc">
+        <h2 class="fanzone-heading">{{fanzoneName}} <div class="location">{{fanzoneDesc}}</div></h2>
+        <div class="fanzone-preference" (click)="showNotification()"> 
+          <svg class="fanzone-preference-icon">
+            <use [attr.xlink:href]="'#' + 'fz-preference-settings'"></use>
+          </svg>
+        </div>
+      </div>
+    </header>
+  </div>
+  <span class="fanzone-tooltip-games" *ngIf="toolTipArgs?.show" [tooltip]="'fanzoneGames'" [toolTipArgs]="toolTipArgs"
+    [showTooltip]="toolTipArgs?.show"></span>
+  <switchers *ngIf="fanzoneTabs?.length" class="tab-switchers" [type]="'scrollable'" [switchers]="fanzoneTabs"
+    [activeTab]="activeTab" [noPaddings]="true" [detectGTMLocation]="'location'"></switchers>
+  <router-outlet></router-outlet>
+</div>

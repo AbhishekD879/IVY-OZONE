@@ -1,0 +1,43 @@
+@import 'global.variables.scss';
+ 
+ .virtual-Img-container {
+   position: relative;
+   width: calc(100% + 8px);
+   margin-left: -4px;
+ }
+ 
+ .virtual-Img-container img {
+   width: 100%;
+   height: auto;
+ }
+
+ .pointer
+ {
+  cursor :pointer;
+ }
+ 
+ .virtual-Img-container .btn {
+   position: absolute;
+   top: 58%;
+   left: 27%;
+   cursor: pointer;
+   height: 35px;
+   width: 100px;
+   color: #FFF;
+   text-align: center;
+   font-family: Lato;
+   font-size: 11px;
+   font-style: normal;
+   font-weight: 700;
+   line-height: normal;
+   border-radius: 2px;
+   background: #78BE20;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: 10px;
+ }
+ 
+ .virtual-Img-container .btn:hover {
+   background-color: #9acf58;
+ }

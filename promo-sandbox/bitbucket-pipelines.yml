@@ -1,0 +1,41 @@
+image: openjdk:11
+
+clone:
+  depth: full
+
+pipelines:
+
+  default:
+    - step:
+        name: sonarqube (test, build)
+        caches:
+          - gradle
+          - sonarcloud
+        script:
+          - chmod +x ./gradlew
+          - ./gradlew spotlessApply
+          - ./gradlew test build
+          - wget -P /usr/local/ https://download.java.net/openjdk/jdk17/ri/openjdk-17+35_linux-x64_bin.tar.gz && tar xvf /usr/local/openjdk-17+35_linux-x64_bin.tar.gz -C /usr/local/ && rm -f /usr/local/openjdk-17+35_linux-x64_bin.tar.gz
+          - export JAVA_HOME=/usr/local/jdk-17 && export PATH=$JAVA_HOME/bin:$PATH
+          - ./gradlew sonarqube -x compileJava -x compileTestJava
+            -Dsonarqube.gradle.plugin.version=4.2.1.3168			-Dsonar.coverage.exclusions=src/main/java/com/entain/oxygen/promosandbox/PromosandboxApp.java,src/main/java/com/entain/oxygen/promosandbox/config/*.java
+
+  pull-requests:
+    '**':
+      - step:
+          caches:
+            - gradle
+            - sonarcloud
+          script:
+            - chmod +x ./gradlew
+            - ./gradlew spotlessApply
+            - ./gradlew test build
+            - wget -P /usr/local/ https://download.java.net/openjdk/jdk17/ri/openjdk-17+35_linux-x64_bin.tar.gz && tar xvf /usr/local/openjdk-17+35_linux-x64_bin.tar.gz -C /usr/local/ && rm -f /usr/local/openjdk-17+35_linux-x64_bin.tar.gz
+            - export JAVA_HOME=/usr/local/jdk-17 && export PATH=$JAVA_HOME/bin:$PATH
+            - ./gradlew sonarqube -x compileJava -x compileTestJava
+              -Dsonar.pullrequest.key=$BITBUCKET_PR_ID
+              -Dsonar.pullrequest.base=$BITBUCKET_PR_DESTINATION_BRANCH
+              -Dsonar.pullrequest.branch=$BITBUCKET_BRANCH              -Dsonar.coverage.exclusions=src/main/java/com/entain/oxygen/promosandbox/PromosandboxApp.java,src/main/java/com/entain/oxygen/promosandbox/config/*.java
+definitions:
+  caches:
+    sonarcloud: ~/.sonar/cache

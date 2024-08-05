@@ -1,0 +1,14 @@
+extends ../layouts/default
+
+block intro
+	.container
+		h1 quick-link
+	
+block content
+	.container
+		if quick-links.length
+			each quick-link in quick-links
+				h2= quick-link.imageTitle
+
+		else
+			h3.text-muted There are no quick-links yet.

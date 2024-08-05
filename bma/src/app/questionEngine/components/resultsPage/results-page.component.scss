@@ -1,0 +1,140 @@
+@import '../../assets/styles/general.scss';
+
+$tabSwitcherBorder: rgba(92, 148, 184, 0.3);
+$outerMargin: 16px;
+$quick-links-bottom-padding: 30px;
+
+.results-page {
+  box-sizing: border-box;
+  padding-bottom: $quick-links-bottom-padding;
+}
+.qe-header {
+  padding-top: 0;
+}
+.qe-btn-back {
+   margin-bottom: 10px;
+ }
+
+.logo {
+  box-sizing: border-box;
+  margin: 0 auto 20px;
+  max-height: 45px;
+  display: block;
+}
+
+.result-page-wrapper {
+  padding-bottom: 20px;
+}
+
+.qe-dashed-baseline {
+  border-bottom: 1px dashed white;
+  margin-bottom: 29px;
+}
+
+.full-body-width-wrapper {
+  width: calc(100% + (#{$outerMargin} * 2));
+  transform: translateX(-$outerMargin);
+}
+.tabs-switcher-container {
+  display: flex;
+  font-stretch: condensed;
+  .tab-item {
+    justify-content: center;
+    padding: 12px 0;
+    font-size: 12px;
+    text-align: center;
+    width: 100%;
+    border-top: 1px solid $tabSwitcherBorder;
+    border-bottom: 1px solid $tabSwitcherBorder;
+    &--active {
+      border-bottom: 2px solid $color-yellow;
+      font-weight: bold;
+    }
+    &:last-child {
+      border-left: 1px solid $tabSwitcherBorder;
+    }
+  }
+}
+
+.notificator {
+  background-color: $color-green;
+  max-height: 40px;
+  font-size: 11px;
+  transition: opacity 0.3s ease-in-out, max-height 1s linear;
+  opacity: 1;
+  @include display-flex();
+  @include justify-content(center);
+  .notificator-content {
+    @include display-flex();
+    @include justify-content(center);
+    padding: 12px;
+    max-width: 100%;
+    .notify-icon {
+      height: 15px;
+      width: 15px;
+      border-radius: 100%;
+      margin-right: 10px;
+      fill: $color-white;
+    }
+    .notify-content  {
+      width: 90%;
+      ::ng-deep {
+        p {
+          font-size: $font-size;
+          line-height: normal;
+          margin-bottom: 0;
+          @media screen and (max-width: $landscapeTabletPoint) {
+            font-size: $font-size-md;
+          }
+        }
+
+        span {
+          width: 100%;
+          display: block;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
+  &--hidden {
+    opacity: 0;
+    max-height: 0;
+  }
+}
+
+.qe-endpage {
+  &-container {
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  &-title {
+    font-size: 35px;
+    line-height: 1;
+    font-weight: bold;
+    text-transform: uppercase;
+    overflow: hidden;
+  }
+  &-description, &-cta {
+     font-size: 15px;
+   }
+  &-description {
+    margin-top: 22px;
+  }
+  &-cta {
+    margin-top: 30px;
+    width: 100%;
+    background-color: green;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 0;
+    text-transform: uppercase;
+    opacity: 1;
+    @include bg-gradient($color-green, $color-green-dark, bottom);
+  }
+  &-cta:hover {
+    opacity: 0.95;
+  }
+}

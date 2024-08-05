@@ -1,0 +1,79 @@
+<div class="leaderboard-widget" 
+[ngClass]="{'multi-widget': (leaderBoards.length > 1)}">
+    <div class="contest-details" [ngClass]="{'multi-contest': (leaderBoards.length > 1)}">
+        <div class="description-blurb" [ngClass]="{'blurb-hidden': !widgetData?.description}"
+        [innerHtml]="widgetData.description"></div>
+        <live-clock class="event-clock" [event]="eventEntity"
+        *ngIf="eventEntity.clock && !leaderBoardWidget.isHalfTime && !(leaderBoardWidget.isResulted)" ></live-clock>
+        <span class="event-clock" *ngIf="leaderBoardWidget.isHalfTime" [i18n]="'fs.halfTime'"></span>
+        <span class="event-clock" *ngIf="leaderBoardWidget.isFullTime" [i18n]="'fs.fullTime'"></span>
+    </div>
+    <div class="event-details">
+        <div class="home-team"><span [textContent]="leaderBoardWidget.homeTeam"></span></div>
+        <div class="home-team-flag">
+            <ng-container *ngIf="teamColors && teamColors.length">
+                <fiveaside-widget-flag [hasTeamImage]="hasTeamImage" [widthHeight]="'20'"
+                                    [team]="teamColors[0]"></fiveaside-widget-flag>
+            </ng-container>
+        </div>
+        <div class="home-score"><span [textContent]="leaderBoardWidget.homeScore"></span>-</div>
+        <div class="away-score"><span [textContent]="leaderBoardWidget.awayScore"></span></div>
+        <div class="away-team-flag">
+            <ng-container *ngIf="teamColors && teamColors.length">
+                <fiveaside-widget-flag [hasTeamImage]="hasTeamImage"
+                                    [widthHeight]="'20'"
+                             [team]="teamColors[1]"></fiveaside-widget-flag>
+            </ng-container>
+        </div>
+        <div class="away-team"><span [textContent]="leaderBoardWidget.awayTeam"></span></div>
+    </div>
+    <div class="widget-container" (click)="onWidgetClick()">
+        <ng-container *ngIf="entryDetails">
+            <div class="rank-details" [ngClass]="getClass()"><span [textContent]="entryDetails.rank"></span></div>
+            <div class="user-odds-details">
+                <div class="user-details"><span [textContent]="entryDetails.userId | callBack: setMaskedName : this"></span></div>
+                <div class="odds-details">
+                    <fiveaside-widget-oddsview [summary]="entryDetails"></fiveaside-widget-oddsview>
+                </div>
+            </div>
+            <div class="widget-progress-container">
+                <fiveaside-widget-progressbar [min]=0 [max]=100 [value]="entryDetails.overallProgressPct"
+                    [origin]="'summary'"></fiveaside-widget-progressbar>
+            </div>
+            <div class="progress-percentage">
+                <span [i18n]="'fs.overallProgress'" [i18nArgs]="[entryDetails.overallProgressPct]"></span>
+            </div>
+            <div class="prize-details" [ngClass]="{'single-prize': (entryDetails?.prizes?.length == 1)}">
+                <ul *ngIf="entryDetails?.prizes?.length">
+                    <li class="prize-pool-record" *ngFor="let entryPrize of entryDetails.prizes | slice:0:2; let index = index">
+                      <div class="prize-value" *ngIf="entryPrize">
+                        <div class="seperator" *ngIf="index > 0">&#43;</div>
+                        <section>
+                          <div class="tickets">
+                            <span class="prize-num" *ngIf="entryPrize.value && entryPrize.type.toLowerCase() !== prizeTypes.TICKET"
+                            [i18n]="'fs.card.POUND'" [i18nArgs]="[fixedDecimals(entryPrize.value)]"></span>
+                            <svg viewBox="0 0 36 15" class="signposting-logo signPosting-ticket"
+                                  *ngIf="entryPrize && entryPrize.type.toLowerCase()=== prizeTypes.TICKET && !(entryPrize.signPosting &&
+                                      (entryPrize.signPosting | keyvalue)?.length &&
+                                      entryPrize.signPosting.filename)">
+                              <use xlink:href="#ticket"></use>
+                            </svg>
+                            <svg viewBox="0 0 18 15" class="signposting-logo"
+                                  *ngIf="entryPrize && entryPrize.type.toLowerCase() === prizeTypes.FREEBET && !(entryPrize.signPosting &&
+                                      (entryPrize.signPosting | keyvalue)?.length &&
+                                      entryPrize.signPosting.filename)">
+                              <use xlink:href="#freebet"></use>
+                            </svg>
+                            <img class="signposting-logo" *ngIf="entryPrize.signPosting &&
+                                          (entryPrize.signPosting | keyvalue)?.length &&
+                                          entryPrize.signPosting.filename"
+                                         [attr.src]="entryPrize.signPosting.filename | callBack : getSignpostingUrl : this" />
+                          </div>
+                        </section>
+                      </div>
+                    </li>
+                  </ul>
+            </div>
+        </ng-container>
+    </div>
+</div>

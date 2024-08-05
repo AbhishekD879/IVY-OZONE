@@ -1,0 +1,194 @@
+@import "global.variables.scss";
+@import "../../mixins/widget-mixins.scss";
+$imagesPath: '/assets/images/';
+
+.leaderboard-widget {
+    &:not(.multi-widget) {
+        @include leader-board-mixin(126px, 0 -4px, url('#{$imagesPath}soccer-dark-grass.png'), cover, no-repeat, center);
+    }
+    &.multi-widget {
+       @include leader-board-mixin(126px, 0px, url('#{$imagesPath}soccer-dark-grass.png'), cover, no-repeat, center);
+        margin-right: 5px;
+        border-radius: 8px;
+    }
+    .contest-details {
+        @include contest-mixin(29px, $color-gray-fiveaside, 7px 16px 6px 18px, $color-white, flex, space-between, $alt-font-family, $font-size-base, bold);
+        &.multi-contest {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .description-blurb {
+            @include contest-detail-mixin(70%, 16px, hidden);
+            text-transform: uppercase;
+            &.blurb-hidden {
+                visibility: hidden
+            }
+        }
+        .event-clock {
+            @include contest-detail-mixin(85px, 16px, hidden);
+            text-align: right;
+        }
+    }
+    .event-details {
+        @include display-flex();
+        @include justify-content(center);
+        @include align-items(center);
+        height: 37px;
+        padding: 8px;
+        text-transform: uppercase;
+        color: $color-white;
+        font-weight: bold;
+        .home-team, .away-team {
+            @include country-name-mixin(45%, 11px, $color-white, $font-size-sm, center, $base-font-family, 1px, bold, hidden);
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            padding: 0 12px;
+        }
+        .home-team {
+            text-align: end;
+        }
+        .away-team {
+            text-align: start;
+        }
+        .home-team-flag, .away-team-flag {
+            line-height: 0px;
+            @include country-flags-mixin(50%, 20px, 20px, 0 2px 4px 0 $color-gray-border-fiveaside);
+        }
+        .delimiter {
+            margin: 0 7px;
+        }
+        .home-score, .away-score {
+            font-size: $font-size-xl;
+        }
+        .home-score {
+            padding-left: 12px;
+        }
+        .away-score {
+            padding-right: 12px;
+        }
+    }
+    .widget-container {
+        @include display-flex();
+        @include justify-content(center);
+        @include align-items(center);
+        height: 52px;
+        border-radius: 4px;
+        margin: 0px 10px 8px;
+        background-color: $color-blue-charcoal;
+        .rank-details, .progress-percentage, .prize-details, .freebet-icon {
+            width: 8.33%;
+            text-align: center;
+            overflow-y: hidden;
+            @include setFontProps($base-font-family,$font-size,bold,$lGrayLighter);
+        }
+        .rank-details {
+            width: 10.33%;
+        }
+        .rank-details {
+            margin-right: 3px;
+        }
+        .user-odds-details {
+            @include display-flex();
+            @include flex-direction(column);
+            width: 16.66%;
+            .user-details {
+                @include setFontProps($alt-font-family,$font-size,500,$lGrayLighter);
+            }
+            .odds-details {
+                @include setFontProps($alt-font-family,$font-size-sm,normal,$lGrayLighter);
+            }
+        }
+        .widget-progress-container {
+            width: 37.66%;
+            padding: 0 5px 0 20px;
+        }
+        .progress-percentage {
+            width: 10.66%;
+            text-align: left;
+            @include setFontProps($alt-font-family,$font-size,normal,$lGrayLighter);
+        }
+        .digitThree, .digitFive {
+            @include setFontProps($base-font-family, $font-size-md, bold, $lGrayLighter);
+        }
+        .digitSix {
+            @include setFontProps($base-font-family, $font-size-pre-xs, bold, $lGrayLighter);
+        }
+        .digitSeven {
+            @include setFontProps($base-font-family, $font-size-xs, bold, $lGrayLighter);
+        }
+        .defaultrankStyle {
+            @include setFontProps($base-font-family, $font-size, bold, $lGrayLighter);
+        }
+        .prize-details {
+            padding-top: 5px;
+            width: 22.66%;
+            &.single-prize {
+                padding-top: 0px;
+            }
+            ul {
+                margin: 0;
+                padding: 0;
+                li:first-child {
+                    height: 15px;
+                }
+                .prize-pool-record {
+                  @include display-flex();
+                  @include align-items();
+                  @include justify-content(space-between);
+                  .signposting-logo {
+                    max-width:46px;
+                    height: 15px;
+                    margin: auto;
+                    padding-left: 2px;
+                  }
+                  .prize-value {
+                    @include flex(8, 1, 0%);
+                    min-height: 15px;
+                    @include display-flex();
+                    @include align-items(center);
+                    @include flex-direction(column);
+                    @include justify-content(flex-start);
+                    @include flex-wrap(wrap);
+                    .seperator {
+                        height: 10px;
+                        margin: 0 auto;
+                        @include setFontProps($base-font-family,$font-size,bold,$color-light-green-leaf);
+                    }
+                    section {
+                      margin: 2px 0px;
+                      &:first-child {
+                        margin-left: 3px;
+                      }
+                      @include display-flex();
+                      @include align-items(center);
+                      .tickets {
+                        @include display-flex();
+                        .signPosting-ticket {
+                          width: 100%;
+                          max-width: 100%;
+                        }
+                      }
+                      .prize-num {
+                        @include setFontProps($base-font-family,$font-size-lgr,bold,$color-light-green-leaf);
+                        font-stretch: condensed;
+                      }
+                    }
+                  }
+                }
+            }
+        }
+    }
+}
+
+::ng-deep {
+    .description-blurb {
+        & > p {
+            height: 16px;
+            margin: 0;
+            font-size: $font-size-base;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+    }
+}

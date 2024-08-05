@@ -1,0 +1,11 @@
+.accordion-margin > .accordion {
+  margin: 0 !important;
+
+  & > .container-content {
+    background: none !important;
+  }
+}
+
+.accordion-parent > .accordion > .container-content {
+  background: none !important;
+}

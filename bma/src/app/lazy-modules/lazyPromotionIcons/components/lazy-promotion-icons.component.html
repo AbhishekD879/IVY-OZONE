@@ -1,0 +1,10 @@
+<div *ngIf="isDisplayBIRSignpost && isBIRAvailable"
+  class="promotion-icon-container event-card-label-wrapper race-label-wrapper"  [ngClass]="{ 'small-icon': mode === 'sm','small-icon-margin': mode === 'sm',
+'middle-icon': mode === 'md',
+'mini-icon': mode === 'mini',
+'bir-inplay': iconsCount === 1 && !isAnyIconAvailable }" (click)="iconAction($event, BIR_PromoIcon ,BIR_FLAG)">
+  <svg class="event-card-label">
+    <use xlink:href="#icon-hr-bir"></use>
+  </svg>
+  <span class="event-card-text" id="event-card-text" [i18n]="'bma.horceRacingBIR'"></span>
+</div>

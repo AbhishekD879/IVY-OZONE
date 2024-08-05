@@ -1,0 +1,14 @@
+<div class="retail-page">
+  <top-bar *ngIf="!showRetailHeader" [title]="'retail.title'"></top-bar>
+  <lazy-component class="lobby-banners" *ngIf="!showRetailHeader"
+      moduleUri="@lazy-modules-module/banners/banners.module#BannersModule"
+      [inputs]='{ page: RETAIL_CONST.trackingLocation}'>
+  </lazy-component>
+  <div *ngIf="showUpgradeButton && !showRetailHeader" class="upgrade-button" data-crlat="upgradeButtonContainer">
+    <button class="btn btn-style1" id="upgradeBtn" data-crlat="upgradeButton" (click)="trackUpgradeNavigation(linkTitle)" [innerHtml]="upgradeButtonContent">
+    </button>
+  </div>
+  <retail-menu *ngIf="showRetailMenu" [showHeader]="showRetailHeader" [showRetailHeader]="showRetailHeader" [showDescription]="true" [trackingLocation]="RETAIL_CONST.trackingLocation"
+    [disableDefaultNavigation]="disableDefaultNavigation"
+    (showFootballBetFilterConfirmDialog)="showFootballFilterConfirmDialog()"></retail-menu>
+</div>

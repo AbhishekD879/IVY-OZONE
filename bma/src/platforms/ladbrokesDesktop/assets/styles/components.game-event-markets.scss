@@ -1,0 +1,36 @@
+@import 'global.variables.scss';
+
+.market-columns {
+  width: 100%;
+
+  @media screen and (min-width: $md-point) {
+    @include display-flex();
+    @include flex-flow(row);
+  }
+
+  .market-column {
+    width: 100%;
+
+    &:empty {
+      display: none;
+    }
+
+    @media screen and (min-width: $md-point) {
+      @include flex(1,1,50%);
+      width: 50%;
+      overflow: visible;
+
+      + .market-column {
+        padding: 0 0 0 10px;
+      }
+    }
+  }
+}
+
+.teams-group .team-col .custom-select select,
+.custom-select--scorecast-goalscorer .custom-select select,
+.correct-score-container .custom-select select,
+.correct-score-team-label,
+.scorecast-subcontainer .scorecast-select-scorer-label {
+  font-size: 13px;
+}

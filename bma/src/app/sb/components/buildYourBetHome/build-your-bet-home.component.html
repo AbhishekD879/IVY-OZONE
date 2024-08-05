@@ -1,0 +1,13 @@
+<div class="sk-container" [ngClass]="{'sk-loading': !initialized}">
+  <loading-screen [displayed]="!initialized" [skeletonOnly]="true"></loading-screen>
+  <build-your-bet-tab>
+    <old-build-your-bet-tab>
+      <lazy-component moduleUri="@yourCallModule/your-call.module#YourCallModule"
+                      entryComponent="BybHomeComponent"
+                      (init)="childComponentLoaded()"
+                      (failed)="childComponentLoaded()"
+      >
+      </lazy-component>
+    </old-build-your-bet-tab>
+  </build-your-bet-tab>
+</div>

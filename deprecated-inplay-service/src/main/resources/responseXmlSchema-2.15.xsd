@@ -1,0 +1,1295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://schema.openbet.com/SiteServer/2.15/SSResponse.xsd" elementFormDefault="unqualified" targetNamespace="http://schema.openbet.com/SiteServer/2.15/SSResponse.xsd">
+	<xs:simpleType name="obBoolean">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="true"/>
+			<xs:enumeration value=""/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="obListOfStrings">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="obSetOfStrings">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:element name="error" type="Error"/>
+	<xs:element name="responseFooter" type="ResponseFooter"/>
+	<xs:element name="dispSort" type="DispSort"/>
+	<xs:element name="poolDividend" type="PoolDividend"/>
+	<xs:element name="ncastDividend" type="NcastDividend"/>
+	<xs:element name="rule4Deduction" type="Rule4Deduction"/>
+	<xs:element name="nonRunner" type="NonRunner"/>
+	<xs:element name="finalPosition" type="FinalPosition"/>
+	<xs:element name="racingResult" type="RacingResult"/>
+	<xs:element name="idSetToken" type="IdSetToken"/>
+	<xs:element name="news" type="News"/>
+	<xs:element name="region" type="Region"/>
+	<xs:element name="pastSummary" type="PastSummary"/>
+	<xs:element name="checkpoint" type="Checkpoint"/>
+	<xs:element name="racingFormOutcome" type="RacingFormOutcome"/>
+	<xs:element name="translation" type="Translation"/>
+	<xs:element name="topXBets" type="TopXBets"/>
+	<xs:element name="externalKeyLookup" type="ExternalKeyLookup"/>
+	<xs:element name="blurb" type="Blurb"/>
+	<xs:element name="topBet" type="TopBet"/>
+	<xs:element name="property" type="Property"/>
+	<xs:element name="runnerResult" type="RunnerResult"/>
+	<xs:element name="resultedRace" type="ResultedRace"/>
+	<xs:element name="pool" type="Pool"/>
+	<xs:element name="aggregation" type="Aggregation"/>
+	<xs:element name="nSetValue" type="NSetValue"/>
+	<xs:element name="softwareVersion" type="SoftwareVersion"/>
+	<xs:element name="localisationToken" type="LocalisationToken"/>
+	<xs:element name="racingFormEvent" type="RacingFormEvent"/>
+	<xs:element name="media" type="Media"/>
+	<xs:element name="mediaProvider" type="MediaProvider"/>
+	<xs:element name="externalKeys" type="ExternalKeys"/>
+	<xs:element name="draw" type="Draw"/>
+	<xs:element name="lotteryPrice" type="LotteryPrice"/>
+	<xs:element name="lottery" type="Lottery"/>
+	<xs:element name="drilldownTagLink" type="DrilldownTagLink"/>
+	<xs:element name="drilldownTag" type="DrilldownTag"/>
+	<xs:element name="collection" type="Collection"/>
+	<xs:element name="sport" type="Sport"/>
+	<xs:element name="drilldownNode" type="DrilldownNode"/>
+	<xs:element name="coupon" type="Coupon"/>
+	<xs:element name="templateMarket" type="TemplateMarket"/>
+	<xs:element name="subType" type="SubType"/>
+	<xs:element name="type" type="Type"/>
+	<xs:element name="class" type="Class"/>
+	<xs:element name="drilldownTagTarget" type="DrilldownTagTarget"/>
+	<xs:element name="teamEvent" type="TeamEvent"/>
+	<xs:element name="player" type="Player"/>
+	<xs:element name="team" type="Team"/>
+	<xs:element name="eventParticipant" type="EventParticipant"/>
+	<xs:element name="eventIncidentParticipant" type="EventIncidentParticipant"/>
+	<xs:element name="eventIncidentComment" type="EventIncidentComment"/>
+	<xs:element name="eventIncident" type="EventIncident"/>
+	<xs:element name="eventPeriodClockState" type="EventPeriodClockState"/>
+	<xs:element name="eventFact" type="EventFact"/>
+	<xs:element name="eventPeriod" type="EventPeriod"/>
+	<xs:element name="statistic" type="Statistic"/>
+	<xs:element name="offer" type="Offer"/>
+	<xs:element name="referenceEachWayTerms" type="ReferenceEachWayTerms"/>
+	<xs:element name="altPriceType" type="AltPriceType"/>
+	<xs:element name="historicPrice" type="HistoricPrice"/>
+	<xs:element name="price" type="Price"/>
+	<xs:element name="outcome" type="Outcome"/>
+	<xs:element name="market" type="Market"/>
+	<xs:element name="event" type="Event"/>
+	<xs:element name="resultedEachWayTerms" type="ResultedEachWayTerms"/>
+	<xs:element name="resultedReferenceEachWayTerms" type="ResultedReferenceEachWayTerms"/>
+	<xs:element name="resultedAltPriceType" type="ResultedAltPriceType"/>
+	<xs:element name="deadHeatReduction" type="DeadHeatReduction"/>
+	<xs:element name="resultedPrice" type="ResultedPrice"/>
+	<xs:element name="resultedOutcome" type="ResultedOutcome"/>
+	<xs:element name="resultedMarket" type="ResultedMarket"/>
+	<xs:element name="resultedEvent" type="ResultedEvent"/>
+	<xs:element name="healthCheck" type="HealthCheck"/>
+	<xs:element name="rule4" type="Rule4"/>
+	<xs:element name="scorecast" type="Scorecast"/>
+	<xs:element name="category" type="Category"/>
+	<xs:element name="SSResponse" type="SSResponse"/>
+	<xs:complexType name="SSResponse">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="category"/>
+					<xs:element ref="scorecast"/>
+					<xs:element ref="rule4"/>
+					<xs:element ref="healthCheck"/>
+					<xs:element ref="resultedEvent"/>
+					<xs:element ref="event"/>
+					<xs:element ref="drilldownTagTarget"/>
+					<xs:element ref="lottery"/>
+					<xs:element ref="drilldownTag"/>
+					<xs:element ref="externalKeys"/>
+					<xs:element ref="mediaProvider"/>
+					<xs:element ref="racingFormEvent"/>
+					<xs:element ref="localisationToken"/>
+					<xs:element ref="softwareVersion"/>
+					<xs:element ref="nSetValue"/>
+					<xs:element ref="drilldownNode"/>
+					<xs:element ref="class"/>
+					<xs:element ref="aggregation"/>
+					<xs:element ref="sport"/>
+					<xs:element ref="player"/>
+					<xs:element ref="pool"/>
+					<xs:element ref="resultedRace"/>
+					<xs:element ref="coupon"/>
+					<xs:element ref="property"/>
+					<xs:element ref="topBet"/>
+					<xs:element ref="team"/>
+					<xs:element ref="blurb"/>
+					<xs:element ref="externalKeyLookup"/>
+					<xs:element ref="topXBets"/>
+					<xs:element ref="translation"/>
+					<xs:element ref="racingFormOutcome"/>
+					<xs:element ref="checkpoint"/>
+					<xs:element ref="pastSummary"/>
+					<xs:element ref="region"/>
+					<xs:element ref="news"/>
+					<xs:element ref="idSetToken"/>
+					<xs:element ref="racingResult"/>
+					<xs:element ref="dispSort"/>
+				</xs:choice>
+				<xs:element ref="responseFooter"/>
+			</xs:sequence>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="Category">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="categoryCode" type="xs:string"/>
+		<xs:attribute name="isDisplayed" type="obBoolean"/>
+		<xs:attribute name="displayOrder" type="xs:integer"/>
+	</xs:complexType>
+	<xs:complexType name="Scorecast">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="scorerOutcomeId" type="xs:string"/>
+		<xs:attribute name="scorecastPrices" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="Rule4">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="marketId" type="xs:integer"/>
+		<xs:attribute name="fromDate" type="xs:dateTime"/>
+		<xs:attribute name="toDate" type="xs:dateTime"/>
+		<xs:attribute name="deductionType" type="xs:string"/>
+		<xs:attribute name="deduction" type="xs:decimal"/>
+		<xs:attribute name="isActive" type="obBoolean"/>
+		<xs:attribute name="outcomeId" type="xs:integer"/>
+		<xs:attribute name="outcomeName" type="xs:string"/>
+		<xs:attribute name="runnerNumber" type="xs:integer"/>
+	</xs:complexType>
+	<xs:complexType name="HealthCheck">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="status" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="ResultedEvent">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="resultedMarket"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="isDisplayed" type="obBoolean"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+		<xs:attribute name="eventStatusCode" type="xs:string"/>
+		<xs:attribute name="displayOrder" type="xs:integer"/>
+		<xs:attribute name="startTime" type="xs:dateTime"/>
+		<xs:attribute name="suspendAtTime" type="xs:dateTime"/>
+		<xs:attribute name="rawIsOffCode" type="xs:string"/>
+		<xs:attribute name="isResulted" type="obBoolean"/>
+		<xs:attribute name="isFinished" type="obBoolean"/>
+		<xs:attribute name="finishedAt" type="xs:dateTime"/>
+		<xs:attribute name="classId" type="xs:string"/>
+		<xs:attribute name="typeId" type="xs:string"/>
+		<xs:attribute name="subTypeId" type="xs:string"/>
+		<xs:attribute name="sportId" type="xs:string"/>
+		<xs:attribute name="raceNumber" type="xs:integer"/>
+		<xs:attribute name="categoryId" type="xs:string"/>
+		<xs:attribute name="categoryCode" type="xs:string"/>
+		<xs:attribute name="categoryName" type="xs:string"/>
+		<xs:attribute name="className" type="xs:string"/>
+		<xs:attribute name="classDisplayOrder" type="xs:integer"/>
+		<xs:attribute name="classSortCode" type="xs:string"/>
+		<xs:attribute name="classFlagCodes" type="obSetOfStrings"/>
+		<xs:attribute name="typeName" type="xs:string"/>
+		<xs:attribute name="typeDisplayOrder" type="xs:integer"/>
+		<xs:attribute name="typeFlagCodes" type="obSetOfStrings"/>
+		<xs:attribute name="subTypeName" type="xs:string"/>
+		<xs:attribute name="subTypeDisplayOrder" type="xs:integer"/>
+	</xs:complexType>
+	<xs:complexType name="ResultedMarket">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="resultedOutcome"/>
+					<xs:element ref="resultedAltPriceType"/>
+					<xs:element ref="resultedReferenceEachWayTerms"/>
+					<xs:element ref="resultedEachWayTerms"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="eventId" type="xs:string"/>
+		<xs:attribute name="templateMarketId" type="xs:string"/>
+		<xs:attribute name="isDisplayed" type="obBoolean"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+		<xs:attribute name="dispSortId" type="xs:string"/>
+		<xs:attribute name="dispSortName" type="xs:string"/>
+		<xs:attribute name="collectionIds" type="obSetOfStrings"/>
+		<xs:attribute name="collectionNames" type="obSetOfStrings"/>
+		<xs:attribute name="marketMeaningMajorCode" type="xs:string"/>
+		<xs:attribute name="marketMeaningMinorCode" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="substitutedName" type="xs:string"/>
+		<xs:attribute name="isLpAvailable" type="obBoolean"/>
+		<xs:attribute name="isSpAvailable" type="obBoolean"/>
+		<xs:attribute name="isGpAvailable" type="obBoolean"/>
+		<xs:attribute name="isEachWayAvailable" type="obBoolean"/>
+		<xs:attribute name="isPlaceOnlyAvailable" type="obBoolean"/>
+		<xs:attribute name="rawHandicapValue" type="xs:decimal"/>
+		<xs:attribute name="rawHandicapMakeup" type="xs:decimal"/>
+		<xs:attribute name="betInRunIndex" type="xs:string"/>
+		<xs:attribute name="eachWayFactorNum" type="xs:string"/>
+		<xs:attribute name="eachWayFactorDen" type="xs:string"/>
+		<xs:attribute name="eachWayPlaces" type="xs:string"/>
+		<xs:attribute name="isAntepost" type="obBoolean"/>
+		<xs:attribute name="isResulted" type="obBoolean"/>
+		<xs:attribute name="isFinished" type="obBoolean"/>
+		<xs:attribute name="finishedAt" type="xs:dateTime"/>
+		<xs:attribute name="isMarketBetInRun" type="obBoolean"/>
+		<xs:attribute name="displayOrder" type="xs:integer"/>
+		<xs:attribute name="marketStatusCode" type="xs:string"/>
+		<xs:attribute name="priceTypeCodes" type="obSetOfStrings"/>
+		<xs:attribute name="ncastTypeCodes" type="obSetOfStrings"/>
+		<xs:attribute name="isWinAndPlaceAvailable" type="obBoolean"/>
+		<xs:attribute name="isWPPlaceOnlyAvailable" type="obBoolean"/>
+		<xs:attribute name="winAndPlacePlaces" type="xs:integer"/>
+		<xs:attribute name="maxAccumulators" type="xs:integer"/>
+		<xs:attribute name="isRestricted" type="obBoolean"/>
+	</xs:complexType>
+	<xs:complexType name="ResultedOutcome">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="resultedPrice"/>
+					<xs:element ref="deadHeatReduction"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="marketId" type="xs:string"/>
+		<xs:attribute name="isDisplayed" type="obBoolean"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="outcomeMeaningMajorCode" type="xs:string"/>
+		<xs:attribute name="outcomeMeaningMinorCode" type="xs:string"/>
+		<xs:attribute name="runnerNumber" type="xs:string"/>
+		<xs:attribute name="resultCode" type="xs:string"/>
+		<xs:attribute name="isResulted" type="obBoolean"/>
+		<xs:attribute name="rawHandicapValue" type="xs:decimal"/>
+		<xs:attribute name="rawHandicapScore" type="xs:integer"/>
+		<xs:attribute name="position" type="xs:integer"/>
+		<xs:attribute name="isFinished" type="obBoolean"/>
+		<xs:attribute name="finishedAt" type="xs:dateTime"/>
+		<xs:attribute name="hasDeadHeatReduction" type="obBoolean"/>
+	</xs:complexType>
+	<xs:complexType name="ResultedPrice">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="outcomeId" type="xs:string"/>
+		<xs:attribute name="priceTypeCode" type="xs:string"/>
+		<xs:attribute name="priceNum" type="xs:integer"/>
+		<xs:attribute name="priceDen" type="xs:integer"/>
+		<xs:attribute name="priceDec" type="xs:decimal"/>
+		<xs:attribute name="isToPlace" type="obBoolean"/>
+	</xs:complexType>
+	<xs:complexType name="DeadHeatReduction">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="eachWayTermId" type="xs:string"/>
+		<xs:attribute name="factorNum" type="xs:integer"/>
+		<xs:attribute name="factorDen" type="xs:integer"/>
+		<xs:attribute name="typeCode" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="ResultedAltPriceType">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="code" type="xs:string"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+	</xs:complexType>
+	<xs:complexType name="ResultedReferenceEachWayTerms">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="factorNum" type="xs:integer"/>
+		<xs:attribute name="factorDen" type="xs:integer"/>
+		<xs:attribute name="places" type="xs:integer"/>
+	</xs:complexType>
+	<xs:complexType name="ResultedEachWayTerms">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="resultedReferenceEachWayTerms"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="factorNum" type="xs:integer"/>
+		<xs:attribute name="factorDen" type="xs:integer"/>
+		<xs:attribute name="places" type="xs:integer"/>
+	</xs:complexType>
+	<xs:complexType name="Event">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="market"/>
+					<xs:element ref="eventPeriod"/>
+					<xs:element ref="eventParticipant"/>
+					<xs:element ref="eventFact"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="eventStatusCode" type="xs:string"/>
+		<xs:attribute name="isActive" type="obBoolean"/>
+		<xs:attribute name="isDisplayed" type="obBoolean"/>
+		<xs:attribute name="displayOrder" type="xs:integer"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+		<xs:attribute name="eventSortCode" type="xs:string"/>
+		<xs:attribute name="startTime" type="xs:dateTime"/>
+		<xs:attribute name="suspendAtTime" type="xs:dateTime"/>
+		<xs:attribute name="rawIsOffCode" type="xs:string"/>
+		<xs:attribute name="isStarted" type="obBoolean"/>
+		<xs:attribute name="isResulted" type="obBoolean"/>
+		<xs:attribute name="isFinished" type="obBoolean"/>
+		<xs:attribute name="classId" type="xs:string"/>
+		<xs:attribute name="typeId" type="xs:string"/>
+		<xs:attribute name="subTypeId" type="xs:string"/>
+		<xs:attribute name="sportId" type="xs:string"/>
+		<xs:attribute name="raceNumber" type="xs:integer"/>
+		<xs:attribute name="streamAvailableInCountries" type="obSetOfStrings"/>
+		<xs:attribute name="liveServChannels" type="obSetOfStrings"/>
+		<xs:attribute name="liveServChildrenChannels" type="obSetOfStrings"/>
+		<xs:attribute name="liveServLastMsgId" type="xs:string"/>
+		<xs:attribute name="categoryId" type="xs:string"/>
+		<xs:attribute name="categoryCode" type="xs:string"/>
+		<xs:attribute name="categoryName" type="xs:string"/>
+		<xs:attribute name="className" type="xs:string"/>
+		<xs:attribute name="classDisplayOrder" type="xs:integer"/>
+		<xs:attribute name="classSortCode" type="xs:string"/>
+		<xs:attribute name="classFlagCodes" type="obSetOfStrings"/>
+		<xs:attribute name="typeName" type="xs:string"/>
+		<xs:attribute name="typeDisplayOrder" type="xs:integer"/>
+		<xs:attribute name="typeFlagCodes" type="obSetOfStrings"/>
+		<xs:attribute name="subTypeName" type="xs:string"/>
+		<xs:attribute name="subTypeDisplayOrder" type="xs:integer"/>
+		<xs:attribute name="isOpenEvent" type="obBoolean"/>
+		<xs:attribute name="isNext24HourEvent" type="obBoolean"/>
+		<xs:attribute name="isLiveNowEvent" type="obBoolean"/>
+		<xs:attribute name="isLiveNowOrFutureEvent" type="obBoolean"/>
+		<xs:attribute name="drilldownTagNames" type="obSetOfStrings"/>
+		<xs:attribute name="isAvailable" type="obBoolean"/>
+		<xs:attribute name="mediaTypeCodes" type="obSetOfStrings"/>
+		<xs:attribute name="venue" type="xs:string"/>
+		<xs:attribute name="cashoutAvail" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="Market">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="outcome"/>
+					<xs:element ref="scorecast"/>
+					<xs:element ref="altPriceType"/>
+					<xs:element ref="referenceEachWayTerms"/>
+					<xs:element ref="offer"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="eventId" type="xs:string"/>
+		<xs:attribute name="templateMarketId" type="xs:string"/>
+		<xs:attribute name="dispSortId" type="xs:string"/>
+		<xs:attribute name="dispSortName" type="xs:string"/>
+		<xs:attribute name="collectionIds" type="obSetOfStrings"/>
+		<xs:attribute name="collectionNames" type="obSetOfStrings"/>
+		<xs:attribute name="marketMeaningMajorCode" type="xs:string"/>
+		<xs:attribute name="marketMeaningMinorCode" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="substitutedName" type="xs:string"/>
+		<xs:attribute name="isLpAvailable" type="obBoolean"/>
+		<xs:attribute name="isSpAvailable" type="obBoolean"/>
+		<xs:attribute name="isGpAvailable" type="obBoolean"/>
+		<xs:attribute name="isEachWayAvailable" type="obBoolean"/>
+		<xs:attribute name="isPlaceOnlyAvailable" type="obBoolean"/>
+		<xs:attribute name="rawHandicapValue" type="xs:decimal"/>
+		<xs:attribute name="betInRunIndex" type="xs:integer"/>
+		<xs:attribute name="eachWayFactorNum" type="xs:integer"/>
+		<xs:attribute name="eachWayFactorDen" type="xs:integer"/>
+		<xs:attribute name="eachWayPlaces" type="xs:integer"/>
+		<xs:attribute name="isAntepost" type="obBoolean"/>
+		<xs:attribute name="isResulted" type="obBoolean"/>
+		<xs:attribute name="isMarketBetInRun" type="obBoolean"/>
+		<xs:attribute name="displayOrder" type="xs:integer"/>
+		<xs:attribute name="marketStatusCode" type="xs:string"/>
+		<xs:attribute name="isActive" type="obBoolean"/>
+		<xs:attribute name="isDisplayed" type="obBoolean"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+		<xs:attribute name="liveServChannels" type="obSetOfStrings"/>
+		<xs:attribute name="liveServChildrenChannels" type="obSetOfStrings"/>
+		<xs:attribute name="liveServLastMsgId" type="xs:string"/>
+		<xs:attribute name="priceTypeCodes" type="obSetOfStrings"/>
+		<xs:attribute name="ncastTypeCodes" type="obSetOfStrings"/>
+		<xs:attribute name="isPoolAvailable" type="obBoolean"/>
+		<xs:attribute name="drilldownTagNames" type="obSetOfStrings"/>
+		<xs:attribute name="isWinAndPlaceAvailable" type="obBoolean"/>
+		<xs:attribute name="isWPPlaceOnlyAvailable" type="obBoolean"/>
+		<xs:attribute name="winAndPlacePlaces" type="xs:integer"/>
+		<xs:attribute name="isAvailable" type="obBoolean"/>
+		<xs:attribute name="maxAccumulators" type="xs:integer"/>
+		<xs:attribute name="isStarted" type="obBoolean"/>
+		<xs:attribute name="isCbAvailable" type="obBoolean"/>
+		<xs:attribute name="isFinished" type="obBoolean"/>
+		<xs:attribute name="cashoutAvail" type="xs:string"/>
+		<xs:attribute name="isRestricted" type="obBoolean"/>
+	</xs:complexType>
+	<xs:complexType name="Outcome">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="price"/>
+					<xs:element ref="historicPrice"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="marketId" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="outcomeMeaningMajorCode" type="xs:string"/>
+		<xs:attribute name="outcomeMeaningMinorCode" type="xs:string"/>
+		<xs:attribute name="outcomeMeaningScores" type="obListOfStrings"/>
+		<xs:attribute name="runnerNumber" type="xs:integer"/>
+		<xs:attribute name="isResulted" type="obBoolean"/>
+		<xs:attribute name="displayOrder" type="xs:integer"/>
+		<xs:attribute name="outcomeStatusCode" type="xs:string"/>
+		<xs:attribute name="isActive" type="obBoolean"/>
+		<xs:attribute name="isDisplayed" type="obBoolean"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+		<xs:attribute name="liveServChannels" type="obSetOfStrings"/>
+		<xs:attribute name="liveServChildrenChannels" type="obSetOfStrings"/>
+		<xs:attribute name="liveServLastMsgId" type="xs:string"/>
+		<xs:attribute name="drilldownTagNames" type="obSetOfStrings"/>
+		<xs:attribute name="isAvailable" type="obBoolean"/>
+		<xs:attribute name="isFinished" type="obBoolean"/>
+		<xs:attribute name="hasRestrictedSet" type="obBoolean"/>
+		<xs:attribute name="isEnhancedOdds" type="obBoolean"/>
+		<xs:attribute name="cashoutAvail" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="Price">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="isActive" type="obBoolean"/>
+		<xs:attribute name="displayOrder" type="xs:integer"/>
+		<xs:attribute name="outcomeVariantId" type="xs:string"/>
+		<xs:attribute name="priceType" type="xs:string"/>
+		<xs:attribute name="priceNum" type="xs:integer"/>
+		<xs:attribute name="priceDen" type="xs:integer"/>
+		<xs:attribute name="priceDec" type="xs:decimal"/>
+		<xs:attribute name="handicapValueDec" type="obListOfStrings"/>
+		<xs:attribute name="rawHandicapValue" type="xs:decimal"/>
+		<xs:attribute name="poolId" type="xs:string"/>
+		<xs:attribute name="poolType" type="xs:string"/>
+		<xs:attribute name="isToPlace" type="obBoolean"/>
+	</xs:complexType>
+	<xs:complexType name="HistoricPrice">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="displayOrder" type="xs:integer"/>
+		<xs:attribute name="livePriceNum" type="xs:integer"/>
+		<xs:attribute name="livePriceDen" type="xs:integer"/>
+		<xs:attribute name="livePriceDec" type="xs:decimal"/>
+		<xs:attribute name="isOpening" type="obBoolean"/>
+	</xs:complexType>
+	<xs:complexType name="AltPriceType">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="code" type="xs:string"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+	</xs:complexType>
+	<xs:complexType name="ReferenceEachWayTerms">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="factorNum" type="xs:integer"/>
+		<xs:attribute name="factorDen" type="xs:integer"/>
+		<xs:attribute name="places" type="xs:integer"/>
+	</xs:complexType>
+	<xs:complexType name="Offer">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="statistic"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="refRecordId" type="xs:string"/>
+		<xs:attribute name="refRecordType" type="xs:string"/>
+		<xs:attribute name="description" type="xs:string"/>
+		<xs:attribute name="isActive" type="obBoolean"/>
+		<xs:attribute name="isDefault" type="obBoolean"/>
+		<xs:attribute name="displayOrder" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="Statistic">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="value" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="EventPeriod">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="eventPeriod"/>
+					<xs:element ref="eventFact"/>
+					<xs:element ref="eventPeriodClockState"/>
+					<xs:element ref="eventIncident"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="eventId" type="xs:string"/>
+		<xs:attribute name="parentEventPeriodId" type="xs:string"/>
+		<xs:attribute name="periodCode" type="xs:string"/>
+		<xs:attribute name="description" type="xs:string"/>
+		<xs:attribute name="periodIndex" type="xs:integer"/>
+		<xs:attribute name="order" type="xs:integer"/>
+		<xs:attribute name="startTime" type="xs:dateTime"/>
+		<xs:attribute name="endTime" type="xs:dateTime"/>
+	</xs:complexType>
+	<xs:complexType name="EventFact">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="eventId" type="xs:string"/>
+		<xs:attribute name="eventParticipantId" type="xs:string"/>
+		<xs:attribute name="eventPeriodId" type="xs:string"/>
+		<xs:attribute name="fact" type="xs:string"/>
+		<xs:attribute name="factCode" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="EventPeriodClockState">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="eventPeriodId" type="xs:string"/>
+		<xs:attribute name="offset" type="xs:string"/>
+		<xs:attribute name="lastUpdate" type="xs:dateTime"/>
+		<xs:attribute name="state" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="EventIncident">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="eventIncidentComment"/>
+					<xs:element ref="eventIncidentParticipant"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="eventId" type="xs:string"/>
+		<xs:attribute name="eventPeriodId" type="xs:string"/>
+		<xs:attribute name="eventParticipantId" type="xs:string"/>
+		<xs:attribute name="incidentCode" type="xs:string"/>
+		<xs:attribute name="description" type="xs:string"/>
+		<xs:attribute name="relativeTime" type="xs:integer"/>
+		<xs:attribute name="absoluteTime" type="xs:dateTime"/>
+		<xs:attribute name="xPos" type="xs:decimal"/>
+		<xs:attribute name="yPos" type="xs:decimal"/>
+		<xs:attribute name="createDate" type="xs:dateTime"/>
+	</xs:complexType>
+	<xs:complexType name="EventIncidentComment">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="eventIncidentId" type="xs:string"/>
+		<xs:attribute name="text" type="xs:string"/>
+		<xs:attribute name="lang" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="EventIncidentParticipant">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="eventIncidentId" type="xs:string"/>
+		<xs:attribute name="eventParticipantId" type="xs:string"/>
+		<xs:attribute name="roleCode" type="xs:string"/>
+		<xs:attribute name="role" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="EventParticipant">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="team"/>
+					<xs:element ref="player"/>
+					<xs:element ref="eventFact"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="eventId" type="xs:string"/>
+		<xs:attribute name="playerId" type="xs:string"/>
+		<xs:attribute name="teamId" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="parentEventParticipantId" type="xs:string"/>
+		<xs:attribute name="type" type="xs:string"/>
+		<xs:attribute name="roleCode" type="xs:string"/>
+		<xs:attribute name="role" type="xs:string"/>
+		<xs:attribute name="isActive" type="obBoolean"/>
+	</xs:complexType>
+	<xs:complexType name="Team">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="player"/>
+					<xs:element ref="teamEvent"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="sportId" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="shortCode" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="Player">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="firstName" type="xs:string"/>
+		<xs:attribute name="lastName" type="xs:string"/>
+		<xs:attribute name="nickname" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="TeamEvent">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="eventId" type="xs:string"/>
+		<xs:attribute name="roleCode" type="xs:string"/>
+		<xs:attribute name="isDisplayed" type="obBoolean"/>
+	</xs:complexType>
+	<xs:complexType name="DrilldownTagTarget">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="class"/>
+					<xs:element ref="type"/>
+					<xs:element ref="subType"/>
+					<xs:element ref="event"/>
+					<xs:element ref="market"/>
+					<xs:element ref="outcome"/>
+					<xs:element ref="coupon"/>
+					<xs:element ref="drilldownNode"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="refRecordType" type="xs:string"/>
+		<xs:attribute name="refRecordId" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="Class">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="type"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="classStatusCode" type="xs:string"/>
+		<xs:attribute name="isActive" type="obBoolean"/>
+		<xs:attribute name="isDisplayed" type="obBoolean"/>
+		<xs:attribute name="displayOrder" type="xs:integer"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+		<xs:attribute name="classFlagCodes" type="obSetOfStrings"/>
+		<xs:attribute name="classSortCode" type="xs:string"/>
+		<xs:attribute name="categoryId" type="xs:string"/>
+		<xs:attribute name="categoryCode" type="xs:string"/>
+		<xs:attribute name="categoryName" type="xs:string"/>
+		<xs:attribute name="categoryDisplayOrder" type="xs:integer"/>
+		<xs:attribute name="hasOpenEvent" type="obBoolean"/>
+		<xs:attribute name="hasNext24HourEvent" type="obBoolean"/>
+		<xs:attribute name="hasLiveNowEvent" type="obBoolean"/>
+		<xs:attribute name="hasLiveNowOrFutureEvent" type="obBoolean"/>
+		<xs:attribute name="drilldownTagNames" type="obSetOfStrings"/>
+	</xs:complexType>
+	<xs:complexType name="Type">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="subType"/>
+					<xs:element ref="templateMarket"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="typeStatusCode" type="xs:string"/>
+		<xs:attribute name="isActive" type="obBoolean"/>
+		<xs:attribute name="isDisplayed" type="obBoolean"/>
+		<xs:attribute name="displayOrder" type="xs:integer"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+		<xs:attribute name="typeFlagCodes" type="obSetOfStrings"/>
+		<xs:attribute name="classId" type="xs:string"/>
+		<xs:attribute name="hasOpenEvent" type="obBoolean"/>
+		<xs:attribute name="hasNext24HourEvent" type="obBoolean"/>
+		<xs:attribute name="hasLiveNowEvent" type="obBoolean"/>
+		<xs:attribute name="hasLiveNowOrFutureEvent" type="obBoolean"/>
+		<xs:attribute name="drilldownTagNames" type="obSetOfStrings"/>
+		<xs:attribute name="regionIds" type="obSetOfStrings"/>
+		<xs:attribute name="regionNames" type="obSetOfStrings"/>
+		<xs:attribute name="cashoutAvail" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="SubType">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="typeId" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="displayOrder" type="xs:integer"/>
+		<xs:attribute name="drilldownTagNames" type="obSetOfStrings"/>
+		<xs:attribute name="hasOpenEvent" type="obBoolean"/>
+		<xs:attribute name="isDisplayed" type="obBoolean"/>
+		<xs:attribute name="cashoutAvail" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="TemplateMarket">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="typeId" type="xs:string"/>
+		<xs:attribute name="displayOrder" type="xs:integer"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+		<xs:attribute name="marketMeaningMajorCode" type="xs:string"/>
+		<xs:attribute name="marketMeaningMinorCode" type="xs:string"/>
+		<xs:attribute name="dispSortId" type="xs:string"/>
+		<xs:attribute name="dispSortName" type="xs:string"/>
+		<xs:attribute name="collectionIds" type="obSetOfStrings"/>
+		<xs:attribute name="collectionNames" type="obSetOfStrings"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="isDisplayed" type="obBoolean"/>
+		<xs:attribute name="isGrouped" type="obBoolean"/>
+	</xs:complexType>
+	<xs:complexType name="Coupon">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="event"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="classId" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="couponSortCode" type="xs:string"/>
+		<xs:attribute name="couponFlagCodes" type="obSetOfStrings"/>
+		<xs:attribute name="displayOrder" type="xs:integer"/>
+		<xs:attribute name="isDisplayed" type="obBoolean"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+		<xs:attribute name="className" type="xs:string"/>
+		<xs:attribute name="classDisplayOrder" type="xs:integer"/>
+		<xs:attribute name="classSortCode" type="xs:string"/>
+		<xs:attribute name="classFlagCodes" type="obSetOfStrings"/>
+		<xs:attribute name="categoryId" type="xs:string"/>
+		<xs:attribute name="categoryCode" type="xs:string"/>
+		<xs:attribute name="categoryName" type="xs:string"/>
+		<xs:attribute name="hasOpenEvent" type="obBoolean"/>
+		<xs:attribute name="hasNext24HourEvent" type="obBoolean"/>
+		<xs:attribute name="hasLiveNowEvent" type="obBoolean"/>
+		<xs:attribute name="hasLiveNowOrFutureEvent" type="obBoolean"/>
+		<xs:attribute name="drilldownTagNames" type="obSetOfStrings"/>
+	</xs:complexType>
+	<xs:complexType name="DrilldownNode">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="sport"/>
+					<xs:element ref="category"/>
+					<xs:element ref="class"/>
+					<xs:element ref="type"/>
+					<xs:element ref="subType"/>
+					<xs:element ref="event"/>
+					<xs:element ref="coupon"/>
+					<xs:element ref="drilldownTag"/>
+					<xs:element ref="drilldownNode"/>
+					<xs:element ref="team"/>
+					<xs:element ref="player"/>
+					<xs:element ref="templateMarket"/>
+					<xs:element ref="market"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="parentDrilldownNodeId" type="xs:string"/>
+		<xs:attribute name="levelNumber" type="xs:integer"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="drilldownNodeIsDisplayed" type="obBoolean"/>
+		<xs:attribute name="displayOrder" type="xs:integer"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+		<xs:attribute name="refRecordType" type="xs:string"/>
+		<xs:attribute name="refRecordId" type="xs:string"/>
+		<xs:attribute name="seoUrl" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="Sport">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="collection"/>
+					<xs:element ref="team"/>
+					<xs:element ref="player"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="categoryId" type="xs:string"/>
+		<xs:attribute name="classId" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="Collection">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="displayOrder" type="xs:integer"/>
+		<xs:attribute name="isExpanded" type="obBoolean"/>
+		<xs:attribute name="parentCollectionId" type="xs:string"/>
+		<xs:attribute name="drilldownTagNames" type="obSetOfStrings"/>
+	</xs:complexType>
+	<xs:complexType name="DrilldownTag">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="drilldownTagLink"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="localisableName" type="xs:string"/>
+		<xs:attribute name="lang" type="xs:string"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+	</xs:complexType>
+	<xs:complexType name="DrilldownTagLink">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="class"/>
+					<xs:element ref="type"/>
+					<xs:element ref="subType"/>
+					<xs:element ref="event"/>
+					<xs:element ref="market"/>
+					<xs:element ref="outcome"/>
+					<xs:element ref="coupon"/>
+					<xs:element ref="drilldownNode"/>
+					<xs:element ref="collection"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="drilldownTagId" type="xs:string"/>
+		<xs:attribute name="refRecordType" type="xs:string"/>
+		<xs:attribute name="refRecordId" type="xs:string"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+	</xs:complexType>
+	<xs:complexType name="Lottery">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="lotteryPrice"/>
+					<xs:element ref="draw"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="sort" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="description" type="xs:string"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+		<xs:attribute name="minPicks" type="xs:integer"/>
+		<xs:attribute name="maxPicks" type="xs:integer"/>
+		<xs:attribute name="maxLines" type="xs:integer"/>
+		<xs:attribute name="minNumber" type="xs:integer"/>
+		<xs:attribute name="maxNumber" type="xs:integer"/>
+		<xs:attribute name="hasOpenDraw" type="obBoolean"/>
+	</xs:complexType>
+	<xs:complexType name="LotteryPrice">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="lotteryId" type="xs:string"/>
+		<xs:attribute name="numberCorrect" type="xs:integer"/>
+		<xs:attribute name="numberPicks" type="xs:integer"/>
+		<xs:attribute name="priceNum" type="xs:integer"/>
+		<xs:attribute name="priceDen" type="xs:integer"/>
+	</xs:complexType>
+	<xs:complexType name="Draw">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="lotteryId" type="xs:string"/>
+		<xs:attribute name="sort" type="xs:string"/>
+		<xs:attribute name="isActive" type="obBoolean"/>
+		<xs:attribute name="drawDescriptionId" type="xs:string"/>
+		<xs:attribute name="description" type="xs:string"/>
+		<xs:attribute name="openAtTime" type="xs:dateTime"/>
+		<xs:attribute name="shutAtTime" type="xs:dateTime"/>
+		<xs:attribute name="drawAtTime" type="xs:dateTime"/>
+	</xs:complexType>
+	<xs:complexType name="ExternalKeys">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="externalKeyTypeCode" type="xs:string"/>
+		<xs:attribute name="refRecordType" type="xs:string"/>
+		<xs:attribute name="mappings" type="obListOfStrings"/>
+	</xs:complexType>
+	<xs:complexType name="MediaProvider">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="media"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="mediaTypeCode" type="xs:string"/>
+		<xs:attribute name="providerCode" type="xs:string"/>
+		<xs:attribute name="logoResource" type="xs:string"/>
+		<xs:attribute name="listingUrl" type="xs:string"/>
+		<xs:attribute name="displayOrder" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="Media">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="refRecordId" type="xs:string"/>
+		<xs:attribute name="refRecordType" type="xs:string"/>
+		<xs:attribute name="accessProperties" type="xs:string"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+		<xs:attribute name="startTime" type="xs:dateTime"/>
+		<xs:attribute name="endTime" type="xs:dateTime"/>
+		<xs:attribute name="isDisplayed" type="obBoolean"/>
+		<xs:attribute name="availableInCountries" type="obSetOfStrings"/>
+		<xs:attribute name="isActive" type="obBoolean"/>
+		<xs:attribute name="url" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="RacingFormEvent">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="refRecordType" type="xs:string"/>
+		<xs:attribute name="refRecordId" type="xs:string"/>
+		<xs:attribute name="raceNumber" type="xs:integer"/>
+		<xs:attribute name="title" type="xs:string"/>
+		<xs:attribute name="overview" type="xs:string"/>
+		<xs:attribute name="distance" type="xs:string"/>
+		<xs:attribute name="going" type="xs:string"/>
+		<xs:attribute name="class" type="xs:string"/>
+		<xs:attribute name="prize" type="xs:string"/>
+		<xs:attribute name="courseName" type="xs:string"/>
+		<xs:attribute name="stewards" type="xs:string"/>
+		<xs:attribute name="starters" type="xs:string"/>
+		<xs:attribute name="drawBias" type="xs:string"/>
+		<xs:attribute name="trackCondition" type="xs:string"/>
+		<xs:attribute name="weather" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="LocalisationToken">
+		<xs:attribute name="id" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="SoftwareVersion">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="version" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="NSetValue">
+		<xs:attribute name="values" type="obSetOfStrings"/>
+	</xs:complexType>
+	<xs:complexType name="Aggregation">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="aggregatedRecordType" type="xs:string"/>
+		<xs:attribute name="refRecordType" type="xs:string"/>
+		<xs:attribute name="refRecordId" type="xs:string"/>
+		<xs:attribute name="count" type="xs:integer"/>
+	</xs:complexType>
+	<xs:complexType name="Pool">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="provider" type="xs:string"/>
+		<xs:attribute name="type" type="xs:string"/>
+		<xs:attribute name="currencyCode" type="xs:string"/>
+		<xs:attribute name="marketIds" type="obListOfStrings"/>
+		<xs:attribute name="legCount" type="xs:integer"/>
+		<xs:attribute name="poolValue" type="xs:decimal"/>
+		<xs:attribute name="isActive" type="obBoolean"/>
+		<xs:attribute name="isResulted" type="obBoolean"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+	</xs:complexType>
+	<xs:complexType name="ResultedRace">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="runnerResult"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="startTime" type="xs:dateTime"/>
+		<xs:attribute name="raceNumber" type="xs:integer"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="courseName" type="xs:string"/>
+		<xs:attribute name="conditions" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="RunnerResult">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="runnerId" type="xs:integer"/>
+		<xs:attribute name="jockey" type="xs:string"/>
+		<xs:attribute name="statusCode" type="xs:string"/>
+		<xs:attribute name="draw" type="xs:integer"/>
+		<xs:attribute name="position" type="xs:string"/>
+		<xs:attribute name="officialRating" type="xs:integer"/>
+		<xs:attribute name="providerRating" type="xs:integer"/>
+		<xs:attribute name="weight" type="xs:string"/>
+		<xs:attribute name="topSpeed" type="xs:integer"/>
+		<xs:attribute name="overview" type="xs:string"/>
+		<xs:attribute name="drawBestWinningTime" type="xs:string"/>
+		<xs:attribute name="drawStatistics" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="Property">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="value" type="xs:string"/>
+		<xs:attribute name="refRecordType" type="xs:string"/>
+		<xs:attribute name="refRecordId" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="TopBet">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="event"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="Blurb">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="blurbSortCode" type="xs:string"/>
+		<xs:attribute name="refRecordType" type="xs:string"/>
+		<xs:attribute name="refRecordId" type="xs:string"/>
+		<xs:attribute name="text" type="xs:string"/>
+		<xs:attribute name="lang" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="ExternalKeyLookup">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="refRecords" type="obSetOfStrings"/>
+	</xs:complexType>
+	<xs:complexType name="TopXBets">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="event"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="Translation">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="code" type="xs:string"/>
+		<xs:attribute name="lang" type="xs:string"/>
+		<xs:attribute name="text" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="RacingFormOutcome">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="refRecordType" type="xs:string"/>
+		<xs:attribute name="refRecordId" type="xs:string"/>
+		<xs:attribute name="runnerId" type="xs:string"/>
+		<xs:attribute name="runnerNumber" type="xs:integer"/>
+		<xs:attribute name="weight" type="xs:string"/>
+		<xs:attribute name="age" type="xs:integer"/>
+		<xs:attribute name="trainer" type="xs:string"/>
+		<xs:attribute name="daysSinceRun" type="xs:integer"/>
+		<xs:attribute name="draw" type="xs:integer"/>
+		<xs:attribute name="jockey" type="xs:string"/>
+		<xs:attribute name="owner" type="xs:string"/>
+		<xs:attribute name="silkName" type="xs:string"/>
+		<xs:attribute name="formGuide" type="xs:string"/>
+		<xs:attribute name="overview" type="xs:string"/>
+		<xs:attribute name="sireOverview" type="xs:string"/>
+		<xs:attribute name="breedingOverview" type="xs:string"/>
+		<xs:attribute name="officialRating" type="xs:integer"/>
+		<xs:attribute name="formProviderRating" type="xs:integer"/>
+		<xs:attribute name="runnerStatusCode" type="xs:string"/>
+		<xs:attribute name="drawBestWinningTime" type="xs:string"/>
+		<xs:attribute name="drawStatistics" type="xs:string"/>
+		<xs:attribute name="colour" type="xs:string"/>
+		<xs:attribute name="genderCode" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="Checkpoint">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="checkpointId" type="xs:integer"/>
+		<xs:attribute name="pushSequenceId" type="xs:integer"/>
+	</xs:complexType>
+	<xs:complexType name="PastSummary">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="isFinished" type="obBoolean"/>
+		<xs:attribute name="finishedAt" type="xs:dateTime"/>
+		<xs:attribute name="isResulted" type="obBoolean"/>
+		<xs:attribute name="categoryId" type="xs:string"/>
+		<xs:attribute name="categoryCode" type="xs:string"/>
+		<xs:attribute name="categoryName" type="xs:string"/>
+		<xs:attribute name="classId" type="xs:string"/>
+		<xs:attribute name="className" type="xs:string"/>
+		<xs:attribute name="classSort" type="xs:string"/>
+		<xs:attribute name="typeId" type="xs:string"/>
+		<xs:attribute name="typeName" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="Region">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="code" type="xs:string"/>
+		<xs:attribute name="isActive" type="obBoolean"/>
+		<xs:attribute name="displayOrder" type="xs:integer"/>
+	</xs:complexType>
+	<xs:complexType name="News">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="class"/>
+					<xs:element ref="event"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="refRecordType" type="xs:string"/>
+		<xs:attribute name="refRecordId" type="xs:integer"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+		<xs:attribute name="displayOrder" type="xs:integer"/>
+		<xs:attribute name="urlType" type="xs:string"/>
+		<xs:attribute name="url" type="xs:string"/>
+		<xs:attribute name="image" type="xs:string"/>
+		<xs:attribute name="title" type="xs:string"/>
+		<xs:attribute name="newsType" type="xs:string"/>
+		<xs:attribute name="isDisplayed" type="obBoolean"/>
+	</xs:complexType>
+	<xs:complexType name="IdSetToken">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="recordType" type="xs:string"/>
+		<xs:attribute name="recordIds" type="obSetOfStrings"/>
+	</xs:complexType>
+	<xs:complexType name="RacingResult">
+		<xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" ref="error"/>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element ref="finalPosition"/>
+					<xs:element ref="nonRunner"/>
+					<xs:element ref="rule4Deduction"/>
+					<xs:element ref="ncastDividend"/>
+					<xs:element ref="poolDividend"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="isDisplayed" type="obBoolean"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+		<xs:attribute name="eventStatusCode" type="xs:string"/>
+		<xs:attribute name="displayOrder" type="xs:integer"/>
+		<xs:attribute name="startTime" type="xs:dateTime"/>
+		<xs:attribute name="suspendAtTime" type="xs:dateTime"/>
+		<xs:attribute name="rawIsOffCode" type="xs:string"/>
+		<xs:attribute name="isResulted" type="obBoolean"/>
+		<xs:attribute name="isFinished" type="obBoolean"/>
+		<xs:attribute name="finishedAt" type="xs:dateTime"/>
+		<xs:attribute name="classId" type="xs:string"/>
+		<xs:attribute name="typeId" type="xs:string"/>
+		<xs:attribute name="subTypeId" type="xs:string"/>
+		<xs:attribute name="sportId" type="xs:string"/>
+		<xs:attribute name="raceNumber" type="xs:integer"/>
+		<xs:attribute name="categoryId" type="xs:string"/>
+		<xs:attribute name="categoryCode" type="xs:string"/>
+		<xs:attribute name="categoryName" type="xs:string"/>
+		<xs:attribute name="className" type="xs:string"/>
+		<xs:attribute name="classDisplayOrder" type="xs:integer"/>
+		<xs:attribute name="classSortCode" type="xs:string"/>
+		<xs:attribute name="classFlagCodes" type="obSetOfStrings"/>
+		<xs:attribute name="typeName" type="xs:string"/>
+		<xs:attribute name="typeDisplayOrder" type="xs:integer"/>
+		<xs:attribute name="typeFlagCodes" type="obSetOfStrings"/>
+		<xs:attribute name="subTypeName" type="xs:string"/>
+		<xs:attribute name="subTypeDisplayOrder" type="xs:integer"/>
+	</xs:complexType>
+	<xs:complexType name="FinalPosition">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="outcomeId" type="xs:string"/>
+		<xs:attribute name="marketId" type="xs:string"/>
+		<xs:attribute name="isDisplayed" type="obBoolean"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+		<xs:attribute name="position" type="xs:integer"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="runnerNumber" type="xs:integer"/>
+		<xs:attribute name="startingPriceNum" type="xs:integer"/>
+		<xs:attribute name="startingPriceDen" type="xs:integer"/>
+		<xs:attribute name="startingPriceDec" type="xs:decimal"/>
+		<xs:attribute name="jockey" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="NonRunner">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="outcomeId" type="xs:string"/>
+		<xs:attribute name="marketId" type="xs:string"/>
+		<xs:attribute name="isDisplayed" type="obBoolean"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="runnerNumber" type="xs:integer"/>
+	</xs:complexType>
+	<xs:complexType name="Rule4Deduction">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="marketId" type="xs:string"/>
+		<xs:attribute name="isDisplayed" type="obBoolean"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+		<xs:attribute name="fromDate" type="xs:dateTime"/>
+		<xs:attribute name="toDate" type="xs:dateTime"/>
+		<xs:attribute name="deduction" type="xs:decimal"/>
+		<xs:attribute name="outcomeId" type="xs:string"/>
+		<xs:attribute name="runnerNumber" type="xs:integer"/>
+		<xs:attribute name="outcomeName" type="xs:string"/>
+		<xs:attribute name="placeDeduction" type="xs:decimal"/>
+		<xs:attribute name="deductionType" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="NcastDividend">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="marketId" type="xs:string"/>
+		<xs:attribute name="isDisplayed" type="obBoolean"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+		<xs:attribute name="type" type="xs:string"/>
+		<xs:attribute name="dividend" type="xs:decimal"/>
+		<xs:attribute name="runnerNumbers" type="obSetOfStrings"/>
+	</xs:complexType>
+	<xs:complexType name="PoolDividend">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="marketId" type="xs:string"/>
+		<xs:attribute name="isDisplayed" type="obBoolean"/>
+		<xs:attribute name="siteChannels" type="obSetOfStrings"/>
+		<xs:attribute name="poolId" type="xs:string"/>
+		<xs:attribute name="isConfirmed" type="obBoolean"/>
+		<xs:attribute name="legCount" type="xs:string"/>
+		<xs:attribute name="legRequiredCount" type="xs:string"/>
+		<xs:attribute name="dividend" type="xs:decimal"/>
+		<xs:attribute name="type" type="xs:string"/>
+		<xs:attribute name="carriedForwardAmount" type="xs:decimal"/>
+		<xs:attribute name="bonusPoolAmount" type="xs:decimal"/>
+		<xs:attribute name="poolTotal" type="xs:decimal"/>
+		<xs:attribute name="voidTotal" type="xs:decimal"/>
+		<xs:attribute name="winningUnits" type="xs:decimal"/>
+		<xs:attribute name="leg1" type="xs:string"/>
+		<xs:attribute name="leg2" type="xs:string"/>
+		<xs:attribute name="leg3" type="xs:string"/>
+		<xs:attribute name="leg4" type="xs:string"/>
+		<xs:attribute name="leg5" type="xs:string"/>
+		<xs:attribute name="leg6" type="xs:string"/>
+		<xs:attribute name="leg7" type="xs:string"/>
+		<xs:attribute name="leg8" type="xs:string"/>
+		<xs:attribute name="leg9" type="xs:string"/>
+		<xs:attribute name="isConsolation" type="obBoolean"/>
+	</xs:complexType>
+	<xs:complexType name="DispSort">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="displayOrder" type="xs:integer"/>
+	</xs:complexType>
+	<xs:complexType name="ResponseFooter">
+		<xs:attribute name="cost" type="xs:decimal"/>
+		<xs:attribute name="creationTime" type="xs:dateTime"/>
+		<xs:attribute name="liveServLastMsgId" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="Error">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="area" type="xs:string"/>
+		<xs:attribute name="subArea" type="xs:string"/>
+		<xs:attribute name="datum" type="xs:string"/>
+		<xs:attribute name="desc" type="xs:string"/>
+	</xs:complexType>
+</xs:schema>

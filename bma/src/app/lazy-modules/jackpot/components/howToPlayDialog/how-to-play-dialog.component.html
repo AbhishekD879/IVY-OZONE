@@ -1,0 +1,22 @@
+<modal #howToPlayDialog class="dialog-body styled-one-box" [ngClass]="params.dialogClass" data-uat="popUpWindow"
+       data-crlat="d.howToPlay">
+  <ng-template #modalHeader>
+    <span [i18n]="'sb.howToPlay'" data-uat="popUpTitle"></span>
+    <a data-uat="popUpCloseButton"
+       class="btn-close"
+       (click)="closeDialog()"
+       data-crlat="dTitle">
+      <svg>
+        <use xlink:href="#close-icon"></use>
+      </svg>
+    </a>
+  </ng-template>
+  <ng-template #modalBody>
+    <div data-uat="popUpText" class="dialog-content">
+      <static-block [service]="'football-jackpot-betting-rules'"></static-block>
+    </div>
+    <div class="clearfix">
+      <button class="btn btn-style1 dialog-btn" [i18n]="'sb.ok'" (click)="closeDialog()"></button>
+    </div>
+  </ng-template>
+</modal>

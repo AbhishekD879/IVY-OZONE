@@ -1,0 +1,28 @@
+<div *ngIf="enabled" class="terms-and-conditions-container">
+  <article class="container-content terms-links-container">
+   <!-- grid decoupling code for temporary starts-->
+    <!-- <a class="terms-link arrowed-item"
+       [i18n]="'ema.terms.retail'"
+       *ngIf="shopBetHistory"
+       (click)="termsAndConditionsUrlClick('/in-shop-bets')">
+    </a> -->
+   <!-- grid decoupling code for temporary ends-->
+    <a class="terms-link arrowed-item"
+       [i18n]="'ema.terms.cashout'"
+       (click)="termsAndConditionsUrlClick('/static/cashout-terms-conditions')">
+    </a>
+    <a class="terms-link arrowed-item"
+       [i18n]="'ema.terms.ema'"
+       (click)="termsAndConditionsUrlClick('/static/ema-terms-conditions')">
+    </a>
+  </article>
+  <p class="info-container" [i18n]="'ema.terms.inPlayScoreInformation'"></p>
+  
+  <lazy-component
+   moduleUri="@lazy-modules-module/casinoMyBetsIntegration/casino-my-bets-integration.module#CasinoMyBetsIntegrationModule"
+   [inputs]="{showLeavingCasinoDialog}"
+   [outputs]="['userAction']"
+   (event)="confirmationDialogClick($event)"
+   entryComponent="LeavingCasinoDialogComponent"></lazy-component>
+</div>
+

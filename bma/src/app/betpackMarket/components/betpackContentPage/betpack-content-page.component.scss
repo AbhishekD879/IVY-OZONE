@@ -1,0 +1,150 @@
+@import 'global.variables.scss';
+
+.betpack-content-page {
+  background-color: azure;
+  border-radius: 10px;
+  min-width: 380px;
+  margin: 5px;
+}
+
+.betpack-container {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.betpack-content {
+  background-color: $color-bpmp-betpack-background;
+  height: 45px;
+  @include display-flex();
+  align-items: center;
+}
+
+.betpack-cost {
+  background-color: $color-blue-dark;
+  padding: 18px;
+  margin: 3px 10px 4px 10px;
+  border-radius: 2px;
+  position: relative;
+  text-align: center;
+}
+
+.betpack-amount {
+  font-size: 13px;
+  margin-top: -11px;
+  margin-left: -14px;
+  color: $color-white;
+  position: absolute;
+  text-align: center;
+}
+
+.betpack-title {
+  text-align: left;
+  width: 100%;
+  height: auto;
+  font-size: 13px;
+
+}
+
+.betpack-name {
+  color: $color-black;
+  float: left;
+  display: block;
+  text-transform: capitalize;
+}
+
+.betpack-freebet {
+  @include display-flex();
+}
+
+.betpack-freebet-price {
+  position: absolute;
+}
+
+.circles {
+  @include display-flex();
+  padding-top: 13px;
+}
+
+.circle-with-text {
+  background-color: $color-yellow;
+  @include justify-content(center);
+  align-items: center;
+  border-radius: 100%;
+  text-align: center;
+  margin: 4px 5px;
+  font-size: 11px;
+  padding: 5px;
+  @include display-flex();
+  height: 50px;
+  width: 50px;
+  color: $color-blue;
+  line-height: 8px;
+  font-weight: 900;
+}
+
+.betpack-token-place {
+  position: relative;
+  border-bottom: 1px solid $color-bpmp-betpack-token-border;
+}
+
+.betpack-tokens {
+  margin: 10px;
+}
+
+.betpack-tokenName {
+  margin: 10px;
+}
+
+.betpack-sportTag {
+  margin: 7px;
+  width: 70%;
+}
+
+.betpack-sportTag-place {
+  border: 1.5px solid $color-dark-blue;
+  padding: 0 4px;
+  margin: 2px;
+  border-radius: 5px;
+  color: $color-dark-blue;
+  font-size: 8px;
+  line-height: 9px;
+}
+
+.betpack-buttons {
+  margin: 13px 6px 10px 6px;
+  padding: -1px;
+}
+
+.betpack-moreInfo {
+  display: inline-block;
+  width: 47%;
+  margin: 4px;
+  height: 30px;
+  background-color: $color-blue-dark;
+  color: $color-white;
+  border: none;
+}
+
+.betpack-buyNow {
+  display: inline-block;
+  width: 47%;
+  margin: 4px;
+  height: 30px;
+  background-color: $color-green-shade;
+  color: $color-white;
+  border: none;
+}
+
+.betpack-desc {
+  margin: 10px;
+  line-height: 15px;
+  font-size: 13px;
+}
+
+.carousel-slide-copy {
+  padding: 10px;
+}
+
+.full-width {
+  width: 100%;
+}

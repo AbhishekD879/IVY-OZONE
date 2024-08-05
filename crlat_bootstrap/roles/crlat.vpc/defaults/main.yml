@@ -1,0 +1,37 @@
+---
+# defaults file for crlat.vpc
+
+instance_type: t2.micro
+security_group: crlat
+image_name: ubuntu1604v2
+cluster_ttl_hours: -1
+subnet_name: public
+assign_public_ip: no
+region: eu-west-1
+volume_size: 8
+execution_id: 0
+node_type: locust
+action: create
+tag_groupname: BPPLT
+num_nodes: 1
+ec2_hw_defautls:
+  key_name: crlat2
+  instance_type: t2.micro
+  security_group: crlat
+  image_name: ubuntu1604v2
+  subnet_name: private
+  assign_public_ip: no
+  region: eu-west-1
+  volume_size: 8
+actions:
+  create:
+    cluster: bootstrap_cluster.yml
+    cluster_node: bootstrap_cluster_node.yml
+    locust: bootstrap_locust.yml
+    SingleNode: bootstrap_SingleNode.yml
+  terminate:
+    locust: terminate_cluster.yml
+    SingleNode: terminate_SingleNode.yml
+    cluster_node: terminate_cluster_nodes.yml
+    cluster: terminate_cluster.yml
+

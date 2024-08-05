@@ -1,0 +1,62 @@
+@import 'global.variables.scss';
+
+:host {
+  display: inline-block;
+}
+
+.price-wrap {
+  background-color: $color-blue-dark;
+  padding: 5px;
+  border-radius: 2px;
+  height: 25px;
+  min-width: 39px;
+}
+
+.price-container {
+  color: $color-white;
+  height: 14px;
+  line-height: 1;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+  padding-top: 1px;
+}
+
+.divider {
+  display: inline-block;
+  height: 100%;
+  vertical-align: top;
+  padding: 0 1px;
+}
+
+.num-list {
+  display: inline-block;
+  overflow: hidden;
+  height: 100%;
+  vertical-align: top;
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    @include transition(transform, 1s, ease-in-out);
+    li {
+      padding: 0;
+    }
+    li.placeholder {
+      color: transparent;
+    }
+  }
+  ul.scroll-up {
+    @include transform(translateY(calc(-100% + 14px)));
+  }
+  ul.scroll-up.animate {
+    @include transform(translateY(0));
+  }
+  ul.scroll-down ul {
+    @include transform(translateY(0));
+  }
+  ul.scroll-down.animate {
+    @include transform(translateY(calc(-100% + 14px)));
+  }
+}

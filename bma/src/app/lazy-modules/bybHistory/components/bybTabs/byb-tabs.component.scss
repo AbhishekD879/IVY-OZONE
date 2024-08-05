@@ -1,0 +1,28 @@
+@import 'global.variables.scss';
+
+.byb-tabs-container {
+   overflow: hidden;
+  @include display-flex();
+  @include align-items(center);
+  background-color: $color-white;
+  padding: 0 0 10px 12px;
+  cursor: pointer;
+
+  .byb-container {
+    @include display-flex();
+    overflow-x: scroll;
+    padding: 1px 0 6px;
+
+    &.padding-top {
+      padding-top: 6px;
+    }
+  }
+
+  .byb-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  &.margin-top {
+    margin-top: 6px;
+  }
+}

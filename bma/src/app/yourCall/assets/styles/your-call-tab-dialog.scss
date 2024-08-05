@@ -1,0 +1,73 @@
+@import 'global.variables.scss';
+
+$yourcall-dialog-header-background: $brand-color-main;
+$yourcall-dialog-button-background: $color-green;
+$yourcall-dialog-desc-color: $color-gray-dark;
+
+#yourCallTabDialog .modal-content {
+  border-radius: 0;
+}
+
+.yourcall-tab-dialog {
+  &.dialog-container {
+    .container-content {
+      padding: 15px 15px 12px 15px;
+      margin: -15px;
+      background: $color-white;
+      font-family: $base-font-family;
+      .alert-desc {
+        color: $yourcall-dialog-desc-color;
+        font-size: 11px;
+      }
+      .buttons-container {
+        text-align: center;
+      }
+      .ok-btn {
+        padding: 10px 44px;
+        border: none;
+        background-color: $yourcall-dialog-button-background;
+        border-radius: 3px;
+        font-size: 12px;
+        text-transform: uppercase;
+        color: $color-white;
+        margin: 15px 9px 0 0;
+      }
+    }
+    .container-header {
+      margin: 0;
+      padding: 10px;
+      background: $yourcall-dialog-header-background;
+      .header-title {
+        margin-left: 15px;
+        font-size: 14px;
+        font-weight: 700;
+        color: $color-white;
+        text-transform: uppercase;
+      }
+      .cross-wrap {
+        height: 20px;
+        width: 20px;
+        position: relative;
+        &:before, &:after {
+          height: 2px;
+          content: '';
+          position: absolute;
+          width: 100%;
+          top: 50%;
+          background: $color-white;
+          @include transform(rotate(0deg));
+        }
+
+        &:before {
+          @include transform(rotate(45deg));
+          @include bg-gradient($color-orange 50%, $color-green 50%, left);
+        }
+
+        &:after {
+          @include transform(rotate(-45deg));
+          @include bg-gradient($color-red 50%, $color-yellow 50%, left);
+        }
+      }
+    }
+  }
+}

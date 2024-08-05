@@ -1,0 +1,19 @@
+{
+  "name": "oxygen-webpack-local",
+  "description": "tasks to run external vanilla webpack functionality",
+  "scripts": {
+    "serveCoralMobile": "cd ../.. && npm run startCoralMobileLocal",
+    "serveCoralDesktop": "cd ../.. && npm run startCoralDesktopLocal",
+    "serveLadbrokesMobile": "cd ../.. && npm run startLadbrokesMobileLocal",
+    "serveLadbrokesDesktop": "cd ../.. && npm run startLadbrokesDesktopLocal",
+    "ng": "cd .. && node --max_old_space_size=32471 ../../../node_modules/@angular/cli/bin/ng",
+    "testWatch": "npm run ng test coralMobile -- --watch=true --source-map=false",
+    "test": "npm run ng test coralMobile -- --watch=false --source-map=false",
+    "lint": "npm-run-all --parallel 'ng lint coralMobile' 'ng lint coralDesktop' 'ng lint ladbrokesMobile' 'ng lint ladbrokesDesktop'",
+    "coverage-report": "npm run ng test coralMobile -- --watch=false --code-coverage=true --source-map=true && sed -i -e \"s:${PWD}:/build:\" ../coverage/lcov.info",
+    "coverage-report-sonar": "npm run ng test coralMobile -- --watch=false --code-coverage=true --source-map=true",
+    "testAttrs": "jasmine-node --match .node. ../spec/",
+    "buildCMWithStats": "npm run ng build coralMobile -- --prod --stats-json && webpack-bundle-analyzer ../dist/coralMobile/stats.json",
+    "buildLMWithStats": "npm run ng build ladbrokesMobile -- --prod --stats-json && webpack-bundle-analyzer ../dist/ladbrokesMobile/stats.json"
+  }
+}

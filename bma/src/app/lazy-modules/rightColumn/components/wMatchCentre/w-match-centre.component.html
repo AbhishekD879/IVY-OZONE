@@ -1,0 +1,14 @@
+<visualization-container
+  *ngIf="visData.eventsWithVisualizationParams.length && visData.eventIsLive && !streamShown"
+  [visType]="'slider'"
+  [visParams] ="visData.eventsWithVisualizationParams"
+  [eventId]="visData.eventId"
+  [expandable]="false"
+  data-crlat="visContainer">
+</visualization-container>
+<vis-pre-match-widget
+  *ngIf="visData.eventsWithPrematchData && !visData.eventIsLive"
+  [eventId]="visData.eventId"
+  data-crlat="visPreMatchWidget">
+</vis-pre-match-widget>
+

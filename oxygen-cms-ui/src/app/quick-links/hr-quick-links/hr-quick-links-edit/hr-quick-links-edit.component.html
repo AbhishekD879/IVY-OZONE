@@ -1,0 +1,122 @@
+<breadcrumbs *ngIf="hrQuickLink" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="hrQuickLink">
+  <div class="header">
+    <h2 class="has-activity-badge">HR Quick Links Menu:
+      <span class="font-italic">{{hrQuickLink.title}}</span>
+      <create-updated-at-by [collection]="hrQuickLink"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="hrQuickLink.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="hrQuickLink">
+  <form [formGroup]="form" novalidate>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-12">
+          <mat-checkbox color="primary" formControlName="disabled"
+                        (change)="hrQuickLink.disabled=!hrQuickLink.disabled"> Active</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+              Title
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput [(ngModel)]="hrQuickLink.title" placeholder="Title" formControlName="title" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Uri or Selection ID
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Uri or Selection ID" [(ngModel)]="hrQuickLink.target" formControlName="target">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Body
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <textarea matInput placeholder="Body" [(ngModel)]="hrQuickLink.body" formControlName="body" required trim="blur"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Race Type
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Race Type" (selectionChange)="onRaceTypeChanged($event)" formControlName="raceType">
+              <mat-option *ngFor="let type of raceTypes" [value]="type">
+                {{ type | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Link Type
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Link Type" (selectionChange)="onLinkTypeChanged($event)" formControlName="linkType">
+              <mat-option *ngFor="let type of linkTypes" [value]="type">
+                {{ type | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-md-8">
+            <date-range
+              [isSetDateButtons]="true"
+              [startDate]="hrQuickLink.validityPeriodStart"
+              [endDate]="hrQuickLink.validityPeriodEnd"
+              [startPlaceholder]="'Validity Period Start Date'"
+              [endPlaceholder]="'Validity Period End Date'"
+              (onDateUpdate)="handleDateUpdate($event)">
+            </date-range>
+          </div>
+        </div>
+      <div class="row">
+        <div class="col-md-8">
+          <cms-upload
+            [label]="'Icon'"
+            [filename]="hrQuickLink.filename"
+            (onImageUpload)="uploadIconHandler($event)"
+            (onImageRemove)="removeIconHandler()">
+          </cms-upload>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="hrQuickLink"
+  [form]="form"
+  [fieldOrItemName]="'title'"
+  [collection]="hrQuickLink"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

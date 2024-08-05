@@ -1,0 +1,12 @@
+<div id="splash-overlay" class="splash-overlay">
+  <div class="splash-logo"></div>
+  <spinner></spinner>
+</div>
+<div id="casino-overlay" class="casino-overlay sidebar-inner hideOverlay" data-crlat="sidebarInner">
+  <a href="javascript:void(0)" class="sidebar-close" (click)="handleCloseClick()" data-crlat="sidebarClose">
+    <svg class="close-icon">
+      <use xlink:href="#close-icon"></use>
+    </svg>
+  </a>
+  <ng-container [bgCasinoModuleLoad]="'SportsOverlayComponent'" [data]="overlayProperties"></ng-container>
+</div>

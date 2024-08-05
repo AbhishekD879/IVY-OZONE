@@ -1,0 +1,383 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="featured-module-edit" *ngIf="featuredTabModule">
+  <div class="card" *ngIf="pageType === 'edit'">
+    <div class="header">
+      <h2 class="waves-effect waves-block has-activity-badge">
+        Featured module: {{featuredTabModule.title}}
+        <create-updated-at-by [collection]="featuredTabModule"></create-updated-at-by>
+      </h2>
+      <header-activity-badge [state]="!featuredTabModule.visibility.enabled"></header-activity-badge>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-2">
+          <mat-checkbox color="primary"
+                        [checked]="featuredTabModule.visibility.enabled"
+                        (change)="featuredTabModule.visibility.enabled = !featuredTabModule.visibility.enabled">
+            Active
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+        <span class="mat-label">
+          Title
+        </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !featuredTabModule.title}">
+            <input matInput placeholder="Title"  [(ngModel)]="featuredTabModule.title" [value]="featuredTabModule.title">
+            <mat-hint class="col-red" *ngIf="!featuredTabModule.title">Title should be entered</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row"  *ngIf="featuredTabModule.dataSelection.selectionType !== 'Market'">
+        <div class="col-md-3">
+        <span class="mat-label">
+          Max Events to Display
+        </span>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Max Events to Display" type="number"
+                   [(ngModel)]="featuredTabModule.maxRows" [value]="featuredTabModule.maxRows" min="1"
+                   (keypress)="validateMinValue($event)">
+          </mat-form-field>
+        </div>
+        <div class="col-md-2">
+          <button mat-button (click)="featuredTabModule.maxRows = undefined" type="button" class="btn btn-sm bg-teal waves-effect">
+            <span>Show All Events</span>
+          </button>
+        </div>
+      </div>
+      <div class="row" *ngIf="featuredTabModule.dataSelection.selectionType !== 'Market'">
+        <div class="col-md-3">
+        <span class="mat-label">
+          Max Selections to Display
+        </span>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Max Selections to Display" type="number"
+                   [(ngModel)]="featuredTabModule.maxSelections" [value]="featuredTabModule.maxSelections" min="1"
+                   (keypress)="validateMinValue($event)">
+          </mat-form-field>
+        </div>
+        <div class="col-md-2">
+          <button mat-button (click)="featuredTabModule.maxSelections = undefined" type="button" class="btn btn-sm bg-teal waves-effect">
+            <span>Show All Selections</span>
+          </button>
+        </div>
+      </div>
+      <div class="row" *ngIf="!isHomePage">
+        <div class="col-md-3">
+        <span class="mat-label">
+          Module Order (less is more)
+        </span>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Module Order" type="number"
+                   [(ngModel)]="featuredTabModule.displayOrder" [value]="featuredTabModule.displayOrder">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+        <span class="mat-label">
+          Expanded by default
+        </span>
+        </div>
+        <div class="col-md-3 p-t-10">
+          <mat-checkbox color="primary"
+                        [checked]="featuredTabModule.showExpanded"
+                        (change)="featuredTabModule.showExpanded = !featuredTabModule.showExpanded">
+            Expanded by default
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+        <span class="mat-label">
+          Footer link text
+        </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Footer link text" [(ngModel)]="featuredTabModule.footerLink.text" [value]="featuredTabModule.footerLink.text">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+        <span class="mat-label">
+          Footer link URL
+        </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Footer link URL" [(ngModel)]="featuredTabModule.footerLink.url" [value]="featuredTabModule.footerLink.url">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <date-range
+            [isSetDateButtons]="true"
+            [startDate]="featuredTabModule.visibility.displayFrom"
+            [endDate]="featuredTabModule.visibility.displayTo"
+            [startPlaceholder]="'Visible from *'"
+            [endPlaceholder]="'Visible to *'"
+            [placeholderColumn]="true"
+            (onDateUpdate)="handleVisibilityDateUpdate($event)">
+          </date-range>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card publish-to-channels">
+    <div class="header bg-teal">
+      <h2>
+        Publish to Channels
+      </h2>
+      <ul class="header-dropdown">
+        <li>
+          <button (click)="setAllBrandsPublishState(true)" type="button" class="btn btn-xs bg-teal waves-effect header-edit-btn">
+            <i class="material-icons">add</i>
+            <span>Select All</span>
+          </button>
+        </li>
+        <li>
+          <button (click)="setAllBrandsPublishState(false)" type="button" class="btn btn-xs bg-teal waves-effect header-edit-btn">
+            <i class="material-icons">cancel</i>
+            <span>Deselect all</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div class="body">
+      <div class="row m-b-20" *ngIf="featuredTabModule.publishToChannels.length === 0">
+        <div class="alert alert-danger">
+          You shoul chose at leat one Channel to publish
+        </div>
+      </div>
+      <div *ngFor="let brand of publishedDevices" class="row">
+        <div class="col-md-2 m-b-0">
+          <mat-checkbox *ngIf="getBrandPublishState(brand.brandCode)" color="primary"
+                        [checked]="featuredTabModule.publishedDevices[brand.brandCode].desktop"
+                        (change)="featuredTabModule.publishedDevices[brand.brandCode].desktop = !featuredTabModule.publishedDevices[brand.brandCode].desktop">
+            Desktop
+          </mat-checkbox>
+        </div>
+        <div class="col-md-2 m-b-0">
+          <mat-checkbox *ngIf="getBrandPublishState(brand.brandCode)" color="primary"
+                        [checked]="featuredTabModule.publishedDevices[brand.brandCode].tablet"
+                        (change)="featuredTabModule.publishedDevices[brand.brandCode].tablet = !featuredTabModule.publishedDevices[brand.brandCode].tablet">
+            Tablet
+          </mat-checkbox>
+        </div>
+        <div class="col-md-2 m-b-0">
+          <mat-checkbox *ngIf="getBrandPublishState(brand.brandCode)" color="primary"
+                        [checked]="featuredTabModule.publishedDevices[brand.brandCode].mobile"
+                        (change)="featuredTabModule.publishedDevices[brand.brandCode].mobile = !featuredTabModule.publishedDevices[brand.brandCode].mobile">
+            Mobile
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="header bg-teal">
+      <h2>Events loading</h2>
+    </div>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="alert alert-info">
+            Comma-separated race type ids can be used, when selecting events by Race Type Id:
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 mat-label">
+          Select Events by
+        </div>
+        <div class="col-md-3">
+          <mat-form-field class="full-width">
+            <mat-select [value]="featuredTabModule.dataSelection.selectionType"
+                        [(ngModel)]="featuredTabModule.dataSelection.selectionType"
+                        (ngModelChange)="checkSelectionType()"
+                        placeholder="Select Events by" required>
+              <mat-option *ngFor="let variant of selectEventsTypeOptions" [value]="variant">
+                {{selectEventsTypesEnum[variant]}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Id"  [(ngModel)]="featuredTabModule.dataSelection.selectionId" [value]="featuredTabModule.dataSelection.selectionId">
+            <mat-hint class="col-red" *ngIf="!featuredTabModule.dataSelection.selectionId">Type should be selected</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field class="full-width" *ngIf="badgeInputEnabled">
+            <mat-select [value]="featuredTabModule.badge"
+                        [(ngModel)]="featuredTabModule.badge"
+                        placeholder="Badge" required>
+              <mat-option [value]="''">None</mat-option>
+              <mat-option [value]="'specials'">Specials</mat-option>
+              <mat-option [value]="'enhanced'">Enhanced</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="full-width" *ngIf="groupBySportCheckboxEnabled">
+            <mat-checkbox [checked]="featuredTabModule.groupedBySport"
+                          (change)="handleGroupBySportChange()">
+              Group by Sport
+            </mat-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="warningMessage">
+        <div class="col-md-12">
+          <div class="alert alert-warning" [innerHTML]="warningMessage"></div>
+        </div>
+      </div>
+      <div class="row" *ngIf="featuredTabModule.dataSelection.selectionType === 'Market'">
+        <div class="col-md-3">
+        <span class="mat-label">
+          Number of Selections to Display
+        </span>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Number of Selections to Display" type="number"
+                   [(ngModel)]="featuredTabModule.maxRows" [value]="featuredTabModule.maxRows" min="1"
+                   (keypress)="validateMinValue($event)">
+          </mat-form-field>
+        </div>
+        <div class="col-md-2">
+          <button mat-button (click)="featuredTabModule.maxRows = undefined" type="button" class="btn btn-sm bg-teal waves-effect">
+            <span>Show All Selections</span>
+          </button>
+        </div>
+      </div>
+      <div class="row" *ngIf="!additionalOptionsDisabled && featuredTabModule.dataSelection.selectionType !== 'Market'">
+        <div class="col-md-12">
+          <div class="alert alert-info">
+            Set the date range within which the events occur (skip this in case selecting events by Selection ID, Market ID, Event ID):
+          </div>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="!additionalOptionsDisabled && featuredTabModule.dataSelection.selectionType !== 'Market'">
+        <div class="col-md-12" [ngClass]="{'col-disabled': this.featuredTabModule.dataSelection.selectionType === 'Selection'}">
+          <date-range
+            [isSetDateButtons]="true"
+            [startDate]="featuredTabModule.eventsSelectionSettings.from"
+            [endDate]="featuredTabModule.eventsSelectionSettings.to"
+            [startPlaceholder]="'Events from'"
+            [endPlaceholder]="'Events to'"
+            [placeholderColumn]="true"
+            (onDateUpdate)="handleSelectionSettingsDateUpdate($event)">
+          </date-range>
+        </div>
+      </div>
+      <div class="row" *ngIf="!additionalOptionsDisabled">
+        <div class="col-md-3">
+        <span class="mat-label">
+          Auto-refresh events
+        </span>
+        </div>
+        <div class="col-md-3">
+          <mat-checkbox color="primary"
+                        [checked]="featuredTabModule.eventsSelectionSettings.autoRefresh"
+                        (change)="featuredTabModule.eventsSelectionSettings.autoRefresh = !featuredTabModule.eventsSelectionSettings.autoRefresh">
+            Auto-refresh events
+          </mat-checkbox>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="!additionalOptionsDisabled">
+        <div class="col-md-6 items-block">
+          <div class="header bg-teal event-items-header">
+            <h2>Loaded from OpenBet</h2>
+            <ul class="header-dropdown">
+              <li>
+                <button (click)="reloadOpenBetData()" [disabled]="!canReloadEvents()" type="button" class="btn btn-xs bg-teal waves-effect header-edit-btn">
+                  <i class="material-icons">refresh</i>
+                  <span>Reload</span>
+                </button>
+              </li>
+              <li>
+                <button type="button" (click)="applyOpenbetData()" class="btn btn-xs bg-teal waves-effect header-edit-btn">
+                  <i class="material-icons">trending_flat</i>
+                  <span>Apply</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <div *ngFor="let event of eventsSelection; let i = index;" class="m-l-5">
+            <span>{{i+1}}.</span>
+            <mat-form-field class="loaded-event-input">
+              <input matInput placeholder="Event Name"
+                     [(ngModel)]="event.nameOverride"
+                     [value]="event.nameOverride">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-6 items-block">
+          <div class="header bg-teal event-items-header">
+            <h2>Events in Module</h2>
+            <ul class="header-dropdown">
+              <li>
+                <button (click)="removeModuleEvents()" type="button" class="btn btn-xs bg-teal waves-effect header-edit-btn">
+                  <i class="material-icons">clear</i>
+                  <span>Remove all</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <ol class="module-events-list">
+            <li *ngFor="let event of featuredTabModule.data; let i = index;">
+              <span>{{event.nameOverride}}</span>
+            </li>
+          </ol>
+        </div>
+        <div class="col-md-12" *ngIf="isHomePage">
+          <cms-universal-segmented [segmentsDataObj]='segmentsList' [isRevert]="isRevert" (isFormValid)="isSegmentFormValid($event)"
+            (segmentsModifiedData)="modifiedSegmentsHandler($event)"></cms-universal-segmented>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card" *ngIf="pageType === 'add'">
+    <div class="body">
+      <div class="row footer-buttons-row">
+        <div class="col-md-7">
+          <button [disabled]="!isValidModel()" mat-button type="button" class="btn bg-teal waves-effect float-left" (click)="createModule();">
+            <mat-icon>save</mat-icon>
+            <span>Create Module</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <action-buttons
+    #actionButtons
+    *ngIf="pageType === 'edit'"
+    [validateHandler]="isValidModel"
+    [fieldOrItemName]="'title'"
+    [collection]="featuredTabModule"
+    (actionsEmitter)="actionsHandler($event);"
+  ></action-buttons>
+</div>
+

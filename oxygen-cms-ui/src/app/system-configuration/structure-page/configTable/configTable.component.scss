@@ -1,0 +1,34 @@
+.structure-config-group {
+  padding: 16px 20px;
+  h2 {
+    line-height: 27px;
+  }
+  .header-dropdown {
+    top: 15px;
+    ::ng-deep .mat-checkbox {
+      line-height: 27px;
+      .mat-checkbox-layout {
+        margin: 0 0 0 8px;
+        .mat-checkbox-label {
+          font-weight: normal;
+        }
+      }
+      &.mat-checkbox-disabled {
+        .mat-checkbox-label {
+          color: #fff;
+        }
+      }
+    }
+  }
+  .btn {
+    font-size: 10px;
+    background-color: #00776A;
+    i {
+      top: 2px;
+    }
+    span {
+      color: #fff;
+      top: -4px;
+    }
+  }
+}

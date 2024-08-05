@@ -1,0 +1,95 @@
+@import 'global.variables.scss';
+$title-color: #02060b;
+
+.dropdown {
+  &.expanded {
+    svg.dropdown-down-arrow {
+      &.dropdown-down-arrow {
+        @include transform(rotate(180deg));
+      }
+    }
+
+    .dropdown-menu {
+      display: block;
+    }
+
+    .overlay {
+      display: block;
+    }
+  }
+
+  .dropdown-header {
+    display: inline-block;
+    max-width: 100%;
+    font-size: $font-size-lgr;
+    font-weight: 500;
+    color: $title-color;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-right: 16px;
+    cursor: pointer;
+
+    span {
+      &.players-list-header {
+        color: $color-blue-selected;
+        font-size: $font-size-bit-lgr;
+        font-weight: bold;
+        height: 18px;
+      }
+    }
+  }
+  svg {
+    right: 0;
+    bottom: 4px;
+    position: absolute;
+    height: 6px;
+    width: 10px;
+    fill: $title-color;
+    @include transition(all, .3s);
+  }
+
+  .overlay,
+  .dropdown-menu {
+    z-index: 10;
+    display: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .overlay {
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    right: 0;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    width: 234px;
+    background: $color-white;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px 0 rgba(162, 162, 162, 0.26), 0 0 2px 0 rgba(162, 162, 162, 0.26);
+    border: solid 1px #efefef;
+    max-height: 280px;
+    overflow: auto;
+  }
+
+  .menu-item {
+    display: block;
+    color: $color-gray-darkest;
+    cursor: pointer;
+
+    &.active {
+      background: $light-grey;
+    }
+
+    .menu-title {
+      padding: 12px 14px 11px;
+      line-height: 16px;
+      font-size: $font-size-lg;
+      display: block;
+    }
+  }
+}

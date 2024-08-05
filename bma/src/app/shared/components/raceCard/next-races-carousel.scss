@@ -1,0 +1,56 @@
+@import 'global.variables.scss';
+
+:host-context(.next-races) {
+  .race-card-carousel {
+    ::ng-deep {
+      .race-header {
+        height: $race-header-height;
+        min-height: auto;
+        border-radius: 2px 2px 0 0;
+        padding: $race-card-h-padding;
+        background: $color-gray-light;
+        color: $color-gray-dark;
+        font-family: $base-font-family;
+        font-size: $font-size;
+        line-height: $label-line-height;
+        font-weight: bold;
+        text-transform: uppercase;
+
+        .text-area {
+          @include display-flex();
+          @include align-items(center);
+          @include justify-content(left);
+
+          strong {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+    }
+    .race-next-link {
+      width: auto;
+      padding: $race-card-h-padding;
+      flex: 0 1 auto;
+      margin-left: auto;
+      color: $color-gray-dark;
+      font-family: $base-font-family;
+      font-size: $font-size-sm;
+      text-transform: uppercase;
+      text-decoration: underline;
+      text-align: right;
+      &:hover{
+        text-decoration: underline;
+      }
+      &:active{
+        text-decoration: none;
+        color: darken($color: $color-gray-dark, $amount: 25%)
+      }
+
+      svg {
+        display: none;
+      }
+    }
+  }
+}

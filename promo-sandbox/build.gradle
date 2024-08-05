@@ -1,0 +1,133 @@
+plugins {
+  id 'org.springframework.boot' version '2.4.12'
+  id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+  id 'com.coral.tools' version '2.0-SNAPSHOT'
+}
+
+group = 'com.entain.oxygen'
+sourceCompatibility = 1.8
+
+def nexusMavenRepo = System.getenv("NEXUS_HOST") ?: 'https://nexus-vie.coral.co.uk/repository/maven-public/'
+ext.nexusUser = System.getenv("NEXUS_USER") ?: project.properties.nexusUser
+ext.nexusPass = System.getenv("NEXUS_PASS") ?: project.properties.nexusPass
+
+repositories {
+  maven {
+    credentials {
+      username = "${nexusUser}"
+      password = "${nexusPass}"
+    }
+    url nexusMavenRepo
+  }
+  jcenter()
+}
+
+configurations {
+  all {
+    exclude module: 'spring-boot-starter-tomcat'
+    exclude module: 'junit-vintage-engine'
+  }
+  compileOnly {
+    extendsFrom annotationProcessor
+  }
+}
+
+ext {
+  set('springCloudVersion', '2020.0.0-M5')
+  set('spockBomVersion', '2.0-M4-groovy-2.5')
+}
+
+dependencies {
+  // Development
+  developmentOnly 'org.springframework.boot:spring-boot-devtools'
+  implementation 'org.springframework.boot:spring-boot-configuration-processor'
+  // Spring Boot
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+  implementation 'org.springframework.boot:spring-boot-starter-undertow'
+  implementation 'org.springframework.boot:spring-boot-starter-actuator'
+  implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+  implementation 'org.springframework.boot:spring-boot-starter-aop'
+  implementation 'org.springframework.boot:spring-boot-starter-validation'
+  implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+  //log4j
+  implementation 'org.apache.logging.log4j:log4j-api:2.17.2'
+  implementation 'org.apache.logging.log4j:log4j-to-slf4j:2.17.2'
+
+  // Spring Cloud
+  implementation platform("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
+  //json
+
+  implementation 'com.google.code.gson:gson:2.8.6'
+  implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.9.8'
+  //Spark
+  implementation ('org.apache.spark:spark-core_2.12:3.1.2'){
+    exclude group: "org.slf4j", module: "slf4j-log4j12"
+    exclude group: "log4j", module: "log4j"
+    exclude group: "org.codehaus.janino", module: "janino"
+    exclude group: "org.codehaus.janino", module: "commons-compiler"
+  }
+  implementation ('org.apache.spark:spark-sql_2.12:3.1.2'){
+    exclude group: "org.slf4j", module: "slf4j-log4j12"
+    exclude group: "log4j", module: "log4j"
+    exclude group: "org.codehaus.janino", module: "janino"
+    exclude group: "org.codehaus.janino", module: "commons-compiler"
+  }
+  implementation 'org.mongodb.spark:mongo-spark-connector_2.12:3.0.1'
+  implementation 'org.codehaus.janino:janino:3.0.9'
+  implementation 'org.codehaus.janino:commons-compiler:3.0.9'
+  implementation 'com.google.code.gson:gson:2.8.6'
+  // Spring Kafka
+  implementation 'org.springframework.kafka:spring-kafka'
+  //spring swagger
+  implementation "org.springdoc:springdoc-openapi-ui:1.4.7"
+  //fortify
+  compileOnly 'com.hp.fortify:fortifyAnnotations:4.30'
+  //aws
+  implementation 'com.amazonaws:aws-java-sdk-s3:1.11.898'
+
+  implementation 'org.scala-lang:scala-library:2.12.10'
+  implementation 'org.slf4j:log4j-over-slf4j:1.7.32'
+  // Testing
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testImplementation ('org.springframework.kafka:spring-kafka-test'){
+    exclude group: "org.scala-lang"
+  }
+}
+
+jacocoTestReport {
+  reports {
+    xml.enabled true
+    html.enabled true
+  }
+
+  afterEvaluate {
+    classDirectories.setFrom(files(classDirectories.files.collect {
+      fileTree(dir: it,
+      exclude: [
+        '**/model/**',
+        '**/repository/**',
+        'com/mongodb/**'
+      ]
+      )
+    }))
+  }
+}
+
+sonarqube {
+  properties {
+    property 'sonar.coverage.exclusions', "**/config/**,**/model/**,**/PromosandboxApp.java"
+  }
+}
+
+test {
+  useJUnitPlatform()
+}
+
+springBoot {
+  buildInfo()
+}
+
+bootBuildImage {
+  imageName = "${rootProject.name}"
+}

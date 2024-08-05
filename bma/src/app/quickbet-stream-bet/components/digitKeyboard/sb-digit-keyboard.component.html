@@ -1,0 +1,97 @@
+<div id="dk-keyboard"
+     class="dk-keyboard dk-keyboard-shown"
+     [ngClass]="{'keyboard-slide-up': !hideKeyboardFlag}"
+     data-crlat="betslip.keyboard">
+  <div class="dk-column">
+    <div #dkKey
+         class="dk-key"
+         data-value="1"
+         data-crlat="keyboard.key"
+         (click)="onButtonClickHandler($event)">1</div>
+    <div #dkKey
+         class="dk-key"
+         data-value="4"
+         data-crlat="keyboard.key"
+         (click)="onButtonClickHandler($event)">4</div>
+    <div #dkKey
+         class="dk-key"
+         data-value="7"
+         data-crlat="keyboard.key"
+         (click)="onButtonClickHandler($event)">7</div>
+     <div #dkKey
+         class="dk-key"
+         data-value="."
+         data-crlat="keyboard.key"
+         (click)="onButtonClickHandler($event)">.</div>
+  </div>
+
+    <div class="dk-column">
+      <div #dkKey
+           class="dk-key"
+           data-value="2"
+           data-crlat="keyboard.key"
+           (click)="onButtonClickHandler($event)">2
+      </div>
+      <div #dkKey
+           class="dk-key"
+           data-value="5"
+           data-crlat="keyboard.key"
+           (click)="onButtonClickHandler($event)">5
+      </div>
+      <div #dkKey
+           class="dk-key"
+           data-value="8"
+           data-crlat="keyboard.key"
+           (click)="onButtonClickHandler($event)">8
+      </div>
+      <div #dkKey
+           class="dk-key"
+           data-value="0"
+           data-crlat="keyboard.key"
+           (click)="onButtonClickHandler($event)">0
+      </div>
+    </div>
+
+    <div class="dk-column">
+      <div #dkKey
+           class="dk-key"
+           data-value="3"
+           data-crlat="keyboard.key"
+           (click)="onButtonClickHandler($event)">3
+      </div>
+      <div #dkKey
+           class="dk-key"
+           data-value="6"
+           data-crlat="keyboard.key"
+           (click)="onButtonClickHandler($event)">6
+      </div>
+      <div #dkKey
+           class="dk-key"
+           data-value="9"
+           data-crlat="keyboard.key"
+           (click)="onButtonClickHandler($event)">9
+      </div>
+      <div #dkKey
+           class="dk-key delete"
+           data-value="delete"
+           data-crlat="keyboard.key"
+           (click)="onButtonClickHandler($event)">
+        <svg>
+          <use xlink:href="#back-arrow"></use>
+        </svg>
+      </div>
+    </div>
+  <div 
+       class="dk-quick-deposit"
+       data-crlat="quickStakePanel">
+    <div class="dk-column-stake" *ngFor="let qdButton of quickDepositButtons">
+      <div #qsKey
+           class="dk-key"
+           [ngClass]="{'coral-key-background': !isBrandLadbrokes}"
+           [textContent]="qdButton.label"
+           [attr.data-value]="qdButton.value"
+           (click)="onButtonClickHandler($event)"
+           data-crlat="quickStake.key"></div>
+    </div>
+  </div>
+</div>

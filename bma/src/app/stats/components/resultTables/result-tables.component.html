@@ -1,0 +1,46 @@
+<ng-container *ngIf="!state.loading && !state.error">
+  <div *ngIf="results.length" data-crlat="resultsLength">
+    <div *ngFor="let result of results">
+      <div *ngIf="result.rows.length">
+        <div class="item-inner">
+          <span [i18n]="'stats.standings'" data-crlat="statsStandings" style="margin-right: 4px"></span>
+          <span [textContent]="result.tableName" data-crlat="resultTableName"></span>
+        </div>
+        <table class="table-panel" data-crlat="resultRows">
+          <thead>
+            <tr>
+              <th><span class="text-bold">#</span></th>
+              <th><span class="text-bold">Team</span></th>
+              <th><span class="text-bold">GP</span></th>
+              <th><span class="text-bold">W</span></th>
+              <th><span class="text-bold">D</span></th>
+              <th><span class="text-bold">L</span></th>
+              <th><span class="text-bold">GF</span></th>
+              <th><span class="text-bold">GA</span></th>
+              <th><span class="text-bold">GD</span></th>
+              <th><span class="text-bold">PTS</span></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let row of result.rows; let rowIndex = index;">
+              <td class="text-bold" [textContent]="rowIndex + 1"></td>
+              <td class="text-bold" [textContent]="row.name"></td>
+              <td [textContent]="getTableValue(row.values,      'matchesTotal')"></td>
+              <td [textContent]="getTableValue(row.values,          'winTotal')"></td>
+              <td [textContent]="getTableValue(row.values,         'drawTotal')"></td>
+              <td [textContent]="getTableValue(row.values,         'lossTotal')"></td>
+              <td [textContent]="getTableValue(row.values,     'goalsForTotal')"></td>
+              <td [textContent]="getTableValue(row.values, 'goalsAgainstTotal')"></td>
+              <td [textContent]="getTableValue(row.values,     'goalDiffTotal')"></td>
+              <td [textContent]="getTableValue(row.values,       'pointsTotal')"></td>
+            </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<outlet-status [state]="state">
+  <request-error (reloadFn)="reloadComponent()"></request-error>
+</outlet-status>

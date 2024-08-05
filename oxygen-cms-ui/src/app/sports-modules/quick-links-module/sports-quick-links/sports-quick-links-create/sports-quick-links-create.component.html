@@ -1,0 +1,101 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>New Sport Quick Link</h1>
+  <div>
+    <cms-alert #requestError ></cms-alert>
+  </div>
+  <div mat-dialog-content>
+    <div class="row m-b-20" *ngIf="!islinkPeriodValid">
+      <div class="alert alert-danger">
+        {{maxLinksAmount}} Quick Links are already scheduled for this period. Please amend your schedule.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-checkbox color="primary" [formControl]="disabled"
+                      (change)="linkStateChange()"> Active</mat-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Title" [formControl]="title" [(ngModel)]="sportsQuickLink.title" required trim="blur">
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': isInValidDestinationUrl()}">
+          <input matInput placeholder="Destination"
+                 [formControl]="destination"
+                 [(ngModel)]="sportsQuickLink.destination" required trim="blur">
+          <mat-hint class="col-red" *ngIf="isInValidDestinationUrl()">Please use valid url</mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <date-range
+          [isSetDateButtons]="true"
+          [startDate]="sportsQuickLink.validityPeriodStart"
+          [endDate]="sportsQuickLink.validityPeriodEnd"
+          [startPlaceholder]="'Validity Period Start Date'"
+          [endPlaceholder]="'Validity Period End Date'"
+          (onDateUpdate)="handleDateUpdate($event)">
+        </date-range>
+      </div>
+      <ng-container *ngIf="isIMActive; else cmsUpload">
+        <div class="col-md-3">
+          <span class="mat-label">SVG Icon</span>
+        </div>
+        <div class="col-md-9">
+          <svg-icon-select-input
+            [formFieldsModels]="sportsQuickLink"
+          ></svg-icon-select-input>
+        </div>
+      </ng-container>
+      <ng-template #cmsUpload>
+        <div class="col-md-5">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="File Name"
+                   [(ngModel)]="uploadImageName"
+                   [value]="uploadImageName" disabled>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4"> 
+          <div style="display:none;"><input id="upload-file" #quickLinkSvgUpload (change)="prepareToUploadFile($event)" type="file" value="upload"/></div>
+          <button type="button" (click)="hadleUploadImageClick()" class="main-image-btn btn bg-teal waves-effect">Change File</button>
+          <button type="button" (click)="removeMainImage()" class="main-image-btn btn bg-red waves-effect">Remove File</button>
+        </div>
+      </ng-template>
+      <div class="col-md-12" *ngIf="isHomePage">
+        <cms-universal-segmented [segmentsDataObj]='segmentsList' (isFormValid)="isSegmentFormValid($event)"
+          (segmentsModifiedData)="modifiedSegmentsHandler($event)"></cms-universal-segmented>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="isFanzoneSportCategory">
+    <div class="col-md-3">
+      <span class="mat-label">
+        Fanzone Inclusion
+      </span>
+    </div>
+    <div class="col-md-9">
+      <mat-form-field class="full-width">
+        <mat-select placeholder="Fanzone Inclusion Segments" required [(ngModel)]="sportsQuickLink.fanzoneInclusions"
+         [formControl]="fanzoneInclusions" #select multiple>
+          <div class="select-all">
+            <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}" (change)="toggleAllSelection()">
+              Select All</mat-checkbox>
+          </div>
+          <mat-option id="optionClick" [ngClass]="{ 'fanzone-inactive-item': !segment.active }"
+            *ngFor="let segment of fanzoneInclusionList" [value]="segment.teamId" (click)="optionClick()">
+            {{ segment.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+    <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="!islinkPeriodValid || title.invalid || destination.invalid || isInValidDestinationUrl() || !isSegmentValid || (isFanzoneSportCategory && fanzoneInclusions.invalid)" (click)="createQuickLink(newLinkData)">Create</button>
+  </div>
+ 
+</div>

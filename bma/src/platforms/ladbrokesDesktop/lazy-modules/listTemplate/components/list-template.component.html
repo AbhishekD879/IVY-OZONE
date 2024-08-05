@@ -1,0 +1,80 @@
+<ng-container *ngFor="let market of event.markets; trackBy: trackById">
+  <div class="listtemplate-ld-desktop" data-crlat="oddsList.ListTemplate">
+    <accordion *ngIf="isSportCard(market) && (!widget || eventDisplayed(market)) && !market.hidden" [accordionTitle]="eventName"
+      [isExpanded]="true" [isShowAll]="true">
+      <accordion-body>
+        <div class="odds-card desktop-sport-card" (click)="goToEvent(false, $event);goToSeo();" data-crlat="oddsCard">
+          <div class="odds-footer" data-crlat="oddsFooter">
+            <div class="odds-left" data-crlat="oddsLeft">
+              <span data-crlat="oddsCardLabel" [textContent]="eventTime" *ngIf="!isEventStartedOrLive"></span>
+              <live-clock *ngIf="isClockAllowed()" [event]="event" data-crlat="liveClock">
+              </live-clock>
+              <live-label data-crlat="liveLabel" *ngIf="isEventStartedOrLive"></live-label>
+              <div class="odds-stream-container" *ngIf="isStream">
+              <div class="odds-devider">|</div>
+              <span [i18n]="'sb.watchLive'"></span>
+              <svg class="odds-icon-stream" data-crlat="oddsIconStream">
+              <use xlink:href="#stream"></use>
+              </svg>
+              </div>
+            </div>
+            <div class="odds-right">
+                <promotion-icon
+                [type]="'event'"
+                [display]="event.drilldownTagNames"
+                [typeId]="event.typeId"
+                [eventId]="event.id"
+                [mode]="'sm'" data-crlat="promotionIcons">
+              </promotion-icon>
+              <div class="was-price" *ngIf="market.isSmartBoosts && wasPrice">
+                <span [i18n]="'sb.wasPrice'"></span>
+                <strike [textContent]="wasPrice"></strike>
+              </div>
+                <div class="odds-more-link-container">
+                    <a *ngIf="showMarketsCount"
+                    [textContent]="event.marketsCount | eventMore"
+                       [linkHref]
+                       [link]="goToEvent(true)"
+                       class="odds-more-link" data-crlat="marketsCount">
+                    </a>
+                  </div> 
+
+            </div>
+          </div>
+       </div>
+          <div *ngIf="isSportCard(market) && (!widget || eventDisplayed(market)) && !market.hidden">
+          <div class="odds-card sticky-virtual-scroll-item" *ngFor="let outcomeEntity of market.outcomes | slice:0:limit; trackBy: getTrackById"
+          (click)="goToEvent(false, $event);goToSeo();" [attr.data-eventid]="event.id" data-crlat="oddsCard">
+            <div class="odds-content" data-crlat="oddsContent">
+              <div class="odds-left" data-crlat="oddsLeft">
+                  <div class="odds-names"
+                  [ngClass]="{'odds-names-wrap': !isOddsSports}" data-crlat="oddsNames">
+               <b [textContent]="outcomeEntity.name" data-crlat="singleEventName"></b>
+             </div>
+              </div>
+             
+              <div class="odds-right" data-crlat="oddsRight">
+                <price-odds-button *ngIf="outcomeEntity" 
+                  id="bet-{{outcomeEntity.id}}"
+                  [event]="event" 
+                  [market]="selectedMarketObject"
+                  [outcome]="outcomeEntity" 
+                  [gtmModuleTitle]="gtmModuleTitle" 
+                  class="price-odds-button" 
+                  (click)="onPriceOddsButtonClick($event, event, selectedMarketObject, outcomeEntity)"
+                  [isRacing]="outcomeEntity.isRacing" 
+                  [nonRunner]="outcomeEntity.nonRunner" 
+                  [handicapVal]="outcomeEntity.prices[0]?.handicapValueDec">
+                </price-odds-button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <show-all-button id="label-color" class="light-show-all" 
+        (click)="toggleShow()" [showMoreMode]="true" [allShown]="allShown"
+          *ngIf="isSportCard(market) && (!widget || eventDisplayed(market)) && !market.hidden && (market.outcomes.length > selectionsLimit)">
+        </show-all-button>
+      </accordion-body>
+    </accordion>
+  </div>
+  </ng-container>

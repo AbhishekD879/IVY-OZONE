@@ -1,0 +1,76 @@
+{
+  "event": {
+    "categoryId": "16",
+    "categoryName": "Football",
+    "classId": "97",
+    "className": "Football England",
+    "drilldownTagNames": "EVFLAG_FE,EVFLAG_FI,EVFLAG_BL,",
+    "eventStatusCode": "A",
+    "id": "6893772",
+    "isLiveNowEvent": false,
+    "isStarted": false,
+    "isCashoutAvailable":"N",
+    "markets": [
+      {
+        "id": "119576984",
+        "isEachWayAvailable": false,
+        "isGpAvailable": false,
+        "isLpAvailable": true,
+        "isMarketBetInRun": true,
+        "isSpAvailable": false,
+        "marketStatusCode": "A",
+        "name": "First Goalscorer",
+        "isCashoutAvailable":"N",
+        "outcomes": [
+          {
+            "id": "463512829",
+            "name": "cvjdvjdhfv",
+            "outcomeMeaningMajorCode": "FS",
+            "outcomeMeaningMinorCode": "H",
+            "outcomeStatusCode": "A"
+          }
+        ]
+      },
+      {
+        "id": "119576982",
+        "isEachWayAvailable": false,
+        "isGpAvailable": false,
+        "isLpAvailable": true,
+        "isMarketBetInRun": true,
+        "isSpAvailable": false,
+        "marketStatusCode": "A",
+        "name": "Correct Score",
+        "isCashoutAvailable":"N",
+        "outcomes": [
+          {
+            "id": "463512480",
+            "name": "Draw 1-1",
+            "outcomeMeaningMajorCode": "CS",
+            "outcomeMeaningMinorCode": "S",
+            "outcomeStatusCode": "A"
+          }
+        ]
+      }
+    ],
+    "name": "scorecast111",
+    "startTime": "2017-12-06T08:42:00Z",
+    "typeId": "442",
+    "typeName": "Premier League"
+  },
+  "request": {
+    "additional": {
+      "scorecastMarketId": 119576981
+    },
+    "outcomeIds": [
+      463512829,
+      463512480
+    ],
+    "selectionType": "scorecast"
+  },
+  "selectionPrice": {
+    "priceDec": 3.0,
+    "priceDen": 1,
+    "priceNum": 2
+  },
+  "freebetList":[]
+}

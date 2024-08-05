@@ -1,0 +1,36 @@
+<div class="container countries-settings-container">
+  <div class="row">
+    <div class="col-xs-5">
+      <span>Allowed countries</span>
+      <select id="multiselect" class="multiselect form-control" size="8" multiple="multiple" ng-model="selectedItems">
+        <option ng-repeat="country in countries" value="{{country.val}}" ng-if="country.allowed">{{country.label}}</option>
+      </select>
+    </div>
+    <div class="col-xs-2 coutries-page-top-offset">
+      <button id="right_All_1" class="btn btn-block" type="button" ng-click="moveAllItems(false)">
+        <i class="glyphicon glyphicon-forward"></i>
+      </button>
+
+      <button id="right_Selected_1" class="btn btn-block" type="button" ng-click="moveItems(false)">
+        <i class="glyphicon glyphicon-chevron-right"></i>
+      </button>
+
+      <button id="left_Selected_1" class="btn btn-block" type="button" ng-click="moveItems(true)">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+      </button>
+
+      <button id="left_All_1" class="btn btn-block" type="button" ng-click="moveAllItems(true)">
+        <i class="glyphicon glyphicon-backward"></i>
+      </button>
+    </div>
+    <div class="col-xs-5">
+      <span>Banned countries</span>
+      <select name="" id="multiselect_to_1" class="form-control" name="to" size="8" multiple="multiple" ng-model="unselectedItems">
+        <option ng-repeat="country in countries" value="{{country.val}}" ng-if="!country.allowed">{{country.label}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="row coutries-page-top-offset">
+    <div class="btn btn-info col-xs-4 col-xs-offset-4" ng-class="{'disabled': !isSettingsChanged}" ng-click="saveSettings()">Save changes</div>
+  </div>
+</div>

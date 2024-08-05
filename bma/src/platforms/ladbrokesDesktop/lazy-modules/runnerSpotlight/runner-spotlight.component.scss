@@ -1,0 +1,31 @@
+@import 'global.variables.scss';
+
+.runner-details-right {
+  position: absolute;
+  right: 5px;
+}
+
+.runner-spotlight {
+  padding: 0;
+  font-size: $font-size;
+
+  .runner-details {
+    margin-bottom: 8px;
+  }
+
+  .runner-spotlight-info p {
+    margin: 0;
+  }
+
+  &.greyhound-spotlight {
+    font-size: $font-size-lg;
+    color: $lGray;
+  }
+
+  .runner-lastrun-details {
+    padding: 0 0 10px;
+     p, span {
+      margin: 0;
+     }
+  }
+}

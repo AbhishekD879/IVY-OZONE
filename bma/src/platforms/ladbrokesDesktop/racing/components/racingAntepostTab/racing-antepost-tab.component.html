@@ -1,0 +1,50 @@
+<ng-container *ngIf="racing.events?.length">
+  <div class="horseracing">
+    <div class="antepost-container">
+      <switchers
+        [type]="'scrollable'"
+        [switchers]="sortSwitchers"
+        [filter]="filter"
+        [noPaddings]="true"
+      ></switchers>
+      <div class="events-container">
+        <accordion
+          class="uppercase"
+          *ngFor="let type of eventsMap[filter].typeNames; trackBy: trackById; index as i"
+          [accordionTitle]="type.typeName"
+          [isExpanded]="isExpanded[i]"
+          data-crlat="outerAccordion"
+          (function)="accordionHandler(i, type)">
+          <accordion-body>
+            <div class="antepost-events-container" *ngIf="!isFromOverlay">
+              <div class="antepost-category-wrapper"
+                   *ngFor="let event of type.typeNameEvents; trackBy: trackById;"
+                   [ngClass]="{'two-cell': event.type?.grid === '2','three-cell': event.type?.grid === '3'}"
+                   data-crlat="race.antepost.event.desktop">
+                <div class="antepost-category">
+                  <a class="event-link" [routerLink]="event.link" data-crlat="event.link">
+                <span class="event-date"
+                      *ngIf="event.startTime"
+                      data-crlat="event.date"
+                      [textContent]="event.date + ' ' + type.typeName">
+                </span>
+                    <b class="event-name"
+                       data-crlat="event.name"
+                       [textContent]="event.name">
+                    </b>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <ng-container *ngIf="isFromOverlay">
+              <list-card *ngFor="let event of type.typeNameEvents; trackBy: trackById;" (click)="closeOverlay(event)" data-crlat="race.antepost.event"
+              [item]="event" [link]="event.link" [date]="event.date + ' ' + type.typeName"></list-card>
+            </ng-container>
+          </accordion-body>
+        </accordion>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<!-- Show only when no events -->
+<no-events *ngIf="!responseError && !racing.events?.length" [message]="'app.noEventsFound'"></no-events>

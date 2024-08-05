@@ -1,0 +1,65 @@
+{
+  "bet": [
+    {
+      "addr": "52.48.72.67",
+      "betTypeRef": {
+        "id": "SGL"
+      },
+      "cashoutValue":"4.50",
+      "id": 389526,
+      "isConfirmed": "Y",
+      "isFunded": "Y",
+      "isSettled": "N",
+      "leg": [
+        {
+          "documentId": "1",
+          "sportsLeg": {
+            "legPart": [
+              {
+                "outcomeRef": {
+                  "eventDesc": "|Load auto test Joseton| |vs| |Load auto test New Roberttown|",
+                  "id": "460115006",
+                  "marketDesc": "|Match Result|",
+                  "outcomeDesc": "Load auto test Joseton"
+                }
+              }
+            ],
+            "placeTerms": "",
+            "prices": [{
+              "priceDen": "1",
+              "priceNum": "4",
+              "priceTypeRef": {
+                "id": "LP"
+              }
+            }],
+            "winPlaceRef": {
+              "id": "WIN"
+            }
+          }
+        }
+      ],
+      "lines": {
+        "number": 1
+      },
+      "payout": [
+        {
+          "bonus": "0.0",
+          "potential": "25.00",
+          "refunds": "0.00",
+          "winnings": "0.00"
+        }
+      ],
+      "provider": "OpenBetSports",
+      "receipt": "O/0138188/0001160",
+      "stake": {
+        "amount": "5.00",
+        "currencyRef": {
+          "id": "GBP"
+        },
+        "freebet": "0.00",
+        "stakePerLine": "5.00"
+      },
+      "timeStamp": "2017-11-24T11:36:01.000Z"
+    }
+  ]
+}

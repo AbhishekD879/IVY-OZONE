@@ -1,0 +1,33 @@
+/* Overrides to be applied when portal route is opened */
+.vn-scope {
+  bma-main {
+    & > *:not(#page-wrapper) {
+      display: none;
+    }
+
+    #page-wrapper {
+      & > *:not(#page-content) {
+        display: none;
+      }
+    }
+
+    #page-content {
+      width: 100%;
+      min-height: 100%;
+      display: flex;
+
+      #content {
+        width: 100%;
+      }
+
+      & > *:not(#content) {
+        display: none;
+      }
+    }
+  }
+}
+body {
+  .grecaptcha-badge {
+      visibility: hidden;
+  }
+}

@@ -1,0 +1,18 @@
+@import 'global.variables.scss';
+
+:host {
+  .event-markets-container {
+    accordion {
+      margin: 0;
+    }
+
+    .odds-card {
+      border-top: none;
+      border-bottom: 1px solid $color-gray;
+    }
+  }
+
+  .container.heuristic-container {
+    margin-bottom: 0;
+  }
+}

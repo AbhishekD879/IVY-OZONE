@@ -1,0 +1,56 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>Create a new SSO Page item</h1>
+  <div mat-dialog-content>
+    <div class="row clearfix">
+      <div class="col-md-12" [ngClass]="{'mat-form-field-invalid': (!!newSsoPage.title && !isPageNameUniq(newSsoPage.title))}">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Title" [(ngModel)]="newSsoPage.title" [value]="newSsoPage.title" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!!newSsoPage.title && !isPageNameUniq(newSsoPage.title)">Name should be unique</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Open Link"  [(ngModel)]="newSsoPage.openLink" [value]="newSsoPage.openLink" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-12">
+        <mat-checkbox class="mat-label" color="primary"
+                      [checked]="newSsoPage.showOnAndroid"
+                      (change)="newSsoPage.showOnAndroid = !newSsoPage.showOnAndroid">
+          Show On Android
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row clearfix" *ngIf="newSsoPage.showOnAndroid">
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Target Android"  [(ngModel)]="newSsoPage.targetAndroid" [value]="newSsoPage.targetAndroid" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-12">
+        <mat-checkbox class="mat-label" color="primary"
+                      [checked]="newSsoPage.showOnIOS"
+                      (change)="newSsoPage.showOnIOS = !newSsoPage.showOnIOS">
+          Show on iOS
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row clearfix" *ngIf="newSsoPage.showOnIOS">
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Target IOS"  [(ngModel)]="newSsoPage.targetIOS" [value]="newSsoPage.targetIOS" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+    <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="!isValidModel()" [mat-dialog-close]="newSsoPage">Create</button>
+  </div>
+</div>

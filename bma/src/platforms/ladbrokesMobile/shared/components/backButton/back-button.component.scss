@@ -1,0 +1,52 @@
+@import 'global.variables.scss';
+
+.lads-back-btn {
+  height: 40px;
+  min-width: 50px;
+  max-width: 50px;
+  cursor: pointer;
+  position: relative;
+  color: #fff;
+  padding-left: 15px;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  margin-left: 3px;
+  &:active {
+    background: $color-brand-dark-red;
+    display: flex;
+    position: absolute;
+    min-width: 65px;
+    top: 0;
+    padding: 26px;
+    min-height: -webkit-fill-available;
+    left: -3px;
+    padding-right: 46px;
+
+    @media #{$mqTablet} {
+      left: 1px;
+      margin-left: -1px;
+      padding-left: 30px;
+    }
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    margin-top: -7px;
+    left: 0;
+    border: solid #fff;
+    border-width: 2px 0 0 2px;
+    display: inline-block;
+    padding: 6px;
+    will-change: transform;
+    transform: rotate(-45deg);
+  }
+  &:active::before{
+    left: 11px;
+    @media #{$mqTablet} {
+      left: 15px;
+    }
+  }
+}

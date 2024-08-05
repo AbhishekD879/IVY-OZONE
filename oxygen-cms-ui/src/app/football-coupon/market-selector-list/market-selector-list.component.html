@@ -1,0 +1,48 @@
+<breadcrumbs *ngIf="marketSelectors" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div *ngIf="marketSelectors" class="card">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Coupon Market Selectors Page
+      <small *ngIf="marketSelectors.length">Total Market Selectors Amount: {{marketSelectors.length}}</small>
+      <small *ngIf="!marketSelectors.length">No Market Selectors Found</small>
+    </h2>
+  </div>
+</div>
+
+<div class="card">
+  <div class="body">
+    <!-- search and download button.-->
+    <div *ngIf="marketSelectors" class="row clearfix">
+      <div class="col-md-3">
+        <button (click)="createMarketSelector()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create Market Selector</span>
+        </button>
+      </div>
+      <div class="col-md-3">
+        <download-cvs [cvsData]="marketSelectors" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Market Selectors" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="marketSelectors?.length > 0">
+      <cms-data-table
+        [customTableData]="marketSelectors"
+        [customTableColumns]="dataTableColumns"
+        [actions]="['remove', 'edit']"
+        [filterString]="searchField"
+        [filterProperties]="searchableProperties"
+        [reorder]="true"
+        (onElementsOrder)="reorderHandler($event)"
+        (onRemoveTableElement)="removeHandler($event)">
+      </cms-data-table>
+    </div>
+  </div>
+</div>
+<app-coupon-market-mapping-list></app-coupon-market-mapping-list>

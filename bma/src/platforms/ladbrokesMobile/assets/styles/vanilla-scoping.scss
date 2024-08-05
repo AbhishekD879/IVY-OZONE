@@ -1,0 +1,58 @@
+@import 'global.variables.scss';
+@import '../../../ladbrokesMobile/shared/components/backButton/back-button.component.scss';
+
+/* Overrides to be applied when portal/vanilla route is activated */
+.vn-scope {
+  .side-page {
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+
+    & > *:not(#page-content) {
+      display: none;
+    }
+  }
+
+  bma-main {
+    & > *:not(.side-page) {
+      display: none;
+    }
+  }
+
+  .page-wrapper {
+    position: relative;
+    z-index: 2000;
+  }
+  main {
+    min-height: auto;
+    @media screen and (max-width: 766px) {
+      background: none;
+    }
+  }
+
+  #content {
+    min-height: 100vh;
+  }
+  #right-column{
+    display: none;
+  }
+}
+
+main {
+  @media screen and (max-width: 766px) {
+    background: #e0e2eb;
+  }
+}
+
+@media screen and (max-width: $landscapeTabletPointLow) and (orientation: landscape) {
+  html:not(.bma-ready) vn-responsive-header {
+    visibility: hidden;
+  }
+}
+
+body {
+  .grecaptcha-badge {
+      visibility: hidden;
+  }
+}
+

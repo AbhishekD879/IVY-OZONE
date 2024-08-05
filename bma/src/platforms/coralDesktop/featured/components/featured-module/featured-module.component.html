@@ -1,0 +1,91 @@
+<ng-container *ngIf="isModuleAvailable || sbCount>0 || isHcAvailable">
+  <header class="header-panel">Featured</header>
+  <ng-container *ngFor="let module of featuredModuleData?.modules; index as i; trackBy: trackByModules">
+    <ng-container *ngIf="!showOnlyBigCompetitionData; else bigCompetitionBlock;">
+    <surface-bets-carousel *ngIf="module['@type'] === 'SurfaceBetModule' && sbCount>0"
+                           class="featured-surface-bets-carousel"
+                           [sportName]="sportName" [module]="module"></surface-bets-carousel>
+    <featured-highlight-carousel *ngIf="isHighlightCarouselEnabled && module['@type'] === 'HighlightCarouselModule' && module.displayOnDesktop"
+                           [sportName]="sportName" 
+                           [highlightsCarousel]="module"  [eagerLoadCount]="eagerLoadCount?.HCDesktop"></featured-highlight-carousel>
+    <accordion [accordionTitle]="module.title"
+               [card]="!isRace(module).racing"
+               [isExpanded]="isExpanded(module)"
+               [isHeaderHidden]="isHeaderHidden(module)"
+               [class.race-card]="isRace(module).racingCard"
+               (function)="manageSocketSubscription(module, $event);updateFeatureModuleView()"
+               *ngIf="isModuleHidden(module) && module['@type'] === 'EventsModule'"
+               data-crlat="moduleName"
+               #featuredAccordion>
+      <right-side *ngIf="badges[module._id]">
+        <span class="pc-badge" [ngClass]="badges[module._id].className"
+            [textContent]="badges[module._id].label" data-crlat="badge.label"
+            *ngIf="badges[module._id]"></span>
+      </right-side>
+
+      <right-side *ngIf="isRace(module).racingCard">
+        <strong (click)="seeAllRaces(module)" [i18n]="'sb.seeAll'" class="see-all-link"></strong>
+      </right-side>
+
+      <accordion-body *ngIf="isExpanded(module)">
+        <div *ngIf="module.showModuleLoader" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+
+        <ng-container *ngIf="module.data.length > 0">
+          <odds-card-header *ngIf="!isHeaderHidden(module) && isOddsCardHeaderShown(module)" [events]="module.data">
+          </odds-card-header>
+          <ng-container *ngFor="let event of module.data; trackBy: trackByModuleData">
+            <odds-card-component [featured]="{ isSelection: module.dataSelection.selectionType === 'Selection' }"
+                                 [featuredModule]="module"
+                                 [gtmDataLayer]="gtmDataLayer"
+                                 [gtmModuleTitle]="'featured bet'"
+                                 [event]="event"
+                                 [eventType]="getEventType(event)"
+                                 *ngIf="!isRace(module).racing && event.isDisplayed !== false"
+                                 [attr.data-crlat]="'featured.type.oddsCard.' + module.dataSelection.selectionType">
+            </odds-card-component>
+          </ng-container>
+        </ng-container>
+        
+        <ng-container *ngIf="featuredAccordion.isExpanded && isRace(module).racingCard && module.data.length > 0">
+          <lazy-component moduleUri="@lazy-modules-module/raceCard/race-card-content.module#RaceCardContentModule" [inputs]="{
+            raceData:  module.data,
+            trackGaDesktop: true,
+            raceIndex: i,
+            raceMaxSelections: module.maxSelections,
+            showTimer: true,
+            showBriefHeader: false,
+            fluid: true,
+            gtmModuleTitle: 'featured races'
+                      }"
+            data-crlat="featured.type.raceCard">
+          </lazy-component>
+        </ng-container>
+
+        <racing-grid *ngIf="isRace(module).racingGrid"
+                     [sportId]="module.dataSelection.selectionId"
+                     [raceGridRaces]="raceGridRaces" data-crlat="featured.type.racingGrid">
+        </racing-grid>
+        <show-more-link *ngIf="module.footerLink?.url"
+                        (function)="sendToGTM()"
+                        [link]="module.footerLink.url"
+                        [title]="getShowMoreText(module)">
+        </show-more-link>
+      </accordion-body>
+    </accordion>
+  </ng-container>
+  <ng-template #bigCompetitionBlock>
+    <surface-bets-carousel *ngIf="module['@type'] === 'SurfaceBetModule' && sbCount>0"
+      class="featured-surface-bets-carousel"
+      [sportName]="sportName" [module]="module"></surface-bets-carousel>
+    <featured-highlight-carousel *ngIf="isHighlightCarouselEnabled && module['@type'] === 'HighlightCarouselModule' && module.displayOnDesktop"
+                          [sportName]="sportName" 
+                          [highlightsCarousel]="module"></featured-highlight-carousel>
+  </ng-template>
+  </ng-container>
+  <div *ngIf="showLoader" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+  <no-events *ngIf="noEventFound"></no-events>
+  <request-error *ngIf="ssDown || !isConnectSucceed"
+                 [loadFailed]="ssDown || !isConnectSucceed"
+                 (reloadFn)="reloadComponent()">
+  </request-error>
+</ng-container>

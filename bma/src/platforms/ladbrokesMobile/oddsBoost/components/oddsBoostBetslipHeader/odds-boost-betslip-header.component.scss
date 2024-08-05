@@ -1,0 +1,47 @@
+@import 'global.variables.scss';
+
+:host {
+  display: block;
+  font-family: $alt-font-family;
+}
+
+.header-container {
+  @include display-flex();
+  @include align-items(center);
+  padding: 15px;
+  background-color: $color-white;
+  margin-bottom: 5px;
+  margin-top: -5px;
+}
+
+.left {
+  flex: 1;
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+
+.primary-header {
+  font-size: 15px;
+  color: $lBlack-medium;
+}
+.secondary-header {
+  display: flex;
+  align-items: center;
+  color: $lBlack-light;
+  font-size: 12px;
+  span > {
+    display: inline-block;
+  } 
+}
+
+.info-mark {
+  display: inline-flex;
+  margin: 0 8px;
+  svg {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+  }
+}

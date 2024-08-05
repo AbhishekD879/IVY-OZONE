@@ -1,0 +1,76 @@
+@import 'global.variables.scss';
+
+.howItWorks-dialog {
+
+  .step {
+    background: $color-blue-dark;
+    border-radius: 50%;
+    color: $color-white;
+    display: inline;
+    font-weight: 600;
+    margin-right: 10px;
+    text-align: center;
+    height: 1.7em;
+    width: 10%;
+    position: relative;
+    top: 2px;
+    font-size: 1em;
+  }
+
+  .step:last-of-type {
+    width: 2.5em;
+  }
+
+  .wrap {
+    @include display-flex();
+    align-items: center;
+    min-height: 50px;
+    padding-bottom: 5px;
+  }
+
+  .text {
+    width: 80%;
+    color: $color-blue-dark;
+    font-size: $font-size-lg;
+    line-height: 1.4;
+  }
+
+  .mobile-text {
+    font-size: $font-size-bit-lgr;
+  }
+}
+
+
+:host {
+  ::ng-deep .modal-dialog {
+    .modal-content {
+
+      .modal-body {
+        max-height: 400px;
+        overflow-y: scroll;
+      }
+
+      .modal-footer {
+        background: $color-white;
+        padding: 5px 12px;
+
+        .btn {
+          height: 38px;
+          border-radius: initial;
+          font-size: 12px;
+          padding-top: 12px;
+          padding-bottom: 12px;
+          text-transform: uppercase;
+          text-shadow: none;
+          box-shadow: none;
+        }
+
+        .btn-secondary {
+          background-color: $color-yellow;
+          border-color: $color-yellow;
+          color: #41494e;
+        }
+      }
+    }
+  }
+}

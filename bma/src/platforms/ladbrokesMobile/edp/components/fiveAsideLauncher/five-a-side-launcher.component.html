@@ -1,0 +1,17 @@
+<div class="mask row backgroungimg lancher-container" *ngIf="showBanner">
+    <svg class="bg-l-img mrgn">
+      <use xlink:href="#five-a-side-gamelaunch-bg"></use>
+    </svg>
+    <div class="lancher-left-content" >
+        <svg class="five-a-side-icon">
+            <use xlink:href="#banner-logo"></use>
+        </svg>
+    </div>
+    <div class="lancher-middle-content" >
+        <div class="launcher-title" [textContent]= "fiveASideTitle"></div>
+        <div class="launcher-content" [textContent]= "fiveASideContent"></div>
+    </div>
+    <div class="lancher-right-content" >
+            <button class="rectangle" type="button" (click)="onNavigate()" ><span class="build" [textContent]="'BUILD'"></span></button>
+    </div>
+</div>

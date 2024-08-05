@@ -1,0 +1,92 @@
+{
+  "bet": [
+    {
+      "addr": "77.52.194.150",
+      "id": 759255,
+      "isConfirmed": "Y",
+      "isFunded": "Y",
+      "isSettled": "N",
+      "receipt": "O/0196666/0000848",
+      "timeStamp": "2019-10-02T07:52:50.000Z",
+      "betTypeRef": {
+        "id": "SGL"
+      },
+      "stake": {
+        "stakePerLine": "1.00",
+        "amount": "1.00",
+        "freebet": "0.00",
+        "currencyRef": {
+          "id": "USD"
+        }
+      },
+      "payout": [
+        {
+          "bonus": "",
+          "refunds": "0.00",
+          "winnings": "0.00",
+          "potential": "1.50"
+        }
+      ],
+      "lines": {
+        "number": 1
+      },
+      "cashoutValue": {
+        "status": "",
+        "amount": "0.90"
+      },
+      "leg": [
+        {
+          "sportsLeg": {
+            "winPlaceRef": {
+              "id": "WIN"
+            },
+            "legPart": [
+              {
+                "outcomeRef": {
+                  "id": "100000",
+                  "outcomeDesc": "North Nataliefort",
+                  "eventDesc": "North Nataliefort v South Anna",
+                  "eventCategoryId": "16",
+                  "marketDesc": "Match Result",
+                  "marketId": "149693547",
+                  "eventId": "10030752"
+                }
+              },
+              {
+                "outcomeRef": {
+                  "id": "200000",
+                  "outcomeDesc": "North Nataliefort",
+                  "eventDesc": "North Nataliefort v South Anna",
+                  "eventCategoryId": "16",
+                  "marketDesc": "Match Result",
+                  "marketId": "149693547",
+                  "eventId": "10030752"
+                }
+              }
+
+            ],
+            "prices": [
+              {
+                "priceNum": "1",
+                "priceDen": "2",
+                "legType": "SF",
+                "priceTypeRef": {
+                  "id": "LP"
+                }
+              }
+            ],
+            "price": {
+              "priceNum": "1",
+              "priceDen": "2",
+              "legType": "SF",
+              "priceTypeRef": {
+                "id": "LP"
+              }
+            }
+          },
+          "documentId": "1"
+        }
+      ]
+    }
+  ]
+}

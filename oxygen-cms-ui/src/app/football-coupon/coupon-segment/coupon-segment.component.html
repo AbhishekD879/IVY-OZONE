@@ -1,0 +1,109 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="!isLoading && pageType === 'edit'">
+  <div class="header">
+    <h2>Edit Segment: <span class="font-italic">{{ couponSegment.title }}</span></h2>
+    <create-updated-at-by [collection]="couponSegment"></create-updated-at-by>
+  </div>
+</div>
+<form [formGroup]="form">
+  <div class="card" *ngIf="!isLoading">
+    <div class="body">
+        <div class="row clearfix">
+          <div class="col-md-2">
+            <span class="mat-label">
+              Segment Title
+            </span>
+          </div>
+          <div class="col-md-5">
+            <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !couponSegment.title}">
+              <input matInput type="text" placeholder="Segment Title" [(ngModel)]="couponSegment.title"
+                      formControlName="couponName"
+                      required trim="blur">
+              <mat-hint class="col-red" *ngIf="!couponSegment.title">Segment Title should be entered</mat-hint>
+
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-md-2">
+            <span class="mat-label">
+              Coupon IDs
+            </span>
+          </div>
+          <div class="col-md-5" [ngClass]="{ 'mat-form-field-invalid': !couponSegment.couponKeys}">
+                <vip-levels-input [(ngModel)]="couponSegment.couponKeys"
+                                  formControlName="couponKeys"
+                                  [placeholder]="'Coupon IDs'"
+                                  [required]="true">
+                </vip-levels-input>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="card" *ngIf="!isLoading">
+    <div class="body">
+      <mat-radio-group [(ngModel)]="couponSegment.scheduleType" formControlName="couponSheduleType">
+        <div class="row clearfix" formGroupName="daysWeek">
+          <mat-radio-button class="col-md-2 m-b-10"
+                            [value]="scheduleType.DaysOfWeek"
+                            [checked]="couponSegment.scheduleType == scheduleType.DaysOfWeek">
+            Display Weekly
+          </mat-radio-button>
+          <div class="col-md-10 m-l--10 row" [ngClass]="!this.daysOfWeekValid() ? 'checkbox-group-invalid': ''" *ngIf="couponSegment.scheduleType == scheduleType.DaysOfWeek">
+            <div class="col-md-1 m-r-15" *ngFor="let day of couponSegment.dayOfWeekArr">
+              <mat-checkbox color="primary"
+                formControlName="{{day.dayName}}"
+                [disabled]="couponSegment.scheduleType == scheduleType.DatesPeriod"
+                [(ngModel)]="day.checked"> {{ day.dayName | slice:0:3 }} </mat-checkbox>
+            </div>
+            <div class="checkbox-group-error col-red clearfix col-md-7 font-11">At least one day of week should be checked</div>
+          </div>
+
+        </div>
+
+          <mat-radio-button class="m-b-20"
+                            [value]="scheduleType.DatesPeriod"
+                            [checked]="couponSegment.scheduleType == scheduleType.DatesPeriod">
+            Date Period
+          </mat-radio-button>
+          <div class="row" *ngIf="couponSegment.scheduleType == scheduleType.DatesPeriod">
+            <div class="col-md-8">
+              <date-range
+                [isSetDateButtons]="true"
+                [startDate]="couponSegment.from"
+                [endDate]="couponSegment.to"
+                [startPlaceholder]="'Start Date'"
+                [placeholderColumn]="'true'"
+                [endPlaceholder]="'End Date'"
+                (onDateUpdate)="handleDateUpdate($event)"
+                [isSecondsEnabled]="false"
+              >
+              </date-range>
+            </div>
+          </div>
+      </mat-radio-group>
+    </div>
+  </div>
+</form>
+
+<div class="card" *ngIf="!isLoading && pageType === 'add'">
+  <div class="body">
+    <div class="row footer-buttons-row">
+      <div class="col-md-7">
+        <button [disabled]="!isValidModel(this.couponSegment)" mat-button type="button" class="btn bg-teal waves-effect float-left" (click)="createSegment();">
+          <mat-icon>save</mat-icon>
+          <span>Create Segment</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<action-buttons
+  #actionButtons
+  *ngIf="!isLoading && pageType === 'edit'"
+  [validateHandler]="isValidModel"
+  [fieldOrItemName]="'title'"
+  [collection]="this.couponSegment"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>
+

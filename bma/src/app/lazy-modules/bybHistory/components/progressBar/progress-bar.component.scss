@@ -1,0 +1,19 @@
+@import 'global.variables.scss';
+
+:host {
+  display: block;
+}
+
+.progress-bar {
+  height: 3px;
+  background-color: $byb-progress-bar-background-color;
+}
+
+.progress {
+  $color-start: #7e9fbe;
+  $color-end: $color-blue;
+  height: 100%;
+  width: 0;
+  background-image: linear-gradient(to right, $color-start 0%, $color-end 100%);
+  transition: width 1s ease-in;
+}

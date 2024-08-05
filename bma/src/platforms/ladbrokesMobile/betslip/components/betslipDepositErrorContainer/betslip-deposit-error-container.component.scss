@@ -1,0 +1,44 @@
+@import 'global.variables.scss';
+
+.outer-info {
+  @include display-flex();
+  @include flex-direction(row);
+  @include align-items(center);
+  @include justify-content(center);
+  border-bottom: 1px solid $lGrayLight;
+  background: $color-white;
+
+  .info_icon {
+    width: 16px;
+    margin-left: 20px;
+    height: 16px;
+    min-width: 16px;
+  }
+
+  .info-panel {
+    &.error-panel {
+      &.quick-deposit-info {
+        @include display-flex();
+        @include justify-content(center);
+        @include align-content(center);
+        @include flex-direction(column);
+        font-family: $alt-font-family;
+        font-size: 12px;
+        font-weight: normal;
+        color: $color-gray-darkest;
+        background: $color-white;
+        height: 43px;
+        padding: 0 16px 0 6px;
+        text-align: left;
+        line-height: 14px;
+        min-height: 35px;
+        text-shadow: none;
+        box-shadow: none;
+      }
+    }
+  }
+
+  .info-panel.error-panel:after {
+    display: none;
+  }
+}

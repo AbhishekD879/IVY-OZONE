@@ -1,0 +1,13 @@
+<loading-screen [displayed]="!isLoaded" [templateType]="'GENERIC'"></loading-screen>
+<div class="list-container heuristic-container" *ngIf="isLoaded && outrights.length" data-crlat="containerInnerContent">
+  <list-card *ngFor="let event of outrights; trackBy: trackById;"
+             [item]="event" [link]="eventURL(event)">
+    <!-- Promotional signposting -->
+    <promotion-icon class="odds-card-promotions-icon"
+                    [type]="'event'"
+                    [display]="event.drilldownTagNames"
+                    data-crlat="promotionIcons">
+    </promotion-icon>
+  </list-card>
+</div>
+<no-events *ngIf="isLoaded && !outrights.length"></no-events>

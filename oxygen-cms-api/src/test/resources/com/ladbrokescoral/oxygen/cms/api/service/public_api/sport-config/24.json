@@ -1,0 +1,82 @@
+{
+  "config" : {
+    "title" : "Formula 1",
+    "name" : "formula1",
+    "path" : "formula-1",
+    "tier" : 2,
+    "categoryType" : "gaming",
+    "isOutrightSport" : true,
+    "isMultiTemplateSport" : false,
+    "oddsCardHeaderType" : "",
+    "request" : {
+      "categoryId" : "24",
+      "siteChannels" : "M",
+      "marketsCount" : false,
+      "isActive" : true
+    },
+    "tabs" : {
+      "live" : { },
+      "coupons" : {
+        "date" : "today",
+        "isActive" : true
+      },
+      "today" : {
+        "isNotStarted" : true
+      },
+      "tomorrow" : { },
+      "future" : { },
+      "outrights" : {
+        "isActive" : true,
+        "marketsCount" : false
+      }
+    }
+  },
+  "tabs" : [ {
+    "id" : "tab-matches",
+    "name" : "matches",
+    "label" : "Events",
+    "url" : "/sport/formula-1/matches",
+    "hidden" : true,
+    "sortOrder" : 1.0,
+    "subTabs" : [ {
+      "id" : "tab-today",
+      "name" : "today",
+      "label" : "Today",
+      "url" : "/sport/formula-1/matches/today",
+      "hidden" : false
+    }, {
+      "id" : "tab-tomorrow",
+      "name" : "tomorrow",
+      "label" : "Tomorrow",
+      "url" : "/sport/formula-1/matches/tomorrow",
+      "hidden" : false
+    }, {
+      "id" : "tab-future",
+      "name" : "future",
+      "label" : "Future",
+      "url" : "/sport/formula-1/matches/future",
+      "hidden" : false
+    } ]
+  }, {
+    "id" : "tab-competitions",
+    "name" : "competitions",
+    "label" : "Competitions",
+    "url" : "/sport/formula-1/competitions",
+    "hidden" : true,
+    "sortOrder" : 2.0
+  }, {
+    "id" : "tab-outrights",
+    "name" : "outrights",
+    "label" : "Outrights",
+    "url" : "/sport/formula-1/outrights",
+    "hidden" : true,
+    "sortOrder" : 3.0
+  }, {
+    "id" : "tab-coupons",
+    "name" : "coupons",
+    "label" : "Coupons",
+    "url" : "/sport/formula-1/coupons",
+    "hidden" : true,
+    "sortOrder" : 4.0
+  } ]
+}

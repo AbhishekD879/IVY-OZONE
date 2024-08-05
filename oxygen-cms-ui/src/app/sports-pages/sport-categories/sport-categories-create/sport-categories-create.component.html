@@ -1,0 +1,51 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>New Sport Category</h1>
+  <form [formGroup]="form" novalidate>
+    <div mat-dialog-content>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Image Title" [(ngModel)]="sportCategory.imageTitle"  formControlName="imageTitle" required trim="blur">
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input matInput
+                   [(ngModel)]="sportCategory.categoryId"
+                   [required]="sportCategory.isRealSport()"
+                   placeholder="Category Id"
+                   type="number"
+                   formControlName="categoryId"
+                   required trim="blur"
+                   onkeypress="return event.charCode >= 48 && event.charCode <= 57" step="1" min="0">
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="SS Category Code" [(ngModel)]="sportCategory.ssCategoryCode" formControlName="ssCategoryCode" required trim="blur">
+          </mat-form-field>
+        </div>
+        <div class="col-md-12" *ngIf="sportCategory.isRealSport()">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Target URI" [(ngModel)]="sportCategory.targetUri" formControlName="targetUri" required trim="blur">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Tier" formControlName="tier" required [(ngModel)]="sportCategory.tier" (change)="tierChanged()">
+              <mat-option [value]="tiers.UNTIED" [textContent]="tiers.UNTIED"></mat-option>
+              <mat-option [value]="tiers.TIER_2" [textContent]="tiers.TIER_2"></mat-option>
+              <mat-option [value]="tiers.TIER_1" [textContent]="tiers.TIER_1"></mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+      <button mat-button class="btn btn-sm bg-teal float-right"
+              [disabled]="isSportCategoryInValid()"
+              [mat-dialog-close]="sportCategory">Save</button>
+    </div>
+  </form>
+</div>

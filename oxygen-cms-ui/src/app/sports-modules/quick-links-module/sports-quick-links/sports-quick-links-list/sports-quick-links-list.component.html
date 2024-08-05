@@ -1,0 +1,63 @@
+<div class="card">
+  <div class="body">
+    <!-- search and download button.-->
+    <div *ngIf="sportsQuickLinks" class="row clearfix">
+      <div class="col-md-2 m-b-0 white-space-nowrap" [ngClass]="{'m-r-40': !isHomePage}">
+        <button (click)="createSportsQuickLink()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create Sports Quick Link</span>
+        </button>
+      </div>
+      <div class="col-md-4 m-b-0 segment-dropdown" *ngIf="isHomePage">
+        <cms-segment-dropdown *ngIf="showSegmentDropdown" #segmentDropdown [activeSegment]='selectedSegment'
+                              (selectedSegment)="segmentHandler($event)">
+        </cms-segment-dropdown>
+      </div>
+      <div class="col-md-2 m-b-0">
+        <download-cvs [cvsData]="sportsQuickLinks" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div class="col-md-3 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Sports Quick Link" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="sportsQuickLinks?.length">
+      <div *ngIf="!isLinksListValid" class="alert alert-danger m-b-0">
+        {{maxLinksAmount}} Quick Links are already scheduled for this period. Please amend your schedule.
+      </div>
+      <div *ngIf="orderMessage && isHomePage" class="order-message">
+        {{ orderMessage }}
+      </div>
+      <cms-data-table *ngIf="!isHomePage"
+          [customTableData]="sportsQuickLinks"
+          [customTableColumns]="dataTableColumns"
+          [reorder]="true"
+          [actions]="['remove','edit']"
+          [filterString]="searchField"
+          (onElementsOrder)="reorderHandler($event)"
+          [filterProperties]="searchableProperties"
+          (onRemoveTableElement)="removeHandler($event)">
+      </cms-data-table>
+      <cms-segment-data-table *ngIf="isHomePage && segmentChanged"
+        [customTableData]="sportsQuickLinks"
+        [selectedSegment]="selectedSegment"
+        [customTableColumns]="dataTableColumns"
+        [actions]="['remove', 'edit']"
+        [filterString]="searchField"
+        [filterProperties]="searchableProperties"
+        [reorder]="true"
+        (onElementsOrder)="reorderHandler($event)"
+        (onRemoveTableElement)="removeHandler($event)">
+      </cms-segment-data-table>
+    </div>
+
+    <div *ngIf="error">
+      Request Error
+    </div>
+  </div>
+</div>

@@ -1,0 +1,114 @@
+<loading-screen [displayed]="!isLoaded && !dataFilled" [templateType]="'GENERIC'" [longRenderView]="true"></loading-screen>
+<div *ngIf="isLoaded && dataFilled" class="byb-layout-container">
+  <span class='markets' [textContent]="'Markets'"> </span>
+  <lazy-component moduleUri="@yourCallModule/your-call.module#YourCallModule"
+    [inputs]="{staticType: staticType,showIcon: false, trustAsHtml: true,minHeightByb: true}"
+    entryComponent="YourCallStaticBlockComponent">
+  </lazy-component>
+  <byb-tabs [enabledMarketSwitchers]='enabledMarketSwitchers' (tabChange)='onTabChange($event)'></byb-tabs>
+</div>
+
+<ng-template let-market='market' let-parent='parent' let-indice='index' #newLayout>
+  <ng-container *ngFor="let map of allMarketsMap | keyvalue; index as i">
+    <ng-container *ngIf='map.key === market.key'>
+    <accordion [ngClass]="{'first': parent == 1, 'second': parent== 2, 'no-display':!marketFilters(market, indice)}" *ngIf="allMarketsMap.size" [accordionTitle]="market.title" [isChevronToLeft]="true"
+      [isExpanded]="expandCollapseMap[indice]" (function)="expandCollapse(market, indice)"  [isByb]="true">
+      <right-side *ngIf="true">
+        <cashout-label></cashout-label>
+      </right-side>
+      <accordion-body>
+        <div>
+          <p class='market-name' [textContent]="market?.marketDescription"> </p>
+        </div>
+        <p class='select-name' [textContent]="'Select Team'"></p>
+        <byb-teamname-component
+        [teamA]='yourCallMarketsService.game.homeTeam.title'
+          [teamB]='yourCallMarketsService.game.visitingTeam.title' [marketGroupArr]='map.value'
+          [marketGroupName]='map.key'>
+        </byb-teamname-component>
+
+      </accordion-body>
+    </accordion>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngFor='let customMarket of customMarkets; index as i'>
+    <ng-container *ngIf='customMarket[0]?.groupName === market.grouping'>
+      <accordion [ngClass]="{'first': parent == 1, 'second': parent== 2, 'no-display':!marketFilters(market, i)}" *ngIf='customMarket.length' [accordionTitle]="market.title" [isChevronToLeft]="true"
+      [isExpanded]="expandCollapseMap[indice]" (function)="expandCollapse(market, indice)" [isByb]="true">
+      <right-side *ngIf="true">
+        <cashout-label></cashout-label>
+      </right-side>
+      <accordion-body>
+        <div>
+          <p class='market-name'  [textContent]="market?.marketDescription"> </p>
+        </div>
+        <p class='select-name' [textContent]="customMarket[0]?.name"> </p>
+        <byb-custom-component [teamA]='yourCallMarketsService.game.homeTeam.title'
+          [teamB]='yourCallMarketsService.game.visitingTeam.title' [marketGroupArr]="customMarket"
+          [groupName]='market.grouping' [key]='customMarket[0].key'  [isInitial]="true"> </byb-custom-component>
+  
+      </accordion-body>
+    </accordion>
+    </ng-container>
+  </ng-container>
+</ng-template>
+
+
+<div *ngIf="isLoaded && dataFilled">
+  <div *ngIf="showMarkets" class='parent'>
+    <div *ngFor='let parent of [1,2]' class='duplicate-parent'>
+    <ng-container *ngFor="let market of markets; index as i;">
+      <ng-container *ngIf="market.available && marketStatus(market)">
+        <accordion [ngClass]="{'first': parent == 1, 'second': parent == 2, 'no-display':!marketFilters(market, i)}"
+          [accordionTitle]="market.title" [isChevronToLeft]="true" [isExpanded]="expandCollapseMap[i]"
+          (function)="expandCollapse(market, i)" [isByb]="true">
+          <right-side *ngIf="market.type !== 'Player Bet'">
+            <cashout-label></cashout-label>
+          </right-side>
+          <accordion-body>
+            <div>
+              <p class='market-name' [textContent]='market?.marketDescription'> </p>
+            </div>
+              <lazy-component *ngIf="expandCollapseMap[i]" moduleUri="@yourCallModule/your-call.module#YourCallModule"
+              [inputs]="{game: game,limit: 6, market: market}"
+              entryComponent="YourCallMarketComponent">
+            </lazy-component>
+          </accordion-body>
+        </accordion>
+      </ng-container>
+      
+      <ng-container *ngIf="!marketStatus(market)"  [ngTemplateOutlet]="newLayout"
+      [ngTemplateOutletContext]="{market: market, index: i,parent:parent}">
+      </ng-container>
+      <ng-container *ngIf="!marketStatus(market) && players.length !== 0 && (market.grouping == 'Player Bets')">
+        <accordion [ngClass]="{'first': parent == 1, 'second': parent== 2,'no-display':!marketFilters(market, i)}" [staticType]="staticType" [accordionTitle]="market.title" [isChevronToLeft]="true"
+          [isExpanded]="expandCollapseMap[i]" (function)="expandCollapse(market, i)" [isByb]="true">
+          <right-side *ngIf="market.marketType === 'N/A'">
+            <cashout-label></cashout-label>
+          </right-side>
+          <accordion-body>
+            <div>
+              <p class='market-name' [textContent]="market?.marketDescription"> </p>
+            </div>
+            <p class='select-name' [textContent]="'Select Team'"></p>
+            <lazy-component *ngIf="expandCollapseMap[i]" moduleUri="@yourCallModule/your-call.module#YourCallModule"
+              [inputs]="{game: game,limit: 6, market: market, marketsSet: markets, old:false, eventEntity:eventEntity}"
+              entryComponent="YourCallPlayerBetsComponent">
+            </lazy-component>
+
+          </accordion-body>
+        </accordion>
+      </ng-container>
+    </ng-container>
+    </div>
+  </div>
+  <div class="yourcall-default-text" *ngIf="!showMarkets">
+    <p class="yourcall-tab-info-text">
+      <span class="yourcall-hash" [i18n]="'yourCall.yourcallHash'"></span>
+      <span [i18n]="'yourCall.yourcallNoMarkets'"></span>
+    </p>
+    <p class="yourcall-add-text" [i18n]="'yourCall.yourcallStaticText'">
+    </p>
+  </div>
+</div>

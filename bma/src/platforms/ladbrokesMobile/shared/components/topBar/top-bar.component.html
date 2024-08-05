@@ -1,0 +1,16 @@
+<header class="top-bar" data-crlat="topBar" *ngIf="titleText || linkPath">
+  <a *ngIf="!isHorseRacingDetailPage && (linkPath || titleText) && isRouteRequestSuccess" class="top-bar-title"  data-crlat="topBarTitle" [attr.href]="linkPath" (click)="titleClickHandler()">
+    <span *ngIf="seoEnabledInCms && titleText" [textContent]="titleText" data-crlat="topBarTitle"></span>
+    <h1 *ngIf="!seoEnabledInCms && titleText"  [textContent]="titleText" data-crlat="topBarTitle"></h1>
+  </a>
+  <ng-container *ngIf="isHorseRacingDetailPage || !isRouteRequestSuccess">
+    <div class="top-bar-title">
+      <ng-content select="breadcrumbs"></ng-content>
+      <ng-content select="quick-navigation"></ng-content>
+    </div>
+  </ng-container>
+  <div *ngIf="innerContent">
+    <ng-content select="top-bar-body"></ng-content>
+  </div>
+</header>
+

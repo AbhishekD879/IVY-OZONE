@@ -1,0 +1,124 @@
+@import 'global.variables.scss';
+
+/*Post 'Spotlight' information*/
+#spotlight {
+  font-size: $font-size-md;
+
+  .row {
+    padding: 2px 0;
+
+    span {
+      font-size: $font-size-sm;
+    }
+  }
+}
+
+/* New spotlight (runner) styles */
+.runner-spotlight {
+  padding: 5px 12px 5px 12px;
+  font-size: $runner-spotlight-font;
+  font-family: $alt-font-family;
+  color: $color-gray-darkest;
+  background-color: $color-white;
+  .runner-details {
+    margin-bottom: 6px;
+    @include display-flex();
+    div {
+      display: inline-block;
+      margin: 0 10px 0 0;
+      @include display-flex();
+      @include align-items(center);
+      .value {
+        font-weight: normal;
+        &.rpr-value {
+          font-size: $font-size-md;
+          color: $lGray;
+          width: 22px;
+          height: 22px;
+          margin-left: 3px;
+          border: 1px solid #2b2b2b;
+          border-radius: 50%;
+          padding-right: 3px;
+          @include display-flex();
+          @include justify-content(center);
+          @include align-items(center);
+        }
+      }
+      .label {
+        font-weight: bold;
+      }
+
+      span, b {
+        line-height: 1.2;
+      }
+    }
+  }
+  .runner-spotlight-info {
+    padding: 0 0 10px;
+    .runner-spotlight-title {
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: $font-size;
+    }
+    p {
+      margin: 5px 0 0;
+      line-height: 14px;
+      font-size: $font-size;
+    }
+    .spotlight-icon {
+      display: none;
+    }
+    .show-more-btn {
+      text-decoration: underline;
+    }
+  }
+  .runner-lastrun-details {
+    padding: 0 0 10px;
+    span {
+      font-weight: bold;
+      display: block;
+      text-transform: uppercase;
+      font-size: $font-size;
+      letter-spacing: -0.27px;
+    }
+    p {
+      margin: 5px 0 0;
+      line-height: 14px;
+      font-size: $font-size;
+      letter-spacing: -0.29px;
+    }
+  }
+  @media (min-width: $tabletPoint) {
+    @include display-flex();
+    @include flex-direction(column);
+    font-size: $runner-spotlight-font;
+    .runner-details {
+      min-width: 130px;
+      padding: 0;
+      div {
+        @include display-flex();
+        margin: 0 10px 0 0;
+        .value {
+          &.rpr-value {
+           padding-top: 1px;
+           padding-right: 3px;
+           padding-bottom: 1px;
+           padding-left: 0px;
+          }
+        }
+      }
+    }
+    .runner-spotlight-info {
+      padding: 0 0 10px;
+      .spotlight-icon {
+        display: inline-block;
+        width: 13px;
+        height: 14px;
+        vertical-align: sub;
+      }
+    }
+    .runner-lastrun-details {
+      padding: 0 0 10px;
+    }
+  }
+}

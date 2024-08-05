@@ -1,0 +1,12 @@
+<div class="byb-label-wrapper"
+     [ngClass]="{ 'big-icon': mode === 'big',
+                  'small-icon': mode === 'sm',
+                  'mini-icon': mode === 'mini',
+                  'byb-big-icon-mobile': isMobileOnly }"
+     data-crlat="yourcallIcon">
+  <svg class="byb-label">
+    <use xlink:href="#byb-icon"></use>
+  </svg>
+  <span class="byb-label-text" [i18n]="'bma.byb'"></span>
+</div>
+

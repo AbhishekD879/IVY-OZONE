@@ -1,0 +1,219 @@
+@import 'global.variables.scss';
+
+.bet-promotions {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  border-bottom: 1px solid $color-gray;
+  padding: $bet-promos-padding 0;
+  @include bet-promos-after();
+  .icon-stake {
+    padding: $bet-promos-extra-padding $bet-promos-padding;
+    border-left: 1px solid $color-gray;
+    display: flex;
+    justify-content: flex-start;
+
+    &:first-child {
+      border-left: 0;
+    }
+    .svg-wrapper {
+      width: 24px;
+      height: 24px;
+      margin-right: $bet-promos-padding;
+
+      &.boosted {
+        @include bet-promos-boosted();
+      }
+
+      &.money-back {
+        @include bet-promos-money-back();
+      }
+
+      &.two-up-market {
+        width: 25px;
+        height: 25px;
+        margin-right: 8px;
+        background: #FAC031;
+        padding: 2px 1px 1px 2px;
+        &:hover{
+          background: $color-yellow-alt;
+          opacity: 0.85;
+        }
+        &:active{
+          background: $color-orange-light2;
+          opacity: 1;
+        }
+      }
+    }
+
+    .icon-svg {
+      width: 24px;
+      height: 24px;
+
+      &.two-up{
+        width: 22px;
+        height: 22px;
+      }
+    }
+
+    .icon-text {
+      font-size: $bet-promos-font-size;
+      font-family: $alt-font-family;
+      color: $bet-promos-color;
+      line-height: $bet-promos-line-height;
+      padding-left: 0;
+      font-weight: normal;
+    }
+    
+  }
+}
+
+.regular-bet-content {
+  display: flex;
+  width: 100%;
+  padding: 15px;
+  border-bottom: 1px solid #E0E2EB;
+  .flower-text {
+    p {
+      font-size: 13px;
+      margin-bottom: 2px;
+      font-weight: 400;
+      display: inline-block;
+      min-width: 53px;
+      height: 16px;
+      color: #41494E;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    span {
+      font-size: 11px;
+      font-family: $robo-font-family;
+      display: inline;
+      margin-bottom: 7px;
+    }
+  }
+}
+.luckysettled{
+  background: $color-green !important;
+  color: $color-white !important;
+  height: 15px;
+  max-width: 85px;
+  font-size: 11px;
+  padding: 1px 6px;
+  font-weight: 700;
+  font-family: Lato;
+  min-height: 15px;
+  white-space: nowrap;
+  line-height: 13.2px;
+  border-radius: 1px;
+  display: inline-block;
+}
+.lucky-unsettled{
+    background: $lGrayDark;
+    color:#41494E;
+    height: 15px ;
+    font-size: 11px;
+    padding: 1px 6px;
+    font-weight: 700;
+    font-family: Lato;
+    min-width: 85px;  
+    min-height: 15px;
+    white-space: nowrap;
+    margin-right: 8px;
+    line-height: 13.2px;
+    border-radius: 1px;
+    display: inline-block;
+}
+.oneWinner{
+ min-width:67px;
+ background: #dddde4;
+ color:#41494E;
+ height: 15px;
+ max-width: 67px;
+ font-size: 11px;
+ padding: 1px 6px;
+ font-weight: 700;
+ font-family: Lato;
+ min-height: 15px;
+ white-space: nowrap;
+ line-height: 13.2px;
+ border-radius: 1px;
+ display: inline-block;
+}
+.fourWinner{
+  background: #dddde4;
+  color:#41494E;
+  height: 15px;
+  min-width: 73px;
+  font-size: 11px;
+  padding: 1px 6px;
+  font-weight: 700;
+  font-family: Lato;
+  min-height: 15px;
+  white-space: nowrap;
+  margin-right: 8px;
+  line-height: 13.2px;
+  border-radius: 1px;
+  display: inline-block;
+}
+.flower-img {
+  padding-right: 10px;
+  background-image: url('/assets/images/Lucky-mybets-icon.png');
+  background-size: 18px;
+  background-repeat: no-repeat;
+  padding-left: 16px !important;
+  background-position: left;
+  background-position-y: 54%;
+  background-position-x: 9%;
+  color:#252835;
+  width: 22px;
+  height: 22px;
+  position: relative;
+  top: -3px;
+}
+.more-info-text {
+  a {
+    color: #093864;
+    text-decoration: none;
+    font-family: $robo-font-family;
+    font-style: normal;
+    font-weight: 400;
+    font-size: $font-size-md;
+    line-height: 13px;
+    text-transform: uppercase;
+    max-width: 64px;
+    height: 13px;
+  }
+}
+.more-info-text-lads{
+  margin-top: 3px;
+  a {
+    color:#4A90E2;
+    text-decoration: none;
+    font-family: $robo-font-family;
+    font-style: normal;
+    font-weight: 700;
+    font-size: $font-size-md;
+    line-height: 13.43px;
+    text-transform: uppercase;
+    max-width: 64px;
+    height: 13px;
+  }
+
+}
+.infolabel {
+  width: 15px;
+  height: 15px;
+  position: relative;
+  left: 5px;
+  top: 2px;
+}
+.betinfo-icon {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  svg {
+    width: 15px;
+    height: 15px;
+  }
+}

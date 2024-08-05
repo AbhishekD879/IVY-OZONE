@@ -1,0 +1,37 @@
+@import 'global.variables.scss';
+@import './../../assets/styles/modules/arrowed-item.scss';
+
+.terms-and-conditions-container {
+  margin-top: $bh-terms-and-conditions-margin-top;
+
+  .terms-links-container {
+    box-shadow: $bh-terms-and-conditions-box-shadow;
+  }
+
+  .terms-link {
+    @include display-flex();
+    @include align-items(center);
+    min-height: $bh-terms-and-conditions-min-height;
+    padding: $bh-terms-and-conditions-padding-top-bottom 12px;
+    border-bottom: 1px solid $bh-terms-and-conditions-border-color;
+    font-size: $font-size-lg;
+    line-height: 17px;
+    font-family: $bh-terms-and-conditions-font-family;
+    color: $bh-terms-and-conditions-text-color;
+    background-color: $color-white;
+    letter-spacing: $bh-terms-and-conditions-letter-spacing;
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .info-container {
+    text-align: center;
+    padding: $bh-terms-and-conditions-info-padding;
+    line-height: $bh-terms-and-conditions-info-line-height;
+    font-size: $bh-terms-and-conditions-info-font-size;
+    margin-bottom: $bh-terms-and-conditions-info-margin-bottom;
+    font-family: $bh-terms-and-conditions-font-family;
+    color: $bh-terms-and-conditions-info-color;
+  }
+}

@@ -1,0 +1,338 @@
+@import 'global.variables.scss';
+
+$racing-desktop-grid-content-height: 38px;
+$racing-desktop-grid-item-width: 65px;
+$racing-desktop-stream-icon-size: 10px;
+$racing-desktop-header-title-font-size: 14px;
+$racing-desktop-header-title-line-height: 16px;
+
+.horserace.desktop-race-grid {
+  &.race-grid {
+    .rg-section {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .rg-header {
+      font-size: 10px;
+      background-color: $color-white;
+      padding: 12px 12px 8px;
+      height: auto;
+
+      svg {
+        margin-left: 5px;
+      }
+
+      .rg-stream-icon {
+        width: 39px;
+        height: 15px;
+      }
+
+      .rg-extraplace-icon {
+        width: 78px;
+        height: 15px;
+      }
+
+      .rg-title {
+        font-size: $racing-desktop-header-title-font-size;
+        line-height: $racing-desktop-header-title-line-height;
+        font-weight: normal;
+        color: $color-gray-darkest;
+        text-transform: none;
+        font-family: $alt-font-family;
+
+        .rg-title-subregion {
+          color: $lBlack-light;
+          margin-left: 5px;
+        }
+      }
+    }
+
+    .rg-footer {
+      min-height: 1px;
+      background-color: $lGrayLight;
+    }
+
+    .tabs-panel {
+      &.tabs-bottom {
+        margin-bottom: 0;
+
+        .prom-icon {
+          padding: 12px 4px;
+
+          &:first-child {
+            margin-left: 0;
+          }
+        }
+
+        .scroll-container {
+          ::ng-deep {
+            .pool-indicators-container {
+              li {
+                cursor: pointer;
+              }
+
+              display: inherit;
+            }
+
+            .tote-indicator-container {
+              height: auto;
+              display: flex;
+              align-items: start;
+
+              @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+                align-items: flex-start;
+              }
+
+              &:before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 1px;
+                height: 21px;
+                display: block;
+                background-color: $lGrayLightBg;
+              }
+
+              .tote-indicator {
+                background-color: $color-gray-darkest;
+                padding: 5px 12px;
+                color: $color-white;
+                text-transform: uppercase;
+                min-height: 21px;
+                height: 5px;
+                font-size: 10px;
+                line-height: 13px;
+                margin-right: 12px;
+                border-radius: 0;
+                margin-left: 12px;
+                font-weight: normal;
+                &:hover{
+                  background-color: $color-gray-medium;
+                  color: $color-white;
+                }
+                &:active{
+                  background-color: $color-gray-darkest;
+                  color: $color-white;
+                }
+              }
+            }
+          }
+
+          .scroll-inner li {
+            height: auto;
+            display: flex;
+            flex-direction: row;
+            align-items: baseline;
+            min-width: $racing-desktop-grid-item-width;
+            &:active {
+              background: transparent;
+            }
+            &:not(:last-of-type) {
+              &:after {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 1px;
+                height: 21px;
+                display: block;
+                background-color: $lGrayLightBg;
+              }
+            }
+
+            .tab {
+              font-size: 18px;
+              // font-weight: bold;
+              padding: 0 12px;
+              height: auto;
+              min-width: 50px;
+              display: flex;
+              flex-direction: column;
+              justify-content: normal;
+              .text-bold {
+                font-weight: bold;
+              }
+              .race-time {
+                color: $color-gray-darkest;
+                line-height: 16px;
+              }
+            }
+          }
+        }
+      }
+
+      .race-resulted {
+        .race-icon {
+          height: 9px;
+        }
+      }
+
+      .action-arrow {
+        top: 0;
+        padding-top: 0;
+      }
+
+      .scroll-container {
+        .scroll-inner {
+          li:not(.active) {
+            &:hover {
+              .tab {
+                background-color: $color-white;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .remove-border {
+    border-bottom: none;
+    }
+}
+
+.desktop-race-grid {
+  .tabs-panel.tabs-bottom {
+    .scroll-container {
+      .scroll-inner {
+        li {
+          @include flex(0, 0, auto);
+
+          .tab {
+            @include flex(0, 0, auto);
+            justify-content: flex-start;
+          }
+
+          &.build-card-enabled {
+            border-right: 1px solid $color-gray-light;
+          }
+        }
+      }
+    }
+  }
+
+  .prom-icons-wrap {
+    @include display-flex();
+    @include flex(0, 0, auto);
+    height: 40px;
+    padding-top: 10px;
+  }
+
+  .build-card-box .check-styled,
+  .build-card-box .check-styled label,
+  .build-card-box .check-styled input[type=checkbox] {
+    width: 14px;
+    height: 14px;
+    border-radius: 2px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  .build-card-box {
+    height: auto;
+    min-width: 14px;
+    margin: 0 0 0 8px;
+    // specific margin for horse-race-grid
+    @include display-flex();
+    @include align-items(center);
+    @include flex(0, 0, auto);
+
+    .check-styled {
+      display: block;
+      margin: 0;
+
+      label {
+        border: solid 1px $color-gray-silver;
+        background: $lGray-bg;
+        padding-left: initial;
+        margin-top: 0;
+        min-height: auto;
+        position: absolute;
+        overflow: visible;
+        line-height: initial;
+      }
+
+      label:before {
+        content: none;
+      }
+
+      label:after {
+        border-color: $color-white;
+        border-width: 1px;
+        width: 8px;
+        height: 4px;
+        margin: -3px 0 0 -4px;
+      }
+
+      :checked + label {
+        background: $lGray;
+        border-radius: 0;
+      }
+
+      input[disabled] + label {
+        opacity: 0.4;
+        border-color: lighten($color-gray-dark, 50%);
+        cursor: default;
+      }
+    }
+  }
+}
+
+:host {
+  ::ng-deep {
+    .top-switchers {
+      .switchers {
+        margin-bottom: 0;
+        .switch-btn {
+          &.active {
+            &:after {
+              bottom: -2px;
+              height: 2px;
+            }
+          }
+
+          &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            height: 2px;
+            width: 100%;
+            background-color: $lGrayLight;
+          }
+        }
+      }
+    }
+  }
+}
+
+ 
+.early-price-sign-post {
+  z-index: 99;
+  position: relative;
+  top: -14px;
+  height: 9px;
+  padding: 0px 5px 0px 12px;
+  font-size: 9px;
+  line-height: 16px;
+  font-weight: 400;
+  color: #2b2b2b;
+  text-transform: none;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+  letter-spacing: 0.001px;
+  span {
+    width: 86px;
+    height: 11px;
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+}
+.move-left {
+  position: relative;
+  left: 0px;
+  margin-top: 15px;
+}

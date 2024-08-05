@@ -1,0 +1,40 @@
+.icon-preview {
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+  padding: 5px;
+
+  .image-preview {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+
+.template-icon {
+  display: flex;
+  align-items: center;
+
+  &-selector  {
+    flex: 1;
+
+    mat-form-field {
+      width: 100%;
+    }
+  }
+}
+
+.header .has-activity-badge {
+  width: 100%;
+}
+
+.template-subtype-label {
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding: 2px 7px;
+  text-transform: capitalize;
+  float: right;
+
+  color: black;
+  background-color: #31a093;
+}

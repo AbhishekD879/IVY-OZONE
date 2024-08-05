@@ -1,0 +1,47 @@
+@import 'global.variables.scss';
+
+.filter-wrapper {
+  background-color: $color-white;
+  border-radius: 21px;
+  box-shadow: $quick-filter-box-shadow;
+  margin: 0 5px;
+  min-width: 35px;
+
+  .filter {
+    color: $info-gray-color;
+    font-size: $font-size;
+    letter-spacing: $quick-filter-letter-spacing;
+    margin: 0;
+    padding: 9px 10px;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .filter {
+    @media #{$mqTabletAndDesktop} {
+    &:hover {
+      background-color: $color-blue;
+      border-radius: 21px;
+      color: $color-white;
+      padding: 9px 10px;
+      cursor: pointer;
+    }
+    }
+
+    &:active {
+      background-color: $color-blue-rich-heavy;
+      border-radius: 21px;
+      color: $color-white;
+      padding: 9px 10px;
+    }
+  }
+  &.active {
+    background-color: $color-blue;
+
+    .filter {
+      color: $color-white;
+      border-radius: 21px;
+      padding: 9px 10px;
+    }
+  }
+}

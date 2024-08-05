@@ -1,0 +1,38 @@
+<ng-container *ngIf="featuredZoneFilteredOffers?.length && featuredZoneBGImage">
+  <div class="virtual-class-header-name" data-crlat="virtualSectionHeaderName">{{featureZoneTitle}}</div>
+
+  <div *ngIf="isValidCarousel" [style.background-image]="'url(' + featuredZoneBGImage + ')'"
+    class="featureZone-carousel-container" data-crlat="featureZone-carousel-container">
+    <div class="feature-bg-wrapper">
+      <div class="feature-bg-title">{{bgImageOffer.title}}</div>
+      <div class="feature-bg-description">{{bgImageOffer.introductorytext}}</div>
+    </div>
+    <div class="featureZone-carousel-header">
+      <div class="ng-carousel featureZone-carousel" [class.one-card-mode]="isOneCard" [ngCarousel] 
+        [ngCarouselName]="carouselName"
+        [ngCarouselWatch]="featuredZoneFilteredOffers.length"
+        [ngCarouselFluid]="true"
+        [ngCarouselLoop]="false"
+        [ngCarouselMoveThresholdPercentage]="5"
+        [ngCenterMode]="true"
+        [ngCarouselDisableRightSwipe]="ngCarouselDisableRightSwipe">
+
+        <slidecontainer class="carousel-slides only-child"
+          [ngClass]="{'carousel-no-scroll': featuredZoneFilteredOffers.length < 3}">
+          <ng-container *ngFor="let offer of featuredZoneFilteredOffers; index as i;">
+            <slide class="slide" data-crlat="featureZone-carousel-slide">
+              <div class="sport-tile-container" (click)="onImageClick(offer)" data-crlat="virtualSportWrapper">
+                <img *ngIf="offer.imgUrl" class="feature-image" [attr.src]="offer.imgUrl"
+                [attr.fetchpriority]="offer.fetchpriority" [alt]="offer.altText" />
+                <div class="sport-tile-wrapper" data-crlat="virtualSportName">
+                  <div class="sport-tile-title">{{offer.title}}</div>
+                  <div class="sport-tile-description">{{offer.introductorytext}}</div>
+                </div>
+              </div>
+            </slide>
+          </ng-container>
+        </slidecontainer>
+      </div>
+    </div>
+  </div>
+</ng-container>

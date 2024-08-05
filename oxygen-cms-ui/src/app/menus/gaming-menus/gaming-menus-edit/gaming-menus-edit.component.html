@@ -1,0 +1,94 @@
+<breadcrumbs *ngIf="gamingSubMenu" [breadcrumbsData]="breadcrumbs"></breadcrumbs>
+
+<div class="card" *ngIf="gamingSubMenu">
+  <div class="header">
+    <h2 class="has-activity-badge">Gaming SubMenu:
+      <span class="font-italic">{{gamingSubMenu.title}}</span>
+      <create-updated-at-by [collection]="gamingSubMenu"></create-updated-at-by>
+    </h2>
+  </div>
+</div>
+
+<div class="card" *ngIf="gamingSubMenu">
+  <form [formGroup]="form" novalidate>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-checkbox color="primary"
+                        (change)="gamingSubMenu.isNative=!gamingSubMenu.isNative" formControlName="isNative">Is Native</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+              Title
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Title" [(ngModel)]="gamingSubMenu.title" formControlName="title" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Target Url
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Target Url" [(ngModel)]="gamingSubMenu.url" formControlName="url" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Target Window
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Target Window" (selectionChange)="onTargetWindowChanged($event)" formControlName="target">
+              <mat-option *ngFor="let target of targetWindow" [value]="target">
+                {{ target | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            External Image Url
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Target Url" [(ngModel)]="gamingSubMenu.externalImageId" formControlName="externalImageId" trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <cms-upload
+            [label]="'PNG Upload'"
+            [filename]="gamingSubMenu.pngFilename"
+            (onImageUpload)="uploadPngHandler($event)"
+            (onImageRemove)="removePngHandler()">
+          </cms-upload>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="gamingSubMenu"
+  [form]="form"
+  [fieldOrItemName]="'title'"
+  [collection]="gamingSubMenu"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

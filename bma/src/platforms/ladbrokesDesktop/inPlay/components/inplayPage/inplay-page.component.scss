@@ -1,0 +1,112 @@
+@import 'global.variables.scss';
+
+:host {
+  ::ng-deep {
+    .carousel-menu {
+      .scroll-container {
+        background: $lGray;
+
+        .scroll-inner {
+          padding-left: 8px;
+
+          li {
+            width: auto;
+            min-width: 60px;
+
+            &.active {
+              .menu-item {
+                border: none;
+
+                .submenu-list-icon {
+                  fill: $color-yellow-extra;
+                }
+
+                .submenu-list-title {
+                  color: $color-yellow-extra;
+                  white-space: nowrap;
+                }
+
+                .count-label {
+                  background-color: $lGray;
+                  color: $color-yellow-extra;
+                }
+              }
+            }
+
+            .menu-item {
+              .submenu-list-icon {
+                width: 32px;
+                height: 32px;
+                margin-bottom: 4px;
+              }
+
+              .submenu-list-title {
+                font-weight: normal;
+                white-space: nowrap;
+              }
+
+              .count-label {
+                border: none;
+                background-color: $color-yellow-extra;
+                font-size: 8px;
+                width: 12px;
+                height: 12px;
+                color: $lGray;
+                top: 4px;
+                right: 12px;
+                line-height: 13px;
+                font-weight: bold;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    show-more-link {
+      .show-more-link {
+        font-size: 11px;
+        color: #4a90e2;
+        background-color: $color-white;
+        padding: 0 18px;
+        height: 36px;
+
+        &:hover {
+          background-color: $color-white;
+        }
+
+        &:after {
+          content: '';
+          position: relative;
+          top: -1px;
+          left: 4px;
+          border: solid #4a90e2;
+          border-width: 0 2px 2px 0;
+          display: inline-block;
+          padding: 2px;
+          transform: rotate(-45deg);
+        }
+
+        .arrow-icon {
+          display: none;
+        }
+      }
+    }
+
+    accordion {
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .accordion-header {
+        &.inner-header {
+          padding: 0 0 0 12px;
+        }
+      }
+
+      accordion-body {
+        border-bottom: none;
+      }
+    }
+  }
+}

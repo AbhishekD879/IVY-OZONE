@@ -1,0 +1,25 @@
+@import '../../../../../app/oddsBoost/components/oddsBoostPrice/odds-boost-price.component.scss';
+
+.price-wrap {
+  background-color: $color-yellow-alt;
+  padding: 6px;
+  height: 26px;
+  .price-container {
+    color: $lGray;
+    font-size: 13px;
+    padding-top: 1px;
+    font-weight: 500;
+  }
+  ul.scroll-up {
+    @include transform(translateY(calc(-100% + 13px)));
+  }
+  ul.scroll-up.animate {
+    @include transform(translateY(0));
+  }
+  ul.scroll-down ul {
+    @include transform(translateY(0));
+  }
+  ul.scroll-down.animate {
+    @include transform(translateY(calc(-100% + 13px)));
+  }
+}

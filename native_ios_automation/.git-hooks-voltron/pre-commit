@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+echo 'PRE-COMMIT HOOK'
+
+if ! [ -x "$(command -v flake8)" ]; then
+    pip3 install flake8==3.5.0
+fi
+
+files=$(git diff-index --name-only HEAD -r | grep .py$)
+echo
+
+if [[ ${files} ]]; then
+
+    echo '*** Changed python files:'
+    echo
+
+    for file in ${files}; do
+        echo ${file}
+    done
+
+    flake8 ${files} --statistics
+
+fi

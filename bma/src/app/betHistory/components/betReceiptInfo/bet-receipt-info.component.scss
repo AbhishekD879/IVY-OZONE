@@ -1,0 +1,21 @@
+@import 'global.variables.scss';
+
+.bet-receipt-info {
+  padding: 0 12px 10px;
+  color: $bet-receipt-info-font-color;
+  background: $color-white;
+  @include display-flex();
+  @include align-items();
+  @include justify-content(space-between);
+}
+.bet-receipt-info-text {
+  opacity: $bet-receipt-info-opacity;
+  font-size: $bet-receipt-info-font-size;
+  font-family: $bet-receipt-info-font-family;
+}
+
+.bet-receipt-date {
+  white-space: nowrap;
+  color: $bet-receipt-info-date-color;
+  text-align: right;
+}

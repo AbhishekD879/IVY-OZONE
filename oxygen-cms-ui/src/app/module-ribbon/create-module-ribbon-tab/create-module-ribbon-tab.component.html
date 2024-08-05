@@ -1,0 +1,75 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>Create a New Module Ribbon Tab</h1>
+  <div mat-dialog-content>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Module Ribbon Tab Title" [(ngModel)]="moduleRibbonTab.title" [value]="moduleRibbonTab.title" required trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label">
+          Directive Name
+        </span>
+      </div>
+      <div class="col-md-4">
+        <cms-simple-select-list
+          [options]='directiveNames'
+          [selected]='moduleRibbonTab.directiveName'
+          (onDataChange)="onChangeDirectiveName($event)">
+        </cms-simple-select-list>
+      </div>
+    </div>
+    <ng-container *ngIf="isEventHubTab()">
+      <div class="row">
+        <div class="col-md-3">
+        <span class="mat-label">
+          Event Hub Name
+        </span>
+        </div>
+        <div class="col-md-3">
+          <cms-simple-select-list
+            [clearSpaces]="false"
+            [options]='eventHubsNames'
+            (onDataChange)="onChangeSelectedHub($event)">
+          </cms-simple-select-list>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <date-range
+            [isSetDateButtons]="true"
+            [startDate]="moduleRibbonTab.displayFrom"
+            [endDate]="moduleRibbonTab.displayTo"
+            [startPlaceholder]="'Visible from *'"
+            [endPlaceholder]="'Visible to *'"
+            [placeholderColumn]="true"
+            (onDateUpdate)="handleVisibilityDateUpdate($event)">
+          </date-range>
+        </div>
+      </div>
+    </ng-container>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="ID"
+                 [(ngModel)]="moduleRibbonTab.internalId"
+                 [value]="moduleRibbonTab.internalId"
+                 [disabled]="isEventHubTab()" required trim="blur">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="URL"
+                 [(ngModel)]="moduleRibbonTab.url"
+                 [value]="moduleRibbonTab.url"
+                 [disabled]="isEventHubTab()" required trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+    <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="!isValidModuleRibbonTab()" (click)="getNewModuleRibbonTab();" [mat-dialog-close]="moduleRibbonTab">Create</button>
+  </div>
+</div>

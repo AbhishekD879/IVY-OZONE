@@ -1,0 +1,43 @@
+clone:
+  depth: full
+pipelines:
+
+  default:
+    - step:
+        name: build
+        image: openjdk:8
+        caches:
+          - gradle
+          - gradlewrapper
+        script:
+          - ./gradlew test build
+    - step:
+        name: test
+        image: openjdk:11
+        caches:
+          - sonarcloud
+        script:
+          - ./gradlew sonarqube
+
+
+  pull-requests:
+    '**':
+      - step:
+          name: build
+          image: openjdk:8
+          script:
+            - ./gradlew test build
+
+      - step:
+          name: test
+          image: openjdk:11
+          script:
+            - ./gradlew test sonarqube
+              -Dsonar.pullrequest.key=$BITBUCKET_PR_ID
+              -Dsonar.pullrequest.base=$BITBUCKET_PR_DESTINATION_BRANCH
+              -Dsonar.pullrequest.branch=$BITBUCKET_BRANCH
+
+definitions:
+  caches:
+    sonarcloud: ~/.sonar/cache
+    gradlewrapper: ~/.gradle/wrapper

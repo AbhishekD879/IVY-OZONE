@@ -1,0 +1,111 @@
+@import 'global.variables.scss';
+
+.race-market {
+  position: relative;
+  overflow: hidden;
+
+  .race-market-header {
+    .header-wrapper {
+      @include display-flex();
+      @include justify-content(flex-end);
+      @include align-items(center);
+      margin: 0;
+      padding: 0 10px 0 0;
+      background-color: $color-gray-light;
+      min-height: 35px;
+
+      @media (min-width: $tabletPoint) {
+        min-height: 27px;
+      }
+      li {
+        min-width: 60px;
+        list-style-type: none;
+        text-align: center;
+        font-size: $font-size-sm;
+        font-family: $base-font-family;
+        color: $color-gray-dark;
+        text-transform: uppercase;
+        margin-left: 6px;
+      }
+    }
+  }
+  .btn.btn-bet,
+  .btn-bet {
+    width: 50px;
+    /* disabled */
+    &.active[disabled],
+    &.bet-up[disabled],
+    &.bet-down[disabled],
+    &.bet-dis[disabled],
+    &[disabled] {
+      width: 50px;
+    }
+  }
+  .price-odds-wrapper {
+    margin-left: 6px;
+  }
+  .odds-card {
+    .odds-left,
+    .odds-content {
+      @include align-items(center);
+    }
+    .odds-right {
+      @include align-items(start);
+
+      .toggle-icon {
+        margin-top: 30px;
+      }
+      .toggle-icon.toggle-cd-flag.toggles{
+        padding: 0px!important;
+      }
+    }
+  }
+
+  .odds-card .odds-content .odds-left .odds-names .odds-small {
+      .toggle-icon.cd-more-link-hide {
+          > span {
+            display: none;
+          }
+      }
+      .toggle-icon.cd-flag-style {
+          > span {
+            display: inline;
+          }
+      }
+  }
+  ::ng-deep .previous-prices {
+    @include display-flex();
+    @include align-items(center);
+    @include justify-content(center);
+    width: 50px;
+    font-size: 9px;
+    margin-top: 3px;
+
+    &.prev-long-prices {
+      width: 33px;
+    }
+  }
+}
+
+.sort-by-enabled .race-market {
+  margin-top: 0;
+}
+
+.cd-flag-sameline {
+  display: inline-block;
+}
+
+:host ::ng-deep { 
+  .form-guide-color {
+    margin-right: 4px;
+  }
+  .showMoreLess {
+    padding-right: 4px;
+  }
+  .toggle-icon {
+    padding-left: 0px !important;
+  }
+  .race-market .new-race-card .odds-content .toggle-icon svg {
+    margin-left: 0px;
+  }
+}

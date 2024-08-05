@@ -1,0 +1,112 @@
+<div *ngIf="couponEvents.length" class="coupon-container">
+  <ng-container *ngFor="let coupon of couponEvents; trackBy: trackById">
+    <div class="odds-card-header" data-crlat="eventOddsHeader">
+      <div class="odds-left">
+        <span class="odds-header-title" data-crlat="dateTitle" [textContent]="coupon.typeName"></span>
+      </div>
+      <div class="odds-right">
+          <span class="odds-header-col" *ngFor="let title of headers"
+                data-crlat="headTitles" [textContent]="title"></span>
+      </div>
+    </div>
+    <div class="odds-card"
+         [dataEventid]="event.id"
+         *ngFor="let event of coupon.events; trackBy: trackById"
+         data-crlat="oddsCard.sportTemplate">
+      <div class="odds-content odds-content-panel">
+        <div class="odds-left">
+          <span class="odds-time" [textContent]="event.time"></span>
+        </div>
+        <div class="odds-right" *ngIf="!isArrowHide(event)">
+          <div class="select-arrow"
+               [class.disabled]="isDisabled(event, 'teamH', true)"
+               (click)="onScoreChange(1, 'teamH', event, true)">
+            <svg class="arrow-top">
+              <use xlink:href="#down-arrow"></use>
+            </svg>
+          </div>
+          <div class="select-arrow"
+               [class.disabled]="isDisabled(event, 'teamA', true)"
+               (click)="onScoreChange(1, 'teamA', event, true)">
+            <svg class="arrow-top">
+              <use xlink:href="#down-arrow"></use>
+            </svg>
+          </div>
+          <div class="select-arrow"></div>
+        </div>
+      </div>
+      <div class="odds-content" data-crlat="oddsContent">
+        <div class="odds-left" data-crlat="oddsLeft">
+          <div class="odds-names odds-names-list" data-crlat="oddsNames">
+            <span class="odds-normal" data-crlat="playerName" [textContent]="event.teams?.teamH?.name"></span>
+            <span class="odds-normal" data-crlat="playerName" [textContent]="event.teams?.teamA?.name"></span>
+          </div>
+        </div>
+        <div class="odds-right" data-crlat="oddsRight">
+          <div class="odds-btn-content" data-crlat="oddsBtnContent"
+               (click)="$event.stopPropagation()">
+            <div class="odds-btn-wrapper" *ngIf="!isSuspended(event)">
+              <select class="odds-select"
+                      data-crlat="maxValues.homeTeam"
+                      [disabled]="event.isActive"
+                      (change)="onScoreChange($event.target.value, 'teamH', event)">
+                <option *ngFor="let score of event.teams.teamH.scores; trackBy: trackById"
+                        [selected]="score === event.teams.teamH.score"
+                        [textContent]="score"></option>
+              </select>
+            </div>
+            <div class="odds-btn-wrapper" *ngIf="!isSuspended(event)">
+              <select class="odds-select"
+                      data-crlat="maxValues.homeTeam"
+                      [disabled]="event.isActive"
+                      (change)="onScoreChange($event.target.value, 'teamA', event)">
+                <option *ngFor="let score of event.teams.teamA.scores; trackBy: trackById"
+                        [selected]="score === event.teams.teamA.score"
+                        [textContent]="score"></option>
+              </select>
+            </div>
+            <div class="odds-btn-wrapper">
+              <price-odds-button *ngIf="!isHide(event) && !event.isDelay"
+                                 [event]="event"
+                                 [market]="event.markets[0]"
+                                 [outcome]="event.combinedOutcomes"
+                                 data-crlat="combinedOutcome">
+              </price-odds-button>
+              <button *ngIf="isHide(event) && !event.isDelay"
+                      [disabled]="true"
+                      class="btn btn-bet"
+                      data-crlat="betButton">
+                <span>N/A</span>
+              </button>
+              <button [disabled]="true"
+                      *ngIf="event.isDelay"
+                      class="btn btn-bet btn-bet-spinner"
+                      data-crlat="betButton">
+                <div class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="odds-content odds-content-panel">
+        <div class="odds-right" *ngIf="!isArrowHide(event)">
+          <div class="select-arrow"
+               [class.disabled]="isDisabled(event, 'teamH', false)"
+               (click)="onScoreChange(-1, 'teamH', event, true)">
+            <svg class="arrow-bottom">
+              <use xlink:href="#down-arrow"></use>
+            </svg>
+          </div>
+          <div class="select-arrow"
+               [class.disabled]="isDisabled(event, 'teamA', false)"
+               (click)="onScoreChange(-1, 'teamA', event, true)">
+            <svg class="arrow-bottom">
+              <use xlink:href="#down-arrow"></use>
+            </svg>
+          </div>
+          <div class="select-arrow"></div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

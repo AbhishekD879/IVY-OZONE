@@ -1,0 +1,34 @@
+<div class="odds-card card-special sticky-virtual-scroll-item" [attr.data-eventid]="event.id"
+     (click)="goToEvent(false, $event)">
+  <div class="odds-content" data-crlat="oddsContent">
+    <div class="odds-left" data-crlat="oddsLeft">
+      <div class="odds-names odds-names-wrap"
+           data-crlat="oddsNames"
+           [textContent]="oddsName"></div>
+    </div>
+    <div class="odds-right" data-crlat="oddsRight" *ngIf="outcomes.length === 1">
+      <price-odds-button [event]="event"
+                         [market]="event.markets[0]"
+                         [outcome]="outcomes[0]"
+                         [gtmModuleTitle]="gtmModuleTitle"
+                         *ngIf="outcomes[0].prices.length !== 0">
+      </price-odds-button>
+    </div>
+    <div class="odds-right chevron-to-right" *ngIf="outcomes.length > 1">
+      <svg>
+        <use xlink:href="#next-arrow"></use>
+      </svg>
+    </div>
+  </div>
+  <div class="odds-footer" *ngIf="isSmartBoosts && wasPrice">
+    <div class="odds-left">
+      <span [textContent]="eventTime"></span>
+    </div>
+    <div class="odds-right">
+      <div class="was-price">
+        <span [i18n]="'sb.wasPrice'"></span>
+        <strike [textContent]="wasPrice"></strike>
+      </div>
+    </div>
+  </div>
+</div>

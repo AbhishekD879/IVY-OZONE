@@ -1,0 +1,115 @@
+<breadcrumbs *ngIf="module" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div>
+    <div class="card">
+        <div class="body" *ngIf="module"> 
+            <form [formGroup]="popularBetsFormGroup">
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-checkbox class="mat-label" color="primary"
+                        [checked]="!module.disabled"
+                        (change)="module.disabled = !module.disabled">
+                         Pre-play
+                        </mat-checkbox>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="mat-label">
+                            Display Name Pre-play
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="full-width">
+                          <input matInput placeholder="Display Name Pre-play"  formControlName="displayName"  [(ngModel)]="module.popularBetConfig.displayName" required trim="blur">
+                        </mat-form-field>
+                      </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="mat-label">
+                            Redirection Url
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="full-width">
+                          <input matInput placeholder="Redirection Url"  formControlName="redirectionUrl" [(ngModel)]="module.popularBetConfig.redirectionUrl" required trim="blur">
+                        </mat-form-field>
+                      </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Most Backed In</label>&nbsp;
+                        <mat-radio-group formControlName="mostBackedIn" [(ngModel)]="module.popularBetConfig.mostBackedIn">
+                            <mat-radio-button [value]="'24'">24hr</mat-radio-button>
+                            <mat-radio-button [value]="'48'">48hr</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Event Starts In</label>&nbsp;&nbsp;&nbsp;
+                        <mat-radio-group formControlName="eventStartsIn" [(ngModel)]="module.popularBetConfig.eventStartsIn">
+                            <mat-radio-button [value]="'24'">24hr</mat-radio-button>
+                            <mat-radio-button [value]="'48'">48hr</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    
+                </div>             
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="mat-label">
+                            Max SelectionsPrePlay
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Max Selections" formControlName="maxSelections" [(ngModel)]="+module.popularBetConfig.maxSelections"  (focusout)="(module.popularBetConfig.maxSelections = +module.popularBetConfig.maxSelections)"  type="number"
+                                min="1" max="5" trim="blur" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                            <mat-hint class="col-red"
+                                *ngIf="(popularBetsFormGroup.get('maxSelections').invalid) && popularBetsFormGroup.get('maxSelections').hasError('min')">
+                                *Min Selections Should not be less than 1
+                            </mat-hint>
+                            <mat-hint class="col-red"
+                            *ngIf="(popularBetsFormGroup.get('maxSelections').invalid) && popularBetsFormGroup.get('maxSelections').hasError('max')">
+                            *Max Selections should not be greater than 5
+                        </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                      <span class="mat-label">
+                        Price Range
+                      </span>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field class="full-width">
+                        <input matInput placeholder="Enter range in fractions like: 1/10-10/1" trim="blur" formControlName="priceRange" [(ngModel)]="module.popularBetConfig.priceRange" required>
+                        <mat-hint class="col-red" *ngIf="popularBetsFormGroup.get('priceRange').invalid">
+                          <div *ngIf="popularBetsFormGroup.get('priceRange').errors?.pattern"> Price Range not valid. Please enter in this format i.e. 1/10-10/1 </div> 
+                          <div *ngIf="popularBetsFormGroup.get('priceRange').errors.required"> Price Range should  be entered </div>
+                        </mat-hint>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-checkbox color="primary" 
+                      [checked]="module.popularBetConfig.enableBackedInTimes" 
+                      (change)="module.popularBetConfig.enableBackedInTimes = !module.popularBetConfig.enableBackedInTimes">
+                      Backed times enable/disable
+                      </mat-checkbox>
+                    </div>
+                  </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<action-buttons *ngIf="module" #actionButtons [collection]="module" (actionsEmitter)="actionsHandler($event);"
+    [fieldOrItemName]="'Popular Bets Module'" [showRemoveButton]="false" [validateHandler]="validationHandler">
+</action-buttons>

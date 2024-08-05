@@ -1,0 +1,73 @@
+@import 'global.variables.scss';
+@import '../../../../../app/shared/components/raceTimer/race-timer.component.scss';
+.text-area.lads-timer-text .race-timer {
+  .label {
+    text-transform: uppercase;
+    font-size: $font-size-md;
+  }
+  .label:after {
+    content: " ";
+  }
+  .value {
+    font-weight: bold;
+    font-size: $font-size-md;
+  }
+  .textCapitalize{
+    font-size: $font-size-md;
+  }
+}
+race-card {
+  .race-timer {
+    .label, .value {
+      text-transform: none;
+      font-size: $font-size-sm;
+    }
+  }
+}
+
+.race-details-timer {
+  .race-timer {
+    margin: 5px 0 0;
+
+    .label, .value {
+      margin: 0;
+      display: inline-block;
+      color: $lBlack-medium;
+      font-family: $alt-font-family;
+      font-size: $font-size;
+      font-weight: normal;
+      text-align: left;
+      text-transform: none;
+    }
+
+    .label:after {
+      content: ":";
+      margin: 0 3px 0 0;
+    }
+
+    .textCapitalize {
+      text-transform: capitalize;
+    }
+  }
+}
+
+.race-timer span.label, .quickNav .race-timer.race-div span.label {
+  padding: 0px 0px 0px 3px !important;
+}
+@media (max-width:961px){
+.lads-timer{
+  .race-timer{
+    .countdown{
+      .textCapitalize.lads-text{
+        text-transform: uppercase;
+        font-size: $font-size-md;
+      }
+    }
+  }
+}
+.race-timer{
+  .textCapitalize.lads-text{
+    text-transform: uppercase;
+  }
+}
+}

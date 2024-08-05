@@ -1,0 +1,129 @@
+<div class="row">
+  <div class="col-md-2">
+    <span class="mat-label">
+      Max Display
+    </span>
+  </div>
+  <div class="col-md-10">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Max Display" type="number"
+             [(ngModel)]="module.maxDisplay" [value]="module.maxDisplay" onkeypress="return event.charCode >= 48 && event.charCode <= 57" step="1" min="1" required>
+      <mat-hint class="col-red" *ngIf="!module.maxDisplay">Max display should be entered</mat-hint>
+    </mat-form-field>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-2">
+    <span class="mat-label">
+      Default View
+    </span>
+  </div>
+  <div class="col-md-10">
+    <div class="row bch-next-event-list">
+      <mat-radio-group [ngModel]="'LIST'">
+      <mat-radio-button class="mat-label col-md-2 p-l-0" color="primary" value="LIST" [checked]="true">List View</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div class="row">
+    <mat-hint class="col-red">Note: List view is only applicable for Mobile</mat-hint>
+  </div>
+  </div>
+</div>
+
+<div class="m-l--20 m-r--20">
+  <div class="header bg-teal">
+    <h2>Events loading</h2>
+  </div>
+  <div class="body">
+    <!-- Select by id type field -->
+    <div class="row">
+      <div class="col-md-2 mat-label">
+        Add Event ID:
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !eventIdIsValid || eventIdExists}">
+          <input [(ngModel)]="eventId" matInput type="number" placeholder="OB Event ID"
+                 onkeypress="return event.charCode >= 48 && event.charCode <= 57" trim="blur" min="1" [placeholder]="'Enter Event ID'">
+          <mat-hint class="col-red" *ngIf="!eventIdIsValid">Event ID is not valid. Try again.</mat-hint>
+          <mat-hint class="col-red" *ngIf="eventIdExists">Event ID already exists in events list.</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Events loaded from OB for validation -->
+      <div class="col-md-6 items-block">
+        <div class="header bg-teal event-items-header">
+          <h2>Loaded from OpenBet</h2>
+          <ul class="header-dropdown">
+            <li>
+              <button (click)="uploadEventData()"
+                      [disabled]="!eventId"
+                      type="button" class="btn btn-xs bg-teal waves-effect header-edit-btn">
+                <i class="material-icons">refresh</i>
+                <span>Reload</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" (click)="applyOpenBetData()" [disabled]="!storedEvents.length"
+                      class="btn btn-xs bg-teal waves-effect header-edit-btn">
+                <i class="material-icons">trending_flat</i>
+                <span>Apply</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <!-- List of events name -->
+        <ol class="m-t-30">
+          <li *ngFor="let event of storedEvents; let i = index;">
+            <span>{{ event.name }}</span>
+          </li>
+        </ol>
+      </div>
+      <!-- Events loaded in module -->
+      <div class="col-md-6 items-block">
+        <div class="header bg-teal event-items-header">
+          <h2>Events in Module</h2>
+          <ul class="header-dropdown">
+            <li>
+              <button (click)="removeModuleEvents()"
+                      [disabled]="!isEventsExists()"
+                      type="button" class="btn btn-xs bg-teal waves-effect header-edit-btn">
+                <i class="material-icons">clear</i>
+                <span>Remove all</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="mat-label" *ngIf="!isEventsExists()">
+          <b>No events found</b>
+        </div>
+        <!-- List of events ids -->
+        <div class="mat-label" *ngIf="events.length">
+          <b>Loaded Event ID's:</b>
+          <span>{{ loadedEventIds }}</span>
+        </div>
+        <!-- List of events name -->
+        <ol class="m-t-30">
+          <li *ngFor="let event of events; let i = index;" class="full-width m-t-15 m-b-15">
+            <span>{{ event.name }}</span>
+            <a (click)="removeEventId(event);" class="float-right"><i class="material-icons col-red">remove_circle</i></a>
+          </li>
+        </ol>
+        <!-- Invalid Events ids loaded in module previously -->
+        <div class="full-width mat-label col-red" *ngIf="invalidEventIds.length">
+          <b>Invalid Event ID's. Please remove all.</b><br>
+          <span>{{ invalidEventIds }}</span>
+        </div>
+
+        <div class="full-width mat-label p-b-0 m-b-0" *ngIf="invalidEventIds.length">
+          <button mat-button type="button" class="btn bg-red waves-effect" (click)="removeInvalidIds();">
+            <mat-icon>delete_forever</mat-icon>
+            <span>Remove Invalid Ids</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,6 @@
+---
+- name: Telegraf initial config
+  include_tasks: telegraf_config.yml
+
+- name: Restart Telegraf container
+  include_tasks: telegraf_restart.yml

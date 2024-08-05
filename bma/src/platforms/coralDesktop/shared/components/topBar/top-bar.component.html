@@ -1,0 +1,10 @@
+<a class="top-bar-back" data-crlat="btnBack" *ngIf="!backFunc.observers.length" [back-button]></a>
+<a class="top-bar-back" data-crlat="btnBack" *ngIf="backFunc.observers.length" (click)="backClickHandler()"></a>
+<div class="top-bar-title">
+  <ng-content select="favourites-add-button"></ng-content>
+  <ng-content select="free-bet-icon"></ng-content>
+  <span *ngIf="seoEnabledInCms && titleText" [textContent]="titleText" class="top-bar-view" data-crlat="topBarTitle"></span>
+  <h1 *ngIf="!seoEnabledInCms && titleText" [textContent]="titleText"  class="top-bar-view" data-crlat="topBarTitle"></h1>
+</div>
+<div *ngIf="innerContent" class="top-bar-content" data-crlat="topBarContent"><ng-content></ng-content></div>
+

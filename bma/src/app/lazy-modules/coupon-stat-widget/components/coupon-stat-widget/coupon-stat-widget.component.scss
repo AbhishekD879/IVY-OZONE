@@ -1,0 +1,52 @@
+@import 'global.variables.scss';
+
+.scoreboard-container {
+  @include display-flex();
+  @include justify-content();
+  @include align-items();
+
+  @keyframes rotate {
+    100% {
+      will-change: transform;   
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes dash {
+    0% {
+      stroke-dasharray: 1, 150;
+      stroke-dashoffset: 0;
+    }
+
+    50% {
+      stroke-dasharray: 90, 150;
+      stroke-dashoffset: -35;
+    }
+
+    100% {
+      stroke-dasharray: 90, 150;
+      stroke-dashoffset: -124;
+    }
+  }
+
+  $spinner-blue: rgb(8, 77, 141);
+  height: 121px;
+  background-size: cover;
+  position: relative;
+  z-index: 1;
+  background-image: url('/assets/images/background-coral.webp');
+
+  .spin {
+    animation: rotate 2s linear infinite;
+    z-index: 2;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+
+    & .path {
+      stroke: $spinner-blue ;
+      stroke-linecap: round;
+      animation: dash 1.5s ease-in-out infinite;
+    }
+  }
+}

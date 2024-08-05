@@ -1,0 +1,51 @@
+@import 'global.variables.scss';
+:host ::ng-deep p{
+margin: 0px;
+}
+.statistical-content-information {
+    font-family: $base-font-family;
+    background-color: $color-white;
+    padding: 8px 8px 8px 5px;
+    min-height: 38px;
+    text-transform: none;
+    border-bottom: 1px solid $color-gray;
+    margin-bottom: 5px;
+    border-top: 1px solid $color-gray;
+    font-size: $twoup-font-size !important;
+  
+    &.icon-wrapper {
+      @include display-flex();
+      @include align-items();
+      @include flex-direction(row);
+    }
+  
+    .badge-wrapper {
+      height: 10px;
+      width: 100%;
+      margin-bottom: 5px;
+    }
+  
+ .description {
+        width: calc(100% - 21px);
+        margin-left: 6px;
+    .description-value {
+          font-family: $twoup-font-family;
+          font-size: $twoup-font-size;
+          color: $twoup-font-color;
+          line-height: normal;       
+          letter-spacing: 0px;
+        }       
+    }
+    .description-icon {
+       width: 15px;
+       line-height: 12px;
+       padding-top: 3px;
+  
+      .description-info-icon {
+        width: 16px;
+        height: 16px;
+        fill: $color-gray-dark;
+        margin-right: 6px;
+      }
+    }   
+  }

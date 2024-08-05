@@ -1,0 +1,122 @@
+<div *ngIf="eventsBySports" [ngClass]="{'single-sport' : !inner}">
+  <div *ngIf="(!inner && !isHR) || liveLabel" class="in-play-header-counter in-play-single-header">
+    <div class="in-play-count"><span [i18n]="filter === 'livenow' ? 'inplay.byLiveNow' : 'inplay.upcomingEvents'"
+        [attr.data-crlat]="'inplay.' + filter"></span>&nbsp;
+      <span class="live-now-label" data-crlat="inplayCountLabel"
+        [textContent]="'(' + (eventsBySports.eventCount || 0) +')'"></span>
+    </div>
+  </div>
+  <lazy-component class="sticky-market-selector" *ngIf="isMarketSelectorAvailable && isMarketSwitcherConfigured"
+    [hidden]="!eventsBySports.eventsByTypeName?.length"
+    moduleUri="@sharedModule/components/marketSelector/market-selector.module#MarketSelectorModule"
+    data-crlat="marketSelectorModule" entryComponent="InplayMarketSelectorComponent" (init)= "initMarketSelector()"
+               [inputs]="{sportId: eventsBySports.categoryId, 
+                          eventDataSection: eventsBySports,
+                          marketSelectorOptions:eventsBySports.marketSelectorOptions,
+                          selectorType:'sportInplay'}" [outputs]="['reloadData','selectedMarketName']"
+    (event)="handleOutput($event)">
+  </lazy-component>
+  <ng-container *ngIf="!isHR">
+    <accordion *ngFor="let competitionSection of eventsBySports.eventsByTypeName; trackBy: trackByTypeId; let i = index;"
+      [accordionTitle]="getSectionTitle(competitionSection)" [inner]="inner" [card]="true"
+      [isExpanded]="expandedFlags[competitionSection.typeId]"
+      (function)="toggleCompetitionSection(competitionSection, eventsBySports.eventsByTypeName, i)"
+      [isHeaderHidden]="inner" [isShowAll]="expandedFlags[competitionSection.typeId]"
+      [ngClass]="{'inner-accordion' : !inner}" class="single-accordion">
+      <right-side *ngIf="expandedFlags[competitionSection.typeId]">
+        <see-all-link *ngIf="competitionsAvailability[competitionSection.classId]"
+          [link]="goToCompetition(competitionSection)">
+        </see-all-link>
+      </right-side>
+      <accordion-body>
+        <odds-card-header *ngIf="competitionSection.events && competitionSection.events.length"
+          [sportConfig]="sportInstance?.sportConfig" [events]="competitionSection.events"
+          data-crlat="section.header.league" [isHeaderAlwaysVisible]="inner"
+          [dateTitle]="inner ? getSectionTitle(competitionSection) : ''"
+          [isMarketSwitcherConfigured]="isMarketSelectorAvailable && isMarketSwitcherConfigured"
+          [selectedMarket]="getSelectedMarket(competitionSection)">
+        </odds-card-header>
+        <sticky-virtual-scroller
+          *ngIf="inner && virtualScroll && competitionSection.events && competitionSection.events.length"
+          [scrollUniqueId]="scrollSportUId" [items]="competitionSection.events" [stickyHeaderTag]="'header'"
+          [stickyHeaderLevel]="9" [stickyContainerTag]="'ACCORDION'" [stickyContainerLevel]="10"
+          [scrollableElementLevel]="4" [scrollableHeaderSelector]="'.odds-card-header'"
+          (preFetchNext)="prefetchNext(eventsBySports.eventsByTypeName[i+1])"
+          (toggleVisibility)="handleLiveUpdatesSubscriptions($event, competitionSection)">
+          <odds-card-component
+            *ngFor="let eventEntity of competitionSection.events; trackBy: trackByEventId; let i = index;"
+            [showLocalTime]="true" [sportConfig]="sportInstance?.sportConfig" [event]="eventEntity"
+            [selectedMarket]="(eventEntity.markets[0] ? eventEntity.markets[0].name : '')" [gtmModuleTitle]="'event card'"
+            data-crlat="eventEntity">
+          </odds-card-component>
+        </sticky-virtual-scroller>
+        <ng-container *ngIf="inner && !virtualScroll || !inner">
+          <odds-card-component
+            *ngFor="let eventEntity of competitionSection.events; trackBy: trackByEventId; let i = index;"
+            [showLocalTime]="true" [sportConfig]="sportInstance?.sportConfig" [event]="eventEntity"
+            [isMarketSwitcherConfigured]="isMarketSelectorAvailable && isMarketSwitcherConfigured"
+            [selectedMarket]="(eventEntity.markets[0] ? eventEntity.markets[0].name : '')" [gtmModuleTitle]="'event card'"
+            data-crlat="eventEntity">
+          </odds-card-component>
+        </ng-container>
+      </accordion-body>
+    </accordion>
+  </ng-container>
+  <ng-container *ngIf="isHR">
+    <accordion *ngFor="let eventEntity of HREvents; trackBy: trackByEventId; let i = index;"
+    [accordionTitle]="eventEntity.name"
+    [isCustomElement]="true"
+    [eventEntity]="eventEntity"
+    [isExpanded]="expandedFlags[eventEntity.id]"
+    class="hr-accordion single-accordion" 
+    (function)="toggleCompetitionSection(null, eventEntity, eventEntity.compIndex)">
+      <accordion-body *ngIf="eventEntity">
+        <sticky-virtual-scroller
+          *ngIf="inner && virtualScroll && eventEntity"
+          [scrollUniqueId]="scrollSportUId" [items]="eventsBySports.eventsByTypeName[eventEntity.compIndex]" [stickyHeaderTag]="'header'"
+          [stickyHeaderLevel]="9" [stickyContainerTag]="'ACCORDION'" [stickyContainerLevel]="10"
+          [scrollableElementLevel]="4" [scrollableHeaderSelector]="'.odds-card-header'"
+          (preFetchNext)="prefetchNext(eventsBySports.eventsByTypeName[eventEntity.compIndex+1])">
+          <race-card-inplay *ngIf="eventEntity" data-crlat="raceCard"
+            [showHeader]="false"  
+            [trackGa]="trackGa" 
+            [trackGaDesktop]="trackGaDesktop"
+            [raceData]="[eventEntity]"
+            [raceWidget]="widget"
+            [raceMaxSelections]="3"
+            [showBriefHeader]="true"
+            [hostContext]="hostContext"
+            [fluid]="fluid"
+            [showTimer]="true"
+            [viewFullRaceText]="viewFullRaceText"
+            [gtmModuleTitle]="'next races'"
+            [hideNonRunners]="true"
+          ></race-card-inplay>
+        </sticky-virtual-scroller>
+        <ng-container *ngIf="inner && !virtualScroll || !inner">
+          <race-card-inplay *ngIf="eventEntity" data-crlat="raceCard"
+            [showHeader]="false"  
+            [trackGa]="trackGa" 
+            [trackGaDesktop]="trackGaDesktop"
+            [raceData]="[eventEntity]"
+            [raceWidget]="widget"
+            [raceMaxSelections]="3"
+            [showBriefHeader]="true"
+            [hostContext]="hostContext"
+            [fluid]="fluid"
+            [showTimer]="true"
+            [viewFullRaceText]="viewFullRaceText"
+            [gtmModuleTitle]="'next races'"
+            [hideNonRunners]="true"
+          ></race-card-inplay>
+        </ng-container> 
+      </accordion-body>  
+    </accordion>
+  </ng-container>
+  <div *ngIf="inner && virtualScroll && isLoading" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+  <div *ngIf="inner && !isAllExpanded && eventsBySports.eventsByTypeName && eventsBySports.eventsByTypeName.length > expandedLeaguesCount"
+    (click)="showMoreSport(eventsBySports.eventsByTypeName)" class="show-more-leagues" data-crlat="showMoreLeagues">
+    <div><span [i18n]="'sb.showAll'"></span><span
+        [textContent]="eventsBySports.categoryName + ' (' + eventsBySports.eventCount + ')'"></span></div>
+  </div>
+</div>

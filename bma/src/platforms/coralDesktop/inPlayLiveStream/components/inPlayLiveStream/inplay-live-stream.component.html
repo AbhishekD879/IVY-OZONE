@@ -1,0 +1,44 @@
+<div class="inplay-livestream-section" *ngIf="competitions" data-crlat="tab.showInplay">
+  <!--- Module Header -->
+  <header class="header-panel">In-play and live stream</header>
+
+  <!--inPlay LiveStram Sports Ribbon-->
+  <sport-carousel
+    *ngIf="menuItems.length"
+    [menuElements]="menuItems">
+  </sport-carousel>
+
+  <switchers data-crlat="switchers"
+             [filter]="activeFilter"
+             [switchers]="switchers">
+  </switchers>
+
+  <div class="in-play-live-stream"
+       *ngIf="activeFilter === viewByFilters[1] && activeEvent">
+    <!-- Video Stream lazy component -->
+    <lazy-component moduleUri="@lazy-modules-module/eventVideoStream/event-video-stream.module#LazyEventVideoStreamModule"
+                    [inputs]="{eventEntity: activeEvent, autoPlay: true, colorSchema: 'white-stream', preloadStream: true,
+                    cssClassesForStreams: cssClassesForStreams}">
+    </lazy-component>
+  </div>
+  <lazy-component *ngIf="isCompetitionsPresent()" moduleUri="@lazy-modules-module/InPlaySportTab/in-play-sport-tab.module#InPlaySportTabModule"
+                    [inputs]="{
+                      activeEvent: activeEvent,
+                      liveStreamTab: activeFilter===viewByFilters[1],
+                      gtmDataLayer: gtmDataLayer,
+                      eventsBySports: competitions,
+                      sport: sport
+                    }"
+                    [outputs]="['update']"
+                    (event)="updateActiveEvent($event)">
+  </lazy-component>
+  <no-events *ngIf="!loading && competitions.length === 0"></no-events>
+  <div *ngIf="loading" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+
+  <show-more-link *ngIf="footer"
+                  (function)="footer.action()"
+                  [link]="footer.link"
+                  [title]="footer.title"
+                  data-crlat="showMore">
+  </show-more-link>
+</div>

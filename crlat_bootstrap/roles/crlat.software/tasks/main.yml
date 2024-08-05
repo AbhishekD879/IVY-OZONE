@@ -1,0 +1,128 @@
+---
+##### Host preconfiguration
+- name: Install root certificate for secure connections
+  include_tasks: "certificates/install_web-root-ca.yml"
+
+- name: Find DNS Server IP
+  set_fact:
+    dns_server_ip: "{{hostvars[inventory_hostname].groups.tag_Name_AutomationDNSmasq.0}}"
+  when:
+  - hostvars is defined
+  - hostvars[inventory_hostname].groups.tag_Name_AutomationDNSmasq is defined
+  - hostvars[inventory_hostname].groups.tag_Name_AutomationDNSmasq.0 is defined
+
+- name: print DNS Server IP
+  debug:
+    msg: "{{ dns_server_ip }}"
+  when: dns_server_ip is defined
+
+- name: Configure DNS server
+  lineinfile:
+    path: /etc/dhcp/dhclient.conf
+    create: yes
+    regexp: '^prepend domain-name-servers.*'
+    line: "prepend domain-name-servers {{ dns_server_ip }};"
+    state: present
+
+- name: "Ensure ubuntu-fan package not installed (ubuntu bug that blockes step [Restart networking service])"
+  apt:
+    name: ubuntu-fan
+    state: absent
+    purge: yes
+    update_cache: no
+
+- name: Restart networking service
+  service:
+    name: networking
+    state: restarted
+
+##### Stage #1: build install_list
+- name: read "packages" tag and set variable
+  set_fact:
+    os_packages: "{{ ec2_tag_packages | regex_findall('([A-z0-9_-]+),?') }}"
+  when: ec2_tag_packages is defined
+
+- name: Reset installation list variable
+  set_fact:
+    install_list: "{{ def_install_list }}"
+
+- name: Add package items from EC2 tags
+  set_fact:
+    install_list: "{{ install_list + package_deps[install_item] }}"
+  with_items: "{{ os_packages }}"
+  loop_control:
+    loop_var: install_item
+
+##### Stage #2: build mountpoints list
+- name: read "s3mounts" tag and set variable
+  set_fact:
+    s3mountpoints: "{{ ec2_tag_s3mounts | regex_findall('([A-z0-9_-]+),?') }}"
+  when: ec2_tag_s3mounts is defined
+
+- name: Add s3fs to installation if it is not in install_list
+  set_fact:
+    install_list: "{{ (package_deps['s3fs'] + install_list) | unique }}"
+  when: (s3mountpoints.0 is defined) and ("s3fs" not in os_packages)
+
+##### Stage #3: build list of dockers to deploy
+- name: read "dockers" tag and set variable
+  set_fact:
+    dockers: "{{ ec2_tag_dockers | regex_findall('([A-z0-9_-]+),?') }}"
+  when: ec2_tag_dockers is defined
+
+- name: Add docker to installation if it's not in install_list
+  set_fact:
+    install_list: "{{ (package_deps['docker'] + install_list) | unique }}"
+  when: ("docker" not in os_packages)
+
+- name: Add Telegraf if it was missed
+  set_fact:
+    dockers: "{{ (['telegraf'] + dockers) | unique }}"
+  when: ("telegraf" not in dockers)
+
+##### Stage #4: display final action list
+- name: OS packages install list
+  debug:
+    msg: "{{ install_list }}"
+
+- name: S3 mountpoints list
+  debug:
+    msg: "{{ s3mountpoints }}"
+
+- name: Dockers list
+  debug:
+    msg: "{{ dockers }}"
+
+##### Stage #5: Packages preconfiguration, install and postconfiguration
+- name: Update APT cache
+  apt:
+    update_cache: yes
+
+- name: sleep for 15 seconds waiting for releasing apt lock
+  wait_for: timeout=5
+
+- name: Install packages
+  include_tasks: install_os_package.yml
+  with_items: "{{ install_list }}"
+  loop_control:
+    loop_var: package_to_install
+
+##### Stage #6: Mountpoints preconfiguration, install and postconfiguration
+
+- name: Install packages
+  include_tasks: mount_s3fs.yml
+  with_items: "{{ s3mountpoints }}"
+  loop_control:
+    loop_var: s3mountpoints_item
+
+#### Stage #7: Docker
+
+- name: Deploy Docker Containers
+  include_tasks: "dockers/{{ container_name }}.yml"
+  with_items: "{{ dockers }}"
+  loop_control:
+    loop_var: container_name
+
+##### Stage #8 DNS
+
+

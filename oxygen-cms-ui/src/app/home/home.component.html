@@ -1,0 +1,14 @@
+<div class="overlay"></div>
+
+<cms-header-menu></cms-header-menu>
+<cms-left-menu></cms-left-menu>
+
+<section class="content">
+  <div class="container-fluid">
+    <router-outlet>
+        <cms-alert #requestErrorBlock ></cms-alert>
+    </router-outlet>
+  </div>
+</section>
+
+<global-loader></global-loader>

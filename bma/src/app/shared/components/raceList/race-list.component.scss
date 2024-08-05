@@ -1,0 +1,52 @@
+@import 'global.variables.scss';
+
+
+//
+// Racing List
+//----------------------------------------------------------------------
+.race-list {
+  .odds-card {
+    .odds-content {
+      &:not(:first-child) {
+        margin-top: 10px;
+      }
+
+      .odds-content-wrapper {
+        display: inherit;
+      }
+
+      .odds-icon {
+        margin-right: 10px;
+      }
+
+      .odds-icon-stream {
+        &.small-icon {
+          margin: 0 5px 0 0;
+        }
+      }
+
+      .race-card-link {
+        text-decoration: underline;
+      }
+
+      .odds-info-wrapper {
+        display: inline-block;
+      }
+
+      /*Resulted tab*/
+      .race-resulted {
+
+        .race-icon {
+          height: 12px;
+          width: 12px;
+          margin: 0;
+          display: inline-block;
+        }
+
+        .race-time {
+          color: lighten($color-gray-dark, 50%);
+        }
+      }
+    }
+  }
+}

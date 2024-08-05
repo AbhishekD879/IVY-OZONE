@@ -1,0 +1,140 @@
+@import 'global.variables.scss';
+
+.align {
+    width: 343px;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 6px; 
+    padding: 9px 14px;
+    margin: 0px auto;
+}
+
+.btn-bet-stat {
+    width: 109px;
+    border-radius: 21px;
+    padding: 7px 5px;
+    height: 32px;
+    font-family: $switch-byb-font-family;
+    box-shadow: 0 2px 5px 0 rgb(84 84 84 / 26%);
+    background: $color-white;
+    border: none;
+    font-size: 13px;
+    font-weight: bold;
+    height: 40px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+    
+    &.active {
+        background:$switch-btn-active-color;
+        color: $color-white;
+    }
+       
+}
+.btn-act-bg-builder{
+      font-size: 14px;
+      font-weight: 700;
+    @media screen and (min-width: 1020px) {
+    border-radius: inherit;
+    height: 32px;
+    background: $color-maingreen;
+    color: $color-white;
+    margin: 4px auto;
+    width: 95%;
+
+    &:hover{
+        background: $color-maingreen; 
+    }
+    }
+}
+.odds{
+    color: $switch-btn-active-color;
+}
+.marketdesc{
+    width: 508px;
+    height: 14px;
+    flex-grow: 0;
+    margin: 17px 7px 24px 12px;
+    font-family: $switch-byb-font-family;
+    color: $switch-byb-market-des-color;
+
+}
+.accordion-header{
+    max-height: 77px;
+}
+
+.inner-rectangle{
+    .btn-group1{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        .alignment{
+            width: 32px;
+            height: 32px;
+            flex-grow: 0;
+            padding: 4px 9px 6px 10px;
+            border: 1px solid $color-gray-dark-byb;
+            background-color: $lGrayLight;
+            text-align: center;
+            border-radius: 50%;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            flex-direction: row;
+            color: $switch-btn-active-color;
+        }
+        .alignment1{
+            margin: 13px 9px;
+            width: 32px;
+            font-size: 22px;
+            color: $switch-byb-market-range-color;
+            font-weight: 700;
+        }
+    
+    }
+}
+.display-players{
+    box-shadow: none;
+}
+.inner-accordian{
+    margin: 1px 0 0;
+}
+.byb-added{
+    width: 70px !important;
+}
+.byb-add{
+    width: 60px !important;
+}
+.switchers-container {
+    width: 100%;
+    background-color: $color-white;
+  }
+
+  .switchers {
+    @include user-select();
+    padding: 5px 10px 0;
+    margin-bottom: 0px !important;
+  }
+
+  .switchers-1 {
+    padding-bottom: 20px !important;
+    display: flex;
+    justify-content: center;
+    width: 343px;
+    margin: 0px auto;
+  }
+  .switcher-name{
+  font-size: 12px;
+  text-transform: lowercase;
+  }
+ #add-to-bb {
+    width: 95%;
+    color: $color-white;
+}

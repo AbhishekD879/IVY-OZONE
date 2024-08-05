@@ -1,0 +1,65 @@
+<div *ngIf="isValidCarousel" class="highlight-carousel-container" data-crlat="highlight-carousel-container">
+  <div class="highlight-carousel-header">
+    <div class="icon" *ngIf="highlightsCarousel.svgId">
+      <svg>
+        <use [attr.xlink:href]="'#' + highlightsCarousel.svgId"></use>
+      </svg>
+    </div>
+    <div [textContent]="highlightsCarousel.title" *ngIf="initialised" [ngClass]="{'desktop-header-font': isDesktop}" data-crlat="highlightsCarousel.title"></div>
+    <div class="more-link" data-crlat="moreLink"
+         *ngIf="highlightsCarousel.typeId"
+         (click)="competitionsNavigate()"
+         [i18n]="'sb.seeAll'"></div>
+  </div>
+  <div class="ng-carousel highlight-carousel"
+       [class.one-card-mode]="isOneCard"
+       [ngCarousel]
+       [ngCarouselName]="highlightsCarousel._id"
+       [ngCarouselWatch]="highlightsCarousel.data.length"
+       [ngCarouselFluid]="true"
+       [ngCarouselLoop]="false"
+       [ngCarouselMoveThresholdPercentage]="5">
+
+     <!--Carousel prev next buttons for both desktop versions -->
+    <div class="highlight-carousel-buttons" *ngIf="showCarouselButtons">
+      <button class="hc-arrow prev-hc-card"
+              (click)="prevSlide()"
+              [ngClass]="{'hc-arrow-hide': !showPrev}">
+        <svg>
+          <use xlink:href="#prev-arrow"></use>
+        </svg>
+        <span [i18n]="'sb.previousCard'"></span>
+      </button>
+      <button class="hc-arrow next-hc-card"
+              (click)="nextSlide()"
+              [ngClass]="{'hc-arrow-hide': !showNext}">
+        <span [i18n]="'sb.nextCard'"></span>
+        <svg>
+          <use xlink:href="#next-arrow"></use>
+        </svg>
+      </button>
+    </div>
+
+    <slidecontainer class="carousel-slides only-child">
+      <ng-container *ngFor="let eventEntity of highlightsCarousel.data; index as i; trackBy: trackByCard">
+        <slide class="slide"
+               data-crlat="highlight-carousel-slide">
+              <lazy-component data-crlat="eventEntity"
+                moduleUri="@sharedModule/components/oddsCard/oddsCardHightlightCarousel/odds-card-highligt-carousel.module#OddsCardHighlightCarouselModule" [inputs]="{carouselByTypeId: !!highlightsCarousel.typeId || !!highlightsCarousel.eventIds.length > 0,
+                                              eventStartedOrLive: eventEntity.isStarted || eventEntity.eventIsLive,
+                                              featured : { isSelection: highlightsCarousel.dataSelection.selectionType === 'Selection' },
+                                              event:eventEntity,
+                                              participants: highlightsCarousel?.Participants,
+                                              selectedMarketObject:eventEntity.markets[0],isFilterByTemplateMarketName:true,
+                                              outcomeColumnsTitles:highlightsCarousel.outcomeColumnsTitles,
+                                              changeStrategy: changeStrategy,
+                                              isDesktop: isDesktop,
+                                              index: i,
+                                              eagerLoadCount: eagerLoadCount
+                                               }" entryComponent="OddsCardHighlightCarouselComponent" (init)="childComponentLoaded()">
+              </lazy-component>
+        </slide>
+      </ng-container>
+    </slidecontainer>
+  </div>
+</div>

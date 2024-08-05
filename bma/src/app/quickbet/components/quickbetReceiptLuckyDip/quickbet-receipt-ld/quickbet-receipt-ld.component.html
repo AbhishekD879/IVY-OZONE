@@ -1,0 +1,62 @@
+<div class="qb-receipt-ld"> <lazy-component *ngIf="receiptData && receiptData.date"
+    moduleUri="@lazy-modules-module/receiptHeader/receipt-header.module#ReceiptHeaderModule"
+    [inputs]="{ betDate: receiptData.date }"> </lazy-component>
+  <div *ngIf="receiptData" class="qb-receipt-wrapper">
+    <div class="qb-stake-header">
+      <div class="line">
+        <div class="left">
+          <div class="qb-stake-info">
+            <strong class="selection-type" [textContent]=playerDescription></strong>
+            <strong class="qb-single-receipt-odds" [textContent]=quickbetConstants.LD_SYMBOL></strong>
+            <strong class="qb-single-receipt-odds" [textContent]=odds></strong>
+            <div class="receipt-id">
+              <span [textContent]=quickbetConstants.LD_RECEIPT></span>
+              <span [textContent]=receiptData.receipt.id></span> 
+            </div>
+            <promo-labels [luckyDip]="true" class="my-bets-promo-labels"></promo-labels>
+            <div class="epr">
+              <span class="qb-stake-description" [textContent]=receiptData.legParts[0].eventDesc></span>
+            </div>
+          </div>
+        </div>
+          <div class="right-section">
+            <div class="right qb-win-alerts-wrapper">
+              <ng-container *ngTemplateOutlet="winAlertsTpl"></ng-container>
+            </div>
+          </div>
+        
+      </div>
+      <div class="qb-stake-footer">
+        <div class="line summary-info">
+          <strong [textContent]=quickbetConstants.LD_STAKE></strong>&nbsp;
+          <span [textContent]=amount></span>
+        </div>
+        <div class="line summary-info">
+          <strong [textContent]=quickbetConstants.LD_POTENTIAL_RETURNS></strong>&nbsp;
+          <span [textContent]=potential></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Win alerts template -->
+  <ng-template #winAlertsTpl>
+    <div *ngIf="winAlertsEnabledLD && isNativeBridge()" class="qb-win-alerts-content">
+      <div class="qb-win-alerts-info">
+        <svg
+          class="win-alerts-info-icon"
+          [tooltip]="'winAlerts'"
+          [showTooltip]="winAlertsTooltipLD()">
+          <use xlink:href="#win-alert-icon"></use> 
+        </svg> 
+        <span
+          [i18n]="'quickbet.winAlerts'">
+        </span> 
+      </div>
+      <toggle-switch [initialState]="winAlertsActive"
+        [componentId]="'toggle-switch-quick-bet'" 
+        [disabled]="!nativeBridge.pushNotificationsEnabled"
+        (switcherControl)="toggleWinAlerts($event)"
+        (clickIfDisabled)="nativeBridge.showNotificationSettings()">
+      </toggle-switch>
+    </div>
+  </ng-template>

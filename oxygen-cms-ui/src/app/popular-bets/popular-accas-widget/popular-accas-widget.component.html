@@ -1,0 +1,118 @@
+<div class="card">
+    <div class="header">
+        <h1 mat-dialog-title>Popular Acca Widget</h1>
+        <span><b>General Configurations</b></span>
+    </div>
+    <form [formGroup]="popularAccasWidgetForm" *ngIf="!isLoading && popularAccasWidgetForm">
+        <div class="body">
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">
+                        Display On
+                    </span>
+                </div>
+                <div class="displaList">
+                    <div class="checkBoxList">
+                        <div [ngClass]="i != 0 ? 'checkBoxAdjust': ''"
+                            *ngFor="let list of widgetAvailablePagesLst;let i=index">
+                            <div class="checkContent">
+                                <div>
+                                    <mat-checkbox class="mat-label checkBox" color="primary"
+                                        [checked]="list.popularAccaWidgetVisble"
+                                        [(ngModel)]="list.popularAccaWidgetVisble"
+                                        [ngModelOptions]="{standalone: true}"></mat-checkbox>
+                                </div>
+                                <div class="checkLabell">
+                                    <span class="checkLabel"><a (click)="goToHomepage(list.routerId)">{{list.title}}</a>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">
+                        Widget Title
+                    </span>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="title" maxLength="50" required trim="blur" placeholder="Widget Title" aria-placeholder="Widget Title" />
+                        <mat-hint class="col-red"
+                            *ngIf="popularAccasWidgetFormControls.title?.errors?.required">
+                            <div>Widget Title should be entered</div>
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{popularAccasWidgetForm.get('title').value.length || 0}} /50</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">
+                        Card CTA (Add Bets Description)
+                    </span>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="cardCta" required trim="blur"  maxLength="20" 
+                            placeholder="Add Bets Description" aria-placeholder="Add Bets Description" />
+                        <mat-hint class="col-red"
+                            *ngIf="popularAccasWidgetForm.get('cardCta')?.errors?.required">
+                            <div>Add Bets Description should be entered</div>
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{popularAccasWidgetForm.get('cardCta').value.length || 0}} /20</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">
+                        Card CTA (Bets Added Description)
+                    </span>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="cardCtaAfterAdd" required trim="blur"  maxLength="20"
+                            placeholder="Bets Added Description" aria-placeholder="Bets Added Description" />
+                        <mat-hint class="col-red"
+                            *ngIf="popularAccasWidgetFormControls.cardCtaAfterAdd?.errors?.required">
+                            <div>Bets Added Description should be entered</div>
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{popularAccasWidgetForm.get('cardCtaAfterAdd').value.length || 0}} /20</div>
+            </div>
+            <div class="header headerLabel pad-layout">
+                <b> <span [textContent]="'Active Cards'"></span></b>
+            </div>
+            <cms-data-table *ngIf="activeModules" [customTableData]="activeModules" [customTableColumns]="dataTableColumns"
+                [popularAccasCardsLst]="popularAccasCardsLst" [reorder]="true" [actions]="['remove','edit']"
+                (onElementsOrder)="reorderHandler($event)" (onRemoveTableElement)="removeHandler($event)">
+            </cms-data-table>
+            <div class="row">
+                <div class="col-md-2">
+                    <a routerLink="add" type="button" class="btn bg-teal waves-effect float-left">
+                        <i class="material-icons">add_box</i>
+                        <span [textContent]="'Add New'"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="header headerLabel pad-layout">
+                <b> <span [textContent]="'Expired Cards'"></span></b>
+            </div>
+            <cms-data-table *ngIf="expiredModules" [background]="'bg-orange'" [customTableData]="expiredModules"
+                [customTableColumns]="dataTableColumns" [reorder]="false" [actions]="['remove', 'edit']"
+                (onRemoveTableElement)="removeHandler($event)">
+            </cms-data-table>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="!isLoading && popularAccasWidgetForm">
+    <action-buttons #actionButtons [collection]="popularAccasWidgetForm.value"  [form]="popularAccasWidgetForm"
+        (actionsEmitter)="actionsHandler($event);" [validateHandler]="validationHandler"
+        [fieldOrItemName]="'Popular Acca Widget Details'" [showRemoveButton]="false"></action-buttons>
+</div>

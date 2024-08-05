@@ -1,0 +1,12 @@
+<div class="fanzone-games-wrapper">
+    <ng-container *ngFor="let game of fanzoneGames;index as i">
+        <div *ngIf="!game.showGame" (mouseenter)="game.hover=true" (mouseleave)="game.hover=false" class="carousel-item" 
+         (click)="launchGame(game, i)">
+            <img [attr.src]="game.gameThumbnailUrl"  class="carousel-image">
+            <div *ngIf="game.hover" class="game-overlay"></div>
+            <div *ngIf="game.hover" class="button-container">
+                <button class="play-now-button" (click)="playNow($event, game, i)">PLAY HERE</button>
+            </div>
+        </div>
+    </ng-container>
+</div>

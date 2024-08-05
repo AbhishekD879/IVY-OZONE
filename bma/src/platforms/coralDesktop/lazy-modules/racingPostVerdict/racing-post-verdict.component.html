@@ -1,0 +1,28 @@
+<p class="r-p-verdict__info" [textContent]="data.verdict" *ngIf="data.verdict" data-crlat="verdictInfo"></p>
+<section class="r-p-verdict__most-tipped" *ngIf="data.mostTipped.length > 0" data-crlat="ratingSec">
+  <span class="header-section" data-crlat="header" [i18n]="'racing.mostTipped'"></span>
+  <div *ngFor="let item of data.mostTipped; trackBy: trackByIndex;" data-crlat="item">
+    <span class="horse_name" [textContent]="item.name" data-crlat="itemName"></span>
+    <span class="tipster_names" [textContent]="item.value" data-crlat="itemName"></span>
+    <span class="number_of_tips"  [i18n]="'racing.tips'" [i18nArgs]="[item.tips]" data-crlat="itemName"></span>
+  </div>
+</section>
+<section class="r-p-verdict__rating-section" *ngIf="data.starRatings.length > 0" data-crlat="ratingSec">
+  <span class="header-section" [i18n]="'racing.racingPostStarRating'" data-crlat="header"></span>
+  <div *ngFor="let item of data.starRatings; trackBy: trackByIndex;" data-crlat="item">
+    <span class="item_name" [textContent]="item.name" data-crlat="itemName"></span>
+    <star-rating [rating]="item.rating" data-crlat="starsContainer"></star-rating>
+  </div>
+</section>
+<section class="r-p-verdict__tips-section" *ngIf="data.tips.length > 0" data-crlat="tipsSec">
+  <span class="header-section" [i18n]="'racing.racingPostTips'" data-crlat="header"></span>
+  <div *ngFor="let item of data.tips; trackBy: trackByIndex;" data-crlat="item">
+    <span class="tip_name" [textContent]="item.name" data-crlat="label"></span>
+    <span class="tip_value" [textContent]="item.value" data-crlat="value"></span>
+  </div>
+</section>
+<img *ngIf="isValidImage && showMap && data?.imgUrl"
+ alt="" [src]="data.imgUrl"
+ (error)="isValidImage = false"
+ data-crlat="map"/>
+

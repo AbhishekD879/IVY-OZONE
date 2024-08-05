@@ -1,0 +1,23 @@
+@import 'global.variables.scss';
+
+.arrowed-item {
+  position: relative;
+  cursor: pointer;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    margin-top: -6px;
+    right: 12px;
+    border: solid $color-gray-dark;
+    border-width: 0 2px 2px 0;
+    padding: 3px;
+    border-radius: 1px;
+    will-change: transform;
+    transform: rotate(-45deg);
+   &:active{
+    background: $color-black;
+   }
+  }
+}

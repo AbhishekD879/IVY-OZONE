@@ -1,0 +1,93 @@
+<div class="my-bets-list">
+  <div *ngFor="let leg of bet.eventSource.leg; trackBy: trackByLeg; let i = index;"
+       class="my-bets-list-item"
+       data-crlat="cashout.betLeg"
+       [attr.data-eventid]="leg.eventEntity?.id">
+    <bet-leg-item *ngIf="leg && leg.status"
+      [bet]="bet"
+      [leg]="updateLeg(leg)"
+      [legType]="bet.eventSource.legType"
+      [isUsedFromWidget]="isUsedFromWidget"
+      [removeBogAndLabel]="removeBogAndLabel"
+      [section]="section"
+      [isLastBet]="isLastBet"
+      [origin]="origin"
+      [tabName]="tabName"
+      [isSportIconEnabled]="isSportIconEnabled"
+      [index]="i"
+      [estimatedReturns]="estimatedReturns"
+      [editAccaHistory]="editAccaHistory"
+      [showDHmessage]="showDHmessage">  
+    </bet-leg-item>
+  <div *ngIf="leg?.myBetsAreas && leg.myBetsAreas[section] && leg.myBetsAreas[section].isMatchCmtryDataAvailable && !leg.isBetSettled" class="match-cmtry-slide-down" [ngClass]="isCoral ? 'coral-background': 'lads-background'">
+  <div *ngIf="leg.matchCmtryDataUpdate?.varIconData" class="match-cmtry-data">
+    <div class="d-flex">
+      <div [ngClass]="{'var-icon': leg.matchCmtryDataUpdate.varIconData.svgId!=''}">
+        <svg>
+          <use [attr.href]="'#Var_icon'"></use>
+        </svg>
+      </div>
+      <div>
+        <svg *ngIf="leg.matchCmtryDataUpdate.varIconData.svgId!=''">
+          <use [attr.href]="'#' + leg.matchCmtryDataUpdate.varIconData.svgId"></use>
+        </svg>
+      </div>
+    </div>
+    <span class="match-cmtry-content">
+      <span class="match-cmtry-team-name">{{leg.matchCmtryDataUpdate.teamName}}</span>
+      <span>{{leg.matchCmtryDataUpdate.varIconData.description}}</span>
+      <span class="match-cmtry-player-name">{{leg.matchCmtryDataUpdate.playerName}}</span>
+    </span>
+  </div>
+  <div *ngIf="!leg.matchCmtryDataUpdate?.varIconData && leg.matchCmtryDataUpdate.matchfact !=''" class="match-cmtry-data">
+    <div>
+      <svg *ngIf="leg.matchCmtryDataUpdate.matchfact != 'Goal'"class="match-facts-icon"  [ngClass]="isCoral ? 'coral-fill': 'lads-fill'">
+        <use [attr.href]="'#Matchfacts_Icon'"></use>
+      </svg>
+      <svg *ngIf="leg.matchCmtryDataUpdate.matchfact == 'Goal'" class="match-facts-icon">
+        <use [attr.href]="'#Var_Goal'"></use>
+      </svg>
+    </div>
+    <span *ngIf="leg.matchCmtryDataUpdate.playerOnName && leg.matchCmtryDataUpdate.playerOffName" class="match-cmtry-content">
+      <span
+        class="match-cmtry-team-name">{{leg.matchCmtryDataUpdate.teamName}}
+        <svg class="substitution-icon">
+          <use [attr.href]="'#Substitution_OFF'"></use>
+        </svg>
+      </span>
+      <span class="match-cmtry-player-off-name">{{leg.matchCmtryDataUpdate.playerOffName}}</span>
+      <svg class="substitution-icon">
+        <use [attr.href]="'#Substitution_ON'"></use>
+      </svg>
+       <span class="match-cmtry-player-on-name">{{leg.matchCmtryDataUpdate.playerOnName}} </span>
+        <span> - {{leg.matchCmtryDataUpdate.matchfact}}</span>
+    </span>
+    <span *ngIf="leg.matchCmtryDataUpdate.clock" class="match-cmtry-content">
+      <span *ngIf="leg.matchCmtryDataUpdate.teamName"
+        class="match-cmtry-team-name">{{leg.matchCmtryDataUpdate.teamName}}
+      </span>
+       <span *ngIf="leg.matchCmtryDataUpdate.playerName" class="match-cmtry-player-name">{{leg.matchCmtryDataUpdate.playerName}} </span>
+        <span> {{leg.matchCmtryDataUpdate.matchfact}}</span>
+        <span class="match-cmtry-clock"> {{leg.matchCmtryDataUpdate.clock}}</span>
+    </span>
+    <span *ngIf="leg.matchCmtryDataUpdate.minutes" class="match-cmtry-content">
+        <span>{{leg.matchCmtryDataUpdate.matchfact}}</span>
+        <span class="match-cmtry-minutes">{{leg.matchCmtryDataUpdate.minutes}}</span>
+    </span>
+    <span *ngIf="!(leg.matchCmtryDataUpdate.playerOnName && leg.matchCmtryDataUpdate.playerOffName) && !leg.matchCmtryDataUpdate.clock && !leg.matchCmtryDataUpdate.minutes && leg.matchCmtryDataUpdate.playerName" class="match-cmtry-content">
+      <span
+        class="match-cmtry-team-name" *ngIf="leg.matchCmtryDataUpdate.teamName">{{leg.matchCmtryDataUpdate.teamName}}</span>
+        <span  class="match-cmtry-player-name">{{leg.matchCmtryDataUpdate.playerName}}</span>
+        <span>- {{leg.matchCmtryDataUpdate.matchfact}}</span>
+    </span>
+    <span *ngIf="!leg.matchCmtryDataUpdate.playerName && !leg.matchCmtryDataUpdate.clock && !leg.matchCmtryDataUpdate.minutes && !(leg.matchCmtryDataUpdate.playerOnName && leg.matchCmtryDataUpdate.playerOffName) && leg.matchCmtryDataUpdate.teamName" class="match-cmtry-content">
+      <span class="match-cmtry-team-name">{{leg.matchCmtryDataUpdate.teamName}}</span>-
+      {{leg.matchCmtryDataUpdate.matchfact}}
+    </span>
+    <span *ngIf="!leg.matchCmtryDataUpdate.teamName && !leg.matchCmtryDataUpdate.clock && !leg.matchCmtryDataUpdate.minutes && !(leg.matchCmtryDataUpdate.playerOnName && leg.matchCmtryDataUpdate.playerOffName)" class="match-cmtry-content">
+      {{leg.matchCmtryDataUpdate.matchfact}}
+    </span>
+  </div>
+  </div>
+  </div>
+</div>

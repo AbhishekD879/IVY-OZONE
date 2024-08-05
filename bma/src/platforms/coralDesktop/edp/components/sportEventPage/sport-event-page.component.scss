@@ -1,0 +1,33 @@
+
+:host {
+  .market-column {
+    flex: unset;
+  }
+
+  .is-horizontal .col-vertical, ::ng-deep .is-horizontal .col-bordered .col-inner.col-vertical {
+    height: 100%;
+
+    price-odds-button {
+      margin-top: auto;
+    }
+  }
+  #wdw-name {
+    padding-right: 4px;
+    word-break: break-word;
+  }
+  .hwdw-margin {
+    price-odds-button {
+      ::ng-deep .btn-bet {
+        .handicap-btn {
+          margin-bottom: 4px;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep{
+  .vn-bma .row-pad .col-bordered .col-inner .btn-bet {
+    height: auto;
+  }
+}

@@ -1,0 +1,24 @@
+<modal #betslipLimitationDialog>
+  <div class="page-container">
+    <ng-template #modalHeader>
+      <header class="container-header">
+        <span [i18n]="'bs.notice'"></span>
+        <a class="btn-close" (click)="closeDialog()">
+          <svg>
+            <use xlink:href="#close-icon"></use>
+          </svg>
+        </a>
+      </header>
+    </ng-template>
+    <ng-template #modalBody>
+      <div class="container-content text-section">
+        <p class="text-center">
+          <span [i18n]="'bs.betslipLimitationMessage'"></span>
+        </p>
+        <p class="text-center">
+          <button class="btn btn-style1 full-width" (click)="closeDialog()" [i18n]="'bs.ok'"></button>
+        </p>
+      </div>
+    </ng-template>
+  </div>
+</modal>

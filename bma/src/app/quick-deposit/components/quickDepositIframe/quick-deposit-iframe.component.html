@@ -1,0 +1,29 @@
+<div class="quick-deposit" *ngIf="!isLuckyDip">
+  <div *ngIf="showContent && showPriceChangeNotification" class="quick-deposit__notification"
+       data-crlat="bs.ntfErr">
+    <span [textContent]="priceChangeBannerMsg"></span>
+  </div>
+
+  <div *ngIf="showContent && showSuspendedNotification" class="quick-deposit__notification"
+       data-crlat="bs.ntfErr">
+    <span [textContent]="placeSuspendedErr.msg"></span>
+  </div>
+
+  <div *ngIf="showContent" class="quick-deposit__header" data-crlat="header">
+    <span class="quick-deposit__header-text" data-crlat="text" [i18n]="'bs.qdBetslipHeader'"></span>
+    <span class="quick-deposit__header-icon" data-crlat="closeButton"
+          (click)="closeIFrameQD()">
+        <svg class="quick-deposit__svg">
+          <use xlink:href="#close-icon"></use>
+        </svg>
+      </span>
+  </div>
+  <iframe *ngIf="isQuickDepositEnabled"
+          class="quick-deposit__iframe"
+          #iframe
+          [hidden]="!showContent"
+          [src]="url"
+          frameBorder="0"
+          [ngStyle]="{'height.px': frameHeight, 'max-height.px': frameMaxHeight}">
+  </iframe>
+</div>

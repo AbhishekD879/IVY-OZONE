@@ -1,0 +1,20 @@
+<modal #overAskNotificationDialog class="session-logout-dialog" data-crlat="d.overAskNotif">
+  <div data-uat="popUpWindow" class="page-container styled-one-box">
+    <ng-template #modalHeader>
+      <span class="container-header">
+        <span [i18n]="'bs.overaskElements.inProgressNotification'" data-crlat="dTitle" data-uat="popUpTitle"></span>
+        <a data-uat="popUpCloseButton" class="btn-close" (click)="closeDialog()">
+          <svg>
+            <use xlink:href="#close-icon"></use>
+          </svg>
+        </a>
+      </span>
+    </ng-template>
+    <ng-template #modalBody>
+      <div data-uat="popUpText" class="container-content text-section">
+          <p class="text-center" [i18n]="'bs.overaskElements.inProgressNotificationMessage'"></p>
+          <a data-uat="popUpButton" class="btn btn-style1 full-width" (click)="closeDialog()" [i18n]="'bma.continue'"></a>
+      </div>
+    </ng-template>
+  </div>
+</modal>

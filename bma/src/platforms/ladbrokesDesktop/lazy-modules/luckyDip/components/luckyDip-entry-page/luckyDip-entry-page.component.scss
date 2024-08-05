@@ -1,0 +1,29 @@
+@import 'global.variables.scss';
+
+.infoIcon {
+  width: 12px;
+  margin-left: -1%;
+}
+
+.marketName {
+  font-weight: 500;
+}
+
+.selectionContent {
+  border-bottom: 0 !important;
+}
+
+::ng-deep {
+  accordion-body {
+    border-bottom: 0px !important;
+  }
+}
+
+.marketDescContent {
+  padding: 12px 21px 12px 14px;
+}
+
+.luckyDipSignposting {
+  height: 10.1px;
+  width: 23.52px;
+}

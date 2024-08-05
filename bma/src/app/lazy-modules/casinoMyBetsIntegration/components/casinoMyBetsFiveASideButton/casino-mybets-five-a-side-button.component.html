@@ -1,0 +1,11 @@
+<button class="five-a-side-button"
+        type="button"
+        [attr.id]="event.id"
+        (click)="navigateToFiveASide()"
+        [i18n]="'yourcall.goToFiveASide'">
+</button>
+
+<lazy-component
+        moduleUri="@lazy-modules-module/casinoMyBetsIntegration/casino-my-bets-integration.module#CasinoMyBetsIntegrationModule"
+        [inputs]="{showLeavingCasinoDialog}" [outputs]="['userAction']" (event)="confirmationDialogClick($event)"
+        entryComponent="LeavingCasinoDialogComponent"></lazy-component>

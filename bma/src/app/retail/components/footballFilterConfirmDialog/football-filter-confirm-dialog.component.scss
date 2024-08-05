@@ -1,0 +1,130 @@
+@import "global.variables.scss";
+
+@mixin radioStyles-mixin() {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+:host {
+  ::ng-deep {
+    .modal-dialog {
+      .modal-content {
+        .dialog-content {
+          .item-inner {
+            padding: 16px 8px 0px 4px;
+          }
+
+          .btn-list {
+            margin-top: 16px;
+          }
+
+          .paramCaption {
+            color: $event-header;
+            font-weight: bold;
+          }
+
+          .betFliterRadio {
+            flex-basis: 12.66666667%;
+            max-width: 12.66666667%;
+          
+            input[type="radio"] {
+              position: absolute;
+              border: 3px solid gray;
+            }
+          
+            input[type="radio"] + label:before {
+              @include radioStyles-mixin();
+            }
+          
+            input[type="radio"] + label:after {
+              @include radioStyles-mixin();
+            }
+          
+            input[type="radio"]:checked + label:after {    
+              margin-left: -15px;
+              margin-bottom: 3px;
+            }
+          }
+
+          .betFliterRadioText {
+            flex-basis: 87.33333333%;
+            max-width: 87.33333333%;
+            display: block;
+          }
+
+          .betFliterRadioParamText {
+            color: $event-header;
+            font-size: 13px;
+          }
+
+          input[type="radio"]:checked:before {
+            content: "";
+            display: block;
+            position: relative;
+            top: 8px;
+            left: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: black;
+          }
+
+          input[type="radio"] {
+            visibility: hidden;
+            position: absolute;
+          }
+
+          input[type="radio"] + label:before {
+            content: "";
+            width: 18px;
+            height: 18px;
+            left: 0;
+            border: 1px solid $color-gray-silver;
+            background-color: $color-white;
+            transition: border 0.15s ease-in-out;
+            border-radius: 50%;
+          }
+
+          input[type="radio"] + label:after {
+            content: " ";
+            width: 12px;
+            height: 12px;
+            left: 3px;
+            top: 3px;
+            margin-right: 2px;
+            transition: transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+          }
+
+          input[type="radio"]:checked + label:after {
+            background-color: black;
+            will-change: transform;
+            transform: scale(1, 1);
+          }
+
+          label {
+            display: inline-block;
+            vertical-align: middle;
+            position: fixed;
+            margin-top: 4px;
+          }
+
+          .goButton {
+            width: 120px;
+          }
+        }    
+
+        .modal-header {
+          padding: 24px 24px 0px;      
+        }
+
+        .betFliterRadioSubParamText {
+          P {
+            font-size: 10px;
+            line-height: normal;
+            font-family: $alt-font-family;
+          }
+        }
+      }
+    }
+  }
+}

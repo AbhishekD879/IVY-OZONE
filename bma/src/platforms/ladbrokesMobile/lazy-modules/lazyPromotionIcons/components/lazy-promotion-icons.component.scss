@@ -1,0 +1,34 @@
+@import '../../../../../../src/platforms/ladbrokesMobile/promotions/components/promotionIcon/promotion-icon.component.scss';
+
+.event-card-label-wrapper.race-label-wrapper {
+  cursor: pointer;
+
+  .event-card-label {
+    width: $prom-icon-size;
+    height: $prom-icon-size;
+  }
+
+  &.mini-icon .event-card-label {
+    margin-left: 0;
+    width: 11px !important;
+    height: 11px !important;
+  }
+
+  &.small-icon .event-card-label {
+    width: $small-prom-icon-size;
+    height: $small-prom-icon-size;
+  }
+
+  &.bir-inplay {
+    padding: 0 5px;
+
+    &.middle-icon {
+      width: auto;
+    }
+
+    #event-card-text {
+      display: block;
+      margin-left: 3px;
+    }
+  }
+}

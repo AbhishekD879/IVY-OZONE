@@ -1,0 +1,130 @@
+<breadcrumbs *ngIf="module" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="module">
+  <div class="header">
+    <h2 class="waves-effect waves-block has-activity-badge">
+      Title: {{module.title}} (Original title: {{module.racingConfig.name}})
+      <create-updated-at-by [collection]="module"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="module.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="module">
+  <form [formGroup]="form">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-2">
+          <mat-checkbox color="primary"
+                        [checked]="!module.disabled"
+                        (change)="module.disabled = !module.disabled">
+            Active
+          </mat-checkbox>
+        </div>
+        <div class="col-md-2" *ngIf="module.racingConfig?.type === 'UK_AND_IRISH_RACES'">
+          <mat-checkbox color="primary"
+                        [checked]="module.racingConfig.enablePoolIndicators"
+                        (change)="module.racingConfig.enablePoolIndicators = !module.racingConfig.enablePoolIndicators">
+            Pool Indicators
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 m-b-10">
+          <mat-form-field class="full-width">
+            <input [(ngModel)]="module.title" matInput type="text" placeholder="Module title"
+                    formControlName="title"  trim="blur" required>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <ng-container *ngIf="isVirtualRacingModule">
+        <div class="row">
+          <div class="col-md-12 m-b-10">
+            <mat-form-field class="full-width">
+              <input [(ngModel)]="module.racingConfig.limit"
+                     [value]="module.racingConfig.limit"
+                     matInput
+                     appNumberOnly
+                     type="number"
+                     placeholder="Limit Events"
+                     formControlName="limit"
+                     min="1"
+                     max="12"
+                     required>
+            </mat-form-field>
+
+            <div *ngIf="limit.errors && (limit.errors.min || limit.errors.max) && (limit.dirty || limit.touched)"
+                 class="alert alert-danger">
+
+              <div *ngIf="limit.errors.min">
+                Min value is {{limit.errors.min.min}}
+              </div>
+
+              <div *ngIf="limit.errors.max">
+                Max value is {{limit.errors.max.max}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 m-b-10">
+            <mat-form-field class="full-width">
+              <input matInput
+                     placeholder="Exclude TypeIds"
+                     formControlName="excludeTypeIds"
+                     [(ngModel)]="module.racingConfig.excludeTypeIds"
+                     [value]="module.racingConfig.excludeTypeIds"
+                     required
+                     trim="blur">
+            </mat-form-field>
+
+            <div *ngIf="excludeTypeIds.errors && excludeTypeIds.errors.pattern && (excludeTypeIds.dirty || excludeTypeIds.touched)"
+                 class="alert alert-danger">
+
+              <div *ngIf="excludeTypeIds.errors.pattern">
+                Should follow the format(1,2,3). Zero id is not allowed
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="isVirtualRacingModule || isIntToteModule">
+        <div class="row">
+          <div class="col-md-12 m-b-10">
+            <mat-form-field class="full-width">
+              <input [(ngModel)]="module.racingConfig.classId"
+                     [value]="module.racingConfig.classId"
+                     matInput
+                     appNumberOnly
+                     type="number"
+                     min="1"
+                     placeholder="ClassId"
+                     formControlName="classId"
+                     required>
+            </mat-form-field>
+
+            <div *ngIf="classId.errors && classId.errors.min && (classId.dirty || classId.touched)"
+                 class="alert alert-danger">
+
+              <div *ngIf="classId.errors.min">
+                Zero id is not allowed
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </form>
+
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="module"
+  [validateHandler]="isValidModule"
+  [fieldOrItemName]="'title'"
+  [collection]="module"
+  [showRemoveButton]="false"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

@@ -1,0 +1,47 @@
+@import 'global.variables.scss';
+
+.crest-image {
+    &__fanzone-card, &__card-text {
+        display: block;
+        text-align: center;
+    }
+    &__card {
+        &-text {
+            font-style: normal;
+            line-height: normal;
+        }
+        &-dialog-text {
+            font-family: Roboto;
+            font-size: $font-size;
+            font-weight: bold;
+            font-stretch: condensed;
+            letter-spacing: normal;
+            color: $color-black;
+            height: 14px;
+            margin: 15px 0px;
+        }
+        &-team-text {
+            flex-grow: 0;
+            font-family: $alt-font-family;
+            font-size: $font-size-lg;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: -0.01px;
+            color: $color-gray-darkest;
+            margin-top: 15px;
+        }
+        &--img {
+            text-align: center;
+        }
+    }
+}
+
+@media (max-width: $mobilePoint) {
+    .crest-image {
+        &__card {
+            &-team-text {
+                font-size: $font-size;
+            }
+        }
+    }
+}

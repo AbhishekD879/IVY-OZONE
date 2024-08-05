@@ -1,0 +1,44 @@
+/*
+* Grid system
+*----------------------------------------------------------------------
+
+* Requires mixin: grid-mixin.scss
+
+* Define the breakpoints at which your layout will change, adapting to different screen sizes.
+*/
+$screen-xs: $mobileSmallPoint;  /* Extra small screen / phone */
+$screen-sm: $mobilePoint;  /* Small screen / tablet */
+$screen-md: $tabletPoint;  /* Medium screen / desktop */
+$screen-lg: $landscapeTabletPoint;  /* Small screen / wide desktop */
+$screen-xl: $desktopPoint; /* Large screen / wide desktop */
+$screen-xxl: $desktopLargePoint; /* Extra Large screen / wide desktop */
+
+$grid-types: (sm: $screen-sm, md: $screen-md, lg: $screen-lg); /* Grid Types (add or remove to build needed grid) */
+
+.row {
+  /*----------------------------------------------------------------------
+  * Row
+  *
+  * Build Grid Rows.  */
+
+  @include grid-row();
+
+  /* ----------------------------------------------------------------------
+  * Columns
+  *
+  * Common styles for all columns
+
+  */
+
+  @include make-grid-columns(xs); /* Default Column xs */
+  @include grid-row-vertical(xs); /* Default Row xs  */
+
+  @each $type, $screen in $grid-types {
+    @media (min-width: $screen) {
+     @include make-grid-columns($type);
+    }
+    @media screen and (max-width: $screen) {
+      @include grid-row-vertical($type);
+    }
+    }
+}

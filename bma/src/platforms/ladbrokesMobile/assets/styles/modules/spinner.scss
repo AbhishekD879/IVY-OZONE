@@ -1,0 +1,14 @@
+@import 'global.variables.scss';
+
+.spinner-loader {
+
+  &.spinner-dark:before {
+    border: 3px solid $red;
+    border-bottom-color: transparent;
+    box-shadow: none;
+  }
+
+  &.spinner-dark:after {
+    display: none;
+  }
+}

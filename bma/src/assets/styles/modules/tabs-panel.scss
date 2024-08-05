@@ -1,0 +1,251 @@
+@import 'global.variables.scss';
+
+$black: $color-black;
+$white: $color-white;
+$borderedTabsIconSize: 25px;
+$tabs-padding     : 5px;
+$tabs-margin      : 0;
+$tabs-margin-bottom: 5px;
+$tabs-base-border-width: 2px;
+$tabs-pointer-height: 4px; /* pointer width is 8 */
+$tabs-btm-padding : 5px;
+$tabs-font-size   : $font-size-md;
+$tabs-font-size-s : $font-size-md;
+$tabs-font-weight : bold;
+$tabs-border-r     : 1px solid $tabs-back-clr;
+$tabs-border-radius: 0;
+
+.tabs-panel {
+  position: relative;
+  overflow: hidden;
+  background: $tabs-front-clr;
+  margin-top: $tabs-margin;
+  width: 100%;
+  max-width: 100%;
+
+  .badge-new {
+    background: $red;
+    color: $color-white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 11px;
+    font-size: 6px;
+    position: absolute;
+    top: 1px;
+    left: 10px;
+  }
+  .scroll-container {
+    .scroll-inner {
+      min-width: 100%;
+      border-bottom: $tabs-base-border-width solid $tabs-active-clr;
+    }
+  }
+  &.tabs-top {
+    border-top: $tabs-padding solid $tabs-active-clr;
+  }
+  &.tabs-bottom {
+    box-shadow: none;
+    margin-bottom: $tabs-btm-padding;
+    border-bottom: 1px solid $tabs-shadow-color;
+    .scroll-container {
+      .scroll-inner {
+        @include inline-flex();
+        @include flex (1, 0);
+        li {
+          border-right: $tabs-border-r;
+          .tab {
+            font-size: $tabs-font-size-s;
+            padding: 10px 15px;
+            height: 30px;
+          }
+        }
+      }
+      .scroll-panel {
+        border:none!important;
+        li {
+          .tab {
+            padding: 5px 15px!important;
+          }
+        }
+      }
+
+    }
+  }
+  .scroll-container {
+    z-index: 5;
+    .scroll-inner {
+      padding: 0;
+      margin-bottom: $tabs-margin-bottom;
+      li {
+        position: relative;
+        border-radius: $tabs-border-radius;
+        &:active{
+          background:  $IGreyLightDark;
+        }
+        .tab {
+          padding: 10px 10px 11px;
+          color: $tabs-font-color;
+          cursor: pointer;
+          display: block;
+          font: $tabs-font-weight $font-size-sm $base-font-family;
+          text-transform: uppercase;
+          min-height: 35px;
+          overflow: hidden;
+          text-align: center;
+          min-width: 50px;
+          &.disabled {
+            opacity: .5;
+            pointer-events: none;
+          }
+          &.tab-with-icon {
+            padding: 6px 10px 10px;
+          }
+          .tab-icon {
+            width: 20px;
+            height: 13px;
+            fill: $black;
+            display: block;
+            margin: 0 auto 5px;
+          }
+          &.time-ribbon {
+            font-weight: 400;
+          }
+          &:hover, &:focus {
+            text-decoration: none;
+          }
+        }
+        &.active {
+          background: $tabs-active-clr;
+          box-shadow: none;
+          pointer-events: none;
+          .tab-icon {
+            fill: $color-white;
+          }
+          &:after {
+            position: absolute;
+            z-index: 4;
+            content: '';
+            bottom: -$tabs-pointer-height - $tabs-base-border-width;
+            left: 50%;
+            margin-left: -$tabs-pointer-height;
+            border-left: $tabs-pointer-height solid transparent;
+            border-right: $tabs-pointer-height solid transparent;
+            border-top: $tabs-pointer-height solid $tabs-active-clr;
+          }
+          .tab {
+            color: $color-white;
+            pointer-events: none;
+          }
+          &.no-background {
+            background: transparent;
+            box-shadow: none;
+            &:after {
+              content: none;
+            }
+            .tab {
+              border-right: $tabs-border-r;
+              color: $color-gray-dark;
+              &:after {
+                content: none;
+              }
+            }
+          }
+        }
+      }
+      &.flex-tabs {
+        @include display-flex();
+        li {
+          @include display-flex();
+          @include flex(1, 4, 100%);
+          .tab {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+  &.horserace-tabs {
+    .scroll-container {
+      .scroll-inner {
+        font-weight: 900;
+        margin-bottom: 0px;
+        border-bottom: 0px;
+
+        li {
+          border-bottom : 3px solid $color-gray-rich;
+
+          .tab {
+            font-family: Lato;
+            font-size: 11px;
+            font-weight: bold;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+          }
+          &:hover {
+            text-decoration: none;
+            background: $IGreyLightDark;
+          }
+          &.active {
+            border-bottom: 3px solid $tabs-active-clr;
+            background: none !important;
+
+            .tab-icon {
+              fill: $black;
+            }
+            &:after {
+              bottom: 0;
+              border: none;
+            }
+            .tab {
+              color: $black;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.bordered-tabs .tabs-panel {
+  background: $top-bar-back-bg;
+  &.tabs-panel {
+    padding-bottom: 0;
+    .scroll-container .scroll-inner {
+      margin-bottom: 0;
+      border-bottom: none;
+      background: transparent;
+      li {
+        @include flex-grow(1);
+        background: transparent;
+        &.active {
+          .tab {
+            border-color: $color-red;
+          }
+        }
+        .tab {
+          border-bottom: 2px solid transparent;
+          color: $color-white;
+          width: 100%;
+          .tab-icon {
+            width: $borderedTabsIconSize;
+            height: $borderedTabsIconSize;
+            fill: $color-white;
+          }
+        }
+      }
+    }
+  }
+}
+sport-matches-tab, competitions-future-sport-tab {
+  display: block;
+}
+.sticky-market-selector.sticky-on {
+  .tabs-panel {
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
+    .scroll-inner {
+      background: $color-white;
+    }
+  }
+}

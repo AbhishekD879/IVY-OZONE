@@ -1,0 +1,21 @@
+<div class="free-bet-label"  [ngClass]="{'fanzone-bet-label': isFanzone}" [class.margin]="margin">
+  <div *ngIf="plusPrefix" class="plus" >&nbsp;+&nbsp;</div>
+  <div class="free-bet-label-content" [ngClass]="{'sb-fb': isStreamAndBet}">
+    <div class="free-bet-icon" data-crlat="fbIcon" *ngIf ="!isFanzone">
+      <svg [class.fb-jump-vibrate-small]="!isDesktop && jump==='jump'" 
+      [ngClass]="{'sb-fb-icon': isStreamAndBet}">
+        <use xlink:href="#free-bet-label"></use>
+      </svg>
+    </div>
+    <div class="free-bet-icon" data-crlat="fbIcon" *ngIf ="isFanzone">
+      <svg [class.fb-jump-vibrate-small]="!isDesktop && jump==='jump'"
+      [ngClass]="{'sb-fb-icon': isStreamAndBet}">
+        <use xlink:href="#fanzone-bet-label"></use>
+      </svg>
+    </div>
+    <div class="free-bet-text" [ngClass]="{'sb-fb-background': isStreamAndBet}">
+      <div class="free-bet-value" [ngClass]="{'snb-fb-margin': isStreamAndBet}" [textContent]="value" data-crlat="fbValue"></div>
+    </div>
+  </div>
+  <div *ngIf="plusSuffix" class="plus">&nbsp;+&nbsp;</div>
+</div>

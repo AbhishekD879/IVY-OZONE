@@ -1,0 +1,77 @@
+@import "global.variables.scss";
+
+:host {
+  margin: 0;
+  .event-title-bar {
+    &__default-title {
+      background: $lGrayLight;
+      color: $color-gray-darkest;
+      margin: 8px 0 3px;
+      padding: 10px 14px;
+      position: relative;
+      display: block;
+
+      .event-name {
+        font-size: $font-size-tablet;
+        margin: 0;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: $lGray;
+      }
+    }
+  }
+}
+
+.fanzone-outrights {
+  margin-top: 5px;
+  .fz-outrights-header {
+    font-family: $base-font-family;
+    text-transform: uppercase;
+    padding: 0px 12px;
+    @include display-flex();
+    @include align-items(center);
+    @include justify-content(space-between);
+
+    .fz-outrights-title {
+      font-weight: bold;
+      font-size: 14px;
+      color: $color-gray-darkest;
+      @include display-flex();
+      @include align-items(center);
+    }
+
+    @media (max-width: $mobilePoint) {
+      .fz-outrights-title {
+        font-size: 12px;
+      }
+    }
+
+    .premier-league-table-link {
+      @include display-flex();
+      @include align-items(center);
+      @include justify-content(flex-end);
+      @include flex(1, 0, auto);
+      a.premier-league-table {
+        &:hover {
+          text-decoration: none;
+        }
+        .premier-league-table-icon {
+          width: 12px;
+          height: 9px;
+          margin-right: 5px;
+        }
+        span {
+          font-size: $font-size-md;
+          color: $color-blue-alt;
+        }
+      }
+    }
+  }
+}
+
+.league-table-opened {
+  display: block;
+}
+.league-table-closed {
+  display: none;
+}

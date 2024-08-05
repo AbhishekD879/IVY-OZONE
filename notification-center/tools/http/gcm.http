@@ -1,0 +1,16 @@
+POST https://gcm-http.googleapis.com/gcm/send
+Content-Type: application/json
+Authorization: key=AIzaSyCP3EX5KHdSTKQeFoJ_m5pJb89vYYXiGcE
+
+{ "data": {
+    "incident": "Goal!",
+    "alert": "Team A vs Tem B",
+    "_od": "1234567",
+    "sound": "default",
+    "_m": "fivYZxPz4mk:APA91bHTXiE1V7vYD3FEyuUb3Cxmjpf1UF1rVMYzidcTHrA9hwIjtaXhbeE2qL_d8eEnriuzzwttYeU1FIHx8WHTJKSHqll9S2CDDM9pLKAsSD7d8lFsgDgolkbobpxrHTC5aajsX6Tj"
+  },
+  "to" : "fivYZxPz4mk:APA91bHTXiE1V7vYD3FEyuUb3Cxmjpf1UF1rVMYzidcTHrA9hwIjtaXhbeE2qL_d8eEnriuzzwttYeU1FIHx8WHTJKSHqll9S2CDDM9pLKAsSD7d8lFsgDgolkbobpxrHTC5aajsX6Tj"
+}
+
+###
+

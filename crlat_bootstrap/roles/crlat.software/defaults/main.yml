@@ -1,0 +1,43 @@
+---
+# defaults file for crlat.software
+os_packages: []
+def_install_list: []
+
+private_domain: crlat.vpc
+
+influx_address: "{{ influx_host_name }}.{{ private_domain }}"
+influx_port: 8086
+influx_url: "http://{{ influx_address }}:{{ influx_port }}"
+influx_db_name: crlat_nodes_monitoring
+
+path_to_telegraf_conf: /etc/telegraf/telegraf.conf
+
+grafana_admin_user: admin
+grafana_admin_password: secret#1
+
+s3mountpoints: []
+package_deps:
+  docker:
+    - docker.io
+    - python-docker
+  xmlstarlet:
+    - xmlstarlet
+  s3fs:
+    - s3fs
+  go-agent:
+    - openjdk-8-jre-headless
+    - go-agent
+  allure:
+    - allure
+  python-setuptools:
+    - python-setuptools
+    - python-pip
+    - python-virtualenv
+preconf_actions:
+  go-agent: preconfigure_goagent.yml
+  allure: pre_allure.yml
+postconf_actions:
+  docker.io: post_docker.io.yml
+  go-agent: postconfigure_goagent.yml
+dockers:
+  - telegraf

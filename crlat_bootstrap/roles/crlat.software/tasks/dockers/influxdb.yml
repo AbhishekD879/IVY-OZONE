@@ -1,0 +1,20 @@
+- name: Create InfluxDB Container
+  docker_container:
+    name: InfluxDB
+    image: influxdb:alpine
+    state: started
+    restart: yes
+    restart_policy: always
+    dns_servers:
+      - "{{ dns_server_ip }}"
+    ports:
+     - "8086:8086"
+    volumes:
+      - /var/lib/influxdb:/var/lib/influxdb
+
+- name: Wait InfluxDB port accessible
+  wait_for:
+    port: 8086
+    delay: 10
+    timeout: 320
+    state: started

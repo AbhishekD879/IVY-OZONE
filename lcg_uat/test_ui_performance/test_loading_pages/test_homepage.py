@@ -1,0 +1,22 @@
+# coding=utf-8
+import pytest
+
+from test_ui_performance.BasePerformanceTest import BasePerformanceTest
+from tests.base_test import vtest
+
+
+@pytest.mark.prod
+@pytest.mark.tst2
+@pytest.mark.stg2
+@vtest
+class Test_HomePage(BasePerformanceTest):
+    """
+    NAME: 'Home' page performance
+    """
+    def test_load_homepage(self):
+        """
+        DESCRIPTION: Load 'Home' page
+        EXPECTED: 'Home' page is loaded
+        """
+        self.navigate_to_url(url=self.test_hostname)
+        self.post_to_influxdb()

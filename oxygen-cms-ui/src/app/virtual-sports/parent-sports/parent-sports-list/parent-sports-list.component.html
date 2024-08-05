@@ -1,0 +1,47 @@
+<div class="card">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Virtual Sports
+    </h2>
+  </div>
+</div>
+
+<div class="card">
+  <div class="body">
+    <!-- search and download button.-->
+    <div *ngIf="parentSports" class="row clearfix">
+      <div class="col-md-3">
+        <button (click)="createParentSport()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create Sport</span>
+        </button>
+      </div>
+      <div class="col-md-3">
+        <download-cvs [cvsData]="parentSports" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Sports" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="parentSports">
+      <cms-data-table
+        [customTableData]="parentSports"
+        [customTableColumns]="dataTableColumns"
+        [filterString]="searchField"
+        [filterProperties]="searchableProperties"
+        [actions]="['remove', 'edit']"
+        [reorder]="true"
+        (onElementsOrder)="onReorder($event)"
+        (onRemoveTableElement)="onRemoveClick($event)">
+      </cms-data-table>
+    </div>
+    <div *ngIf="error">
+      Request Error
+    </div>
+  </div>
+</div>

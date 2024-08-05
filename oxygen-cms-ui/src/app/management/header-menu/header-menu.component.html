@@ -1,0 +1,20 @@
+<nav class="navbar {{activeBrand}}Color">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a href="javascript:void(0);" class="bars"></a>
+      <a class="navbar-brand" routerLink="/">OXYGEN CMS</a>
+    </div>
+    <div class="navbar-right">
+      <mat-form-field class="colWhite">
+        <mat-select placeholder="Current brand:"
+                    (selectionChange)="onBrandSelect($event.value)"
+                    [(ngModel)]="activeBrand">
+          <mat-option *ngFor="let brand of brandsList" [value]="brand.brandCode">
+            {{ brand.title }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button class="btn waves-effect" (click)="logOut()">SIGN OUT</button>
+    </div>
+  </div>
+</nav>

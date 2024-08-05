@@ -1,0 +1,138 @@
+.shortened-view {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  span, a {
+    user-select: text !important;
+  }
+}
+
+.text-center{
+  white-space: nowrap !important;
+}
+.dateAlign{
+  display: inline-flex;
+  margin-top: 10px;
+}
+.date_pick{
+  margin-top: 10px !important;
+}
+.time_pick{
+  margin-top: 18px !important;
+}
+
+.dragIcon{
+  margin-top: 15px !important;
+}
+.drag-header {
+  width: 15px !important;
+}
+
+.drag-handler {
+  cursor: move;
+
+  i {
+    font-size: 15px;
+  }
+}
+
+.delete-btn {
+  cursor: pointer;
+}
+
+tr.not-valid {
+ background-color: #cccbc9 !important;
+}
+
+.highlighted {
+  background-color: palegreen;
+}
+
+.custom {
+  cursor: pointer;
+}
+.autoseo{
+  cursor: pointer;
+}
+
+.custom-table {
+  th {
+    text-transform: capitalize;
+  }
+
+  .number-cell {
+    text-align: center;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .number-order {
+    padding-top: 16px !important;
+  }
+
+  .svg-icon {
+    display: flex;
+    padding: 5px;
+    min-width: 50px;
+
+    &::ng-deep svg {
+      display: block;
+      max-width: 100%;
+      max-height: 50px;
+    }
+  }
+}
+.locationTd{
+  position: relative;
+}
+.locationItems{
+  margin: 5px 0;
+}
+
+.col-light-blue-grey{
+cursor: pointer;
+}
+
+.disabledFileds{
+  pointer-events: none;
+  cursor: not-allowed;
+  border-bottom: unset !important;
+}
+
+::ng-deep .mat-input-element[type=date]::after{
+  white-space: unset !important;
+}
+
+.time-column{
+  margin-bottom: 0 !important;
+}
+
+.material-icons{
+  margin-right: 8px;
+  margin-top: 10px;
+}
+.addbtn{
+  padding-left: 0px;
+}
+.dateSelection{
+  display:flex;
+  align-items: center;
+}
+
+.fromdates{
+  display: flex;
+  flex-direction: column;
+}
+
+::ng-deep .dateSelection .datePicker{
+  width: 100% !important;
+}
+::ng-deep .selectDate mat-form-field{
+  line-height:  unset !important;
+}
+
+::ng-deep .selectDate .mat-form-field-infix{
+  padding: 0 !important;
+  margin-top: 11px !important;
+}

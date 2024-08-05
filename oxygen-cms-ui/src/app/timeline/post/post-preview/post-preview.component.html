@@ -1,0 +1,69 @@
+<div
+  class="post"
+  *ngIf="post && post.template"
+  [ngClass]="getCssClass(post.template)">
+  <div class="post__timestamp" *ngIf="post.template.showTimestamp">
+    26 min
+  </div>
+  <div class="post__row">
+    <div class="post__col w-100">
+      <div class="post__header">
+        <div class="post__icon">
+              <span *ngIf="activePostIconImage">
+                <svg-list [list]="activePostIconImage.svg"></svg-list>
+                <svg class="mat-icon image-preview">
+                  <use [attr.xlink:href]="'#'+activePostIconImage.svgId"></use>
+                </svg>
+              </span>
+        </div>
+
+
+        <div class="post__header-part post__header-text">
+          <div class="post__header-icon post__header-part" *ngIf="activeHeaderIconImage">
+            <svg-list [list]="activeHeaderIconImage.svg"></svg-list>
+            <svg class="mat-icon image-preview">
+              <use [attr.xlink:href]="'#'+activeHeaderIconImage.svgId"></use>
+            </svg>
+          </div>
+          <span class="post__header-part--yellow" *ngIf="post.template.yellowHeaderText">{{ post.template.yellowHeaderText }}</span>
+          <ng-container *ngIf="post.template.headerText">
+            {{ post.template.headerText }}
+          </ng-container>
+          <div
+            class="post__header-part post__header__racing-icon"
+            *ngIf="post.template.showRacingPostLogoInHeader">
+            | <img src="/assets/timeline/rp-black.svg" alt="" />
+          </div>
+          <span class="post__header-part post__header__racing-label" *ngIf="post.template.isSpotlightTemplate || post.template.isVerdictTemplate" [textContent]="post.template.isSpotlightTemplate ? 'Spotlight' : 'Verdict'">
+          </span>
+        </div>
+      </div>
+
+      <div
+        class="post__subheader"
+        [ngClass]="{
+          'post__subheader--yellow': post.template.isYellowSubHeaderBackground
+        }">
+        {{ post.template.subHeader }}
+      </div>
+      <div class="post__text" [innerHTML]="post.template.text"></div>
+      <div
+        class="post__bet"
+        *ngIf="post.template.betPromptHeader || post.template.selectionId">
+        <div class="post__bet__header">
+          <span *ngIf="post.template.betPromptHeader">{{ post.template.betPromptHeader }}</span>
+        </div>
+        <div class="post__bet__button">
+          <button class="btn" *ngIf="post.template.selectionId">100/1</button>
+        </div>
+      </div>
+    </div>
+    <div
+      class=" post__col post__racing-logo"  *ngIf="post.template.topRightCornerImage?.filename || post.template.showRedirectArrow">
+      <a>
+        <img *ngIf="post.template.topRightCornerImage?.filename" [src]="absoluteUrl(post.template.topRightCornerImage)" alt="" />
+        <i *ngIf="post.template.showRedirectArrow" class="material-icons">chevron_right</i>
+      </a>
+    </div>
+  </div>
+</div>

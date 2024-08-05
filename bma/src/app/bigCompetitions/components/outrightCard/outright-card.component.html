@@ -1,0 +1,20 @@
+<div class="card-view-container" *ngIf="market.outcomes">
+  <div class="scroll-container" scrollable>
+    <ul class="scroll-inner">
+      <li class="card-view"
+          *ngFor="let outcomeEntity of market.outcomes | slice:0:limit; trackBy: trackByFn;">
+        <a class="odds-name" [textContent]="getOutcomeName(outcomeEntity.participants)"></a>
+        <price-odds-button [event]="eventEntity"
+                           [market]="market"
+                           [outcome]="outcomeEntity"
+                           [gtmModuleTitle]="gtmModuleTitle">
+        </price-odds-button>
+      </li>
+      <li class="card-view show-next-items" (click)="showNext()" *ngIf="hideShowNext">
+        <span class="next-items" [i18n]="'bigcompetitions.showNext'"></span>
+        <span class="items-quantity" [textContent]="maxDisplay"></span>
+        <span class="items" [i18n]="'bigcompetitions.items'"></span>
+      </li>
+    </ul>
+  </div>
+</div>

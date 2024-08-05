@@ -1,0 +1,95 @@
+{
+  "betBuild": [
+    {
+      "betNo": "1",
+      "betCombination": [
+        {
+          "betType": "SGL",
+          "betNoOfLines": "1",
+          "betLegSort": "TC",
+          "betTypeName": "Single",
+          "currency": "GBP",
+          "betMinStake": "0.01",
+          "betMaxStake": "100000.00",
+          "betPrice": "",
+          "betPricePlace": "",
+          "eachWayAvailable": "N",
+          "cashoutAvailable": "N",
+          "maxPayout": "1000000"
+        }
+      ],
+      "complexLegCombination": [
+        {
+          "outcome": [
+            "100000",
+            "200000"
+          ],
+          "cashoutAvailable": "N",
+          "leg": [
+            {
+              "legSort": "SF",
+              "numLines": "1"
+            },
+            {
+              "legSort": "RF",
+              "numLines": "2"
+            }
+          ]
+        }
+      ],
+      "offers": {}
+    }
+  ],
+  "outcomeDetails": [
+    {
+      "id": "100000",
+      "priceNum": "",
+      "priceDen": "",
+      "startPriceNum": "",
+      "startPriceDen": "",
+      "eachWayNum": "1",
+      "eachWayDen": "5",
+      "eachWayPlaces": "3",
+      "name": "|Classical Milano|",
+      "marketId": "148619513",
+      "marketDesc": "|Win or Each Way|",
+      "eventId": "10008830",
+      "eventDesc": "|19:10 Hexham|",
+      "typeId": "1936",
+      "typeDesc": "Hexham",
+      "classId": "223",
+      "className": "|Horse Racing - Live|",
+      "categoryId": "21",
+      "category": "HORSE_RACING",
+      "status": "A",
+      "birIndex": "",
+      "accMin": "1",
+      "accMax": "25"
+    },
+    {
+      "id": "200000",
+      "priceNum": "",
+      "priceDen": "",
+      "startPriceNum": "",
+      "startPriceDen": "",
+      "eachWayNum": "1",
+      "eachWayDen": "5",
+      "eachWayPlaces": "3",
+      "name": "|King Golan|",
+      "marketId": "148619513",
+      "marketDesc": "|Win or Each Way|",
+      "eventId": "10008830",
+      "eventDesc": "|19:10 Hexham|",
+      "typeId": "1936",
+      "typeDesc": "Hexham",
+      "classId": "223",
+      "className": "|Horse Racing - Live|",
+      "categoryId": "21",
+      "category": "HORSE_RACING",
+      "status": "A",
+      "birIndex": "",
+      "accMin": "1",
+      "accMax": "25"
+    }
+  ]
+}

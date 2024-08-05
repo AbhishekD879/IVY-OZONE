@@ -1,0 +1,51 @@
+server:
+  port: 8080
+
+spring:
+  redis:
+    port: 6379
+    host: localhost
+  profiles.active: LOCAL
+reactions:
+  mongodb:
+    mongoUser: emojiuser
+    authSource: admin
+    dbHosts: localhost:27017
+    dbName: reactionsdb
+    algorithm: DES
+    passwordFile: mongodb/nonprod/Reaction.bin
+    passwordKeyfile: profilekey.pem
+  cmsBaseUrl:
+  cmsSurfaceBetApiPath: 'cms/api/active-surface-bets/bma'
+  cmsHealthApiPath: 'actuator/health'
+  bppBaseUrl:
+  bppTokenApiPath: auth/userdata
+  cron.expression: '0 0 5 * * WED'
+  time.zone: 'Europe/London'
+  batchSize: 1000
+  http.client:
+    connectTimeout: 30000
+    keepAlive: true
+    readTimeout: 1000
+    responseTimeout: 60
+
+logging:
+  level:
+    root: INFO
+
+management:
+  endpoint.health.show-details: ALWAYS
+  endpoints.web:
+    base-path: '/'
+    exposure.include: health,info,env
+  health.defaults.enabled: false
+
+cors:
+  allowedOrigins: https://bm-tst1.coral.co.uk,https://bm-tst1.ladbrokes.com
+
+masterlock:
+  lease-duration: 15
+  heartbeat-period: 3
+  aws:
+    region: eu-west-2
+    dynamo.url: https://dynamodb.eu-west-2.amazonaws.com

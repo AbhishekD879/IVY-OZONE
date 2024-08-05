@@ -1,0 +1,65 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="!isLoading" xmlns="http://www.w3.org/1999/html">
+  <div class="header">
+    <h2 class="has-activity-badge">BYB Static Block: <span class="font-italic">{{ yourCallStaticBlock.title }}</span></h2>
+    <create-updated-at-by class="has-activity-badge" [collection]="yourCallStaticBlock"></create-updated-at-by>
+    <header-activity-badge [state]="!yourCallStaticBlock.enabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="!isLoading">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox color="primary"
+                      [checked]="yourCallStaticBlock.enabled"
+                      (change)="yourCallStaticBlock.enabled = !yourCallStaticBlock.enabled">
+          Active
+        </mat-checkbox>
+      </div>
+      <div class="col-md-2">
+        <mat-checkbox color="primary"
+                      [checked]="yourCallStaticBlock.fiveASide"
+                      (change)="yourCallStaticBlock.fiveASide = !yourCallStaticBlock.fiveASide">
+          Active for 5 A Side
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          BYB Static Block Title
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !yourCallStaticBlock.title}">
+          <input matInput placeholder="BYB Static Block Title"  [(ngModel)]="yourCallStaticBlock.title" [value]="yourCallStaticBlock.title" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!yourCallStaticBlock.title">BYB Static Block Title should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Html Markup</span>
+      </div>
+      <div class="col-md-10">
+        <tinymce-editor
+          #htmlMarkup
+          [pageName]="'your-call'"
+          [pageItemId]="yourCallStaticBlock.id"
+          (outputEditorData)="updateStaticBlock($event, 'htmlMarkup')"
+          [initialEditorContent]="yourCallStaticBlock.htmlMarkup">
+        </tinymce-editor>
+      </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="!isLoading"
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'title'"
+  [collection]="yourCallStaticBlock"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

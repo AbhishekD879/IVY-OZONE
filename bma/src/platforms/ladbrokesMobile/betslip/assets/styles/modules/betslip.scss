@@ -1,0 +1,491 @@
+@import '../../../../app/betslip/assets/styles/modules/betslip.scss';
+
+$bs-input-border-color: rgba(43, 43, 43, 0.3);
+$bs-input-border-color-focus: rgba(43, 43, 43, 0.8);
+$bs-overask-enambled-opacity: 0.2;
+
+.bs-footer {
+  background-color: $color-white;
+  &.with-shadow {
+    box-shadow: 0 -2px 2px 0 rgba(210, 210, 210, 0.5);
+  }
+  &.keyboard-shown digit-keyboard {
+    padding: 0 12px 16px;
+    border-bottom: 0;
+  }
+
+  .bs-buttons-wrapper {
+    padding: 0 12px 16px;
+  }
+
+}
+
+.multiples-header {
+  font-family: $alt-font-family;
+  text-transform: none;
+  font-weight: 400;
+  color: $color-gray-darkest;
+  font-size: 13px;
+  margin: 8px 0 0;
+  background-color: $lGrayLight;
+  padding: 0 0 0 12px;
+
+  & ~ .stakes-wrapper {
+    padding: 0;
+  }
+}
+
+.all-stakes-title {
+  font-size: 15px;
+  color: $color-gray-darkest;
+}
+
+.stakes-wrapper {
+  padding: 0;
+
+  &:last-child {
+    padding: 0;
+  }
+}
+
+.bs-stake {
+  font-family: $alt-font-family;
+  min-height: 60px;
+
+  &:first-child {
+    border-top: 1px solid $lGrayLight;
+  }
+
+  .bs-stake-content {
+    padding: 12px 16px 13px;
+  }
+
+  .bs-stake-actions {
+    flex: 0 0 20px;
+
+    .bs-stake-delete-button {
+      left: 12px;
+      top: 16px;
+      svg {
+        fill: $lBlack-light;
+        width: 12px;
+      }
+    }
+  }
+
+  .bs-stake-info {
+    padding-top: 0;
+    overflow: initial;
+    white-space: initial;
+
+    .bs-stake-title,
+    .bs-stake-event-name {
+      color: $color-gray-darkest;
+    }
+
+    .bs-stake-title {
+      font-size: 15px;
+      line-height: 18px;
+    }
+
+    .bs-stake-type {
+      color: $lBlack-light;
+    }
+  }
+
+  .bs-stake-body {
+    .stake-input > input {
+      padding-left: 21px;
+      color: $color-gray-darkest;
+      border: 1px solid $bs-input-border-color;
+
+      @include custom-placeholder { color: $lBlack-light };
+
+      &.dk-active-input {
+        border: $bs-stake-input-border-focused;
+        box-shadow: $bs-stake-input-shadow-focused-out, $bs-stake-input-shadow-focused-in;
+      }
+    }
+
+    .stake-input > select {
+      font-weight: normal;
+      font-size: 15px;
+      color: $color-gray-darkest;
+    }
+
+    .stake-odd {
+      font-size: 15px;
+    }
+
+    .currency-label:before {
+      color: $color-gray-darkest;
+    }
+
+    .stake-odd-number {
+      font-weight: 400;
+      font-size: 15px;
+      color: $color-gray-darkest;
+      &.boosted {
+        opacity: 1;
+        color: $color-gray-disabled;
+        font-size: 12px;
+      }
+    }
+
+    .stake-est-return {
+      color: $color-gray-darkest;
+      padding-left: 0;
+    }
+  }
+
+  &.suspended {
+    .estimated-returns-ew {
+      @include display-flex();
+    }
+
+    .stake-odds {
+      display: block;
+    }
+
+    .bs-stake-info {
+      .bs-stake-title,
+      .bs-stake-event-name {
+        color: $color-gray-darkest;
+      }
+
+      .bs-stake-type {
+        color: $lBlack-light;
+      }
+    }
+
+    .bs-stake-content:after {
+      background-color: rgba(239, 239, 243, 0.7);
+      color: $lBlack-light;
+      font-size: 14px;
+    }
+
+    .bs-stake-body .stake-input>input {
+      background: transparent;
+      z-index: 1;
+    }
+  }
+}
+
+.footer-notifications {
+  .bs-notification {
+    min-height: 44px;
+    border-bottom: 1px solid $lGrayLight;
+    padding: 5px 15px;
+    color: $color-gray-darkest;
+
+    &.default {
+      background: $color-white;
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+      margin-right: 5px;
+      flex-shrink: 0;
+    }
+  }
+}
+
+.acca-bets {
+  & + .stakes-wrapper {
+    .bs-stake {
+      &:first-child {
+        border-top: none;
+      }
+    }
+  }
+}
+
+.bs-buttons-wrapper {
+  $betnow-disabled-color: #c5de91;
+  padding: 0 15px 15px;
+
+  .base-btn {
+    font-size: 15px;
+    margin-left: 4px;
+    height: 44px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+    background: $color-green-alt;
+     &:hover{
+      background: $color-green-light2;
+    }
+    &:active{
+      background: $color-green-shine;
+    }
+  }
+
+  .betnow-btn {
+    border-radius: 2px;
+  }
+
+  .reuse-selection-btn {
+    background: $lGrayLighter !important;
+    color: $lGray;
+    border-radius: 2px;
+  }
+  .reuse-selection-btn,
+  .done-btn {
+     width: 49%;
+     background-color: $color-green-alt;
+     &:active{
+      background: $color-green-shine;
+    }
+  }
+
+  .betnow-btn,
+  .overask-btn1 {
+    background-color: $color-green-alt;
+    &:hover{
+      background: $color-green-light2;
+    }
+    &:active{
+      background: $color-green-shine;
+    }
+
+    &[disabled] {
+      background-color: $color-maingreen;
+      color: $color-white;
+      opacity: .5;
+    }
+  }
+
+  .overask-btn1 {
+    width: calc(67% - 4px);
+  }
+}
+.bs-scrolling-fix-ios .accordion-header {
+  -webkit-transform: translate3D(0, 1px, 0);
+  transform: translate3D(0, 1px, 0);
+}
+
+.bs-stake .bs-notification {
+  min-height: 30px;
+  font-weight: normal;
+}
+
+.bs-content {
+  background-color: $lGray-bg;
+  .total-fee {
+    text-align: center;
+    padding-top: 8px;
+  }
+  .bs-footer .total-fee {
+    font-family: $alt-font-family;
+    text-align: left;
+    padding: 12px 16px 16px;
+  }
+  .bs-notification {
+    font-family: $alt-font-family;
+
+    &.error, &.success {
+      font-weight: normal;
+
+      background-color: $warning-msg-color;
+      color: $lGray;
+
+      &.top:after {
+        border-color: transparent transparent $warning-msg-color transparent;
+      }
+
+      &.bottom:after {
+        border-color: $warning-msg-color transparent transparent transparent;
+      }
+
+      a {
+        color: $color-red;
+      }
+    }
+
+    &.information {
+      background-color: $warning-msg-color;
+      color: $lGray;
+
+      &.top:after {
+        border-color: transparent transparent $warning-msg-color transparent;
+      }
+
+      &.bottom:after {
+        border-color: $warning-msg-color transparent transparent transparent;
+      }
+    }
+
+    &.animated {
+      margin-top: -45px;
+      animation: 5s slidein;
+    }
+    &.acca-transparent {
+      background-color: $color-grey-transparent;
+      font-size: 12px;
+      color: $lBlack-medium;
+      opacity: 0.9;
+      .bs-notification-message {
+        font-weight: normal;
+      }
+    }
+  }
+
+  .bs-stake {
+    .bs-notification {
+      $error-bg-color: #e0f6fa;
+
+      &.error {
+        background-color: $error-bg-color;
+
+        &.top:after {
+          border-color: transparent transparent $error-bg-color transparent;
+        }
+
+        &.bottom:after {
+          border-color: $error-bg-color transparent transparent transparent;
+        }
+      }
+    }
+  }
+}
+
+@keyframes slidein {
+  0% { margin-top: -45px; }
+  10% { margin-top: 0; }
+  90% { margin-top: 0; }
+  100% { margin-top: -45px; }
+}
+
+@-moz-keyframes slidein {
+  0% { margin-top: -45px; }
+  10% { margin-top: 0; }
+  90% { margin-top: 0; }
+  100% { margin-top: -45px; }
+}
+
+@-webkit-keyframes slidein {
+  0% { margin-top: -45px; }
+  10% { margin-top: 0; }
+  90% { margin-top: 0; }
+  100% { margin-top: -45px; }
+}
+
+betslip-subheader {
+  display: block;
+}
+
+.bs-stake-notifications .bs-notification-message {
+  font-weight: 500;
+}
+
+.bs-checkbox-wrapper {
+  position: absolute;
+  margin: 0;
+  left: 12px;
+  top: 16px;
+
+  .bs-overask-bet-remove-icon {
+    position: absolute;
+    fill: $lBlack-light;
+  }
+}
+
+.bs-overaks-undo-btn {
+  color: $lGrayMediumLight;
+  right: 16px;
+  width: 44px;
+  height: 22px;
+  line-height: 20px;
+  margin-top: -11px;
+  font-family: $base-font-family;
+}
+
+.bs-overask-bet-removed {
+  .multiple-bet-parts {
+    .bs-multiple-part-and,
+    .bs-stake-body {
+      opacity: $bs-overask-enambled-opacity;
+    }
+  }
+
+  .bs-stake-notifications {
+    opacity: $bs-overask-enambled-opacity;
+  }
+
+  .bs-stake-info {
+    .bs-stake-title > *:not(.bs-overask-bet-removed-note),
+    > *:not(.bs-stake-title),
+    .free-bet-toggle {
+      opacity: $bs-overask-enambled-opacity;
+    }
+  }
+}
+
+.multiple-bet-part {
+  .bs-multiple-part-and {
+    border-color: $lGrayLight;
+    opacity: 1;
+    left: 0;
+    right: 0;
+
+    .bs-multiple-part-and-text {
+      color: $lBlack-light;
+    }
+  }
+
+  &:last-child {
+    .bs-multiple-part-and-text {
+      position: absolute;
+      border-color: $lGrayLight;
+    }
+  }
+}
+
+// date-pickers
+betslip-tabs-body, #bs-tabs-container {
+  .date-picker-wrapper {
+    background: $color-white;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .25);
+    overflow: hidden;
+    .datepickers-section {
+      display: flex;
+      justify-content: space-between;
+      padding: 18px 9px 16px 8px;
+      height: auto;
+    }
+  }
+  .date-picker-wrapper-open-bets {
+    background: $color-white;
+    overflow: hidden;
+    .datepickers-section {
+      display: flex;
+      justify-content: space-between;
+      padding: 18px 9px 16px 8px;
+      height: auto;
+    }
+  }
+}
+
+// Bet receipt
+.bs-receipt-wrapper {
+
+  .bs-footer {
+    background-color: inherit;
+  }
+
+  .bs-content {
+
+    &.all-bets-declined {
+
+      .stakes-wrapper {
+        padding-top: 0;
+      }
+
+      .bs-buttons-wrapper {
+        padding-top: 16px;
+      }
+    }
+  }
+}

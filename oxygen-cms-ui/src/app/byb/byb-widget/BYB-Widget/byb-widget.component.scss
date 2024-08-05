@@ -1,0 +1,76 @@
+.displaList{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-left: 7px;
+    width: 70% !important;
+}
+.bybLabel{
+    padding-left: 7px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.checkBoxList{
+    display: flex;
+    padding-left: 7px;
+    width: 100% ;
+    justify-content: space-between;
+}
+
+a:not([href]){
+    color: #4a90e2;
+    text-decoration: underline;
+}
+
+.checkBoxAdjust{
+    margin: 0 10px !important;
+}
+.checkContent{
+    display: flex;
+    align-items: center;
+}
+.checkLabell{
+    margin-top: 10px;
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+.headerLabel{
+    padding-left: 0;
+}
+
+::ng-deep .bybClass1{
+    max-width: 85px !important;
+}
+
+.cmsDataTable{
+    max-width: 100%;
+    overflow: auto;
+}
+.checkBox{
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+
+::ng-deep .cmsDataTable {
+    .mat-form-field{
+        max-width: 100% !important;
+    }
+    .mat-form-field-appearance-legacy .mat-form-field-underline {
+        height: 0 !important;
+    }
+
+    .mat-form-field-underline {
+        bottom: 4px !important;
+    }
+
+    .mat-form-field-wrapper {
+        padding-bottom: 0 !important;
+    }
+}
+
+::ng-deep .mat-sort-header-arrow{
+    display: none !important;
+}
+

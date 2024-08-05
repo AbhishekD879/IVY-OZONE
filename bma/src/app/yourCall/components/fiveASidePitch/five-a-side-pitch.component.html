@@ -1,0 +1,132 @@
+<drawer class="five-a-side-overlay"
+        (hide)="activeView && hidePitch()"
+        [show]="showPitch"
+        [position]="false"
+        [contentClass]="'five-a-side pitch'">
+  <div header header="true" class="text-left">
+    <div class="five-a-side-bs-overlay"></div>
+    <div class="five-a-side-title">
+      <svg class="five-a-side-icon">
+        <use xlink:href="#icon-logo-five-a-side"></use>
+      </svg>
+      <svg class="five-a-side-text">
+        <use xlink:href="#5-a-side-header-text"></use>
+      </svg>
+      <p class="subtitle-text" data-crlat="subtitleText" [i18n]="'yourCall.selectFormation'"></p>
+    </div>
+  </div>
+  <div body class="scroll-body">
+    <section class="formation-carousel scroll-container" data-crlat="formationContainer" scrollable>
+      <div class="scroll-inner" *ngIf="formations">
+        <div class="formation-cell" data-crlat="formationCell"
+            (click)="changeFormation(formation)"
+            *ngFor="let formation of formations; trackBy: trackById">
+          <svg class="formation-icon" data-crlat="formationIcon">
+            <use [attr.xlink:href]="'#' + formation.actualFormation + '-' +
+                (selectedFormation.id === formation.id ? 'active' : 'inactive')"></use>
+          </svg>
+          <span class="formation-name" data-crlat="formationName"
+                [ngClass]="{
+                  'selected': selectedFormation.id === formation.id,
+                  'unselected': selectedFormation.id !== formation.id
+                }"
+                [textContent]="formation.title"></span>
+        </div>
+      </div>
+    </section>
+    <div class="five-a-side-body">
+      <div class="error-wrapper" [ngClass]="{'hide': !errorMessage }">
+        <svg class="info-icon">
+          <use xlink:href="#icn_infoicon"></use>
+        </svg>
+        <div class="error-message" data-crlat="errorMessage" [textContent]="errorMessage"></div>
+      </div>
+
+      <five-a-side-event-name-header [eventId]="eventEntity.id"
+                                     [sportId]="eventEntity.sportId"
+                                     [eventCategory]="eventEntity.categoryCode">
+      </five-a-side-event-name-header>
+
+      <div class="branding-section">
+        <div class="branding-wrapper" *ngFor="let number of [0,1]">
+          <svg class="branding-icon" data-crlat="brandingIcon">
+            <use xlink:href="#branding"></use>
+          </svg>
+        </div>
+      </div>
+      <div class="watermark">
+        <svg >
+          <use xlink:href="#5-a-side-watermark"></use>
+        </svg>
+      </div>
+      <div class="football-field" data-crlat="footballField">
+        <div class="formation-value"  data-crlat="formationValue" *ngIf="selectedFormation" [textContent]="selectedFormation.actualFormation"></div>
+        <div class="first-goal-line"></div>
+        <div class="second-goal-line">
+          <div class="dot"></div>
+        </div>
+        <div class="circle-goal-line"></div>
+        <div class="circle-bottom-line"></div>
+
+        <div class="players-matrix">
+          <section [ngClass]="'cell cell-' + item.rowIndex + '-' + item.collIndex"
+                  *ngFor="let item of matrixFormation; trackBy: trackByFn">
+            <section *ngIf="item"
+                    [ngClass]="{ 'conflict': disabledRolesMarked && !playersObject[item.roleId]?.hasConflict }"
+                    class="player" data-crlat="player">                    
+              <div (click)="addPlayer(item)"
+                   class="player-icon"
+                   [style.background]="(!(teamsImgExistOnHomeAway && playersObject[item.roleId] && playersObject[item.roleId].fiveASideToggle && playersObject[item.roleId].teamsImage) && playersObject[item.roleId]?.playerIconBackground)"
+                   [ngClass]="{'not-selected-player-icon': !playersObject[item.roleId], 'no-box-shadow':(teamsImgExistOnHomeAway && playersObject[item.roleId] && playersObject[item.roleId].fiveASideToggle && playersObject[item.roleId].teamsImage)}" 
+                   data-crlat="playerIcon"
+                   >
+                <div *ngIf="!playersObject[item.roleId]" class="plus-icon"></div>
+                <ng-container *ngIf="(teamsImgExistOnHomeAway && playersObject[item.roleId] && playersObject[item.roleId].fiveASideToggle && playersObject[item.roleId].teamsImage)">
+                  <img class="player-image"  [attr.src]="playersObject[item.roleId]?.teamsImage"/>
+                </ng-container>
+              </div>
+              <div *ngIf="!playersObject[item.roleId]" class="player-name" [textContent]="item.position || addPlayerlabel" data-crlat="playerName"></div>
+              <div
+                *ngIf="playersObject[item.roleId]"
+                class="player-name"
+                [textContent]="playersObject[item.roleId].playerName" data-crlat="playerName"></div>
+              <div class="market-name" *ngIf="!hasThreeInRow || (hasThreeInRow && hasThreeInRowIndex !== item.rowIndex)" [textContent]="playersObject[item.roleId]?.marketTitle || item.stat" data-crlat="marketName"></div>
+              <div class="market-name" *ngIf="hasThreeInRow && hasThreeInRowIndex === item.rowIndex" [textContent]="playersObject[item.roleId]?.shortHandMarketTitle || item.stat"></div>
+            </section>
+          </section>
+        </div>
+        <btn-odds [isActive]="isValid"
+                  [price]="formattedPrice"
+                  [oddsFormat]="oddsFormat"
+                  (click)="ctaButtonClick()"
+                   data-crlat="placeBtn"></btn-odds>
+      </div>
+
+      <five-a-side-journey
+        *ngIf="showJourney && slides.length"
+        [availableFiveASideFreeBets]="availableFiveASideFreeBets"
+        [slides]="slides">
+      </five-a-side-journey>
+    </div>
+    <div class="five-a-side-bs-overlay"></div>
+    <div *ngIf="yourcallBetslipShown" class="five-a-side-pitch-overlay"></div>
+    <yourcall-betslip *ngIf="isTabletOrDesktop"
+                      [eventEntity]="eventEntity"
+                      [bodyClass]="'five-a-side-betslip-opened'"
+                      [recalculatePositions]="!isTabletOrDesktop"
+                      [isFiveASideBet]="true"
+                      (isBetReceipt)="isBetReceipt = true"
+                      (closeBetReceipt)="closePitch()"
+                      (closeQuickBet)="handleCloseQuickBet()"
+                      class="five-a-side-betslip"
+                      [betslipType]="'fiveaside_stakes'"></yourcall-betslip>
+  </div>
+</drawer>
+
+<yourcall-betslip *ngIf="!isTabletOrDesktop"
+                  [eventEntity]="eventEntity"
+                  [isFiveASideBet]="true"
+                  (isBetReceipt)="isBetReceipt = true"
+                  (closeBetReceipt)="closePitch()"
+                  class="five-a-side-betslip"
+                  [betslipType]="'fiveaside_stakes'"></yourcall-betslip>

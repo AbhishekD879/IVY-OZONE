@@ -1,0 +1,141 @@
+<ng-container *ngIf="!state.loading && !state.error">
+  <top-bar [title]="eventEntity ? eventEntity.name : sportName"
+           [event]="eventEntity"
+           [isSpecial]="isSpecialEvent"
+           [sportName]="sportName">
+    <date-info>
+      <div class="date-side flex" *ngIf="eventEntity">
+        <svg *ngIf="eventEntity.eventIsLive" class="live-ico" data-crlat="liveLabel">
+          <use xlink:href="#live-label-yellow"></use>
+        </svg>
+        <div class="event-date-time">
+          <span [textContent]="eventStartDate" data-crlat="eventEntity.filteredTime"></span>
+        </div>
+      </div>
+    </date-info>
+    <span *ngIf="isQuickSwitchEnabled" changeMatch class="changeMatch" data-crlat="changeMatch" (click)="changeMatchToggle()">
+      <span class="title">Change Match</span>
+      <svg class="arrow">
+        <use [attr.xlink:href]="(changeMatch? '#up-arrow' : '#down-arrow')"></use>
+      </svg>
+    </span>
+  </top-bar>
+
+  <breadcrumbs [sportEvent]="eventEntity ? eventEntity.name : ''" [sportName]="sportName"
+               [isOlympics]="isOlympics" [isEDPpage]="true"></breadcrumbs>
+
+  <no-events *ngIf="!eventEntity" message="sb.noMarketsAvailable"></no-events>
+
+  <div *ngIf="eventEntity" class="sport-event-tabs">
+    <span *ngIf="changeMatch" class="quick-switch-overlay quick-switch-overlay-lads"></span>
+    <event-title-bar
+      *ngIf="isDesktopScoreboardAvailable() && showMatchLive"
+      [event]="eventEntity"
+      [fallbackScoreboardType]="fallbackScoreboardType"
+      [isFallbackScoreboards]="isFallbackScoreboards"
+      [sportname]="sportName"
+      [isSpecial]="isSpecialEvent"
+      [isOutright]="isOutRight"
+      [isFootball]="isFootball"
+      data-crlat="eventEntity">
+    </event-title-bar>
+
+    <opta-scoreboard *ngIf="optaScoreboardAvailable && showMatchLive && isMatchLive"
+                     [event]="eventEntity">
+    </opta-scoreboard>
+    <div class="data--disclaimer--container" *ngIf="isShownDisclaimer()">
+      <div class="disclaimer" [textContent]="dataDisclaimer?.dataDisclaimer"></div>
+    </div>
+    <div class="watch-live-widget" [ngClass]="cssClass">
+      <div class="live-column match-live" *ngIf="showMatchLive && isMatchLive">
+        <bet-genius-scoreboard class="bet-genius-container"
+                               *ngIf="bgScoreboardConfig.available"
+                               [config]="bgScoreboardConfig">
+        </bet-genius-scoreboard>
+
+        <lazy-component *ngIf="brScoreboardConfig.available"
+          moduleUri="@lazy-modules-module/betRadarProvider/bet-radar.module#BetRadarLadbrokesModule"
+          [inputs]="{betRadarMatchId: betRadarMatchId}">
+        </lazy-component>
+
+        <img-scoreboard-provider
+          *ngIf="imgFrontRowArena.available && imgEventDetails && !streamShown"
+          [imgEventDetails]="imgEventDetails"
+        ></img-scoreboard-provider>
+
+        <vis-pre-match-widget class="match-widget-container"
+                              *ngIf="preMatchWidgetAvailable"
+                              [hidden]="streamShown"
+                              [eventId]="eventId"></vis-pre-match-widget>
+        <visualization-container
+          class="vis-inplay-widget-container"
+          *ngIf="eventsWithVisualizationParams.length"
+          [visType]="'slider'"
+          [visParams]="eventsWithVisualizationParams"
+          [eventId]="eventId"
+          [expandable]="false">
+        </visualization-container>
+        <scoreboard id="scoreboard-panel"
+                    *ngIf="gpScoreboardAvailable"
+                    [eventId]="eventId"
+                    [scoreboardUrl]="scoreboardUrl">
+        </scoreboard>
+      </div>
+      <div class="live-column watch-live" *ngIf="isLiveStreamAvailable()">
+        <!-- Video Stream lazy component -->
+        <lazy-component moduleUri="@lazy-modules-module/eventVideoStream/event-video-stream.module#LazyEventVideoStreamModule"
+                        [inputs]="{
+                        eventEntity: eventEntity,
+                        autoPlay: true,
+                        colorSchema: 'white-stream',
+                        preloadStream: true,
+                        cssClassesForStreams: cssClassesForStreams
+                        }">
+        </lazy-component>
+      </div>
+      <div class="live-switcher" *ngIf="showWatchLiveWidget(true)" data-crlat="tab.tpTabs">
+        <a href="" class="live-switch" [ngClass]="{'active': showMatchLive}"
+           (click)="toggleLive($event)" [i18n]="'sb.visualisation'" data-crlat="tab"></a>
+        <a href="" class="live-switch" [ngClass]="{'active': !showMatchLive}"
+           (click)="toggleLive($event)" data-crlat="watchLive">
+          <svg class="watch-live-ico">
+            <use xlink:href="#stream"></use>
+          </svg>
+          <span [i18n]="'sb.watchLive'"></span>
+        </a>
+      </div>
+    </div>
+
+    <enhanced-multiples-carousel *ngIf="isEnhancedMultiplesEnabled && !eventEntity.eventIsLive && !isOutrightEvent(eventEntity)"
+                                 [sportName]="sportName">
+    </enhanced-multiples-carousel>
+
+      <div *ngIf="activeUserTab === 'markets'" data-crlat="tabContent">
+        <no-events *ngIf="!eventEntity.markets.length" [message]="'sb.noMarketsAvailable'"></no-events>
+
+        <edp-surface-bets-carousel *ngIf="(isOutRight || isEnhanceMultiples) && eventEntity?.id" [eventId]="eventEntity.id"></edp-surface-bets-carousel>
+        <!-- Outrights Event Page -->
+        <event-markets *ngIf="isOutRight || isLuckyDipMarket(eventEntity)" [eventEntity]="eventEntity" [panelType]="'outright'" [isLuckyDipMarketAvailable]="isLuckyDipMarket(eventEntity)" data-crlat="accordionsList"></event-markets>
+
+        <!-- Enhanced Multiples Event Page -->
+        <event-markets *ngIf="isEnhanceMultiples"
+                       [eventEntity]="eventEntity"
+                       [panelType]="'enhancedMultiple'"
+                       data-crlat="enhanceMultiplesMarket">
+        </event-markets>
+        <sport-event-page *ngIf="!isEnhanceMultiples && !isOutRight && !isLuckyDipMarket(eventEntity)"
+          [isOptaAvailable]="optaScoreboardAvailable"
+          [isOptaProviderPresent]="isOptaProviderPresent">
+        </sport-event-page>
+      </div>
+  </div>
+  <lazy-component *ngIf="changeMatch"
+      moduleUri="@lazy-modules-module/eventQuickSwitch/quick-switch.module#LazyQuickSwitchModule"
+      [inputs]="{sport: sport, typeId: eventEntity?.typeId}"
+      [outputs]="['closeQuickSwitchPanel']"
+      (event)="handleQuickSwitchEvent($event)">
+    </lazy-component>
+</ng-container>
+<outlet-status [state]="state">
+  <request-error (reloadFn)="reloadComponent()"></request-error>
+</outlet-status>

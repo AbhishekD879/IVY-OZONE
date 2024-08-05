@@ -1,0 +1,123 @@
+@import 'global.variables.scss';
+
+.merge {
+  margin-top: -1px;
+}
+
+.container {
+  .marginall {
+    margin: 0px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    padding: 5px;
+    background-color: $color-bluecharcoal ;
+    box-shadow: -1px 2px 0 0 rgba(0, 0, 0, 0.05), 0 2px 5px 0 rgba(0, 0, 0, 0.15);
+    color: white
+  }
+
+  .byb-outcome {
+    position: relative;
+    padding: 9px 9px 9px 7px;
+
+    @media #{$mqDesktop} {
+      padding: 9px 0px 9px 0px;
+    }
+
+    &:first-child .outcome-line {
+      top: 50%;
+    }
+
+    &:last-child .outcome-line {
+      bottom: 50%;
+    }
+  }
+
+  .outcomelist {
+    margin-top: -5px;
+  }
+
+  .outcome-title {
+    @include setFontProps($alt-font-family, $font-size-tablet, bold, $color-light-white-grey);
+  }
+
+  .outcome-status-indicator {
+    position: absolute;
+    top: calc(50% - 4px);
+    left: -25px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .bet-progress {
+    margin-top: 12px;
+
+    progress-bar {
+      margin-bottom: 8px;
+    }
+
+    .progress-desc {
+      margin: 6px 0px 0 2px;
+      @include setFontProps($alt-font-family, $font-size, normal, $color-maingreen);
+    }
+
+    .counter-desc {
+      margin: 4px 0px 0 2px;
+      @include setFontProps($alt-font-family, $font-size, normal, $color-gainsboro);
+    }
+  }
+
+  .outcome-title-container {
+    position: relative;
+    align-items: center;
+    @include inline-flex();
+
+    .outcome-title {
+      display: inline;
+      line-height: normal;
+    }
+    .add-margin {
+      margin-left: 5px;
+    }
+  }
+
+  .position {
+    position: absolute;
+    width: 100%;
+    height: 75%;
+       @media #{$mqMobile} {
+        width: 97%;
+        height: 75%;
+       }
+    >use {
+      opacity: 0.04;
+    }
+  }
+
+  .entry-details {
+    padding-top: 8px;
+    position: relative;
+  }
+
+  .bet-status-indicator {
+    >svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .cta-enry {
+  border-radius: 2px;
+  background-color: $color-mainblue;
+  margin-top: 15px;
+  @media #{$mqDesktop}{
+    margin: 15px 55px 5px 95px;
+  }
+}
+
+  .cta-text {
+    @include setFontProps($base-font-family, $font-size-xl, bold, $color-white);
+    line-height: 44px;
+    letter-spacing: 0.02px;
+    text-align: center;
+  }
+}

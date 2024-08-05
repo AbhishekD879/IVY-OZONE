@@ -1,0 +1,106 @@
+@import '../../../../app/shared/components/oddsCardHeader/odds-card-header.component.scss';
+
+#opta-scoreboard-overlay-wrapper {
+  display: none;
+  &.visible {
+    display: block;
+    content: '';
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1021;
+  }
+}
+
+#onboarding-overlay {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2102;
+  overflow: scroll;
+  color: #fff;
+  width: 100%;
+
+  &.active {
+    display: block;
+  }
+
+  >.centered {
+    width: inherit;
+
+    .image {
+      height: 100vh;
+      width: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+  }
+
+  .btn-close {
+    right: 18px;
+    top: 32px;
+    font-size: 1rem;
+
+    .btn-colour {
+      fill: #FFFFFF;
+      width: 13px;
+      top: 32px;
+      height: 13px;
+      left: 338px;
+    }
+  }
+
+  .base-btn {
+    font-size: 12px;
+    font-family: Lato;
+    position: absolute;
+    margin: 0 auto;
+    right: 0;
+    border: 0px;
+    background: #FFCD00;
+    color: #07294B;
+    bottom: 10.5%;
+    left: 6px;
+    font-weight: 700;
+    line-height: 14.4px;
+    height: 35px;
+    width: 100px;
+    @media only screen 
+    and (device-width : 375px) 
+    and (device-height : 812px) 
+    and (-webkit-device-pixel-ratio : 3)  {
+      bottom: 15%;
+    }
+  }
+
+  .button {
+    width: 169.5px;
+    height: 44px;
+    border-radius: 2px;
+    background: #E1E1E1;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 17.58px;
+    color: #000000;
+    align-items: center;
+    font-family: "Roboto Condensed";
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    bottom: 10%;
+    border: 0px;
+    @media only screen 
+    and (device-width : 375px) 
+    and (device-height : 812px) 
+    and (-webkit-device-pixel-ratio : 3)  {
+      bottom: 15%;
+    }
+  }
+}

@@ -1,0 +1,321 @@
+@import './colours.variables.scss';
+@import './media-queries.variables.scss';
+@import './fonts.variables.scss';
+
+$left-column-width: 160px;
+$right-column-width: 320px;
+$right-column-width-lg: 320px;
+$page-segment-width: 760px;
+
+/* OXYGEN APP STYLES
+*----------------------------------------------------------------------
+*/
+
+$clock-svg-color: #c3e6ff;
+$platform-paddings: 0px;
+
+/* Background for content blocks */
+$bg-blue: #00142c;
+
+//----------------------------------------------------------------------
+// Top Bar
+//  _______________________________________
+// |     |                                 |
+// |  <  | (icon) Title Text        (icon) |
+// |_____|_________________________________|
+$top-bar-wrap-bg : #252835;                  /* Top Bar Wrapper Background */
+$top-bar-bg      : $redDark;                  /* Top Bar Background */
+$top-bar-color   : $color-white;                     /* Top Bar Text Color */
+
+$btn-back-color   : $color-white;                    /* Back Button Color */
+$top-bar-back-bg  : $color-blue-dark-2;                 /* Back Button Background Color */
+
+$title-icon-color : $color-white;                    /* Title Icon Color */
+$competition-text-color : $color-white;
+
+//----------------------------------------------------------------------
+// Favourites/Leagues
+//  _____
+//  \___/    _|_ (counter)
+//   _|_     / \
+
+$counter-color   : $color-orange-light;    /* Favourites Counter Font Color */
+$fav-icon-color  : $color-white;           /* Favourites Icon Fill Color */
+$leag-icon-color : $color-white;         /* League Icon Fill Color */
+
+//----------------------------------------------------------------------
+// Tabs Panel
+//  _____________________________
+// |         |         |         |
+// |  tab 1  |  tab 2  |  tab 3  |
+// |_________|_________|_________|
+
+$tabs-front-clr   : $color-white;
+$tabs-back-clr    : $page-bg;
+$tabs-active-clr  : $madison;
+$tabs-shadow-color: $page-bg;
+$tabs-font-color  : $color-gray-dark;
+
+//----------------------------------------------------------------------
+// Switchers
+//
+//   Today   Tomorrow   Future
+//  ________==========_________
+
+$switch-border-color    : $color-gray;
+$switch-border-color-act: $brand-color-dark;
+$switch-background      : $brand-color-main;
+$switch-font-color      : $color-gray-dark;
+
+$btm-switchers-shadow: 0 2px 0 0 $lGrayLight;
+@mixin btm-switchers() {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+  white-space: nowrap;
+  padding: 5px 12px;
+
+  &.active:after {
+    background: #000;
+    height: 2px;
+    bottom: -5px;
+  }
+}
+
+
+/*----------------------------------------------------------------------
+* Page Container
+*/
+$page-cont-bg      : $page-bg;
+$header-bg-clr1    : $brand-color-secondary;
+$header-bg-clr2    : $brand-color-main;
+$header-font-color : $color-gray-dark;
+$header-icon-bg    : $color-gray-dark;
+
+
+/*----------------------------------------------------------------------
+* Odds Card
+*/
+
+$card-h-bg        : $color-white;
+$card-h-font-color: lighten($color-gray-dark, 50%);
+$card-border-clr  : $color-gray;
+$card-font-clr    : $color-gray-dark;
+$card-text-color: $color-gray-dark;
+
+/*----------------------------------------------------------------------
+* Links List Panel
+*/
+$list-item-border-clr: $color-gray;
+
+//----------------------------------------------------------------------
+// Bet Button
+//  _________
+// |        |
+// |  2/20  |
+// |________|
+
+$bet-btn-bg: linear-gradient(-188deg, #F7F8FB 0%, #DBDEE7 100%);
+
+//----------------------------------------------------------------------
+// Show All Button
+//  _____________________
+// |                     |
+// |      Show All       |
+// |_____________________|
+
+$show-all-bg: $page-bg;
+
+/* Background color for `<body>`. */
+$body-bg             : #b1161e;
+$page-bg             : $color-gray;
+$event-bar-bg        : $brand-color-secondary;
+$media-btns-bg       : $brand-color-secondary;
+$footer-primary-color: #818181;
+$footer-bg           : #1d1f29;
+
+/* Other */
+$border-radius: 3px;
+$border-radius-sm: 2px;
+$border-color: $color-gray-darker;
+
+$ngdialog-zindex: 1020;
+
+/*----------------------------------------------------------------------
+* <see-all-link></see-all-link> (SEE ALL >)
+*/
+
+$see-all-color: $color-blue-alt;
+
+/*----------------------------------------------------------------------
+* <list-card></list-card>
+*/
+
+$list-card-color: $color-gray-darkest;
+$list-card-border-color: $lGrayLight;
+$list-card-arrow-color: $lBlack-light;
+$list-card-font: $alt-font-family;
+$list-card-black:#2b2b2b;
+$list-card-arrow:#777777;
+$list-card-grey:#efeff3;
+
+$global-box-shadow: 0 1px 4px 0 rgba(0,0,0,0.15);
+/*----------------------------------------------------------------------
+ * <live-label></live-label>
+*/
+
+@mixin live-label {
+  color: $color-yellow-alt;
+  background: $lGray;
+  padding: 0 5px;
+  margin-right: 0;
+  font-size: $font-size-md;
+  font-family: $base-font-family;
+  font-weight: bold;
+  line-height: 15px;
+  min-height: 15px;
+  &:hover{
+    opacity: 0.85;
+    color: $color-yellow-alt; 
+  }
+  &:active{
+    background: $IGrayPremium;
+    color: $color-yellow-alt;
+    opacity: 1;
+  }
+  &::before {
+    content: none;
+  }
+}
+
+/*----------------------------------------------------------------------
+ * forecast-tricast-market
+*/
+$fortri-btn-width: 266px;
+$fortri-btn-margin: 16px auto;
+$fortri-inner-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+
+/*----------------------------------------------------------------------
+* Goal / Correction animation
+*/
+
+$goal-label-bg: $color-yellow-extra;
+$goal-label-color: $lGray;
+$correction-label-bg: $lGrayDark;
+$correction-label-color: $lGray;
+$goal-label-height: 15px;
+
+/*----------------------------------------------------------------------
+ * <lotto-bets></lotto-bets>
+*/
+$lotto-bet-margin : 0 0 12px;
+.lotto-bet {
+  margin: $lotto-bet-margin;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* **** BS Subheader **** */
+$bs-content-max-height: 60vh;
+
+$ema-history-dialog-width: 740px;
+$ema-history-list-height: 425px;
+
+/*----------------------------------------------------------------------
+* <over-ask-offer-notification></over-ask-offer-notification>
+*/
+
+$bs-oversask-notification-margin: 5px 0 0;
+$bs-oversask-notification-padding: 12px 14px 14px 32px;
+$bs-oversask-notification-border: none;
+$bs-oversask-notification-icon-size: 16px;
+$bs-oversask-notification-icon-left: 12px;
+$bs-oversask-notification-icon-top: 12px;
+$bs-oversask-notification-background: $lGray;
+$bs-oversask-notification-background: #f9f9fa;
+$bs-overask-trader-offer-expires-margin: 8px 0 0;
+$bs-overask-trader-offer-message-font-size: 12px;
+$bs-oversask-notification-timer-weight: normal;
+$bs-oversask-notification-message-opacity: 1;
+
+/* <runner-spotlight></runner-spotlight>  */
+$runner-spotlight-font: $font-size-lg;
+
+$race-carousel-button-width: 20px;
+$race-card-width: 275px;
+$race-card-delimiter: 5px;
+$race-header-height: 30px;
+$race-footer-height: $race-header-height;
+$race-number-width: 30px;
+$race-silk-horseracing-width: 40px;
+$race-silk-horseracing-height: 30px;
+$race-silk-greyhound-width: 30px;
+$race-silk-greyhound-height: $race-silk-greyhound-width;
+$race-card-btn-width: 60px;
+$race-card-horseracing-btn-height: $race-card-btn-width;
+$race-card-greyhound-btn-height: 70px;
+$race-card-h-padding: 0 10px;
+$page-container-header-bottom-margin: 2px;
+$label-line-height: 15px;
+
+/* pc-badge icons */
+$pc-badge-color: $lGray;
+$pc-badge-font-size: $font-size-sm;
+$pc-badge-height: 15px;
+$pc-badge-line-height: $pc-badge-height;
+$pc-badge-enhanced-background: $color-yellow-alt;
+$pc-badge-specials-background: $color-yellow-alt;
+
+/* accordion */
+$accdn-margin-bottom: 10px;
+
+/* odd-boost icons */
+$odds-boost-icon-width: 60px;
+$odds-boost-info-content-icon-width: 28px;
+$odds-boost-info-content-icon-scale: -1;
+
+/* banners */
+$banner-min-height: 23.2;
+$banner-shadow-height: 2px;
+$banner-sk-height: calc(#{$banner-min-height} * 1vw + #{$banner-padding} * 3 + #{$slide-dots-height});
+$banner-sk-padding: calc(#{$banner-min-height} * 1% + #{$banner-padding} * 3 + #{$slide-dots-height});
+$offer-terms-bg: transparent;
+$offer-terms-color: rgba(255, 255, 255, 0.5);
+
+/* slider */
+$slide-width: 51%;
+
+/* SEO Content */
+$seo-title-color: $lGray;
+$seo-title-font: $font-size-tablet;
+$seo-static-content-color: $color-gray-darkest;
+$seo-static-content-font-family: $alt-font-family;
+$seo-static-content-link-color: $red;
+
+// Byb history
+$switch-btn-active-color: $color-blue-alt;
+$switch-show-color: $blue;
+$switch-byb-font-family: $alt-font-family;
+$switch-byb-market-des-color:$color-gray-dark-alt;
+$switch-byb-market-range-color:$color-sign-enabled;
+$switch-byb-market-player-color:$color-black;
+$switch-stats-font-family: 'Roboto Condensed';
+$byb-showcard-accordion: none;
+$byb-player-font-weight: normal;
+
+/*
+  * used for <regular-bet-header> component
+ */
+ $reuse-selection-border-button: $blue;
+ $reuse-button-padding: 6px;
+ $reuse-selection-font-size: 12px;
+ $reuse-selection-font-family: 'Roboto Condensed';
+ $show-signPosting-color: #F01E28;
+ $racing-signPosting-margin: 16px;
+
+ //profit indicator
+$profit-indicator-line-height: 13px;
+$profit-indicator-height: none;
+$profit-indicator-justify-content: flex-end;
+$profit-indicator-border-radius: 18px;

@@ -1,0 +1,77 @@
+<div class="sk-container" [ngClass]="{'sk-loading': showLoader && betpackCmsService.userloginLoaded}">
+  <loading-screen [displayed]="showLoader || betpackCmsService.userloginLoaded" [templateType]="'GENERIC'">
+  </loading-screen>
+  <ng-container *ngIf="betpackCmsService.isLoaded && !showLoader && !betpackCmsService.userloginLoaded">
+    <ng-container>
+      <top-bar [title]="betpackLabels.betPackMarketplacePageTitle" [iconSvg]="sportIconSvg" [iconId]="sportIconId"
+        [innerContent]="true">
+        <top-bar-body
+          *ngIf="this.userService.status && !disableBetPack && ! gamblingControlsCheck&&!(this.userService.isInShopUser() || !this.betpackCmsService.kycVerified ||this.betpackCmsService.verificationStatus === 'Pending')"
+          class="top-bar-side" data-crlat="topBarContent">
+          <a [routerLink]="'/betbundle-review'" (click)="sendGtmData(betpackLabels.goToReviewText)"
+            [i18n]="betpackLabels.goToReviewText" class="text-decoration-none bpmp-navigation-link "
+            data-crlat="linkBetpackReview">
+          </a>
+        </top-bar-body>
+      </top-bar>
+    </ng-container>
+
+    <div *ngIf="!disableBetPack && !gamblingControlsCheck">
+      <div *ngIf="isPromptDisplay" class="free-bet-notification">
+        <span class="notification-content" [textContent]="message"></span>
+        <span class="close-icon" (click)="closeNotification()">
+          <svg>
+            <use xlink:href="#close-icon"></use>
+          </svg>
+        </span>
+      </div>
+      <betpack-featurepage *ngIf="betpackDetails?.length" [filteredBetPack]="filteredBetPacksList"
+        [isMaxPurchaseLimitOver]="isMaxPurchaseLimitOver" [getLimitsData]="getLimitsData" [getFreeBets]="getFreeBets"
+        [isPromptDisplay]='isPromptDisplay' [betpackLabels]='betpackLabels' [betpackDetails]='betpackDetails' [accLimitFreeBets]="accLimitFreeBets">
+      </betpack-featurepage>
+        <ng-container *ngIf="userService.status && bannerData?.bannerActiveInMarketPlace&&enableMarketBanner&&storage.get('betPackMarketBanner')" >          
+          <div class="innerDiv" #container [ngStyle]="{'height':getheightFromChild(bannerText,0)}" >
+            <span class="gift_svg" [ngStyle]="{'width':getheightFromChild(bannerText,5)}" #giftSvg>
+            <svg >
+              <use [attr.xlink:href]="'#'+bannerData.marketPlaceImageFileName" x="0" y="0"></use>
+            </svg>
+          </span>
+          <span class="innerSVG" >
+            <svg [ngStyle]="{'height':getheightFromChild(bannerText,0)}">
+              <use [attr.xlink:href]="'#'+bannerData.marketPlaceBgImageFileName" x="0" y="0"></use>
+            </svg>
+          </span>
+            <span class="banner-text banner-data text-start mr-5" [ngStyle]="{'margin-left':getSvgWidth(giftSvg)}" [innerHTML]="expiringTokenCount()"  #bannerText></span>
+              
+            <span class="close-icon banner-data" (click)="closeBaner(container)">
+              <svg class="cross_icon">
+                <use xlink:href="#close-icon"></use>
+              </svg>
+            </span>
+          </div>
+        </ng-container>
+      <betpack-tab *ngIf="filterDisplay && (filteredBetPacksList.length || filteredBetPack.length) && 
+      betpackDetails?.length" [filterValues]="filterValues" (tabChange)='onFilterTabChange($event)' [allFilterMsg]="betpackLabels?.allFilterPillMessage" 
+      [allFilterMsgActive]="betpackLabels?.allFilterPillMessageActive">
+      </betpack-tab>
+      <betpack-content-page *ngIf="betpackDetails?.length" class="betpack-container row" style="width:100%; margin-left: 0px"
+        [filteredBetPack]="filteredBetPack" [isMaxPurchaseLimitOver]="isMaxPurchaseLimitOver"
+        [getLimitsData]="getLimitsData" [filteredBetPackEnable]="filteredBetPackEnable" [getFreeBets]="getFreeBets" [accLimitFreeBets]="accLimitFreeBets">
+      </betpack-content-page>
+    </div>
+    <betpack-empty-page *ngIf="disableBetPack || betpackDetailsMaster?.length === 0 || gamblingControlsCheck"
+      [errorTitle]="betpackLabels.errorTitle" [goBettingURL]="betpackLabels.goBettingURL" [buttonEnable]="true"
+      [errorMessage]="betpackLabels.errorMessage" [goToBettingLabel]="betpackLabels.goToBettingLabel"
+      [isReview]="false">
+    </betpack-empty-page>
+  </ng-container>
+</div>
+
+<ng-container *ngIf="isUserLoggedIn && !onBoardingOverlaySeen 
+                    && isMobile && !disableBetPack 
+                    && betpackDetailsMaster?.length > 0 && !gamblingControlsCheck && isKYCVerified">
+  <lazy-component moduleUri="@lazy-modules-module/betpackOnboarding/betpack-onboarding.module#BetpackOnBoardingModule"
+    entryComponent="BetpackOnboardingComponent" [outputs]="['closeOnboardingEmitter']"
+    (event)="handleOnBoardingEvents($event)">
+  </lazy-component>
+</ng-container>

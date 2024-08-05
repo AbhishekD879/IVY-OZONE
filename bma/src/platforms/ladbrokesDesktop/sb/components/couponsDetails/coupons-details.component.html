@@ -1,0 +1,134 @@
+<div class="sk-container" [ngClass]="{'sk-loading': state.loading}">
+  <outlet-status [state]="state">
+    <request-error (reloadFn)="reloadComponent()"></request-error>
+  </outlet-status>
+  <div *ngIf="!state.loading && !state.error">
+    <!--- Top Bar -->
+    <top-bar [title]="'Coupons'"
+             (titleFunc)="goToPage('/football/coupons')"
+             [innerContent]="true">
+      <top-bar-body class="top-bar-side" data-crlat="topBarContent">
+        <a [routerLink]="'/bet-filter/filters/yourTeams'" class="bet-finder-link" data-crlat="betFilterLink"
+           *ngIf="isBetFilterEnable && !isEventsUnavailable">
+          <svg class="bet-finder-icon">
+            <use xlink:href="#bet-finder-icon"></use>
+          </svg>
+          <span class="bet-finder-title" data-crlat="title" [i18n]="'bf.betFinder'"></span>
+        </a>
+      </top-bar-body>
+    </top-bar>
+    <div class="coupons-top-title" [ngClass]="{'active': showCoupons}" data-crlat="couponsListPageTitle">
+      <div class="coupon-title" data-crlat="couponTitle" [textContent]="couponName"></div>
+      <div class="coupon-selector" (click)="showCouponsList()">
+        <svg class="coupon-selector-icon">
+          <use xlink:href="#change-coupon"></use>
+        </svg>
+        <span class="coupon-selector-title" data-crlat="changeCoupon">Change Coupon</span>
+        <svg class="coupon-selector-arrow">
+          <use xlink:href="#down-arrow"></use>
+        </svg>
+      </div>
+    </div>
+
+    <div class="coupons-details-content" data-crlat="tabContent">
+      <div class="coupons-list" (click)="showCouponsList()" [ngClass]="{'active': showCoupons}">
+        <div class="coupons-wrap">
+          <div *ngIf="applyingList" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+          <coupons-list [couponsList]="couponsList" *ngIf="!applyingList"
+                        data-crlat="couponsListContainer"></coupons-list>
+        </div>
+      </div>
+
+      <div *ngIf="applyingParams" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+      <div *ngIf="!applyingParams" data-crlat="accordionsList" [hidden]="showCoupons">
+        <lazy-component *ngIf="!couponsDetailsService.isCustomCoupon && !isEventsUnavailable && marketOptions?.length"
+        moduleUri="@sharedModule/components/marketSelector/market-selector.module#MarketSelectorModule"
+        data-crlat="couponType.default" entryComponent="WrappedMarketSelectorComponent" [inputs]="{sportId: couponsDetailsService.sportId, 
+                    multipleEventsDataSections: couponEvents,marketOptions:marketOptions,
+                    selectorType:'footballCoupons'}" [outputs]="['filterChange']"
+        (event)="filterEvents($event.value)">
+      </lazy-component>
+
+      <lazy-component
+      moduleUri="@lazy-modules-module/twoUpSignpostingBlurbMsg/twoup-signposting-blurbmsg.module#TwoUpSignPostingBlurbMsgModule"
+      [inputs]="{
+        marketName:selectedMarketSwitcher
+      }"
+      entryComponent="TwoUpSignPostingBlurbMsgComponent"  >
+      </lazy-component>
+        <goalscorer-coupon *ngIf="couponsDetailsService.isGoalscorerCoupon"
+                          [couponEvents]="couponEvents"
+                          [eventIdFromEDP]="eventIdFromEDP"
+                          data-crlat="couponType.goalscorer">
+        </goalscorer-coupon>
+
+        <correct-score-coupon *ngIf="couponsDetailsService.isCorrectScoreCoupon"
+                              [couponEvents]="couponEvents"></correct-score-coupon>
+                              <link rel="preload" href="/assets/images/background-lads-desk.webp" as="image">
+        <ng-container *ngIf="!isEventsUnavailable && marketFilter && !couponsDetailsService.isCustomCoupon">
+            <accordion *ngFor="let events of couponEvents; let i = index; trackBy: trackByTypeId"
+                       [accordionTitle]="events.typeName"
+                       [isExpanded]="isExpanded[i]"
+                       (function)="changeAccordionState(i, $event)"
+                       [class]="'page-card'" [id]="'acc-'+events.typeId"
+                       data-crlat="accordion">
+              <accordion-body *ngIf="isExpanded[i]">
+                <div class="coupons-stats-link" *ngIf="!!leagueLinksMap[events.typeId]">
+                  <a class="stats-link" (click)="openLeagueTable(events)">
+                    <svg class="stats-link-icon">
+                      <use xlink:href="#stats-icon"></use>
+                    </svg>
+                    <span class="stats-link-label" [i18n]="'sb.leagueTable'"></span>
+                  </a>
+                </div>
+                <ng-container *ngFor="let groupedBy of events.groupedByDate; trackBy: trackById;let dateIndex = index">
+                  <div class="container-inner-content"
+                       *ngIf="!groupedBy.deactivated"
+                       data-crlat="eventsGroupedByDate">
+                    <div class="odds-card-header odds-card-pad"
+                         *ngIf="oddsHeader && oddsHeader.length" data-crlat="eventOddsHeader">
+                      <div class="odds-left" *ngIf="groupedBy.title">
+                        <span class="odds-header-title" [textContent]="groupedBy.title"  data-crlat="dateTitle"></span>
+                      </div>
+                      <div class="odds-right">
+                        <span class="odds-header-col" *ngFor="let title of oddsHeader; trackBy: trackById"
+                              [textContent]="title" data-crlat="headTitles"></span>
+                      </div>
+                    </div>
+                    <odds-card-header *ngIf="!oddsHeader"
+                                      [events]="groupedBy.events"
+                                      [sportConfig]="footballService?.sportConfig"
+                                      [dateTitle]="groupedBy.title"
+                                      [isHeaderAlwaysVisible]="true"
+                                      [isFilterByTemplateMarketName]="true"
+                                      [isMarketSwitcherConfigured]="true"
+                                      [selectedMarket]="marketFilter">
+                    </odds-card-header>
+                    <odds-card-component *ngFor="let eventEntity of groupedBy.events; trackBy: trackById;let eIndex = index"
+                                         [event]="eventEntity"
+                                         [class]="'coupon-event-' + eventEntity.id"
+                                         [sportConfig]="footballService?.sportConfig"
+                                         data-crlat="eventEntity"
+                                         [isFilterByTemplateMarketName]="true"
+                                         [isMarketSwitcherConfigured]="true"
+                                         [selectedMarket]="events.defaultValue"
+                                         [isFootballCoupon]="isFootball"
+                                         [couponIndex]="i"
+                                         [dateIndex]="dateIndex"
+                                         [eventIndex]="eIndex"
+                                         [showBoard]="eventEntity.isCouponScoreboardOpened"
+                                         (expand)="onExpand($event)">
+                    </odds-card-component>
+                  </div>
+                </ng-container>
+              </accordion-body>
+            </accordion>
+        </ng-container>
+        <no-events *ngIf="isEventsUnavailable"></no-events>
+      </div>
+    </div>
+  </div>
+</div>
+<lazy-component moduleUri="@lazy-modules-module/quickLinks/quick-links.module#QuickLinksModule"
+[inputs]="{applyCss: true}" entryComponent="QuickLinksComponent">
+  </lazy-component>

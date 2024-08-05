@@ -1,0 +1,44 @@
+@import 'global.variables.scss';
+
+.container {
+    .all-entries {
+        padding: 5px 5px 10px 5px;
+        margin-top: 5px;
+        border: 3px solid;
+        border-right-color: $color-black;
+        border-left-color: $color-black;
+        border-bottom-color: $color-cyanblue;
+        border-top-color: $color-cyanblue;
+    }
+
+    .view-text {
+        padding: 2px 30px 12px;
+        @include setFontProps($base-font-family, $font-size, 700, $color-blue-selected);
+    }
+
+    .background-element {
+        height: 5px;
+        border-radius: 2px;
+    }
+
+    .content-left {
+        padding: 0 !important;
+    }
+
+    .dot {
+        height: 15px;
+        width: 15px;
+        background-color: $color-white;
+        border-radius: 50%;
+        display: inline-block;
+        margin-top: -5px;
+        position: absolute;
+        transition: margin-left 1s ease-in;
+    }
+    .boarder-color-white {
+        border: solid 2px $color-grey;
+    }
+    .boarder-color-green {
+        border: solid 2px $color-green;
+    }
+}

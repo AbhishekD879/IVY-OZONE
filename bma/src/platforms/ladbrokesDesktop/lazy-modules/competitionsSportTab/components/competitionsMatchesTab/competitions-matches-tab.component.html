@@ -1,0 +1,44 @@
+<div *ngIf="!isLoaded" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+<lazy-component *ngIf="isMarketSelectorAvailable && isMarketSwitcherConfigured && inner && eventsByCategoryCopy"
+                moduleUri="@sharedModule/components/marketSelector/market-selector.module#MarketSelectorModule"
+                data-crlat="marketSelectorModule" entryComponent="DesktopMatchesMarketSelectorComponent" [inputs]="{
+      sportId: sportId,
+      eventDataSection: eventsByCategoryCopy,
+      sticky:isMarketSelectorSticky,
+      selectorType:'sportCompetition', targetTab: targetTab}" [outputs]="['filterChange']" (event)="filterEvents($event)">
+</lazy-component>
+
+<ng-container *ngIf="isLoaded && eventsByCategory && filteredMatches.length">
+
+  <lazy-component
+  moduleUri="@lazy-modules-module/twoUpSignpostingBlurbMsg/twoup-signposting-blurbmsg.module#TwoUpSignPostingBlurbMsgModule"
+  [inputs]="{
+    marketName:selectedMarketSwitcher
+  }"
+  entryComponent="TwoUpSignPostingBlurbMsgComponent"  >
+  </lazy-component>
+  <ng-container *ngFor="let groupedBy of filteredMatches; trackBy:trackByTypeId">
+    <div *ngIf="!groupedBy.deactivated && isMarketSwitcherLoaded" class="container-inner-content" [ngClass]="{'quick-switch-holder': eventQuickSwitch}" data-crlat="competitionLeague.item">
+      <odds-card-header *ngIf="groupedBy.events.length" [events]="groupedBy.events" [sportConfig]="sport?.sportConfig"
+        [selectedMarket]="selectedMarket(eventsByCategory)" [isFilterByTemplateMarketName]="true"
+        [undisplayedMarket]="undisplayedMarket"
+          [isMarketSwitcherConfigured]="isMarketSwitcherConfigured"  [dateTitle]="groupedBy.title">
+      </odds-card-header>
+      <odds-card-component *ngFor="let eventEntity of groupedBy.events" [event]="eventEntity"
+        [sportConfig]="sport?.sportConfig" [selectedMarket]="selectedMarket(eventsByCategory)"
+        [isFilterByTemplateMarketName]="true" [isMarketSwitcherConfigured]="isMarketSwitcherConfigured" [eventQuickSwitch]="eventQuickSwitch"
+        (marketUndisplayed)="reinitHeader($event)" [markets]="eventEntity.markets" data-crlat="eventEntity">
+        <!-- <promotions-body> -->
+          <!-- Promotional signposting -->
+          <!-- <promotion-icon class="odds-card-promotions-icon" [type]="'event'" [typeId]="eventEntity.typeId"
+            [display]="eventEntity.drilldownTagNames" data-crlat="promotionIcons">
+          </promotion-icon>
+        </promotions-body> -->
+      </odds-card-component>
+    </div>
+  </ng-container>
+</ng-container>
+
+<no-events *ngIf="isLoaded && !(eventsByCategory && filteredMatches.length)"
+           [class.no-filtered-events]="eventsByCategoryCopy" [eventQuickSwitch]="eventQuickSwitch">
+</no-events>

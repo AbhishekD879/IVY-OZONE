@@ -1,0 +1,43 @@
+<div class="qe-upsell-container main-upsell">
+
+  <div class="qe-upsell-header">
+    <div class="qe-upsell-header-betinplay" *ngIf="gameStarted">
+      <div class="qe-upsell-header-silks">
+
+        <img *ngIf="upsellData.homeTeamSvgFilePath"
+             [src]="upsellData.homeTeamSvgFilePath"
+             alt="homeTeamSvgFilePath">
+        <img *ngIf="upsellData.awayTeamSvgFilePath"
+             [src]="upsellData.awayTeamSvgFilePath"
+             alt="awayTeamSvgFilePath">
+
+      </div>
+      <div class="qe-upsell-header-live" [i18n]="'qe.upsellLive'"></div>
+    </div>
+  </div>
+
+  <div class="qe-upsell-header-infobar">
+    <div class="qe-upsell-header-filled" *ngIf="upsellData.topLeftHeader">
+      <span [textContent]="upsellData.topLeftHeader" ></span>
+    </div>
+    <div class="qe-upsell-header-normal" *ngIf="upsellData.topRightHeader">
+      <span [textContent]="upsellData.topRightHeader"></span>
+    </div>
+  </div>
+
+  <div class="qe-upsell-title" [textContent]="upsellTitle"></div>
+  <div class="qe-upsell-caption" *ngIf="!gameStarted" [textContent]="upsellReturn"></div>
+
+  <button
+    class="qe-upsell-cta"
+    *ngIf="gameStarted"
+    (click)="betInPlayHandler()"
+    [textContent]="upsellData.betInPlay"></button>
+
+  <button
+    class="qe-upsell-cta"
+    *ngIf="!gameStarted"
+    (click)="addToSlip()"
+    [textContent]="processingAddToSlip ? btnProcessingMsg : upsellData.betNowCTA"></button>
+
+</div>

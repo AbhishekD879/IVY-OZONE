@@ -1,0 +1,105 @@
+@import 'global.variables.scss';
+
+
+
+.align {
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+     gap: 12px; 
+    padding: 9px 14px;
+    margin: 1px auto;
+}
+
+.btn-bet-stat {
+    width: 109px;
+    border-radius: 21px;
+    height: 32px;
+    font-family: $switch-byb-font-family;
+    box-shadow: 0 2px 5px 0 rgb(84 84 84 / 26%);
+    background: $color-white;
+    border: none;
+    font-size: 13px;
+    font-weight: bold;
+    height: 40px;
+    &.active {
+        background:$switch-btn-active-color;
+        color: $color-white;
+    }
+       
+}
+.btn-act-bg-builder{
+      font-size: 14px;
+      font-weight: 700;
+    @media screen and (min-width: 1020px) {
+    //width: 60%;
+    border-radius: inherit;
+    height: 32px;
+    background: $color-maingreen;
+    color: $color-white;
+   // margin-left: 162px;
+    margin: 4px auto;
+    width: 95%;
+
+    &:hover{
+        background: $color-maingreen; 
+    }
+    }
+}
+.odds{
+    color: $switch-btn-active-color;
+}
+.marketdesc{
+    width: 508px;
+    height: 14px;
+    flex-grow: 0;
+    margin: 17px 7px 24px 12px;
+    font-family: $switch-byb-font-family;
+    color: $switch-byb-market-des-color;
+
+}
+.accordion-header{
+    max-height: 77px;
+}
+
+.inner-rectangle{
+    .btn-group1{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        .alignment{
+            width: 32px;
+            height: 32px;
+            flex-grow: 0;
+            padding: 4px 9px 6px 10px;
+            border: 1px solid $color-gray-dark-byb;
+            background-color: $lGrayLight;
+            text-align: center;
+            border-radius: 50%;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            flex-direction: row;
+            color: $switch-btn-active-color;
+        }
+        .alignment1{
+            margin: 13px 9px;
+            width: 32px;
+            font-size: 22px;
+            color: $switch-byb-market-range-color;
+            font-weight: 700;
+        }
+    
+    }
+}
+.display-players{
+    box-shadow: none;
+}
+.inner-accordian{
+    margin: 1px 0 0;
+}

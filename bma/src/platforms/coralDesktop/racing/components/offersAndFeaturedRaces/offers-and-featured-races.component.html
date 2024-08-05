@@ -1,0 +1,42 @@
+<section class="extra-place-carousel-section" *ngIf="allEvents?.length">
+  <accordion [accordionTitle]="sectionTitle"
+             [isExpanded]="true"
+             (function)="sendCollapseGTM()"
+             data-crlat="outerAccordion"
+             class="extra-place-carousel">
+    <accordion-body class="carousel-inner single-slide" data-crlat="race.enhancedRacesCarousel">
+      <ng-container *ngFor="let key of raceKeys">
+        <div class="carousel-slides" *ngIf="groupedEvents[key]?.events?.length">
+          <div *ngFor="let event of groupedEvents[key].events; trackBy: trackById"
+               class="slide" data-crlat="raceCard.event">
+            <div class="carousel-slide">
+              <div class="slide-label">
+                <div class="title" data-crlat="raceCard.title" [textContent]="groupedEvents[key].title"></div>
+                <div class="timer" data-crlat="raceCard.timer">
+                  <race-timer [event]="event" [utc]="true" [displayTime]="false"></race-timer>
+                </div>
+              </div>
+            </div>
+            <a (click)="goToEvent(event)"
+               [linkHref]
+               [link]="event.link"
+               class="slide-body">
+              <div class="selection-title">
+                <div class="meeting-name" [textContent]="event.originalName" data-crlat="raceCard.eventName"></div>
+                <lazy-component
+                moduleUri="@lazy-modules-module/extraPlaceSignposting/extra-place-signposting.module#ExtraPlaceSignpostingModule"
+                [inputs]="{marketData: event.markets[0],origin:'offers',changeStrategy: changeStrategy}" 
+                entryComponent="ExtraPlaceSignpostingComponent">
+              </lazy-component>
+                <div class="odds" *ngIf="event.odds" [innerHTML]="event.odds" data-crlat="eachWayContainer"></div>
+              </div>
+              <svg class="next-arrow" data-crlat="nextArrow">
+                <use xlink:href="#next-arrow"></use>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </ng-container>
+    </accordion-body>
+  </accordion>
+</section>

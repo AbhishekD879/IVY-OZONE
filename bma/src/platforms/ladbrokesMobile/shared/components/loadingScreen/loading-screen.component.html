@@ -1,0 +1,111 @@
+<div *ngIf="!onlySpinner && skeletonFeatureEnabled && !hide"
+     class="fade-out-screen-container"
+     [ngClass]="{
+        'full-page': templateType === 'GENERIC_FULL' || isFullPage,
+        'fade-out-compcat': templateType === 'GENERIC_COMPETITION' && !displayed && !skeletonOnlyDisplayed,
+        'lds-home': this.isHome
+      }"
+     data-crlat="fadeOutCont">
+  <div class="fade-out-screen" [ngClass]="{
+                    'fade-out-active': !displayed && !skeletonOnlyDisplayed,
+                    'long-render-view': longRenderView,
+                    'fade-accord': templateType === 'GENERIC_ACCORDION' && displayed && skeletonOnlyDisplayed,
+                    'banner': templateType === 'BANNER',
+                    'timeline': templateType === 'TIMELINE'}">
+
+    <!-- SKELETON TEMPLATES START -->
+    <div class="skeleton-container">
+      <section class="skeleton-inner" [ngClass]="{ 'tablet': isTablet && !isUsedFromWidget, 'widget': isUsedFromWidget }">
+        <!-- Aem Banner -->
+        <div class="aem-banner-container animate-lad" *ngIf="templateType === 'GENERIC_FULL'
+        || templateType === 'BANNER'">
+          <div class="aem-banner"></div>
+        </div>
+
+        <!-- scoreboard -->
+        <div class="scoreboard-container" *ngIf="templateType === 'SCOREBOARD'">
+          <svg xmlns="http://www.w3.org/2000/svg" width="243" height="115" viewBox="0 -10 243 115">
+            <path d="M0 105h243v10H0zm32-81v75H18V24zm32 24v51H50V48zm32-7v58H82V41zm97 2v56h-15V43zm-65 14v42h-14V57zm32-43v85h-14V14zm65-14v99h-14V0z"
+                  fill="#F2F2F2" fill-rule="evenodd"/>
+          </svg>
+        </div>
+        <!-- Tabs -->
+        <div class="tabs-container" *ngIf="templateType === 'GENERIC_FULL'">
+          <div class="tab" *ngFor="let number of blocks(numberOfElements)"></div>
+        </div>
+        <div class="simple-content animate-lad" *ngIf="templateType === 'GENERIC_FULL'">
+          <div class="simple-content-line" *ngFor="let number of blocks(numberOfPricesOrLines)"></div>
+        </div>
+        <div class="simple-content animate-lad" *ngIf="!isUsedFromWidget
+                                            && templateType !== 'BANNER'
+                                            && templateType !== 'SCOREBOARD'
+                                            && templateType !== 'TIMELINE'
+                                            && templateType !== 'GENERIC_ACCORDION'
+                                            && templateType !=='GENERIC_COMPETITION'">
+          <div class="simple-content-line" *ngFor="let number of blocks(numberOfPricesOrLines)"></div>
+        </div>
+
+        <div *ngIf="templateType === 'GENERIC_FULL' || templateType === 'GENERIC'">
+          <div class="home-content-block animate-lad" *ngFor="let number of blocks(numberOfElements)">
+            <div class="generic-content">
+              <div class="lines">
+                <div class="generic-content-line" *ngFor="let number of blocks(numberOfPricesOrLines)"></div>
+              </div>
+              <div class="prices">
+                <div class="generic-content-price" *ngFor="let number of blocks(numberOfPricesOrLines)"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="templateType === 'GENERIC_ACCORDION'">
+          <div class="generic-content animate-lad">
+            <div class="lines">
+              <div class="generic-content-line"></div>
+              <div class="generic-content-line"></div>
+              <div class="generic-content-line"></div>
+            </div>
+            <div class="prices">
+              <div class="generic-content-price"></div>
+            </div>
+          </div>
+        </div>
+        <div class="simple-content animate-lad" *ngIf="templateType === 'GENERIC_COMPETITION'">
+          <div class="simple-content-line"></div>
+        </div>
+        <!-- Template for Betslip/MyBets Area -->
+        <div *ngIf="templateType === 'GENERIC_BET'">
+          <div class="generic-content animate-lad" *ngFor="let number of blocks(numberOfElements)">
+            <div class="line">
+              <div class="generic-content-line" *ngFor="let number of blocks(numberOfPricesOrLines)"></div>
+            </div>
+            <div class="generic-content-price"></div>
+          </div>
+        </div>
+        <!--TIMELINE-->
+        <div class="timeline-container animate-lad" *ngIf="templateType === 'TIMELINE'">
+          <div class="generic-block" *ngFor="let number of blocks(numberOfElements)">
+            <div class="generic-circle"></div>
+            <div class="generic-wrap">
+              <div class="generic-content">
+                <div class="lines lines-w100">
+                  <div class="generic-content-line top-short "></div>
+                  <div class="generic-content-line" *ngFor="let number of blocks(numberOfPricesOrLines)"></div>
+                </div>
+              </div>
+              <div class="generic-content align-center">
+                <div class="generic-content-line bottom-short"></div>
+                <div class="generic-content-price"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!--  SKELETON TEMPLATES END   -->
+  </div>
+</div>
+
+<!-- SPINNER USED FOR RIGHT COLUMN WIDGET ON TABLET -->
+<div *ngIf="!skeletonFeatureEnabled && !skeletonOnly && displayed"
+     class="spinner-loader spinner-dark"
+     data-crlat="spinner.loader"></div>

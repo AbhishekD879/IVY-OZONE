@@ -1,0 +1,54 @@
+<article class="featured-offer" [ngClass]="className">
+  <header class="offer-header header-container offer-flex-center">
+    <div class="left-side offer-flex-center">
+      <span class="offer-title" [textContent]="typeTitle" data-crlat="badge.label"></span>
+    </div>
+    <div class="right-side">
+      <div class="offer-type" [textContent]="featuredModule.title" data-crlat="headerTitle"></div>
+    </div>
+  </header>
+  <div class="offer-body"
+       [ngClass]="multipleClassName"
+       (click)="goToEvent()">
+    <div class="offer-favorite-icon offer-flex-center" *ngIf="isFavoriteShown">
+      <favourites-add-button
+        data-crlat="addFavouritesButton"
+        class="tmp-odds-side star-item"
+        [event]="event"
+        [sportName]="'football'">
+      </favourites-add-button>
+    </div>
+    <div class="offer-info-container">
+      <div class="offer-info-top">
+        <span class="offer-name" [textContent]="eventName"></span>
+      </div>
+      <div class="offer-info-bottom">
+        <span [textContent]="eventTime"></span>
+
+        <div class="odds-stream-container" *ngIf="isStream">
+          <div class="odds-devider">|</div>
+          <span [i18n]="'app.watchLive'"></span>
+          <svg class="odds-icon-stream" data-crlat="oddsIconStream">
+            <use xlink:href="#stream"></use>
+          </svg>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="offer-odd-price-container">
+      <price-odds-button [event]="event"
+                         data-crlat="oddsCard.event"
+                         [market]="event.markets[0]"
+                         [outcome]="outcome"
+                         [cssClass]="'btn-small'">
+      </price-odds-button>
+      <div class="was-price-container" *ngIf="isSmartBoosts && wasPrice">
+        <div class="was-price">
+          <span [i18n]="'sb.wasPrice'"></span>
+          <strike [textContent]="wasPrice"></strike>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

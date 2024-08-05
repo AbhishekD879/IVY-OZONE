@@ -1,0 +1,182 @@
+@import 'global.variables.scss';
+
+//TODO remove variables after fix scope of global.variables when run unit tests
+$color-blue-alt: #4a90e2;
+$lGray: #252835;
+$lGrayMediumLight: #3a3d49;
+$white-dropdown-bg-color: #e2e2e6;
+// end
+
+.dropdown {
+  background: $color-white;
+  outline: none;
+
+  &.expanded {
+    .change-btn svg {
+      &.dropdown-down-arrow {
+        @include transform(rotate(180deg));
+      }
+    }
+    .change-button svg {
+      &.dropdown-down-arrow-coupon {
+        @include transform(rotate(180deg));
+      }
+    }
+    .dropdown-menu {
+      display: block;
+    }
+    .overlay {
+      display: block;
+    }
+  }
+
+  .dropdown-header {
+    @include display-flex();
+    @include align-items(baseline);
+    height: 46px;
+    color: $color-blue-alt;
+    font-weight: bold;
+    border-radius: 4px 4px 0 0;
+    box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+    .label {
+      display: inline-block;
+      padding: 14px 12px;
+      max-width: 75%;
+      font-size: 15px;
+      font-family: $alt-font-family;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .toggle{
+      display: block;
+      padding: 0px 6px;
+      max-width: 75%;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+     height: 16px;
+  }
+}
+.drop-down-header{
+display: block;
+color: $white-dropdown-bg-color;
+.toggle{
+padding: 0 6px;
+font-weight: normal;
+font-size: 11px;
+}
+  }
+
+  .change-btn {
+    position: relative;
+    display: inline-block;
+    padding: 14px 12px 14px 0;
+    color: $color-gray-darkest;
+    text-transform: uppercase;
+    font-size: $font-size;
+    &:active{
+      color: $lGrayMedium;
+    }
+    svg {
+      margin-left: 4px;
+      margin-bottom: 2px;
+      height: 5px;
+      width: 9px;
+      fill: $lGray;
+      @include transition(all, .3s);
+    }
+  }
+
+  .change-button {
+    position: relative;
+    display: flex;
+    margin: 0px 6px 12px;
+    color: $white-dropdown-bg-color;
+    text-transform: uppercase;
+    font-size: $font-size-md;
+    vertical-align: bottom;
+    bottom: 8px;
+    .coup {
+      margin-left: 5px;
+      margin-bottom: 2px;
+      height: 5px;
+      width: 8px;
+      fill: $color-yellow;
+      @include transition(all, .3s);
+    }
+    .coupon {
+      margin-left: 5px;
+      margin-bottom: 2px;
+      height: 5px;
+      width: 8px;
+      fill: #fff;
+      right: 0;
+      position: absolute;
+      @include transition(all, .3s);
+    }
+
+    .of-coupon{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 168px;
+      font-weight: normal;
+      font-size: 12px;
+      text-transform: capitalize;
+    }
+  }
+
+
+  .overlay,
+  .dropdown-menu {
+    z-index: 10;
+    position: absolute;
+    display: none;
+    margin: 0;
+    padding: 0;
+    right: 0;
+  }
+
+  .dropdown-menu {
+    width: 295px;
+    max-height: 332px;
+    background: $lGrayMediumLight;
+    overflow-y: scroll;
+    font-family: $alt-font-family;
+  }
+
+  .overlay {
+    height: 100vh;
+    left: 0;
+  }
+
+  .menu-item {
+    display: block;
+    color: $color-white;
+
+    &.active {
+      background: $lGray;
+      font-size: $font-size-tablet;
+      font-weight: bold;
+    }
+
+    &:last-child {
+      .menu-title {
+        padding-bottom: 24px;
+      }
+    }
+
+    .menu-title {
+      padding: 12px;
+      display: block;
+      white-space: nowrap;
+      line-height: $line-height-sm;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      opacity: .9;
+    }
+    .title-menu{
+      overflow: visible;
+    }
+  }
+}

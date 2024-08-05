@@ -1,0 +1,89 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="!isLoading">
+  <div class="header">
+    <h2 class="has-activity-badge">Football 3D Banner:
+      <span class="font-italic">{{banner.name}}</span>
+      <create-updated-at-by [collection]="banner"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="banner.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="!isLoading">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+          <mat-checkbox color="primary"
+            [checked]="!banner.disabled"
+            (change)="banner.disabled = !banner.disabled">
+            Active
+          </mat-checkbox>
+      </div>
+    </div>
+    <cms-upload
+      [filename]="banner.filename"
+      (onImageUpload)="uploadFootballBanner($event)"
+      (onImageRemove)="remove()">
+    </cms-upload>
+  </div>
+</div>
+
+<div class="card" *ngIf="!isLoading">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Name*
+        </span>
+      </div>
+      <div class="col-md-4">
+          <mat-form-field class="full-width" [ngClass]="{'mat-form-field-invalid': !banner.name}">
+            <input matInput placeholder="Name"  [(ngModel)]="banner.name" [value]="banner.name" required trim="blur">
+            <mat-hint class="col-red" *ngIf="!banner.name">Name should be entered</mat-hint>
+          </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Description</span>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Description"  [(ngModel)]="banner.description" [value]="banner.description" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Display Duration*</span>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="full-width">
+          <input matInput type="number" placeholder="Display Duration"  [(ngModel)]="banner.displayDuration" [value]="banner.displayDuration">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+          <date-range
+            [isSetDateButtons]="true"
+            [startDate]="banner.validityPeriodStart"
+            [endDate]="banner.validityPeriodEnd"
+            [startPlaceholder]="'Validity Period Start Date*'"
+            [placeholderColumn]="'true'"
+            [endPlaceholder]="'Validity Period End Date*'"
+            (onDateUpdate)="handleDateUpdate($event)">
+          </date-range>
+        </div>
+      </div>
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="!isLoading"
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'name'"
+  [collection]="banner"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

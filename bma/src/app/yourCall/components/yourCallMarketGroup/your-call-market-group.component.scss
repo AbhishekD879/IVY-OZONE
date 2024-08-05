@@ -1,0 +1,95 @@
+@import 'global.variables.scss';
+
+.switchers_correctscore {
+  margin: 12px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  .switch-btn_correctscore {
+    &.active {
+      background-color: $color-blue;
+      color: $color-white;
+    }
+
+    &:hover {
+      text-decoration: none;
+      background-color: $color-blue;
+      color: $color-white;
+    }
+    &:active {
+      text-decoration: none;
+      background-color: $color-blue-rich-heavy;
+      color: $color-white;
+    }
+
+    text-shadow: none;
+    font-weight: 500;
+    width: 119px;
+    height: 32px;
+    flex-grow: 0;
+    gap: 12px;
+    padding: 9px 14px;
+    border-radius: 21px;
+    box-shadow: 0 2px 5px 0 rgb(84 84 84 / 26%);
+    background-color: $color-white;
+    color: $color-blue-shade-heavy;
+    margin: 0px 4px;
+    text-align: center;
+
+    @media screen and (min-width: 1020px) {
+      width: 180px;
+    }
+
+  }
+}
+
+.switchers-1 {
+  margin-bottom: 0px;
+  padding: 10px;
+  justify-content: center;
+  width: 343px;
+  margin: 0px auto;
+}
+
+.switcher-btn {
+  font-family: $font-increment-number;
+  font-weight: normal;
+  font-size: 12px;
+}
+
+#switch-custom {
+  height: 100%;
+  margin: 0px auto;
+  font-family: $font-increment-number;
+  font-size: 12px;
+  text-transform: none;
+  border-bottom: none;
+}
+
+.switch-btn.active:after {
+    content: '';
+    position: absolute;
+    width: 0px;
+    height: 3px;
+    background: $switch-btn-active-color;
+    bottom: -3px;
+    left: 0;
+    font-weight: normal;
+}
+
+
+#switch-custom > span {
+  font-weight: normal;
+}
+
+.select-name {
+  text-align: center;
+  background-color: $color-white;
+  padding: 10px 0px;
+  margin: 0px;
+  color: $selection-btn-text-color;
+  font-size: 14px;
+  font-family: $font-increment-number;
+}

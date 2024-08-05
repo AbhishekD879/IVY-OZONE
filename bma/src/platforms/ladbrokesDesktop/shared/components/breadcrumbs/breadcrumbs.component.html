@@ -1,0 +1,20 @@
+<nav class="breadcrumbs__container"
+     data-crlat="breadcrumbsContainer">
+  <ul class="breadcrumbs clearfix">
+    <li class="breadcrumb__item"
+        [attr.title]="linkItem.name"
+        *ngFor="let linkItem of breadcrumbsItems; trackBy: trackByBreadCrumb; let last = last"
+        data-crlat="breadcrumb.item">
+      <a *ngIf="!last"
+         class="breadcrumb__link"
+         (click)="navigateUri($event, linkItem.targetUri)"
+         [attr.href]="linkItem.targetUri"
+         data-crlat="breadcrumb.link">
+        {{ linkItem.name | eventName }}
+      </a>
+      <span *ngIf="last" class="breadcrumb__link" data-crlat="breadcrumb.link">
+        {{ linkItem.name | eventName }}
+      </span>
+    </li>
+  </ul>
+</nav>

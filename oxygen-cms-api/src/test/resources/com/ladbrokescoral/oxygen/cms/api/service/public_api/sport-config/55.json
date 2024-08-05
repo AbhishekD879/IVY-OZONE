@@ -1,0 +1,85 @@
+{
+  "config" : {
+    "title" : "Hurling",
+    "name" : "hurling",
+    "path" : "hurling",
+    "tier" : 2,
+    "categoryType" : "gaming",
+    "isOutrightSport" : false,
+    "isMultiTemplateSport" : false,
+    "oddsCardHeaderType" : "homeDrawAwayType",
+    "request" : {
+      "categoryId" : "55",
+      "siteChannels" : "M",
+      "marketsCount" : true,
+      "isActive" : false,
+      "dispSortName" : [ "MR", "MH", "WH" ],
+      "dispSortNameIncludeOnly" : [ "MR", "MH", "WH" ],
+      "marketTemplateMarketNameIntersects" : "|Match Betting|,|Handicap Match Result|"
+    },
+    "tabs" : {
+      "live" : { },
+      "coupons" : {
+        "date" : "today",
+        "isActive" : true
+      },
+      "today" : {
+        "isNotStarted" : true
+      },
+      "tomorrow" : { },
+      "future" : { },
+      "outrights" : {
+        "isActive" : true,
+        "marketsCount" : false
+      }
+    }
+  },
+  "tabs" : [ {
+    "id" : "tab-matches",
+    "name" : "matches",
+    "label" : "Matches",
+    "url" : "/sport/hurling/matches",
+    "hidden" : true,
+    "sortOrder" : 1.0,
+    "subTabs" : [ {
+      "id" : "tab-today",
+      "name" : "today",
+      "label" : "Today",
+      "url" : "/sport/hurling/matches/today",
+      "hidden" : false
+    }, {
+      "id" : "tab-tomorrow",
+      "name" : "tomorrow",
+      "label" : "Tomorrow",
+      "url" : "/sport/hurling/matches/tomorrow",
+      "hidden" : false
+    }, {
+      "id" : "tab-future",
+      "name" : "future",
+      "label" : "Future",
+      "url" : "/sport/hurling/matches/future",
+      "hidden" : false
+    } ]
+  }, {
+    "id" : "tab-competitions",
+    "name" : "competitions",
+    "label" : "Competitions",
+    "url" : "/sport/hurling/competitions",
+    "hidden" : true,
+    "sortOrder" : 2.0
+  }, {
+    "id" : "tab-outrights",
+    "name" : "outrights",
+    "label" : "Outrights",
+    "url" : "/sport/hurling/outrights",
+    "hidden" : true,
+    "sortOrder" : 3.0
+  }, {
+    "id" : "tab-coupons",
+    "name" : "coupons",
+    "label" : "Coupons",
+    "url" : "/sport/hurling/coupons",
+    "hidden" : true,
+    "sortOrder" : 4.0
+  } ]
+}

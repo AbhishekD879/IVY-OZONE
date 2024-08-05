@@ -1,0 +1,48 @@
+<div class="tab-content" [ngClass]="className" data-crlat="tab.showNextRacesModule" *ngIf="!isGermanUser">
+  <accordion *ngIf="nextRacesModule?.storedEvents?.length && !showLoader"
+             [isExpanded]="true"
+             [headerClass]="headerClass"
+             (function)="trackCollapse($event)"
+             data-crlat="outerAccordion"
+             [isHeaderHidden]="!headerVisible && widget"
+             #nextRacesAccordion>
+    <left-side>
+      <span class="left-title-text" [i18n]="leftTitleText"  data-crlat="headerTitle.leftMessage"></span>
+    </left-side>
+    <accordion-body data-crlat="containerContent">
+      <lazy-component
+      *ngIf="nextRacesGroupedData?.groupedRacing?.length && (raceEvent === 'Horse Racing' || raceEvent === 'Greyhounds') && nextRacesGroupedData?.showFilter"
+      moduleUri="@lazy-modules-module/customFlagFiltertoggle/custom-flag-filter-toggle.module#CustomFlagFilterToggleModule"
+      [inputs]="{filters: nextRacesGroupedData?.groupedRacing, selectedFilter: selectedFilter, compName: compName, isLadsSideWidget: isLadsSideWidget,isNxtTabEnabled: isNxtTabEnabled }"
+      [outputs]="['filterChange']"
+      (event)="onFilterChange($event)" entryComponent="CustomFlagFilterToggleComponent">
+    </lazy-component>
+
+    <ng-container *ngIf="nextRacesAccordion.isExpanded && nextRacesGroupedData.storedEvents">
+      <lazy-component moduleUri="@lazy-modules-module/raceCard/race-card-content.module#RaceCardContentModule"
+        [inputs]="{
+          raceData: nextRacesGroupedData.storedEvents,
+          viewFullRaceText: 'racing.viewFullRace',
+          trackGaDesktop: trackGaDesktop,
+          trackGa: trackGa,
+          raceWidget: widget,
+          raceIndex: raceIndex,
+          raceOrigin: 'next-races',
+          raceMaxSelections: nextRacesModule.limitOutcomesCount,
+          showTimer: showTimer,
+          showBriefHeader: false,
+          fluid: fluid,
+          gtmModuleTitle: 'next races',
+          hideNonRunners: true,
+          isNextRacesModule: true
+        }">
+      </lazy-component>
+    </ng-container>
+    <show-more-link *ngIf="moduleAllLink && showMoreLink"
+                    [link]="showMoreLink?.link" (function)="sendToGTM()"
+                    [title]="showMoreLink?.title" data-crlat="showMore"></show-more-link>
+    </accordion-body>
+  </accordion>
+  <div *ngIf="showLoader" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+  <request-error *ngIf="ssDown && !showLoader" [loadFailed]="ssDown" (reloadFn)="reloadComponent()"></request-error>
+</div>

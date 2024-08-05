@@ -1,0 +1,42 @@
+<div class="card">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Config Registry </h2>
+  </div>
+</div>
+<div class="card">
+  <div class="body">
+    <div class="row" *ngIf="registryData">
+      <div class="col-md-3">
+        <button (click)="createEditRegistry(null)" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Add Config</span>
+        </button>
+      </div>
+      <div class="col-4 m-b-0 pagination-block">
+        <mat-icon class="m-r-5">format_list_numbered</mat-icon>
+        <mat-form-field class="pagination-select">
+          <mat-select placeholder="Rows per page" [(ngModel)]="paginationLimit">
+            <mat-option *ngFor="let option of paginationLimitOptions" [textContent]="option || 'No pagination'"
+              [value]="option">
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Config" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="registryData?.length > 0">
+      <cms-data-table [customTableData]="registryData" [customTableColumns]="dataTableColumns" (onRemoveTableElement)="removeConfig($event)"
+        [actions]="['remove','onPageEdit']" [filterString]="searchField" (onPageEditTableElement)="createEditRegistry($event)"
+        [filterProperties]="filterProperties" [paginationLimit]="paginationLimit">
+      </cms-data-table>
+    </div>
+  </div>
+</div>

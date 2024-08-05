@@ -1,0 +1,43 @@
+<accordion [accordionTitle]="moduleConfig.name" [headerClass]="'secondary-header'"
+[headerClass]="'secondary-header'" [isExpanded]="moduleConfig?.isExpanded" (function)="accordionHandler()">
+  <accordion-body>
+    <div class="container-inner-content group-individual-container">
+      <section class="group-individual">
+        <table class="group-individual-table">
+
+          <tr class="caption-row">
+            <th title="position">pos</th>
+            <th class="county-cell"></th>
+            <th title="points" class="points2">pts</th>
+            <th class="group-all" *ngFor="let market of markets; trackBy: trackByMarket" [title]="market.name" [textContent]="market.name"></th>
+          </tr>
+
+          <tr *ngFor="let team of group.teams; let i = index; trackBy: trackByTeam">
+            <td class="position-cell" [ngClass]="getQualifiedClass(i)">{{ i + 1 }}</td>
+            <td class="country-cell">
+              <svg class="flag-icon">
+                <use [attr.xlink:href]="team.svgId"></use>
+              </svg>
+              <span [textContent]="team.abbreviation"></span>
+            </td>
+            <td [textContent]="team.totalPoints"></td>
+
+            <td *ngIf="markets[0]">
+              <price-odds-button class="odds-btn group-all" *ngIf="isSelnDisplayed(events[0], markets[0], i)" [event]="events[0]"
+                [market]="markets[0]" [outcome]="getSeln(markets[0], i)">
+              </price-odds-button>
+              <div class="odds-btn group-all not-available" *ngIf="!isSelnDisplayed(events[0], markets[0], i)">N/A</div>
+            </td>
+
+            <td *ngIf="markets[1]">
+              <price-odds-button class="odds-btn group-all" *ngIf="isSelnDisplayed(events[1] || events[0], markets[1], i)"
+                [event]="(events[1] || events[0])" [market]="markets[1]" [outcome]="getSeln(markets[1], i)">
+              </price-odds-button>
+              <div class="odds-btn group-all not-available" *ngIf="!isSelnDisplayed(events[1] || events[0], markets[1], i)">N/A</div>
+            </td>
+          </tr>
+        </table>
+      </section>
+    </div>
+  </accordion-body>
+</accordion>

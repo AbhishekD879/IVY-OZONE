@@ -1,0 +1,9 @@
+<ng-container *ngIf="!state.loading && !state.error">
+  <top-bar [title]="'sb.privateMarktesTermsAndConditions'"></top-bar>
+  <static-block [cmsContent]="privateMarketsTermsAndConditionsText"
+                data-crlat="privateTerms"></static-block>
+</ng-container>
+
+<outlet-status [state]="state">
+  <request-error (reloadFn)="reloadComponent()"></request-error>
+</outlet-status>

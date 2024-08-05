@@ -1,0 +1,127 @@
+ /* OXYGEN APP STYLES
+ *----------------------------------------------------------------------
+ */
+
+ $platform-paddings: 0px;
+ $lotto-bet-margin: 0 0 4px;
+ $footer-bg: #042747;
+ 
+ /*----------------------------------------------------------------------
+  * <lotto-bets></lotto-bets>
+ */
+ 
+ @mixin lotto-bet(){
+ border-bottom: 4px solid rgb(204,207,217);
+}
+// @mixin bet-receipt-side-curve-width() {
+//   width:15px;
+// }
+
+ $ema-history-list-height: 504px;
+ 
+ /*----------------------------------------------------------------------
+  * <live-label></live-label>
+ */
+ @mixin live-label {
+   color: $color-white;
+   background: $color-red;
+   padding: 1px 5px;
+   border-radius: 2px;
+   font-size: $font-size-xs;
+   line-height: 12px;
+   min-height: 12px;
+   margin-right: 10px;
+   &::before {
+     content: none;
+   }
+ }
+ 
+ /*----------------------------------------------------------------------
+  * <over-ask-offer-notification></over-ask-offer-notification>
+ */
+ 
+ $bs-oversask-notification-margin: 5px 0 0;
+ $bs-oversask-notification-padding: 14px 14px 12px 32px;;
+ $bs-oversask-notification-border: none;
+ $bs-oversask-notification-icon-size: 14px;
+ $bs-oversask-notification-icon-left: 10px;
+ $bs-oversask-notification-icon-top: 15px;
+ $bs-oversask-notification-background: $color-gray-light;
+ $bs-oversask-notification-color: $color-blue-dark;
+ $bs-overask-trader-offer-expires-margin: 2px 0 0;
+ $bs-overask-trader-offer-message-font-size: 13px;
+ $bs-oversask-notification-timer-weight: bold;
+ $bs-oversask-notification-message-opacity: 0.75;
+ 
+ $race-card-width: 270px;
+ $race-card-delimiter: 10px;
+ $race-header-height: 25px;
+ $race-footer-height: 35px;
+ $race-silk-horseracing-width: 30px;
+ $race-silk-horseracing-height: $race-silk-horseracing-width;
+ $race-card-btn-width: 80px;
+ $race-card-h-padding: 0 10px;
+ $page-container-header-bottom-margin: 0;
+ 
+ /* pc-badge icons  */
+ $pc-badge-color: $color-white;
+ $pc-badge-font-size: $font-size-xs;
+ $pc-badge-height: 12px;
+ $pc-badge-line-height: $pc-badge-height;
+ $pc-badge-enhanced-background: $color-blue-lighter;
+ $pc-badge-specials-background: $color-pink;
+ 
+ /* accordion  */
+ $accdn-margin-bottom: 10px;
+ 
+ /* odds boost page  */
+ $odds-boost-icon-width: 42px;
+ $odds-boost-info-content-icon-width: 24px;
+ $odds-boost-info-content-icon-scale: 1;
+ 
+ /* banners  */
+ $banner-min-height: 23.2;
+ $banner-shadow-height: 2px;
+ $banner-sk-height: calc(#{$banner-min-height} * 1vw + #{$banner-padding} * 3 + #{$slide-dots-height});
+ $banner-sk-padding: calc(#{$banner-min-height} * 1% + #{$banner-padding} * 3 + #{$slide-dots-height});
+ $offer-terms-bg: rgba(red($color-cobalt), green($color-cobalt), blue($color-cobalt), 0.7);
+ $offer-terms-color: $color-white;
+ 
+ /* slider  */
+ $slide-width: 51%;
+ 
+ /* SEO Content */
+ $seo-title-color: $color-blue-dark;
+ $seo-title-font: $font-size;
+ $seo-static-content-color: $color-gray-dark;
+ $seo-static-content-font-family: $base-font-family;
+ $seo-static-content-link-color: $color-blue-light;
+ 
+ // Byb
+ $switch-background: $color-blue-dark;
+ $switch-btn-active-color: $color-blue-shade-heavy;
+ $switch-show-color: $color-gray-dark;
+ $switch-byb-font-family: $base-font-family;
+ $switch-byb-market-des-color:$color-blue-dark;
+ $switch-byb-market-range-color:$color-gray-dark;
+ $switch-byb-market-player-color:$color-blue-dark;
+ $switch-stats-font-family: $base-font-family;
+ $byb-showcard-accordion: none;
+ $byb-player-font-weight: 500;
+
+
+ /*
+  * used for <regular-bet-header> component
+ */
+ $reuse-selection-border-button: $color-blue-dark;
+ $reuse-button-padding: 9px;
+ $reuse-selection-font-size: 11px;
+ $reuse-selection-font-family: 'Lato';
+ $show-signPosting-color: $color-yellow;
+ $racing-signPosting-margin: 16px;
+
+ //profit indicator
+$profit-indicator-line-height: normal;
+$profit-indicator-height: 16px;
+$profit-indicator-justify-content: center;
+$profit-indicator-border-radius: 8px;

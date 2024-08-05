@@ -1,0 +1,39 @@
+<div id="first-bet-id" class="first-bet-onboarding" *ngIf="firstBetPlacementDetails?.isEnable && isFirstBetAvailable">
+    <div class="first-bet-example">
+        <div class="first-bet front" *ngIf="!isCloseTutorial">
+            <div class="info-image">
+                <img class="img" [src]="iconUrl | safe: 'resourceUrl'" alt="">
+            </div>
+            <div class="info-home">
+                <div class="info-home-margin">
+                    <p class="info-home-title">{{firstBetPlacementDetails.homePage.title | uppercase}}</p>
+                    <p class="info-home-desc" [innerHTML]="firstBetPlacementDetails.homePage.description | safe: 'html' "></p>
+                    <a class="info-home-start" (click)="onStartTutorial()">{{firstBetPlacementDetails.homePage.button | uppercase}}</a>
+                </div>
+            </div>
+            <div class="close-btn">
+                <a class="btn-close" (click)="openUndo()">
+                    <svg>
+                        <use xlink:href="#close-icon"></use>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <div class="first-bet back" *ngIf="isCloseTutorial">
+            <div class="undo-left-border">
+            </div>
+            <div class="undo">
+                <div class="undo-content">
+                    <p class="undo-title">{{firstBetPlacementDetails.button.title | uppercase}}</p>
+                    <p class="undo-desc" [innerHTML]="firstBetPlacementDetails.button.description | safe: 'html' "></p>
+                </div>
+                <div class="undo-btn">
+                    <p class="undo-btn-txt" (click)="closeUndo()">{{firstBetPlacementDetails.button.leftButtonDesc | uppercase}}</p>
+                </div>
+                <div class="dismiss-btn">
+                    <p class="dismiss-btn-txt" (click)="dismiss(true)">{{firstBetPlacementDetails.button.rightButtonDesc | uppercase}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

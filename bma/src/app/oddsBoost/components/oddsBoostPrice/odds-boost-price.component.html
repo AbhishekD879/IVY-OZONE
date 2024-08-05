@@ -1,0 +1,21 @@
+<div class="price-wrap" *ngIf="priceRange.length">
+  <div class="price-container" data-crlat="oddsBoostPrice">
+    <ng-container *ngFor="let item of priceRange; trackBy: trackByIndex">
+      <!-- Divider -->
+      <div *ngIf="item.divider" class="divider" [textContent]="item.divider" data-crlat="item"></div>
+
+      <!-- Number range -->
+      <div *ngIf="item.range" class="num-list" data-crlat="item" #numbersList>
+        <ul [ngClass]="{
+            'scroll-down': !item.scrollUp,
+            'scroll-up': item.scrollUp,
+            'animate': animate
+          }">
+          <li *ngFor="let num of item.range; trackBy: trackByIndex"
+            [class.placeholder]="num === 'x'" [textContent]="num">
+          </li>
+        </ul>
+      </div>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,137 @@
+@import 'global.variables.scss';
+
+$toggle-switch-active-background: $color-green;
+
+:host {
+  ::ng-deep .modal-dialog {
+    width: 295px;
+
+    .modal-content {
+      .modal-header {
+        border-radius: 2px;
+        background-color: $color-white-light;
+        padding: 25px 5px 5px 18px;
+      }
+
+      .modal-body {
+        padding: 0px;
+      }
+    }
+  }
+}
+
+.notification-text {
+  margin: 15px 18px;
+  @include setFanzoneSYTText(Helvetica, 12px, normal, left, normal, normal, 1.2, normal);
+  color: $lBlack-light;
+}
+
+.notification-title {
+  @include setFanzoneSYTText(Helvetica, 13px, bold, left, normal, normal, normal, normal);
+  text-transform: uppercase;
+  color: $lGray;
+}
+
+.notification-subscribe {
+  display: flex;
+  justify-content: space-between;
+  margin: 40px 20px 0px 20px;
+  font-family: Helvetica;
+  color: $color-gray-darkest;
+}
+
+.notification-subscribe-text {
+  @include setFanzoneSYTText($alt-font-family, 12px, normal, left, normal, normal, normal, normal);
+  color: #2b2b2b;
+  height: 14px;
+}
+
+.toggle-switch {
+  float: right;
+  height: 15px;
+  width: 40px;
+  height: 20px;
+  input[type=checkbox] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+  }
+  label {
+    cursor: pointer;
+    text-indent: -9999px;
+    display: inline-block;
+    position: relative;
+    transition: all 250ms ease;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    background-color: $color-white;
+    width: 36px;
+    height: 12px;
+    border-radius: 10px;
+  }
+  label:after {
+    content: '';
+    position: absolute;
+    background: $color-white;
+    border-radius: 50%;
+    transition: all 250ms ease;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 50%), 0 0 3px 0 rgb(0 0 0 / 50%);
+    top: -3px;
+    left: -1px;
+    width: 18px;
+    height: 20px;
+  }
+  input:checked+label {
+    background: $toggle-switch-active-background;
+  }
+  input:checked+label:after {
+    left: calc(100% + 1px);
+    @include transform(translateX(-100%));
+  }
+}
+.notification-footer {
+  float: right;
+  padding: 20px 10px 15px;
+}
+
+.footer-btn {
+  @include setFanzoneSYTText(Roboto, 12px, bold, right, condensed, normal, normal, normal);
+  padding: 10px 15px;
+  border: $fanzone-syt-border;
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
+.exit {
+  background-color: $fanzone-transparent-color;
+  color: $color-gray-darkest;
+  &:hover{
+    text-decoration: underline;
+  }
+  &:active{
+    color: $lGrayMedium;
+    text-decoration: none;
+  }
+}
+
+.confirm {
+  background-color: $color-yellow-alt;
+  color: $lGray;
+  height: 36px;
+  &:hover{
+    background: $color-yellow-alt;
+    opacity: 0.85;
+    color: $lGray;
+    text-decoration: none;
+  }
+  &:active{
+    background-color: $color-orange-light2;
+    opacity: 1;
+    color: $lGray;
+  }
+}
+
+@media (max-width: $mobilePoint) {
+  .footer-btn  {
+    font-size: 13px;
+  }
+}

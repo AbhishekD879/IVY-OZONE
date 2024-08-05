@@ -1,0 +1,144 @@
+@import '../../../../../app/quickbet/components/quickbetReceipt/quickbet-receipt.component.scss';
+
+.qb-receipt {
+  max-height: 460px;
+  overflow-y: scroll;
+  .qb-fee {
+    font-family: $alt-font-family;
+    text-align: left;
+    padding: 0 0 6px;
+    font-size: 12px;
+  }
+  .selection-type,
+    .qb-single-receipt-odds {
+      font-size: 15px;
+      color: $lBlack-medium;
+    }
+  .qb-single-receipt-odds {
+      font-weight: 400;
+  }
+  .qb-reuse {
+    background: #fff;
+    max-height: inherit;
+    padding: 15px;
+    position: relative;
+    .qb-reuse-yourbets{
+      font-size: 12px;;
+    }
+    .qb-reuse-button-wrapper{
+      position: absolute;
+      right: 3.2%;
+      .qb-reuse-button {
+        font-family:  $reuse-selection-font-family;
+        font-size: 12px;
+        color: $reuse-selection-border-button;
+        font-weight: 700;
+        border: none;
+      }
+    }
+  }
+  .qb-stake-title,
+  .qb-stake-type,
+  .qb-stake-description {
+    color: $lBlack-medium;
+  }
+  .receipt-id {
+    color: $lBlack-light;
+  }
+  .eachway-terms-block {
+    margin: -5px 15px 10px;
+  }
+  .qb-stake-footer {
+    background: $lGrayLight;
+    &::after, &::before {
+      content: none;
+    }
+    .line {
+      strong, span {
+        color: $lBlack-medium;
+      }
+    }
+  }
+  .alerts-wrapper {
+    padding: 11px 15px;
+    font-size: 10px;
+  }
+}
+
+.qb-receipt-wrapper {
+  margin: 0;
+}
+
+::ng-deep {
+  p.yourcall-selection {
+    line-height: 1;
+    margin: 6px 0 0;
+    font-size: 13px;
+    span {
+      font-family: $alt-font-family;
+      color: $color-gray-darkest;
+    }
+    .value {
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+:host ::ng-deep {
+  .bog-block {
+    &.bog-bg {
+      margin: 4px;
+    }
+  }
+
+  .promotion-icon-label {
+    align-items: center;
+    &.alignLabelIcons {
+      margin-bottom: 15px!important;
+      .promo-labels {
+        &.quickbet {
+          padding: 0;
+        }
+        .cashout-label-wrapper {
+         margin-top: 0px!important;
+        }
+     }
+    }
+  }
+
+}
+
+.byb-event-name {
+  color: $color-gray-darkest;
+}
+
+.tooltipQB-max-payout {
+  padding-right: 0px;
+  padding-left: 4px;
+  margin-top: -2px;
+  position: absolute;
+}
+
+.maxPayOut-info-icon {
+  height: 14px;
+  width: 15px;
+  margin-bottom: -2px;
+  margin-right: 3px;
+
+}
+
+.tooltipQB-max-payout-android {
+  padding-right: 0px;
+  padding-left: 4px;
+  margin-top: -2px;
+  position: absolute;
+}
+
+.icon-content {
+  margin-left: 15px;
+}
+.epr{
+  display: flex;
+  align-items: center;
+}

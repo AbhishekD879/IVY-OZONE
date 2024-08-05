@@ -1,0 +1,207 @@
+@import 'global.variables.scss';
+
+.tote-event {
+  &.card {
+    margin-top: 0;
+  }
+
+  .pool-size-container {
+    padding: 0 10px 10px;
+
+    .pool-size-value {
+      display: inline-block;
+      padding-right: 4px;
+      color: $brand-color-main;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+
+  .pool-size-label, .guide-description {
+    color: $color-gray-dark;
+    font-size: 10px;
+  }
+
+  .guide-description {
+    display: block;
+    padding: 0 10px 10px;
+  }
+
+  .guide-container, .estimated-container, .estimated-total-container {
+    text-align: right;
+
+    .label {
+      color: lighten($color-gray-dark, 50%);
+      margin-right: 3px;
+      font-weight: normal;
+    }
+    .value {
+      color: $color-gray-dark;
+      font-weight: bold;
+    }
+    .label, .value {
+      font-size: 10px;
+    }
+  }
+
+  .estimated-total-container {
+    .label, .value {
+      font-size: 11px;
+    }
+    .label {
+      color: lighten($color-gray-dark, 50%);
+    }
+  }
+
+  .estimated-container {
+    padding-top: 5px
+  }
+  .checkboxes-headers, .checkboxes-body {
+    margin-bottom: 5px;
+  }
+
+  .checkboxes-header {
+    display: inline-block;
+    width: 23px;
+    text-align: center;
+    margin-left: 8px;
+    color: $color-gray-dark;
+    &:first-child {
+      margin: 0;
+    }
+  }
+
+  .check-styled {
+    border: 1px solid $color-gray;
+    border-radius: 3px;
+    height: 22px;
+    width: 22px;
+    margin: 0 0 0 10px;
+    &.disabled {
+      pointer-events: none;
+      cursor: default;
+      label {
+        background: $color-gray;
+        box-shadow: none;
+      }
+    }
+    &:first-child {
+      margin: 0;
+    }
+    label {
+      border-radius: 0;
+      background: $color-white;
+      &:after {
+        border: 2px solid $color-green;
+        border-top: none;
+        border-right: none;
+      }
+    }
+  }
+
+  .guide span {
+    color: lighten($color-gray-dark, 50%);
+  }
+
+  .pool-stake {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 5px 0;
+    .stake-title {
+      margin-right: 5px;
+    }
+    .custom-input-container.tote-input-container {
+      width: auto;
+    }
+    .custom-input-container.tote-input-container input {
+      width: 93px;
+    }
+  }
+
+  .event-error {
+    font-size: 11px;
+    &:before {
+      display: none;
+    }
+  }
+
+  .event-header {
+    .header-icon-wrapper {
+      float: left;
+      width: initial;
+      text-align: initial;
+      margin: 10px;
+
+      .header-icon-stream {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .header-left {
+      padding-top: 5px;
+
+      .event-status {
+        color: $color-red;
+      }
+
+      &.race-resulted {
+        color: lighten($color-gray-dark, 50%);
+      }
+
+      &.no-ico-stream {
+        margin-left: 40px;
+      }
+    }
+  }
+
+  .race-summary-container {
+    border-bottom: 1px solid $color-gray;
+
+    .race-summary-header {
+      height: 42px;
+
+      .race-summary-btn-container {
+        position: relative;
+        cursor: pointer;
+        top: 15px;
+
+        &:before {
+          left: 0;
+          position: absolute;
+          margin-left: 10px;
+        }
+      }
+    }
+
+    .race-terms {
+      text-align: right;
+    }
+
+    .race-summary-text {
+      font-size: 11px;
+      line-height: 14px;
+      padding: 0 10px 15px;
+    }
+  }
+
+  .btn {
+    &.btn-style1 {
+      .bet-checkmark {
+        display: none;
+      }
+    }
+  }
+  @media (max-width: 360px), (max-width: ($tabletPoint + 60)) and (min-width: $tabletPoint) {
+    .btn-bet {
+      padding: 10px;
+      font-size: 12px;
+    }
+  }
+}
+
+
+.tote-bets-description {
+  line-height: 13px;
+}

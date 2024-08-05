@@ -1,0 +1,201 @@
+@import 'global.variables.scss';
+
+.extraplacesignpostOffer {
+  background: $EPR-signpost-background;
+  text-transform: uppercase;
+  width: fit-content;
+  height: auto;
+  font-size: 10px;
+  font-weight: 500;
+  color: $extraPlaceMsg-color;
+  margin: 6px 0px;
+  &:hover {
+    opacity: .85;
+    color: $lGray;
+  }
+  &:active {
+    background-color: $color-orange-light2;
+    opacity: 1;
+    color: $lGray;
+  }
+  @media #{$mqMobile} {
+    width: max-content;
+  }
+}
+
+.notification_coral {
+  background: $nonrunner-background-color;
+  position: relative;
+  padding: 6px 30px 6px 10px;
+  letter-spacing: 0;
+  @include setFontProps('Lato', 12px, 700, $nonrunner-content-color);
+  height: auto;
+  text-align: center;
+  line-height: 14px;
+  @media #{$mqMobile} {
+  line-height: 13px;
+  font-size: 11px;
+  }
+}
+
+.notification_lads {
+  background: $nonrunner-background-color;
+  position: relative;
+  padding: 6px 30px 6px 10px;
+  letter-spacing: 0;
+  @include setFontProps('Helvetica Neue', 12px, 500, $nonrunner-content-color);
+  height: auto;
+  text-align: center;
+  line-height: 15px;
+
+}
+
+.open-bet-notification {
+  &.tablet {
+    width: 100%;
+  }
+
+  &::after {
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid $nonrunner-background-color;
+    position: absolute;
+    top: 100%;
+    z-index: 1;
+    left: calc(50% - 7px);
+  }
+}
+
+.settled-bet-notification {
+  &::after {
+    content: "";
+    width: 0;
+    height: 0px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid $nonrunner-background-color;
+    position: absolute;
+    bottom: $nonrunnerMsg-arrow-bottom;
+    z-index: 1;
+    left: calc(91% - $nonrunnerMsg-arrow-size);
+
+    @media #{$mqMobile} {
+      left: calc(91% - $nonrunnerMsg-arrow-size-mob);
+    }
+  }
+}
+
+.betslip_lads {
+  font-size: 10px;
+  padding: 2px 5px;
+  width: fit-content;
+  font-family: 'Roboto Condensed';
+  border-radius: 2px;
+  line-height: 12px;
+  font-weight: 700;
+  position: absolute;
+  z-index: 1;
+}
+
+.betslip_coral {
+  font-size: 9px;
+  padding: 2px 5px;
+  width: fit-content;
+  font-family: 'Lato';
+  border-radius: 2px;
+  line-height: 11px;
+  font-weight: 500;
+  position: absolute;
+  z-index: 1;
+}
+
+.edp_coral {
+  font-weight: 500;
+  font-size: 9px;
+  line-height: 11px;
+  padding: 3px 6px;
+  border-radius: 2px;
+  font-weight: 500;
+}
+
+.edp_lads {
+  padding: 2px 6px;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 12px;
+  border-radius: 2px;
+  font-weight: 700;
+  font-family: 'Roboto Condensed';
+}
+
+.caurosel_coral {
+  border-radius: 2px;
+  padding: 3px 6px;
+  font-weight: 500;
+  font-size: 9px;
+  line-height: 11px;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.caurosel_lads {
+  border-radius: 0px 4px 4px 0px;
+  font-size: 10px;
+  line-height: 12px;
+  letter-spacing: 0em;
+  margin-bottom: 2px;
+  padding: 2px 6px;
+  font-weight: 700;
+  font-family: 'Roboto Condensed';
+}
+
+
+.openbets_coral {
+  font-weight: 500;
+  font-size: 9px;
+  line-height: 11px;
+  border-radius: 2px;
+  font-family: 'Lato';
+  padding: 3px 6px;
+  font-weight: 500;
+}
+
+.openbets_lads {
+  font-weight: 500;
+  border-radius: 2px;
+  font-size: 10px;
+  line-height: 12px;
+  padding: 2px 6px;
+  font-family: 'Roboto Condensed';
+  font-weight: 700;
+}
+
+.receipt_coral {
+  padding: 3px 6px;
+  border-radius: 2px;
+  font-weight: 500;
+  font-size: 9px;
+  line-height: 11px;
+  margin-left: 8px;
+  font-family: 'Lato';
+  font-weight: 500;
+  margin-top: 0px;
+}
+
+.receipt_lads {
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-size: 10px;
+  line-height: 12px;
+  margin-left: 8px;
+  font-family: 'Roboto Condensed';
+  font-weight: 700;
+  margin-top: 0px;
+}
+
+.minHeight{
+  height: 12px;
+}

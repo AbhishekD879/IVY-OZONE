@@ -1,0 +1,172 @@
+<breadcrumbs *ngIf="post" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="post">
+  <div class="header">
+    <div class="row">
+      <div class="col-md-10">
+        <h2 class="waves-effect waves-block has-activity-badge">
+          Post: {{post.name}} [{{post.postStatus}}]
+          <create-updated-at-by [collection]="post"></create-updated-at-by>
+        </h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="post?.template">
+  <div class="body">
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="row">
+          <div class="col-sm-2">
+            <span class="mat-label">
+              Name
+            </span>
+          </div>
+          <div class="col-sm-10">
+            <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !post.name}">
+              <input matInput placeholder="Name" [(ngModel)]="post.name" [value]="post.name" trim="blur">
+              <mat-hint class="col-red" *ngIf="!post.name">Name should be entered</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="activeTemplate.headerText">
+          <div class="col-sm-2">
+            <span class="mat-label">
+              Header Text
+            </span>
+          </div>
+          <div class="col-sm-10">
+            <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !headerValid}">
+              <input matInput placeholder="Header Text" [(ngModel)]="post.template.headerText"
+                     [value]="post.template.headerText">
+            </mat-form-field>
+          </div>
+        </div>
+
+
+        <div class="row" *ngIf="activeTemplate.yellowHeaderText">
+          <div class="col-sm-2">
+            <span class="mat-label">
+              Yellow Header Text
+            </span>
+          </div>
+          <div class="col-sm-10">
+            <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !yellowHeaderValid}">
+              <input matInput placeholder="Yellow Header Text" [(ngModel)]="post.template.yellowHeaderText"
+                     [value]="post.template.yellowHeaderText">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="activeTemplate.subHeader">
+          <div class="col-sm-2">
+            <span class="mat-label">
+              Subheader Text
+            </span>
+          </div>
+          <div class="col-sm-10">
+            <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !subHeaderValid}">
+              <input matInput placeholder="Subheader Text" [(ngModel)]="post.template.subHeader"
+                     [value]="post.template.subHeader">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2">
+        <span class="mat-label">
+         Text
+        </span>
+          </div>
+          <div class="col-sm-10">
+            <tinymce-editor [ngClass]="{ 'mat-form-field-invalid': !textValid}"
+                            #text
+                            [pageName]="'post'"
+                            [readonly]="post.isSpotlight || post.isVerdict"
+                            [pageItemId]="post.id"
+                            (outputEditorData)="updateText($event)"
+                            [initialEditorContent]="post.template.text || ''"></tinymce-editor>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="activeTemplate.eventId">
+          <div class="col-sm-2">
+      <span class="mat-label">
+        Event ID
+      </span>
+          </div>
+          <div class="col-sm-10">
+            <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !eventIdValid}">
+              <input matInput placeholder="Event ID" [(ngModel)]="post.template.eventId"
+                     [value]="post.template.eventId">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="activeTemplate.selectionId">
+          <div class="col-sm-2">
+            <span class="mat-label">
+              Selection ID
+            </span>
+          </div>
+          <div class="col-sm-10">
+            <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !selectionIdValid}">
+              <input matInput placeholder="Selection ID" [(ngModel)]="post.template.selectionId"
+                     [value]="post.template.selectionId">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="activeTemplate.betPromptHeader">
+          <div class="col-sm-2">
+            <span class="mat-label">
+              Bet Prompt Header
+            </span>
+          </div>
+          <div class="col-sm-10">
+            <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !betPromptHeaderValid}">
+              <input matInput placeholder="Bet Prompt Header" [(ngModel)]="post.template.betPromptHeader"
+                     [value]="post.template.betPromptHeader">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="activeTemplate.postHref">
+          <div class="col-sm-2">
+            <span class="mat-label">
+              Post Href
+            </span>
+          </div>
+          <div class="col-sm-10">
+            <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !postHrefValid}">
+              <input matInput placeholder="Post Href" [(ngModel)]="post.template.postHref"
+                     [value]="post.template.postHref">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        Post Preview:
+        <post-preview [post]="post"></post-preview>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="getDataError">
+  Request Error
+</div>
+
+
+<timeline-action-buttons
+  #actionButtons
+  *ngIf="post"
+  [validateHandler]="checkModelValidForSave"
+  [validateForSaveAndPublishHandler]="checkModelValidForSaveAndPublish"
+  [nameField]="'name'"
+  [collection]="post"
+  (actionsEmitter)="actionsHandler($event);">
+</timeline-action-buttons>

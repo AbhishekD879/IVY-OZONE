@@ -1,0 +1,61 @@
+<breadcrumbs *ngIf="headerSubMenu" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+
+<div class="card" *ngIf="headerSubMenu">
+  <div class="header">
+    <h2 class="has-activity-badge">Header SubMenu:
+      <span class="font-italic">{{headerSubMenu.linkTitle}}</span>
+      <create-updated-at-by [collection]="headerSubMenu"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="headerSubMenu.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="headerSubMenu">
+  <form [formGroup]="form" novalidate>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-checkbox color="primary" formControlName="disabled"
+                        (change)="headerSubMenu.disabled=!headerSubMenu.disabled"> Active</mat-checkbox>
+        </div>
+        <div class="col-md-6">
+          <mat-checkbox color="primary"
+                        (change)="headerSubMenu.inApp=!headerSubMenu.inApp" formControlName="inApp"> In App</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+              Link Title
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Link Title" [(ngModel)]="headerSubMenu.linkTitle" formControlName="linkTitle" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Target Uri
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Target Uri" [(ngModel)]="headerSubMenu.targetUri" formControlName="targetUri" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="headerSubMenu"
+  [form]="form"
+  [fieldOrItemName]="'linkTitle'"
+  [collection]="headerSubMenu"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

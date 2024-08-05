@@ -1,0 +1,24 @@
+<div id="fiveaside-entry-overlay" [scroll-fix] class="cookie-top vn-smart-banner-margin-top">
+    <div class="container modal-fix">
+        <div class="my-entries row">
+            <div class="col-xs-10" [i18n]="'fs.entryinfo.allmyentries'" [i18nArgs]="[entries?.length]">
+            </div>
+            <div class="col-xs-2 align-text">
+                <a class="close-icon" (click)="close()">
+                    <svg>
+                        <use xlink:href="#close-icon"></use>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <div class="content-block">
+            <div class="content" (@overlay.done)='doNext()' [@overlay]="'in'"
+                *ngFor="let stagger of staggering; let i=index">
+                <!-- Removed isOpened for strict mode issue -->
+                <fiveaside-entry-summary [isOverlay]=true [isLeaderboard]=false [entryInfo]="stagger" [index]="i" [eventStatus]="'live'"
+                [teamColors]="teamColors" [hasTeamImage]="hasTeamImage" [prizePoolData]="stagger" [entryIdList]="[stagger.id]">
+                </fiveaside-entry-summary>
+            </div>
+        </div>
+    </div>
+</div>

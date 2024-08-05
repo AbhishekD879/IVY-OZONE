@@ -1,0 +1,51 @@
+{
+  "brand": "retail",
+  "menu": [
+    {
+      "label": "Edit CMS Menu",
+      "path": "/menu-configuration",
+      "icon": "settings",
+      "active": true
+    },
+    {
+      "label": "Maintenance",
+      "path": "/maintenance-pages",
+      "icon": "smoking_rooms",
+      "active": true
+    },
+    {
+      "label": "Banners",
+      "path": "/banners/sport-banners",
+      "icon": "photo library",
+      "active": true
+    },
+    {
+      "label": "Static Blocks",
+      "path": "/static-blocks",
+      "icon": "settings_brightness",
+      "active": true
+    },
+    {
+      "label": "System configuration",
+      "path": "/system-configuration",
+      "icon": "settings_input_component",
+      "active": true,
+      "sub-menus": [
+        {
+          "label": "Config",
+          "path": "/system-configuration/config"
+        },
+        {
+          "label": "Structure",
+          "path": "/system-configuration/structure"
+        }
+      ]
+    },
+    {
+      "label": "Payments",
+      "path": "/payment-methods",
+      "icon": "credit_card",
+      "active": true
+    }
+  ]
+}

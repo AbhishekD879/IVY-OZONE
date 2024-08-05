@@ -1,0 +1,478 @@
+<breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+
+<form [formGroup]="form" *ngIf="forYou && form" autocomplete="off">
+  <div class="card">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-12">
+          <h6>For you personalized bets sub tab</h6>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-checkbox color="primary" [checked]="forYou.enabled" (change)="forYou.enabled = !forYou.enabled"
+            [disabled]="isUntiedSport">
+            Enabled
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Tab Name
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Tab Name" disabled trim="blur" [value]="forYou.popularTabName">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            For You sub Tab Header Label
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="For You sub Tab Header Label" required trim="blur"
+              formControlName="headerDisplayName" [(ngModel)]="forYou.headerDisplayName">
+            <mat-hint class="col-red" *ngIf="form.get('headerDisplayName').invalid">
+              <div *ngIf="form.get('headerDisplayName').errors?.required">ForYou sub Tab Header Should Be
+                Entered</div>
+              <div *ngIf="form.get('headerDisplayName').value?.length > 25"> Can Enter Upto 25
+                Charaters Only. </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div> 
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-12">
+          <h6>For you Personalized bets static fields</h6>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Information text description
+          </span>
+        </div>
+        <div class="col-md-12">
+          <tinymce-editor *ngIf="forYou" #informationTextEditor class="tinymce-layout"
+            [minEditorStyles]=true [pageName]="'informationTextDesc'" (outputEditorData)="updateInfoTxtData($event)" 
+            [pageItemId]="forYou.id" [initialEditorContent]="formControls.informationTextDesc.value || ''">
+          </tinymce-editor>
+          <mat-hint class="col-red" *ngIf="formControls.informationTextDesc?.value.length ===0">
+            Information text description should  be entered</mat-hint>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h6>Top Bets for you Module Configurations</h6>
+        </div>
+      </div>
+ 
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Show More
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Show More" required trim="blur" formControlName="showMoreText"
+              [(ngModel)]="forYou.showMoreText">
+            <mat-hint class="col-red" *ngIf="form.get('showMoreText').invalid">
+              <div *ngIf="form.get('showMoreText').errors?.required">Show More Should Be Entered</div>
+              <div *ngIf="form.get('showMoreText').value?.length > 15"> Can Enter Upto 15
+                Charaters Only. </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Show Less
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Show Less" required trim="blur" formControlName="showLessText"
+              [(ngModel)]="forYou.showLessText">
+            <mat-hint class="col-red" *ngIf="form.get('showLessText').invalid">
+              <div *ngIf="form.get('showLessText').errors?.required">Show Less Should Be Entered</div>
+              <div *ngIf="form.get('showLessText').value?.length > 15"> Can Enter Upto 15
+                Charaters Only. </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Backed XXX Times
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Backed in {n} Times" required trim="blur" formControlName="backedUpTimesText"
+              [(ngModel)]="forYou.backedUpTimesText">
+            <mat-hint class="col-red" *ngIf="form.get('backedUpTimesText').invalid">
+              <div *ngIf="form.get('backedUpTimesText').errors?.required">Backed XXX Times Should Be Entered
+              </div>
+              <div *ngIf="form.get('backedUpTimesText').value?.length > 30"> Can Enter Upto 30
+                Charaters Only. </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <mat-checkbox color="primary" 
+          [checked]="forYou.enableBackedUpTimes" 
+          (change)="forYou.enableBackedUpTimes = !forYou.enableBackedUpTimes">
+          Backed times enable/disable
+          </mat-checkbox>
+        </div>
+     
+        <div class="col-md-6">
+          <mat-checkbox color="primary" 
+          [checked]="forYou.enableArrowIcon" 
+          (change)="forYou.enableArrowIcon = !forYou.enableArrowIcon">
+         Arrow icons enable/disable
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Number of for you bets (By default)
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Number of for you bets (By default)" type="number" min="1" trim="blur"
+              formControlName="numbOfDefaultPopularBets" [(ngModel)]="forYou.numbOfDefaultPopularBets" required>
+            <mat-hint *ngIf="form.get('numbOfDefaultPopularBets').invalid">
+              <div class="col-red" *ngIf="form.get('numbOfDefaultPopularBets').errors.required">
+                Number of For You Bets (Default) should be entered</div>
+              <div class="col-red" *ngIf="form.get('numbOfDefaultPopularBets').errors.min">
+                Number of For You Bets (Default) should be greater than zero</div>
+              <div class="col-red" *ngIf="form.get('numbOfDefaultPopularBets').errors.max">
+                Number of For You Bets (Default) can be 10 max</div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Number of for you bets (Show more)
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Number of For You Bets (ShowMore)" type="number" min="1" trim="blur"
+              formControlName="numbOfShowMorePopularBets" [(ngModel)]="forYou.numbOfShowMorePopularBets" required>
+            <mat-hint *ngIf="form.get('numbOfShowMorePopularBets').invalid">
+              <div class="col-red" *ngIf="form.get('numbOfShowMorePopularBets').errors.required">
+                Number of For You Bets (ShowMore) should be entered</div>
+              <div class="col-red" *ngIf="form.get('numbOfShowMorePopularBets').errors.min">
+                Number of For You Bets (ShowMore) should be greater than zero</div>
+              <div class="col-red" *ngIf="form.get('numbOfShowMorePopularBets').errors.max">
+                Number of For You Bets (ShowMore) can be 10 max</div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Price Range
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Enter range in fractions like: 1/10 - 10/1" trim="blur"
+              formControlName="priceRange" [(ngModel)]="forYou.priceRange" required>
+            <mat-hint class="col-red" *ngIf="form.get('priceRange').invalid">
+              <div *ngIf="form.get('priceRange').errors?.pattern"> Price Range not valid. Please enter in
+                this format i.e. 1/10-10/1 </div>
+              <div *ngIf="form.get('priceRange').errors.required"> Price Range should be entered </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Last Updated time
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Last Updated Time" trim="blur" formControlName="lastUpdatedTime"
+              [(ngModel)]="forYou.lastUpdatedTime" required>
+            <mat-hint class="col-red" *ngIf="form.get('lastUpdatedTime').invalid">
+              <div *ngIf="form.get('lastUpdatedTime').errors.required"> Last Updated Time should be
+                entered </div>
+              <div *ngIf="form.get('lastUpdatedTime').value.length > 20"> Can enter upto 20 characters
+                only. </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="card">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-12">
+          <h6>BetSlip Bar Configurations</h6>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Description
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="BetSlip Bar Description" trim="blur" formControlName="betSlipBarDesc"
+              [(ngModel)]="forYou.betSlipBarDesc" required>
+            <mat-hint class="col-red" *ngIf="form.get('betSlipBarDesc').invalid">
+              <div *ngIf="form.get('betSlipBarDesc').errors.required">BetSlip Bar Description should be entered </div>
+              <div *ngIf="form.get('betSlipBarDesc').value.length > 50"> Can enter upto 50 characters only. </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            CTA label
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="BetSlip Bar CTA button label" trim="blur" formControlName="betSlipBarCTALabel"
+              [(ngModel)]="forYou.betSlipBarCTALabel" required>
+            <mat-hint class="col-red" *ngIf="form.get('betSlipBarCTALabel').invalid">
+              <div *ngIf="form.get('betSlipBarCTALabel').errors.required"> BetSlip Bar CTA button label should be
+                entered </div>
+              <div *ngIf="form.get('betSlipBarCTALabel').value.length > 25"> Can enter upto 25 characters only. </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Bets Added Description
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Description for bets added to betslip" trim="blur"
+              formControlName="betSlipBarBetsAddedDesc" [(ngModel)]="forYou.betSlipBarBetsAddedDesc" required>
+            <mat-hint class="col-red" *ngIf="form.get('betSlipBarBetsAddedDesc').invalid">
+              <div *ngIf="form.get('betSlipBarBetsAddedDesc').errors.required"> Description for bets added to betslip
+                should be entered </div>
+              <div *ngIf="form.get('betSlipBarBetsAddedDesc').value.length > 50"> Can enter upto 50 characters only.
+              </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Remove Bets CTA label
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Remove Bets CTA button label" trim="blur"
+              formControlName="betSlipBarRemoveBetsCTALabel" [(ngModel)]="forYou.betSlipBarRemoveBetsCTALabel" required>
+            <mat-hint class="col-red" *ngIf="form.get('betSlipBarRemoveBetsCTALabel').invalid">
+              <div *ngIf="form.get('betSlipBarRemoveBetsCTALabel').errors.required"> Remove Bets CTA button label should
+                be entered </div>
+              <div *ngIf="form.get('betSlipBarRemoveBetsCTALabel').value.length > 25"> Can enter upto 25 characters
+                only. </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <span class="">
+            Bets Added description for suspended Bets
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Bets Added description for suspended Bets" trim="blur"
+              formControlName="suspendedBetsAddedText" [(ngModel)]="forYou.suspendedBetsAddedText" required>
+            <mat-hint class="col-red" *ngIf="form.get('suspendedBetsAddedText').invalid">
+              <div *ngIf="form.get('suspendedBetsAddedText').errors.required">Bets Added description for suspended Bets
+                label should be entered </div>
+              <div *ngIf="form.get('suspendedBetsAddedText').value.length > 50"> Can enter upto 50 characters only.
+              </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Description for suspended Bets
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder=" Description for suspended Bets" trim="blur"
+              formControlName="suspendedBetsDesc" [(ngModel)]="forYou.suspendedBetsDesc" required>
+            <mat-hint class="col-red" *ngIf="form.get('suspendedBetsDesc').invalid">
+              <div *ngIf="form.get('suspendedBetsDesc').errors.required"> Description for suspended Bets label should be
+                entered </div>
+              <div *ngIf="form.get('suspendedBetsDesc').value.length > 50"> Can enter upto 50 characters only. </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-12">
+          <h6>Non - Logged in User Configurations</h6>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Login Header
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Login Header" trim="blur" formControlName="nonLoginHeader"
+              [(ngModel)]="forYou.nonLoginHeader" required>
+            <mat-hint class="col-red" *ngIf="form.get('nonLoginHeader').invalid">
+              <div *ngIf="form.get('nonLoginHeader').errors.required">Login Header should be entered </div>
+             </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-12">
+          <h6>Users with no betting history Configurations</h6>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Header
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Header" trim="blur" formControlName="noBettingHeader"
+              [(ngModel)]="forYou.noBettingHeader" required>
+            <mat-hint class="col-red" *ngIf="form.get('noBettingHeader').invalid">
+              <div *ngIf="form.get('noBettingHeader').errors.required">Header should be entered </div>
+              <div *ngIf="form.get('noBettingHeader').value.length > 25"> Can enter upto 25 characters only. </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Description Header Title
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Descreption Header Title" trim="blur" formControlName="noBettingDescTitle"
+              [(ngModel)]="forYou.noBettingDescTitle" required>
+            <mat-hint class="col-red" *ngIf="form.get('noBettingDescTitle').invalid">
+              <div *ngIf="form.get('noBettingDescTitle').errors.required">Descreption Header title should be entered </div>
+              <div *ngIf="form.get('noBettingDescTitle').value.length > 250"> Can enter upto 250 characters only. </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Description
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Description" trim="blur" formControlName="noBettingDesc"
+              [(ngModel)]="forYou.noBettingDesc" required>
+            <mat-hint class="col-red" *ngIf="form.get('noBettingDesc').invalid">
+              <div *ngIf="form.get('noBettingDesc').errors.required"> Description label should be
+                entered </div>
+              <!-- <div *ngIf="form.get('noBettingDesc').value.length > 100"> Can enter upto 100 characters only. </div> -->
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Go Betting CTA
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Go Betting CTA" trim="blur" formControlName="noBettingCTA"
+              [(ngModel)]="forYou.noBettingCTA" required>
+            <mat-hint class="col-red" *ngIf="form.get('noBettingCTA').invalid">
+              <div *ngIf="form.get('noBettingCTA').errors.required"> Go Betting CTA label should be
+                entered </div>
+              <div *ngIf="form.get('noBettingCTA').value.length > 20"> Can enter upto 20 characters only. </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>
+
+<action-buttons #actionButtons [collection]="forYou" (actionsEmitter)="actionsHandler($event);"
+  [fieldOrItemName]="'forYou'" [showRemoveButton]="false" [form]="form" >
+</action-buttons>

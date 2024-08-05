@@ -1,0 +1,438 @@
+<div class="card">
+  <div class="header">
+    <h2 class="has-activity-badge">
+      <span [textContent]="WELCOME_OVERLAY.showdown"></span>
+      <create-updated-at-by [collection]="welcomeOverlay"></create-updated-at-by>
+    </h2>
+  </div>
+  <div class="body">
+    <div class="row">
+    <div class="col-sm-2">
+    <mat-checkbox color="primary" [(ngModel)]="welcomeOverlay.overlayEnabled">
+      Enable Tutorial
+    </mat-checkbox>
+    </div>
+    </div>
+  </div>
+</div>
+<div class="card" *ngIf="welcomeOverlay">
+  <div class="body">
+    <div class="row">
+      <div class="col-sm-4">
+        <span class="header-title" [textContent]="WELCOME_OVERLAY.headerLabel">
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="WELCOME_OVERLAY.headerTitle">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter header title" type="text" pl [(ngModel)]="welcomeOverlay.headerTitle"
+            trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="WELCOME_OVERLAY.sectionTitle">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter section title" type="text" [(ngModel)]="welcomeOverlay.sectionTitle"
+            trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="WELCOME_OVERLAY.previewTitle">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter preview title" type="text" pl [(ngModel)]="welcomeOverlay.previewTitle"
+            trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="WELCOME_OVERLAY.videoURL">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter Video URL" type="text" [(ngModel)]="welcomeOverlay.videoURL" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Lobby overlay starts -->
+<div class="card" *ngIf="welcomeOverlay">
+  <div class="body">
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="header-title" [textContent]="LOBBY_OVERLAY.headerLabel">
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="LOBBY_OVERLAY.welcomeHeader">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter welcome header" type="text" pl
+            [(ngModel)]="welcomeOverlay.lobbyWelcomeHeader" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="LOBBY_OVERLAY.welcome1">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter welcome description 1" type="text"
+            [(ngModel)]="welcomeOverlay.lobbyWelcome1" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="LOBBY_OVERLAY.welcome2">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter welcome description 2" type="text"
+            [(ngModel)]="welcomeOverlay.lobbyWelcome2" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="LOBBY_OVERLAY.welcome3">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter welcome description 3" type="text"
+            [(ngModel)]="welcomeOverlay.lobbyWelcome3" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="LOBBY_OVERLAY.signPostingsInfo">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter signpostings title" type="text"
+            [(ngModel)]="welcomeOverlay.lobbySignPostingsInfo" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="LOBBY_OVERLAY.entryInfo">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter entry info title" type="text" [(ngModel)]="welcomeOverlay.lobbyEntryInfo"
+            trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="LOBBY_OVERLAY.showdownCardInfo">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter showdowncard title" type="text"
+            [(ngModel)]="welcomeOverlay.lobbyShowdownCardInfo" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Lobby overlay ends -->
+
+<!-- Pre-event leaderboard overlay entries -->
+<div class="card" *ngIf="welcomeOverlay">
+  <div class="body">
+    <div class="row">
+      <div class="col-sm-4">
+        <span class="header-title" [textContent]="WELCOME_OVERLAY.plHeaderLabel">
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="WELCOME_OVERLAY.welcomeTitle">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter Welcome title" type="text" [(ngModel)]="welcomeOverlay.plWelcomeTitle"
+            trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="WELCOME_OVERLAY.welcomeContent">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter Welcome Content" type="text" [(ngModel)]="welcomeOverlay.plWelcomeContent"
+            trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="WELCOME_OVERLAY.welcomeFooter">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter Welcome Footer" type="text" [(ngModel)]="welcomeOverlay.plWelcomeFooter"
+            trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="WELCOME_OVERLAY.prizePoolInfo">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter Prize Pool Information" type="text"
+            [(ngModel)]="welcomeOverlay.plPrizePoolInfo" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="WELCOME_OVERLAY.rulesEntryInfo">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter Rules Entry Information" type="text"
+            [(ngModel)]="welcomeOverlay.plRulesEntryInfo" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="WELCOME_OVERLAY.buildTeamInfo">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter Build Team Information" type="text"
+            [(ngModel)]="welcomeOverlay.plBuildTeamInfo" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="WELCOME_OVERLAY.buildAnotherTeamInfo">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter Build Another Team Information" type="text"
+            [(ngModel)]="welcomeOverlay.plBuildAnotherTeamInfo" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="WELCOME_OVERLAY.buildAnotherTeamHeader">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter Build Another Team Header" type="text"
+            [(ngModel)]="welcomeOverlay.plBuildAnotherTeamHeader" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="WELCOME_OVERLAY.buildAnotherTeamContent">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter Build Another Team Content" type="text"
+            [(ngModel)]="welcomeOverlay.plBuildAnotherTeamContent" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="WELCOME_OVERLAY.rulesButtonInfo">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter Rules Button Information" type="text"
+            [(ngModel)]="welcomeOverlay.plBulesButtonInfo" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Live-event leaderboard overlay entries -->
+<div class="card" *ngIf="welcomeOverlay">
+  <div class="body">
+    <div class="row">
+      <div class="col-sm-4">
+        <span class="header-title" [textContent]="LIVE_LEADER_BOARD.liveLeadeBoard">
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="LIVE_LEADER_BOARD.liveHeaderLabel">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter Welcome title" type="text" [(ngModel)]="welcomeOverlay.liveHeaderTitle"
+            trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="LIVE_LEADER_BOARD.liveSectionLabel">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter Welcome Content" type="text" [(ngModel)]="welcomeOverlay.liveSectionTitle"
+            trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="LIVE_LEADER_BOARD.liveFooterLabel">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter Welcome Footer" type="text" [(ngModel)]="welcomeOverlay.liveFooterTitle"
+            trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="LIVE_LEADER_BOARD.liveMainPageHeader">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter Live Page Header" type="text"
+            [(ngModel)]="welcomeOverlay.liveMainPageHeaderTitle" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="LIVE_LEADER_BOARD.liveMainPageSection">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter Live Page Section" type="text"
+            [(ngModel)]="welcomeOverlay.liveMainPageSectionTitle" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="LIVE_LEADER_BOARD.liveEntryLabel">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter Live Page Entries" type="text"
+            [(ngModel)]="welcomeOverlay.liveEntryTitle" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="LIVE_LEADER_BOARD.liveStatLabel">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter Stat Text" type="text"
+            [(ngModel)]="welcomeOverlay.liveStatTitle" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="LIVE_LEADER_BOARD.liveProgressHeaderLabel">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter Live Progress Header" type="text"
+            [(ngModel)]="welcomeOverlay.liveProgressHeaderTitle" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="LIVE_LEADER_BOARD.liveProgressFooterLabel">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter Live Progress Footer" type="text"
+            [(ngModel)]="welcomeOverlay.liveProgressFooterTitle" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label" [textContent]="LIVE_LEADER_BOARD.liveLeaderBoardEntries">
+        </span>
+      </div>
+      <div class="col-sm-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter LeaderBoard Information" type="text"
+            [(ngModel)]="welcomeOverlay.liveLeaderBoardEntriesTitle" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons #actionButtons [collection]="welcomeOverlay" (actionsEmitter)="actionsHandler($event);"
+  [fieldOrItemName]="'welcomeOverlay'" [showRemoveButton]="false" [validateHandler]="verifywelcomeOverlay">
+</action-buttons>

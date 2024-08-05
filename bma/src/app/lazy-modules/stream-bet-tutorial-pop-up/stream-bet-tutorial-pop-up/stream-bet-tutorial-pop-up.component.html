@@ -1,0 +1,18 @@
+<div class="tint-overlay" *ngIf="!isStreambetTutorialDisplayed && popUpLoaded && (streamBetTutorialConfig || streamBetTutorialConfigNative)">
+  <svg class="tutorial-onboarding-close" (click)="closeTutorial()">
+    <use xlink:href="#close_qb"></use>
+  </svg>
+  <div class="pop-up-content">
+    <div class="popup-title" [ngClass]="isCoral ? 'popup-title-coral': 'popup-title-lads'"> {{isWrapper ? streamBetTutorialConfigNative?.title : streamBetTutorialConfig?.title}}</div>
+    <div class="popup-description" [ngClass]="{'popup-description-one': popUpLoaded ,'popup-description-coral': isCoral ,'popup-description-lads': !isCoral}">
+      {{isWrapper ? streamBetTutorialConfigNative?.descriptionOne : streamBetTutorialConfig?.descriptionOne}}</div>
+    <svg>
+      <use xlink:href="#Snb_onBoarding"></use>
+    </svg>
+    <div class="popup-description" [ngClass]="{'popup-description-one': popUpLoaded ,'popup-description-coral': isCoral ,'popup-description-lads': !isCoral}">
+      {{isWrapper ? streamBetTutorialConfigNative?.descriptionTwo : streamBetTutorialConfig?.descriptionTwo}}</div>
+    <svg class="popup-button" (click)="closeTutorial()">
+      <use xlink:href="#Snb_Go_Betting"></use>
+    </svg>
+  </div>
+</div>

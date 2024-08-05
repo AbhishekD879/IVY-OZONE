@@ -1,0 +1,279 @@
+@import 'global.variables.scss';
+
+$sliderWidth: 100% - $close-partial-area-width - $partial-cashout-activate-btn-width;
+$slider-line-height: 2px;
+$partialAnimationPointerTime: 0.5s;
+
+:host(.cashout-slider) {
+  padding: 0 0 10px 0;
+  position: absolute;
+  top: 0;
+  width: $sliderWidth;
+  max-width: $sliderWidth;
+  left: $close-partial-area-width;
+  right: $partial-cashout-activate-btn-width;
+  bottom: 0;
+  z-index: 0;
+  margin-top: $cashout-slider-margin-top;
+
+  &.animating {
+    ::ng-deep {
+      .ngx-slider-pointer {
+        @include transition(left, $partialAnimationPointerTime);
+      }
+    }
+  }
+
+  &:before {
+    content: '';
+    height: $slider-line-height;
+    background-color: $slider-underline-color;
+    top: 19px;
+    left: 0;
+    right: -10%;
+    position: absolute;
+  }
+
+  ::ng-deep {
+    ngx-slider.ngx-slider {
+      margin: 19px 0 7px;
+      width: 100%;
+      .ngx-slider-bubble {
+        display: none;
+      }
+      .ngx-slider-pointer {
+        top: -10px;
+        width: 20px;
+        height: 20px;
+        border-radius: 20px;
+        line-height: 20px;
+
+        &:before {
+          margin: 0;
+          border-radius: inherit;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+
+        &:after {
+          margin: 0;
+          width: 10px;
+          height: 10px;
+          background: $color-white;
+          border-radius: 10px;
+          position: absolute;
+          top: 5px;
+          left: 5px;
+        }
+      }
+
+      &:after,
+      &:before {
+        content: none;
+      }
+    }
+  }
+}
+
+::ng-deep {
+  margin: 27px -5px 7px;
+  display: block;
+  width: auto;
+  position: relative;
+  height: 4px;
+  // vertical-align: middle; this property is ignored due to usage of display:block 
+  @include user-select();
+
+  ngx-slider.ngx-slider {
+    &:after, &:before {
+      z-index: 2;
+      content: '';
+      position: absolute;
+      background: $color-white;
+      height: 10px;
+      width: 7px;
+      top: 0;
+    }
+
+    &:after {
+      left: 0;
+    }
+
+    &:before {
+      right: 0;
+    }
+
+    &[disabled] {
+      cursor: not-allowed;
+      opacity: 0.2;
+
+      .ngx-slider-pointer {
+        cursor: not-allowed;
+      }
+    }
+
+    span {
+      position: absolute;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .ngx-slider-base {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+    }
+
+    .ngx-slider-bar-wrapper {
+      height: $slider-line-height;
+      left: 0;
+      z-index: 1;
+      width: 100%;
+      padding-top: 16px;
+      margin-top: -16px;
+
+      &.ngx-slider-draggable {
+        cursor: move;
+      }
+    }
+
+    .ngx-slider-bar {
+      height: $slider-line-height;
+      background-color: $slider-underline-color;
+      border-radius: 1px;
+      box-shadow: none;
+      left: 0;
+      z-index: 1;
+      width: 100%;
+
+      &.ngx-slider-selection {
+        background: $slider-color;
+        border-radius: 1px;
+        box-shadow: none;
+        z-index: 2;
+      }
+    }
+
+    .ngx-slider-pointer {
+      top: -15px;
+      width: 30px;
+      height: 30px;
+      border-radius: 30px;
+      line-height: 30px;
+      box-shadow: none;
+      background-color: unset;
+      right: 0;
+      outline: none;
+      z-index: 3;
+      cursor: pointer;
+
+      &, &.ngx-slider-active {
+        &:after, &:before {
+          content: '';
+          position: absolute;
+          top: 50% ;
+          left: 50%;
+        }
+
+        &:before {
+          background: $slider-round-color;
+          margin: -8px 0 0 -8px;
+          width: 17px;
+          height: 17px;
+          border-radius: 17px;
+          line-height: 17px;
+        }
+
+        &:after {
+          margin: -4px 0 0 -4px;
+          width: 9px;
+          height: 9px;
+          background: $color-white;
+          border-radius: 9px;
+          line-height: 9px;
+          box-shadow: none;
+          position: absolute;
+          top: 11px;
+          left: 11px;
+          content: '';
+        }
+      }
+    }
+
+    .ngx-slider-bubble {
+      bottom: 16px;
+      padding: 1px 3px;
+      color: $color-white;
+      background-color: $color-gray-dark;
+      border-radius: $slider-line-height;
+      font: bold 9px $base-font-family;
+      cursor: pointer;
+      width: 30px;
+      height: 15px;
+      text-align: center;
+      line-height: 13px;
+      right: 0;
+
+      &:after {
+        content: " ";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -$slider-line-height;
+        border-width: $slider-line-height;
+        border-style: solid;
+        border-color: $color-gray-dark transparent transparent transparent;
+      }
+
+      &.ngx-slider-selection {
+        top: 16px;
+      }
+
+      &.ngx-slider-limit {
+        color: $color-black;
+      }
+    }
+
+    .ngx-slider-ticks {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      @include display-flex();
+      width: 100%;
+      padding: 0 11px;
+      margin: 0;
+      list-style: none;
+      @include justify-content(space-between);
+
+      .tick {
+        width: 5px;
+        height: 10px;
+        text-align: center;
+        cursor: pointer;
+        background-color: $color-gray-light;
+        box-shadow: inset 0 0 1px rgba(0,0,0,.2);
+        visibility: hidden;
+        margin-right: -11px;
+
+        &:nth-child(10n) {
+          visibility: visible;
+        }
+
+        &.selected {
+          background: lighten($slider-color, 5%);
+        }
+
+        .tick-value {
+          position: absolute;
+          top: -30px;
+          will-change: transform;
+          transform: translate(-50%, 0);
+        }
+      }
+    }
+  }
+}

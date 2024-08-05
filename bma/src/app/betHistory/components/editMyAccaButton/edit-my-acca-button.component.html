@@ -1,0 +1,9 @@
+<button class="ema-button button text-uppercase"
+        [disabled]="isEditButtonDisabled()"
+        (click)="toggleBetEdit()"
+        [i18n]="getButtonLabel()"
+        [tooltip]="'editMyAcca'" 
+        [showTooltip]="!tooltipSeen && !isEditButtonDisabled()"
+        [showOnce]="true"
+        data-crlat="editMyAccaButton">
+</button>

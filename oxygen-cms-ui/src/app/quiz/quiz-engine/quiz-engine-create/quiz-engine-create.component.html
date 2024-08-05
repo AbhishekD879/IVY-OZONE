@@ -1,0 +1,142 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>Create a Quiz</h1>
+  <div mat-dialog-content>
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row clearfix">
+          <div class="col-md-12">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Quiz name" [(ngModel)]="newQuiz.title" [value]="newQuiz.title"
+                     required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row clearfix">
+          <div class="col-md-12">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Source Id (Has to be unique and has to have url format [/quiz/name, etc])"
+                     [(ngModel)]="newQuiz.sourceId" [value]="newQuiz.sourceId"
+                     required trim="blur">
+              <mat-hint class="col-red" *ngIf="newQuiz.sourceId.length && !isValidSourceId()">Source id should begin
+                with the sign '/'
+              </mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label">
+          Splash Page
+        </span>
+      </div>
+      <div class="col-md-3">
+        <cms-simple-select-list
+          [clearSpaces]="false"
+          [selected]="newQuiz && newQuiz.splashPage && newQuiz.splashPage.id"
+          [optionsData]='selectSplashPages'
+          [optionsDataTitle]="'title'"
+          [optionsDataValue]="'id'"
+          (onDataChange)="onChangeSelectedSplashPage($event)">
+        </cms-simple-select-list>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label">
+          Quick Links Set
+        </span>
+      </div>
+      <div class="col-md-3">
+        <cms-simple-select-list
+          [clearSpaces]="false"
+          [selected]="newQuiz && newQuiz.qeQuickLinks && newQuiz.qeQuickLinks.id"
+          [optionsData]='selectQuickLinks'
+          [optionsDataTitle]="'title'"
+          [optionsDataValue]="'id'"
+          (onDataChange)="onChangeSelectedQuickLinks($event)">
+        </cms-simple-select-list>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label" [class.col-red]="!newQuiz.endPage">
+          End Page*
+        </span>
+      </div>
+      <div class="col-md-3">
+        <cms-simple-select-list
+          [clearSpaces]="false"
+          [selected]="newQuiz && newQuiz.endPage && newQuiz.endPage.id"
+          [optionsData]='endPages'
+          [optionsDataTitle]="'title'"
+          [optionsDataValue]="'id'"
+          (onDataChange)="onEndPageSelection($event)">
+        </cms-simple-select-list>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <date-range
+          [startDate]="newQuiz && newQuiz.displayFrom"
+          [endDate]="newQuiz && newQuiz.displayTo"
+          [startPlaceholder]="'Visible from *'"
+          [endPlaceholder]="'Visible to *'"
+          [placeholderColumn]="true"
+          (onDateUpdate)="handleVisibilityDateUpdate($event)"
+        >
+        </date-range>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <date-time-inputs class="full-width"
+                          [placeholderColumn]="true"
+                          [isSetDateButtons]="false"
+                          [initialDate]="this.newQuiz.entryDeadline"
+                          [placeholder]="'Entry deadline'"
+                          (outputIsoTime)="handelEntryDeadline($event)">
+        </date-time-inputs>
+        <mat-hint class="col-red" *ngIf="!isEntryDeadlineValid()">Entry deadline has to be between
+          displayFrom & displayTo dates
+        </mat-hint>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Login Rule
+        </span>
+      </div>
+      <div class="col-md-10">
+        <cms-simple-select-list
+          [options]='loginRules'
+          [selected]='defaultLoginRule'
+          (onDataChange)="onChangeLoginRule($event)">
+        </cms-simple-select-list>
+      </div>
+    </div>
+  </div>
+
+  <div class="body">
+  </div>
+</div>
+<div mat-dialog-actions class="col-12">
+  <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+  <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="!isValidModel()"
+          [mat-dialog-close]="newQuiz">Create
+  </button>
+</div>

@@ -1,0 +1,14 @@
+@import 'global.variables.scss';
+@import './../../assets/styles/modules/show-history-button.scss';
+
+:host {
+  display: block;
+}
+
+.show-history {
+  @include show-history-button();
+}
+
+.spinner-loader {
+  margin: 20px auto;
+}

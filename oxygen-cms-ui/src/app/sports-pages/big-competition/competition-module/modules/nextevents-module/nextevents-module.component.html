@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-md-2">
+          <span class="mat-label">
+            OB Type ID
+          </span>
+  </div>
+  <div class="col-md-10">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="OB Type ID"
+             type="number" [(ngModel)]="module.typeId" [value]="module.typeId"
+             onkeypress="return event.charCode >= 48 && event.charCode <= 57" step="1" min="1" required>
+      <mat-hint class="col-red" *ngIf="!module.typeId">Type ID should be entered</mat-hint>
+    </mat-form-field>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-2">
+        <span class="mat-label">
+          Max Display
+        </span>
+  </div>
+  <div class="col-md-10">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Max Display" type="number"
+             [(ngModel)]="module.maxDisplay" [value]="module.maxDisplay" onkeypress="return event.charCode >= 48 && event.charCode <= 57" step="1" min="1" required>
+      <mat-hint class="col-red" *ngIf="!module.maxDisplay">Max display should be entered</mat-hint>
+    </mat-form-field>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-2">
+        <span class="mat-label">
+          Default View
+        </span>
+  </div>
+  <div class="col-md-10">
+    <div class="row bch-next-event-list">
+      <mat-radio-group [ngModel]="'LIST'">
+      <mat-radio-button class="mat-label col-md-2 p-l-0" color="primary" value="LIST" [checked]="true">List View</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div class="row">
+    <mat-hint class="col-red">Note: List view is only applicable for Mobile</mat-hint>
+    </div>
+  </div>
+</div>

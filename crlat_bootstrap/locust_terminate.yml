@@ -1,0 +1,15 @@
+---
+- name: Create locust cluster
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    subnet_name: public
+    region: eu-west-1
+    execution_id: 1
+    action: terminate
+    tag_groupname: BPPLT
+  tasks:
+  - name: crlat.vpc
+    include_role:
+      name: crlat.vpc

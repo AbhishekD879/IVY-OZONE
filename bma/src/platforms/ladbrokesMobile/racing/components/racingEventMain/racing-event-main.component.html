@@ -1,0 +1,30 @@
+<div class="sk-container" [ngClass]="{'sk-loading': (state.loading && !state.error) || !racingEdpReady}" >
+  <loading-screen [displayed]="(state.loading && !state.error) || !racingEdpReady"></loading-screen>
+  <request-error *ngIf="state.error"
+                 [loadFailed]="state.error"
+                 (reloadFn)="reloadComponent()">
+  </request-error>
+  <racing-event *ngIf="!state.loading && !state.error && racingEdpReady"
+                [sportName]="racingName"
+                [eventId]="eventId"
+                [loadFloatingMsgComp] = "loadFloatingMsgComp"
+                [origin]="origin"
+                [selectedTypeName]="selectedTypeName"
+                [selectedMarketPath]="selectedMarketPath"
+                [selectedMarketTypePath]="selectedMarketTypePath"
+                [racingsMap]="racingsMap"
+                [racingTypeNames]="racingTypeNames"
+                [racingInMeeting]="racingInMeeting"
+                [eventEntity]="eventEntity"
+                [filter]="filter"
+                [streamControl]="streamControl"
+                [images]="images"
+                [presimStopTrackInterval]="presimStopTrackInterval"
+                [meetingsTitle]="meetingsTitle"
+                [quickNavigationItems]="quickNavigationItems"
+                [sportEventsData]="sportEventsData">
+  </racing-event>
+    <lazy-component *ngIf="isStreambetAvailable && !state.loading && !state.error && racingEdpReady"
+      moduleUri="@lazy-modules-module/stream-bet-tutorial-pop-up/stream-bet-tutorial-pop-up.module#StreamBetTutorialPopUpModule">
+    </lazy-component>
+</div>

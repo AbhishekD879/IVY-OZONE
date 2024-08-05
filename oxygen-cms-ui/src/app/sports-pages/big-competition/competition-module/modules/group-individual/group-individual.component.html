@@ -1,0 +1,58 @@
+<!-- Qualified countries field -->
+<div class="row">
+  <div class="col-md-2">
+        <span class="mat-label">
+          Qualified teams
+        </span>
+  </div>
+  <div class="col-md-10">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Qualified Place" type="number"
+             [(ngModel)]="module.groupModuleData.numberQualifiers"
+             [value]="module.groupModuleData.numberQualifiers"
+             onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+             step="1" min="1">
+    </mat-form-field>
+  </div>
+</div>
+<!-- Available Seasons -->
+<div class="row" *ngIf="!groupsNotFound">
+  <div class="col-md-2">
+    <span class="mat-label">
+      Available Seasons
+    </span>
+  </div>
+  <div class="col-md-3">
+    <mat-form-field class="full-width">
+      <mat-select placeholder="Show seasons"
+                  (selectionChange)="onSelectSeasonChanged($event.value)"
+                  [(ngModel)]="currentSeasonName"
+                  required>
+        <mat-option *ngFor="let season of seasonsNames" [value]="season">
+          {{ season }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+<!-- Available Groups -->
+<div class="row" *ngIf="!groupsNotFound  && currentSeasonName ">
+  <div class="col-md-2">
+    <span class="mat-label">
+      Available Groups
+    </span>
+  </div>
+  <div class="col-md-3">
+    <mat-form-field class="full-width">
+      <mat-select placeholder="Show group"
+                  (selectionChange)="onSelectGroupChanged($event.value)"
+                  [(ngModel)]="currentGroupName"
+                  required>
+        <mat-option *ngFor="let group of groupsNames" [value]="group.name">
+          {{ group.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+

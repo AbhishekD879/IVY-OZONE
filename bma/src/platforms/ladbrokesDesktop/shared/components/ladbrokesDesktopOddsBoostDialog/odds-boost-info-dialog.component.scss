@@ -1,0 +1,94 @@
+@import 'global.variables.scss';
+
+:host ::ng-deep .modal-dialog {
+  width: 295px;
+
+  .modal-content .modal-header {
+    min-height: 0;
+    padding: 12px;
+    overflow: visible;
+
+    .btn-close {
+      display: block;
+      right: 24px;
+      top: 22px;
+      margin: 0;
+
+      svg {
+        fill: $color-gray-darkest;
+        width: 12px;
+      }
+    }
+  }
+}
+
+.body {
+  text-align: center;
+  color: $lBlack-light;
+
+  .btn.more, .thanks {
+    text-transform: uppercase;
+    color: $color-gray-darkest;
+    font-family: $base-font-family;
+    &:hover{
+      text-decoration: underline;
+      color: $color-gray-darkest;
+    }
+    &:active{
+      text-decoration: none;
+      color: $lGrayMedium;
+    }
+  }
+}
+
+.boost {
+  &-title {
+    color: $color-black;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+
+  &-icon {
+    max-width: 52px;
+    margin-top: -2px;
+  }
+}
+
+.available {
+  font-size: 13px;
+  text-transform: capitalize;
+}
+
+.terms {
+  margin: 6px 0 16px;
+  font-size: 11px;
+}
+
+.more {
+  height: 35px;
+  display: block;
+  margin: 0 auto 16px;
+  min-width: 120px;
+}
+
+.thanks {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.show-toggle {
+  @include display-flex();
+  @include align-items(center);
+  @include justify-content(center);
+  margin: 8px;
+  input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+  }
+  span{
+    color: rgba(65, 73, 78, 0.75);
+    font-size: 12px;
+  }
+}

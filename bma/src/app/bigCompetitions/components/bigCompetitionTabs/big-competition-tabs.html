@@ -1,0 +1,34 @@
+<div class="sk-container" [ngClass]="{'sk-loading': state.loading}">
+  <outlet-status [state]="state">
+    <request-error
+      [loadFailed]="true"
+      (reloadFn)="reloadComponent()">
+    </request-error>
+  </outlet-status>
+
+  <ng-container *ngIf="!state.loading && !state.error">
+    <switchers *ngIf="switchers?.length"
+               [type]="'scrollable'"
+               [switchers]="switchers"
+               [filter]="filter"
+               [noPaddings]="true"
+               [preventReload]="true"
+               [detectGTMLocation]="'sublocation'">
+    </switchers>
+    <div class="sk-container" [ngClass]="{'sk-loading': showLoader}">
+      <loading-screen [displayed]="showLoader" [templateType]="'GENERIC'"></loading-screen>
+
+      <ng-container *ngIf="!showLoader">
+        <div *ngIf="modulesData?.length && !isPromoUnavailable" [ngClass]="getClass()">
+          <div  [ngClass]="{'full-view': this.currentTab === 'groups' && module.type !== 'GROUP_INDIVIDUAL' }"
+          *ngFor="let module of modulesData; trackBy: trackByIndex">
+            <competition-module [module]="module" [name]="module.type"></competition-module>
+          </div>
+        </div>
+
+        <no-events *ngIf="isPromoUnavailable" [message]="'promotions.noPromotionsFound'"></no-events>
+        <no-events *ngIf="!modulesData?.length" [message]="'bigcompetitions.noEvents'"></no-events>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>

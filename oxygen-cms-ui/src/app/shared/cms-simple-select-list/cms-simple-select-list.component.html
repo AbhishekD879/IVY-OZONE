@@ -1,0 +1,24 @@
+<div *ngIf="options">
+  <mat-form-field>
+    <mat-select placeholder="Select option"
+                [value]="selected"
+                [disabled]="disabled === true"
+                (selectionChange)="onChange($event.value);">
+      <mat-option *ngFor="let option of options" [value]="removeBlankSpaces(option)">
+        {{ option }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div *ngIf="optionsData">
+  <mat-form-field>
+    <mat-select placeholder="Select option"
+                [value]="selected"
+                [disabled]="disabled === true"
+                (selectionChange)="onChange($event.value);">
+      <mat-option *ngFor="let option of optionsData" [value]="option[optionsDataValue]">
+        {{ option[optionsDataTitle] }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

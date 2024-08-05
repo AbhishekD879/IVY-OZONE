@@ -1,0 +1,33 @@
+@import 'global.variables.scss';
+
+.results-widget {
+  .results-widget-header {
+    height: 27px;
+    background: $color-gray-light;
+    padding-left: 10px;
+    border-bottom: 1px solid $color-gray;
+  }
+  .header-widget {
+    margin: 0;
+    font: normal 10px/27px $base-font-family;
+    text-transform: uppercase;
+    color: $color-gray-dark;
+  }
+}
+.results-widget-show-more {
+  background: $color-gray-light;
+  height: 35px;
+  font: bold 11px $base-font-family;
+  position: relative;
+  color: $color-gray-dark;
+  .btn-spinner {
+    position: relative;
+    margin-left: -24px;
+    margin-right: 12px;
+    height: 10px;
+    &:before,
+    &:after {
+      border-top-color: $border-color;
+    }
+  }
+}

@@ -1,0 +1,6 @@
+<button id="luckyDipBtn" (click)="onLuckyDipButtonClick($event)" class="btn-bet" [textContent]='odds'>
+</button>
+<div *ngIf="openBetReceipt">
+    <lucky-dip-qb [inputs]="{ selection: market, 
+        isLuckyDip:true, luckyDipCmsData : cmsData?.luckyDipFieldsConfig, luckyDipMarketName:market?.templateMarketName }" #ldipChild></lucky-dip-qb>
+</div>

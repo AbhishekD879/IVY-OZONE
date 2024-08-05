@@ -1,0 +1,35 @@
+- name: Launch Master instance
+  ec2:
+    key_name: "{{ key_name }}"
+    group: "{{ security_group }}"
+    instance_type: "{{ instance_type }}"
+    image: "{{ os_images[image_name] }}"
+    wait: yes
+    region: "{{ region }}"
+    vpc_subnet_id: "{{ subnets[subnet_name] }}"
+    assign_public_ip: yes
+    instance_tags:
+      Group: "{{ tag_cluster }}"
+      Name: "{{ tag_cluster }}_LocustMaster"
+      Type: "LocustInstances"
+  register: ec2
+
+- name: Launch Slave instances
+  ec2:
+    key_name: "{{ key_name }}"
+    group: "{{ security_group }}"
+    instance_type: "{{ instance_type }}"
+    image: "{{ os_images[image_name] }}"
+    wait: yes
+    region: "{{ region }}"
+    vpc_subnet_id: "{{ subnets[subnet_name] }}"
+    assign_public_ip: yes
+    exact_count: "{{num_nodes}}"
+    count_tag:
+      Name: "{{ tag_cluster }}_LocustSlave"
+    instance_tags:
+      Group: "{{ tag_cluster }}"
+      Name: "{{ tag_cluster }}_LocustSlave"
+      Type: "LocustInstances"
+  register: ec2
+

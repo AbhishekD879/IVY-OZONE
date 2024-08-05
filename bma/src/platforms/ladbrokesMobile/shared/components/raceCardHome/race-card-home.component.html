@@ -1,0 +1,146 @@
+<ng-container *ngFor="let eventEntity of raceData$ | async; trackBy: trackByEvents">
+  <header *ngIf="showHeader" class="race-header row row-no-gutter" data-crlat="raceHeader">
+    <div class="text-area lads-timer-text col-xs-10">
+      <div class="title-container">
+        <span class="race-title" [ngStyle]="{'white-space': isEventVirtual(eventEntity) ? 'normal' : 'no-wrap'}"data-crlat="raceCard.eventName">
+          <span class="gap-signpost">{{getEventName(eventEntity)}}</span>
+          <span class="virtual-title" *ngIf="isEventVirtual(eventEntity)" [i18n]="'sb.flagVR'"></span>
+        </span>
+        <ng-container *ngIf="isItvEvent(eventEntity)">
+          <span class="race-label-itv">&nbsp;/ ITV</span>
+
+          <svg class="race-icon-itv">
+            <use xlink:href="#itv"></use>
+          </svg>
+        </ng-container>
+      </div>
+      <ng-container *ngIf="eventEntity.racingFormEvent">
+        <span *ngIf="eventEntity.racingFormEvent?.raceType" class="race-going" [textContent]="eventEntity.racingFormEvent.raceType"></span>
+        <span *ngIf="eventEntity.racingFormEvent.going" class="race-going">{{ eventEntity.racingFormEvent.going | callBack : getGoing : this }}</span>
+        <span *ngIf="eventEntity.racingFormEvent.distance && eventEntity.categoryCode !== 'GREYHOUNDS'" class="race-distance">{{ eventEntity.racingFormEvent.distance | callBack : getDistance : this }}</span>
+        <span *ngIf="eventEntity.racingFormEvent.distance && eventEntity.categoryCode === 'GREYHOUNDS'" [textContent]="eventEntity.racingFormEvent?.distance" class="race-distance"></span>
+      </ng-container>
+      <race-timer *ngIf="showTimer" class="small" [event]="eventEntity" [utc]="true" [displayTime]=false></race-timer>
+    </div>
+    <div class="icons-area">
+      <a class="race-next-link" *ngIf="!showBriefHeader" [attr.id]="eventEntity.typeName + eventEntity.id" (click)="trackEvent(eventEntity)"
+        [linkHref] [link]="formEdpUrl(eventEntity)" data-crlat="raceNextLink">
+        <span [attr.id]="eventEntity.typeName + eventEntity.id" [textContent]="seeAllRaceText" data-crlat="viewFullRace"></span>
+        <svg>
+          <use xlink:href="#next-arrow"></use>
+        </svg>
+      </a>
+      <promotion-icon *ngIf="showBriefHeader" class="race-card-promotion-icon" [type]="'event'" [display]="eventEntity?.drilldownTagNames"
+                      [mode]="'sm'" [cashoutAvailable]="false" data-crlat="promotionIcons">
+      </promotion-icon>
+    </div>
+  </header>
+  <div class="race-sub-header" *ngIf="!showBriefHeader" data-crlat="raceSubHeader">
+    <div class="text-area">
+      <promotion-icon *ngIf="carouselView" class="race-card-promotion-icon align-left" [type]="'event'" [display]="eventEntity?.drilldownTagNames"
+                      [mode]="'sm'" [cashoutAvailable]="false" data-crlat="promotionIcons">
+      </promotion-icon>
+      <span *ngIf="eventEntity.markets && eventEntity.markets[0] && showEchWayTerms(eventEntity.markets[0])" [textContent]="eventEntity.markets[0].terms" data-crlat="raceCard.eventTerms">
+      </span>
+    </div>
+    <div class="icons-area">
+      <promotion-icon *ngIf="!carouselView"
+                      class="race-card-promotion-icon"
+                      [type]="'event'"
+                      [display]="eventEntity?.drilldownTagNames"
+                      [mode]="'sm'"
+                      [cashoutAvailable]="false" data-crlat="promotionIcons">
+      </promotion-icon>
+      <ng-container *ngIf="isStreamLabelShown(eventEntity)">
+        <span class="watch-label" data-crlat="watchLabel" [i18n]="'sb.watch'"></span>
+      </ng-container>
+    </div>
+  </div>
+  <race-cards-controls class="sort-by-container race-cards-controls"
+  [sortBy]="sortByOptionsService.get()"
+  [market]="eventEntity"
+  [eventEntityId]="eventEntity.id"
+  [isInfoHidden]="isInfoHidden"
+  [isGreyhoundEdp]="isGreyhoundEdp"
+  [sortOptionsEnabled]="sortOptionsEnabledFn(true,true,eventEntity.markets[0])"
+  *ngIf="showHeader && isNotAntepostOrSpecials && !isSp(eventEntity) && !isHR && !isVirtualHR"
+  ></race-cards-controls>
+  <section class="row-panel race-card-content"
+           [ngClass]="{ 'featured-race-card': isFeaturedRaceCard } "
+           *ngFor="let market of eventEntity.markets; trackBy: trackByMarkets"
+    data-crlat="eventGroup">
+    <div *ngFor="let outcomeEntity of market.outcomes | slice:0:limit; trackBy: trackByOutcomes" class="odds-card race-card" data-crlat="raceCard.odds"
+       (click)="trackEvent(eventEntity)">
+      <div class="odds-content">
+        <div class="odds-left" data-crlat="raceCard.runnerInfo">
+          <div class="odds-side" *ngIf="isNumberNeeded(eventEntity, outcomeEntity)">
+            <strong [textContent]="getRunnerNumber(outcomeEntity)"></strong><br />
+            <div class="label-text" *ngIf="!isEventVirtual(eventEntity) && outcomeEntity.racingFormOutcome && outcomeEntity.racingFormOutcome.draw">
+              (<span [textContent]="outcomeEntity.racingFormOutcome.draw"></span>)
+            </div>
+          </div>
+          <!-- silk for virtual races -->
+          <virtual-silk class="virtual-silk" *ngIf="(isEventVirtual(eventEntity)) && outcomeEntity" [event]="eventEntity" [outcome]="outcomeEntity"></virtual-silk>
+          <!-- silk for usual races -->
+          <ng-container *ngIf="!isEventVirtual(eventEntity)">
+            <div class="silk-img" *ngIf="isGenericSilk(eventEntity, outcomeEntity)" data-crlat="raceCard.silk"></div>
+            <gh-silk *ngIf="isGreyhoundSilk(eventEntity, outcomeEntity)"
+              [event]="eventEntity"
+              [outcome]="outcomeEntity"></gh-silk>
+            <div class="silk-img" [ngClass]="eventEntity.isUKorIRE ? 'with-default': 'inter-silk'"
+                 *ngIf="outcomeEntity.racingFormOutcome?.silkName" data-crlat="raceCard.silk">
+              <div [ngStyle]="getSilkStyle(eventEntity.markets[0], outcomeEntity)"></div>
+            </div>
+          </ng-container>
+
+          <div class="odds-names odds-names-list" [ngClass]="{'odds-disabled' : outcomeEntity.nonRunner}" data-crlat="raceCard.runner">
+            <strong data-crlat="raceCard.runnerName">{{ outcomeEntity.name | callBack : removeLineSymbol : this }}</strong>
+            <span class="odds-normal" data-crlat="jockeyAndTrainer" *ngIf="outcomeEntity.racingFormOutcome">
+              <ng-container *ngIf="!isEventVirtual(eventEntity)">
+                <span *ngIf="outcomeEntity.racingFormOutcome.jockey">
+                  <span [textContent]="'J: '" class="text-bold"></span>
+                  <span [textContent]="raceOutcomeData.formatJockeyWeight(outcomeEntity.racingFormOutcome)"
+                    data-crlat="jockeyName"></span>
+                </span>
+                <span *ngIf="raceOutcomeData.isJockeyAndTrainer(outcomeEntity.racingFormOutcome)" data-crlat="jockeyName&trainerName"> / </span>
+                <span *ngIf="outcomeEntity.racingFormOutcome.trainer" [textContent]="'T: '" class="text-bold"></span>
+              </ng-container>
+              <span *ngIf="outcomeEntity.racingFormOutcome.trainer" [textContent]="outcomeEntity.racingFormOutcome.trainer"
+                    data-crlat="trainerName"></span>
+
+            </span>
+            <span class="odds-small" *ngIf="outcomeEntity.racingFormOutcome && !raceOutcomeData.isUnnamedFavourite(outcomeEntity.id, eventEntity) && !(showHeader && (isHR || isNextRacesModule))">
+              <span class="form-guide-color" data-crlat="racingForm">
+                Form:
+                <span>
+                  <span class="text-bold form-colon" [textContent]="outcomeEntity.racingFormOutcome?.formFig || '-'"></span>
+                </span>
+              </span>
+            </span>
+            <span *ngIf="isEventVirtual(eventEntity)" class="odds-small">
+              <span [textContent]="outcomeEntity.jockey"></span>
+            </span>
+            <span *ngIf="outcomeEntity.racingFormOutcome && showHeader && (isHR || isNextRacesModule)"
+              class="odds-small" data-crlat="raceCard.runnerFormGuide">Form: <span class="text-bold" [textContent]="outcomeEntity.racingFormOutcome?.formGuide ||'-'"></span></span>
+          </div>
+        </div>
+        <div class="odds-right odds-right-vertical" data-crlat="oddsRight">
+          <price-odds-button [event]="eventEntity"
+                             [market]="market"
+                             [outcome]="outcomeEntity"
+                             [isRacing]="isRacing"
+                             [goToBetslip]="true"
+                             [gtmModuleTitle]="gtmModuleTitle">
+          </price-odds-button>
+          <historic-prices [outcome]="outcomeEntity" *ngIf="!raceNewStyleCard && outcomeEntity.correctPriceType !== 'SP'"></historic-prices>
+        </div>
+      </div>
+    </div>
+    <show-all-button data-crlat="showAllButton"
+                     *ngIf="isFeaturedRaceCard && isShowAllActive"
+                     (click)="toggleShow()"
+                     [showMoreMode]="true"
+                     [allShown]="allShown">
+    </show-all-button>
+  </section>
+</ng-container>

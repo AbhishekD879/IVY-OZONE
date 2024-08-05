@@ -1,0 +1,45 @@
+@import 'global.variables.scss';
+
+.acca-notification {
+  background: $color-yellow;
+  color: $color-gray-dark;
+  position: relative;
+  font-size: 12px;
+  padding: 6px 15px;
+  margin: 0;
+  width: 100%;
+  opacity: 0.95;
+  height: 44px;
+  font-weight: bold;
+
+  @media (min-width: $tabletPoint) {
+    display: none;
+  }
+
+  .label-price {
+    z-index: 1;
+    font-weight: bold;
+    padding-right: 16px;
+  }
+  &.timeline-shown {
+    margin-bottom: 45px;
+  }
+  &.nw-indicator-shown {
+    margin-bottom: 34px;
+  }
+  svg.next-arrow {
+    position: absolute;
+    top: 33%;
+    margin-top: -6px;
+    right: 15px;
+    height: 10px;
+    width: 6px;
+    fill: $color-gray-dark;
+  }
+
+  .selection-name {
+    padding-left: 4px;
+    font-size: 11px;
+    font-weight: normal;
+  }
+}

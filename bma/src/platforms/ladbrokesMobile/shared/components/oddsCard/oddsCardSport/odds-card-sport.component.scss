@@ -1,0 +1,174 @@
+@use "sass:math";
+@import 'global.variables.scss';
+
+$deflt-padd-val: 12px;
+$small-padd-val: 6px;
+$sport-card-padding: $deflt-padd-val $deflt-padd-val 8px $deflt-padd-val;
+$sport-card-header-height: 15px;
+$sport-card-header-content-between: 10px;
+$sport-card-content-height: 40px;
+$sport-card-price-button-width: 50px;
+
+$sport-card-labels-font-size: 11px;
+$sport-card-default-font-size: 13px;
+
+/* styles */
+.sport-card {
+  display: block;
+  position: relative;
+
+  background: $color-white;
+  color: $color-gray-darkest;
+  border-top: 1px solid $lGrayLight;
+  font-family: $alt-font-family;
+  font-size: $sport-card-default-font-size;
+  padding: $sport-card-padding;
+
+  &.coupon-sport-card-lad
+  {
+    padding: 12px 12px 0px 12px;
+  }
+
+  .sport-card-left {
+    @include display-flex();
+    @include align-items(center);
+    @include flex(1, 1, auto);
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .sport-card-right {
+    @include display-flex();
+    @include align-items(center);
+    @include justify-content(flex-end);
+    @include flex(1, 0, auto);
+    width: auto;
+
+    .sport-card-was-price {
+      font-family: $base-font-family;
+      font-size: 14px;
+      font-weight: bold;
+      text-decoration: line-through;
+      margin: 5px 0;
+    }
+  }
+
+  .sport-card-header {
+    @include display-flex();
+    @include align-items(center);
+    height: $sport-card-header-height;
+    margin-bottom: $sport-card-header-content-between;
+    font-size: $sport-card-labels-font-size;
+    line-height: $sport-card-header-height;
+
+    // left header side
+    .watch-live-wrapper + live-clock,
+    .watch-live-wrapper + .sport-card-label {
+      margin-left: 8px;
+    }
+
+    .watch-live-wrapper {
+      display: inline-flex;
+      border-radius: 1px;
+      overflow: hidden;
+    }
+    // right header side
+
+    .sport-card-promotions-icon,
+    .sport-card-promotions-icon div,
+    .sport-card-promotions-icon svg {
+      height: 15px;
+    }
+
+    .sport-card-more-link {
+      font-size: $sport-card-labels-font-size;
+      font-family: $base-font-family;
+      color: $color-blue-alt;
+      white-space: nowrap;
+      font-weight: bold;
+      line-height: $sport-card-header-height;
+      text-transform: uppercase;
+      padding: 0 5px;
+
+      &:hover{
+        text-decoration: none;
+      }
+      &:active{
+        text-decoration: underline;
+      }
+      &:after {
+        content: '';
+        position: relative;
+        top: -2px;
+        left: 4px;
+        border: solid $color-blue-alt;
+        border-width: 0 1px 1px 0;
+        display: inline-block;
+        padding: 2px;
+        @include transform(rotate(-45deg));
+      }
+    }
+
+  }
+
+  .sport-card-content {
+    @include display-flex();
+    @include align-items(center);
+    @include flex-flow(row, nowrap);
+    @include justify-content(space-between);
+    min-height: $sport-card-content-height;
+  }
+
+  .sport-card-names {
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    a {
+      display: block;
+      color: $color-gray-darkest;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: math.div($sport-card-content-height, 2);
+      -webkit-line-clamp: 2;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    &.sport-card-names-wrap {
+      white-space: normal;
+      width: 100%;
+
+      a {
+        white-space: normal;
+      }
+    }
+  }
+
+  .sport-card-btn-content {
+    @include display-flex();
+    margin-left: 3px;
+  }
+
+  .sport-card-btn-wrapper {
+    width: $sport-card-price-button-width;
+    margin-left: $small-padd-val;
+  }
+
+  button.btn.btn-bet,
+  button.btn-bet {
+    width: $sport-card-price-button-width;
+  }
+}
+
+promotion-icon + span.sport-card-next-score {
+  margin-left: 10px;
+}
+
+// extra margin for signposting
+odds-card-score.long-boost {
+  margin-right: 15px;
+}

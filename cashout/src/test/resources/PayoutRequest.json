@@ -1,0 +1,47 @@
+[{
+    "betType": "ACCA",
+    "foldSize": 4,
+    "stake": 0.2,
+    "legType": "W",
+    "betNo":2147633437,
+    "legs": [
+        {
+            "strikePrice": {
+                "numerator": "1",
+                "denominator": "1"
+            },
+            "priceType": "L"
+        },
+        {
+            "strikePrice": {
+                "numerator": "2",
+                "denominator": "1"
+            },
+            "priceType": "L",
+            "deductions": [
+                {
+                    "deductionDetail": {
+                        "priceType": "L",
+                        "deductionFactor": 90
+                    },
+                    "deductionType": "rule4"
+                }
+            ]
+        },
+        {
+            "strikePrice": {
+                "numerator": "3",
+                "denominator": "1"
+            },
+            "priceType": "L"
+        },
+        {
+            "strikePrice": {
+                "numerator": "4",
+                "denominator": "1"
+            },
+            "priceType": "L"
+        }
+    ]
+}
+]

@@ -1,0 +1,62 @@
+<div class="card">
+  <div class="body">
+    <!-- search and download button.-->
+    <div *ngIf="highlightCarousels" class="row clearfix carousel-wrapper">
+      <div class='left-pane'>
+        <a routerLink="carousel/create" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create Highlights Carousel</span>
+        </a>
+      </div>
+      <div class="right-pane row">
+        <div class="col-md-5 m-b-0 segment-dropdown" *ngIf="isHomePage">
+          <cms-segment-dropdown [activeSegment]='selectedSegment'
+                                (selectedSegment)="segmentHandler($event)">
+          </cms-segment-dropdown>
+        </div>
+        <div class="col-md-3 m-b-0 cvs">
+          <download-cvs [cvsData]="highlightCarousels" [cvsDataTable]="dataTableColumns"></download-cvs>
+        </div>
+        <div class="col-md-4 m-b-0">
+          <div class="input-with-icon m-b-0">
+            <i class="material-icons">search</i>
+            <mat-form-field>
+              <input matInput placeholder="Search For Highlights Carousel" [(ngModel)]="searchField" [value]="searchField">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="highlightCarousels">
+      <div *ngIf="orderMessage && isHomePage" class="order-message">
+        {{ orderMessage }}
+      </div>
+      <cms-data-table *ngIf="!isHomePage"
+        [customTableData]="highlightCarousels"
+        [customTableColumns]="dataTableColumns"
+        [actions]="['remove', 'edit']"
+        [filterString]="searchField"
+        [filterProperties]="searchableProperties"
+        [reorder]="true"
+        (onElementsOrder)="reorderHandler($event)"
+        (onRemoveTableElement)="removeHandler($event)">
+      </cms-data-table>
+      <cms-segment-data-table *ngIf="isHomePage && segmentChanged"
+        [selectedSegment]="selectedSegment"
+        [customTableData]="highlightCarousels"
+        [customTableColumns]="dataTableColumns"
+        [actions]="['remove', 'edit']"
+        [filterString]="searchField"
+        [filterProperties]="searchableProperties"
+        [reorder]="true"
+        (onElementsOrder)="reorderHandler($event)"
+        (onRemoveTableElement)="removeHandler($event)">
+      </cms-segment-data-table>
+    </div>
+    
+    <div *ngIf="error">
+      Request Error
+    </div>
+  </div>
+</div>

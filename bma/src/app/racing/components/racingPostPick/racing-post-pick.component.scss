@@ -1,0 +1,36 @@
+@import 'global.variables.scss';
+
+.racing-post-pick-container {
+  @include display-flex();
+
+  ::ng-deep .gh-silk {
+    width:19px;
+    height:19px;
+    min-width:19px;
+    margin-right: 5px;
+
+    &:after {
+      font-size: $font-size;
+    }
+
+    &.runner-deflt-gh3,
+    &.runner-deflt-gh6 {
+      border-width: 1px;
+    }
+
+    &.runner-deflt-gh6 {
+      background: repeating-linear-gradient(
+      $color-white, $color-white 1px, $color-black 1px, $color-black 3px, $color-white 3px, $color-white 4px);
+    }
+    &.runner-deflt-gh7 {
+      background: repeating-linear-gradient($color-green, $color-green 6px, $color-white 6px, $color-white 13px);
+    }
+  }
+}
+
+.racing-post-logo {
+  @include align-self(center);
+  margin: 0 5px 0 -4px;
+  height: 9px;
+  width: 109px;
+}

@@ -1,0 +1,29 @@
+<div class="container-inner-content" [ngClass]="{'loading-v3': loading}" data-crlat="flashing.loader">
+  <div class='dot-flashing'></div>
+  <div class="byb-league" *ngIf="events?.length">
+    <div *ngFor="let event of events; trackBy: trackById;" class="byb-event" data-crlat="eventEntity">
+      <div class="favourites" data-oc-lazy-load="favourites">
+        <favourites-add-button [event]="event" [sportName]="'football'"></favourites-add-button>
+      </div>
+      <div class="event-content" (click)="goToEvent(event)">
+        <div class="event-details" data-crlat="eventDetails">
+          <div class="title">
+            <span [textContent]="event.teamHome" data-crlat="teamHome"></span>
+            &nbsp;<span [i18n]="'sbdesktop.versus'"></span>&nbsp;
+            <span [textContent]="event.teamAway" data-crlat="teamAway"></span>
+          </div>
+          <div class="date" data-crlat="eventDate" [textContent]="event.date"></div>
+        </div>
+        <div class="event-link" data-crlat="goToEventLink">
+          <svg>
+            <use xlink:href="#next-arrow"></use>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!events.length && !loading">
+    <p class="no-data" [i18n]="'yourCall.leagueNoEvents'" data-crlat="noEventsLabel"></p>
+  </div>
+</div>

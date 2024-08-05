@@ -1,0 +1,32 @@
+@import 'global.variables.scss';
+
+/* No Events */
+:host {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  padding-bottom: 5px;
+  color: $color-black;
+  text-align: center;
+  margin: 10px 0;
+}
+.no-events {
+  height: 103px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &-message {
+    color: $no-events-message-color;
+    text-align: center;
+    font-family: $font-family-quickswitch;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    height: 17px;
+  }
+  &-coral-desktop {
+    background: #FFF;
+    margin: -6px 0 0 0;
+  }
+}

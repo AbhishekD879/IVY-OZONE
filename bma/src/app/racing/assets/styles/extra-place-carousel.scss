@@ -1,0 +1,127 @@
+@import 'global.variables.scss';
+
+.extra-place-carousel-section {
+  a {
+    &:focus,
+    &:hover {
+      text-decoration: none;
+      outline: none;
+    }
+  }
+  .extra-place-carousel {
+    margin: 3px 0 0;
+    width: auto;
+
+    .carousel-inner {
+      width: 255px;
+
+      &.single-slide {
+        width: 100%;
+
+        .slide .carousel-slide {
+          margin: 0;
+          width: 100%;
+        }
+      }
+    }
+
+    .carousel-slides {
+      position: relative;
+      @include display-flex();
+
+      .slide {
+        @include flex(1,0,auto);
+        height: auto;
+        @include display-flex();
+
+        .carousel-slide {
+          background: $color-white;
+          border-radius:  $border-radius-sm;
+          margin-right: 5px;
+          width: calc(100% - 5px);
+          @include flex-direction(column);
+          @include display-flex();
+        }
+
+        .slide-body {
+          @include display-flex();
+          @include align-items(center);
+          padding: 10px 20px 10px 10px;
+          height: 100%;
+          position: relative;
+          min-height: 55px;
+        }
+
+        .selection-title {
+          color: $color-black-soft;
+          font-size: $font-size-tablet;
+          @include word-break();
+          white-space: pre-line;
+          margin-right: auto;
+          width: 100%;
+
+          .meeting-name {
+            margin-bottom: 5px;
+            color: $color-gray-dark;
+            font-size: $font-size-lg;
+            font-weight: bold;
+            @include word-break();
+            white-space: pre-line;
+          }
+
+          .odds {
+            color: $color-gray-dark;
+            font-size: $font-size;
+
+            .selected {
+              font-weight: bold;
+            }
+          }
+        }
+
+        .next-arrow {
+          width: 6px;
+          height: 10px;
+          fill: $color-gray-dark;
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          margin-top: -5px;
+          &:active{
+            opacity: 0.6;
+          }
+        }
+      }
+    }
+  }
+
+  .slide-label {
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: $font-size-md;
+    font-weight: bold;
+    padding: 5px 10px;
+    background: $color-blue-lighter;
+    border-radius: 2px 2px 0 0;
+    color: #fff;
+    width: 100%;
+    min-height: 25px;
+    @include display-flex();
+
+    .title {
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: $font-size-md;
+      width: 100%;
+    }
+
+    .timer .label {
+      font-size: 10px;
+      margin-right: 2px;
+      font-weight: 300;
+      text-transform: none;
+    }
+  }
+}

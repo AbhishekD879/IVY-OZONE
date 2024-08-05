@@ -1,0 +1,38 @@
+@import 'global.variables.scss';
+
+:host {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  margin-top: -10px;
+  z-index: 10;
+}
+
+.remove {
+  opacity: 0.7;
+  padding: 10px 0 10px 10px;
+
+  svg {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+.undo {
+  display: block;
+  padding: 4px 7px;
+  border-radius: 3px;
+  border: 1px solid $ema-undo-button-color;
+  text-transform: uppercase;
+  color: $ema-undo-button-color;
+  margin-top: -4px;
+  font-family: $base-font-family;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.remove, .undo {
+  &.inactive {
+    opacity: 0.3;
+  }
+}

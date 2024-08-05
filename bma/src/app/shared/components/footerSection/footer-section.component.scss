@@ -1,0 +1,108 @@
+@import 'global.variables.scss';
+
+$footHeightMobile: 60px;
+$footerMenuHeight: 52px;
+
+/*page footer text*/
+$footHeight: 90px;
+$footHeightIphoneX: 80px;
+$notificationHeightMobile: 55px;
+
+#footer {
+  width: auto;
+  max-width: $desktopLargePoint;
+  background: $body-bg;
+  overflow: hidden;
+  margin: 0 auto;
+  padding: 0;
+  position: relative;
+
+  &.with-rel-menu {
+    padding-bottom: 0;
+  }
+  @media #{$mqMobile} {
+    padding-bottom: $footHeightMobile;
+  }
+
+  @media #{$mqMobileAndPortrait} {
+    padding-bottom: $footHeight;
+  }
+
+  @media #{$mqIphoneX} {
+    padding-bottom: $footHeightIphoneX;
+  }
+
+  .time-panel {
+    padding: 10px 15px;
+    font-weight: bold;
+    color: lighten($color-blue-light, 55%);
+    background: lighten($body-bg, 5%);
+    font-size: 11px;
+    line-height: 11px;
+    margin: 0 0 15px;
+
+    @media #{$mqSmallMobile} {
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    .time-logged {
+      padding: 0 0 0 5px;
+    }
+  }
+
+  .session-timer {
+    display: inline-block;
+  }
+
+  .footer-notification {
+    position: fixed;
+    width: 100%;
+    z-index: 1001;
+    left: 0;
+    bottom: $notificationHeightMobile;
+
+    @media #{$mqMobile} {
+      bottom: $notificationHeightMobile;
+    }
+
+    @media #{$mqMobileAndPortrait} {
+      bottom: $notificationHeightMobile;
+    }
+    &.hide{
+      display: none;
+    }
+  }
+  
+
+  // fix to not overlap with Iphone X bottom software button.
+  @supports (bottom: constant(safe-area-inset-bottom)) {
+    .footer-notification {
+      --safe-area-inset-bottom: constant(safe-area-inset-bottom);
+      bottom: calc(#{$notificationHeightMobile} + (var(--safe-area-inset-bottom) / 2));
+
+      @media #{$mqMobile} {
+        bottom: calc(#{$notificationHeightMobile} + (var(--safe-area-inset-bottom) / 2));
+      }
+
+      @media #{$mqMobileAndPortrait} {
+        bottom: calc(#{$notificationHeightMobile} + (var(--safe-area-inset-bottom) / 2));
+      }
+    }
+  }
+
+  @supports (bottom: env(safe-area-inset-bottom)) {
+    .footer-notification {
+      --safe-area-inset-bottom: env(safe-area-inset-bottom);
+      bottom: calc(#{$notificationHeightMobile} + (var(--safe-area-inset-bottom) / 2));
+
+      @media #{$mqMobile} {
+        bottom: calc(#{$notificationHeightMobile} + (var(--safe-area-inset-bottom) / 2));
+      }
+
+      @media #{$mqMobileAndPortrait} {
+        bottom: calc(#{$notificationHeightMobile} + (var(--safe-area-inset-bottom) / 2));
+      }
+    }
+  }
+}

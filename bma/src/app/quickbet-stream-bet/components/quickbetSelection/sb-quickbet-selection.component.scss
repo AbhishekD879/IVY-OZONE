@@ -1,0 +1,70 @@
+/* Global styles */
+@import 'global.variables.scss';
+
+$qb-content-side-padding: 15px;
+$qb-small-font-size: 11px;
+$qb-large-font-size: 14px;
+$qb-outcome-name-height: 13px;
+$qb-medium-font-size: 12px;
+$qb-input-with: 80px;
+$qb-input-border-radius: 2px;
+$qb-default-input-border: 1px solid rgba($color-gray-dark, 0.35);
+
+.sb-qb-selection-container {
+  position: relative;
+  top: 5px;
+}
+
+.qb-on-overlay {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  bottom: 0px;
+  opacity: 1;
+  transition: bottom 0.2s linear, opacity 0.1s linear;
+  &.hide-keyboard{
+    bottom: -250px;
+    opacity: 0;
+    transition: bottom 0.2s linear, opacity 0.1s linear;
+  }
+}
+
+.quickbet-boosted-price {
+  margin-left: 5px;
+}
+
+.quickbet-boost-button {
+  text-align: right;
+  margin-top: 4px;
+}
+
+/* Quickbet controls */
+.sb-quickbet-controls {
+  .sb-qb-close {
+    width: 16px;
+    height: 16px;
+    fill: $color-white;
+  }
+  .qb-quick-deposit-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  width: 202px;
+  background: transparent;
+}
+.qb-controls-with-freebet {
+  width: 290px;
+}
+
+.twoUpMarketContent {
+  margin-top: 3px;
+}
+
+.qb-with-freebet {
+  width: 232px;
+}
+
+.qb-stake-section {
+  @include flex-direction(column);
+}

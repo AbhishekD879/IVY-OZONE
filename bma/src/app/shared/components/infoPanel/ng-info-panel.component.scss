@@ -1,0 +1,175 @@
+@import 'global.variables.scss';
+
+/* info panel */
+.info-panel {
+  background: $color-green;
+  box-shadow: inset 0 10px 20px rgba(255,255,255,.2);
+  color: $color-white;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 9px 15px;
+  position: relative;
+  text-shadow: 0 1px 2px rgba(0,0,0,.4);
+  z-index: 5;
+  &.left {
+    text-align: left;
+  }
+  &.center {
+    text-align: center;
+  }
+  &.right {
+    text-align: right;
+  }
+
+  a {
+    text-decoration: underline;
+    color: $color-white;
+    cursor: pointer;
+  }
+
+  &:after {
+    top: 100%;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border: 5px solid transparent;
+    border-top-color: $color-green;
+  }
+
+  &.left:after {
+    left: 15px;
+  }
+
+  &.center:after {
+    left: 50%;
+    margin-left: -5px;
+  }
+
+  &.right:after {
+    right: 15px;
+  }
+
+  &.error-panel {
+    background: $color-red;
+
+    &:after {
+      border-top-color: $color-red;
+    }
+
+    &.quick-deposit-info {
+      font-size: 12px;
+      min-height: 35px;
+      font-weight: normal;
+      line-height: 15px;
+      text-shadow: none;
+      box-shadow: none;
+      padding-right: 5px;
+      padding-left: 5px;
+
+      &:after {
+        display: none;
+      }
+    }
+  }
+
+  &.normal-panel {
+    background: $color-blue-light;
+
+    &:after {
+      border-top-color: $color-blue-light;
+    }
+  }
+
+  &.warning-panel {
+    background: $color-yellow;
+    color: $body-bg;
+
+    &:after {
+      border-top-color: $color-yellow;
+    }
+  }
+
+  &.arrow-panel {
+    background: $color-red;
+    font-size: 12px;
+    text-shadow: none;
+    box-shadow: none;
+    font-weight: normal;
+    text-align: center;
+
+    &.top, &.bottom {
+      &:after {
+        display: none;
+      }
+      &.warning-panel {
+        background: $color-yellow;
+        &:before {
+          color: $color-yellow;
+        }
+      }
+
+      &.success-panel {
+        background: $color-green;
+        &:before {
+          color: $color-green;
+        }
+      }
+    }
+
+    &.top {
+      &:before {
+        top: -2px;
+        left: 50%;
+        margin: -6px 0 0 -5px;
+        content: '▲';
+        z-index: 4;
+        color: $color-red;
+        position: absolute;
+        width: 10px;
+        height: 12px;
+        font-size: 11px;
+        @include transform(scaleX(1.8));
+      }
+    }
+
+    &.bottom {
+      &:before {
+        top: 100%;
+        left: 50%;
+        margin: -6px 0 0 -5px;
+        content: '▼';
+        z-index: 4;
+        color: $color-red;
+        position: absolute;
+        width: 10px;
+        height: 12px;
+        font-size: 11px;
+        @include transform(scaleX(1.8));
+      }
+    }
+  }
+
+  &.no-bg-color {
+    background: $color-white;
+    font-size: 12px;
+    color: $color-red;
+    text-shadow: none;
+    box-shadow: none;
+    font-weight: normal;
+    text-align: left;
+  }
+}
+
+.info-text {
+  float: left;
+  padding-left: 35px;
+  white-space: normal;
+  width: 100%;
+
+  .item-btm-name {
+    display: block;
+    @include word-break();
+  }
+}

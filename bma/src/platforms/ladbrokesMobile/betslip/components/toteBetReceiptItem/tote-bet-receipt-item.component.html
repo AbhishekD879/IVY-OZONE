@@ -1,0 +1,75 @@
+<div class="bs-scrolling-fix-ios bs-container" *ngIf="toteBet" data-crlat="isSingles">
+  <div class="stakes-wrapper uktote-receipt">
+    <div class="bs-stake bs-single-receipt" *ngFor="let receipt of receipts;" data-crlat="receiptSingles">
+      <div class="stake-row"> 
+          <div class="sports-icon" *ngIf="isSportIconEnabled && !toteBet.isPotBet">
+            <svg class="sports-icon-position">
+              <use [attr.xlink:href]="'#'+toteBet.svgId"></use>
+            </svg>
+          </div>
+        <div class="bs-stake-header">
+          <div class="bs-stake-info">
+            <div class="bs-single-receipt-odds" data-crlat="betType">
+              <strong class="selection-type" [i18n]="'bs.single'" data-crlat="selType"></strong>
+            </div>
+            <div class="bet-id-number">
+              <span class="bet-id" [i18n]="'bs.betId'"></span>
+              <span class="bet-id" [textContent]="receipt.receipt" data-crlat="betId.value"></span>
+            </div>
+            <div *ngIf="!toteBet.isPotBet" class="single-legs-pool">
+              <div *ngFor="let item of toteBet.orderedOutcomes; let i = index;" class="non-multiplelegs-outcomes" data-crlat="stake.outcome">
+                <strong *ngIf="toteBet.showOrderPosition" class="stake-type runner-number mb-5" [textContent]="i + 1" data-crlat="runnerNumber"></strong>
+                <ng-container *ngIf="!toteBet.showOrderPosition && item.runnerNumber !== '0'">
+                  <strong class="stake-type" [textContent]="item.runnerNumber" data-crlat="runnerNumber"></strong>
+                  <strong>.</strong>
+                </ng-container>
+                <span>&nbsp;</span>
+                <strong class="stake-type mb-5" [textContent]="item.name" data-crlat="runnerName"></strong>
+              </div>
+            </div>
+            <div *ngIf="toteBet.isPotBet" class="multiple-legs-pool" data-crlat="multipleLegs">
+              <div *ngFor="let leg of toteBet.orderedLegs;">
+                <div class="sports-icon">
+                  <svg class="sports-icon-position">
+                    <use [attr.xlink:href]="'#'+toteBet.svgId"></use>
+                  </svg>
+                </div>
+                <div class="leg-item" data-crlat="legItem">
+                  <div class="leg-outcomes-container">
+                    <div class="outcome-item" *ngFor="let outcome of leg.outcomes;" data-crlat="itemOutcome">
+                      <div class="outcome-item-title" [textContent]="toteBetSlip.getSelectionName(outcome)"></div>
+                    </div>
+                  </div>
+                  <div class="leg-item-title" [textContent]="toteBetSlip.getLegTitle(leg)" data-crlat="legItemTitle"></div>
+                </div>
+              </div>
+            </div>
+            <div class="stake-description">
+              <span [textContent]="toteBet.poolName" data-uat="selectionName"></span>
+              <span> / </span>
+              <span class="stake-type" [textContent]="title" data-uat="marketName"></span>
+            </div>
+            <span *ngIf="!toteBet.isPotBet" class="lines-info" [textContent]="linesInfo"></span>
+          </div>
+        </div>
+      </div>
+      <div class="bs-stake-footer">
+        <div class="line">
+          <span [i18n]="'bs.stakeForThisBet'"></span>
+          <span *ngIf="stake > 0" [textContent]="stake | currency: userCurrencySymbol: 'code'" data-crlat="totalStake"></span>
+            <span class="free-bet-label">
+            <free-bet-label *ngIf="tokenValue > 0"
+                          [freeBetLabelText]="getFreeBetText() ? getFreeBetText() : receipt.freebetOfferCategory"
+                          [selected]="tokenValue"
+                          [plusPrefix]="stake > 0">
+            </free-bet-label>
+          </span>
+        </div>
+        <div class="line">
+          <strong [i18n]="'bs.potentialReturns'"></strong>
+          <strong [textContent]="(receipt.potentialPayout | currency: userCurrencySymbol: 'code') || 'N/A'" data-uat="estReturns"></strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

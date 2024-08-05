@@ -1,0 +1,15 @@
+<div *ngIf="serviceClosureService.userServiceClosureOrPlayBreakCheck() &&
+      serviceClosureService.userServiceClosureOrPlayBreak" class='closure-message-container'
+      [textContent]='serviceClosureService.userAccountInfo'>
+</div>
+<div class="bs-subheader" [ngClass]="{'bs-subheader-coral-mobile':isCoralMobile }" data-crlat="bsHead">
+  <div class="bs-count" [ngClass]="{'bs-count-coral-mobile':isCoralMobile}">
+    <span [i18n]="'bs.yourSelections'" data-crlat="bsHeadMsg"></span>:
+    <span [textContent]="count" data-crlat="bsHeadCount"></span>
+  </div>
+  <div [ngClass]="{ 'bs-clear': !isMobile,'bs-clear-coral-mobile':isCoralMobile }">
+    <span *ngIf="suspendedOutcomesCounter > 0" (click)="removeSuspended()" [i18n]="'bs.removeSuspended'"
+      data-crlat="removeAllSuspendedSelections"></span>
+    <span (click)="showConfirm()" [i18n]="'bs.removeAllSelections'" data-crlat="removeAllSelections"></span>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<loading-screen [displayed]="loading" [templateType]="'GENERIC'"></loading-screen>
+<div [ngSwitch]="market.type"
+     class="container-inner-content"
+     data-crlat="yourcallMarket.type">
+  <yourcall-market-buttons *ngSwitchDefault
+                           [market]="market"
+                           data-crlat="yourcallMarket.buttons">
+  </yourcall-market-buttons>
+
+  <yourcall-market-switcher *ngSwitchCase="'switcher'"
+                            [market]="market"
+                            (marketLoaded)="marketLoaded()"
+                            [limit]="6"
+                            data-crlat="yourcallMarket.switcher">
+  </yourcall-market-switcher>
+
+  <yourcall-market-player-bets *ngSwitchCase="'playerBets'"
+                               [market]="market"
+                               [disableEditButton]="true"
+                               [hideButton]="false"
+                               data-crlat="yourcallMarket.playerbets">
+  </yourcall-market-player-bets>
+
+  <yourcall-correct-score *ngSwitchCase="'correctScore'"
+                          [game]="game"
+                          [market]="market">
+  </yourcall-correct-score>
+
+  <yourcall-market-group *ngSwitchCase="'group'"
+                         [game]="game"
+                         [market]="market"
+                         (marketLoaded)="marketLoaded()">
+  </yourcall-market-group>
+
+</div>

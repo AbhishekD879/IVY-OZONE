@@ -1,0 +1,25 @@
+<div class="widgets-column">
+  <div *ngFor="let widget of widgets; trackBy: trackByDirectiveName;">
+    <accordion class="{{widget.directiveName}}-container"
+               [accordionTitle]="widget.directiveName === 'betslip' ? null : widget.title"
+               [isHeaderHidden]="widget.directiveName === 'betslip'"
+               [render]="true"
+               [isExpanded]="widget.showExpanded"
+               [ngClass]="{'offers' : widget.directiveName === 'offers'}"
+               *ngIf="isMatchCentreWidget(widget)"
+               [hidden]="widget.isHidden"
+               [attr.data-crlat]="'widgetAccordion.' + widget.directiveName"
+               #widgetAccordion>
+      <accordion-body>
+        <right-column-widget-item
+          *ngIf="widgetAccordion.isExpanded"
+          [componentName]="widget.directiveName"
+          [widgetColumn]="widgetColumn"
+          [isHidden]="widget.isHidden"
+          [isExpanded]="widget.showExpanded"
+          data-crlat="widgetItem">
+        </right-column-widget-item>
+      </accordion-body>
+    </accordion>
+  </div>
+</div>

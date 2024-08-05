@@ -1,0 +1,116 @@
+@import 'global.variables.scss';
+
+/* //////// knockouts ///////// */
+
+.knockouts-section-inner {
+  font-family: $base-font-family;
+  font-size: $font-size-sm;
+  font-weight: bold;
+  color: lighten($color-gray-dark, 50%);
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    margin-left: -1px;
+    top: 0;
+    width: 2px;
+    bottom: 10px;
+    z-index: -1;
+
+    background-color: $color-gray-dark;
+  }
+
+  .knockout-round-section {
+    @include display-flex();
+    @include flex-direction(column);
+
+    & + & {
+      padding-top: 0;
+    }
+
+    .knockouts-section-header {
+      position: relative;
+      height: 25px;
+      width: 100%;
+      background: $color-gray-dark;
+      text-align: center;
+      margin-bottom: 10px;
+      .knockouts-section-title {
+        // fix for Samsung Galaxy S5, S6 ..
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        @include transform(translate(-50%, -50%));
+
+        color: $color-gray-light;
+        text-transform: uppercase;
+      }
+    }
+
+    .knockout-round-winner {
+      @include display-flex();
+      @include justify-content(space-between);
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .knockout-stage-name {
+      @include align-self(flex-end);
+      position: absolute;
+      top: 80%;
+      left: 50%;
+      @include transform(translate(-50%, -50%));
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+
+      background-color: $color-gray-dark;
+      color: $color-white;
+      text-transform: uppercase;
+      line-height: 24px;
+      text-align: center;
+
+      &:before {
+        content: '';
+        top: 50%;
+        margin-top: -1px;
+        left: -50%;
+        z-index: -1;
+
+        position: absolute;
+        height: 2px;
+        width: 100px;
+        background-color: $color-gray-dark;
+      }
+    }
+  }
+
+  .knockout-box {
+    @include display-flex();
+    @include flex-direction(column);
+    width: calc(50% - 20px);
+    box-sizing: border-box;
+    background: $color-white;
+    z-index: 1;
+  }
+  .final {
+    min-width: 100%;
+    .knockouts-box-content {
+      font-size: 24px;
+
+      .knockouts-team {
+        @include flex(1, 1, 100%);
+        @include align-items(center);
+        @include justify-content(center);
+
+        .flag {
+          height: 20px;
+          width: 30px;
+        }
+      }
+    }
+  }
+}

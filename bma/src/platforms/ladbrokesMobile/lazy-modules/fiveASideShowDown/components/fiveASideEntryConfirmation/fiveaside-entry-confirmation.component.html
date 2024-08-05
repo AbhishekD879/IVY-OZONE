@@ -1,0 +1,25 @@
+<div class="entry-confirmation">
+  <div class="entry-confirm-wrapper" [ngClass]="slideUpClass">
+    <div class="entrybadge">
+      <div class="entrybadge-logo">
+        <svg class="five-a-side-icon">
+          <use xlink:href="#fiveaside-showdown-logo"></use>
+        </svg>
+      </div>
+      <div class="section-content">
+        <div class="title" [i18n]="'fs.entryinfo.entryTitle'"></div>
+        <div class="description">
+          <div class="secondary-content" *ngIf="ecText" [innerHTML]="ecText">
+          </div>
+        </div>
+        <div class="view-showdown-btn">
+          <button class="rectangle" type="button" (click)="onNavigate()">
+            <span class="viewShowDown" [textContent]="viewShowDown"></span>
+          </button>
+        </div>
+        <div class="terms-conditions" [innerText]="entryConfirmTerms"> 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

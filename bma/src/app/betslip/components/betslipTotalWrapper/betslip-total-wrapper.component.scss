@@ -1,0 +1,66 @@
+@import 'global.variables.scss';
+
+.bs-total-wrapper {
+  padding: 12px;
+  background: $color-gray-light;
+  font-size: 12px;
+
+  .total {
+    @include display-flex();
+    color: $color-gray-dark;
+  }
+  .total-lable {
+    @include flex(2);
+    text-align: left;
+  }
+  .total-value {
+    @include flex(1);
+    text-align: right;
+  }
+
+  .free-bet-label{
+    vertical-align: bottom;
+    line-height: 17px;
+  }
+
+  .total-returns {
+    margin-top: 2px;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  .tooltipBR-max-payout {
+    padding-right: 0px;
+    padding-left: 4px;
+    margin-top: 0px;
+    }  
+  .maxPayOut-info-icon {
+      height: 14px;
+      width: 15px;
+      margin-bottom: -2px;
+  }
+  .total-lable-bs {
+    text-align: left;
+  }
+}
+.allWinnerBonus {
+  color: $color-blue;
+  font-weight: 700;
+  // float: right;
+}
+.allbonustext{
+  padding-right: 5px;
+  position: relative;
+  font-size: 13px;
+  // float: inherit; 
+}
+
+.bet-all-winner-bonus {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top:2px;
+}
+::ng-deep .modal-dialog .modal-content .modal-body  .links a{
+  color: #07294B
+  
+}

@@ -1,0 +1,43 @@
+<ng-container *ngIf="targetTab?.interstitialBanners?.bannerEnabled && eventsData?.length && isDisplayBanner(moduleTitle)">
+  <lazy-component
+    moduleUri="@lazy-modules-module/virtualEntryPointBanner/virtual-entry-point-banner.module#VirtualEntryPointBannerModule"
+    entryComponent="VirtualEntryPointBannerComponent"
+    [inputs]="{targetTab: targetTab,isUnTiedSport:true,sportName : sportName}">
+  </lazy-component>
+</ng-container> 
+
+<accordion *ngIf="eventsData?.length"
+           [isExpanded]="isExpanded"
+           (function)="trackModule(sectionTitle, sportName)"
+           data-crlat="outerAccordion"  class="outerAccordionFeatured">
+  <left-side>
+    <span class="left-title-text" [textContent]="moduleTitle"  data-crlat="headerTitle.leftMessage"></span>
+  </left-side>
+  <accordion-body>
+    <section class="rg-section" *ngIf="eventsData.length" data-crlat="toteEventsCarousel">
+      <action-arrows [scrollStep]="66">
+        <action-arrows-content>
+          <header [i18n]="'tt.toteEvents'" data-crlat="carouselHeader"></header>
+          <div class="scroll-container" [scrollable-racing]>
+            <ul class="scroll-inner">
+              <ng-container *ngFor="let event of eventsData; trackBy: trackById; ">
+                <li [ngClass]="{ 'race-resulted': event.isResulted,
+                    'race-on': !event.isResulted && (!event.isStarted || event.isLiveNowEvent)}"
+                    data-crlat="toteEvent">
+                  <a (click)="clickEvent(event)">
+                    <div [textContent]="event.localTime" class="race-time" data-crlat="eventTime"></div>
+                    <span [textContent]="event.displayName" class="race-name" data-crlat="eventName"></span>
+                  </a>
+                  <lazy-component *ngIf="event.isStarted || event.isLiveNowEvent || event.isResulted"
+                      moduleUri="@lazy-modules-module/racingStatus/racing-status.module#RacingStatusModule"
+                      [inputs]="{event: event}">
+                  </lazy-component>
+                </li>
+              </ng-container>
+            </ul>
+          </div>
+        </action-arrows-content>
+      </action-arrows>
+    </section>
+  </accordion-body>
+</accordion>

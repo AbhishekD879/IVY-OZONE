@@ -1,0 +1,31 @@
+@use "sass:math";
+@import 'global.variables.scss';
+
+.featured-eam-module {
+  margin: 0 -4px 8px -4px;
+  .ng-carousel {
+    padding-top:  math.div(85, 375) * 100%; /* default dimensions ratio of featured AEM banner */
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  .terms {
+    display: block;
+    font-size: 9px;
+    color: $color-white;
+    padding: 4px 12px;
+    text-align: left;
+    background-color: $promo-background-color;
+
+    @media #{$mqLandscapeAndDesktop} {
+      font-size: 13px;
+    }
+  }
+}
+
+.aem-slide {
+  position: relative;
+}

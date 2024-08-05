@@ -1,0 +1,23 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>Create a New YourCall Market</h1>
+  <div mat-dialog-content>
+    <div class="row clearfix">
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Market Title" [(ngModel)]="newMarket.name" [value]="newMarket.name" required trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="DS Market" [(ngModel)]="newMarket.dsMarket" [value]="newMarket.dsMarket" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+    <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="!isValidFormData()" [mat-dialog-close]="newMarket">Save</button>
+  </div>
+</div>

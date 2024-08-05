@@ -1,0 +1,31 @@
+Configuration:
+
+  status: warn
+
+  Appenders:
+
+    Console:
+      name: LogToConsole
+      target: SYSTEM_OUT
+      PatternLayout:
+        Pattern: "%d{HH:mm:ss.SSS} [%t] [%-5level] [$${ctx:username:-}][$${ctx:session:-}] %logger{60} - %m%n"
+
+    Async:
+      - name: AsyncAppender
+        bufferSize: 80
+        AppenderRef:
+          - ref: LogToConsole
+
+  Loggers:
+
+    Root:
+      level: ${env:cashout_log_level}
+      AppenderRef:
+        ref: LogToConsole
+
+    Logger:
+      - name: ASYNC_JSON_FILE_APPENDER
+        additivity: false
+        level: ${env:cashout_log_level}
+        AppenderRef:
+          - ref: AsyncAppender

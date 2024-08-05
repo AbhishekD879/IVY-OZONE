@@ -1,0 +1,6 @@
+export const tabsLinks = {
+  'BET SLIP': 'HOME_BETSLIP',
+  'BET HISTORY': 'LOAD_BET_HISTORY',
+  'CASH OUT': 'LOAD_CASHOUT_BETS',
+  'MY BETS': 'LOAD_UNSETTLED_BETS'
+};

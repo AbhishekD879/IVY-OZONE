@@ -1,0 +1,52 @@
+<top-bar [title]="'fs.fiveASideHeader'"></top-bar>
+<fiveaside-welcome-overlay (clearOverlay)="showTutorialOverlay = false" *ngIf="showTutorialOverlay && isOverlayEnabled"
+    [currentOverlay]="currentOverlay" [preEventData]="preEventData"></fiveaside-welcome-overlay>
+<fiveaside-pre-event-tutorial *ngIf="isWelcomeOverlaySeen && isOverlayEnabled"
+    [preEventData]="preEventData"></fiveaside-pre-event-tutorial>
+<div class="sk-container" [ngClass]="{ 'sk-loading': state.loading }">
+    <outlet-status [skeletonType]="'GENERIC_FULL'" [state]="state">
+    </outlet-status>
+    <div class="leader-board-header" *ngIf="showDown">
+        <div class="contest-description">
+            <div class="description-name" [ngClass]="{'description-hidden': !contentDescription}"
+                [innerHtml]="contentDescription"></div>
+            <span class="clock-time" *ngIf="clockTime" [textContent]="kickOut+clockTime.value"></span>
+            <span class="clock-time" *ngIf="dateTime" [textContent]="dateTime"></span>
+        </div>
+        <div *ngIf="flagHomeIcon && flagAwayIcon" class="country-flags">
+            <div class="home-flag">
+                <fiveaside-crest-image *ngIf="teamColors"  [hasTeamImage]="hasTeamImage"
+                                        [widthHeight]="'41'"
+                                        [team]="teamColors[0]"></fiveaside-crest-image>
+            </div>
+            <div class="away-flag">
+                <fiveaside-crest-image *ngIf="teamColors"  [hasTeamImage]="hasTeamImage"
+                                        [widthHeight]="'41'"
+                                        [team]="teamColors[1]"></fiveaside-crest-image>
+            </div>
+        </div>
+        <div class="country-names">
+            <span class="home-name" *ngIf="homeName" [textContent]="homeName"></span>
+            <span class="away-name" *ngIf="awayName" [textContent]="awayName"></span>
+        </div>
+    </div>
+    <ng-container *ngIf="!state.loading && !state.error">
+        <ng-container *ngIf="showDown">
+            <div class="pre-leaderboard">
+                <fiveaside-rules-entry-area [contestStatus]="contestStatus" [contestClass]="'.pre-leaderboard'"
+                    [contest]="showDown" [contestSize]="showDown.contestSize"
+                    [userContestSize]="showDown.userContestSize" (showRulesOverlay)="showOverlay = true">
+                </fiveaside-rules-entry-area>
+            </div>
+            <fiveaside-terms-rules (clearOverlay)="showOverlay = false" [leaderboardData]="leaderboardData"
+                [hasTeamImage]="hasTeamImage"  [teams]="teamColors" [showDown]="showDown" *ngIf="showOverlay">
+            </fiveaside-terms-rules>
+            <div class="divider"></div>
+        </ng-container>
+        <ng-container *ngIf="showDown?.entries">
+            <fiveaside-entry-list [myEntriesList]="showDown?.entries" [eventStatus]="eventstatus"
+                [userEntryLimit]="showDown?.teams"></fiveaside-entry-list>
+        </ng-container>
+        <fiveaside-prize-pool *ngIf="prizePoolData" [prizePoolData]="prizePoolData"></fiveaside-prize-pool>
+    </ng-container>
+</div>

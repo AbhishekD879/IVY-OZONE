@@ -1,0 +1,59 @@
+<div *ngIf="chunkEvents" [hidden]="showLoader">
+  <section class="card-widget-carousel"
+           [ngCarousel]
+           [ngCarouselName]="carouselName"
+           [ngCarouselLoop]="false"
+           [ngCarouselWatch]="chunkEvents.length"
+           *ngIf="!singleEvent">
+
+    <slidecontainer class="carousel-slides card-widget-slide-container">
+      <ng-container *ngFor="let event of chunkEvents; trackBy: trackByEventId">
+        <slide class="slide card-widget-slide" *ngIf="event">
+          <article class="w-sport-card">
+            <card-view-body [event]="event" [viewType]="viewType"></card-view-body>
+            <card-view-footer
+              [event]="event"
+              [outcomesLength]="event.markets[0]?.outcomes.length"
+              [gtmModuleTitle]="gtmModuleTitle"></card-view-footer>
+          </article>
+        </slide>
+      </ng-container>
+      <slide class="slide card-widget-slide pagination" *ngIf="showPaginationSlide">
+        <div class="pagination-slide"
+             (click)="loadChunk()">
+          <div class="pagination-top-label-next" [i18n]="'bigcompetitions.showNext'"></div>
+          <div class="pagination-number" [textContent]="loadChunkStep"></div>
+          <div class="pagination-bottom-label" [i18n]="'bigcompetitions.upcomingGames'"></div>
+        </div>
+      </slide>
+    </slidecontainer>
+    <div class="action-arrow left row-middle"
+         (click)="prevSlide()"
+         *ngIf="isPrevSlideAvailable">
+      <svg class="arrow-icon prev-arrow row-center">
+        <use xlink:href="#prev-arrow"></use>
+      </svg>
+    </div>
+    <div class="action-arrow right row-middle"
+         (click)="nextSlide()"
+         *ngIf="!isNextSlideUnAvailable">
+      <svg class="arrow-icon next-arrow">
+        <use xlink:href="#next-arrow"></use>
+      </svg>
+    </div>
+  </section>
+
+  <section *ngIf="singleEvent">
+    <ng-container *ngFor="let event of chunkEvents; trackBy: trackByEventId">
+      <div class="slide card-widget-slide"
+           *ngIf="event">
+        <article class="w-sport-card">
+          <card-view-body class="single-event" [event]="event" [viewType]="viewType"></card-view-body>
+          <card-view-footer class="single-event" [event]="event" [outcomesLength]="event.markets[0]?.outcomes.length"></card-view-footer>
+        </article>
+      </div>
+    </ng-container>
+  </section>
+</div>
+
+<div *ngIf="showLoader" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>

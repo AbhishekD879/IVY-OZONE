@@ -1,0 +1,333 @@
+@import 'global.variables.scss';
+
+$partialAnimationTime: 1s;
+$cashoutWidth: 80%;
+$partialWidth: 20%;
+
+@mixin cashout-button-styles() {
+  position: relative;
+  height: $cashout-button-height;
+  font-family: $base-font-family;
+  box-shadow: none;
+  text-shadow: none;
+  z-index: 1;
+  border-radius: $cashout-btn-border-radius;
+  letter-spacing: $cashout-btn-letter-spacing;
+  font-stretch: $cashout-btn-font-stretch;
+}
+
+.cashout-button-wrapper {
+  padding: $cashout-btn-margin;
+  position: relative;
+  background: $color-white;
+  @include display-flex();
+  @include align-items();
+  @include justify-content(space-between);
+
+  .partial-inactive {
+    opacity: 1;
+    @include transition(opacity, $partialAnimationTime);
+  }
+  .partial-active {
+    opacity: 0;
+    z-index: -1;
+    @include transition(opacity, $partialAnimationTime);
+  }
+
+  .animated {
+    .partial-inactive {
+      opacity: 0;
+      z-index: -1;
+    }
+    .partial-active {
+      opacity: 1;
+    }
+  }
+
+  .btn:hover {
+    box-shadow: none;
+  }
+
+  .cashout-button {
+    @include cashout-button-styles();
+    padding-left: 2px;
+    padding-right: 2px;
+    background: $full-cashout-normal-color;
+    font-weight: bold;
+    font-size: $cashout-btn-font-size;
+    flex-grow: 4;
+    max-width: $cashoutWidth;
+    width: $cashoutWidth;
+    min-width: 0;
+    @include transition(all, $partialAnimationTime);
+    @media #{$mqTabletAndDesktop} {
+    &:hover{
+      background: $color-green-light2;
+    }
+    }
+    &:active{
+      background: $color-green-shine;
+      color: $color-white;
+    }    
+    &.cashout-button-coral{
+      @media #{$mqTabletAndDesktop} {
+      &:hover{
+        background: $color-orange-shine !important;
+      }
+      }
+      &:active{
+        background: $color-orange  !important;
+        color: $color-white;
+      }
+    }
+    &.animated {
+      max-width: $close-partial-area-width;
+      width: $close-partial-area-width;
+      overflow: hidden;
+      background-color: $partial-cashout-active-color;
+      @media #{$mqTabletAndDesktop} {
+        &:hover{
+          background: $color-green-light2;
+        }
+        }
+      &:active{
+        background: $color-green-shine;
+        color: $color-white;
+      } 
+
+      .partial-inactive {
+        position: absolute;
+        white-space: nowrap;
+      }
+
+      .partial-active {
+        display: inline;
+        margin-top: $partial-cashout-activate-margin-top;
+      }
+    }
+
+    &.animating {
+      pointer-events: none;
+    }
+
+    .partial-active {
+      display: none;
+    }
+
+    &.status,
+    &.full-width {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    &.status {
+      &.confirm {
+        background-color: $cashout-success-color;
+        -webkit-animation: flash linear;
+        animation: flash linear;
+        -webkit-animation-duration: 6.2s;
+        animation-duration: 6.2s;
+      }
+
+      &.green {
+        background: $cashout-success-color;
+        transition: 0.2s linear;
+      }
+
+      &.red {
+        background-color: $color-red;
+        @include display-flex();
+        @include align-items();
+        @include justify-content();
+        padding: 0 10px;
+      }
+    }
+
+    &[disabled] {
+      max-width: 100%;
+      width: 100%;
+      position: relative;
+      opacity: 1;
+      background-color: $cashout-disabled-btn-bg-color;
+      &::after {
+        content: '';
+        display: $cashout-disabled-btn-oberlay-display;
+        opacity: 0.65;
+        background-color: $color-gray-light;
+        width: 100%;
+        height: $cashout-button-height;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    }
+  }
+
+  .cashout-button-value {
+    font-weight: bold;
+  }
+
+  .partial-cashout-button {
+    @include cashout-button-styles();
+    margin-left: $partial-cashout-btn-margin-left;
+    white-space: normal;
+    background: $btn-bg-green-color;
+    font-weight: normal;
+    font-size: $partial-cashout-btn-font-size;
+    flex-grow: 1;
+    width: $partialWidth;
+    max-width: $partialWidth;
+    text-transform: uppercase;
+    @include transition(all, $partialAnimationTime);
+    @media #{$mqTabletAndDesktop} {
+    &:hover{
+      background: $color-green-light2;
+      color: $color-white;
+    }
+    }
+    &:active{
+      background: $color-green-shine;
+      color: $color-white;
+    }
+    &.partial-cashout-button-coral{
+      background: $color-orange-darker;
+      @media #{$mqTabletAndDesktop} {
+      &:hover{
+        background: lighten($color: $color-orange-darker, $amount: 25%) !important;
+      }
+      }
+      &:active{
+        background: darken($color: $color-orange-darker, $amount: 25%) !important;
+        color: $color-white;
+      }
+    }
+
+    &.animating {
+      pointer-events: none;
+    }
+
+    &.animated {
+      background: $partial-cashout-active-color;
+      max-width: $partial-cashout-activate-btn-width;
+      width: $partial-cashout-activate-btn-width;
+      @media #{$mqTabletAndDesktop} {
+      &:hover{
+        background: $color-green-light2;
+      }
+      }
+      &:active{
+        background: $color-green-shine;
+        color: $color-white;
+      }
+    }
+
+    .partial-inactive {
+      display: block;
+      position: absolute;
+      top: $partial-cashout-btn-text-top;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      text-align: center;
+      line-height: 1.18;
+      letter-spacing: $partial-cashout-letter-spacing;
+      font-weight: bold;
+    }
+
+    .partial-active {
+      display: block;
+      line-height: $partial-cashout-value-line-height;
+      margin-top: -1px;
+      .partial-cashout-button-text {
+        font-size: 0;
+        margin-top: 1px;
+      }
+    }
+
+    .cashout-points {
+      position: relative;
+      white-space: nowrap;
+      font-size: $partial-cashout-value-font-size;
+
+      display: inline-block;
+      height: $partial-cashout-value-line-height;
+      line-height: $partial-cashout-value-line-height;
+      overflow: hidden;
+      font-weight: bold;
+    }
+
+    .partial-value-piece {
+      font-size: $partial-cashout-value-font-size;
+      line-height: $partial-cashout-value-line-height;
+      position: relative;
+      vertical-align: top;
+      font-weight: bold;
+    }
+  }
+
+  .close-partial-icon {
+    width: $close-partial-icon-cashout-width-height;
+    height: $close-partial-icon-cashout-width-height;
+    fill: $color-white;
+  }
+
+  .partial-cashout-button-text {
+    display: block;
+  }
+
+  .btn-spinner {
+    width: $cashout-timer-height;
+    height: $cashout-timer-height;
+    transition: 0.2s linear;
+    &:before, &:after {
+      border-width: $cashout-progress-spinner-border-width;
+    }
+    &:before {
+      z-index: 1;
+    }
+    &:after {
+      box-shadow: $cashout-progress-spinner-box-shadow;
+    }
+    .spinner-loader {
+      margin: 0 15px 0;
+      @include transform(translateX(-50%));
+    }
+    .bs-countdown-timer {
+      bottom: 0;
+      margin: 0;
+    }
+  }
+
+  .cashout-countdown-time {
+    margin-left: 5px;
+    line-height: $cashout-timer-height; // should match spinner height
+    font-weight: $cashout-timer-font-weight;
+  }
+
+  .cash-out-message {
+    text-align: center;
+    padding: 0px 3px;
+    width: 100%;
+    font-size: 12px;
+  }
+}
+
+// flasing animation
+@keyframes flash {
+  0%, 32.25%, 37.75%, 53.87%, 60.37%, 76.49%, 82.99%, 100% {
+    background-color: $cashout-success-color;
+  }
+
+  34.5%, 57.13%, 79.74% {
+    background-color: rgba(243, 160, 0, 0.1);
+  }
+}
+
+@-webkit-keyframes flash {
+  0%, 32.25%, 37.75%, 53.87%, 60.37%, 76.49%, 82.99%, 100% {
+    background-color: $cashout-success-color;
+  }
+  34.5%, 57.13%, 79.74% {
+    background-color: rgba(243, 160, 0, 0.1);
+  }
+}

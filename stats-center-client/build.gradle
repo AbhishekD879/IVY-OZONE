@@ -1,0 +1,38 @@
+plugins {
+  id 'java-library'
+  id 'jacoco'
+
+  id 'com.coral.tools' version '3.0-SNAPSHOT'
+}
+
+group 'com.ladbrokescoral.oxygen'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+def nexusRepo = System.getenv("NEXUS_HOST") ?: 'https://nexus-vie.coral.co.uk/repository/maven-public/'
+def nexusUser = System.getenv("NEXUS_USER") ?: project.properties.nexusUser
+def nexusPass = System.getenv("NEXUS_PASS") ?: project.properties.nexusPass
+
+repositories {
+  maven {
+    credentials {
+      username = nexusUser
+      password = nexusPass
+    }
+    url nexusRepo
+  }
+  jcenter()
+}
+
+dependencies {
+
+  api "com.squareup.retrofit2:converter-jackson:2.9.0"
+  api 'org.slf4j:slf4j-api:1.7.30'
+
+  testImplementation 'junit:junit:4.13'
+  testImplementation 'org.mockito:mockito-core:3.5.13'
+  testImplementation 'org.slf4j:slf4j-simple:1.7.30'
+}
+
+jacocoTestReport.reports.xml.enabled = true

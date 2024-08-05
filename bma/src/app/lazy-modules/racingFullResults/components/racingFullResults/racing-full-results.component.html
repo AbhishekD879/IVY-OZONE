@@ -1,0 +1,20 @@
+<ng-container *ngIf="fullResults">
+  <div class="card-bordered" [ngClass]="brand === 'ladbrokes' ? 'ladbrokes-card-bordered' : ''" *ngFor="let outcomeEntity of eventEntity.resultedWEWMarket.outcomes"
+    data-crlat="outcomeEntity">
+    <racing-outcome-resulted-card *ngIf="!outcomeEntity.nonRunner && outcomeEntity.results"
+      [eventEntity]="eventEntity" [marketEntity]="eventEntity.resultedWEWMarket" [outcomeEntity]="outcomeEntity"
+      [raceType]="eventEntity.categoryCode">
+    </racing-outcome-resulted-card>
+  </div>
+  <div *ngIf="showRacingSignposting" class="result-section results-supplied">
+    <div [i18n]="'racing.fullResults'"></div>
+    <div>
+      <svg data-crlat="racingPost.logo" class="logo">
+        <use xlink:href="#racing-post-logo"></use>
+      </svg>
+    </div>
+  </div>
+  <div *ngIf="!showRacingSignposting" class="a-result unplaced-button" 
+    [ngClass]="brand === 'ladbrokes' ? 'ladbrokes-awating-result' : 'coral-awaiting-result'"
+    [i18n]="'racing.awaitingResult'"></div>
+</ng-container>

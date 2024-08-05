@@ -1,0 +1,54 @@
+<div class="free-bet-toggle">
+  <div *ngIf="!showOnDigitKeyborad && selected" class="remove-free-bet-label" data-crlat="removeFB">
+    <div data-crlat="closeIcon" class="close-icon" (click)="removeFreeBet()">
+      <svg>
+        <use xlink:href="#close-icon-fb"></use>
+      </svg>
+    </div>
+    <div class="text" [textContent]="value" data-crlat="value"></div>
+  </div>
+
+  <!-- displays the below icon in desktop and tablet -->
+  <div *ngIf="(freeBets?.length || betPackList?.length || fanzoneList?.length) && !showOnDigitKeyborad && !selected && !isMobile" 
+  class="add-free-bet-label" (click)="useFreeBet()" data-crlat="addFreeBet">
+    <div data-crlat="fbIcon">
+      <svg>
+        <use [attr.xlink:href]="'#'+freeBetImageNameSvg"></use>
+      </svg>
+    </div>
+    <div class="text" [textContent]="freebetButtonText()" data-crlat="value"></div>
+  </div>
+
+  <!-- displays the below icon in quick bet and digit keyboard components-->
+  <div *ngIf="showOnDigitKeyborad && !selected && !isStreamAndBet" class="add-free-bet-label-mobile"
+  [ngClass]="{'dk-add-free-bet': digitKeyboard}" (click)="useFreeBet()" 
+  data-crlat="addFreeBetMobile">
+    <div class="container" data-crlat="fbIcon">
+      <svg class="fb-jump-vibrate">
+        <use [attr.xlink:href]="'#'+freeBetImageNameSvg"></use>
+      </svg>
+    </div>
+    <div class="text" [textContent]="freebetButtonText(true)" data-crlat="value"></div>
+  </div>
+
+  <div *ngIf="showOnDigitKeyborad && !selected && isStreamAndBet" class="remove-free-bet-label-mobile"
+  [ngClass]="{'dk-add-free-bet': digitKeyboard}" (click)="useFreeBet()">
+    <div class="container" data-crlat="fbIcon">
+      <svg class="fb-jump-vibrate">
+        <use xlink:href="#free-bet-label"></use>
+      </svg>
+    </div>
+    <div class="text snb-text" [textContent]="freebetButtonText(true)" data-crlat="value"></div>
+  </div>
+
+  <!-- displays the below icon only in mobile in quick bet and digit keyboard components-->
+  <div *ngIf="showOnDigitKeyborad && selected" class="remove-free-bet-label-mobile"
+  [ngClass]="{'dk-remove-free-bet': digitKeyboard}" (click)="removeFreeBet()" data-crlat="removeFreeBetMobile">
+    <div class="container" data-crlat="fbIcon">
+      <svg class= "fb-jump-vibrate-small">
+        <use [attr.href]="'#'+freeBetImageNameSvg"></use>
+      </svg>
+    </div>
+    <div class="text" [ngClass]="{'snb-text': isStreamAndBet}" [textContent]="removeFreebetButtonText()" data-crlat="value"></div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+<div *ngIf="type === 'regular'"
+     class="switchers"
+     [ngClass]="{'no-paddings': noPaddings, 'no-margin': noMargin}"
+     data-crlat="switchers">
+  <a class="switch-btn"
+     *ngFor="let switcher of switchers; trackBy: trackByLabel"
+     [ngClass]="{ 'active' : isActive(switcher), 'filled' : switcher.filled, 'overlay' : isOverlay, 'disabled' : isOverlay && switcher.selected }"
+     (click)="switcher.onClick(switcher.viewByFilters); detectActiveTab(switcher);"
+     data-crlat="buttonSwitch">
+    <span [ngClass]="{'switch-btn-text': isOverlay}" [textContent]="getTabName(switcher)" data-crlat="switcher.name"></span>
+    <span *ngIf="switcher.eventCount"
+          class="switch-btn-bind"
+          [innerHTML]="switcher.eventCount"
+          data-crlat="switcher.eventCount"></span>
+    <ng-content *ngIf="switcher.icon"></ng-content>
+  </a>
+</div>
+
+<div *ngIf="type === 'scrollable'"
+     class="switchers scrollable-switchers"
+     [ngClass]="{'no-paddings': noPaddings, 'no-margin': noMargin}"
+     data-crlat="switchers">
+  <div class="scroll-container" scrollable scrollonce [scrollonce]="GATrackingModule" [GATrackingObj]="GTMTrackingObj" [rescrollOnChange]="activeTab?.id">
+    <ul class="scroll-inner" [ngClass]="{'auto-sizable-switchers': isAutoSizable()}">
+      <ng-container *ngFor="let switcher of switchers; let switcherIndex = index; trackBy: trackByLabel">
+          <li class="switch" data-crlat="tab.tpTabs" *ngIf="!switcher.hidden">
+          <a class="switch-btn"
+             [ngClass]="{
+                'active' : isActive(switcher, switcherIndex),
+                'filled' : switcher.filled
+              }"
+             (click)="clickFunction(switcher, $event, switcherIndex + 1)"
+             [attr.href]="switcher.url"
+             data-crlat="buttonSwitch">
+            <span class="fanzone-badge-wrapper" *ngIf="switcher.newSignPostingIcon">
+              <svg class="new-badge">
+                <use xlink:href="#icn-new-fanzone"></use>
+              </svg>
+            </span>
+            <span class="tab-name" [textContent]="getTabName(switcher)" data-crlat="switcher.name" ></span>
+            <span *ngIf="switcher.eventCount"
+                  class="switch-btn-bind"
+                  [innerHTML]="switcher.eventCount"
+                  data-crlat="switcher.eventCount"></span>
+            <!-- TODO: remove this useless badge from shared component -->
+            <span *ngIf="switcher.isFiveASideNewIconAvailable" class="badge-new">NEW</span>
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</div>
+
+<div *ngIf="type === 'links'"
+     class="switchers"
+     [ngClass]="{'no-paddings': noPaddings, 'no-margin': noMargin}"
+     data-crlat="switchers">
+  <a class="switch-btn"
+     *ngFor="let switcher of switchers; let switcherIndex = index; trackBy: trackByLabel"
+     [ngClass]="{'active': filter === switcherIndex}"
+     (click)="switcher.onClick(switcherIndex)"
+     data-crlat="buttonSwitch"
+     [textContent]="getTabName(switcher)">
+  </a>
+</div>
+
+<div *ngIf="type === 'radio'"
+     class="radio-switchers"
+     [ngClass]="{'no-paddings': noPaddings, 'no-margin': noMargin}"
+     data-crlat="switchers">
+  <div class="radio-switch-btn"
+     *ngFor="let switcher of switchers; trackBy: trackByFilter;"
+     [ngClass]="{'active': filter === switcher.viewByFilters}" data-crlat="radioSwitch"
+     (click)="switcher.onClick(switcher.viewByFilters)"
+     [textContent]="getTabName(switcher)">
+  </div>
+</div>

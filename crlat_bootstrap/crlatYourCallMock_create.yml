@@ -1,0 +1,29 @@
+---
+- name: Create crlatYourCallMock EC2 node
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    action: create
+    assign_public_ip: no
+    cluster_name: Services
+    instances:
+      yourcall-mock:
+        nodes_type: YourCallMock
+        ec2_hw_params:
+          key_name: crlat2
+          instance_type: t2.small
+          security_group: crlat
+          subnet_name: services
+          volume_size: 16
+          assign_public_ip: no
+        tags_template:
+          ClusterNodeType: MockServer
+          packages: docker,go-agent
+          GoAgentEnv: crlat_vpc
+          GoAgentResources: yourcallmock
+        num_nodes: 1
+  tasks:
+  - name: crlat.vpc
+    include_role:
+      name: crlat.vpc

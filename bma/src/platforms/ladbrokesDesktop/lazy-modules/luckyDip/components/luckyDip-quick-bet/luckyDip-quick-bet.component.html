@@ -1,0 +1,4 @@
+ <lazy-component *ngIf="selectionDataLd" moduleUri="@quickbetModule/quickbet.module#QuickbetModule"
+ [inputs]="{selection: selectionDataLd,
+  isLuckyDip:isLuckyDip, luckyDipCmsData: luckyDipCmsData, luckyDipMarketName:luckyDipMarketName}"
+[outputs]="['placeBetFn','closePanelFn']" (event)="handleLuckyDipEvents($event)" entryComponent="LadbrokesDeskQuickbetComponent"></lazy-component>

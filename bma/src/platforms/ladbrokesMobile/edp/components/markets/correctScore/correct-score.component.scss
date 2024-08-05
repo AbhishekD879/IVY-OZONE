@@ -1,0 +1,90 @@
+@import 'global.variables.scss';
+
+:host{
+price-odds-button{
+    ::ng-deep .btn-bet {
+     min-width: auto;
+     font-size: 14px;
+     line-height: 13px;
+     min-height: 40px;
+     width: 100px;
+     .handicap-btn-val {
+      padding-right: 40%;
+      font-size: 12px;
+      font-weight: normal;
+      width: auto;
+      max-width: 75%;
+      padding-top: 2px;
+      padding-bottom: 2px;
+    }
+     }
+   }
+}
+@media only screen and (max-width: $mobilePoint) {
+  .col-bordered .col-inner .col-name {
+   padding: 0 0 10px !important;
+ }
+}
+.correct-score-container {
+  border-bottom: 1px solid $color-gray;
+}
+.team-name {
+  border: none;
+  background: $color-white;
+  span {
+    font-size: 11px;
+    color: $color-gray-darkest;
+  }
+}
+#border {
+  border: none;
+  padding: 1px;
+}
+.row-top {
+  background: $color-white;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+#lads-high {
+  height: auto;
+  min-height: 50px;
+  border: none;
+  padding: 1px;
+}
+.cs-button {
+  price-odds-button{
+    ::ng-deep .btn-bet {
+      position: static;
+      margin: 0 !important;
+      width: 100%;
+     }
+   }
+}
+show-all-button{
+  ::ng-deep .show-all-button {
+    border-top: 1px solid $color-gray;
+    text-decoration: none;
+    background: $color-white;
+    span {
+       color: $color-blue-alt;
+       &:hover{
+        text-decoration: underline;
+        text-decoration-color: $color-blue-alt;
+      }
+      &:active{
+        text-decoration: none;
+        color: darken($color-blue-alt, 25%);
+      }
+    }
+  }
+}
+#team-label {
+  font-weight: normal;
+  font-size: 11px;
+}
+#na-value {
+  font-size: 14px;
+}
+.container-slide {
+  margin: 0;
+}

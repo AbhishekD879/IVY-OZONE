@@ -1,0 +1,82 @@
+<accordion
+  class="service-accordion"
+  [card]="true"
+  [headerClass]="'secondary-header'"
+  [accordionTitle]="tableTitle"
+  [isExpanded]="true"
+  (function)="sendCollapseGTM()"
+  *ngIf="seasons.length"
+  data-crlat="tableWidget">
+  <accordion-body>
+    <div class="table-widget">
+      <div class="table-menu" data-crlat="competitions">
+        <span class="page-arr"
+              [ngClass]="{'no-events':seasonIndex === 0}"
+              (click)="goToPrev()"
+              data-crlat="goToPrev">
+          <svg><use xlink:href="#prev-arrow"></use></svg>
+        </span>
+        <span class="table-name"
+              [attr.title]="seasons[seasonIndex].name"
+              [textContent]="seasons[seasonIndex].name"
+              data-crlat="resultTableName"></span>
+
+        <span class="page-arr"
+              [ngClass]="{'no-events':seasonIndex === seasons.length - 1}"
+              (click)="goToNext()"
+              data-crlat="goToNext">
+          <svg><use xlink:href="#next-arrow"></use></svg>
+        </span>
+      </div>
+
+      <tabs-panel *ngIf="competitions.length > 1 && showTabs(competitions)"
+                  [tpTabs]="competitions"
+                  (tpFunction)="changeGroup($event)"
+                  [tpFuncArr]="'id'"
+                  [tpActiveTab]="activeTab">
+      </tabs-panel>
+      <table class="table-panel-widget" data-crlat="resultRows" *ngIf="result?.rows?.length">
+        <colgroup>
+          <col/>
+          <col/>
+          <col/>
+          <col/>
+          <col/>
+          <col/>
+          <col/>
+          <col/>
+        </colgroup>
+        <thead>
+        <tr>
+          <th>POS</th>
+          <th></th>
+          <th>P</th>
+          <th>W</th>
+          <th>D</th>
+          <th>L</th>
+          <th>GD</th>
+          <th>PTS</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let row of tableData; index as rowIndex; trackBy: trackById">
+          <td>{{ rowIndex + 1 }}</td>
+          <td title="{{ row.name }}">{{ row.name }}</td>
+          <td>{{ getTableValue(row.values, 'matchesTotal') }}</td>
+          <td>{{ getTableValue(row.values, 'winTotal') }}</td>
+          <td>{{ getTableValue(row.values, 'drawTotal') }}</td>
+          <td>{{ getTableValue(row.values, 'lossTotal') }}</td>
+          <td>{{ getTableValue(row.values, 'goalDiffTotal') }}</td>
+          <td>{{ getTableValue(row.values, 'pointsTotal') }}</td>
+        </tr>
+        </tbody>
+      </table>
+      <show-all-button
+        *ngIf="result?.rows?.length > tableLimit"
+        (click)="showAll()"
+        [allShown]="!showLimit">
+      </show-all-button>
+    </div>
+    <no-events [message]="'stats.noResultsAvailable'" *ngIf="isNoEvents()"></no-events>
+  </accordion-body>
+</accordion>

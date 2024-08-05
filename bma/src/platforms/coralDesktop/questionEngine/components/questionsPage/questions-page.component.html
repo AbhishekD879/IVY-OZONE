@@ -1,0 +1,33 @@
+<div class="questions-page qe-bg"
+     [ngStyle]="{'background-image': qeData.quizBackgroundSvgFilePath ? 'url(' + qeData.quizBackgroundSvgFilePath + ')' : 'null'}"
+>
+  <div class="navigation-container">
+    <a class="back-link"
+       (click)="openCloseAppDialog();"
+       href="javascript:void(0)"
+       [i18n]="'qe.exitText'">
+    </a>
+
+    <div class="qe-container">
+      <header class="qe-header">
+        <img class="logo-small"
+             *ngIf="qeData.quizLogoSvgFilePath"
+             [src]="qeData.quizLogoSvgFilePath"
+             alt="quizLogo"
+        >
+        <ul class="qe-header-inf">
+          <li class="qe-header-inf__item top-left-header"
+              *ngIf="qeData.defaultQuestionsDetails.topLeftHeader"
+              [textContent]="qeData.defaultQuestionsDetails.topLeftHeader"
+          ></li>
+          <li class="qe-header-inf__item top-right-header"
+              *ngIf="qeData.defaultQuestionsDetails.topRightHeader"
+              [textContent]="qeData.defaultQuestionsDetails.topRightHeader"
+          ></li>
+        </ul>
+      </header>
+      <questions-info></questions-info>
+      <questions-carousel></questions-carousel>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,305 @@
+@import 'global.variables.scss';
+
+$racing-font-style: none;
+
+//
+// Racing post tip
+//----------------------------------------------------------------------
+.po-red {
+  height: 9px;
+  width: 9px;
+  background-color: $color-white;
+  border-radius: 50%;
+  display: inline-block;
+  border: 2px solid $color-red;
+}
+
+.noMargin {
+  margin: 0px !important;
+}
+
+.race-tip-container {
+  background: $color-white;
+  margin: 15px 12px 12px 12px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+  .tip-header {
+    @include display-flex();
+    @include align-items(center);
+    @include flex-direction(row);
+    box-sizing: border-box;
+    height: 36px;
+    width: 100%;
+    background-color: $lGrayLight;
+    color: $color-black;
+
+    .r-tip {
+      width: 45%;
+      font-weight: bold;
+      font-size: 12px;
+      padding-left: 12px;
+      &-header strong {
+        font-family: sans-serif;
+        font-weight: 800;
+      }
+
+      .ttp {
+        color: $color-black;
+        width: 14px;
+        height: 13px;
+        font-family: Roboto;
+        font-size: 11px;
+        font-weight: bold;
+        font-stretch: condensed;
+        font-style: normal;
+        line-height: normal;
+        position: relative;
+        bottom: 0.5px;
+        letter-spacing: -0.01px;
+      }
+    }
+
+    .r-link {
+      @include display-flex();
+      justify-content: flex-end;
+      width: 53%;
+      font-size: 11px;
+
+      .racetip_right {
+        margin-right: 0px;
+
+        a.race_r_title {
+          color: $color-blue-alt;
+          font-size: 12px;
+          font-weight: bold;
+          font-stretch: condensed;
+          font-style: normal;
+          line-height: normal;
+          letter-spacing: normal;
+          text-align: right;
+
+          svg {
+            width: 8px;
+            height: 9px;
+            stroke: $color-blue-alt;
+            stroke-width: 3px;
+            fill: $color-blue-alt;
+            margin: 0px 0 0px 2px;
+          }
+        }
+      }
+    }
+  }
+
+  .race-tip-body {
+    margin-top: 15px;
+
+    .tip-bdy {
+      font-family: 'Helvetica Neue';
+      .tip-horse {
+        @include display-flex();
+        @include align-items(center);
+
+        .btn-bet {
+          width: 20%;
+          position: relative;
+          right: 8px;
+        }
+
+        button {
+          min-width: 65px !important;
+          min-height: 38px !important;
+        }
+
+        &-left {
+          width: 78%;
+          display: flex;
+          align-items: center;
+
+          .silkImage {
+            width: 25%;
+            display: flex;
+            justify-content: center;
+          }
+
+          .horse-info {
+            width: 70%;
+            @include display-flex();
+            @include flex-direction(column);
+
+            .info1 {
+              font-size: 12px;
+              color: $color-gray-dark;
+
+              .tt {
+                font-weight: normal;
+              }
+
+              .ctn {
+                font-weight: bold;
+                padding-left: 4px;
+              }
+            }
+
+            .info2 {
+              font-size: 15px;
+              font-weight: bold;
+              letter-spacing: 0px;
+              color: $color-gray-dark;
+            }
+
+            .info3 {
+              font-size: 12px;
+              font-weight: normal;
+              color: $color-gray-dark;
+            }
+          }
+        }
+      }
+
+      .tip-odd {
+        @include display-flex();
+        @include flex-direction(column);
+        @include align-items(center);
+
+        .bg-odd {
+          text-align: center;
+          line-height: 35px;
+          width: 50px;
+          height: 40px;
+          background-image: $bet-btn-bg;
+          border: 1px solid $color-gray-darker;
+          color: $color-gray-dark;
+          border-radius: 3px;
+          font-size: 12px;
+          font-family: $base-font-family;
+          font-weight: bold;
+          outline: none;
+          cursor: pointer;
+          position: relative;
+          top: 5px;
+        }
+      }
+    }
+  }
+
+  .conditional-jockey {
+    display: flex;
+    margin-top: 12px;
+    font-size: 12px;
+    font-family: 'Helvetica Neue';
+    font-weight: normal;
+    color: $color-gray-dark;
+    padding: 12px;
+  }
+
+  .path {
+    .path-title {
+      font-weight: bold;
+      color: $color-black;
+      padding: 0 12px 8px 12px;
+      font-size: 11px;
+      strong {
+        font-family: sans-serif;
+        font-weight: 800!important;
+      }
+    }
+  }
+}
+
+.po-red1 {
+  height: 9px;
+  width: 9px;
+  background-color: $color-white;
+  border-radius: 50%;
+  display: inline-block;
+  border: 2px solid $color-red;
+  margin: 0 0.1%;
+}
+
+@media screen and (max-width: 768px) {
+  .race-tip-container {
+    .tip-header {
+      .r-tip {
+        width: 50%;
+      }
+
+      .r-link {
+        width: 50%;
+
+        .racetip_right {
+          margin-right: 8px !important;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: $landscapeTabletPoint) {
+  .race-tip-container {
+    .race-tip-body {
+      .tip-bdy {
+        .tip-horse {
+          width: auto;
+          height: auto;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $mobileSmallPoint) {
+  .race-tip-container {
+    margin: 6px 11px 6px;
+    .conditional-jockey {
+      margin: 6px 0 13px;
+    }
+  }
+}
+
+@media screen and (min-width:350px) and (max-width: 400px) {
+  .race-tip-container {
+    margin: 6px 11px 6px;
+    .conditional-jockey {
+      margin: 6px 0 13px;
+    }
+  }
+}
+
+@media screen and (min-width:401px) and (max-width: 420px) {
+  .race-tip-container {
+    margin: 6px 11px 6px;
+    .conditional-jockey {
+      margin: 6px 0 13px;
+    }
+  }
+}
+
+@media screen and (min-width:421px) and (max-width: 430px) {
+  .race-tip-container {
+    margin: 6px 11px 6px;
+    .conditional-jockey {
+      margin: 6px 0 13px;
+    }
+  }
+}
+
+.info1 {
+  font-family: Roboto  !important;
+}
+.info2 {
+  font-family: sans-serif  !important;
+}
+.info3 {
+  font-family: Roboto  !important;
+}
+
+.info3 span {
+  font-family: sans-serif  !important;
+}
+
+.conditional-jockey {
+  font-family: Roboto !important;
+  
+}
+

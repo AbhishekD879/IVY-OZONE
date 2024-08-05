@@ -1,0 +1,10 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>{{data.title}}</h1>
+  <div mat-dialog-content>
+    <p>{{data.question}}</p>
+  </div>
+  <div mat-dialog-actions>
+    <button (click)="onNoClick()" mat-button class="btn btn-sm bg-cean m-r-20 float-right">{{data.noOption}}</button>
+    <button mat-button class="btn btn-sm bg-red float-right" [mat-dialog-close]="'Delete'">{{data.yesOption}}</button>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+@import 'global.variables.scss';
+
+.styled-one-box {
+  .btn-list {
+    button {
+        height: 35px;
+      }
+      .btn-style4 {
+        a {
+          &.more {
+            color: $lotto-dialog-color;
+            text-transform: uppercase;
+            letter-spacing: -0.01px;
+          }
+        }
+      }
+    }
+  
+    .btn-style2 {
+      color: $lotto-dialog-color;
+    }
+  }
+
+:host ::ng-deep .modal-dialog .modal-content .modal-body {
+  padding: $lotto-dialog-pad;
+  
+    p {
+      margin: 0;
+      line-height: $lotto-dialog-lineHieight;
+      font-family: unset;
+    }
+
+}
+
+:host ::ng-deep .modal-dialog .modal-content .modal-body .bma-lotto.modal-body-content.lotto-info{
+  p{
+    font-size: 14px;
+  }
+}

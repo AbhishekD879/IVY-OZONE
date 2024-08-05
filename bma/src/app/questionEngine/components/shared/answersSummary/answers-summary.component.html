@@ -1,0 +1,72 @@
+<div class="answers-summary" *ngIf="validSummary">
+  <div class="answers-summary-price" *ngIf="showPrizes" [ngClass]="correctAnswerResult">
+    <span class="label" [textContent]="prizeResult"></span>
+    <svg class="lose-svg">
+      <use xlink:href="#x-inside-circle"></use>
+    </svg>
+  </div>
+
+  <div class="answers-summary-kit">
+    <img *ngIf="quiz.defaultQuestionsDetails.homeTeamSvgFilePath"
+         [src]="quiz.defaultQuestionsDetails.homeTeamSvgFilePath"
+         alt="homeTeamLogo">
+    <img *ngIf="quiz.defaultQuestionsDetails.awayTeamSvgFilePath"
+         [src]="quiz.defaultQuestionsDetails.awayTeamSvgFilePath"
+         alt="awayTeamLogo">
+  </div>
+  <ul class="answers-summary-info" *ngIf="hasDefaultQuestionsDetailsInfo()">
+    <li class="answers-summary-info-item top-left-header"
+        *ngIf="quiz.defaultQuestionsDetails.topLeftHeader"
+        ><span [textContent]="quiz.defaultQuestionsDetails.topLeftHeader"></span>
+    </li>
+    <li class="answers-summary-info-item top-right-header"
+        *ngIf="quiz.defaultQuestionsDetails.topRightHeader">
+      <span [textContent]="quiz.defaultQuestionsDetails.topRightHeader"></span>
+    </li>
+  </ul>
+
+  <ul class="team-score">
+    <li class="team-score-item" [ngClass]="{won: homeTeamWon}">
+       <span *ngIf="quiz.defaultQuestionsDetails.homeTeamName"
+             [textContent]="quiz.defaultQuestionsDetails.homeTeamName">
+       </span>
+      <span *ngIf="showHomeTeamScore"
+            [textContent]="homeTeamScore">
+      </span>
+    </li>
+    <li class="team-score-item" [ngClass]="{won: awayTeamWon}">
+      <span *ngIf="quiz.defaultQuestionsDetails.awayTeamName"
+            [textContent]="quiz.defaultQuestionsDetails.awayTeamName">
+      </span>
+      <span
+        *ngIf="showAwayTeamScore"
+        [textContent]="awayTeamScore">
+      </span>
+    </li>
+  </ul>
+
+  <div class="game-summary" [ngClass]= "{'show' : gameSummaryState}">
+    <h4 class="game-summary-label"
+        (click)="toggleGameSummaryInfo();"
+        [i18n]="'qe.viewGameSummary'">
+    </h4>
+
+    <div class="game-summary-content" >
+      <ul class="game-summary-list" *ngIf="quiz.questionsList.length && showSummary">
+        <li class="item" *ngFor="let item of quizSummary; trackBy: trackByFn">
+          <svg class="rez-svg" [ngClass]="!item.correctAnswer ? 'lose' : 'won'">
+            <use [attr.xlink:href]="!item.correctAnswer ? '#x-inside-circle' : '#check-mark'"></use>
+          </svg>
+          <div class="answer-desc">
+            <div class="question" [textContent]="item.question"></div>
+            <h4 class="answer" [textContent]="item.selectedAnswer"></h4>
+          </div>
+        </li>
+      </ul>
+      <p class="game-summary-descr"
+         *ngIf="quiz.resultsPage.gameDescription"
+         [textContent]="quiz.resultsPage.gameDescription">
+      </p>
+    </div>
+  </div>
+</div>

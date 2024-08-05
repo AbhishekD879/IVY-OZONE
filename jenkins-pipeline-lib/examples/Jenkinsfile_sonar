@@ -1,0 +1,126 @@
+@Library('jenkins-pipeline-lib')
+
+// def repoApplicationBuild = lcgCommonConstants('commonRepoApplicationBuild')
+def entityService = lcgCommonConstants('serviceBma')
+def scmRepositories = [ entityService]
+
+// def repoOxygenPlaybook = lcgCommonConstants(entityService['repoPlaybooks'])
+// def repoAnsibleInventories = lcgCommonConstants(entityService['repoInventories'])
+// def scmRepositoriesDeploy = [ repoOxygenPlaybook, repoAnsibleInventories ]
+
+// local wrapper
+def SudoShInDir(String command) {
+    es = entityService
+    lcgCommonFunctions.commandSudoShInDir(es, command)
+}
+
+def entityCommonSonarQube = lcgCommonConstants('commonSonarCloud')
+entityCommonSonarQube["-Dsonar.login"] = "176bb200544f620f13852866dfa448108551d88c"
+entityCommonSonarQube["-Dsonar.projectKey"] = "TEST"
+
+
+pipeline {
+    agent{ label 'dev-slave' }
+    stages {
+
+
+        stage ('Delete workspase') {
+            steps {
+                deleteDir()
+            }
+        }
+
+        stage("Getting SCM sources") {
+                                steps {
+                                    script {
+                                        sh "pwd && ls -la"
+                                        lcgScmGitParallel(scmRepositories)
+                                        sh "pwd && ls -la"
+                                    }
+                                }
+                            }
+
+
+        stage('scp-repo') {
+            agent {
+                docker {
+                    image 'registry-coral.symphony-solutions.eu/build-node-chrome:8.9.4.1'
+                    label 'dev-slave'
+                    // args  '-u root:root'
+                    args  '-u root:root -v /home/jenkins/workspace/vk_test_pipeline_docker:/home/jenkins/workspace/vk_test_pipeline_docker'
+                }
+            }
+                stages {
+
+                    stage ("Bootsrap Docker agent") {
+                        steps {
+                            script {
+                                lcgCommonBootstrapDocker()
+                            }
+                        }
+                    }
+
+                    stage ("Pre build tasks") {
+                                steps {
+                                    script {
+                                        lcgCommonFunctions.commandSudoShInDir(entityService, "mkdir -pv src/assets/lib")
+                                    }
+                                }
+                            }
+
+                    stage('NPM install local') {
+                                steps {
+                                    script {
+                                        lcgCommonFunctions.commandSudoShInDir(entityService, "npm install")
+                                    }
+                                }
+                            }
+
+                    stage ("NPM install global") {
+                                steps {
+                                    script {
+                                        lcgCommonFunctions.commandSudoShInDir(entityService, "npm install -g @angular/cli")
+                                        lcgCommonFunctions.commandSudoShInDir(entityService, "npm install -g svg-sprite")
+                                    }
+                                }
+                    }
+
+
+                    stage('Run Tests') {
+                                // parallel {
+                                    stage('Unit Tests') {
+                                        steps {
+                                            script {
+                                               lcgCommonFunctions.commandSudoShInDir(entityService, "npm run test")
+                                            }
+                                        }
+                                    }
+                                    stage('Coverage report') {
+                                        steps {
+                                            script {
+                                               lcgCommonFunctions.commandSudoShInDir(entityService, "npm run coverage-report")
+                                            }
+                                        }
+                                    }
+                                //}
+                            }
+
+
+                }
+        }
+
+
+        stage('ls -la') {
+
+                stages {
+                    stage("pwd ls -la") {
+                        steps {
+                            script {
+                              sh "pwd && ls -la"
+                            }
+                        }
+                    }
+                }
+        }
+    }
+}

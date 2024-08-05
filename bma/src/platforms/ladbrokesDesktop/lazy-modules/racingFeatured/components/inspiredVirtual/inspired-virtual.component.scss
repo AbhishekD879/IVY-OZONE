@@ -1,0 +1,28 @@
+.inspired-virtual-carousel.desktop-inspired-virtual {
+  .virtual-carousel {
+    .carousel-slides {
+      width: 180px;
+      .slide {
+        width: 170px;
+      }
+    }
+  }
+
+  .action-arrow-wrapper {
+    .action-arrow {
+      transition: none;
+      background: rgba(92, 99, 107, 0.6);
+
+      &:hover {
+        background: rgba(92, 99, 107, 0.85);
+      }
+    }
+  }
+}
+
+.inspired-virtual-carousel {
+  &.widget {
+    padding-left: 0px !important;
+  }
+}
+

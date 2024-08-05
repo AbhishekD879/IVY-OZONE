@@ -1,0 +1,25 @@
+<div class="dropdown"
+     [ngClass]="{ 'expanded': showMenu }"
+     (blur)="menuToggle(false)">
+  <div (click)="menuToggle()" class="dropdown-header">
+    <ng-container [ngSwitch]="fiveASideService.activeView">
+      <span class="players-list-header" *ngSwitchCase="pitchNavigation.playerPage" [textContent]="formation.stat"></span>
+      <span class="players-list-header" *ngSwitchCase="pitchNavigation.playerList"
+        [i18n]="'yourcall.statsSubTitles.'+formation.stat"></span>
+    </ng-container>
+    <svg class="dropdown-down-arrow">
+      <use [attr.xlink:href]="'#down-arrow-blue'"></use>
+    </svg>
+  </div>
+
+  <div class="overlay" (click)="clickHandler($event)"></div>
+
+  <ul class="dropdown-menu">
+    <li class="menu-item"
+        *ngFor="let statItem of stats; trackBy: trackByFn;"
+        (click)="clickItem(statItem)"
+        [ngClass]="{ 'active': statItem.id === formation.statId }">
+      <span class="menu-title" [textContent]="statItem.title"></span>
+    </li>
+  </ul>
+</div>

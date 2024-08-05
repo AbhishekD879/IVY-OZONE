@@ -1,0 +1,51 @@
+<modal class="splash-modal" #dialog>
+  <ng-template #modalBody>
+    <div *ngIf="serviceClosureService.userServiceClosureOrPlayBreak" class='closure-message-container'
+      [textContent]='serviceClosureService.userAccountInfo'>
+    </div>
+    <div class="splash-modal-container splashModal" *ngIf="remoteBetslipObj">
+      <div *ngIf="bannerImage" class="splashModal-bContainer_redBanner"
+        [ngStyle]="{'--logo-banner': 'url(' + bannerImage + ')'}">
+        <div class="splashModal-bContainer_logoBanner">
+          <div *ngIf="overlayBannerImage" #banner class="splashModal-bContainer_logoBanner-img"
+            [ngStyle]="{'--featured-image': 'url(' + overlayBannerImage + ')'}">
+          </div>
+        </div>
+        <a class="btn-close closePopup" (click)="closeSplashDialog()">
+          <svg>
+            <use xlink:href="#close-icon"></use>
+          </svg>
+        </a>
+      </div>
+      <div class="luckydip-content-container">
+        <div class="luckydip-content"
+          [ngClass]="isKeyPadClosed? 'luckydip-content-kClosed' : 'luckydip-content-kOpened'">
+          <div class="luckydip-content-info" [innerHtml]="cmsConfig?.luckyDipFieldsConfig.welcomeMessage"></div>
+          <div *ngIf="isKeyPadClosed" class="luckydip-content-title"
+            [textContent]="cmsConfig?.luckyDipFieldsConfig.betPlacementTitle"></div>
+          <div *ngIf="isKeyPadClosed" class="luckydip-content-steps">
+            <span class="luckydip-content-steps-step">
+              <div class="luckydip-content-steps-step_number" [textContent]="'1'"></div>
+              <div class="luckydip-content-steps-step_text"
+                [textContent]="cmsConfig?.luckyDipFieldsConfig.betPlacementStep1"></div>
+            </span>
+            <span class="luckydip-content-steps-step">
+              <div class="luckydip-content-steps-step_number" [textContent]="'2'"></div>
+              <div class="luckydip-content-steps-step_text"
+                [textContent]="cmsConfig?.luckyDipFieldsConfig.betPlacementStep2"></div>
+            </span>
+            <span class="luckydip-content-steps-step luckydip-content-steps-last-step">
+              <div class="luckydip-content-steps-step_number" [textContent]="'3'"></div>
+              <div class="luckydip-content-steps-step_text"
+                [textContent]="cmsConfig?.luckyDipFieldsConfig.betPlacementStep3"></div>
+            </span>
+          </div>
+          <div class="luckydip-content-tnc" [innerHtml]="cmsConfig?.luckyDipFieldsConfig.termsAndConditionsURL">
+          </div>
+        </div>
+      </div>
+    </div>
+    <lucky-dip-qb *ngIf="remoteBetslipObj" [selectionDataLd]="remoteBetslipObj" [luckyDipCmsData]="cmsConfig?.luckyDipFieldsConfig" [luckyDipMarketName]="market.templateMarketName" (placedBet)="betPlaced($event)"
+      #ldipChild></lucky-dip-qb>
+  </ng-template>
+</modal>

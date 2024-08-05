@@ -1,0 +1,44 @@
+<div class="racing-specials-carousel-section" *ngIf="items.length">
+  <div [ngCarousel]
+       [ngCarouselAmount]="1"
+       [ngCarouselName]="carouselName"
+       [ngCarouselLoop]="false"
+       [ngCarouselWatch]="outcomesLength"
+       [ngCarouselMoveThresholdPercentage]="5"
+       class="racing-specials-carousel ng-carousel"
+       data-crlat="race.enhancedRacesCarousel">
+    <div class="carousel-inner" [ngClass]="{'single-slide': isSingleSlide}">
+      <slidecontainer class="carousel-slides">
+        <ng-container *ngFor="let eventEntity of items; trackBy: trackById">
+          <ng-container *ngFor="let market of orderEntity(eventEntity.markets); trackBy: trackById">
+            <slide class="slide"
+                   *ngFor="let outcome of orderEntity(market.outcomes); trackBy: trackById"
+                   data-crlat="raceCard.event">
+              <div class="carousel-slide">
+                <div class="selection-title">
+                  <div class="slide-label">
+                    <div class="label-inner">
+                      <svg class="specials-icon" data-crlat="specialsIcon">
+                        <use xlink:href="#specials"></use>
+                      </svg>
+                      <span [textContent]="label" data-crlat="raceCard.title"></span>
+                    </div>
+                  </div>
+                  <span [textContent]="outcome.name" data-crlat="raceCard.outcomeName"></span>
+                </div>
+                <div class="selection-btn" data-crlat="eachWayContainer">
+                  <price-odds-button [event]="eventEntity"
+                                     [isShowHistoricPrices]="true"
+                                     [hasWasLabel]="true"
+                                     [market]="market"
+                                     [outcome]="outcome">
+                  </price-odds-button>
+                </div>
+              </div>
+            </slide>
+          </ng-container>
+        </ng-container>
+      </slidecontainer>
+    </div>
+  </div>
+</div>

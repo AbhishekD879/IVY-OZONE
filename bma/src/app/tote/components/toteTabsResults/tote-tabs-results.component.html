@@ -1,0 +1,125 @@
+<div class="sk-container" [ngClass]="{'sk-loading': state.loading}" >
+
+  <outlet-status [state]="state">
+    <tote-request-error [activeTab]="activeTab" (reload)="reloadResults()"></tote-request-error>
+  </outlet-status>
+  <ng-container *ngIf="!state.loading && !state.error">
+    <div class="tote-results-container heuristic-container top-padding" data-crlat="tabContent">
+      <!--- Sorting Panel -->
+      <switchers data-crlat="switchers"
+                 [filter]="filter"
+                 [switchers]="switchers">
+      </switchers>
+
+        <ng-container *ngIf="areEventsAvailable()">
+          <div *ngIf="isLatestResults(filter)" data-crlat="accordionsList">
+            <accordion *ngFor="let eventEntity of racing.events; let i = index; trackBy:trackByIndex;"
+                       [accordionTitle]="byTimeContainerHeader(eventEntity)"
+                       [isExpanded]="i === 0"
+                       [card]="true"
+                       data-crlat="racingTabResults.byLatest">
+              <accordion-body>
+                <div class="result-container"
+                     data-crlat="racingTabResults.byLatest.results">
+                  <ng-container
+                    *ngFor="let outcomeEntity of getSortedPrizePlaces(eventEntity.markets[0].outcomes);
+                   trackBy:trackByIndex; let i = index">
+                    <div class="result"
+                         *ngIf="outcomeEntity.results.outcomeResultCode !== 'L'"
+                         data-crlat="racingTabResults.outcome">
+                    <span>
+                      <b [textContent]="outcomeEntity.results.outcomePosition"
+                         data-crlat="racingTabResults.outcomePosition"></b>
+                    </span>
+                      <div>
+                        <div class="silk-img" *ngIf="isGenericSilk(eventEntity, outcomeEntity)"
+                             data-crlat="racingTabResults.outcomeSilk"></div>
+                        <div class="silk-img has-img" *ngIf="isValidSilkName(outcomeEntity.racingFormOutcome)"
+                             data-crlat="racingTabResults.outcomeSilk">
+                          <img [attr.src]="imgSrc(outcomeEntity.racingFormOutcome.silkName)"
+                               [attr.alt]="outcomeEntity.racingFormOutcome.silkName"
+                               (error)="isImgNotLoad[i] = true"
+                               *ngIf="!isImgNotLoad[i]"
+                               width="27"
+                               height="34"/>
+                        </div>
+                      </div>
+                      <div class="result-name">
+                        <strong [textContent]="outcomeEntity?.name | callBack : removeLineSymbol : this"
+                                data-crlat="racingTabResults.outcomeName"></strong><br/>
+                        <span class="jockey-trainer"
+                              *ngIf="outcomeEntity.racingFormOutcome"
+                              [textContent]="getJockeyAndTrainer(outcomeEntity)"
+                              data-crlat="racingTabResults.jockeyAndTrainerName">
+                      </span>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </accordion-body>
+            </accordion>
+          </div>
+
+          <div *ngIf="isByMeetings(filter)" data-crlat="accordionsList">
+            <accordion [accordionTitle]="sectionName" [isExpanded]="i === 0" [card]="true"
+                       *ngFor="let sectionName of racing.typeNamesArray; let i = index; trackBy:trackByIndex;"
+                       class="result-by-type-container"
+                       data-crlat="racingTabResults.byMeetings">
+              <accordion-body>
+
+                <accordion [accordionTitle]="eventEntity.localTime" [isExpanded]="false"
+                           [inner]="true"
+                           class="result-by-type"
+                           *ngFor="let eventEntity of sortEventsByTimeAscending(racing.eventsByTypeName[sectionName]);
+                          trackBy:trackByIndex;"
+                           data-crlat="racingTabResults.byMeetings.event">
+                  <accordion-body>
+                    <div class="result-container">
+                      <ng-container
+                        *ngFor="let outcomeEntity of getSortedPrizePlaces(eventEntity.markets[0].outcomes);
+                       trackBy:trackByIndex;">
+                        <div class="result"
+                             *ngIf="outcomeEntity.results.outcomeResultCode !== 'L'"
+                             data-crlat="racingTabResults.outcome">
+                        <span>
+                          <b [textContent]="outcomeEntity.results.outcomePosition"
+                             data-crlat="racingTabResults.outcomePosition"></b>
+                        </span>
+                          <div>
+                            <div class="silk-img" *ngIf="isGenericSilk(eventEntity, outcomeEntity)"
+                                 data-crlat="racingTabResults.outcomeSilk"></div>
+                            <div class="silk-img has-img" *ngIf="isValidSilkName(outcomeEntity.racingFormOutcome)"
+                                 data-crlat="racingTabResults.outcomeSilk">
+                              <img [attr.src]="imgSrc(outcomeEntity.racingFormOutcome.silkName)"
+                                   [attr.alt]="outcomeEntity.racingFormOutcome.silkName"
+                                   (error)="isImgNotLoad[i] = true"
+                                   *ngIf="!isImgNotLoad[i]"
+                                   width="27"
+                                   height="34"/>
+                            </div>
+                          </div>
+                          <div class="result-name">
+                            <strong [textContent]="outcomeEntity.name | callBack : removeLineSymbol : this"
+                                    data-crlat="racingTabResults.outcomeName"></strong><br/>
+                            <span class="jockey-trainer"
+                                  *ngIf="outcomeEntity.racingFormOutcome"
+                                  [textContent]="getJockeyAndTrainer(outcomeEntity)"
+                                  data-crlat="racingTabResults.jockeyAndTrainerName">
+                          </span>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </accordion-body>
+                </accordion>
+
+              </accordion-body>
+            </accordion>
+          </div>
+        </ng-container>
+
+      <!-- Show only when no events with results -->
+      <no-events *ngIf="!areEventsAvailable()"></no-events>
+    </div>
+  </ng-container>
+</div>

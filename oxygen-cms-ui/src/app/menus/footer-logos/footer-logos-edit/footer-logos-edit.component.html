@@ -1,0 +1,76 @@
+<breadcrumbs *ngIf="footerLogo" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="footerLogo">
+  <div class="header">
+    <h2 class="has-activity-badge">Footer Logo:
+      <span class="font-italic">{{footerLogo.title}}</span>
+      <create-updated-at-by [collection]="footerLogo"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="footerLogo.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="footerLogo">
+  <form [formGroup]="form" novalidate>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-12">
+          <mat-checkbox color="primary" formControlName="disabled"
+                        (change)="footerLogo.disabled=!footerLogo.disabled"> Active</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Title
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Title" [(ngModel)]="footerLogo.title" formControlName="title" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Target
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Target" [(ngModel)]="footerLogo.target" formControlName="target" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <cms-upload
+            [label]="'Png'"
+            [filename]="footerLogo.filename"
+            (onImageUpload)="uploadPngHandler($event)"
+            (onImageRemove)="removePngHandler()">
+          </cms-upload>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <cms-upload
+            [label]="'Svg'"
+            [filename]="footerLogo.svgFilename"
+            (onImageUpload)="uploadSvgHandler($event)"
+            (onImageRemove)="removeSvgHandler()">
+          </cms-upload>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="footerLogo"
+  [form]="form"
+  [fieldOrItemName]="'title'"
+  [collection]="footerLogo"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

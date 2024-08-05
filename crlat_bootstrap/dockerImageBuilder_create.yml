@@ -1,0 +1,27 @@
+---
+- name: Create DockerImageBuilder EC2 node
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    instance_type: t2.medium
+    subnet_name: services
+    volume_size: 24
+    action: create
+    node_type: SingleNode
+    assign_public_ip: no
+    tags:
+      Team: Automation
+      NodeType: "{{ node_type }}"
+      Name: image-builder
+      ClusterName: Services
+      ClusterNodeType: DockerImageBuilder
+      packages: docker,go-agent,xmlstarlet
+      dockers: telegraf
+      GoAgentEnv: crlat_vpc
+      GoAgentResources: DockerImageBuilder
+    num_nodes: 1
+  tasks:
+  - name: crlat.vpc
+    include_role:
+      name: crlat.vpc

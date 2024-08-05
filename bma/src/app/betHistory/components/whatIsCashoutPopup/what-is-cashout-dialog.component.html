@@ -1,0 +1,18 @@
+<modal #whatIsCashOutDialog class="styled-one-box" data-crlat="d.whatIsCashOut">
+  <ng-template #modalHeader>
+    <a data-uat="popUpCloseButton" class="btn-close" (click)="closeDialog()">
+      <svg>
+        <use xlink:href="#close-icon"></use>
+      </svg>
+    </a>
+    <div data-crlat="dTitle" data-uat="popUpTitle">
+      <span [i18n]="'bethistory.whatLink.part1'"></span>
+      <span [i18n]="'bethistory.whatLink.part2'"></span>
+    </div>
+  </ng-template>
+  <ng-template #modalBody>
+    <div data-uat="popUpText" class="modal-body-content">
+      <static-block service="what-is-cash-out"></static-block>
+    </div>
+  </ng-template>
+</modal>

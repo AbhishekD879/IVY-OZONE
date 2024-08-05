@@ -1,0 +1,154 @@
+/* Normalize styles */
+html {
+    font-family: sans-serif; /* 1 */
+    -ms-text-size-adjust: 100%; /* 2 */
+    -webkit-text-size-adjust: 100%; /* 2 */
+}
+
+body {
+  margin: 0;
+  font-size: 13px;
+}
+
+/* Styles.scss */
+
+html,
+body {
+  background: $body-bg;
+  font-family: $base-font-family;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  min-height: 100%;
+  /* Fix issue with frezing app after scrolling in Chrome */
+  min-width: $mobileSmallPoint;
+
+  /* Fix issue with frezing app after scrolling in Chrome */
+  @media (max-width: $mobilePoint) and (-webkit-min-device-pixel-ratio:0) {
+    touch-action: manipulation;
+  }
+
+  /* NgDialog */
+  &.ngdialog-open.ios-modal-opened.ios-modal-wrapper {
+    height: 100vh;
+  }
+  /* betslip */
+  .slide-out-betslip-open  {
+    position: relative;
+    overflow-y: hidden;
+
+    #slide-out-betslip .sidebar-container .slide-content {
+      display: block;
+    }
+
+    .slide-out-betslip  .sidebar-inner {
+      @include transform(translateY(0));
+    }
+  }
+}
+
+body {
+  &.menu-opened {
+    overflow: hidden;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+  }
+  &.menu-navigation-opened {
+    position: absolute !important;
+  }
+  &.maintenance,
+  &.drawer-visible,
+  &.drawer-visible-touch {
+    overflow: hidden;
+    #content {
+      z-index: auto;
+    }
+  }
+  &.drawer-visible-touch {
+    position: fixed;
+    width: 100%;
+  }
+  &.lock-layer {
+    &:after {
+      content: '';
+      display: block;
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 5000;
+    }
+  }
+  &.maintenance {
+    #page-wrap-content {
+      z-index: 1025;
+    }
+    .tabs-panel {
+      .scroll-container {
+        z-index: 0;
+      }
+    }
+    #agreements {
+      visibility: hidden;
+    }
+    right-column-widget-wrapper {
+      z-index: 0;
+    }
+  }
+  /* NgDialog */
+  &.promotion-modal-open {
+    position: absolute;
+    height: auto;
+  }
+  &.ngdialog-open {
+    overflow: hidden;
+  }
+  &.ios-modal-opened {
+    overflow: hidden;
+  }
+  /* oxygen-dialog.component, my-account-slide-up */
+  &.ios-modal-open {
+    position: absolute;
+    overflow: hidden;
+    left: 0;
+    right: 0;
+  }
+
+  &.modal-open {
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  &.quickbet-opened, &.betpack-modal-open {
+    overflow: hidden;
+  }
+  &.timeline-opened, &.league-standings-opened {
+    overflow: hidden;
+  }
+  &.opta-scoreboard-overlay-shown {
+    overflow: hidden;
+  }
+  /* direct-chat */
+  &.no-footer-menu {
+    .embeddedServiceSidebarMinimizedDefaultUI.sidebarHeader {
+      bottom: 12px !important;
+    }
+    .embeddedServiceLiveAgentChatButton .helpButton {
+      bottom: 74px !important;
+   }
+  }
+
+  &.quickbet-opened,
+  &.slide-out-betslip-open {
+
+    tutorial-overlay,
+    football-tutorial-overlay,
+    timeline-tutorial-overlay {
+      visibility: hidden;
+    }
+  }
+}

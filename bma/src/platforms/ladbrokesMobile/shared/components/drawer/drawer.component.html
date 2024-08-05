@@ -1,0 +1,23 @@
+<div *ngIf="visible"
+     class="drawer"
+     [class.active]="active"
+     [class.rp-verdict-z-index]="isRPverdict"
+     [class.absolute]="relativeToParent">
+  <div class="drawer-overlay" *ngIf="showOverlay" (click)="overlayClick()"></div>
+  <div class="drawer-content {{position}} {{contentClass}}" [ngStyle]="contentStyle" data-crlat="drawer.content">
+    <header *ngIf="!hideHeader" class="drawer-header" data-crlat="drawer.header" [ngStyle]="{'background-image': background}">
+      <ng-content select="[header]"></ng-content>
+      <button class="drawer-close" *ngIf="showCloseButton" (click)="closeClick()" data-crlat="drawer.closeButton">
+        <svg class="item-next-arrow">
+          <use xlink:href="#close-icon"></use>
+        </svg>
+      </button>
+    </header>
+    <div *ngIf="showFallbackMessage">
+      <ng-content select="[fallbackMessage]"></ng-content>
+    </div>
+    <div class="drawer-body" data-crlat="drawer.body">
+      <ng-content select="[body]"></ng-content>
+    </div>
+  </div>
+</div>

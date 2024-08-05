@@ -1,0 +1,13 @@
+<div class="receipt-header-container item-inner row-panel" data-crlat="receiptHeader">
+  <div class="row row-no-gutter row-middle space-between">
+    <div class="left-side">
+      <svg class="check-icon" data-crlat="receiptIcon">
+        <use xlink:href="#tick"></use>
+      </svg>
+      <span class="receipt-header" [i18n]="'bs.successBet'" data-crlat="receiptHeaderText"></span>
+    </div>
+    <div class="right-side">
+      <time class="receipt-time" [textContent]="betTime" data-crlat="receiptTime"></time>
+    </div>
+  </div>
+</div>

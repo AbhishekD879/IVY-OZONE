@@ -1,0 +1,6 @@
+<ng-container *ngFor="let bp of filteredBetPack">
+  <betpack-card class="col-sm-12 col-md-6"
+    *ngIf="(!filteredBetPackEnable) || (filteredBetPackEnable&&filteredBetPackEnable.get(bp.betPackId))"
+    [isMaxPurchaseLimitOver]="isMaxPurchaseLimitOver" [bp]='bp' [mockWsData]="mockWsData"
+    [getLimitsData]="getLimitsData" [getFreeBets]="getFreeBets" [accLimitFreeBets]="accLimitFreeBets"></betpack-card>
+</ng-container>

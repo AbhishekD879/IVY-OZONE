@@ -1,0 +1,66 @@
+@import 'global.variables.scss';
+
+article {
+  padding: 0 4px 4px;
+}
+
+.league {
+  @include display-flex();
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 12px 0;
+  min-height: 34px;
+  color: $lBlack-light;
+  font-family: $alt-font-family;
+  font-size: $font-size;
+  text-transform: uppercase;
+}
+
+.event-header-time {
+  text-transform: uppercase;
+}
+
+.event-header-link {
+  color: $color-blue-alt;
+  text-transform: uppercase;
+  svg {
+    fill: currentColor;
+  }
+  display: none;
+}
+
+.odds-names-list {
+  font-family: $alt-font-family;
+}
+
+.odds-card-header {
+  background-color: $color-white;
+  color: $color-gray-darkest;
+}
+
+:host {
+  ::ng-deep {
+    .show-all-button-light {
+      height: 36px;
+      font-size: $font-size;
+      font-weight: bold;
+      color: $color-blue-alt;
+      border-top: 2px solid $color-gray;
+    }
+    .odds-card {
+      border-top: 1px solid $color-gray;
+      .odds-content .odds-names {
+        color: $color-gray-darkest;
+      }
+    }
+    .goalscorer-coupon accordion .accordion-header {
+      padding: 10px 12px;
+    }
+    .is-expanded > header .event-header-link {
+      @include display-flex();
+    }
+    accordion:first-of-type {
+      margin-top: 0;
+    }
+  }
+}

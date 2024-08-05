@@ -1,0 +1,20 @@
+aws:
+    s3:
+        bucket: promosandbox-coral-dev0
+        region: eu-west-2
+cms:
+    brand: bma
+dataCleanup:
+    scheduler:
+        cron: 0 0 */1 * * *
+logging:
+    level:
+        com:
+            entain:
+                oxygen: INFO
+master:
+    uri: spark://192.168.0.5:7077
+spring:
+    data:
+        mongodb:
+            uri: mongodb://localhost:27017/promo-sandbox

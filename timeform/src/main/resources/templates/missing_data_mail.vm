@@ -1,0 +1,89 @@
+<html>
+<body>
+<style>
+    table {
+        display: block;
+        font-family: sans-serif;
+        -webkit-font-smoothing: antialiased;
+        font-size: 115%;
+        overflow: auto;
+        width: auto;
+    }
+    th {
+        background-color: rgb(112, 196, 105);
+        color: white;
+        font-weight: normal;
+        padding: 5px 5px;
+        text-align: center;
+    }
+    td {
+        background-color: rgb(238, 238, 238);
+        color: rgb(111, 111, 111);
+        padding: 5px 5px;
+    }
+</style>
+<H1>Missing data from Timeform for class "$title"</H1>
+
+    #if (!$data.getLostTypes().isEmpty())
+    <h3>Missing Event Types</h3>
+    <table>
+        <tr>
+            <th>OB Event Type Name</th>
+            <th>OB Event Type Id</th>
+        </tr>
+        #foreach($lostType in $data.getLostTypes() )
+            <tr>
+                <td>$lostType.getName()</td>
+                <td>$lostType.getId()</td>
+            </tr>
+        #end
+    </table>
+    #end
+
+    #if (!$data.getLostEvents().isEmpty())
+    <h3>Missing Events</h3>
+    <table>
+        <tr>
+            <th>OB Event Name</th>
+            <th>OB Event Id</th>
+            <th>OB Event Type Name</th>
+            <th>OB Event Type Id</th>
+        </tr>
+        #foreach($lostEvent in $data.getLostEvents() )
+            <tr>
+                <td>$lostEvent.getEvent().getName()</td>
+                <td>$lostEvent.getEvent().getId()</td>
+                <td>$lostEvent.getType().getName()</td>
+                <td>$lostEvent.getType().getId()</td>
+            </tr>
+        #end
+    </table>
+    #end
+
+    #if (!$data.getLostOutcomes().isEmpty())
+    <h3>Missing Selections</h3>
+    <table>
+        <tr>
+            <th>OB Selection Name</th>
+            <th>OB Selection Id</th>
+            <th>OB Event Name</th>
+            <th>OB Event Id</th>
+            <th>OB Event Type Name</th>
+            <th>OB Event Type Id</th>
+        </tr>
+
+        #foreach($lostOutcome in $data.getLostOutcomes() )
+            <tr>
+                <td>$lostOutcome.getOutcome().getName()</td>
+                <td>$lostOutcome.getOutcome().getId()</td>
+                <td>$lostOutcome.getEvent().getName()</td>
+                <td>$lostOutcome.getEvent().getId()</td>
+                <td>$lostOutcome.getType().getName()</td>
+                <td>$lostOutcome.getType().getId()</td>
+            </tr>
+        #end
+    </table>
+    #end
+
+</body>
+</html>

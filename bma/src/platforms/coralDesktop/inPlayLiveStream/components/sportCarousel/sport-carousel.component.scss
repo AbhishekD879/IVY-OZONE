@@ -1,0 +1,58 @@
+@import 'global.variables.scss';
+
+$heightSize: 55px;
+
+
+.in-play-live-stream .d-live-stream-module {
+  .error-message {
+    background-color: transparent;
+    color: $color-white;
+  }
+}
+
+.carousel-menu.carousel-menu-inplay-home {
+  height: $heightSize;
+
+  .scroll-container {
+    background: $brand-color-dark;
+    cursor: pointer;
+
+    .scroll-inner {
+      position: static;
+      padding: 0;
+
+      li {
+        width: 90px;
+        height: $heightSize;
+        .menu-item {
+
+          &.active {
+            border-bottom: 2px solid $color-red;
+          }
+
+          padding-top: 5px;
+
+          .count-label {
+            width: 16px;
+            height: 16px;
+            right: 23px;
+            top: 0;
+            line-height: 15px;
+          }
+
+          .submenu-list-icon {
+            fill: $color-white;
+            height: 20px;
+            width: 20px;
+            margin-bottom: 0px;
+          }
+
+          .submenu-list-title {
+            font-size: 10px;
+            line-height: 10px;
+          }
+        }
+      }
+    }
+  }
+}

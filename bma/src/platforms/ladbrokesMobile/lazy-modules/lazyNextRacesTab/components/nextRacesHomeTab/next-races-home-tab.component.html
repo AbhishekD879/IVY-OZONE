@@ -1,0 +1,9 @@
+<div class="sk-container" [ngClass]="{'sk-loading': showLoader}">
+    <loading-screen [displayed]="showLoader"></loading-screen>
+    <extra-place-home-module *ngIf="moduleType !== 'greyhound'" [ngClass]="{ 'hidden': showLoader }" [limit]="extraPlaceLimit" data-crlat="extraPlaceHomeMod"></extra-place-home-module>
+    <next-races-home  [moduleType]="moduleType"
+                    (dataLoaded)="toggleLoader($event)"
+                    data-crlat="tabContent"
+                    [compName]="compName">
+    </next-races-home>
+</div>

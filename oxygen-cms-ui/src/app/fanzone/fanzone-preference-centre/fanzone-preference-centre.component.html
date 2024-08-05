@@ -1,0 +1,252 @@
+<div *ngIf="isReady" class="fz-preference-container">
+  <form [formGroup]="form">
+    <div class="card">
+      <div class="header">
+        <h2 [textContent]="PREFERENCES_CONST.preferenceHeading"></h2>
+      </div>
+    </div>
+    <div class="card">
+      <div class="body">
+        <!-- <div class="row">
+          <div class="col-md-2 mb-0">
+            <mat-checkbox color="primary" formControlName="active" [checked]="fanzonePreferences.active"
+              (change)="fanzonePreferences.active = !fanzonePreferences.active">
+              <span [textContent]="PREFERENCES_CONST.active"></span>
+            </mat-checkbox>
+          </div>
+        </div> -->
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="PREFERENCES_CONST.pcDescription"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="PREFERENCES_CONST.pcDescription" formControlName="pcDescription"
+                [(ngModel)]="fanzonePreferences.pcDescription" [value]="fanzonePreferences.pcDescription" required
+                trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <ng-container *ngIf="fanzonePreferences.pcKeys.length" formArrayName="pcKeys">
+          <div class="row">
+            <div class="col">
+              <table class="table">
+                <thead class="bg-teal">
+                  <tr>
+                    <th scope="col">Preference Name</th>
+                    <th scope="col">Key Mapping</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let preference of pcKeys.controls; index as i">
+                    <ng-container [formGroup]="preference">
+                      <td class="pref-field">
+                        <input type="text" [placeholder]="PREFERENCES_CONST.prefName" formControlName="name"
+                          [(ngModel)]="fanzonePreferences.pcKeys[i].name" [value]="fanzonePreferences.pcKeys[i].name"
+                          required trim="blur">
+                      </td>
+                      <td class="pref-field">
+                        <input type="text" [placeholder]="PREFERENCES_CONST.prefKey" formControlName="key"
+                          [(ngModel)]="fanzonePreferences.pcKeys[i].key" [value]="fanzonePreferences.pcKeys[i].key"
+                          required trim="blur">
+                        <div class="actn-btn-abs">
+                          <span class="material-icons col-red rounded-circle"
+                            (click)="deletePreference(i)">delete_forever</span>
+                        </div>
+                      </td>
+                      <td *ngIf="fanzonePreferences.pcKeys.length-1 == i" class="add-pref border-0">
+                        <span class="material-icons col-teal ml-2" (click)="addPreference()">add_circle</span>
+                      </td>
+                    </ng-container>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </ng-container>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="PREFERENCES_CONST.confirmText"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="PREFERENCES_CONST.confirmText" formControlName="confirmText"
+                [(ngModel)]="fanzonePreferences.confirmText" [value]="fanzonePreferences.confirmText" required
+                trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="PREFERENCES_CONST.ctaText"></span>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="PREFERENCES_CONST.ctaText" formControlName="ctaText"
+                [(ngModel)]="fanzonePreferences.ctaText" [value]="fanzonePreferences.ctaText" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="PREFERENCES_CONST.subscribeText"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="PREFERENCES_CONST.subscribeText" formControlName="subscribeText"
+                [(ngModel)]="fanzonePreferences.subscribeText" [value]="fanzonePreferences.subscribeText" required
+                trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="PREFERENCES_CONST.confirmCTA"></span>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="PREFERENCES_CONST.confirmCTA" formControlName="confirmCTA"
+                [(ngModel)]="fanzonePreferences.confirmCTA" [value]="fanzonePreferences.confirmCTA" required
+                trim="blur">
+            </mat-form-field>
+          </div>
+          <div class="offset-md-1 col-md-2">
+            <span class="mat-label" [textContent]="PREFERENCES_CONST.exitCTA"></span>
+          </div>
+          <div class="col-md-2">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="PREFERENCES_CONST.exitCTA" formControlName="exitCTA"
+                [(ngModel)]="fanzonePreferences.exitCTA" [value]="fanzonePreferences.exitCTA" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="PREFERENCES_CONST.notificationPopupTitle"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="PREFERENCES_CONST.notificationPopupTitle"
+                [(ngModel)]="fanzonePreferences.notificationPopupTitle" formControlName="notificationPopupTitle"
+                [value]="fanzonePreferences.notificationPopupTitle" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="PREFERENCES_CONST.unsubscribeTitle"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="PREFERENCES_CONST.unsubscribeTitle"
+                [(ngModel)]="fanzonePreferences.unsubscribeTitle" formControlName="unsubscribeTitle"
+                [value]="fanzonePreferences.unsubscribeTitle" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="PREFERENCES_CONST.notificationDescriptionDesktop"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="PREFERENCES_CONST.notificationDescriptionDesktop"
+                formControlName="notificationDescriptionDesktop"
+                [(ngModel)]="fanzonePreferences.notificationDescriptionDesktop"
+                [value]="fanzonePreferences.notificationDescriptionDesktop" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="PREFERENCES_CONST.unsubscribeDescription"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="PREFERENCES_CONST.unsubscribeDescription"
+                formControlName="unsubscribeDescription" [(ngModel)]="fanzonePreferences.unsubscribeDescription"
+                [value]="fanzonePreferences.unsubscribeDescription" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="PREFERENCES_CONST.pushPreferenceCentreTitle"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="PREFERENCES_CONST.pushPreferenceCentreTitle"
+                formControlName="pushPreferenceCentreTitle" [(ngModel)]="fanzonePreferences.pushPreferenceCentreTitle"
+                [value]="fanzonePreferences.pushPreferenceCentreTitle" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="PREFERENCES_CONST.noThanksCTA"></span>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="PREFERENCES_CONST.noThanksCTA" formControlName="noThanksCTA"
+                [(ngModel)]="fanzonePreferences.noThanksCTA" [value]="fanzonePreferences.noThanksCTA" required
+                trim="blur">
+            </mat-form-field>
+          </div>
+          <div class="offset-md-1 col-md-2">
+            <span class="mat-label" [textContent]="PREFERENCES_CONST.optInCTA"></span>
+          </div>
+          <div class="col-md-2">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="PREFERENCES_CONST.optInCTA" formControlName="optInCTA"
+                [(ngModel)]="fanzonePreferences.optInCTA" [value]="fanzonePreferences.optInCTA" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="PREFERENCES_CONST.genericTeamNotificationTitle"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="PREFERENCES_CONST.genericTeamNotificationTitle" formControlName="genericTeamNotificationTitle"
+                [(ngModel)]="fanzonePreferences.genericTeamNotificationTitle" [value]="fanzonePreferences.genericTeamNotificationTitle" required
+                trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="PREFERENCES_CONST.genericTeamNotificationDescription"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="PREFERENCES_CONST.genericTeamNotificationDescription" formControlName="genericTeamNotificationDescription"
+                [(ngModel)]="fanzonePreferences.genericTeamNotificationDescription" [value]="fanzonePreferences.genericTeamNotificationDescription" required
+                trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </form>
+
+  <action-buttons #actionButtons [validateHandler]="validationHandler" [fieldOrItemName]="'Preferences'"
+    [collection]="fanzonePreferences" [showRemoveButton]="false" (actionsEmitter)="actionsHandler($event);">
+  </action-buttons>
+</div>

@@ -1,0 +1,26 @@
+<modal #dialog data-crlat="d.howItWorks" class="howItWorks-dialog">
+  <ng-template #modalHeader>
+    <div data-crlat="header">
+      <span data-crlat="title" [i18n]="'bs.howItWorks'"></span>
+    </div>
+  </ng-template>
+  <ng-template #modalBody>
+    <div class="wrap" *ngFor="let text of this.howItWorksText; let i=index;">
+      <div class="step" [textContent]="i+1"></div>
+      <div class="text" [ngClass]="{'mobile-text' : device?.isMobile}" [textContent]="text"></div>
+    </div>
+  </ng-template>
+  <ng-template #modalFooter>
+    <div class="group-buttons btn-align-right">
+      <div class="group-btn">
+        <div class="group-col group-default">
+          <button class="btn btn-style4" (click)="openPromotions()" [i18n]="'bs.more'" data-crlat="moreButton"></button>
+        </div>
+        <div class="group-col group-default">
+          <button data-crlat="okButton" class="btn btn-secondary full-width" [i18n]="'bs.ok'"
+            (click)="closeDialog()"></button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</modal>

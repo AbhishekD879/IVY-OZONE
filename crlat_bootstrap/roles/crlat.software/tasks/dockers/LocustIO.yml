@@ -1,0 +1,11 @@
+- name: Remove crlat_locustio image
+  docker_image:
+    state: absent
+    name: docker-registry.crlat.vpc/crlat_locustio
+  failed_when: false
+  changed_when: false
+
+- name: Pull crlat_locustio image
+  docker_image:
+    name: docker-registry.crlat.net/crlat_locustio
+    tag: latest

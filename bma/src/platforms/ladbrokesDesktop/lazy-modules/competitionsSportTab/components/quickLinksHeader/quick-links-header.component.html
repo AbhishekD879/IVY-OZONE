@@ -1,0 +1,26 @@
+<div class="container-content quick-links" data-crlat="qLinksCont">
+  <div class="competition-category-tiles">
+    <div *ngFor="let link of quickLinks; trackBy: trackQuickLink" class="competition-category-tile-wrapper">
+      <div class="competition-category-tile">
+        <a [routerLink]="link.url" class="league-link">
+          <div class="league-wrapper">
+            <div class="league-info">
+              <div class="league-origin">
+                <svg>
+                  <use [attr.xlink:href]="'#' + link.svgId"></use>
+                </svg>
+                <span class="league-country">{{ link.organization }}</span>
+              </div>
+              <span class="league-name">{{ link.label }}</span>
+            </div>
+            <span class="go-icon">
+              <svg>
+                <use xlink:href="#next-arrow"></use>
+              </svg>
+            </span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

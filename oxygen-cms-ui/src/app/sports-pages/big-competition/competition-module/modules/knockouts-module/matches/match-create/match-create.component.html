@@ -1,0 +1,96 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>Add a New Match Details</h1>
+  <form [formGroup]="form" autocomplete="off" id="knockouts-matches">
+    <div mat-dialog-content>
+      <div class="row clearfix">
+          <div class="col-md-8 m-b-10 m-t-10">
+            <mat-form-field class="full-width">
+              <input matInput type="number" placeholder="Event Id"
+                     formControlName="eventId" (keyup)="getSSEvent($event, false, null)" (blur)="checkForErrors()">
+              <mat-hint class="col-red" *ngIf="eventId.errors && eventId.errors.invalid">Event ID is not valid. Try again.</mat-hint>
+            </mat-form-field>
+          </div>
+        <div class="col-md-4 m-b-10 m-t-10 custom-form-clearfix">
+          <button mat-button class="btn btn-sm bg-teal float-right m-l-10" (click)="getSSEvent(false, true, eventId.value);"
+                  [disabled]="!eventId.value || (eventId.errors && eventId.errors.invalid)">Upload Event Data
+          </button>
+        </div>
+          <div class="col-md-12">
+            <mat-form-field class="full-width">
+              <input matInput type="text" placeholder="Event name"
+                   formControlName="eventName" trim="blur">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 m-b-10 m-t-10">
+          <mat-form-field class="full-width">
+            <input matInput type="text" placeholder="Home Team Name"
+                   formControlName="homeTeam" trim="blur">
+          </mat-form-field>
+          </div>
+          <div class="col-md-6 m-b-10 m-t-10">
+            <mat-form-field class="full-width">
+              <input matInput type="text" placeholder="Home Team Remark"
+                     formControlName="homeTeamRemark" trim="blur">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 m-b-10 m-t-10">
+            <mat-form-field class="full-width">
+             <input matInput type="text" placeholder="Away Team Name"
+                   formControlName="awayTeam" trim="blur">
+          </mat-form-field>
+          </div>
+          <div class="col-md-6 m-b-10 m-t-10">
+            <mat-form-field class="full-width">
+              <input matInput type="text" placeholder="Away Team Remark"
+                   formControlName="awayTeamRemark" trim="blur">
+            </mat-form-field>
+          </div>
+        <div class="col-md-12">
+        <mat-form-field class="full-width">
+            <input matInput type="text" placeholder="Venue"
+                   formControlName="venue" trim="blur">
+          </mat-form-field>
+          <date-time-inputs #dateTime class="full-width"
+            [isSetDateButtons]="true"
+            [initialDate]="initialDate"
+            [placeholder]="'Select start date and time'"
+            (outputIsoTime)="getConvertedDate($event)">
+          </date-time-inputs>
+
+          <mat-form-field class="full-width" *ngIf="rounds.length">
+            <mat-select placeholder="Specify round" (selectionChange)="onChange()" formControlName="round" required>
+              <mat-option *ngFor="let roundName of roundNames" [value]="roundName">
+                {{roundName}}
+              </mat-option>
+            </mat-select>
+            <mat-hint class="col-red" *ngIf="round.invalid && (round.dirty || round.touched)">
+              <div *ngIf="round.errors.required">
+                Field is required.
+              </div>
+            </mat-hint>
+          </mat-form-field>
+          <mat-form-field class="full-width" *ngIf="abbreviationOptions.length">
+            <mat-select placeholder="Abbreviation of Round" formControlName="abbreviation" required>
+              <mat-option *ngFor="let abbr of abbreviationOptions" [value]="abbr">
+                {{abbr}}
+              </mat-option>
+            </mat-select>
+            <mat-hint class="col-red" *ngIf="abbreviation.invalid && (abbreviation.dirty || abbreviation.touched)">
+              <div *ngIf="abbreviation.errors.required">
+                Field is required.
+              </div>
+              <div *ngIf="abbreviation.errors.unique">
+                Abbreviations already in use.
+              </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions >
+      <button (click)="closeDialog()" mat-button class="btn btn-sm bg-cean m-r-20 float-right">Cancel</button>
+      <button [disabled]="form.invalid" mat-button class="btn btn-sm bg-teal float-right"
+              [mat-dialog-close]="getMatch()">Add</button>
+    </div>
+  </form>
+</div>

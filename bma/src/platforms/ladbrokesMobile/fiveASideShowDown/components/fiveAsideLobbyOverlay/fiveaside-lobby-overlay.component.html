@@ -1,0 +1,96 @@
+<div id="fiveaside-lobby-tutorial" [scroll-fix] class="cookie-top vn-smart-banner-margin-top">
+    <div class="header-content">
+        <div id="close-div" class="close-content" (click)="onCloseLobbyOverlay('close')">
+            <svg id="close-svg" class="close-icon">
+                <use xlink:href="#close_qb" id="close-qb-svg"></use>
+            </svg>
+        </div>
+    </div>
+    <div class="centered">
+        <section class="welcome-cards" id="lobby-step1" *ngIf="tutorialSteps.step1">
+            <div class="welcome-card">
+                <div class="overlay-context" style="height: 400px;">
+                    <div [@textContent-noDelay]>
+                        <p class="overlay-header" [textContent]="tutorialData?.lobbyWelcomeHeader"></p>
+                        <p class="overlay-content" [textContent]="tutorialData?.lobbyWelcome1"></p>
+                        <p class="overlay-content" [textContent]="tutorialData?.lobbyWelcome2"></p>
+                        <p class="overlay-content" [textContent]="tutorialData?.lobbyWelcome3"></p>
+                    </div>
+                </div>
+                <div class="welcome-card" [@textButton-Welcome]="'enter'">
+                    <button class="navigation-button" (click)="onClickNext('2')" [i18n]="'fs.overlay.next'"></button>
+                </div>
+            </div>
+            <div class="welcome-card">
+            </div>
+        </section>
+
+        <section class="welcome-cards" id="lobby-step2" *ngIf="tutorialSteps.step2">
+            <div class="welcome-card" [@cardPrizeInfo]>
+                <div class="welcome-card">
+                    <div class="entry-prizes-content" id="entry-prizes">
+                        <div id="arrow-prizes" class="top-arrow">
+                            <svg class="top-arrow-icon">
+                                <use xlink:href="#top-arrow-inv"></use>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="sign-posting-content" id="sign-postings">
+                        <div id="arrow-signposting" class="top-arrow">
+                            <svg class="down-arrow-icon">
+                                <use xlink:href="#top-arrow-inv"></use>
+                            </svg>
+                        </div>
+                        <div id="signposting-content" style="position: relative;">
+                            <div class="overlay-context d-block">
+                                <p class="overlay-content" [textContent]="tutorialData?.lobbySignPostingsInfo"></p>
+                                <button class="navigation-button step-1" (click)="onClickNext('3')" [i18n]="'fs.overlay.next'"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="welcome-cards" id="lobby-step3" *ngIf="tutorialSteps.step3">
+            <div class="welcome-card">
+                <div class="welcome-card">
+                    <div class="entry-info-content" id="entry-info">
+                        <div id="arrow-entry-prizes" [@entryInfo-arrow-Mobile] class="top-arrow">
+                            <svg class="top-arrow-icon">
+                                <use xlink:href="#top-arrow-inv"></use>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="welcome-card step-tutorial-content step-3" id="entry-info-text" [@textContent-fade]="'enter'">
+                    <div class="overlay-context" [@textContent-fade]="'enter'">
+                        <p class="overlay-content" [textContent]="tutorialData?.lobbyEntryInfo"></p>
+                    </div>
+                    <button class="navigation-button mt-3" (click)="onClickNext('4')" [i18n]="'fs.overlay.next'"></button>
+                </div>
+            </div>
+        </section>
+
+        <section class="welcome-cards" id="lobby-step4" *ngIf="tutorialSteps.step4">
+            <div class="welcome-card">
+                <div class="welcome-card">
+                    <div class="showdown-card-content" id="showdown-card-info">
+                        <div id="showdown-card-arrow" [@showdownCard-arrow] class="top-right-arrow">
+                            <svg class = "top-right-arrow-icon">
+                                <use xlink:href="#top-right-arrow-5-a-side"></use>
+                            </svg>
+                        </div>
+                        <div class="step-tutorial-content step-4" id="card-info-content">
+                            <div class="overlay-context d-block" [@textContent-fade]="'enter'">
+                                <p class="overlay-content" [textContent]="tutorialData?.lobbyShowdownCardInfo"></p>
+                                <button class="navigation-button" (click)="onClickNext('finish')" [i18n]="'fs.overlay.finish'"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

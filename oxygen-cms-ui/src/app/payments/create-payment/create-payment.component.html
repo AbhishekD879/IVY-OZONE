@@ -1,0 +1,16 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>Create New Payment Method</h1>
+  <div mat-dialog-content>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Payment Method Name" [(ngModel)]="payment.name" [value]="payment.name" required trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+    <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="!isValidPaymentMethod()" (click)="getNewPaymentMethod();" [mat-dialog-close]="payment">Save</button>
+  </div>
+</div>

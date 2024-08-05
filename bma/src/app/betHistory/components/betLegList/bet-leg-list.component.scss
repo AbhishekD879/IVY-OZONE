@@ -1,0 +1,90 @@
+@import 'global.variables.scss';
+
+.my-bets-list-item {
+  &:first-child {
+    border-top: none;
+  }
+
+  border-top: 1px solid $color-gray;
+  background: $color-white;
+  position: relative;
+  .match-cmtry-slide-down{
+    display: flex;
+    align-items: center;
+    animation: match-cmtry-slide-down 400ms 1 forwards; 
+    &.lads-background{
+      background-color: $bh-gray-color;    
+    }
+    &.coral-background{
+      background-color: $color-skyblue-light-mf;
+    }
+    .match-cmtry-data {
+      display: flex;
+      align-items: center;
+    .match-cmtry-content{
+      justify-content: center;
+      padding-left: 6px;
+      font-size: 12px;
+      word-spacing: 1px;
+      color: $color-gray-darkest;
+      .substitution-icon{
+        width: 10px;
+        margin: -1px 3px;
+        height: 10px;
+      }
+      .match-cmtry-team-name {
+        padding-right: 3px;
+        font-weight: bold;
+      }
+      .match-cmtry-player-name{
+        padding: 0px 3px;
+        font-weight: bold;
+      }
+      .match-cmtry-player-on-name,.match-cmtry-player-off-name{
+        font-weight: bold;
+      }
+     }
+      svg{
+        width:  27px;
+        height: 20px;
+      }
+      .match-cmtry-clock,.match-cmtry-minutes{
+        margin-left : 3px;
+      }
+      .match-facts-icon{
+        &.lads-fill{
+          fill: $bh-gray-color;    
+        }
+        &.coral-fill{
+          fill: $color-skyblue-light-mf;
+        }
+       padding-top: 4px;
+       }
+       .var-icon{
+        margin-right: 8px;
+       }
+       .var-icon::after{
+        margin: -5px 0px;
+        padding-left: 2px;
+        font-size: 20px;
+        position: absolute;
+        content: '\007C';
+       }
+  }
+}
+   @keyframes match-cmtry-slide-down
+   {
+    0%{
+      padding: 8px 12px;
+      margin: 0px 6px 8px 6px;
+      will-change: transform;
+      transform: translateY(0px);
+    }
+   100%{
+     margin: 0px 6px 8px 6px;
+     will-change: transform;
+     transform: translateY(3px);
+     padding: 8px 12px;
+    }
+   }
+}

@@ -1,0 +1,207 @@
+// base build v1.3
+// https://bitbucket.org/symphonydevelopers/codebase-main/src/master/tools/gradle/build.gradle
+
+// Limitations of the plugins DSL
+// https://docs.gradle.org/5.2.1/userguide/plugins.html#plugins_dsl_limitations
+
+plugins {
+  id 'org.springframework.boot' version '2.7.1' // make sure to change platfrom too
+  id 'com.coral.tools' version '3.0-SNAPSHOT'
+}
+
+
+def nexusRepo = System.getenv("NEXUS_HOST") ?: 'https://nexus-vie.coral.co.uk/repository/maven-public/'
+def nexusUser = System.getenv("NEXUS_USER") ?: project.properties.nexusUser
+def nexusPass = System.getenv("NEXUS_PASS") ?: project.properties.nexusPass
+
+ext {
+  set('springBootVersion', '2.7.1')
+  set('springCloudVersion', '2021.0.3')
+  set('spockBomVersion',  '2.0-groovy-3.0')
+}
+
+dependencies {
+
+  // Platforms
+  implementation platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
+
+  // Development
+  developmentOnly 'org.springframework.boot:spring-boot-devtools'
+  annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+  // Project Dependencies
+  implementation project(':featured-ms')
+  implementation project(':in-play-ms')
+
+  // Spring Cloud
+  implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+  // implementation 'org.springframework.cloud:spring-cloud-starter-config'
+
+}
+jar{
+  enabled=false
+}
+
+springBoot {
+  buildInfo()
+}
+
+bootBuildImage {
+  imageName = "${rootProject.name}"
+}
+
+allprojects {
+
+  apply plugin: 'io.spring.dependency-management' // need for `spring-boot-configuration-processor`
+  apply plugin: 'com.coral.tools'
+
+  group = 'com.oxygen.middleware'
+
+  configurations {
+    all {
+      exclude module: 'spring-boot-starter-tomcat'
+      // exclude module: 'joda-time'
+    }
+    compileOnly {
+      extendsFrom annotationProcessor
+    }
+  }
+
+  repositories {
+    maven {
+      credentials {
+        username = nexusUser
+        password = nexusPass
+      }
+      url nexusRepo
+    }
+    mavenCentral()
+  }
+
+  dependencies {
+
+    // Platforms
+    implementation platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+
+    // FIXME: remove after #BMA-56994
+    implementation 'joda-time:joda-time:2.10.6'
+    implementation 'com.fatboyindustrial.gson-jodatime-serialisers:gson-jodatime-serialisers:1.8.0'
+
+    // Fortify Annotations manual https://drive.google.com/open?id=15SbZt-C937-CnBNs6-zIH-Wy8T_KAFNZ
+    compileOnly "com.hp.fortify:fortifyAnnotations:4.30"
+
+    // Spring
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-logging"
+    implementation "org.springframework.boot:spring-boot-starter-undertow"
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+    implementation "org.springframework.boot:spring-boot-starter-aop"
+    implementation "org.springframework.boot:spring-boot-starter-reactor-netty"
+    implementation "org.springframework.boot:spring-boot-starter-cache"
+    implementation "org.redisson:redisson-spring-boot-starter:3.16.0"
+
+    // Spring - Kafka
+    implementation "org.springframework.kafka:spring-kafka"
+
+    implementation 'javax.json:javax.json-api:1.1.4'
+    implementation 'org.apache.johnzon:johnzon-core:1.2.8'
+
+    // Project dependencies
+    implementation "com.ladbrokescoral.oxygen:banach-api:2.6"
+    implementation "com.egalacoral.spark:siteserver-api:release-172.0.0"
+    implementation "com.ladbrokescoral.scoreboards:bip-scoreboards-java-parser:1.14"
+    implementation "com.newrelic.agent.java:newrelic-api:latest.release"
+    implementation 'com.mikesamuel:json-sanitizer:1.2.1'
+    implementation 'org.springframework.boot:spring-boot-starter-integration'
+
+
+    // Web
+    implementation "com.squareup.retrofit2:converter-gson:2.8.1" // FIXME: use jackson
+    implementation "com.squareup.retrofit2:converter-jackson:2.8.1"
+
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+    // Other
+    implementation "com.github.ben-manes.caffeine:caffeine"
+    implementation "org.quartz-scheduler:quartz"
+    implementation "org.apache.commons:commons-pool2"
+    implementation "org.reflections:reflections:0.9.11" // TODO: rework
+    implementation 'org.codehaus.groovy:groovy-json:3.0.11'
+
+    implementation group: 'org.owasp.esapi', name: 'esapi', version: '2.2.0.0'
+    implementation 'commons-io:commons-io:2.8.0'
+
+    // Zookeeper leader election (NFR) changes dependencies
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'com.amazonaws:dynamodb-lock-client:1.1.0'
+    implementation 'com.ladbrokescoral.lib:master-slave-lock-starter:release-165.0.0'
+    // Testing
+    testImplementation 'org.junit.vintage:junit-vintage-engine' // TODO: remove after JUnit 5 migration
+    testImplementation ('org.springframework.boot:spring-boot-starter-test') {
+      exclude group: 'org.mockito', module :'mockito-core'
+    }
+    testImplementation 'org.mockito:mockito-inline:4.6.1'
+    testImplementation "it.ozimov:embedded-redis:0.7.2"
+
+    testImplementation platform("org.spockframework:spock-bom:${spockBomVersion}"){
+      exclude module: 'org.codehaus.groovy'
+    }
+    testImplementation 'org.spockframework:spock-core'
+    testImplementation 'org.spockframework:spock-spring'
+    testImplementation group: 'org.mockito', name: 'mockito-inline', version: '3.4.0'
+  }
+
+  test {
+    // FIXME: should `UNIT` and only one file in test folder
+    systemProperty 'spring.profiles.active', 'dev'
+    useJUnitPlatform()
+  }
+
+  jacocoTestReport.reports.xml.enabled = true
+
+}
+
+// sub-projects
+
+subprojects {
+  apply plugin: 'java-library'
+}
+
+project('cms-api') {
+  dependencies {
+    api project(':app-pojos')
+  }
+}
+
+project('df-api') {
+  dependencies {
+    api project(':app-pojos')
+    testImplementation 'com.github.gmazzo:okhttp-mock:1.3.1'
+  }
+}
+
+project(':common') {
+  dependencies {
+    api project(':cms-api')
+    api project(':df-api')
+  }
+}
+
+project('liveserver-api') {
+  dependencies {
+    api project(':common')
+  }
+}
+
+project('featured-ms') {
+  dependencies {
+    api project(':liveserver-api')
+  }
+}
+
+project('in-play-ms') {
+  dependencies {
+    api project(':liveserver-api')
+  }
+
+}

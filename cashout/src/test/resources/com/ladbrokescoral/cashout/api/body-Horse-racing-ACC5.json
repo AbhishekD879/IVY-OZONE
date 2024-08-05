@@ -1,0 +1,150 @@
+{
+  "cashoutOfferRequests": [
+    {
+      "cashoutOfferReqRef": "1",
+      "bet": {
+        "stakeAmount": "80.5",
+        "betType": "ACC5",
+        "legType": "E",
+        "legs": [
+          {
+            "legNo": "1",
+            "parts": [
+              {
+                "partNo": "1",
+                "type": "2.0",
+                "ladder": "STABLE",
+                "result": "P",
+                "resultPlaces": "2",
+                "eachWayDen": "4",
+                "eachWayPlaces": "3",
+                "strikePrice": {
+                  "num": "1",
+                  "den": "4"
+                },
+                "spotPrice": {
+                  "num": "1",
+                  "den": "4"
+                },
+                "deductions": [
+                  {
+                    "type": "deadheatWin",
+                    "num": "1",
+                    "den": "2"
+                  },
+                  {
+                    "type": "deadheatPlace",
+                    "num": "1",
+                    "den": "3"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "legNo": "2",
+            "parts": [
+              {
+                "partNo": "1",
+                "type": "2.0",
+                "ladder": "STABLE",
+                "result": "W",
+                "priceType": "S",
+                "returnedSP": {
+                  "num": "3",
+                  "den": "1"
+                },
+                "deductions": [
+                  {
+                    "type": "deadheatWin",
+                    "num": "50",
+                    "den": "100"
+                  },
+                  {
+                    "type": "deadheatPlace",
+                    "num": "25",
+                    "den": "100"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "legNo": "3",
+            "parts": [
+              {
+                "partNo": "1",
+                "type": "2.0",
+                "ladder": "STABLE",
+                "result": "W",
+                "priceType": "G",
+                "returnedSP": {
+                  "num": "1",
+                  "den": "3"
+                },
+                "strikePrice": {
+                  "num": "1",
+                  "den": "4"
+                },
+                "spotPrice": {
+                  "num": "1",
+                  "den": "4"
+                }
+              }
+            ]
+          },
+          {
+            "legNo": "4",
+            "parts": [
+              {
+                "partNo": "1",
+                "type": "2.0",
+                "ladder": "STABLE",
+                "result": "W",
+                "strikePrice": {
+                  "num": "6",
+                  "den": "4"
+                },
+                "spotPrice": {
+                  "num": "4",
+                  "den": "1"
+                },
+                "deductions": [
+                  {
+                    "type": "rule4LP",
+                    "num": "30",
+                    "den": "100"
+                  },
+                  {
+                    "type": "rule4SP",
+                    "num": "30",
+                    "den": "100"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "legNo": "5",
+            "parts": [
+              {
+                "partNo": "1",
+                "type": "2.0",
+                "ladder": "STABLE",
+                "result": "-",
+                "strikePrice": {
+                  "num": "6",
+                  "den": "4"
+                },
+                "spotPrice": {
+                  "num": "4",
+                  "den": "1"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

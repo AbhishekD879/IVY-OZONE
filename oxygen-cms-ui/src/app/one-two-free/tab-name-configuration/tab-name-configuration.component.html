@@ -1,0 +1,39 @@
+<div class="card" *ngIf="isReady">
+    <div class="body">
+    <div class="row">
+        <div class="col-md-12">
+          <h4>Tab 1</h4>
+        </div>
+        <div class="col-md-10 game-name">
+          <mat-form-field class="full-width">
+            <input matInput required placeholder="Tab 1" [(ngModel)]="tabNameConfiguration.currentTabLabel" [value]="tabNameConfiguration.currentTabLabel" trim="blur"
+              [readonly]="isActive" maxlength="50">
+            <mat-hint class="col-red" *ngIf="!tabNameConfiguration.currentTabLabel">Tab 1 should be entered</mat-hint>
+            <mat-hint align="end">{{tabNameConfiguration.currentTabLabel?.length || 0}}/50</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h4>Tab 2</h4>
+        </div>
+        <div class="col-md-10 game-name">
+          <mat-form-field class="full-width">
+            <input matInput required placeholder="Tab 2" [(ngModel)]="tabNameConfiguration.previousTabLabel" [value]="tabNameConfiguration.previousTabLabel" trim="blur"
+              [readonly]="isActive" maxlength="50">
+            <mat-hint class="col-red" *ngIf="!tabNameConfiguration.previousTabLabel">Tab 2 should be entered</mat-hint>
+            <mat-hint align="end">{{tabNameConfiguration.previousTabLabel?.length || 0}}/50</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+</div>
+
+<action-buttons *ngIf="isReady"
+  #actionButtons
+  [validateHandler]="isValidModel"
+  [fieldOrItemName]="'Tab Name Configuration'"
+  [collection]="tabNameConfiguration"
+  [showRemoveButton]="false"
+  (actionsEmitter)="actionsHandler($event);">
+</action-buttons>

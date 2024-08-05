@@ -1,0 +1,10 @@
+<div class="yourcall-tab-content sk-container" [ngClass]="{'sk-loading': !isLoaded}">
+  <your-call-static-block [staticType]="staticType" [showIcon]="showIcon" data-crlat="yourcallStaticBlock">
+  </your-call-static-block>
+  <lazy-component *ngIf="reLocate" moduleUri="@bybHistoryModule/byb-history.module#LazyBybHistoryModule"
+    [inputs]="{markets, marketName: 'mr1', eventEntity}"
+    entryComponent="BybLayoutComponent">
+  </lazy-component>
+  <yourcall-dashboard #dashBoardBox></yourcall-dashboard>
+<yourcall-betslip [eventEntity]="eventEntity" [betslipType]="'byb_stakes'"></yourcall-betslip>
+</div>

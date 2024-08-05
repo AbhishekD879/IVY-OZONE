@@ -1,0 +1,7 @@
+<div class='ema-promt' data-crlat="emaPrompt">
+  <svg class="ema-edit-attempt-icon" data-crlat="emaIcon">
+    <use *ngIf="prompt === 'success'" xlink:href="#success-icon-green"></use>
+    <use *ngIf="prompt === 'error'" xlink:href="#icn-info-red"></use>
+  </svg>
+  <span class='ema-promt-text' [textContent]="promptText" data-crlat="emaText"></span>
+</div>

@@ -1,0 +1,24 @@
+<modal #dialog [overscrollFix]="'always'" class="styled-one-box" data-crlat="d.whatIsCashOut">
+    <ng-template #modalHeader>
+      <a data-uat="popUpCloseButton" class="btn-close" (click)="closeThisDialog()">
+        <svg>
+          <use xlink:href="#close-icon"></use>
+        </svg>
+      </a>
+      <div data-crlat="dTitle" data-uat="popUpTitle">
+        <span [innerHTML]="cmsLotto.label"></span>
+      </div>
+    </ng-template>
+    <ng-template #modalBody>
+      <div [innerHTML]="cmsLotto.info" data-uat="popUpText" class="modal-body-content lotto-info" [ngClass]="brandType + '-lotto'">
+      </div>
+      <div class="btn-list">
+        <button data-uat="popUpButton" class="btn btn-style4">
+          <a class="more" target="_blank" data-crlat="infoButton" [href]="cmsLotto.helpLink">{{lotto.more}}</a>
+        </button>
+        <button data-uat="popUpButton" class="btn btn-style2" (click)="closeThisDialog()">
+          <span data-crlat="verifyMeButton">{{lotto.ok}}</span>
+        </button>
+      </div>
+    </ng-template>
+  </modal>

@@ -1,0 +1,13 @@
+cms:
+    brand: bma
+promosandbox:
+    distributed:
+        prefix: TST0
+    topic:
+        promo-config:
+            concurrency: 1
+            groupId: PROMO_CONFIG
+            name: ${promosandbox.distributed.prefix}_promo-config-cr
+aws:
+    s3:
+        bucket: promosandbox-coral-tst0

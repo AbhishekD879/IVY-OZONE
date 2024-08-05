@@ -1,0 +1,12 @@
+  <custom-select class="market-selector">
+    <select [hidden]="!selectOptions || !marketSelectorOptions"
+            data-crlat="dropdown"
+            (change)="filterMarkets($event.target.value)">
+      <option *ngFor="let optionData of selectOptions; trackBy: trackByIndex"
+              [value]="optionData.name"
+              [selected]="optionData.name === marketFilter"
+              data-crlat="dropdown.menuItem">{{ optionData.text }}
+      </option>
+    </select>
+  </custom-select>
+

@@ -1,0 +1,46 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>New Template</h1>
+  <form [formGroup]="form" novalidate>
+    <div mat-dialog-content>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Name" formControlName="name" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <mat-radio-group formControlName="templateType" [(ngModel)]="templateType">
+        <div class="row">
+          <div class="col-lg-3">
+            <mat-radio-button class="mat-label" color="primary"
+                              [value]="'plain'"
+                              [checked]="templateType === 'plain'">
+              Plain Template
+            </mat-radio-button>
+          </div>
+          <div class="col-lg-5">
+            <mat-radio-button class="mat-label" color="primary"
+                              [value]="'spotlight'"
+                              [checked]="templateType === 'spotlight'">
+              Racing Post Spotlight Template
+            </mat-radio-button>
+          </div>
+          <div class="col-lg-4">
+            <mat-radio-button class="mat-label" color="primary"
+                              [value]="'verdict'"
+                              [checked]="templateType === 'verdict'">
+              Racing Post Verdict Template
+            </mat-radio-button>
+          </div>
+        </div>
+      </mat-radio-group>
+    </div>
+
+
+    <div mat-dialog-actions>
+      <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+      <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="form.invalid" (click)="getTemplate();"
+              [mat-dialog-close]="template">Save</button>
+    </div>
+  </form>
+</div>

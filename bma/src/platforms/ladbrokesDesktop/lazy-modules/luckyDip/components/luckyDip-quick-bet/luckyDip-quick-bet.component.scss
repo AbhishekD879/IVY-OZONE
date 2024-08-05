@@ -1,0 +1,255 @@
+@import 'global.variables.scss';
+
+:host ::ng-deep .modal-dialog {
+    transform-origin: top;
+    width: 100vh;
+    margin: 98px auto;
+    overflow: hidden;
+
+    .modal-content {
+        background: none;
+
+        .modal-header {
+            min-height: 0;
+            padding: 0;
+        }
+
+        .modal-body {
+            max-height: 100%;
+
+            .closePopup {
+                display: block;
+                top: 25px;
+                z-index: 1;
+
+                svg {
+                    width: 12px;
+                    height: 12px;
+                }
+            }
+        }
+    }
+}
+
+:host {
+    ::ng-deep .modal {
+        background-color: transparent !important;
+    }
+
+    ::ng-deep .quickbet-panel .quickbet-header {
+        display: none;
+    }
+
+    ::ng-deep .quickbet-panel {
+        left: 0;
+    }
+
+    ::ng-deep .quick-deposit {
+        &__header-text {
+            color: var(--theme-body-txt);
+        }
+    }
+
+    ::ng-deep .modal-dialog .modal-content .modal-body {
+        padding: 0;
+        background: $color-ld-steps;
+        color: $color-white;
+
+        .hideModal {
+            background: none;
+            height: 0px;
+            padding: 0;
+        }
+    }
+
+    ::ng-deep .luckydip-content-tnc a {
+        color: $color-white !important;
+        text-decoration: underline;
+    }
+
+    .hideModal {
+        background: none;
+        height: 0px;
+        padding: 0;
+    }
+
+    ::ng-deep .modal-dialog .modal-content .hideModal {
+        background: none;
+        height: 0px;
+        padding: 0;
+    }
+
+    ::ng-deep .loading-overlay {
+        background-color: transparent;
+    }
+}
+
+.splashModal {
+    width: 100%;
+    height: 70vh;
+    margin: 0px;
+    position: relative;
+    overflow: hidden;
+
+    &-bContainer {
+
+        &_logoBanner {
+            display: flex;
+            position: relative;
+            align-items: center;
+            justify-content: center;
+
+            &-img {
+                position: relative;
+                background: var(--featured-image) no-repeat;
+                background-size: 100%;
+                width: 71%;
+                z-index: 1;
+                min-height: 123px;
+            }
+        }
+
+        &_redBanner {
+            background: var(--logo-banner) no-repeat;
+            height: 123px;
+            width: 100% !important;
+            background-size: 100%;
+            background-position: bottom;
+        }
+    }
+}
+
+.luckydip-content {
+    margin: 0;
+    position: relative;
+    width: 100%;
+
+    div {
+        p {
+            padding: 0;
+        }
+    }
+
+    &-steps {
+        width: 100%;
+        padding: 5px 0px 0px;
+        display: flex;
+        flex-wrap: wrap;
+        margin: 5px 0 18px 0;
+
+        &-step {
+            flex-basis: 30%;
+            margin: auto 1.33%;
+            justify-content: center;
+            background-color: $color-gray-darkest;
+            box-shadow: inset 0 1px 4px $color-deep-black;
+            border-radius: 8px;
+            height: 45px;
+            line-height: 100%;
+            display: inline-block;
+            text-align: center;
+            padding: 5px 0;
+
+            &_text,
+            &_number {
+                font-family: $basic-font-family;
+                font-style: normal;
+                color: $color-white;
+            }
+
+            &_number {
+                margin-bottom: 5px;
+                font-size: $font-size-lgr;
+            }
+
+            &_text {
+                font-size: $font-size-md;
+            }
+        }
+    }
+
+    &-info {
+        font-family: $basic-font-family;
+        font-size: $font-size;
+        position: relative;
+        text-align: center;
+        padding: 5px 0px;
+        color: $color-white;
+    }
+
+    &-title {
+        position: relative;
+        width: 100%;
+        font-family: $robo-font-family;
+        font-style: bold;
+        font-size: $font-size-lg;
+        align-items: center;
+        text-align: center;
+        text-transform: uppercase;
+        color: $lGrayLight;
+    }
+
+    &-tnc {
+        font-family: $basic-font-family;
+        font-size: $font-size-sm;
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        padding: 5px 0px;
+        color: $color-white;
+    }
+
+    &-kOpened {
+        top: -1%;
+
+        div {
+            padding: 0;
+            p {
+                padding: 0;
+            }
+        }
+    }
+}
+
+.hideContainer {
+    display: none;
+}
+
+.luckydip-content-container {
+    display: block;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin-top: 12px;
+}
+
+.luckydip-content-steps-step_number {
+    color: $color-ld-mustard;
+    font-family: $robo-font-family;
+}
+
+.luckydip-content-steps-step {
+    box-shadow: inset 0px 1px 4px $color-ld-steps;
+}
+
+@media (max-width: 375px) {
+    .splashModal {
+        &-bContainer {
+            &_logoBanner {
+                &-img {
+                    margin-top: 11px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 280px) {
+    .splashModal {
+        &-bContainer {
+            &_redBanner {
+                height: 105px;
+            }
+        }
+    }
+}

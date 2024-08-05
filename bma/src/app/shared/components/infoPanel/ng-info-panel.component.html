@@ -1,0 +1,14 @@
+<div *ngIf="hasArrow"
+     [hidden]="!isPanelShown"
+     class="info-panel"
+     [ngClass]="ngInfoPanelWithArrowClass"
+     [innerHTML]="infoMsg"
+     data-crlat="infPan.msg">
+</div>
+
+<div *ngIf="!hasArrow && isPanelShown"
+     class="info-panel"
+     [ngClass]="ngInfoPanelClass"
+     [innerHTML]="infoMsg"
+     data-crlat="infPan.msg">
+</div>

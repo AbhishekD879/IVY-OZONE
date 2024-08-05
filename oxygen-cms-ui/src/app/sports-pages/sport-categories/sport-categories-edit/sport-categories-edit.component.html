@@ -1,0 +1,380 @@
+<breadcrumbs *ngIf="sportCategory" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="sportCategory">
+  <div class="header">
+    <h2 class="has-activity-badge">Sport Category:
+      <span class="font-italic">{{sportCategory.imageTitle}}</span>
+      <span class="font-9">{{sportCategory.tier}}</span>
+      <create-updated-at-by [collection]="sportCategory"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="sportCategory.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="sportCategory">
+  <form [formGroup]="form" novalidate>
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="this.expandGeneralSettings">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>General Sport Configuration</h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="body">
+          <div class="row">
+            <div class="col-md-3">
+              <mat-checkbox color="primary" formControlName="disabled"
+                            (change)="sportCategory.disabled=!sportCategory.disabled"> Active
+              </mat-checkbox>
+            </div>
+            <div class="col-md-3">
+              <mat-checkbox color="primary"
+                            (change)="sportCategory.inApp=!sportCategory.inApp"
+                            formControlName="inApp"> In App
+              </mat-checkbox>
+            </div>
+            <div class="col-md-3">
+              <mat-checkbox color="primary"
+                            (change)="sportCategory.showInPlay=!sportCategory.showInPlay"
+                            formControlName="showInPlay"> Show In Play
+              </mat-checkbox>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <mat-checkbox color="primary"
+                            (change)="sportCategory.showInHome=!sportCategory.showInHome"
+                            formControlName="showInHome"> Show in Sports Ribbon
+              </mat-checkbox>
+            </div>
+            <div class="col-md-3">
+              <mat-checkbox color="primary"
+                            (change)="sportCategory.showInAZ=!sportCategory.showInAZ"
+                            formControlName="showInAZ"> Show in AZ
+              </mat-checkbox>
+            </div>
+            <div class="col-md-3">
+              <mat-checkbox color="primary"
+                            (change)="sportCategory.showScoreboard=!sportCategory.showScoreboard"
+                            formControlName="showScoreboard"> Show Scoreboard
+              </mat-checkbox>
+            </div>
+            <div class="col-md-3">
+              <mat-checkbox color="primary"
+                            (change)="sportCategory.isTopSport=!sportCategory.isTopSport"
+                            formControlName="isTopSport"> Is Top Sport
+              </mat-checkbox>
+            </div>
+            <div class="col-md-3">
+              <mat-checkbox color="primary"
+                            (change)="sportCategory.outrightSport=!sportCategory.outrightSport"
+                            formControlName="outrightSport"> Is Outright Sport
+              </mat-checkbox>
+            </div>
+            <div class="col-md-3">
+              <mat-checkbox color="primary"
+                            (change)="sportCategory.multiTemplateSport=!sportCategory.multiTemplateSport"
+                            formControlName="multiTemplateSport"> Is Multi-template Sport
+              </mat-checkbox>
+            </div>
+            <div class="col-md-3" *ngIf="sportCategory.isFRRealSport()">
+              <mat-checkbox color="primary"
+                            (change)="sportCategory.showFreeRideBanner=!sportCategory.showFreeRideBanner"
+                            formControlName="showFreeRideBanner"> Show Free Ride Banner
+              </mat-checkbox>
+            </div>
+            <div class="col-md-3">
+              <mat-checkbox color="primary"
+                            (change)="sportCategory.isReactionsEnabled=!sportCategory.isReactionsEnabled"
+                            formControlName="isReactionsEnabled"> Show Surfacebet Reactions
+              </mat-checkbox>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+            <span class="mat-label">
+              Title
+            </span>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Title" [(ngModel)]="sportCategory.imageTitle"
+                       formControlName="imageTitle" required trim="blur">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+            <span class="mat-label">
+              Category Id
+            </span>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Category Id"
+                       type="number"
+                       [required]="sportCategory.isRealSport && sportCategory.isRealSport()"
+                       [(ngModel)]="sportCategory.categoryId"
+                       formControlName="categoryId" required
+                       onkeypress="return event.charCode >= 48 && event.charCode <= 57" step="1" min="0">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+            <span class="mat-label">
+              SS Category Code
+            </span>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="SS Category Code" [(ngModel)]="sportCategory.ssCategoryCode"
+                       formControlName="ssCategoryCode" required trim="blur">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+            <span class="mat-label">
+              Alt
+            </span>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Alt" [(ngModel)]="sportCategory.alt" formControlName="alt" trim="blur">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+            <span class="mat-label">
+              Target Uri
+            </span>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Target Uri, e.g: sport/football" [(ngModel)]="sportCategory.targetUri"
+                       [required]="sportCategory.isRealSport && sportCategory.isRealSport()" formControlName="targetUri">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+            <span class="mat-label">
+              Score Board Uri
+            </span>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Score Board Uri" [(ngModel)]="sportCategory.scoreBoardUri"
+                       formControlName="scoreBoardUri">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row" *ngIf="!sportCategory.outrightSport">
+            <div class="col-md-2">
+            <span class="mat-label">
+              Disp sort name
+            </span>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="e.g: MR,MH,WH" [(ngModel)]="sportCategory.dispSortNames"
+                       formControlName="dispSortNames">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+            <span class="mat-label">
+             Message Label:
+            </span>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Please enter the message" maxlength="100" [(ngModel)]="sportCategory.messageLabel"
+                       formControlName="messageLabel">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row" *ngIf="!sportCategory.outrightSport">
+            <div class="col-md-2">
+            <span class="mat-label">
+              Primary markets
+            </span>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="e.g: |Match Result|,|Handicap Match Result|" [(ngModel)]="sportCategory.primaryMarkets"
+                       formControlName="primaryMarkets">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row" *ngIf="isMarketAllowed">
+            <div class="col-md-2">
+            <span class="mat-label">
+              Top markets
+            </span>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field class="full-width">
+                <textarea matInput placeholder="e.g:|Game Line 3 way: Total Points,Spread,Money Line|,|Game Line:Match Beting,Handicap|" [(ngModel)]="sportCategory.topMarkets"
+                       formControlName="topMarkets" (blur)="topMarkets($event)"  
+                       matTextareaAutosize
+                       matAutosizeMinRows="2"
+                       matAutosizeMaxRows="5"> </textarea>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+            <span class="mat-label">
+              Odds card header type
+            </span>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field class="full-width">
+                <mat-select formControlName="oddsCardHeaderType" [(ngModel)]="sportCategory.oddsCardHeaderType">
+                  <mat-option [value]="null">None</mat-option>
+                  <mat-option [value]="'ONE_TWO_TYPE'">oneTwoType</mat-option>
+                  <mat-option [value]="'HOME_DRAW_AWAY_TYPE'">homeDrawAwayType</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+            <span class="mat-label">
+              Type ID's
+            </span>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Comma separated" [(ngModel)]="sportCategory.typeIds"
+                       formControlName="typeIds">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <ng-container *ngIf="isIMActive; else cmsUpload">
+              <div class="col-md-2">
+                <span class="mat-label">SVG Icon</span>
+              </div>
+              <div class="col-md-6">
+                <svg-icon-select-input
+                  [formFieldsModels]="sportCategory"
+                  [externalForm]="form"
+                ></svg-icon-select-input>
+              </div>
+            </ng-container>
+            <ng-template #cmsUpload>
+              <div class="col-md-8">
+                <cms-upload
+                  [label]="'SVG Filename'"
+                  [filename]="sportCategory.svgFilename"
+                  (onImageUpload)="uploadSvgHandler($event)"
+                  (onImageRemove)="removeSvgHandler()">
+                </cms-upload>
+              </div>
+            </ng-template>
+          </div>
+          <div class="row">
+            <div class="col-md-8">
+              <cms-upload
+                [label]="'Filename'"
+                [filename]="sportCategory.filename"
+                (onImageUpload)="uploadImageHandler($event)"
+                (onImageRemove)="removeImageHandler()">
+              </cms-upload>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">
+              <cms-upload
+                [label]="'Icon'"
+                [filename]="sportCategory.icon"
+                (onImageUpload)="uploadIconHandler($event)"
+                (onImageRemove)="removeIconHandler()">
+              </cms-upload>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-10">
+              <span class="mat-label">Segmentation only applies to sports ribbon display</span>
+            </div>
+            <div class="col-md-10">
+              <cms-universal-segmented [segmentsDataObj]='segmentsList' [isRevert]="isRevert" (isFormValid)="isSegmentFormValid($event)"
+                  (segmentsModifiedData)="modifiedSegmentsHandler($event)">
+              </cms-universal-segmented>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </form>
+</div>
+<div class="card inplayOverflow" *ngIf="isShowInplayConfig && sportCategory">
+  <form [formGroup]="form" novalidate>
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="this.expandGeneralSettings">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>In-Play Stats Configurations</h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="body borderStyle">
+          <div class="row">
+            <div class="col-md-3">
+              <span class="mat-label">
+                Stats Widget
+              </span>
+            </div>
+            <div class="col-md-3 p-t-10">
+              <mat-checkbox color="primary"
+                              formControlName="showStatsWidget"
+                              [checked]="sportCategory.inplayStatsConfig? sportCategory.inplayStatsConfig.showStatsWidget : false"
+                              (change)="sportCategory.inplayStatsConfig.showStatsWidget=!sportCategory.inplayStatsConfig?.showStatsWidget">
+              </mat-checkbox>
+            </div>
+          </div>
+          <div class="note">
+            <mat-icon>edit_note</mat-icon>
+            <small class="font-italic">Please note: Stats widget leagues are configured in <a [routerLink]="['/system-configuration/structure', {query:'CouponStatsWidget'}]">System Configurations/ "CouponStatsWidget"</a> Table</small>
+          </div>
+          </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </form>
+</div>
+
+<div class="card" *ngIf="sportTabData && sportTabData.length > 0">
+  <div class="body">
+    <cms-data-table
+      [customTableData]="sportTabData"
+      [customTableColumns]="sportTabColumns"
+      [actions]="['edit']"
+      [reorder]="true"
+      (onElementsOrder)="sportTabReorderHandler($event)">
+    </cms-data-table>
+  </div>
+</div>
+
+<div class="card" *ngIf="sportCategory && sportCategory.categoryId > 0">
+  <div class="body">
+    <cms-data-table *ngIf="modulesData && modulesData.length > 0"
+      [customTableData]="modulesData"
+      [customTableColumns]="dataTableColumns"
+      [reorder]="true"
+      (onElementsOrder)="reorderHandler($event)">
+    </cms-data-table>
+  </div>
+</div>
+
+
+<action-buttons
+  #actionButtons
+  *ngIf="sportCategory"
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'imageTitle'"
+  [collection]="sportCategory"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

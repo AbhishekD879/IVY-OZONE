@@ -1,0 +1,43 @@
+<loading-screen
+  [displayed]="state.loading" 
+  [templateType]="'GENERIC_FULL'"
+  [skeletonOnly]="true">
+</loading-screen>
+<top-bar
+  [title]="isLinesummaryPage ?'Line Summary':'lotto'"
+  [iconId]="svgId"
+  [iconSvg]="svg">
+</top-bar>
+
+<div class="lotto-container"*ngIf="!isLinesummaryPage && lottoCmsBanner">
+  <div  class="lotto-desk-container">
+    <img class="desktop-banner" [src]="lottoCmsBanner.globalBannerLink">
+    <div [ngClass]="isBrandLadbrokes ? 'banner-text ladbrokes-banner-text' : 'banner-text coral-banner-text'">
+      <span class="text" [textContent]="lottoCmsBanner.globalBannerText"></span>
+    </div>
+</div>
+</div>
+
+
+<loading-screen [displayed]="state.loading" [onlySpinner]="true"></loading-screen>
+
+<ng-container *ngIf="!state.loading && !state.error">
+  <div *ngIf="!isLinesummaryPage && menuItems && menuItems.length">
+    <lazy-component moduleUri="@lazy-modules-module/carouselMenu/carousel-menu.module#CarouselMenuModule"
+      [inputs]="{menuItems: menuItems, activeMenuItem: activeUrl, isTopScroll: true,  carouselClass: 'carousel-lotto',carouselId: 'lotto-menu'}"
+      entryComponent="CarouselMenuComponent"> 
+    </lazy-component>
+</div>
+ <ng-info-panel [message]="lottoMessage.msg" [type]="lottoMessage.type"></ng-info-panel>
+  <div id="lotto" data-crlat="tabContent">
+    <router-outlet></router-outlet>
+    <lazy-component moduleUri="@lazy-modules-module/quickLinks/quick-links.module#QuickLinksModule"
+    [inputs]="{applyCss: true}" entryComponent="QuickLinksComponent">
+  </lazy-component>
+  </div>
+
+</ng-container>
+
+<outlet-status [state]="state">
+  <request-error (reloadFn)="reloadComponent()"></request-error>
+</outlet-status>

@@ -1,0 +1,13 @@
+<sb-quickbet-panel
+  *ngIf="selectionVisible"
+  [title]="panelTitle"
+  [showCloseIcon]="true"
+  [selection]="selectionData"
+  [isStreamAndBet]="true"
+  [market]="market"
+  (placeBetFn)="placeBet()"
+  (closeFn)="closePanel()"
+  data-crlat="quickbetPanel"
+  [eventName]="eventName"
+  [categoryName]="categoryName">
+</sb-quickbet-panel>

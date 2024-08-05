@@ -1,0 +1,51 @@
+---
+- name: Create RemoteBetslip load testing cluster EC2 nodes
+  hosts: localhost
+  connection: local
+  gather_facts: yes
+  vars:
+    cluster_name_prefix: "huge"
+    job_counter: 0
+    cluster_name: "huge"
+    cluster_ttl_hours: 1
+    description: "10 instances load testing cluster"
+    action: create
+    instances:
+      locust-master:
+        nodes_type: LocustIOMaster
+        ec2_hw_params:
+          key_name: crlat2
+          instance_type: t2.medium
+          security_group: crlat
+          subnet_name: private
+          volume_size: 16
+          assign_public_ip: no
+        tags_template:
+          ClusterNodeType: LocustIOMaster
+          packages: docker,go-agent
+          dockers: telegraf,LocustIO
+          GoAgentEnv: "{{ cluster_name }}"
+          GoAgentResources: LoadTesting,locust-master,locust-single
+        num_nodes: 1
+      locust-slave:
+        nodes_type: LocustIOSlave
+        ec2_hw_params:
+          key_name: crlat2
+          instance_type: t2.medium
+          security_group: crlat
+          subnet_name: private
+          volume_size: 16
+          action: create
+          assign_public_ip: no
+        tags_template:
+          ClusterNodeType: LocustIOSlave
+          packages: docker,go-agent
+          dockers: telegraf,LocustIO
+          LocustMasterID: LocustIOMaster
+          GoAgentEnv: "{{ cluster_name }}"
+          GoAgentResources: LoadTesting,locust-slave
+        num_nodes: 15
+  tasks:
+  - name: crlat.vpc
+    include_role:
+      name: crlat.vpc

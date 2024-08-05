@@ -1,0 +1,121 @@
+@import 'global.variables.scss';
+.fanzoneVacation {
+  width: 100%;
+  &-container {
+    position: relative;
+    background-size: cover !important;
+    height: 393px;
+    &--bgImg {
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  &-content {
+    position: relative;
+    text-align: center;
+    height: 100%;
+    &--title {
+      width: 559px;
+      margin: auto;
+      color: $color-white;
+      font-family: 'Roboto Condensed';
+      font-size: 18px;
+      font-weight: 700;
+      padding: 32px 35px 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.23px;
+      line-height: 24px;
+    }
+  }
+  &-lightning, &-kits {
+    position: absolute;
+    &_img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &-lightning {
+    bottom: 0;
+    width: 100%;
+    height: 56px;
+  }
+  &-kits {
+    bottom: 22%;
+    width: 209px;
+    height: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+:host ::ng-deep #vacationDescription {
+  padding: 20px 35px 0px;
+  margin-bottom: 25px;
+  width: 559px;
+  margin: auto;
+  color: $color-white;
+  line-height: 24px;
+  p {
+    font-family: 'Helvetica';
+    font-size: 14px;
+    font-weight: lighter;
+    padding: 0;
+    letter-spacing: 0.2px;
+    &:first-child {
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.19px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .fanzoneVacation {
+    &-container {
+      height: 100vh;
+    }
+    &-content {
+      &-section {
+        position: relative;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+        height: 370px;
+      }
+      &--title {
+        padding: 40px 0 0;
+        width: 305px;
+      }
+    }
+    &-kits {
+      bottom: unset;
+      width: 271px;
+      height: 182px;
+    }
+  }
+  :host ::ng-deep #vacationDescription {
+    width: 305px;
+    padding: 20px 5px 0;
+    p {
+      &:first-child {
+        margin-bottom: 1px;
+      }
+    }
+  }
+}
+
+@media (max-width: 360px){
+  .fanzoneVacation {
+    &-content {
+      &--title {
+        padding: 40px 0 0;
+      }
+      &--description {
+        padding: 35px 0 0;
+      }
+    }
+  }
+}

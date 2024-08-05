@@ -1,0 +1,49 @@
+<div id="timeline-tutorial-overlay"
+     [overscrollFix]="'always'"
+     #timelineTutorial
+     *ngIf="activeTutorial"
+>
+  <div class="tlt" [ngClass]="isBrandLadbrokes ? 'ladbrokes-background' : 'coral-background'">
+    <div class="tlt-close" (click)="removeTutorial()">
+      <svg><use xlink:href="#close-icon"></use></svg>
+    </div>
+
+    <ng-container *ngIf="headerTitle">
+      <div class="tlt-header">
+        <div class="title" [innerHTML]="headerTitle"></div>
+      </div>
+    </ng-container>
+
+    <ul class="tlt-main">
+      <li class="tlt-item">
+        <div class="tlt-arr top-arr">
+          <h6 [i18n]="'timeline.tlt.topLeftArr'"></h6>
+          <svg>
+            <use xlink:href="#tlt_arr"></use>
+          </svg>
+        </div>
+        <div class="tlt-arr bottom-arr">
+          <svg>
+            <use xlink:href="#tlt_arr"></use>
+          </svg>
+          <h6 [i18n]="'timeline.tlt.bottomLeftArr'"></h6>
+        </div>
+      </li>
+      <li class="tlt-item">
+        <div class="tlt-img" [ngClass]="isBrandLadbrokes ? 'ladbrokes-splash-img' : 'coral-splash-img'"></div>
+      </li>
+      <li class="tlt-item">
+        <div class="tlt-arr bottom-arr bottom-arr--right">
+          <svg>
+            <use xlink:href="#tlt_arr"></use>
+          </svg>
+          <h6 [i18n]="'timeline.tlt.bottomRightArr'"></h6>
+        </div>
+      </li>
+    </ul>
+
+    <div class="tlt-footer">
+      <button class="btn tlt-btn" [ngClass]="{'coral-btn': isCoral}" (click)="removeTutorial()" [i18n]="'timeline.tlt.closeTutorial'"></button>
+    </div>
+  </div>
+</div>

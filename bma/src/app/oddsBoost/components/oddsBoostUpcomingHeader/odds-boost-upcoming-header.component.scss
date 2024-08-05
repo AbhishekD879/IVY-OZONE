@@ -1,0 +1,73 @@
+@import 'global.variables.scss';
+
+.upcoming-boosts-header {
+  border-bottom: 1px solid $color-gray-darker;
+  padding: 10px;
+}
+
+.boosts-header{
+  border-bottom: none;
+  padding: 10px 10px 10px 0px;
+}
+
+.odds-boosts-list{
+  border-bottom:none;
+  padding: 0px;
+  font-weight: bold;
+}
+
+.timer-label {
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 0;
+  font-size: 13px;
+}
+
+.timer-label-lads {
+  text-align: center;
+  text-transform: none;
+  font-family: 'Helvetica';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.timer-label-list{
+  font-family: Helvetica;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: right;
+  color: #2b2b2b;
+}
+
+.timer {
+  color: $color-red;
+  font-size: 16px;
+  margin-left: 5px;
+}
+
+.timer-lads{
+  display: inline;
+  color: #4A90E2;
+  font-family: Helvetica;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.timer-lads-header{
+  display: block;
+  text-align: center;
+  font-size: 13px;
+  margin-left: 5px;
+  font-weight: bold;
+  line-height: 16px;
+  text-transform: none;
+  font-family: 'Helvetica';
+  font-style: normal;
+}
+

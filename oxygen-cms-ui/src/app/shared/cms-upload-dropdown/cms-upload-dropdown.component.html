@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-md-2" *ngIf="!withoutLabel">
+    <span class="mat-label">{{ label }}</span>
+  </div>
+  <div class="col-md-5">
+    <mat-form-field class="full-width">
+      <mat-select placeholder="Default Team Kit"
+                  [(value)]="filename"
+                  (selectionChange)="onChange($event.value);">
+        <mat-select-trigger>
+        <span class="left" *ngIf="selected.svg">
+            <svg-list
+              [list]="selected.svg"></svg-list>
+            <svg class="mat-icon">
+              <use [attr.xlink:href]="selected.svgId"></use>
+            </svg>
+          </span>
+          <span> {{ selected.displayName }}</span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let option of options" [value]="removeBlankSpaces(option.displayName)">
+          <span class="left" *ngIf="option.svg">
+            <svg-list [list]="option.svg"></svg-list>
+            <svg class="mat-icon">
+              <use [attr.xlink:href]="option.svgId"></use>
+            </svg>
+          </span>
+          <span> {{ option.displayName }}</span>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col-md-5">
+    <div style="display:none;"><input id="upload-file" (change)="uploadFile($event, name)" type="file" value="upload"/>
+    </div>
+    <button type="button" [disabled]="disabled" (click)="hadleUploadImageClick($event);"
+            class="main-image-btn btn bg-teal waves-effect">{{ uploadLabel }}</button>
+    <button type="button" [disabled]="disabled" *ngIf="filename" (click)="removeImage($event);"
+            class="main-image-btn btn bg-red waves-effect">Clear</button>
+  </div>
+</div>

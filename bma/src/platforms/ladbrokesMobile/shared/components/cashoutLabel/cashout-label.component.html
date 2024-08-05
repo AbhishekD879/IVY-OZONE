@@ -1,0 +1,12 @@
+<div class="cashout-label-wrapper"
+     [ngClass]="{ 'big-icon': isBigMode,
+                  'small-icon': mode === 'sm',
+                   'middle-icon': mode === 'md',
+                    'mini-icon': mode === 'mini' }">
+  <svg class="cashout-label" data-crlat="labelCashout">
+    <use xlink:href="#cashout-icon"></use>
+  </svg>
+  <span class="cashout-label-text">
+    Cash Out
+  </span>
+</div>

@@ -1,0 +1,59 @@
+<div *ngIf="type === 'regular'"
+     class="switchers "
+     [ngClass]="{'no-paddings': noPaddings, 'no-margin': noMargin}"
+     data-crlat="switchers">
+  <a class="switch-btn"
+     *ngFor="let switcher of switchers; trackBy: trackByLabel"
+     [ngClass]="{ 'active' : isActive(switcher), 'filled' : switcher.filled, 'overlay' : isOverlay, 'disabled' : isOverlay && switcher.selected}"
+     (click)="switcher.onClick(switcher.viewByFilters);  detectActiveTab(switcher);"
+     data-crlat="buttonSwitch">
+    <span [textContent]="getTabName(switcher)" data-crlat="switcher.name"></span>
+    <span *ngIf="switcher.eventCount"
+          class="switch-btn-bind"
+          [innerHTML]="switcher.eventCount"
+          data-crlat="switcher.eventCount"></span>
+    <ng-content *ngIf="switcher.icon"></ng-content>
+  </a>
+</div>
+
+<div *ngIf="type === 'scrollable'"
+     class="switchers scrollable-switchers"
+     [ngClass]="{'no-paddings': noPaddings, 'no-margin': noMargin}"
+     data-crlat="switchers">
+  <div class="scroll-container" scrollable scrollonce [scrollonce]="GATrackingModule" 
+  [GATrackingObj]="GTMTrackingObj" [rescrollOnChange]="activeTab?.id">
+    <ul class="scroll-inner" [ngClass]="{'auto-sizable-switchers': isAutoSizable()}">
+      <ng-container *ngFor="let switcher of switchers; let switcherIndex = index; trackBy: trackByLabel">
+        <li *ngIf="!switcher.hidden">
+          <a class="switch-btn"
+             [ngClass]="{
+                'active' : isActive(switcher, switcherIndex),
+                'filled' : switcher.filled
+              }"
+             (click)="clickFunction(switcher, $event, switcherIndex + 1)"
+             [attr.href]="switcher.url"
+             data-crlat="buttonSwitch">
+            <span [textContent]="getTabName(switcher)" data-crlat="switcher.name" ></span>
+            <span *ngIf="switcher.eventCount"
+                  class="switch-btn-bind"
+                  [innerHTML]="switcher.eventCount"
+                  data-crlat="switcher.eventCount"></span>
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</div>
+
+<div *ngIf="type === 'links'"
+     class="switchers"
+     [ngClass]="{'no-paddings': noPaddings, 'no-margin': noMargin}"
+     data-crlat="switchers">
+  <a class="switch-btn"
+     *ngFor="let switcher of switchers; let switcherIndex = index; trackBy: trackByLabel"
+     [ngClass]="{'active': filter === switcherIndex}"
+     (click)="switcher.onClick(switcherIndex); detectActiveTab(switcher);"
+     data-crlat="buttonSwitch"
+     [textContent]="getTabName(switcher)">
+  </a>
+</div>

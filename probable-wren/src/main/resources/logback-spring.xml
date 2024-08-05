@@ -1,0 +1,21 @@
+<configuration>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%-5level] %logger{60} - %message%replace(%xException){"\n",
+        "\\n"}%nopex%n
+      </pattern>
+    </encoder>
+  </appender>
+
+  <appender name="STDOUT_DEV" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} %-5level [%-30thread] [${mdcPattern}] %-60logger{60} - %message%n
+      </pattern>
+    </encoder>
+  </appender>
+
+  <root level="ALL">
+    <appender-ref ref="${LOGBACK_APPENDER:-STDOUT}"/>
+  </root>
+</configuration>

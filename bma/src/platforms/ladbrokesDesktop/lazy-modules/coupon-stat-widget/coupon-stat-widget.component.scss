@@ -1,0 +1,12 @@
+.scoreboard-container {
+  $spinner-red: rgb(240, 30, 40);
+  background-image: url('/assets/images/background-lads-desk.webp');
+
+  .spin {
+
+    & .path {
+      stroke: $spinner-red;
+    }
+  }
+
+}

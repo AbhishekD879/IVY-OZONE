@@ -1,0 +1,156 @@
+@import 'global.variables.scss';
+
+/* Button style */
+$btn-act-bg: $color-green;
+$btn-up-bg: $color-pink;
+$btn-down-bg: $color-tealish;
+$btn-width: 50px;
+$btn-height: 40px;
+
+@mixin bet-animation($animation-name) {
+  animation-duration: 2s;
+  animation-name: $animation-name;
+  animation-iteration-count: 1;
+  animation-fill-mode: backwards;
+
+  -webkit-animation-duration: 2s;
+  -webkit-animation-name: $animation-name;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-fill-mode: backwards;
+}
+
+price-odds-button {
+  @include display-flex();
+  @include flex-flow(column);
+  @include justify-content(center);
+  @include align-items(flex-end);
+  word-break: break-word;
+}
+
+.price-odds-button.multiMarketTemplate {
+  margin-left: 6px;
+}
+
+.btn.btn-bet,
+.btn-bet {
+  background-image: $bet-btn-bg;
+  border: 1px solid $color-gray-darker;
+  color: $color-gray-dark;
+  font-size: $bet-btn-font-size;
+  font-family: $base-font-family;
+  line-height: $bet-btn-font-size;
+  width: $btn-width;
+  min-height: $btn-height;
+  border-radius: 3px;
+  cursor: pointer;
+  text-align: center;
+  font-weight: bold;
+  outline: none;
+  padding: 0;
+
+  &.not-show-historic-prices {
+    margin-bottom: 6px;
+  }
+
+  &.surface-bet-btn {
+    &.not-show-historic-prices {
+      margin-bottom: 9px;
+    }
+  }
+
+  &.bet-animation {
+    position: fixed;
+    background: $btn-act-bg;
+    display: none;
+    z-index: 1001;
+    top: 0;
+    left: 0;
+  }
+
+  &.bet-visible {
+    display: block;
+    transition: all .5s ease;
+  }
+
+  &.active {
+    background: $btn-act-bg;
+    border-color: $btn-act-bg;
+    color: $color-white;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  /* live bet update */
+  &.bet-up:not([disabled]) {
+    @include bet-animation(up-button);
+  }
+
+  &.bet-down:not([disabled]) {
+    @include bet-animation(down-button);
+  }
+
+  /* disabled */
+  &.active[disabled], &.bet-up[disabled],
+  &.bet-down[disabled], &.bet-dis[disabled],
+  &[disabled] {
+    background-image: $bet-btn-bg-disabled;
+    color: $color-gray-dark;
+    border-color: $color-gray-darker;
+  }
+}
+
+.historic-prices {
+  @include align-self(center);
+  .previous-prices {
+    margin-top: 5px;
+    font-size: $font-size-pre-xs;
+  }
+}
+
+@keyframes up-button {
+  from {
+    background: inherit;
+    color: $color-gray-dark;
+  }
+
+  to {
+    background: $btn-up-bg;
+    color: $color-white;
+  }
+}
+
+@keyframes down-button {
+  from {
+    background: inherit;
+    color: $color-gray-dark;
+  }
+
+  to {
+    background: $btn-down-bg;
+    color: $color-white;
+  }
+}
+
+@-webkit-keyframes up-button {
+  from {
+    background: inherit;
+    color: $color-gray-dark;
+  }
+
+  to {
+    background: $btn-up-bg;
+    color: $color-white;
+  }
+}
+
+@-webkit-keyframes down-button {
+  from {
+    background: inherit;
+    color: $color-gray-dark;
+  }
+
+  to {
+    background: $btn-down-bg;
+    color: $color-white;
+  }
+}

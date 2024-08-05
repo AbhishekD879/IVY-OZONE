@@ -1,0 +1,74 @@
+<div class="desktop-race-grid race-grid horserace" data-crlat="race.raceGrid">
+  <switchers *ngIf="isHR && showSwitcher"
+             [filter]="filter"
+             [switchers]="switchers"
+             [noPaddings]="true"
+             class="top-switchers">
+  </switchers>
+  <section class="rg-section"
+           *ngFor="let racesGroup of groupedRaces; trackBy: trackByGroupName"
+           data-crlat="raceGrid.meeting">
+    <header class="rg-header">
+      <span class="rg-title">
+        <span [textContent]="racesGroup.groupName" data-crlat="raceGrid.meeting.name"></span>
+        <span *ngIf="racesGroup.subRegion" class="rg-title-subregion" [textContent]="racesGroup.subRegion"></span>
+      </span>
+      <promotion-icon [isHeaderBIRAvailable]="racesGroup.isHeaderBIRAvailable" mode="mini" [isGpAvailable]="racesGroup.bogAvailable" [bogIconStyle]="true"></promotion-icon>
+      <svg *ngIf="racesGroup.liveStreamAvailable" class="rg-stream-icon" data-crlat="raceGrid.iconStream">
+        <use xlink:href="#watch"></use>
+      </svg>
+    </header>
+    <div class="tabs-panel tabs-bottom" data-crlat="panel.tabs">
+      <action-arrows>
+        <action-arrows-content>
+          <div class="scroll-container" [scrollable-racing]>
+            <ul [ngClass]="isEarlyPricesAvailable(racesGroup.events) ? 'remove-border' : ''" class="scroll-inner">
+              <li [attr.data-eventid]="eventEntity.id"
+                  *ngFor="let eventEntity of racesGroup.events; trackBy: trackById"
+                  data-crlat="raceGrid.event"
+                  [ngClass]="{'race-resulted': eventEntity.isResulted,
+                   'build-card-enabled': isEnabledCardState && racingGroupFlag !== 'VR',
+                   'race-on': !eventEntity.isResulted && (!eventEntity.isStarted || eventEntity.isLiveNowEvent)}">
+                <div *ngIf="isEnabledCardState && racingGroupFlag !== 'VR' && !isRaceOffOrResulted(eventEntity)" class="build-card-box">
+                  <div class="check-styled" data-crlat="checkBox">
+                    <input [attr.id]="eventEntity.id"
+                           class="form-control"
+                           [disabled]="isLimitReached && !cardState?.eventsList[eventEntity.id]"
+                           [value]="cardState?.eventsList[eventEntity.id]"
+                           [checked]="!!cardState?.eventsList[eventEntity.id]"
+                           (change)="toggle(eventEntity.id)"
+                           type="checkbox">
+                    <label [for]="eventEntity.id"></label>
+                  </div>
+                </div>
+                <a class="tab"
+                   [routerLink]="genEventDetailsUrl(eventEntity)"
+                   [click-link] data-crlat="tab"
+                   (click)="overlayMenuClose(eventEntity)">
+                  <span class="race-time" [ngClass]="{'text-bold': isLpAvailable(eventEntity)}" [textContent]="eventEntity.localTime"
+                        data-crlat="raceGrid.raceTime">
+                  </span>
+                  <lazy-component *ngIf="eventEntity.isStarted || eventEntity.isLiveNowEvent || eventEntity.isResulted"
+                      moduleUri="@lazy-modules-module/racingStatus/racing-status.module#RacingStatusModule"
+                      [inputs]="{event: eventEntity, isEventOverlay: isEventOverlay}">
+                  </lazy-component>
+                </a>
+              </li>
+              <!-- Tote pools indicators -->
+              <racing-pool-indicator *ngIf="showUKToteIndicators()"
+                                     class="pool-indicators-container"
+                                     [events]="racesGroup.events"
+                                     data-crlat="poolIndicatorsContainer"
+                                     (overlayMenuClose)="overlayMenuClose()">
+              </racing-pool-indicator>
+            </ul>
+         </div>
+          <div class="early-price-sign-post" [ngClass]="hasResult(racesGroup.events) ? 'move-left' : ''"  *ngIf="isEarlyPricesAvailable(racesGroup.events)">
+            <span>{{ earlySignPostTitle() }}</span>
+          </div>
+        </action-arrows-content>
+      </action-arrows>
+    </div>
+    <footer class="rg-footer"></footer>
+  </section>
+</div>

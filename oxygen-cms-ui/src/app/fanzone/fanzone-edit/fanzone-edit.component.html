@@ -1,0 +1,211 @@
+<div *ngIf="isReady">
+  <breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+  <div class="card">
+    <div class="header">
+      <h2 class="waves-effect waves-block has-activity-badge">
+        <span [textContent]="FANZONE_ADDITIONAL.fanzone"></span>: <span [textContent]="fanzone.name"></span>
+        <create-updated-at-by [collection]="fanzone"></create-updated-at-by>
+      </h2>
+      <header-activity-badge [state]="!fanzone.active"></header-activity-badge>
+    </div>
+  </div>
+  <mat-tab-group>
+    <mat-tab label="Fanzone">
+      <app-fanzone-common [fanzone]="fanzone" [form]="form"></app-fanzone-common>
+    </mat-tab>
+    <mat-tab label="Now & Next">
+      <form [formGroup]="form">
+        <div class="card">
+          <div class="body">
+            <div class="row">
+              <div class="col-md-10">
+                <mat-slide-toggle [(ngModel)]="fanzone.fanzoneConfiguration.showNowNext" [color]="'primary'"
+                  formControlName="showNowNext" [checked]="fanzone.fanzoneConfiguration.showNowNext">
+                  <span [textContent]="FANZONE_ADDITIONAL.showNownNext"></span>
+                </mat-slide-toggle>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-2">
+                <span class="mat-label" [textContent]="FANZONE_ADDITIONAL.nextGamesLabel"></span>
+              </div>
+              <div class="col-md-8">
+                <mat-form-field class="full-width">
+                  <input matInput [placeholder]="FANZONE_ADDITIONAL.nextGamesLabel" maxlength="50"
+                    formControlName="nextGamesLbl" [(ngModel)]="fanzone.nextGamesLbl" [value]="fanzone.nextGamesLbl"
+                    required trim="blur">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-2">
+                <span class="mat-label" [textContent]="FANZONE_ADDITIONAL.outRightsLabel"></span>
+              </div>
+              <div class="col-md-8">
+                <mat-form-field class="full-width">
+                  <input matInput [placeholder]="FANZONE_ADDITIONAL.outRightsLabel" maxlength="50"
+                    formControlName="outRightsLbl" [(ngModel)]="fanzone.outRightsLbl" [value]="fanzone.outRightsLbl"
+                    required trim="blur">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-2">
+                <span class="mat-label" [textContent]="FANZONE_ADDITIONAL.premierLeagueLabel"></span>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="full-width">
+                  <input matInput [placeholder]="FANZONE_ADDITIONAL.premierLeagueLabel"
+                    formControlName="premierLeagueLbl" [(ngModel)]="fanzone.premierLeagueLbl"
+                    [value]="fanzone.premierLeagueLbl" required trim="blur">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-2">
+                <span class="mat-label" [textContent]="FANZONE_ADDITIONAL.premierLeagueLabel"></span>
+              </div>
+
+              <div class="col-md-4">
+                <mat-slide-toggle formControlName="showCompetitionTable"
+                  [(ngModel)]="fanzone.fanzoneConfiguration.showCompetitionTable" [color]="'primary'"
+                  [checked]="fanzone.fanzoneConfiguration.showCompetitionTable">
+                  <span [textContent]="FANZONE_ADDITIONAL.showCompetitionTable"></span>
+                </mat-slide-toggle>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-tab>
+    <mat-tab label="Stats">
+      <form [formGroup]="form">
+        <div class="card">
+          <div class="body">
+            <div class="row">
+              <div class="col-md-10">
+                <mat-slide-toggle formControlName="showStats" [(ngModel)]="fanzone.fanzoneConfiguration.showStats"
+                  [color]="'primary'" [checked]="fanzone.fanzoneConfiguration.showStats">
+                  <span [textContent]="FANZONE_ADDITIONAL.showstats"></span>
+                </mat-slide-toggle>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-tab>
+    <mat-tab label="Club">
+      <form [formGroup]="form">
+        <div class="card">
+          <div class="body">
+            <div class="row">
+              <div class="col-md-10">
+                <mat-slide-toggle formControlName="showClubs" [(ngModel)]="fanzone.fanzoneConfiguration.showClubs"
+                  [color]="'primary'" [checked]="fanzone.fanzoneConfiguration.showClubs">
+                  <span [textContent]="FANZONE_ADDITIONAL.showClubs"></span>
+                </mat-slide-toggle>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-tab>
+    <mat-tab label="Fanzone Games">
+      <form [formGroup]="form">
+        <div class="card">
+          <div class="body">
+            <div class="row">
+              <div class="col-md-10">
+                <mat-slide-toggle formControlName="showGames" [(ngModel)]="fanzone.fanzoneConfiguration.showGames"
+                  [color]="'primary'" [checked]="fanzone.fanzoneConfiguration.showGames" (change)="toggleGamesSwitch($event)">
+                  <span [textContent]="FANZONE_ADDITIONAL.showGames"></span>
+                </mat-slide-toggle>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-10">
+                <mat-slide-toggle formControlName="showSlotRivals" [(ngModel)]="fanzone.fanzoneConfiguration.showSlotRivals"
+                  [color]="'primary'" [checked]="fanzone.fanzoneConfiguration.showSlotRivals"
+                  [disabled]="!fanzone.fanzoneConfiguration.showGames">
+                  <span [textContent]="FANZONE_ADDITIONAL.showSlotRivals"></span>
+                </mat-slide-toggle>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-10">
+                <mat-slide-toggle formControlName="showScratchCards" [(ngModel)]="fanzone.fanzoneConfiguration.showScratchCards"
+                  [color]="'primary'" [checked]="fanzone.fanzoneConfiguration.showScratchCards"
+                  [disabled]="!fanzone.fanzoneConfiguration.showGames">
+                  <span [textContent]="FANZONE_ADDITIONAL.showScratchCards"></span>
+                </mat-slide-toggle>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-tab>
+    <mat-tab label="Fanzone Configurations">
+      <form [formGroup]="form">
+        <div class="card">
+          <div class="body">
+            <div class="row">
+              <div class="col-md-10">
+                <mat-slide-toggle formControlName="sportsRibbon" [(ngModel)]="fanzone.fanzoneConfiguration.sportsRibbon"
+                  [color]="'primary'" [checked]="fanzone.fanzoneConfiguration.sportsRibbon">
+                  <span [textContent]="FANZONE_ADDITIONAL.showMenuInSportsRibbon"></span>
+                </mat-slide-toggle>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-10">
+                <mat-slide-toggle formControlName="atozMenu" [(ngModel)]="fanzone.fanzoneConfiguration.atozMenu"
+                  [color]="'primary'" [checked]="fanzone.fanzoneConfiguration.atozMenu">
+                  <span [textContent]="FANZONE_ADDITIONAL.showMenuInA_Z"></span>
+                </mat-slide-toggle>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-10">
+                <mat-slide-toggle formControlName="homePage" [(ngModel)]="fanzone.fanzoneConfiguration.homePage"
+                  [color]="'primary'" [checked]="fanzone.fanzoneConfiguration.homePage">
+                  <span [textContent]="FANZONE_ADDITIONAL.showLaunchBannerInHome"></span>
+                </mat-slide-toggle>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-10">
+                <mat-slide-toggle formControlName="footballHome" [(ngModel)]="fanzone.fanzoneConfiguration.footballHome"
+                  [color]="'primary'" [checked]="fanzone.fanzoneConfiguration.footballHome">
+                  <span [textContent]="FANZONE_ADDITIONAL.showLaunchBannerInFootball"></span>
+                </mat-slide-toggle>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-10">
+                <mat-slide-toggle formControlName="showBetsBasedOnYourTeam" [(ngModel)]="fanzone.fanzoneConfiguration.showBetsBasedOnYourTeam"
+                  [color]="'primary'" [checked]="fanzone.fanzoneConfiguration.showBetsBasedOnYourTeam">
+                  <span [textContent]="FANZONE_ADDITIONAL.showBetsBasedOnYourTeam"></span>
+                </mat-slide-toggle>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-10">
+                <mat-slide-toggle formControlName="showBetsBasedOnOtherFans" [(ngModel)]="fanzone.fanzoneConfiguration.showBetsBasedOnOtherFans"
+                  [color]="'primary'" [checked]="fanzone.fanzoneConfiguration.showBetsBasedOnOtherFans">
+                  <span [textContent]="FANZONE_ADDITIONAL.showBetsBasedOnOtherFans"></span>
+                </mat-slide-toggle>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-tab>
+  </mat-tab-group>
+
+  <action-buttons #actionButtons [validateHandler]="validationHandler" [fieldOrItemName]="'name'" [collection]="fanzone"
+    [showRemoveButton]="true" (actionsEmitter)="actionsHandler($event);">
+  </action-buttons>
+</div>

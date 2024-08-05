@@ -1,0 +1,41 @@
+.bordered-tabs-account {
+  .tabs-panel {
+    box-shadow: none;
+    .scroll-inner {
+      background: $brand-color-dark;
+      li {
+        .tab {
+          overflow: visible;
+        }
+      }
+    }
+    .action-arrow {
+      top: 0;
+      padding-top: 0;
+    }
+  }
+}
+.tabs-panel {
+  box-shadow: inset 0 -12px 0 $color-gray;
+
+  .scroll-container .scroll-inner li {
+    .tab {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 13px 10px;
+      min-width: 50px;
+    }
+    &:not(.active):hover {
+      .tab:not(.no-hover), .prom-icons-wrap:not(.no-hover) {
+        background: $IGreyLightDark;
+        color: $color-gray-dark;
+      }
+    }
+
+    .yourcall-tab {
+      a.yourcall-tab-text.tab {
+        padding: 13px 10px;
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+<div class="overlay-header-container" *ngIf="allMarkets?.length">
+  <div class="left-data">
+    <div class="show-hide-btn" (click)="showHideClick()">{{showHideText}}</div>
+    <div class="event-details">
+      <div class="event-name">{{eventEntity.originalName}}</div>
+      <svg class="inplay-icon">
+        <use xlink:href="#live-icon"></use>
+      </svg>
+      <div class="live-text" [i18n]="'quickbet.snbLive'"></div>
+    </div>
+  </div>
+  <div class="right-data">
+    <div class="balance-container">
+      <svg d-flex>
+        <use xlink:href="#snb-balance"></use>
+      </svg>
+      <div class="balance">{{sportBalance.includes('NaN') ? '0.00' : sportBalance}}</div>
+    </div>
+  </div>
+</div>
+<div id="overlay-wrapper" class="overlay-wrapper" [ngClass]="{'hide-markets': !showMarkets}">
+  <div class="markets-container">
+    <lazy-component [ngClass]="showQuickBet ? 'show-quickBet' : 'hide-quickBet'"
+    moduleUri="@quickbetStreamBetModule/sb-quickbet.module#StreamBetQuickbetModule" [inputs]="{ categoryName: eventEntity.categoryName, eventName: eventEntity.originalName || eventEntity.name, market: selectedMarket  }"
+                        entryComponent="SbQuickbetPanelWrapperComponent">
+    </lazy-component>
+    <ng-container *ngIf="!showQuickBet">
+      <!-- Sports Overlay -->
+      <ng-container *ngIf="!isHR && objectKeys(templateMarketTypes).length; else HROverlayBlock">
+        <ng-container *ngFor="let templateMarketName of objectKeys(templateMarketTypes['template-market-type']); trackBy: getTrackById">
+          <!-- Markets with No grouping -->
+          <ng-container
+            *ngIf="(templateMarketTypes['template-market-type'][templateMarketName] && 
+                    templateMarketTypes['template-market-type'][templateMarketName]?.markets?.length===1 && 
+                    templateMarketTypes['template-market-type'][templateMarketName]?.template !== 'special-market'); else loadGroupTemplate">
+            <stream-bet-templates [market]="templateMarketTypes['template-market-type'][templateMarketName].markets[0]" [eventEntity]="eventEntity"
+              [allMarkets]="allMarkets" (selectionClickEmit)="handleSelectionClick($event)">
+            </stream-bet-templates>
+          </ng-container>
+          <!-- END: Markets with No grouping -->
+          <!-- Markets with grouping -->
+          <ng-template #loadGroupTemplate>
+            <sb-grouped-market-templates [eventEntity]="eventEntity" [allMarkets]="allMarkets"
+              [templateType]="templateMarketTypes['template-market-type'][templateMarketName].template"
+              [markets]="templateMarketTypes['template-market-type'][templateMarketName].markets"              
+              (selectionClickEmit)="handleSelectionClick($event)">
+            </sb-grouped-market-templates>
+          </ng-template>
+          <!-- END: Markets with grouping -->
+        </ng-container>
+      </ng-container>
+      <!-- END: Sports Overlay -->
+      <!-- Horse racing Overlay -->
+      <ng-template #HROverlayBlock>
+        <ng-container *ngFor="let market of allMarkets; trackBy: getTrackById">        
+          <stream-bet-templates [market]="market" [eventEntity]="eventEntity" [allMarkets]="allMarkets"
+            (selectionClickEmit)="handleSelectionClick($event)">
+          </stream-bet-templates>
+          </ng-container>
+      </ng-template>
+      <!-- END: Horse racing Overlay -->
+    </ng-container>
+      
+  </div>
+</div>

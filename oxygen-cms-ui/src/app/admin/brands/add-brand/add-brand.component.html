@@ -1,0 +1,47 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>Create a New Brand</h1>
+  <div mat-dialog-content>
+    <div class="row clearfix">
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Title" [(ngModel)]="newBrand.title" [value]="newBrand.title" required trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Brand Code" [(ngModel)]="newBrand.brandCode" [value]="newBrand.brandCode" required trim="blur">
+          <mat-hint class="col-red" *ngIf="newBrand.brandCode.length && !isValidBrandCode()">Brand Code should not contain spaces</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Site Server Url" [(ngModel)]="newBrand.siteServerEndPoint" [value]="newBrand.siteServerEndPoint" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Spotlight Url" [(ngModel)]="newBrand.spotlightEndpoint" [value]="newBrand.spotlightEndpoint" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row clearfix">
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Spotlight Api Key" [(ngModel)]="newBrand.spotlightApiKey" [value]="newBrand.spotlightApiKey" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+    <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="!isValidFormData()" [mat-dialog-close]="newBrand">Save</button>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<accordion class="top-accordion" *ngIf="filter === 'by-time'" [isExpanded]="isExpanded" [card]="true" data-crlat="outerAccordion"  (function)="toggleByMeetingAccordion(0, 'Events')">
+  <left-side>
+    <span class="left-title-text" [i18n]="'sb.events'" data-crlat="headerTitle.leftMessage"></span>
+  </left-side>
+  <accordion-body>
+    <list-card *ngFor="let event of orderedEvents; trackBy: trackById;" data-crlat="race.antepost.event" [item]="event"
+      [title]="event.localTime + ' ' + event.name" [link]="event.link" [date]="event.date"
+      [attr.data-eventid]="event.id" data-crlat="racing.futureEvent" [eventId]="event.id"
+      [isEventOverlay]="isEventOverlay" [filter]="filter" (overlayContent)="overlayContentHandler($event, event)">
+      <promotion-icon [mode]="'sm'" [type]="'event'" [display]="event.drilldownTagNames" data-crlat="promotionIcons">
+      </promotion-icon>
+    </list-card>
+  </accordion-body>
+</accordion>
+<ng-container *ngIf="filter === 'by-meeting' && loadAccordion">
+  <accordion class="top-accordion" [accordionTitle]="classesTypeName.name"
+             [card]="true"
+             *ngFor="let classesTypeName of filteredTypeNames; trackBy: trackById; let index = index;"
+             data-crlat="outerAccordion" [isExpanded]="classesTypeName.isExpanded" (function)="toggleByMeetingAccordion(index, classesTypeName.name)">
+    <right-side>
+      <cashout-label *ngIf="checkCacheOut(racingEvents, classesTypeName.name)"></cashout-label>
+    </right-side>
+    <accordion-body>
+      <list-card *ngFor="let event of orderedEventsByTypeNames[index]; trackBy: trackById;" data-crlat="race.antepost.event"
+                 [item]="event" [title]="event.localTime + ' ' + event.name" [link]="event.link" [date]="event.date"
+                 [attr.data-eventid]="event.id" [eventId]="event.id" data-crlat="racing.futureEvent"
+                 [isEventOverlay]="isEventOverlay" [filter]="filter" (overlayContent)="overlayContentHandler($event, event)">
+        <promotion-icon [mode]="'sm'" [type]="'event'" [display]="event.drilldownTagNames" data-crlat="promotionIcons"></promotion-icon>
+      </list-card>
+    </accordion-body>
+  </accordion>
+</ng-container>

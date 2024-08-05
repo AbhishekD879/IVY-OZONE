@@ -1,0 +1,87 @@
+//Global styles
+@import 'global.variables.scss';
+
+::ng-deep {
+  .odds-card-header {
+    border-top-width: 0;
+  }
+}
+
+.coupon-container {
+ overflow: hidden;
+}
+
+.odds-card {
+  padding: 5px 12px;
+
+  .odds-content-panel {
+    min-height: 20px;
+  }
+
+  .odds-time {
+    font-size: $font-size-sm;
+  }
+
+  .odds-content .odds-names {
+    line-height: 1.75em;
+  }
+
+  .select-arrow {
+    margin: 0 0 0 6px;
+    width: 50px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+
+    &.disabled {
+      pointer-events: none;
+
+      svg {
+        fill: $color-gray-darker;
+      }
+    }
+
+    svg {
+      height: 10px;
+      width: 12px;
+      fill: $color-gray-dark;
+
+      &.arrow-top {
+        will-change: transform;
+        -webkit-transform: rotateX(180deg);
+        transform: rotateX(180deg);
+      }
+    }
+  }
+
+  .btn-bet-spinner {
+    .spinner-loader {
+      display: inline-block;
+      margin: 0 0 0 -15px;
+    }
+  }
+
+  .odds-select {
+    width: 50px;
+    min-height: 40px;
+    background: none;
+    margin: 0 0 0 6px;
+    border: 1px solid $color-gray-darker;
+    text-align: center;
+    border-radius: 0;
+    text-indent: 15px;
+    padding-left: 5px;
+    -webkit-appearance: none;
+
+    //Firefox Hack
+    @-moz-document url-prefix() {
+      text-indent: 0!important;
+      padding: 0!important;
+    }
+
+    &[disabled] {
+      opacity: .5;
+    }
+  }
+}

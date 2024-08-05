@@ -1,0 +1,17 @@
+<div class="qe-footer">
+  <ul class="qe-footer-list" *ngIf="qeData.quickLinks">
+    <li *ngFor="let link of qeData.quickLinks; let i = index; trackBy: trackByFn" class="qe-footer-list__item">
+      <a class="qe-footer-list__link"
+         *ngIf="link.title && link.relativePath"
+         routerLinkActive="active"
+         (click)=" redirectLink(link, i);"
+         href="javascript:void(0)"
+         [ngClass]="{'active': i === clickedItem}"
+      >
+        <span [textContent]="link.title"></span>
+        <span class="qe-footer-list__svg"></span>
+      </a>
+    </li>
+  </ul>
+
+</div>

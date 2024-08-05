@@ -1,0 +1,60 @@
+.shortened-view {
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  span, a {
+    user-select: text !important;
+  }
+}
+
+.drag-header {
+  width: 15px !important;
+}
+
+.drag-handler {
+  cursor: move;
+
+  i {
+    font-size: 15px;
+  }
+}
+
+.delete-btn {
+  cursor: pointer;
+}
+
+tr.not-valid {
+  background-color: #cccbc9 !important;
+}
+
+.highlighted {
+  background-color: palegreen;
+}
+
+a.action-link {
+  display: block;
+  width: 100%;
+}
+
+tr.datarow td {
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.action-link .material-icons {
+  font-size: 18px;
+}
+
+.action-link .action-icon {
+  display: inline-block;
+  width: 30%;
+  text-align: center;
+}
+
+.action-link .action-text {
+  display: inline-block;
+  width: 70%;
+  text-align: center;
+}

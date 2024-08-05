@@ -1,0 +1,37 @@
+management:
+  # TODO: actuator is disabled on prod for now.
+  endpoints:
+    enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true
+    info:
+      enabled: true
+
+spring:
+  redis:
+    password: D2D2D9FBB87079F58F2FE3C4B367006C695D63FD
+    sentinel:
+      master: master
+      nodes:  AT2S5XACOD248.dbz.unix:26388,AT2S5XACOD249.dbz.unix:26388,AT2S5XACOD247.dbz.unix:26388
+
+
+siteServer:
+  baseUrl: https://ss-aka-ori.coral.co.uk/
+
+liveserv:
+  url: https://mob-push.coral.co.uk/push
+
+
+df:
+  baseUrl: https://sb-api.coral.co.uk
+  apiKey: CD9eed783e6f474d2c9a0bfd5a627ebd5a
+  loggingLevel: BASIC
+
+masterlock:
+  aws:
+    dynamo.lock-table-name: CR-MSLOCKTABLE-NONPROD
+
+app:
+  nextRaces:
+    timePeriodMinutes: 15

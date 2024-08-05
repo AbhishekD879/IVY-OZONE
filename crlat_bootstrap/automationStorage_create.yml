@@ -1,0 +1,28 @@
+---
+- name: Create AutomationStorage EC2 node
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    key_name: crlat
+    instance_type: t2.micro
+    security_group: crlat
+    image_name: ubuntu_1604_ansible
+    subnet_name: services
+    volume_size: 8
+    action: create
+    node_type: SingleNode
+    assign_public_ip: no
+    tags:
+      team: Automation
+      nodeType: "{{ node_type }}"
+      Name: AutomationStorage
+      class: Storage
+      s3mounts: crlat-storage
+      packages: docker,s3fs
+      dockers: telegraf,crlatRegistry,crlatPYPI,crlatReports
+    num_nodes: 1
+  tasks:
+  - name: crlat.vpc
+    include_role:
+      name: crlat.vpc

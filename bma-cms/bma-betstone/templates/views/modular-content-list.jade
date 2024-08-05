@@ -1,0 +1,220 @@
+extends ../layout/base
+
+block content
+
+  script(src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js")
+  script(src="/keystone/js/lib/angular/bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.js")
+  script(src="/keystone/js/lib/angular/bower_components/moment/min/moment.min.js")
+  script(src="/keystone/js/lib/angular/bower_components/ngDialog/js/ngDialog.min.js")
+  link(href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css", rel="stylesheet")
+  link(href="/keystone/js/lib/angular/bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.css", type="text/css", rel="stylesheet")
+  link(href="/keystone/js/lib/angular/bower_components/ngDialog/css/ngDialog.css", type="text/css", rel="stylesheet")
+  link(href="/keystone/js/lib/angular/bower_components/ngDialog/css/ngDialog-theme-default.css", type="text/css", rel="stylesheet")
+  link(href="/keystone/styles/bmaBetstone.css", type="text/css", rel="stylesheet")
+  script(src="/keystone/js/lib/angular/modular-content.js")
+    
+  div#list-view
+    div.create-item
+      div.toolbar
+        a.btn.btn-default.btn-create.btn-create-item(href="/keystone/modular-content/new") + Create Featured Tab Module
+      hr
+
+  div.page-header.list-header
+
+  div.items-list-wrapper
+    div(ng-app="cmsModularContent")
+      div(ng-controller="homeModules")
+        div(ng-controller="moduleList")
+          div(class="list-toolbar")
+            div(class="form-inline searchbox-form mr-5")
+              div(class="searchbox-field")
+                input(class="form-control js-search-list searchbox-input", type="search", name="search", placeholder="Quick search modules", , ng-model="commonQuery")
+              //div(class='searchbox-button')
+                button(type="submit", class="btn btn-default btn-search searchbox-submit", ng-click='')
+                  span(class="visible-xs") Go
+                  span(class="hidden-xs") Search
+            div(class="dropdown-inline list-filter-dropdown")
+              button(type="button", data-toggle="dropdown", class="btn btn-default dropdown-toggle") Add Filter
+                b(class="caret")
+              ul(class="dropdown-menu")
+                li(ng-class="{disabled: cFilter.moduleTitle}")
+                  a(class="add-list-filter", ng-click="addFilter('moduleTitle')")
+                    span(class="fieldicon fieldicon-text")
+                    span Title
+                li(ng-class="{disabled: cFilter.moduleEnabled}")
+                  a(class="add-list-filter", ng-click="addFilter('moduleEnabled')")
+                    span(class="fieldicon fieldicon-boolean")
+                    span Enabled
+                li(ng-class="{disabled: cFilter.moduleDisplayFrom}")
+                  a(class="add-list-filter", ng-click="addFilter('moduleDisplayFrom')")
+                    span(class="fieldicon fieldicon-date")
+                    span Display From
+                li(ng-class="{disabled: cFilter.moduleDisplayTo}")
+                  a(class="add-list-filter", ng-click="addFilter('moduleDisplayTo')")
+                    span(class="fieldicon fieldicon-date")
+                    span Display To
+                li(ng-class="{disabled: cFilter.moduleDisplayOrder}")
+                  a(class="add-list-filter", ng-click="addFilter('moduleDisplayOrder')")
+                    span(class="fieldicon fieldicon-text")
+                    span Display Order
+                li(ng-class="{disabled: cFilter.moduleNavItem}")
+                  a(class="add-list-filter", ng-click="addFilter('moduleNavItem')")
+                    span(class="fieldicon fieldicon-relationship")
+                    span Tab
+                li(ng-class="{disabled: cFilter.modulePublishToChannels}")
+                  a(class="add-list-filter", ng-click="addFilter('modulePublishToChannels')")
+                    span(class="fieldicon fieldicon-relationship")
+                    span Publish to channels
+          div(class="list-filters", ng-class="{'ng-hide': !(cFilter.areAnyFiltersActive())}")
+
+            div(data-path="title", data-type="text", class="filter active", ng-if=" cFilter.moduleTitle")
+              div(class="filter-label")
+                a(data-toggle="tooltip", data-placement="right", data-container="body", class="btn-companion-xs clear-filter", data-original-title="Remove filter", ng-click="clearFilter( 'moduleTitle' )") x
+                span(class="fieldicon fieldicon-text")
+                div(class="btn-companion-xs") Title
+              div(class="filter-options")
+                div(class="filter-input filter-input-md")
+                  input(type="search", placeholder="title", class="form-control input-xs", ng-model="activeFilter.moduleTitle")
+
+            div(data-path="title", data-type="text", class="filter active", ng-if="cFilter.moduleEnabled")
+              div(class="filter-label")
+                a(data-toggle="tooltip", data-placement="right", data-container="body", class="btn-companion-xs clear-filter", data-original-title="Remove filter", ng-click="clearFilter( 'moduleEnabled' )") x
+                span(class="fieldicon fieldicon-boolean")
+                div(class="btn-companion-xs") Enabled
+              div(class="filter-options")
+                div(class="filter-input filter-input-md")
+                  input(type="checkbox", ng-model="activeFilter.moduleEnabled")
+                  span(style="color: #999; font-size: 12px;")  Select: is enabled / disabled
+
+            div(data-path="title", data-type="text", class="filter active", ng-if="cFilter.moduleDisplayFrom")
+              div(class="filter-label")
+                a(data-toggle="tooltip", data-placement="right", data-container="body", class="btn-companion-xs clear-filter", data-original-title="Remove filter", ng-click="clearFilter( 'moduleDisplayFrom' )") x
+                span(class="fieldicon fieldicon-date")
+                div(class="btn-companion-xs") Display from
+              div(class="filter-options")
+                div(class="filter-input filter-input-md")
+                  module-ribbon-datetimepicker(model="activeFilter.moduleDisplayFrom")
+
+            div(data-path="title", data-type="text", class="filter active", ng-if="cFilter.moduleDisplayTo")
+              div(class="filter-label")
+                a(data-toggle="tooltip", data-placement="right", data-container="body", class="btn-companion-xs clear-filter", data-original-title="Remove filter", ng-click="clearFilter( 'moduleDisplayTo' )") x
+                span(class="fieldicon fieldicon-date")
+                div(class="btn-companion-xs") Display to
+              div(class="filter-options")
+                div(class="filter-input filter-input-md")
+                  module-ribbon-datetimepicker(model="activeFilter.moduleDisplayTo", from="activeFilter.moduleDisplayFrom")
+
+            div(data-path="title", data-type="text", class="filter active", ng-if="cFilter.moduleDisplayOrder")
+              div(class="filter-label")
+                a(data-toggle="tooltip", data-placement="right", data-container="body", class="btn-companion-xs clear-filter", data-original-title="Remove filter", ng-click=" clearFilter ( 'moduleDisplayOrder' )") x
+                span(class="fieldicon fieldicon-text")
+                div(class="btn-companion-xs") Display Order
+              div(class="filter-options")
+                div(class="filter-input filter-input-md")
+                  input(type="number", placeholder='display order', class="form-control input-xs", ng-model="activeFilter.moduleDisplayOrder")
+
+            div(data-path="title", data-type="text", class="filter active", ng-if="cFilter.moduleNavItem")
+              div(class="filter-label")
+                a(data-toggle="tooltip", data-placement="right", data-container="body", class="btn-companion-xs clear-filter", data-original-title="Remove filter", ng-click="clearFilter( 'moduleNavItem' )") x
+                span(class="fieldicon fieldicon-relationship")
+                div(class="btn-companion-xs") Tab
+              div(class="filter-options")
+                module-ribbon-tabs(model="activeFilter.moduleNavItem" )
+
+
+            div(data-path="title", data-type="text", class="filter active", ng-if="cFilter.modulePublishToChannels")
+              div(class="filter-label")
+                a(data-toggle="tooltip", data-placement="right", data-container="body", class="btn-companion-xs clear-filter", data-original-title="Remove filter", ng-click="clearFilter( 'modulePublishToChannels' )") x
+                span(class="fieldicon fieldicon-relationship")
+                div(class="btn-companion-xs") Publish to channels
+              div(class="filter-options")
+                div(class="filter-input filter-input-md")
+                  publish-to-channels(model="activeFilter.modulePublishToChannels", show-heading="false")
+
+            div(class="list-filters-action" style="display: block;")
+              //button(type="submit", class="btn btn-default btn-filter", ng-click='search()') Serach
+              a(class="btn btn-link btn-cancel", ng-click="clearFilters()") clear filters
+          div(ng-repeat="(key, moduleList) in filteredList | orderModules:sorting", 
+              class="{{moduleList[0].moduleType}} modules-container panel panel-default", 
+              ng-if="moduleList.length")
+            div(class="panel-heading") {{moduleList[0].moduleType | capitalize}}
+            table.sortable.table.items-list
+              colgroup
+                col(width="26")
+                col(width="26")
+                col(width="26")
+                col
+                col(width="85")
+                col
+                col
+                col(width="100")
+                col
+                col
+              thead
+                tr
+                  th(colspan=4,ng-click="predicate = 'title'; reverse=!reverse") Title
+                  th(ng-click="predicate = 'visibility.enabled'; reverse=!reverse") Enabled
+                  th(ng-click="predicate = 'visibility.displayFrom'; reverse=!reverse") Display From
+                  th(ng-click="predicate = 'visibility.displayTo'; reverse=!reverse") Display To
+                  th(ng-click="predicate = 'displayOrder'; reverse=!reverse") Display Order
+                  th(ng-click="predicate = 'navItem'; reverse=!reverse") Tabs
+                  th(ng-click="predicate = 'publishToChannels'; reverse=!reverse") Publish to channels
+              tbody
+                tr(ng-if="result.length" ng-repeat="doc in result = (moduleList | moduleTitle:activeFilter | moduleEnabled:activeFilter | moduleDisplayFrom:activeFilter | moduleDisplayTo:activeFilter | moduleDisplayOrder:activeFilter | moduleNavItem:activeFilter | modulePublishToChannels:activeFilter | filter:commonQuery | orderBy:predicate:reverse)")
+
+                  td(class="control", data-name="delete")
+                    a(href="javascript://" ng-click="deleteModule(doc._id)", class="control-delete")
+
+                  td(class="control", data-name="edit")
+                    a(ng-show="freezeItems[doc._id]", ng-click="editingItem($event, doc._id, doc)", class="editHomeModuleInlineItemList")
+                    a(ng-hide="freezeItems[doc._id]", ng-click="editModule(doc._id, currentlyEditedObject)", class="ion-checkmark icon editHomeModuleItemList")
+
+                  td(class="control")
+                    a(ng-hide="freezeItems[doc._id]", ng-click="deleteEditingItem(doc._id)", class="control-delete deleteHomeModuleInlineItemList")
+
+                  td
+                    div(class="col-value")
+                      a(ng-href="/keystone/modular-content/{{doc._id}}", ng-bind="doc.title")
+
+                  td
+                    input(type="checkbox",ng-show="freezeItems[doc._id]",  ng-disabled="freezeItems[doc._id]", ng-model="doc.visibility.enabled")
+                    input(type="checkbox", ng-hide="freezeItems[doc._id]", ng-disabled="freezeItems[doc._id]", ng-model="currentlyEditedObject.visibility.enabled")
+
+                  td
+                    div(ng-show="freezeItems[doc._id]", class="col-value")
+                      span(ng-bind="convertDateObjIntoStr(doc.visibility.displayFrom)")
+                    div(ng-if="!freezeItems[doc._id]")
+                      module-ribbon-datetimepicker(model="currentlyEditedObject.visibility.displayFrom")
+
+                  td
+                    div(ng-show="freezeItems[doc._id]", class="col-value")
+                      span(ng-bind="convertDateObjIntoStr(doc.visibility.displayTo)")
+                    div(ng-if="!freezeItems[doc._id]")
+                      module-ribbon-datetimepicker(model="currentlyEditedObject.visibility.displayTo", from="currentlyEditedObject.visibility.displayFrom")
+
+                  td
+                    div(ng-show="freezeItems[doc._id]", class="col-value")
+                      span {{doc.displayOrder}}
+                    div(ng-if="!freezeItems[doc._id]", class="col-value")
+                      input(type="number" ng-model="currentlyEditedObject.displayOrder", class="form-control ng-pristine ng-valid ng-touched")
+
+                  td
+                    div(ng-show="freezeItems[doc._id]", class="col-value")
+                      span {{doc.navItem}}
+                    div(ng-if="!freezeItems[doc._id]", class="col-value")
+                      div(class="field-ui homeModuleListEditColumns")
+                        module-ribbon-tabs(model="currentlyEditedObject.navItem" )
+
+                  td
+                    div(ng-if="freezeItems[doc._id]", class="col-value")
+                      span(ng-repeat="channel in doc.publishToChannels")
+                        label {{channel}}
+                    div(ng-if="!freezeItems[doc._id]", class="col-value")
+                      publish-to-channels(model="currentlyEditedObject.publishToChannels", show-heading="false")
+            pagination( ng-if="itemsPerPage < pagination[moduleList[0].moduleType].totalItems", 
+                        items-per-page="itemsPerPage", 
+                        total-items="pagination[moduleList[0].moduleType].totalItems", 
+                        ng-model="pagination[moduleList[0].moduleType].currentPage", 
+                        ng-change="filterModule(moduleCategories[moduleList[0].moduleType], moduleList[0].moduleType)")
+            div(ng-if="!result.length")
+              h3 No item found

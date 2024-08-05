@@ -1,0 +1,412 @@
+@import 'global.variables.scss';
+
+@keyframes moveBottomToTop {
+  from {
+    top: 500px;
+  }
+
+  to {
+    top: 0;
+  }
+}
+
+@keyframes fadeIn {
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes loadingMsg {
+  0% {
+    box-shadow: 9984px 0 0 0 $color-red-dark, 9999px 0 0 0 $color-red-dark, 10014px 0 0 0 $color-red-dark;
+  }
+
+  16.667% {
+    box-shadow: 9984px -10px 0 0 $color-red-dark, 9999px 0 0 0 $color-red-dark, 10014px 0 0 0 $color-red-dark;
+  }
+
+  50% {
+    box-shadow: 9984px 0 0 0 $color-red-dark, 9999px -10px 0 0 $color-red-dark, 10014px 0 0 0 $color-red-dark;
+  }
+
+  83.333% {
+    box-shadow: 9984px 0 0 0 $color-red-dark, 9999px 0 0 0 $color-red-dark, 10014px -10px 0 0 $color-red-dark;
+  }
+
+  100% {
+    box-shadow: 9984px 0 0 0 $color-red-dark, 9999px 0 0 0 $color-red-dark, 10014px 0 0 0 $color-red-dark;
+  }
+}
+
+.overlay {
+  height          : 100%;
+  width           : 100%;
+  position        : fixed;
+  display         : block;
+  z-index         : 1020;
+  top             : 0;
+  left            : 0;
+  background-color: $color-white;
+  animation       : moveBottomToTop 0.7s ease-in-out 1;
+}
+
+.overlay-content {
+  position  : relative;
+  width     : 100%;
+  text-align: center;
+  height    : 100%;
+  overflow  : hidden;
+}
+
+.overlay a {
+  text-decoration: none;
+  font-size      : 36px;
+}
+
+.overlay a:hover,
+.overlay a:focus {
+  color: $color-white;
+}
+
+.overlay .closebtn {
+  position : absolute;
+  right    : 15px;
+  font-size: 25px;
+  color    : $color-white;
+}
+
+.hideOverlay {
+  width  : 0;
+  display: none;
+}
+
+.loadingChat {
+  display         : block;
+  position        : fixed;
+  left            : -9970px;
+  bottom          : 20px;
+  width           : 10px;
+  height          : 10px;
+  border-radius   : 5px;
+  background-color: $color-red-dark;
+  box-shadow      : 9984px 0 0 0 $color-red-dark, 9999px 0 0 0 $color-red-dark, 10014px 0 0 0 $color-red-dark;
+  animation       : loadingMsg linear 1s infinite;
+}
+
+.bannerContainer {
+  background-image: linear-gradient(to bottom, $color-red-light 35%, $color-red-dark);
+  position        : sticky;
+  top             : 0;
+  z-index         : 1001;
+  padding-bottom  : 5px;
+}
+
+.imgMainContainer {
+  height: 26vh;
+}
+
+.imgContainer {
+  height: 6vh;
+}
+
+.newDisplay {
+  height       : 10%;
+  padding      : 6%;
+  margin-bottom: 0;
+}
+
+.contentContainer {
+  width     : auto;
+  padding-top: 5%;
+  height    : calc(100vh - 6em);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.content-area {
+  padding-bottom: 12%;
+}
+
+:host {
+  ::ng-deep {
+
+    .question,
+    .answer,
+    .summary,
+    .resultContainer {
+      position           : relative;
+      background-color   : $color-red-dark;
+      color              : $color-white-disable-btn;
+      padding            : 10px 14px 10px 12px;
+      margin             : 5px 19px 6px 20px;
+      border-radius      : 14px;
+      font-family        : $chat-font-family;
+      width              : fit-content;
+      max-width          : 320px;
+      font-size          : 17px;
+      text-align         : left;
+      clear              : both;
+      z-index            : 1;
+    }
+
+    .question::after,
+    .answer::after,
+    .summary::after,
+    .resultContainer::after {
+      content                   : url('/assets/redtail.svg');
+      top                       : calc(100% - 20px);
+      left                      : -5px;
+      position                  : absolute;
+      overflow-wrap             : break-word;
+      width                     : 24px;
+      height                    : 50%;
+      z-index                   : -1 ;
+    }
+
+    .answer {
+      color           : $color-black;
+      background-color: $color-grey-bg;
+      float           : right;
+      margin          : 3px 16px 10px;
+    }
+
+    .answer:after {
+      content   : url('/assets/graytail.svg');
+      top       : calc(100% - 20px);
+      left      : calc(100% - 16px);
+      display   : block;
+    }
+
+    .resultContainer {
+      width    : 85%;
+      max-width: 85%;
+    }
+
+    .resultText,
+    .resultImg {
+      display: inline-block;
+    }
+
+    .silk-img {
+      margin: 10px 18px 20px 0;
+    }
+
+    .ctaContainer {
+      padding-bottom: 60px;
+      position: relative;
+    }
+
+    .summary {
+      margin-bottom: 20%;
+    }
+    .resultContainer {
+      margin-top: -18%;
+    }
+
+    .ctaBtn {
+      width           : 89%;
+      height          : 44px;
+      margin          : 70px 16px 0;
+      border-radius   : 5px;
+      border          : solid 1px $color-green-dark;
+      background-image: linear-gradient(to bottom, $color-green-light, $color-green-btn);
+      color           : $color-white-disable-btn;
+      font-weight     : 700;
+    }
+
+    .optionContainer {
+      display        : flex;
+      justify-content: center;
+      flex-flow      : wrap;
+      animation      : moveBottomToTop 0.2s ease-in-out 1;
+    }
+
+    .answer-option {
+      background-color: $color-grey-bg;
+      padding         : 10px;
+      margin          : 6px 6px 2px;
+      border-radius   : 21px;
+      font-family     : $base-font-family;
+      font-size       : 14px;
+      width           : 85vw;
+      max-width       : 85vw;
+      font-weight     : bold;
+      letter-spacing  : 0.03px;
+      color           : $color-black;
+      animation       : moveBottomToTop 0.2s ease-in-out 1;
+    }
+
+    .selectedAnswer {
+      background-color: $color-red-dark;
+      color           : $color-white-disable-btn;
+    }
+
+    .summaryDetails {
+      font-weight: bold;
+    }
+
+    .summaryData::after {
+      content: "\a";
+      white-space: pre;
+    }
+
+    .error-notification {
+      background    : $color-yellow-alt;
+      text-align    : left;
+      position      : fixed;
+      padding       : 10px 30px 10px 10px;
+      font-size     : 12px;
+      letter-spacing: 0;
+      color         : $lGray;
+      font-family   : $alt-font-family;
+      z-index       : 10;
+
+      &.tablet {
+        width: 100%;
+      }
+
+      .close-icon {
+        position : absolute;
+        will-change: transform;
+        top      : 30%;
+        cursor   : pointer;
+        transform: translate(0, -50%);
+        right    : 1.5%;
+        padding  : 10px;
+
+        svg {
+          width : 10px;
+          height: 10px;
+        }
+      }
+    }
+
+    .stepCount {
+      width         : 73px;
+      height        : 16px;
+      margin        : 9px 0px 18px 15px;
+      font-family   : $alt-font-family;
+      font-size     : 14px;
+      font-weight   : 400;
+      font-stretch  : normal;
+      font-style    : normal;
+      line-height   : 1.14;
+      letter-spacing: normal;
+      text-align    : left;
+      color         : $color-grey-label;
+      position      : relative;
+      opacity       : 0;
+      animation     : fadeIn 1.5s ease-in-out 1 forwards;
+    }
+  }
+}
+
+
+@media screen and (max-height: 450px) {
+  .overlay a {
+    font-size: 20px
+  }
+
+  .overlay .closebtn {
+    font-size: 40px;
+    top      : 15px;
+    right    : 35px;
+  }
+}
+
+@media screen and (max-height: 760px) {
+  .imgMainContainer {
+    height: 18vh;
+  }
+  .content-area {
+    padding-bottom: 5%;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  #freeRideOverlay {
+    top             : 0;
+    bottom          : 0;
+    right           : 0;
+    height          : 100%;
+    width           : 100%;
+    position        : fixed;
+    z-index         : 1002;
+    background-color: $color-grey-disable;
+    animation       : none;
+  }
+
+  .overlay {
+    display         : block;
+    left            : unset;
+    background-color: $color-white;
+    animation       : moveBottomToTop 0.7s ease-in-out 1;
+  }
+
+  .hideOverlay {
+    width  : 0;
+    display: none;
+  }
+
+  .overlay-content {
+    background-color: $color-white;
+    width           : 30%;
+    left            : 70%;
+    top             : 56px;
+  }
+
+  .loadingChat {
+    margin-left: 70%;
+    bottom     : 4px;
+  }
+
+  .headingImage {
+    margin-bottom: 5px;
+  }
+
+  .content-area {
+    padding-bottom: 17%;
+  }
+
+  .contentContainer {
+    margin-top: 5px;
+  }
+
+  .imgContainer {
+    height: 4vh;
+  }
+
+  .imgMainContainer {
+    margin-top: 10px;
+    height    : 30%;
+    width     : 30%;
+  }
+
+  :host {
+    ::ng-deep {
+      .result {
+        display  : flex;
+        width    : 25vw;
+        max-width: 25vw;
+      }
+
+      .question,
+      .summary,
+      .answer,
+      .resultContainer {
+        font-size: 14px;
+      }
+
+      .answer-option {
+        font-size: 12px;
+        margin   : 4px;
+        width    : 80%;
+        max-width: 80%;
+      }
+    }
+  }
+}

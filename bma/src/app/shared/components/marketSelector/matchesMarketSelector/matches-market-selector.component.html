@@ -1,0 +1,10 @@
+<drop-down-menu *ngIf="selectOptions && selectOptions.length"
+                class="market-selector"
+                [selectedItem]="marketFilter"
+                selectionNameKey="title"
+                [selectionValueKeys]="['templateMarketName','title']"
+                [menuList]="selectOptions"
+                [toggleTitle]="toggleTitle"
+                [isFromCoupon]="isFromCoupon"
+                (clickFunction)="filterMarkets($event)">
+</drop-down-menu>

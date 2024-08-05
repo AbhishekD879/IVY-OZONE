@@ -1,0 +1,66 @@
+{
+  "betChannel": "I",
+  "betslipDateTime": "2019-12-23T12:44:03.000+0000",
+  "customerID": "185214976",
+  "username": "meyrick1961",
+  "isSettled": true,
+  "settleMethod": "S",
+  "bets": {
+    "bet": [
+      {
+        "betKey": "2016868027",
+        "betType": "SGL",
+        "stake": 4.0,
+        "leg": [
+          {
+            "legNo": "0",
+            "part": [
+              {
+                "betPrice": {
+                  "priceType": "LP",
+                  "num": 5,
+                  "den": 1,
+                  "isEarlyPrice": true,
+                  "decimalPrice": 6.0
+                },
+                "eachWayPlaces": 0,
+                "rawHandicapValue": "0",
+                "selectionKey": 1001333835,
+                "marketKey": 427591886,
+                "eventKey": 229623587,
+                "eventName": "|13:25 Chantilly|",
+                "handicapValue": "0",
+                "winPlace": "EACH_WAY",
+                "isInRunning": false
+              }
+            ],
+            "legSort": "--"
+          }
+        ],
+        "freebetAmount": 0.0,
+        "betReceipt": "O/185214976/0002326",
+        "createDateTime": "2019-12-23T12:44:03.000+0000",
+        "winningAmount": 0.0,
+        "refundAmount": 0.0,
+        "stakePerLine": 2.0,
+        "fundedAmount": 4.0,
+        "currencyCode": "GBP",
+        "pending": false,
+        "poolbet": false,
+        "autoWithdrawal": false
+      }
+    ],
+    "numLines": 2,
+    "numVoidLines": 0,
+    "numWinLines": 0,
+    "numLoseLines": 2
+  },
+  "meta": {
+    "messageType": "Settlement",
+    "source": "OB-kafka"
+  },
+  "isPaid": true,
+  "settlementStatus": "FullSettled",
+  "cancelled": false,
+  "paid": true
+}

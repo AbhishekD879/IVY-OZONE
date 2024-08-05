@@ -1,0 +1,64 @@
+<div class="questions-carousel">
+  <div class="qe-progress-bar" *ngIf="qeData?.quizConfiguration?.showProgressBar">
+    <ul class="qe-progress-bar-list">
+      <li class="qe-progress-bar-item qe-progress-status" [ngStyle]="{'width': progressBarStepWidth}"></li>
+    </ul>
+  </div>
+
+  <a *ngIf = "currentCarouselStep > 0"
+     (click)="prevSlide();"
+     href="javascript:void(0)"
+     class="slide-btn prev"
+  >
+    <span class="btn-back-svg qe-arrow is-left"></span>
+    <span [i18n]="'qe.prevSlideText'"></span>
+
+  </a>
+  <a *ngIf = "currentCarouselStep < this.qeData.questionsList.length - 1"
+     [ngClass]="{inactive: !userAction[currentCarouselStep]}"
+     (click)="goToNextSlide();"
+     href="javascript:void(0)"
+     class="slide-btn next"
+  >
+    <span class="btn-back-svg qe-arrow is-right"></span>
+    <span [i18n]="'qe.nextSlideText'"></span>
+  </a>
+  <div
+    class="swiper-container ng-carousel"
+    [ngCarousel]
+    [ngCarouselName]="carouselName"
+    [ngCarouselWatch]="qeData.questionsList.length"
+    [ngCarouselLoop]="false"
+    [ngCarouselMoveThresholdPercentage]="ngCarouselMoveThresholdPercentage"
+    [ngCarouselDisableRightSwipe]="ngCarouselDisableRightSwipe"
+  >
+
+    <slidecontainer class="carousel-slides">
+      <slide id="{{index}}" class="slide" *ngFor="let item of qeData.questionsList; let index = index;">
+        <div class="slide-wrap">
+
+          <h6 class="questions-carousel-signposting"
+              *ngIf="(item.questionDetails.signposting || qeData.defaultQuestionsDetails.signposting)  && qeData?.quizConfiguration?.showQuestionNumbering"
+              [textContent]="item.questionDetails.signposting || qeData.defaultQuestionsDetails.signposting"></h6>
+          <span class="questions-carousel-title"
+              [textContent]="item.text"></span>
+          <span class="questions-carousel-text"
+              *ngIf="(item.questionDetails.description || qeData.defaultQuestionsDetails.description)"
+              [textContent]="item.questionDetails.description || qeData.defaultQuestionsDetails.description"></span>
+
+          <ng-container *ngFor="let answer of item.answers">
+            <button
+              *ngIf ="answer.text"
+              class="questions-carousel-btn"
+              (click)="nextSlide(answer.id, answer.nextQuestionId, answer.questionAskedId, item.nextQuestions)"
+              [ngClass]="{active: currentAnswerId === answer.id} "
+              [textContent]="answer.text"
+            >
+            </button>
+          </ng-container>
+        </div>
+      </slide>
+    </slidecontainer>
+
+  </div>
+</div>

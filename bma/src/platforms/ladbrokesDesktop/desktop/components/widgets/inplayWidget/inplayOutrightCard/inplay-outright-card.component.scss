@@ -1,0 +1,65 @@
+@import 'global.variables.scss';
+
+.in-play-card-body.in-play-outright-event {
+  @include display-flex();
+  @include flex-flow(column);
+
+  padding: 10px 0;
+  height: 142px;
+
+  &.no-market {
+    display: block;
+    height: 182px;
+
+    .in-play-score {
+      margin-top: 20px;
+    }
+  }
+}
+
+.in-play-outright-event-name {
+  white-space: normal;
+  font-size: 14px;
+  font-weight: 700;
+  color: $color-gray-dark;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 10px;
+}
+
+.inplay-card-outright-selections-name-container {
+  @include display-flex();
+
+  min-height: 30px;
+
+}
+
+.inplay-card-outright-selection-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 5px;
+}
+
+.inplay-card-outright-selection-name-container {
+  @include display-flex();
+  @include flex(1, 1, 100%);
+  @include align-items();
+  @include justify-content();
+
+  overflow: hidden;
+  border-right: 1px solid $color-gray-light;
+  font-size: 12px;
+  font-weight: 700;
+  color: $color-gray-dark;
+
+  &:last-child {
+    border: none;
+  }
+}
+
+.in-play-outright-card-footer {
+  margin-top: 1px;
+}

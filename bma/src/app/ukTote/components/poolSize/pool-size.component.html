@@ -1,0 +1,7 @@
+<div class="pool-header" *ngIf="getFormattedPoolSize() as formattedPoolSize">
+  <div>
+    <span class="pool-size-label" [i18n]="'uktote.poolSizeLabel'"></span>
+    <span class="pool-size-value" [textContent]="formattedPoolSize"></span>
+  </div>
+  <span class="gp-cls pool-size-gp" [ngClass] = "(deviceService.isMobile ? 'gp-is-mobile' : 'pool-leg-gp')" *ngIf="isnotLegEvents()">Guide Price</span>
+</div>

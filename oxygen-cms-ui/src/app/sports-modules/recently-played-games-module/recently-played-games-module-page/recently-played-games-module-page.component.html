@@ -1,0 +1,83 @@
+<breadcrumbs *ngIf="module" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="module">
+  <div class="header">
+    <h2 class="waves-effect waves-block has-activity-badge">
+      Title: {{module.title}}
+      <create-updated-at-by [collection]="module"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="module.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="module">
+  <form [formGroup]="form">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-2">
+          <mat-checkbox color="primary"
+                        [checked]="!module.disabled"
+                        (change)="module.disabled = !module.disabled">
+            Active
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 m-b-10">
+          <mat-form-field class="full-width">
+            <input [(ngModel)]="module.rpgConfig.title" matInput type="text" placeholder="Module title"
+                    formControlName="title"  trim="blur" required>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 m-b-10">
+          <mat-form-field class="full-width">
+            <input [(ngModel)]="module.rpgConfig.seeMoreLink" matInput type="text" placeholder="See more link"
+                   formControlName="seeMoreLink" trim="blur" required>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 m-b-10">
+          <mat-form-field class="full-width">
+            <input [(ngModel)]="module.rpgConfig.gamesAmount" [value]="module.rpgConfig.gamesAmount" matInput
+                    appNumberOnly
+                    type="number"
+                    placeholder="Games amount"
+                    formControlName="gamesAmount" 
+                    min="1"
+                    required>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 m-b-10">
+          <mat-form-field class="full-width">
+            <input [(ngModel)]="module.rpgConfig.bundleUrl" matInput type="text" placeholder="RPG bundle url"
+                   formControlName="bundleUrl" trim="blur" required>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 m-b-10">
+          <mat-form-field class="full-width">
+            <input [(ngModel)]="module.rpgConfig.loaderUrl" matInput type="text" placeholder="RPG XBC-loader url"
+                    formControlName="loaderUrl" trim="blur" required>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="module"
+  [validateHandler]="isValidModule"
+  [fieldOrItemName]="'title'"
+  [collection]="module"
+  [showRemoveButton]="false"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

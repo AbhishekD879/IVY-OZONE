@@ -1,0 +1,22 @@
+@import 'global.variables.scss';
+
+.error-template {
+  color: $color-gray-dark;
+  padding: 20px 0 30px;
+  font-size: 14px;
+  font-weight: bold;
+  .alert-icon {
+    width: 22px;
+    height: 19px;
+    margin: 10px auto 0;
+    display: block;
+    fill: $color-gray-dark;
+  }
+  .div, p {
+    margin: 10px auto 0;
+    line-height: 22px;
+    color: $color-gray-dark;
+    padding: 0;
+    font-size: 14px;
+  }
+}

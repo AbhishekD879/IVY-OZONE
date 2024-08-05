@@ -1,0 +1,64 @@
+@import 'global.variables.scss';
+$componets-edge-gap: 10px;
+$color-gray-dark: #41494E;
+$color-gray-light: #F9FAFE;
+$color-gray-light-two: #e2e5f0;
+.quick-links-container {
+  background: #FFFFFF;
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  .quick-links-title {
+    color: #41494E;
+    text-align: center;
+    display: block;
+    padding: 25px 10px 22px;
+    font-weight: bold;
+    ::ng-deep p {
+      font-size: 11px;
+      margin: 0;
+    }
+  }
+}
+
+.quick-links-area {
+  @include display-flex();
+  @include flex-flow(row, wrap);
+  @include align-items(center);
+  @include justify-content(flex-start);
+
+  padding: 0 5px;
+  a {
+    @include display-flex();
+    @include align-items();
+    @include justify-content();
+    font-weight: bold;
+    font-size: 11px;
+    max-width: calc((100% - 71px) / 7);
+    min-width: calc((100% - 71px) / 7);
+    height: 40px;
+    background: #F9FAFE;
+    padding: 10px;
+    color: #41494E;
+    margin: 0 5px 10px;
+    span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    @media screen and (max-width: 1279px) {
+      max-width: calc((100% - 50px) / 5);
+      min-width: calc((100% - 50px) / 5);
+    }
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: none;
+      background: $IGreyLightDark;
+    }
+    &.active {
+      pointer-events: none;
+    }
+  }
+}

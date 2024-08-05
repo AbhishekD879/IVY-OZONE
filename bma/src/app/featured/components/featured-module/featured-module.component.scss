@@ -1,0 +1,17 @@
+@import 'global.variables.scss';
+
+:host {
+  display: block;
+
+  .featured-race-card {
+    display: block;
+  }
+
+  .see-all-link {
+    font-size: $font-size-md;
+
+    &:active{
+      text-decoration: underline;
+    }
+  }
+}

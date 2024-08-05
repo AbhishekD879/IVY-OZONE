@@ -1,0 +1,42 @@
+<section>
+  <aside id="leftsidebar" class="sidebar">
+    <div class="menu">
+      <mat-nav-list class="list">
+        <p class="header">MAIN NAVIGATION</p>
+        <div class="list-item" *ngFor="let link of links">
+          <mat-list-item *ngIf="!link['sub-menus'] || !link['sub-menus'].length">
+            <a matLine [routerLink]="link.path"
+              [class.disabled]="(!link.active) ? true : null"
+              [routerLinkActive]="'active'"
+              [routerLinkActiveOptions]="{exact: true}">
+              <mat-icon matListIcon>{{ link.icon || 'folder' }}</mat-icon>
+              <span>{{link.label}}</span>
+            </a>
+          </mat-list-item>
+
+          <mat-list-item *ngIf="link['sub-menus'] && link['sub-menus'].length">
+            <a matLine
+              href="javascript:void(0);"
+              class="menu-toggle">
+              <mat-icon matListIcon>{{ link.icon || 'folder' }}</mat-icon>
+              <span>{{link.label}}</span>
+            </a>
+          </mat-list-item>
+
+          <mat-nav-list class="ml-menu" *ngIf="link['sub-menus'] && link['sub-menus'].length">
+            <div *ngFor="let subLink of link['sub-menus']">
+              <mat-list-item>
+                <a matLine [routerLink]="subLink.path"
+                   [class.disabled]="(!subLink.active) ? true : null"
+                   [routerLinkActive]="'active'"
+                   [routerLinkActiveOptions]="{exact: true}">
+                  <span>{{subLink.label}}</span>
+                </a>
+              </mat-list-item>
+            </div>
+          </mat-nav-list>
+        </div>
+      </mat-nav-list>
+    </div>
+  </aside>
+</section>

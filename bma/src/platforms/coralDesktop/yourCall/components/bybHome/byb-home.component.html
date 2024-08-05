@@ -1,0 +1,31 @@
+<ng-container *ngIf="loaded">
+<header class="header-panel" [i18n]="'yourcall.buildYourBet'"></header>
+<div class="byb-home-content"
+     data-crlat="tab.showBYB"
+     [ngClass]="{'loading-v3': !loaded && !state.error}">
+     <div data-crlat="flashing.loader" class='dot-flashing'></div>
+  <switchers *ngIf="showSwitchers()" [filter]="filter" [switchers]="switchers"></switchers>
+  <div class="leagues-list" data-crlat="accordionsList">
+    <ng-container *ngFor="let league of displayData; index as i; trackBy: trackByLeague">
+        <accordion
+          *ngIf="leaguesStatuses[league.obTypeId]"
+          [isExpanded]="league.expaned"
+          [accordionTitle]="getTitle(league)"
+          (function)="trackExpandCollapse(league)"
+          data-crlat="ycAccordion">
+          <accordion-body>
+            <yourcall-byb-league *ngIf="league.expaned" [league]="league" [filter]="filter"></yourcall-byb-league>
+          </accordion-body>
+        </accordion>
+    </ng-container>
+  </div>
+  <div *ngIf="!showSwitchers() && loaded" class="no-leagues-available">
+    <h6>
+      <strong data-crlat="noEventsFound" [i18n]="'yourcall.noLeagues'"></strong>
+    </h6>
+  </div>
+</div>
+<outlet-status [state]="state">
+  <request-error (reloadFn)="reloadComponent()"></request-error>
+</outlet-status>
+</ng-container>

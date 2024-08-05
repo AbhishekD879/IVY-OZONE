@@ -1,0 +1,7 @@
+<div *ngIf="!!maxPayoutMsg" class="sb-maxpayout-panel">{{maxPayoutMsg}}</div>
+<div *ngIf="showInfoPanel()" (click)="openQuickDepositPanel()">
+  <div [ngClass]="isBrandLadbrokes ? 'lb-qb-info-panel' : 'sb-qb-info-panel'"
+       [class]="messageTypeClass"
+       [innerHTML]="infoPanel.msg | safe: 'html'">
+  </div>
+</div>

@@ -1,0 +1,114 @@
+@import "global.variables.scss";
+
+// Silk colors
+$color-blue-akva: #185CA9;
+$color-blue-hot: #3500FF;
+$color-green-forest: #006900;
+$color-green-kid: #09A061;
+$color-salad: #7FD320;
+$color-orange-real: #f08937;
+$color-red-clear: #FF0000;
+$color-red-hot: #E60000;
+$color-red-rose: #ea3030;
+$color-red-strong: #CC2223;
+$color-red-light: #f34444;
+$color-yellow-calmer: #F0CB00;
+$color-yellow-calm: #F1BB00;
+$color-yellow-sun: #F7F73A;
+$color-yellow-field: #FFDF18;
+$color-gray-wht: #E7E3E4;
+$color-gray-easy: #E8E8E8;
+$color-black-easy: #212121;
+$color-red-pink: #CC276C;
+$color-blue-sky: #4480f3;
+$color-purple: #9F00E8;
+
+// COMMON
+$race-silk-greyhound-width: 30px;
+$race-silk-greyhound-height: 30px;
+$outline: -1px -1px 1px $color-white, 1px -1px 1px $color-white, -1px 1px 1px $color-white, 1px 1px 1px $color-white;
+$border-black: 2px solid $color-black;
+$border-salad: 2px solid $color-salad;
+
+$bg-1: repeating-linear-gradient(
+       $color-white, $color-white 1px, $color-black 1px, $color-black 4px, $color-white 4px, $color-white 7px);
+$bg-2: repeating-linear-gradient(
+       $color-green, $color-green 5px, $color-white 5px, $color-white 12px);
+$bg-3: linear-gradient(
+       $color-green-kid, $color-green-kid 14px, $color-gray-wht 14px, $color-gray-wht 26px, $color-green-kid 26px);
+$bg-4: linear-gradient(
+       90deg, $color-yellow-calmer, $color-yellow-calmer 7px, $color-black 7px, $color-black 32px);
+$bg-5: repeating-linear-gradient(
+       -45deg, $color-white, $color-white 4px, $color-salad 4px, $color-salad 8px, $color-white 8px);
+$bg-6: linear-gradient(
+       90deg, $color-red-hot, $color-red-hot 10px, $color-white 10px, $color-white 20px,
+       $color-blue-hot 20px, $color-blue-hot 30px);
+
+// DEFAULT (UK)
+$background-deflt:  $color-red-light, $color-blue-sky, $color-white, $color-black, $color-orange-real,
+                    $bg-1, $bg-2, $color-pink;
+$colors-deflt:      $color-white, $color-white, $color-black, $color-white,
+                    $color-white, $color-red-rose, $color-red, $color-black;
+$text-shadow-deflt: none, none, none, none, none, $outline, $outline, none;
+$border-deflt:      0, 0, $border-black, 0, 0, $border-black, 0, 0;
+
+// USA
+$background-us:     $color-red-strong, $color-blue-akva, $color-gray-easy, $color-green-forest, $color-black,
+                    $color-yellow-calm, $bg-3, $bg-4, $color-purple;
+$colors-us:         $color-white, $color-white, $color-black, $color-white, $color-red-clear,
+                    $color-black, $color-black, $color-white, $color-white;
+$text-shadow-us:    none, none, none, none, none, none, none, none, none;
+$border-us:         0, 0, $border-black, 0, 0, 0, 0, 0, 0;
+
+// AUS
+$background-au:     $color-red-strong, $bg-1, $color-gray-easy, $color-blue-akva, $color-yellow-sun,
+                    $color-salad, $color-black-easy, $color-red-pink, $bg-5, $bg-6;
+$colors-au:         $color-white, $color-red-rose, $color-black, $color-white, $color-black,
+                    $color-red-clear, $color-yellow-field, $color-black, $color-black, $color-black;
+$text-shadow-au:    none, $outline, none, none, none, none, none, none, none, $outline;
+$border-au:         0, $border-black, $border-black, 0, 0, 0, 0, 0, $border-salad, 0;
+
+$flagCodes: (
+  -deflt: (colors: $colors-deflt, backgrounds: $background-deflt, borders: $border-deflt, text-shadows: $text-shadow-deflt),
+  -us:    (colors: $colors-us, backgrounds: $background-us, borders: $border-us, text-shadows: $text-shadow-us), 
+  -au:    (colors: $colors-au, backgrounds: $background-au, borders: $border-au, text-shadows: $text-shadow-au)
+);
+
+.gh-silk {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  overflow: hidden;
+  min-width: 30px;
+  width: $race-silk-greyhound-width;
+  height: $race-silk-greyhound-height;
+
+  &:after {
+    font-size: 22px;
+    font-weight: bold;
+  }
+
+  &.runner {
+    @each $key, $val in $flagCodes {
+      $flagCode: map-get($flagCodes, $key);
+      $colors: map-get($flagCode, colors);
+      $background: map-get($flagCode, backgrounds);
+      $border: map-get($flagCode, borders);
+      $text-shadow: map-get($flagCode, text-shadows);
+        
+      @for $i from 1 through length($colors) {
+        &#{$key}-gh#{$i} {
+          background: nth($background, $i);
+          border: nth($border, $i);
+
+          &:after {
+            content: '#{$i}';
+            text-shadow: nth($text-shadow, $i);
+            color: nth($colors, $i);
+          }
+        }
+      }
+    }
+  }
+}

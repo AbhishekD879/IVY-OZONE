@@ -1,0 +1,48 @@
+@import 'global.variables.scss';
+
+.acca-insurance-subtitle {
+  .bs-stake-subtitle {
+    @include display-flex();
+    @include align-items(center);
+
+    .acca-insurance-icon {
+      @include display-flex();
+      @include align-items(center);
+      @include justify-content(center);
+      width: 24px;
+      min-width: 24px;
+      height: 24px;
+      background: $color-yellow-alt;
+
+      .acca-insurance-svg {
+        width: 18px;
+        height: 12px;
+      }
+    }
+
+    .bs-stake-type {
+      margin-bottom: 0;
+      margin-left: 8px;
+    }
+
+    .bs-stake-info-button {
+      min-width: 14px;
+    }
+  }
+}
+
+.acca-insurance-dialog {
+  .modal-dialog {
+    width: auto;
+
+    .modal-content {
+      width: 295px;
+
+      .btn-list {
+        .btn.btn-style4 {
+          margin-right: 13px;
+        }
+      }
+    }
+  }
+}

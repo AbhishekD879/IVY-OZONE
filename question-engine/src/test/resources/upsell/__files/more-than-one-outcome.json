@@ -1,0 +1,265 @@
+{
+  "SSResponse": {
+    "xmlns": "http://schema.openbet.com/SiteServer/2.34/SSResponse.xsd",
+    "children": [
+      {
+        "event": {
+          "id": "13384602",
+          "name": "|Arsenal| |vs| |Standard Liege|",
+          "eventStatusCode": "A",
+          "isActive": "true",
+          "displayOrder": "0",
+          "siteChannels": "P,Q,C,U,I,M,",
+          "eventSortCode": "MTCH",
+          "startTime": "2019-10-03T19:00:00Z",
+          "rawIsOffCode": "N",
+          "classId": "165",
+          "typeId": "25231",
+          "sportId": "16",
+          "liveServChannels": "sEVENT0013384602,",
+          "liveServChildrenChannels": "SEVENT0013384602,",
+          "categoryId": "16",
+          "categoryCode": "FOOTBALL",
+          "categoryName": "|Football|",
+          "categoryDisplayOrder": "-10015",
+          "className": "|Football UEFA Club Competitions|",
+          "classDisplayOrder": "-9998",
+          "classSortCode": "FB",
+          "typeName": "|UEFA Europa League|",
+          "typeDisplayOrder": "-32766",
+          "typeFlagCodes": "IVA,PVA,",
+          "isOpenEvent": "true",
+          "isNext24HourEvent": "true",
+          "isLiveNowOrFutureEvent": "true",
+          "drilldownTagNames": "EVFLAG_ST,EVFLAG_PDM,EVFLAG_PB,EVFLAG_BL,",
+          "isAvailable": "true",
+          "mediaTypeCodes": "VST,",
+          "cashoutAvail": "Y",
+          "children": [
+            {
+              "market": {
+                "id": "319781294",
+                "eventId": "13384602",
+                "templateMarketId": "337916",
+                "templateMarketName": "|Match Result \u0026 Both Teams To Score|",
+                "dispSortId": "391",
+                "dispSortName": "MR",
+                "collectionIds": "3280,2113,619,",
+                "collectionNames": "|Main|,|Scores|,|Match Result \u0026 Both Teams To Score|,",
+                "marketMeaningMajorCode": "-",
+                "marketMeaningMinorCode": "LM",
+                "name": "|Match Odds and Both Teams to Score|",
+                "isLpAvailable": "true",
+                "isMarketBetInRun": "true",
+                "displayOrder": "30",
+                "marketStatusCode": "A",
+                "isActive": "true",
+                "siteChannels": "P,Q,C,I,M,",
+                "liveServChannels": "sEVMKT0319781294,",
+                "liveServChildrenChannels": "SEVMKT0319781294,",
+                "priceTypeCodes": "LP,",
+                "isAvailable": "true",
+                "maxAccumulators": "25",
+                "minAccumulators": "1",
+                "cashoutAvail": "Y",
+                "termsWithBet": "N",
+                "children": [
+                  {
+                    "outcome": {
+                      "id": "1037508803",
+                      "marketId": "319781294",
+                      "name": "|Draw|",
+                      "outcomeMeaningMajorCode": "LM",
+                      "outcomeMeaningMinorCode": "D",
+                      "displayOrder": "20",
+                      "outcomeStatusCode": "A",
+                      "isActive": "true",
+                      "siteChannels": "P,Q,C,I,M,",
+                      "liveServChannels": "sSELCN1037508803,",
+                      "liveServChildrenChannels": "SSELCN1037508803,",
+                      "isAvailable": "true",
+                      "cashoutAvail": "Y",
+                      "children": [
+                        {
+                          "price": {
+                            "id": "1",
+                            "isActive": "true",
+                            "displayOrder": "1",
+                            "priceType": "LP",
+                            "priceNum": "11",
+                            "priceDen": "2",
+                            "priceDec": "6.50"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                    {
+                    "outcome": {
+                      "id": "1037508802",
+                      "marketId": "319781294",
+                      "name": "|Arsenal|",
+                      "outcomeMeaningMajorCode": "LM",
+                      "outcomeMeaningMinorCode": "H",
+                      "displayOrder": "10",
+                      "outcomeStatusCode": "A",
+                      "isActive": "true",
+                      "siteChannels": "P,Q,C,I,M,",
+                      "liveServChannels": "sSELCN1037508802,",
+                      "liveServChildrenChannels": "SSELCN1037508802,",
+                      "isAvailable": "true",
+                      "cashoutAvail": "Y",
+                      "children": [
+                        {
+                          "price": {
+                            "id": "2",
+                            "isActive": "true",
+                            "displayOrder": "1",
+                            "priceType": "LP",
+                            "priceNum": "17",
+                            "priceDen": "10",
+                            "priceDec": "2.70"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "market": {
+                "id": "319781298",
+                "eventId": "13384602",
+                "templateMarketId": "337847",
+                "templateMarketName": "|Over/Under Total Goals|",
+                "dispSortId": "398",
+                "dispSortName": "HL",
+                "collectionIds": "623,701,261,619,",
+                "collectionNames": "|Total Goals Over/Under|,|Main|,|Over/Under Total Goals|,|Goals|,",
+                "marketMeaningMajorCode": "L",
+                "marketMeaningMinorCode": "HL",
+                "name": "|Over/Under Total Goals| |1.5|",
+                "isLpAvailable": "true",
+                "rawHandicapValue": "1.5",
+                "isMarketBetInRun": "true",
+                "displayOrder": "41",
+                "marketStatusCode": "A",
+                "isActive": "true",
+                "siteChannels": "P,Q,C,I,M,",
+                "liveServChannels": "sEVMKT0319781298,",
+                "liveServChildrenChannels": "SEVMKT0319781298,",
+                "priceTypeCodes": "LP,",
+                "isAvailable": "true",
+                "maxAccumulators": "25",
+                "minAccumulators": "1",
+                "cashoutAvail": "Y",
+                "termsWithBet": "N",
+                "children": [
+                  {
+                    "outcome": {
+                      "id": "1037508810",
+                      "marketId": "319781298",
+                      "name": "|Over|",
+                      "outcomeMeaningMajorCode": "HL",
+                      "outcomeMeaningMinorCode": "H",
+                      "displayOrder": "10",
+                      "outcomeStatusCode": "A",
+                      "isActive": "true",
+                      "siteChannels": "P,Q,C,I,M,",
+                      "liveServChannels": "sSELCN1037508810,",
+                      "liveServChildrenChannels": "SSELCN1037508810,",
+                      "isAvailable": "true",
+                      "cashoutAvail": "Y",
+                      "children": [
+                        {
+                          "price": {
+                            "id": "3",
+                            "isActive": "true",
+                            "displayOrder": "1",
+                            "priceType": "LP",
+                            "priceNum": "1",
+                            "priceDen": "7",
+                            "priceDec": "1.14",
+                            "handicapValueDec": "1.5,",
+                            "rawHandicapValue": "1.5"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "market": {
+                "id": "319781293",
+                "eventId": "13384602",
+                "templateMarketId": "337814",
+                "templateMarketName": "|Both Teams to Score|",
+                "dispSortId": "409",
+                "dispSortName": "BO",
+                "collectionIds": "1144,262,619,",
+                "collectionNames": "|Both Teams to Score|,|Main|,",
+                "marketMeaningMajorCode": "-",
+                "marketMeaningMinorCode": "--",
+                "name": "|Both Teams to Score|",
+                "isLpAvailable": "true",
+                "isMarketBetInRun": "true",
+                "displayOrder": "20",
+                "marketStatusCode": "A",
+                "isActive": "true",
+                "siteChannels": "P,Q,C,U,I,M,",
+                "liveServChannels": "sEVMKT0319781293,",
+                "liveServChildrenChannels": "SEVMKT0319781293,",
+                "priceTypeCodes": "LP,",
+                "isAvailable": "true",
+                "maxAccumulators": "25",
+                "minAccumulators": "1",
+                "cashoutAvail": "Y",
+                "termsWithBet": "N",
+                "children": [
+                  {
+                    "outcome": {
+                      "id": "1037508796",
+                      "marketId": "319781293",
+                      "name": "|No|",
+                      "outcomeMeaningMajorCode": "--",
+                      "displayOrder": "2",
+                      "outcomeStatusCode": "A",
+                      "isActive": "true",
+                      "siteChannels": "P,Q,C,U,I,M,",
+                      "liveServChannels": "sSELCN1037508796,",
+                      "liveServChildrenChannels": "SSELCN1037508796,",
+                      "isAvailable": "true",
+                      "cashoutAvail": "Y",
+                      "children": [
+                        {
+                          "price": {
+                            "id": "4",
+                            "isActive": "true",
+                            "displayOrder": "1",
+                            "priceType": "LP",
+                            "priceNum": "19",
+                            "priceDen": "20",
+                            "priceDec": "1.95"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "responseFooter": {
+          "cost": "9",
+          "creationTime": "2019-10-03T13:17:51.859Z"
+        }
+      }
+    ]
+  }
+}

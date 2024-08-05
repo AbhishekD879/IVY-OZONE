@@ -1,0 +1,177 @@
+@import 'global.variables.scss';
+
+.vn-bma {
+  build-race-card {
+    .build-card-top {
+      padding: 15px 12px;
+      height: 70px;
+      background: $color-white;
+      margin-bottom: 8px;
+      box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+      @include display-flex();
+      @include align-items();
+    }
+
+    .featured-racing-tab {
+      position: relative;
+    }
+
+    .build-card-description {
+      @include flex-grow(1);
+      color: $color-gray-darkest;
+      .build-card-text {
+        font-size: $font-size-lgr;
+        font-family: $alt-font-family;
+        margin: 0;
+        line-height: initial;
+
+        .build-card-text-highlighted {
+          font-weight: bold;
+        }
+      }
+      .build-card-additional-text {
+        font-size: $font-size;
+        font-family: $alt-font-family;
+        margin: 0 10px 0 0;
+        line-height: initial;
+      }
+    }
+
+    .build-card-button {
+      @include align-items();
+      @include flex-grow(1);
+      @include justify-content(flex-end);
+      text-transform: uppercase;
+      background: $color-green-shade;
+      color: $color-white;
+      font-size: $font-size-bit-lgr;
+      line-height: 44px;
+      font-weight: bold;
+      padding: 0 10px;
+      min-width: 150px;
+      height: 44px;
+      border: none;
+      border-radius: 2px;
+      &:hover {
+        background: $color-green-light2;
+        text-decoration: none;
+        color: $color-white;
+      }
+      &:active {
+        background: $color-green-shine;
+        color: $color-white;
+      }
+      &.exit-builder {
+        color: $color-gray-darkest;
+        background: transparent;
+        text-decoration: none;
+        font-size: $font-size-bit-lgr;
+        padding: 0;
+        text-align: right;
+        &:hover{
+          text-decoration: underline;
+          color: $color-gray-darkest;
+        }
+        &:active{
+          text-decoration: none;
+          color: $lGrayMedium;
+        }
+        svg {
+          width: 10px;
+          height: 10px;
+          margin-left: 10px;
+        }
+      }
+    }
+
+    .build-card-limit-message {
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      padding: 10px;
+      background: $color-white;
+      height: 48px;
+      box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+      svg {
+        width: 15px;
+        height: 15px;
+        min-width: 15px;
+      }
+      span {
+        font-family: $alt-font-family;
+        letter-spacing: 0;
+        margin: 0 0 0 8px;
+        font-size: $font-size-tablet;
+        color: $lBlack-medium;
+      }
+    }
+
+    .build-card-buttons-bottom {
+      @include display-flex();
+      height: 54px;
+      padding: 5px 12px;
+      background: $color-white;
+      box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+    }
+
+    .build-card-button-bottom {
+      @include flex(1,1,50%);
+      @include align-items();
+      text-transform: uppercase;
+      height: 44px;
+      border: none;
+      background: transparent;
+      font-weight: bold;
+      color: $lBlack-light;
+      border-radius: 2px;
+      font-size: $font-size-bit-lgr;
+      cursor: default;
+      &.active {
+        cursor: pointer;
+        color: $lBlack-medium;
+      }
+    }
+    .build-card-button-bottom-left {
+      text-decoration: underline;
+      &.active{
+        text-decoration: none;
+        &:hover{
+          text-decoration: underline;
+          color: $color-gray-darkest;
+        }
+        &:active{
+          text-decoration: none;
+          color: $lGrayMedium;
+        }
+      }
+    }
+    .build-card-button-bottom-right {
+      background: $color-green-disabled;
+      color:  $color-white;
+      margin-left: 5px;
+      &.active {
+        background: $color-green-shade;
+        color:  $color-white;
+        &:hover{
+          background: $color-green-light2;
+        }
+        &:active{
+          background: $color-green-shine;
+        }
+      }
+    }
+
+    .build-card-bottom {
+      margin-bottom: 10px;
+      z-index: 11;
+      &.sticky-on {
+        position: fixed;
+        top: 0;
+      }
+      &.sticky-on-hidden {
+        display: none;
+        top: 0;
+      }
+    }
+  }
+}

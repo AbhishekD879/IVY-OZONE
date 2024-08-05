@@ -1,0 +1,17 @@
+$widthDefault: 90px;
+$widthResize: 110px;
+
+.your-call-player-stats {
+  select {
+    width: $widthDefault;
+    height: 40px;
+
+    @media (min-width: $lg-point)  {
+      min-width: $widthResize;
+    }
+  }
+}
+
+.odds-card-header .odds-header-col.odds-header-ps-col {
+  width: $widthDefault - 10px;
+}

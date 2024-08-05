@@ -1,0 +1,29 @@
+- name: "Launch {{ num_nodes }} instances for {{ tags.ClusterNodeType }}"
+  ec2:
+    key_name: "{{ key_name }}"
+    group: "{{ security_group }}"
+    instance_type: "{{ instance_type }}"
+    image: "{{ os_images[image_name] }}"
+    wait: yes
+    region: "{{ region }}"
+    vpc_subnet_id: "{{ subnets[subnet_name] }}"
+    assign_public_ip: "{{assign_public_ip}}"
+    volumes:
+      - device_name: /dev/sda1
+        volume_size: "{{ volume_size }}"
+    exact_count: "{{num_nodes}}"
+    count_tag:
+      ClusterNodeType: "{{ tags.ClusterNodeType }}"
+    instance_tags: "{{ tags }}"
+  register: ec2
+
+- name: Update Name tag with index
+  ec2_tag:
+    region: "{{ region }}"
+    resource: "{{ec2_instance.1.id}}"
+    state: present
+    tags:
+      Name: "{{ ec2_instance.1.tags.Name }}-{{ '%03d'|format(ec2_instance.0|int) }}"
+  with_indexed_items: "{{ ec2.instances }}"
+  loop_control:
+    loop_var: ec2_instance

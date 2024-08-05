@@ -1,0 +1,79 @@
+@import "global.variables.scss";
+
+.countdown-header {
+  padding: 9px 15px;
+  background-color: $color-white;
+  @include display-flex();
+  @include justify-content(space-between);
+  @include align-items(center);
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15);
+  color: $lGray;
+  &-event {
+    @include display-flex();
+    font-size: $font-size-lgr;
+    font-family: $alt-font-family;
+    letter-spacing: -0.01px;
+    font-weight: bold;
+    line-height: normal;
+    margin-bottom: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    &-name {
+      margin-left: 8px;
+      overflow: auto;
+      white-space: normal;
+    }
+  }
+  &-timer {
+    width: 46px;
+    height: 46px;
+    background: #cecece;
+    border-radius: 50%;
+    .circle {
+      width: 46px;
+      height: 46px;
+      position: relative;
+      overflow: hidden;
+      @include display-flex();
+      @include justify-content(center);
+      @include align-items(center);
+      .mask,
+      .fill {
+        width: 46px;
+        height: 46px;
+        position: absolute;
+        border-radius: 50%;
+      }
+      .full{
+        border-top-left-radius: 0;
+      }
+      &.animate{
+        .full,
+        .fill {
+          @include transition(transform, .9s, linear );
+          will-change: transform;
+        }
+      }
+      .mask {
+        clip: rect(0px, 46px, 46px, 23px);
+        .fill {
+          clip: rect(0px, 23px, 46px, 0px);
+          background-color: #3daeef;
+        }
+      }
+      &-inside {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #fff;
+        z-index: 1;
+        font-size: $font-size;
+        font-weight: 600;
+        @include display-flex();
+        @include justify-content(center);
+        @include align-items(center);
+      }
+    }
+  }
+}

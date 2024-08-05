@@ -1,0 +1,15 @@
+@import 'global.variables.scss';
+
+@mixin fanzone-banner-entry {
+  .fanzone-banner-entry {
+    position: relative;
+    cursor: pointer;
+    min-height: $fanzone-banner-height;
+    margin: $font-size-xs;
+    border-radius: $font-size-xs;
+    box-shadow: 0 2px 3px 0 rgb(90 90 90 / 26%), 0 0 3px 0 rgb(121 121 121 / 26%);
+    background-color: $color-blue-home;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+  } 
+}

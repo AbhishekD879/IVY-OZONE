@@ -1,0 +1,52 @@
+@import 'global.variables.scss';
+
+.indicator-parent {
+    display: flex;
+    justify-content: center;
+    opacity: 0.9;
+    height: 32px;
+    width: 100%;
+    background-color: $lGray;
+
+    .network-status-message {
+        color: $color-white;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 33px;
+    }
+
+    .close-icon {
+        width: 12px;
+        height: 100%;
+        position: absolute;
+        right: 15px;
+        fill: $color-white;
+        cursor: pointer;
+    }
+
+    .info-icon {
+        width: 15px;
+        height: 100%;
+        fill: $color-white;
+        cursor: pointer;
+        margin-left: 8px;
+    }
+
+    .status-icon {
+        width: 15px;
+        height: 100%;
+        margin-right: 8px;
+    }
+    
+}
+
+.indicator-bottom-line {
+    height: 3px;
+}
+
+.coral-theme {
+    background: $color-blue-rich;
+    mix-blend-mode: normal;
+    opacity: 0.9;
+    backdrop-filter: blur(13.5914px);
+}

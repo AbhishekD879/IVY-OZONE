@@ -1,0 +1,106 @@
+<table matSort (matSortChange)="sortData($event)" class="custom-table table table-hover table-condensed table-bordered m-b-0"
+       [ngClass]="reorder ? tableUniqueClass : ''">
+  <caption style="display: none">Separate DataTable for Timeline posts</caption>
+  <thead>
+    <tr [ngClass]="background">
+      <ng-container *ngFor="let column of customTableColumns; let i = index" [ngSwitch]="column.type">
+        <th *ngSwitchCase="'actions'" class="table-col-{{column.width || 1}}" scope="col">
+          {{column.name}}
+        </th>
+        <th *ngSwitchDefault mat-sort-header="{{column.property}}" scope="col"
+            [attr.colspan]="(i == 0 ? 2 : 1)"
+            class="table-col-{{column.width || 1}}">
+          {{column.name}}
+        </th>
+      </ng-container>
+      <th style="width:1%;" *ngIf="multyRemove" scope="col">
+        <a (click)="removeDataElements();" *ngIf="selectedRows.length > 0">
+          <i class="material-icons col-red">remove_circle</i>
+        </a>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dataElement of dataElementsList; let i = index;" class="datarow" [ngClass]="{'disabled': dataElement.disabled, 'not-valid': (dataElement.isValid === false) }" [class.highlighted]="dataElement.highlighted">
+      <!--drag handler element-->
+      <td *ngIf="reorder" class="drag-handler" [ngClass]="{'disabled': (isSorted || isFiltered)}"><i class="material-icons">swap_vert</i></td>
+
+      <td *ngIf="!reorder">{{i + 1 + startingNumberOffset}}</td>
+
+      <ng-container *ngFor="let column of customTableColumns" [ngSwitch]="column.type">
+        <!--actions column-->
+        <ng-container *ngIf="column.subtypes && column.subtypes.length > 0">
+          <td *ngSwitchCase="'actions'" class="actions-cell" class="text-center">
+            <a class="action-link" *ngIf="column.subtypes.indexOf('remove') >= 0" (click)="removeDataElement(dataElement);"><i
+              class="material-icons col-red">remove_circle</i></a>
+            <a class="action-link" *ngIf="column.subtypes.indexOf('edit') >= 0" [routerLink]="getLink(dataElement)"><i
+              class="material-icons col-red">mode_edit</i></a>
+            <a class="action-link" *ngIf="column.subtypes.indexOf('onPageEdit') >= 0" (click)="editDataElement(dataElement);"><i
+              class="material-icons col-red">mode_edit</i></a>
+
+            <a class="action-link" *ngIf="column.subtypes.indexOf('approve') >= 0" (click)="approve(dataElement);"><span class="action-icon"><i
+              class="material-icons col-red">thumb_up</i></span><span class="action-text">Approve</span></a>
+            <a class="action-link" *ngIf="column.subtypes.indexOf('toDraft') >= 0" (click)="toDraft(dataElement)"><span class="action-icon"><i
+              class="material-icons col-red">thumb_down</i></span><span class="action-text">To draft</span></a>
+            <a class="action-link" *ngIf="column.subtypes.indexOf('publish') >= 0 && isPublishable(dataElement)" (click)="publish(dataElement);"><span class="action-icon"><i
+              class="material-icons col-red">cloud_upload</i></span><span class="action-text">Publish</span></a>
+            <a class="action-link" *ngIf="column.subtypes.indexOf('unpublish') >= 0 && isUnpublishable(dataElement)" (click)="unpublish(dataElement)"><span class="action-icon"><i
+              class="material-icons col-red">cloud_download</i></span><span class="action-text">Unpublish</span></a>
+          </td>
+        </ng-container>
+
+        <!--main table columns-->
+        <td *ngSwitchDefault class="shortened-view">
+          <a *ngIf="column.type === 'link'" [routerLink]="getLink(dataElement, column.link)"
+             matTooltip="{{dataElement[column.property]}}">
+            {{dataElement[column.property]}}
+          </a>
+
+          <i *ngIf="column.type === 'boolean'"
+             class="material-icons col-{{isActiveColumn(dataElement, column) ? 'light-blue' : 'blue-grey'}}">
+            {{isActiveColumn(dataElement, column) ? 'check_circle' : 'cancel'}}
+          </i>
+
+          <span *ngIf="column.type === 'date' && isValidDate(dataElement[column.property])"
+                matTooltip="{{dataElement[column.property] | date : 'yyyy-MM-dd HH:mm:ss a'}}">
+          {{dataElement[column.property] | date : 'yyyy-MM-dd HH:mm:ss a'}}
+        </span>
+
+          <span *ngIf="column.type === 'date' && !isValidDate(dataElement[column.property])"
+                matTooltip="{{dataElement[column.property]}}">
+          {{dataElement[column.property]}}
+        </span>
+
+          <span *ngIf="column.type === 'date-no-time' && isValidDate(dataElement[column.property])"
+                matTooltip="{{dataElement[column.property] | date : 'yyyy-MM-dd HH:mm:ss a'}}">
+          {{dataElement[column.property] | date : 'yyyy-MM-dd'}}
+        </span>
+
+          <span *ngIf="column.type === 'html'">
+          {{getHtmlString(dataElement[column.property])}}
+        </span>
+
+          <span *ngIf="column.type === 'array'">
+          {{ dataElement[column.property] | arrayNoNull }}
+        </span>
+
+          <span *ngIf="column.type === 'nested'">
+          {{getNestedValue(dataElement, column.property)}}
+        </span>
+
+          <span *ngIf="!column.type" matTooltip="{{dataElement[column.property]}}">
+          {{dataElement[column.property]}}
+        </span>
+        </td>
+      </ng-container>
+
+      <td *ngIf="multyRemove">
+        <mat-checkbox color="primary"
+          [disabled]="isRemoveCheckboxEnabled && isRemoveCheckboxEnabled(dataElement)"
+          [checked]="dataElement.multyRowSelected"
+          (change)="dataElement.multyRowSelected = !dataElement.multyRowSelected">
+        </mat-checkbox>
+      </td>
+    </tr>
+  </tbody>
+</table>

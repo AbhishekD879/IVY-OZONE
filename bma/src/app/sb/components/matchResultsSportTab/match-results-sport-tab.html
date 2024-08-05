@@ -1,0 +1,29 @@
+<div class="match-results" data-crlat="matchResults">
+  <accordion [accordionTitle]="matchesDate.dateString"
+             [isExpanded]="matchesDate.opened"
+             *ngFor="let matchesDate of dates; trackBy:trackDatesByFn;"
+             (click)="loadMatchesByDate(matchesDate)">
+    <accordion-body>
+      <div *ngIf="matchesDate.loadingMatches" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+      <div class="center-text"
+           [i18n]="'sb.noResultsAvalaible'"
+           *ngIf="matchesDate.noResults"></div>
+      <accordion [inner]="true"
+                 [accordionTitle]="competition.name"
+                 [isExpanded]="competition.opened"
+                 *ngFor="let competition of matchesDate.competitions; trackBy:trackCompetitionsByFn;"
+                 data-crlat="dayGroupItem">
+          <accordion-body>
+            <odds-card-result-component [event]="match"
+                                        *ngFor="let match of competition.matches; trackBy:trackMatchesByFn;"
+                                        data-crlat="competitionItem">
+            </odds-card-result-component>
+          </accordion-body>
+      </accordion>
+    </accordion-body>
+  </accordion>
+  <show-all-button [showMoreMode]="true"
+                   (click)="showMoreDates()"
+                   data-crlat="showMoreDates">
+  </show-all-button>
+</div>

@@ -1,0 +1,63 @@
+<div class="sk-container" [ngClass]="{ 'sk-loading': state.loading }">
+  <outlet-status [state]="state">
+    <request-error (reloadFn)="reloadComponent()"></request-error>
+  </outlet-status>
+  <ng-container *ngIf="!state.loading && !state.error">
+    <horseracing-tabs *ngIf="racingName === 'horseracing'"
+                      [applyingParams]="applyingParams"
+                      [viewByFilters]="viewByFilters"
+                      [filter]="filter"
+                      [isRacingPanel]="isRacingPanel"
+                      [tabsTitle]="tabsTitle"
+                      [sportName]="racingName"
+                      [racingPath]="racingPath"
+                      [display]="display"
+                      [sportModule]="sportModule"
+                      [responseError]="state.error"
+                      [isRunnersNumber]="isRunnersNumber"
+                      [racing]="racing"
+                      [racingSpecials]="racingYourCallSpecials"
+                      [expanded]="expanded"
+                      [sectionTitle]="sectionTitle"
+                      [isFavourite]="isFavourite"
+                      [definePriceType]="definePriceType"
+                      [goTo]="goTo"
+                      [outcomesLimit]="outcomesLimit"
+                      [getDay]="getDay"
+                      [getDate]="getDate"
+                      [getMonth]="getMonth"
+                      [eventsOrder]="eventsOrder"
+                      [categoryId]="categoryId"
+                      [isFromOverlay]="isEventOverlay"
+                      (isLoadedEvent)="updateLoadStatus($event)"
+                      data-crlat="tabContent">
+    </horseracing-tabs>
+    <greyhounds-tabs *ngIf="racingName === 'greyhound'"
+                    [applyingParams]="applyingParams"
+                    [viewByFilters]="viewByFilters"
+                    [filter]="filter"
+                    [isRacingPanel]="isRacingPanel"
+                    [tabsTitle]="tabsTitle"
+                    [sportName]="racingName"
+                    [racingPath]="racingPath"
+                    [display]="display"
+                    [sportModule]="sportModule"
+                    [responseError]="state.error"
+                    [isRunnersNumber]="isRunnersNumber"
+                    [racing]="racing"
+                    [expanded]="expanded"
+                    [sectionTitle]="sectionTitle"
+                    [isFavourite]="isFavourite"
+                    [definePriceType]="definePriceType"
+                    [goTo]="goTo"
+                    [getDay]="getDay"
+                    [getDate]="getDate"
+                    [getMonth]="getMonth"
+                    [eventsOrder]="eventsOrder"
+                    [categoryId]="categoryId"
+                    (isLoadedEvent)="updateLoadStatus($event)"
+                    [isEventOverlay]="isEventOverlay"
+                     data-crlat="tabContent">
+    </greyhounds-tabs>
+  </ng-container>
+</div>

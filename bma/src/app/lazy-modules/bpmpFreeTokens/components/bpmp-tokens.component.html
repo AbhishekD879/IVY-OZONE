@@ -1,0 +1,14 @@
+<loading-screen [displayed]="isLoading && !toShowList" [templateType]="'GENERIC_BET'"></loading-screen>
+
+<div *ngIf="!isLoading && toShowList" class="root">
+    <div [i18n]="'bma.avilableBetTokens'" class="bet-token-header"></div>
+    <div class="bet-token-area">
+        <div class="bet-token" *ngFor="let token of availabletokenData">
+            <div class="bet-token-name">{{token.tokenTitle}}<p class="bet-token-useby"><span
+                        [i18n]="'bma.useBy'"></span>{{token.tokenExpiryDate}}</p>
+            </div>
+            <div class="bet-token-usenow-link"><a [i18n]="'bma.useNow'" (click)="pushGTMdata('use now', token.useNowLink)"></a></div>
+        </div>
+    </div>
+    <div class="bet-token-footer"><a (click)="pushGTMdata('view all bet tokens', viewAllTokenLink)">{{viewAllTokenLabel}}</a></div>
+</div>

@@ -1,0 +1,220 @@
+<div class="header bg-teal edit-config-group">
+  <h2>
+    {{configGroup.name}}
+  </h2>
+  <ul class="header-dropdown">
+    <li *ngIf="!isAddingItem && !isDataChanged">
+      <button (click)="toggleTableEdit()" type="button" class="btn btn-xs bg-teal waves-effect header-edit-btn">
+        <i class="material-icons">mode_edit</i>
+        <span *ngIf="!isEditOn">Edit table</span>
+        <span *ngIf="isEditOn">End Edit table</span>
+      </button>
+    </li>
+    <li *ngIf="!isAddingItem && !isEditOn && !isDataChanged">
+      <button (click)="startAddingNewItem()" type="button" class="btn btn-xs bg-teal waves-effect header-edit-btn">
+        <i class="material-icons">add_circle</i>
+        <span>Add property</span>
+      </button>
+    </li>
+    <li>
+      <button (click)="removeConfigGroup()" type="button" class="btn btn-xs bg-teal waves-effect header-edit-btn">
+        <i class="material-icons">delete_forever</i>
+        <span>Remove group</span>
+      </button>
+    </li>
+    <li *ngIf="isDataChanged">
+      <button (click)="revertGroupChanges()" type="button" class="btn btn-xs bg-teal waves-effect header-edit-btn">
+        <i class="material-icons">undo</i>
+        <span>Revert changes</span>
+      </button>
+    </li>
+    <li *ngIf="isDataChanged">
+      <button (click)="saveConfigGroupChanges()" type="button" class="btn btn-xs bg-teal waves-effect header-edit-btn">
+        <i class="material-icons">save</i>
+        <span>Save changes</span>
+      </button>
+    </li>
+    <li>
+      <mat-checkbox
+        (change)="isDataChanged = true;" 
+        [(ngModel)]="configGroup.initialDataConfig"
+        color="primary"
+        labelPosition="after">
+        Initial
+      </mat-checkbox>
+    </li>
+  </ul>
+</div>
+<div class="body edit-config-group">
+  <table class="table table-hover table-condensed table-bordered">
+    <thead>
+    <tr>
+      <th class="font-bold table-col-3">Field Name</th>
+      <th class="font-bold table-col-3">Field Type</th>
+      <th class="font-bold table-col-2">Possible value</th>
+      <th class="font-bold table-col-2">Default value</th>
+      <th class="font-bold table-col-2" *ngIf="!isEditOn">Action</th>
+    </tr>
+    </thead>
+
+    <!--simple table view without editing-->
+    <tbody *ngIf="!isEditOn" >
+      <tr *ngFor="let configItem of configGroup.items;let configItemIndex = index">
+        <td>{{configItem.name}}</td>
+        <td>{{configItem.type}}</td>
+        <td>{{possibleValueFor(configItem.type)}}</td>
+        <td>
+          <div *ngIf="configItem.type === 'daterange'" class="form-group-sm form-float">
+           <span>
+             No default value
+           </span>
+          </div>
+          <div *ngIf="configItem.type === 'checkbox'">
+            <mat-checkbox [checked]="configItem.value" disabled></mat-checkbox>
+          </div>
+          <div *ngIf="configItem.type === 'input with multiselect'" class="form-group-sm form-float shortened-view">
+            <div>
+              <span>Input : {{configItem.value}}</span>
+            </div>
+            <div>
+              <span>Options : {{configItem.multiselectValue}}</span>
+            </div>
+          </div>
+          <div *ngIf="isSimpleConfigItemType(configItem)" class="form-group-sm form-float shortened-view">
+           <span>
+             {{configItem.value}}
+           </span>
+          </div>
+        </td>
+        <td class="align-center">
+          <a (click)="removePropertyFromGroup(configItemIndex)"><i class="material-icons col-red">remove_circle</i></a>
+        </td>
+      </tr>
+
+      <!--ADDING NEW EPROPERTY FORM -->
+      <tr *ngIf="isAddingItem">
+      <td>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Property name" [(ngModel)]="newItem.name" (input)="$event.target.value = textToCamelCase($event.target.value)" required trim="blur">
+          <mat-hint align="end">spaces not alowed</mat-hint>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <mat-select [(value)]="newItem.type" (selectionChange)="setItemType($event.value)" required>
+            <mat-option *ngFor="let type of typeOptions" [value]="type">
+              {{ type }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+      <td>
+        {{possibleValueFor(newItem.type)}}
+      </td>
+      <td>
+        <div *ngIf="newItem.type === 'input' || newItem.type === 'svg' || newItem.type === 'image'">
+          <mat-form-field class="example-full-width" hintLabel="any text">
+            <input matInput placeholder="enter prop value" [(ngModel)]="newItem.value">
+          </mat-form-field>
+        </div>
+        <div *ngIf="newItem.type === 'input with multiselect'">
+          <mat-form-field class="example-full-width" hintLabel="Any text for input">
+            <input matInput placeholder="Input value" [(ngModel)]="newItem.value">
+          </mat-form-field>
+          <mat-form-field class="example-full-width" hintLabel="multiselect options">
+            <input matInput placeholder="Multiselect Value" [(ngModel)]="newItem.multiselectValue">
+          </mat-form-field>
+        </div>
+        <div *ngIf="newItem.type === 'select' || newItem.type === 'radio' || newItem.type === 'multiselect'">
+          <mat-form-field class="example-full-width" hintLabel="options, separate by comma">
+            <input matInput placeholder="Multiselect values" [(ngModel)]="newItem.value">
+          </mat-form-field>
+        </div>
+        <div *ngIf="newItem.type === 'number'" hintLabel="enter, only numbers" class="form-group-sm form-float">
+          <mat-form-field class="example-full-width" hintLabel="only numbers">
+            <input matInput type="number" value="0" placeholder="enter prop value" [(ngModel)]="newItem.value">
+          </mat-form-field>
+        </div>
+        <div *ngIf="newItem.type === 'checkbox'">
+          <mat-checkbox color="primary" (change)="newItem.value = !newItem.value"></mat-checkbox>
+        </div>
+        <div *ngIf="newItem.type === 'daterange'">
+          No default value
+        </div>
+      </td>
+      <td class="align-center">
+        <button [disabled]="!isNewPropertyNameValid(newItem)" (click)="submitNewProperty()" type="submit" class="btn btn-xs bg-teal">
+          <i class="material-icons">check_circle</i>
+        </button>
+        <button type="button" (click)="finishAddingNewItem()" class="btn btn-xs bg-red">
+          <i class="material-icons">remove_circle</i>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+
+    <!--table view with all fields editing-->
+    <tbody *ngIf="isEditOn">
+      <tr *ngFor="let configItem of configGroup.items;let configItemIndex = index">
+      <td>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Property name" (input)="isDataChanged = true;" [(ngModel)]="configItem.name" (input)="$event.target.value = textToCamelCase($event.target.value)" required trim="blur">
+          <mat-hint align="end">spaces not alowed</mat-hint>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <mat-select [(value)]="configItem.type" (selectionChange)="setItemType($event.value)" required>
+            <mat-option *ngFor="let type of typeOptions" [value]="type">
+              {{ type }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+      <td>
+        {{possibleValueFor(configItem.type)}}
+      </td>
+      <td>
+        <div *ngIf="configItem.type === 'input' || configItem.type === 'svg' || configItem.type === 'image'">
+          <mat-form-field class="example-full-width" hintLabel="any text">
+            <input matInput placeholder="enter prop value"
+                   (input)="isDataChanged = true;"
+                   [(ngModel)]="configItem.value">
+          </mat-form-field>
+        </div>
+        <div *ngIf="configItem.type === 'input with multiselect'">
+          <mat-form-field class="example-full-width" hintLabel="Any text for input">
+            <input matInput placeholder="Input value" [value]="configItem.value" [(ngModel)]="configItem.value">
+          </mat-form-field>
+          <mat-form-field class="example-full-width" hintLabel="multiselect options">
+            <input matInput placeholder="Multiselect Value" [value]="configItem.multiselectValue" [(ngModel)]="configItem.multiselectValue">
+          </mat-form-field>
+        </div>
+        <div *ngIf="configItem.type === 'select' || configItem.type === 'radio' || configItem.type === 'multiselect'">
+          <mat-form-field class="example-full-width" hintLabel="options, separate by comma">
+            <input matInput placeholder="enter prop value"
+                   (input)="isDataChanged = true;"
+                   [(ngModel)]="configItem.value">
+          </mat-form-field>
+        </div>
+        <div *ngIf="configItem.type === 'number'" hintLabel="enter, only numbers" class="form-group-sm form-float">
+          <mat-form-field class="example-full-width" hintLabel="only numbers">
+            <input matInput type="number" value="0" placeholder="enter prop value"
+                   (input)="isDataChanged = true;"
+                   [(ngModel)]="configItem.value">
+          </mat-form-field>
+        </div>
+        <div *ngIf="configItem.type === 'checkbox'">
+          <mat-checkbox color="primary"
+                        [checked]="configItem.value"
+                        (change)="configItem.value = !configItem.value;isDataChanged = true;">
+          </mat-checkbox>
+        </div>
+        <div *ngIf="configItem.type === 'daterange'">
+          No default value
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

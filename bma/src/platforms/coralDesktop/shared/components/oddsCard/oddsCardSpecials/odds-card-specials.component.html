@@ -1,0 +1,35 @@
+<div class="odds-card desktop-sport-card card-special" [attr.data-eventid]="event.id"
+     (click)="goToEvent(false, $event);goToSeo();">
+  <div class="odds-content" data-crlat="oddsContent">
+    <div class="odds-left" data-crlat="oddsLeft">
+      <div class="odds-names odds-names-wrap"
+           data-crlat="oddsNames"
+           [textContent]="oddsName"></div>
+    </div>
+    <div class="odds-right" data-crlat="oddsRight" *ngIf="outcomes.length === 1">
+      <div class="odds-btn-wrapper-no-markets">
+        <price-odds-button [event]="event"
+                           [market]="event.markets[0]"
+                           [outcome]="outcomes[0]"
+                           *ngIf="outcomes[0].prices.length !== 0">
+        </price-odds-button>
+      </div>
+    </div>
+    <div class="odds-right chevron-to-right" *ngIf="outcomes.length > 1">
+      <svg>
+        <use xlink:href="#next-arrow"></use>
+      </svg>
+    </div>
+  </div>
+  <div class="odds-footer" *ngIf="isSmartBoosts && wasPrice">
+    <div class="odds-left">
+      <span [textContent]="eventTime"></span>
+    </div>
+    <div class="odds-right">
+      <div class="was-price">
+        <span [i18n]="'sb.wasPrice'"></span>
+        <strike [textContent]="wasPrice"></strike>
+      </div>
+    </div>
+  </div>
+</div>

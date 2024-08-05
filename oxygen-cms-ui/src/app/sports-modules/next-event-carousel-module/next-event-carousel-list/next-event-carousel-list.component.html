@@ -1,0 +1,46 @@
+<div class="card">
+    <div class="body">
+      <!-- search and download button.-->
+      <div *ngIf="nextEventCarousels" class="row clearfix carousel-wrapper">
+        <div class='left-pane'>
+          <a routerLink="carousel/create" class="btn bg-teal waves-effect float-left">
+            <i class="material-icons">add_box</i>
+            <span>Create Next Event Carousel</span>
+          </a>
+        </div>
+        <div class="right-pane row">
+          <div class="col-md-3 m-b-0 cvs">
+            <download-cvs [cvsData]="nextEventCarousels" [cvsDataTable]="dataTableColumns"></download-cvs>
+          </div>
+          <div class="col-md-4 m-b-0">
+            <div class="input-with-icon m-b-0">
+              <i class="material-icons">search</i>
+              <mat-form-field>
+                <input matInput placeholder="Search For Next Event Carousel" [(ngModel)]="searchField" [value]="searchField">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div *ngIf="nextEventCarousels">
+        <div class="alert alert-info">
+          Max display events in the carousel is 12.
+        </div>
+        <cms-data-table 
+          [customTableData]="nextEventCarousels"
+          [customTableColumns]="dataTableColumns"
+          [actions]="['remove', 'edit']"
+          [filterString]="searchField"
+          [filterProperties]="searchableProperties"
+          [reorder]="true"
+          (onElementsOrder)="reorderHandler($event)"
+          (onRemoveTableElement)="removeHandler($event)">
+        </cms-data-table>
+      </div>
+      <div *ngIf="error">
+        Request Error
+      </div>
+    </div>
+  </div>
+  

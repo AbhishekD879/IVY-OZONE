@@ -1,0 +1,33 @@
+<modal #FanzoneNotification>
+    <ng-template #modalHeader>
+        <div class="notification-title" *ngIf="!popUp && initialState; else pop" [textContent]="getTitleAndDescription('title')"></div>
+        <ng-template #pop>
+            <div class="notification-title" [textContent]="notificationData.unsubscribeTitle"></div>
+        </ng-template>
+    </ng-template>
+    <ng-template #modalBody>
+        <div class=" notification-text" *ngIf="!popUp && initialState; else pop"
+            [textContent]="getTitleAndDescription('description')">
+        </div>
+        <ng-template #pop>
+            <div class="notification-text"
+                [textContent]="notificationData.unsubscribeDescription">
+            </div>
+        </ng-template>
+        <div class="notification-subscribe" *ngIf="!popUp && initialState && notificationData.showToggle">
+            <div class='notification-subscribe-text' [textContent]="notificationData.subscribeText"></div>
+            <div class="toggle-switch">
+                <input type="checkbox" [checked]="initialState" name="switch" id="switch" #switcher
+                    (change)="onToggleChange(switcher.checked)">
+                <label for="switch"></label>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #modalFooter>
+        <div class="notification-footer">
+            <button class="footer-btn exit" [ngClass]="initialState? 'confirm' : 'exit'" (click)="close()" [textContent]="notificationData.exitCTA"></button>
+            <button class="footer-btn confirm" *ngIf="!initialState" (click)="confirm()"
+                [textContent]="notificationData.confirmCTA"></button>
+        </div>
+    </ng-template>
+</modal>

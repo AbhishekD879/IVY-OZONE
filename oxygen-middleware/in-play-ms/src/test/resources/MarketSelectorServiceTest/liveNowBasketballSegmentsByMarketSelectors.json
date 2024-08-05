@@ -1,0 +1,590 @@
+[
+  {
+    "@type": "SportSegment",
+    "categoryId": 6,
+    "topLevelType": "LIVE_EVENT",
+    "showInPlay": true,
+    "categoryName": "Basketball",
+    "categoryCode": "BASKETBALL",
+    "categoryPath": "basketball",
+    "eventsByTypeName": [
+      {
+        "className": "Basketball USA",
+        "categoryName": "Basketball",
+        "categoryCode": "BASKETBALL",
+        "typeName": "NBA",
+        "typeId": "136",
+        "classDisplayOrder": -3000,
+        "typeDisplayOrder": -31000,
+        "typeSectionTitleAllSports": "USA - NBA",
+        "typeSectionTitleOneSport": "USA - NBA",
+        "typeSectionTitleConnectApp": "NBA",
+        "eventCount": 1,
+        "eventsIds": [
+          10506104
+        ],
+        "events": [
+          {
+            "@type": "EventsModuleData",
+            "id": 10506104,
+            "marketsCount": 3,
+            "name": "D Test",
+            "eventSortCode": "MTCH",
+            "startTime": "2020-08-19T07:17:00Z",
+            "liveServChannels": "sEVENT0010506104,",
+            "liveServChildrenChannels": "SEVENT0010506104,",
+            "categoryId": "6",
+            "categoryCode": "BASKETBALL",
+            "categoryName": "Basketball",
+            "classId": "51",
+            "className": "Basketball USA",
+            "typeName": "NBA",
+            "cashoutAvail": "Y",
+            "eventStatusCode": "A",
+            "isUS": true,
+            "eventIsLive": true,
+            "displayOrder": 0,
+            "markets": [
+              {
+                "id": "157185849",
+                "name": "Money Line",
+                "isLpAvailable": true,
+                "isSpAvailable": false,
+                "isGpAvailable": false,
+                "liveServChannels": "sEVMKT0157185849,",
+                "priceTypeCodes": "LP",
+                "cashoutAvail": "Y",
+                "viewType": "columns-2",
+                "marketMeaningMajorCode": "-",
+                "marketMeaningMinorCode": "HH",
+                "isMarketBetInRun": true,
+                "dispSortName": "HH",
+                "marketStatusCode": "A",
+                "templateMarketId": 7204,
+                "templateMarketName": "Money Line",
+                "displayOrder": 0,
+                "outcomes": [
+                  {
+                    "id": "584247968",
+                    "name": "A",
+                    "outcomeMeaningMajorCode": "HH",
+                    "outcomeMeaningMinorCode": "H",
+                    "outcomeStatusCode": "A",
+                    "liveServChannels": "sSELCN0584247968,",
+                    "correctPriceType": "LP",
+                    "correctedOutcomeMeaningMinorCode": 3,
+                    "prices": [
+                      {
+                        "id": "5",
+                        "priceType": "LP",
+                        "priceNum": 9,
+                        "priceDen": 2,
+                        "priceDec": 5.5
+                      }
+                    ],
+                    "displayOrder": 0
+                  },
+                  {
+                    "id": "584247969",
+                    "name": "B",
+                    "outcomeMeaningMajorCode": "HH",
+                    "outcomeMeaningMinorCode": "A",
+                    "outcomeStatusCode": "A",
+                    "liveServChannels": "sSELCN0584247969,",
+                    "correctPriceType": "LP",
+                    "correctedOutcomeMeaningMinorCode": 1,
+                    "prices": [
+                      {
+                        "id": "6",
+                        "priceType": "LP",
+                        "priceNum": 7,
+                        "priceDen": 2,
+                        "priceDec": 4.5
+                      }
+                    ],
+                    "displayOrder": 0
+                  }
+                ]
+              }
+            ],
+            "primaryMarkets": [
+              {
+                "id": "157185849",
+                "name": "Money Line",
+                "isLpAvailable": true,
+                "isSpAvailable": false,
+                "isGpAvailable": false,
+                "liveServChannels": "sEVMKT0157185849,",
+                "priceTypeCodes": "LP",
+                "cashoutAvail": "Y",
+                "viewType": "columns-2",
+                "marketMeaningMajorCode": "-",
+                "marketMeaningMinorCode": "HH",
+                "isMarketBetInRun": true,
+                "dispSortName": "HH",
+                "marketStatusCode": "A",
+                "templateMarketId": 7204,
+                "templateMarketName": "Money Line",
+                "displayOrder": 0,
+                "outcomes": [
+                  {
+                    "id": "584247968",
+                    "name": "A",
+                    "outcomeMeaningMajorCode": "HH",
+                    "outcomeMeaningMinorCode": "H",
+                    "outcomeStatusCode": "A",
+                    "liveServChannels": "sSELCN0584247968,",
+                    "correctPriceType": "LP",
+                    "correctedOutcomeMeaningMinorCode": 3,
+                    "prices": [
+                      {
+                        "id": "1",
+                        "priceType": "LP",
+                        "priceNum": 9,
+                        "priceDen": 2,
+                        "priceDec": 5.5
+                      }
+                    ],
+                    "displayOrder": 0
+                  },
+                  {
+                    "id": "584247969",
+                    "name": "B",
+                    "outcomeMeaningMajorCode": "HH",
+                    "outcomeMeaningMinorCode": "A",
+                    "outcomeStatusCode": "A",
+                    "liveServChannels": "sSELCN0584247969,",
+                    "correctPriceType": "LP",
+                    "correctedOutcomeMeaningMinorCode": 1,
+                    "prices": [
+                      {
+                        "id": "2",
+                        "priceType": "LP",
+                        "priceNum": 7,
+                        "priceDen": 2,
+                        "priceDec": 4.5
+                      }
+                    ],
+                    "displayOrder": 0
+                  }
+                ]
+              }
+            ],
+            "isStarted": true,
+            "responseCreationTime": "2020-08-19T07:46:25.180Z",
+            "liveStreamAvailable": true,
+            "drilldownTagNames": "EVFLAG_FI,EVFLAG_NE,EVFLAG_BL,EVFLAG_AVA,",
+            "typeFlagCodes": "GVA,IVA,PVA,AVA,US,",
+            "typeId": "136",
+            "buildYourBetAvailable": false
+          }
+        ]
+      }
+    ],
+    "eventsIds": [
+      10506104
+    ],
+    "displayOrder": 0,
+    "sportUri": "sport/basketball",
+    "svgId": "ddf07b8a-0653-3081-b0e2-348a5e5a6d44",
+    "eventCount": 1,
+    "marketSelectorOptions": [
+      "Main Market",
+      "Money Line",
+      "Total Points"
+    ],
+    "marketSelector": "Main Market"
+  },
+  {
+    "@type": "SportSegment",
+    "categoryId": 6,
+    "topLevelType": "LIVE_EVENT",
+    "showInPlay": true,
+    "categoryName": "Basketball",
+    "categoryCode": "BASKETBALL",
+    "categoryPath": "basketball",
+    "eventsByTypeName": [
+      {
+        "className": "Basketball USA",
+        "categoryName": "Basketball",
+        "categoryCode": "BASKETBALL",
+        "typeName": "NBA",
+        "typeId": "136",
+        "classDisplayOrder": -3000,
+        "typeDisplayOrder": -31000,
+        "typeSectionTitleAllSports": "USA - NBA",
+        "typeSectionTitleOneSport": "USA - NBA",
+        "typeSectionTitleConnectApp": "NBA",
+        "eventCount": 1,
+        "eventsIds": [
+          10506104
+        ],
+        "events": [
+          {
+            "@type": "EventsModuleData",
+            "id": 10506104,
+            "marketsCount": 3,
+            "name": "D Test",
+            "eventSortCode": "MTCH",
+            "startTime": "2020-08-19T07:17:00Z",
+            "liveServChannels": "sEVENT0010506104,",
+            "liveServChildrenChannels": "SEVENT0010506104,",
+            "categoryId": "6",
+            "categoryCode": "BASKETBALL",
+            "categoryName": "Basketball",
+            "classId": "51",
+            "className": "Basketball USA",
+            "typeName": "NBA",
+            "cashoutAvail": "Y",
+            "eventStatusCode": "A",
+            "isUS": true,
+            "eventIsLive": true,
+            "displayOrder": 0,
+            "markets": [
+              {
+                "id": "157185849",
+                "name": "Money Line",
+                "isLpAvailable": true,
+                "isSpAvailable": false,
+                "isGpAvailable": false,
+                "liveServChannels": "sEVMKT0157185849,",
+                "priceTypeCodes": "LP",
+                "cashoutAvail": "Y",
+                "viewType": "columns-2",
+                "marketMeaningMajorCode": "-",
+                "marketMeaningMinorCode": "HH",
+                "isMarketBetInRun": true,
+                "dispSortName": "HH",
+                "marketStatusCode": "A",
+                "templateMarketId": 7204,
+                "templateMarketName": "Money Line",
+                "displayOrder": 0,
+                "outcomes": [
+                  {
+                    "id": "584247968",
+                    "name": "A",
+                    "outcomeMeaningMajorCode": "HH",
+                    "outcomeMeaningMinorCode": "H",
+                    "outcomeStatusCode": "A",
+                    "liveServChannels": "sSELCN0584247968,",
+                    "correctPriceType": "LP",
+                    "correctedOutcomeMeaningMinorCode": 3,
+                    "prices": [
+                      {
+                        "id": "5",
+                        "priceType": "LP",
+                        "priceNum": 9,
+                        "priceDen": 2,
+                        "priceDec": 5.5
+                      }
+                    ],
+                    "displayOrder": 0
+                  },
+                  {
+                    "id": "584247969",
+                    "name": "B",
+                    "outcomeMeaningMajorCode": "HH",
+                    "outcomeMeaningMinorCode": "A",
+                    "outcomeStatusCode": "A",
+                    "liveServChannels": "sSELCN0584247969,",
+                    "correctPriceType": "LP",
+                    "correctedOutcomeMeaningMinorCode": 1,
+                    "prices": [
+                      {
+                        "id": "6",
+                        "priceType": "LP",
+                        "priceNum": 7,
+                        "priceDen": 2,
+                        "priceDec": 4.5
+                      }
+                    ],
+                    "displayOrder": 0
+                  }
+                ]
+              }
+            ],
+            "primaryMarkets": [
+              {
+                "id": "157185849",
+                "name": "Money Line",
+                "isLpAvailable": true,
+                "isSpAvailable": false,
+                "isGpAvailable": false,
+                "liveServChannels": "sEVMKT0157185849,",
+                "priceTypeCodes": "LP",
+                "cashoutAvail": "Y",
+                "viewType": "columns-2",
+                "marketMeaningMajorCode": "-",
+                "marketMeaningMinorCode": "HH",
+                "isMarketBetInRun": true,
+                "dispSortName": "HH",
+                "marketStatusCode": "A",
+                "templateMarketId": 7204,
+                "templateMarketName": "Money Line",
+                "displayOrder": 0,
+                "outcomes": [
+                  {
+                    "id": "584247968",
+                    "name": "A",
+                    "outcomeMeaningMajorCode": "HH",
+                    "outcomeMeaningMinorCode": "H",
+                    "outcomeStatusCode": "A",
+                    "liveServChannels": "sSELCN0584247968,",
+                    "correctPriceType": "LP",
+                    "correctedOutcomeMeaningMinorCode": 3,
+                    "prices": [
+                      {
+                        "id": "1",
+                        "priceType": "LP",
+                        "priceNum": 9,
+                        "priceDen": 2,
+                        "priceDec": 5.5
+                      }
+                    ],
+                    "displayOrder": 0
+                  },
+                  {
+                    "id": "584247969",
+                    "name": "B",
+                    "outcomeMeaningMajorCode": "HH",
+                    "outcomeMeaningMinorCode": "A",
+                    "outcomeStatusCode": "A",
+                    "liveServChannels": "sSELCN0584247969,",
+                    "correctPriceType": "LP",
+                    "correctedOutcomeMeaningMinorCode": 1,
+                    "prices": [
+                      {
+                        "id": "2",
+                        "priceType": "LP",
+                        "priceNum": 7,
+                        "priceDen": 2,
+                        "priceDec": 4.5
+                      }
+                    ],
+                    "displayOrder": 0
+                  }
+                ]
+              }
+            ],
+            "isStarted": true,
+            "responseCreationTime": "2020-08-19T07:46:25.180Z",
+            "liveStreamAvailable": true,
+            "drilldownTagNames": "EVFLAG_FI,EVFLAG_NE,EVFLAG_BL,EVFLAG_AVA,",
+            "typeFlagCodes": "GVA,IVA,PVA,AVA,US,",
+            "typeId": "136",
+            "buildYourBetAvailable": false
+          }
+        ]
+      }
+    ],
+    "eventsIds": [
+      10506104
+    ],
+    "displayOrder": 0,
+    "sportUri": "sport/basketball",
+    "svgId": "ddf07b8a-0653-3081-b0e2-348a5e5a6d44",
+    "eventCount": 1,
+    "marketSelectorOptions": [
+      "Main Market",
+      "Money Line",
+      "Total Points"
+    ]
+  },
+  {
+    "@type": "SportSegment",
+    "categoryId": 6,
+    "topLevelType": "LIVE_EVENT",
+    "showInPlay": true,
+    "categoryName": "Basketball",
+    "categoryCode": "BASKETBALL",
+    "categoryPath": "basketball",
+    "eventsByTypeName": [
+      {
+        "className": "Basketball USA",
+        "categoryName": "Basketball",
+        "categoryCode": "BASKETBALL",
+        "typeName": "NBA",
+        "typeId": "136",
+        "classDisplayOrder": -3000,
+        "typeDisplayOrder": -31000,
+        "typeSectionTitleAllSports": "USA - NBA",
+        "typeSectionTitleOneSport": "USA - NBA",
+        "typeSectionTitleConnectApp": "NBA",
+        "eventCount": 1,
+        "eventsIds": [
+          10506104
+        ],
+        "events": [
+          {
+            "@type": "EventsModuleData",
+            "id": 10506104,
+            "marketsCount": 3,
+            "name": "D Test",
+            "eventSortCode": "MTCH",
+            "startTime": "2020-08-19T07:17:00Z",
+            "liveServChannels": "sEVENT0010506104,",
+            "liveServChildrenChannels": "SEVENT0010506104,",
+            "categoryId": "6",
+            "categoryCode": "BASKETBALL",
+            "categoryName": "Basketball",
+            "classId": "51",
+            "className": "Basketball USA",
+            "typeName": "NBA",
+            "cashoutAvail": "Y",
+            "eventStatusCode": "A",
+            "isUS": true,
+            "eventIsLive": true,
+            "displayOrder": 0,
+            "markets": [
+              {
+                "id": "157185849",
+                "name": "Money Line",
+                "isLpAvailable": true,
+                "isSpAvailable": false,
+                "isGpAvailable": false,
+                "liveServChannels": "sEVMKT0157185849,",
+                "priceTypeCodes": "LP",
+                "cashoutAvail": "Y",
+                "viewType": "columns-2",
+                "marketMeaningMajorCode": "-",
+                "marketMeaningMinorCode": "HH",
+                "isMarketBetInRun": true,
+                "dispSortName": "HH",
+                "marketStatusCode": "A",
+                "templateMarketId": 7204,
+                "templateMarketName": "Money Line",
+                "displayOrder": 0,
+                "outcomes": [
+                  {
+                    "id": "584247968",
+                    "name": "A",
+                    "outcomeMeaningMajorCode": "HH",
+                    "outcomeMeaningMinorCode": "H",
+                    "outcomeStatusCode": "A",
+                    "liveServChannels": "sSELCN0584247968,",
+                    "correctPriceType": "LP",
+                    "correctedOutcomeMeaningMinorCode": 3,
+                    "prices": [
+                      {
+                        "id": "5",
+                        "priceType": "LP",
+                        "priceNum": 9,
+                        "priceDen": 2,
+                        "priceDec": 5.5
+                      }
+                    ],
+                    "displayOrder": 0
+                  },
+                  {
+                    "id": "584247969",
+                    "name": "B",
+                    "outcomeMeaningMajorCode": "HH",
+                    "outcomeMeaningMinorCode": "A",
+                    "outcomeStatusCode": "A",
+                    "liveServChannels": "sSELCN0584247969,",
+                    "correctPriceType": "LP",
+                    "correctedOutcomeMeaningMinorCode": 1,
+                    "prices": [
+                      {
+                        "id": "6",
+                        "priceType": "LP",
+                        "priceNum": 7,
+                        "priceDen": 2,
+                        "priceDec": 4.5
+                      }
+                    ],
+                    "displayOrder": 0
+                  }
+                ]
+              }
+            ],
+            "primaryMarkets": [
+              {
+                "id": "157185849",
+                "name": "Money Line",
+                "isLpAvailable": true,
+                "isSpAvailable": false,
+                "isGpAvailable": false,
+                "liveServChannels": "sEVMKT0157185849,",
+                "priceTypeCodes": "LP",
+                "cashoutAvail": "Y",
+                "viewType": "columns-2",
+                "marketMeaningMajorCode": "-",
+                "marketMeaningMinorCode": "HH",
+                "isMarketBetInRun": true,
+                "dispSortName": "HH",
+                "marketStatusCode": "A",
+                "templateMarketId": 7204,
+                "templateMarketName": "Money Line",
+                "displayOrder": 0,
+                "outcomes": [
+                  {
+                    "id": "584247968",
+                    "name": "A",
+                    "outcomeMeaningMajorCode": "HH",
+                    "outcomeMeaningMinorCode": "H",
+                    "outcomeStatusCode": "A",
+                    "liveServChannels": "sSELCN0584247968,",
+                    "correctPriceType": "LP",
+                    "correctedOutcomeMeaningMinorCode": 3,
+                    "prices": [
+                      {
+                        "id": "1",
+                        "priceType": "LP",
+                        "priceNum": 9,
+                        "priceDen": 2,
+                        "priceDec": 5.5
+                      }
+                    ],
+                    "displayOrder": 0
+                  },
+                  {
+                    "id": "584247969",
+                    "name": "B",
+                    "outcomeMeaningMajorCode": "HH",
+                    "outcomeMeaningMinorCode": "A",
+                    "outcomeStatusCode": "A",
+                    "liveServChannels": "sSELCN0584247969,",
+                    "correctPriceType": "LP",
+                    "correctedOutcomeMeaningMinorCode": 1,
+                    "prices": [
+                      {
+                        "id": "2",
+                        "priceType": "LP",
+                        "priceNum": 7,
+                        "priceDen": 2,
+                        "priceDec": 4.5
+                      }
+                    ],
+                    "displayOrder": 0
+                  }
+                ]
+              }
+            ],
+            "isStarted": true,
+            "responseCreationTime": "2020-08-19T07:46:25.180Z",
+            "liveStreamAvailable": true,
+            "drilldownTagNames": "EVFLAG_FI,EVFLAG_NE,EVFLAG_BL,EVFLAG_AVA,",
+            "typeFlagCodes": "GVA,IVA,PVA,AVA,US,",
+            "typeId": "136",
+            "buildYourBetAvailable": false
+          }
+        ]
+      }
+    ],
+    "eventsIds": [
+      10506104
+    ],
+    "displayOrder": 0,
+    "sportUri": "sport/basketball",
+    "svgId": "ddf07b8a-0653-3081-b0e2-348a5e5a6d44",
+    "eventCount": 1,
+    "marketSelectorOptions": [
+      "Main Market",
+      "Money Line",
+      "Total Points"
+    ],
+    "marketSelector": "Money Line"
+  }
+
+]

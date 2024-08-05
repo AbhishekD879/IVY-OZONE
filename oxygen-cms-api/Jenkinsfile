@@ -1,0 +1,6 @@
+@Library(value='jenkins-pipeline-lib-onprem@master', changelog=false)
+
+def arguments = [ jobAssignmentBuild: true,
+primaryAgentLabel: "dev-slave-ui-onprem",
+]
+lcgJobCmsApi(arguments)

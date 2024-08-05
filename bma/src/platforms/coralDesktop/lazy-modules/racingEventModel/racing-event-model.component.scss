@@ -1,0 +1,50 @@
+@import 'global.variables.scss';
+
+.race-details-container {
+  .value, .label {
+    display: inline-block;
+  }
+  &.build-your-racecard.racing-event-model {
+    background: $brand-color-dark;
+    padding-top: 12px;
+    padding-bottom: 0;
+    margin-bottom: 10px;
+    flex-direction: row;
+
+    .value, .label {
+      color: $color-white;
+    }
+    .race-timer {
+        height: 34px;
+      .value, .label {
+        color: $color-white;
+        display: inline-block;
+      }
+    }
+    .race-going, .race-distance {
+      margin: 0 0 0 16px;
+    }
+
+    .race-details-container-l {
+      line-height: inherit;
+      & > div {
+        @include display-flex();
+      }
+    }
+  }
+}
+
+.race-market {
+  margin: 0 0 10px 0;
+}
+
+.backdown {
+  margin-bottom: 10px;
+}
+.eprSection{
+  justify-content: space-between;
+  align-content: space-around;
+}
+.tabs-panel.horserace-tabs .scroll-container .scroll-inner li .tab {
+    font-size: 12px !important;
+}

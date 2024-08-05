@@ -1,0 +1,270 @@
+<div class="events-wrapper {{ eventsNotEditable ? 'eventsEditDisabled' : '' }}">
+  <div *ngIf="game?.prizes?.length > 0" class="list-unstyled events-list scrolled-container body">
+    <div *ngIf="eventsNotEditable" class="eventsEditDisabledMessage">
+      <div class="row">
+        <div class="col-md-12">
+          <h3>Game already started, changes in this section may have negative impact on customers*</h3>
+          <p>*events adding & removing functionality disabled</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Prizes:</h4>
+      </div>
+      <div class="col-md-12">
+        <mat-card class="list-unstyled events-list scrolled-container">
+          <div class="row">
+            <div *ngFor="let prize of this.game.prizes; let i = index" class="col-md-12 row">
+              <span class="col-md-4 mat-label">Correct selections required: {{prize.correctSelections}}</span>
+              <div class="col-md-5">
+                <mat-radio-group class="mat-label" [(ngModel)]="prize.prizeType">
+                  <span class="m-r-10">Prize type:</span>
+                  <mat-radio-button class="m-r-10" color="primary" *ngFor="let key of getKeys()" [value]="key">
+                    {{getLabel(key)}}
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div class="col-md-2">
+                <mat-form-field class="full-width form-inline">
+                  <input
+                    matInput
+                    [(ngModel)]="prize.amount"
+                    placeholder="Amount"
+                    type="number"
+                  />
+                </mat-form-field>
+              </div>
+              <div class="col-md-1">
+                <span class="mat-label">£</span>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <div novalidate *ngIf="!eventsNotEditable" class="form-event-id">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-12">
+          <h4>Search for event</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <mat-form-field class="full-width">
+            <input
+              class="without-arrow"
+              matInput
+              [(ngModel)]="eventId"
+              placeholder="Event id"
+              type="number"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <button (click)="getEvent()" [disabled]="!eventId" type="button" class="btn btn-sm bg-teal">Add Event</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="game?.events?.length" class="list-unstyled events-list scrolled-container body">
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Game events list:</h4>
+      </div>
+      <div class="col-md-12">
+        <mat-card *ngFor="let event of game.events; let i = index">
+          <div class="row">
+            <div class="col-md-1 mat-label">
+              <h4 style="white-space: nowrap">Event #{{ i + 1 }}</h4>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field class="full-width">
+                <input class="without-arrow" matInput [(ngModel)]="event.eventId" placeholder="Event id" type="number"/>
+              </mat-form-field>
+            </div>
+            <div class="col-md-3">
+              <button (click)="getEvent(i)" type="button" class="btn btn-sm bg-teal">Refresh</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-1 mat-label">
+              TV Icon
+            </div>
+            <div class="col-md-2">
+              <mat-form-field class="full-width">
+                <mat-select
+                  placeholder="TV Icon"
+                  [(value)]="event.tvIcon">
+                  <mat-option *ngFor="let icon of selectTVIconsOptions" [value]="icon.id">
+                    {{icon.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <cms-upload-dropdown #home
+                                   [label]="'Team Kit'"
+                                   [id]="event.eventId"
+                                   [filename]="parseSvgName(event.home.teamKitIcon)"
+                                   [options]="getAvailableOptions(event.home.name)"
+                                   (onImageUpload)="uploadSvgHandler($event, event.eventId, event.home.name, 'home')"
+                                   (onImageRemove)="removeSvgHandler(event.eventId, 'home')"
+                                   (onDataChange)="onChange($event, event.eventId, 'home')">
+              </cms-upload-dropdown>
+            </div>
+            <div class="col-md-6">
+              <cms-upload-dropdown #away
+                                   [label]="'Team Kit'"
+                                   [id]="event.eventId"
+                                   [filename]="parseSvgName(event.away.teamKitIcon)"
+                                   [options]="getAvailableOptions(event.away.name)"
+                                   (onImageUpload)="uploadSvgHandler($event, event.eventId, event.away.name, 'away')"
+                                   (onImageRemove)="removeSvgHandler(event.eventId, 'away')"
+                                   (onDataChange)="onChange($event, event.eventId, 'away')">
+              </cms-upload-dropdown>
+            </div>
+          </div>
+          <div class="row team-names">
+            <div class="col-md-5">
+              <mat-form-field class="full-width">
+                <input
+                  matInput
+                  placeholder="Home team name"
+                  [(ngModel)]="event.home.displayName"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-md-1 versus-against"><span>VS</span></div>
+            <div class="col-md-5">
+              <mat-form-field class="full-width">
+                <input
+                  matInput
+                  placeholder="Away team name"
+                  [(ngModel)]="event.away.displayName"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-md-1" *ngIf="!eventsNotEditable">
+              <button type="button" class="btn bg-red waves-effect float-right delete-event-btn"
+                      (click)="removeEvent(i)">
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+            </div>
+          </div>
+
+
+
+          <div class="row team-names">
+            <div *ngIf="game.seasonId != null" class="row col-md-5">
+              <div class="col-md-4">
+                  <span [textContent]="'Non-PL team'">
+                  </span>
+              </div>
+              <div class="col-md-8">
+                  <mat-checkbox color="primary" [checked]="event.home.isNonPLTeam"
+                      (change)="event.home.isNonPLTeam = !event.home.isNonPLTeam">
+                  </mat-checkbox>
+              </div>
+          </div>
+            <div class="col-md-1 versus-against"></div>
+            <div *ngIf="game.seasonId != null" class="row col-md-5">
+              <div class="col-md-4">
+                  <span [textContent]="'Non-PL team'">
+                  </span>
+              </div>
+              <div class="col-md-8">
+                  <mat-checkbox color="primary" [checked]="event.away.isNonPLTeam"
+                      (change)="event.away.isNonPLTeam = !event.away.isNonPLTeam">
+                  </mat-checkbox>
+              </div>
+          </div>
+          </div>
+        
+
+
+
+          <div class="row">
+            <div class="col-md-8">
+              <date-time-inputs class="full-width"
+                                [placeholderColumn]="true"
+                                [isSetDateButtons]="false"
+                                [initialDate]="event.startTime"
+                                [placeholder]="'Start Time'"
+                                (outputIsoTime)="handleDateUpdate($event, i)">
+              </date-time-inputs>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-1">
+              <button type="button" class="btn bg-red waves-effect" (click)="toggleScorePanel(i, event.eventId)">
+                Show set score section
+              </button>
+            </div>
+            <div *ngIf="this.game.seasonId && isScorePanelExpanded(i)" class="errorMsg">
+              <mat-error>
+                score update with correct values must be done only one time
+              </mat-error>
+            </div>
+          </div>
+          <div class="row scores">
+            <mat-expansion-panel [expanded]="isScorePanelExpanded(i)">
+              <div class="body">
+                <div class="row">
+                  <mat-radio-group [(ngModel)]="selectedScoresOption[i]">
+                    <mat-radio-button class="option" [value]="'MATCH_ARRANGED'">
+                      <mat-form-field class="option-text">
+                        <input matInput
+                               #scoreHome="ngModel"
+                               selected
+                               [disabled]="selectedScoresOption[i] !== 'MATCH_ARRANGED'"
+                               [(ngModel)]="scores[i] && scores[i].home"
+                               placeholder="Home"
+                               pattern="[0-9]"
+                               required/>
+                        <mat-hint class="col-red" *ngIf="scoreHome.invalid && (scoreHome.dirty || scoreHome.touched)">
+                          Score must be within 0 and 9</mat-hint>
+                      </mat-form-field>
+                      <mat-form-field style="margin-left: 15px">
+                        <input matInput
+                               #scoreAway="ngModel"
+                               [disabled]="selectedScoresOption[i] !== 'MATCH_ARRANGED'"
+                               placeholder="Away"
+                               [(ngModel)]="scores[i] && scores[i].away"
+                               pattern="[0-9]"
+                               required/>
+                        <mat-hint class="col-red" *ngIf="scoreAway.invalid && (scoreAway.dirty || scoreAway.touched)">
+                          Score must be within 0 and 9</mat-hint>
+                      </mat-form-field>
+                    </mat-radio-button>
+                    <mat-radio-button class="option" [value]="'MATCH_SUSPENDED'">
+                      <span class="option-text" >Postponed Match</span>
+                    </mat-radio-button>
+                    <mat-radio-button class="option" [value]="'MATCH_ABANDONED'">
+                      <span class="option-text">Abandoned Match</span>
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <div class="row">
+                  <button type="button"
+                          [disabled]="selectedScoresOption[i] === 'MATCH_ARRANGED' &&
+                          ((scoreHome.invalid && (!scoreHome.dirty || !scoreHome.touched)) ||
+                          (scoreAway.invalid && (!scoreAway.dirty || !scoreAway.touched)))"
+                          class="btn bg-red waves-effect"
+                          (click)="saveScore(i)">
+                    Save score
+                  </button>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

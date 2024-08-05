@@ -1,0 +1,47 @@
+<div *ngIf="teamsColors.length" class="event-header" data-crlat="shContent">
+  <div class="team-name-home" [textContent]="teamsColors[0].teamName ? teamsColors[0].teamName : noEntityName"></div>
+  <div class="wrapper-crests">
+    <ng-container *ngTemplateOutlet="crestTpl; context: { team: teamsColors[0] }"></ng-container>
+    <span class="delimiter"> - </span>
+    <ng-container *ngTemplateOutlet="crestTpl; context: { team: teamsColors[1] }"></ng-container>
+  </div>
+  <div class="team-name-away" [textContent]="teamsColors[1].teamName ? teamsColors[1].teamName : noEntityName"></div>
+  <ng-template #crestTpl  let-team="team">
+    <div class="oval">
+      <img class="player-image" *ngIf="(teamsImgExistOnHomeAway && team.colors.teamsImage && team.colors.teamsImage.filename && team.colors.fiveASideToggle)" [attr.src]="TEAMSIMAGEPATH + team.colors.teamsImage.filename"/>
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 15 17" *ngIf="!(teamsImgExistOnHomeAway && team.colors.teamsImage && team.colors.teamsImage.filename && team.colors.fiveASideToggle)">
+        <g fill="none" fill-rule="evenodd">
+          <path [attr.fill]="team.colors.secondaryColour" style="opacity: .9"
+                d="M14.834 1.244L7.617.003A.1.1 0 0 0 7.5.1V17l.136-.016A8.354 8.354 0 0 0 15 8.688V1.441a.2.2 0 0 0-.166-.197z"/>
+          <path [attr.fill]="team.colors.secondaryColour"
+                d="M13.839 1.237L7.619.003A.1.1 0 0 0 7.5.1V17A7.528 7.528 0 0 0 14 9.543v-8.11a.2.2 0 0 0-.161-.196z"/>
+          <path [attr.fill]="team.colors.primaryColour" style="opacity: .9"
+                d="M.166 1.244L7.383.003A.1.1 0 0 1 7.5.1V17l-.136-.016A8.354 8.354 0 0 1 0 8.688V1.441a.2.2 0 0 1 .166-.197z"/>
+          <path [attr.fill]="team.colors.primaryColour"
+                d="M1.161 1.237L7.381.003A.1.1 0 0 1 7.5.1V17A7.528 7.528 0 0 1 1 9.543v-8.11a.2.2 0 0 1 .161-.196z"/>
+        </g>
+      </svg>
+    </div>
+  </ng-template>
+</div>
+<div class="lineups">
+  <ng-container *ngIf="isLineupAvailable">
+    <button class="lineups-btn" type="button" (click)="onOpenLineUp()">
+      <span class="lineups-btn-text" [i18n]="'yourCall.lineups'"></span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="!isLineupAvailable">
+    <div class="lineups-description">
+      <span class="lineups-value" [i18n]="'yourCall.lineupNotavilable'"></span>
+      <div class="lineups-icon">
+        <svg class="lineups-info-icon" *ngIf="lineupsTooltip" [tooltip]="'lineupsTitle'" 
+        [showTooltip]="showLineUp" [toolTipArgs]="toolTipArgs" (click)="toggleLineups()">
+          <use xlink:href="#icn_info-icon-bg"></use>
+        </svg>
+        <svg class="lineups-info-icon" *ngIf="!lineupsTooltip">
+          <use xlink:href="#icn_info-icon-bg"></use>
+        </svg>
+      </div>
+    </div>
+  </ng-container>
+</div>

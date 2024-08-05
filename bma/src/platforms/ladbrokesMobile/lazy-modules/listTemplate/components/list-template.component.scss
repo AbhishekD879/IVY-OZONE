@@ -1,0 +1,43 @@
+@import 'global.variables.scss';
+.listtemplate-ld-mobile {
+  accordion {
+    border-bottom: 1px solid $color-gray;
+    margin: 0px !important;
+    live-label {
+        span {
+          margin-right: 0px !important;
+          line-height: 15px !important;
+        }
+    }
+    accordion-body>.odds-card {
+      border-top: 0;
+    }
+  }
+  .show-all-button {
+    border-top: 1px solid $color-gray;
+    margin-top: 1px;
+    padding: 4.5px 10px;
+    font-weight: bold;
+  }
+ 
+  .odds-card {
+    padding: 10px 12px;
+    border-top: 1px solid $color-gray;
+    .odds-footer {
+      margin: 0px;
+    }
+  }
+
+  .odds-card.desktop-sport-card:not(.card-special) {
+    display: block;
+  }
+  .odds-more-link {
+    color: $color-blue-cornflower;
+  }
+  .odds-stream-container {
+    @include display-flex();
+  }
+  .odds-devider {
+    margin: 2px 4px 0px -2px;
+  }
+}

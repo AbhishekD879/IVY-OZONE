@@ -1,0 +1,6 @@
+<ng-container *ngIf="!state.error">
+  <div *ngIf="useLoader && (state.loading || isLoading)" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+  <div [ngClass]="{'container': !removeContainer}" [innerHtml]="innerHtml"></div>
+</ng-container>
+
+<request-error *ngIf="state.error && !state.loading" (reloadFn)="reloadComponent()"></request-error>

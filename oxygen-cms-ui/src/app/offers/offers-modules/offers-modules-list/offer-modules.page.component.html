@@ -1,0 +1,52 @@
+<div class="card" *ngIf="offerModulesData">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Offer Modules Page
+      <small *ngIf="offerModulesData && offerModulesAmount">Total active offer modules: {{offerModulesAmount.active}}, inactive offer modules: {{offerModulesAmount.inactive}}</small>
+    </h2>
+  </div>
+</div>
+<div class="card">
+  <div class="body">
+    <!-- search and download button.-->
+    <div *ngIf="offerModulesData" class="row clearfix">
+      <div class="col-md-3">
+        <button (click)="createOfferModule()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create Offer Module</span>
+        </button>
+      </div>
+      <div class="col-md-3">
+        <download-cvs [cvsData]="offerModulesData" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Offer Modules" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <!-- main content, config groups list-->
+    <div *ngIf="offerModulesData">
+      <cms-data-table
+        [customTableData]="offerModulesData"
+        [customTableColumns]="dataTableColumns"
+        [reorder]="true"
+        [multyRemove]="true"
+        [actions]="['remove','edit']"
+        [filterString]="searchField"
+        [filterProperties]="filterProperties"
+        (onElementsOrder)="reorderHandler($event)"
+        (onRemoveTableElement)="removeOfferModule($event)"
+        (onMultyRemove)="removeHandlerMulty($event)">
+      </cms-data-table>
+    </div>
+
+    <div *ngIf="getDataError">
+      Request Error
+    </div>
+  </div>
+</div>

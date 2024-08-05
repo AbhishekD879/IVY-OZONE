@@ -1,0 +1,139 @@
+<ng-container *ngFor="let eventEntity of raceData$ | async; trackBy: trackByEvents">
+  <header class="race-header row row-no-gutter" data-crlat="raceHeader">
+    <div class="text-area col-xs-10">
+      <div>
+        <span class="race-title">
+          <span data-crlat="raceCard.eventName" [ngStyle]="{'white-space': isEventVirtual(eventEntity) ? 'normal' : 'no-wrap'}">
+            <span class="gap-signpost">{{getEventName(eventEntity)}} </span>
+            <span *ngIf="isEventVirtual(eventEntity)" [i18n]="'sb.flagVR'" class="virtual-title"></span>
+          </span>
+        </span>
+        <ng-container *ngIf="eventEntity.racingFormEvent">
+          <span *ngIf="eventEntity.racingFormEvent?.raceType" class="race-going" [textContent]="eventEntity.racingFormEvent.raceType"></span>
+          <span *ngIf="eventEntity.racingFormEvent.going" [textContent]="eventEntity.racingFormEvent.going | callBack : getGoing : this " class="race-going"></span>
+          <span *ngIf="eventEntity.racingFormEvent.distance" [textContent]="eventEntity.racingFormEvent.distance| callBack : getDistance : this " class="race-distance"></span>
+        </ng-container>
+        <race-timer *ngIf="showTimer" [event]="eventEntity" [utc]="true" [displayTime]="false"></race-timer>
+      </div>
+    </div>
+    <div class="icons-area">
+      <a class="race-next-link" [attr.id]="eventEntity.typeName + eventEntity.id" (click)="trackEvent(eventEntity)"
+        [linkHref] [link]="formEdpUrl(eventEntity)" data-crlat="raceNextLink">
+        <span [attr.id]="eventEntity.typeName + eventEntity.id" [textContent]="seeAllRaceText" data-crlat="viewFullRace"></span>
+        <svg>
+          <use xlink:href="#next-arrow"></use>
+        </svg>
+      </a>
+    </div>
+  </header>
+  <div class="race-sub-header" data-crlat="raceSubHeader">
+    <div class="text-area">
+      <span *ngIf="eventEntity.markets[0] && showEchWayTerms(eventEntity.markets[0])" data-crlat="raceCard.eventTerms" [textContent]="eventEntity.markets[0].terms">
+      </span>
+    </div>
+    <div class="icons-area">
+      <promotion-icon class="race-card-promotion-icon" [type]="'event'" [display]="eventEntity?.drilldownTagNames" [mode]="'sm'"
+        [cashoutAvailable]="isCashoutAvailable(eventEntity)" data-crlat="promotionIcons">
+      </promotion-icon>
+      <ng-container *ngIf="isStreamLabelShown(eventEntity)">
+        <svg class="race-icon-stream">
+          <use xlink:href="#stream"></use>
+        </svg>
+        <span class="watch-label" data-crlat="watchLabel" [i18n]="'sb.watch'"></span>
+      </ng-container>
+    </div>
+  </div>
+  <section class="row-panel race-card-content"
+            *ngFor="let market of eventEntity.markets; trackBy: trackByMarkets"
+            data-crlat="eventGroup">
+    <div *ngFor="let outcomeEntity of market.outcomes | slice:0:limit; trackBy: trackByOutcomes"
+          class="odds-card race-card"
+          data-crlat="raceCard.odds" (click)="trackEvent(eventEntity)">
+      <div class="odds-content">
+        <div class="odds-left"
+              data-crlat="raceCard.runnerInfo">
+          <div class="odds-side"
+                *ngIf="isNumberNeeded(eventEntity, outcomeEntity)">
+            <strong [textContent]="getRunnerNumber(outcomeEntity)"></strong><br/>
+            <div class="label-text"
+                  *ngIf="!isEventVirtual(eventEntity) && outcomeEntity.racingFormOutcome && outcomeEntity.racingFormOutcome.draw">
+              (<span [textContent]="outcomeEntity.racingFormOutcome.draw"></span>)
+            </div>
+          </div>
+
+          <!-- silk for virtual races -->
+          <virtual-silk class="virtual-silk" *ngIf="(isEventVirtual(eventEntity)) && outcomeEntity" [event]="eventEntity" [outcome]="outcomeEntity"></virtual-silk>
+          <!-- silk for usual races -->
+          <ng-container *ngIf="!isEventVirtual(eventEntity)">
+            <div class="silk-img"
+                  *ngIf="isGenericSilk(eventEntity, outcomeEntity)"
+                  data-crlat="raceCard.silk"></div>
+            <gh-silk *ngIf="isGreyhoundSilk(eventEntity, outcomeEntity)"
+                     [event]="eventEntity"
+                     [outcome]="outcomeEntity"></gh-silk>
+            <div class="silk-img" [ngClass]="eventEntity.isUKorIRE ? 'with-default': 'inter-silk'"
+                 *ngIf="outcomeEntity.racingFormOutcome?.silkName"
+                 data-crlat="raceCard.silk">
+              <div [ngStyle]="getSilkStyle(eventEntity.markets[0], outcomeEntity)"></div>
+            </div>
+          </ng-container>
+          <div class="odds-names odds-names-list"
+                [ngClass]="{'odds-disabled' : outcomeEntity.nonRunner}"
+                data-crlat="raceCard.runner">
+            <strong [textContent]="outcomeEntity?.name | callBack : removeLineSymbol : this" data-crlat="raceCard.runnerName"></strong>
+
+            <ng-container *ngIf="!isEventVirtual(eventEntity)">  
+              <span *ngIf="outcomeEntity.racingFormOutcome && eventEntity.categoryCode !== 'GREYHOUNDS'" class="odds-small">
+                <span *ngIf="outcomeEntity.racingFormOutcome?.jockey">
+                  <span [textContent]="'J: '" class="text-bold"></span>
+                  <span [textContent]="raceOutcomeData.formatJockeyWeight(outcomeEntity.racingFormOutcome)"
+                    data-crlat="jockeyName"></span>
+                </span>
+                <span *ngIf="raceOutcomeData.isJockeyAndTrainer(outcomeEntity.racingFormOutcome)" data-crlat="jockeyName&trainerName">
+                  / </span>
+                <span *ngIf="outcomeEntity.racingFormOutcome?.trainer">
+                  <span [textContent]="'T: '" class="text-bold"></span>
+                  <span [textContent]="outcomeEntity.racingFormOutcome.trainer" data-crlat="trainerName"></span>
+                </span>
+              </span>
+              <span *ngIf="eventEntity.categoryCode === 'GREYHOUNDS' && eventEntity.racingFormEvent && outcomeEntity.racingFormOutcome?.trainer" class="odds-small">
+                <span [i18n]="'racing.trainer'"></span>&nbsp;
+                <strong [textContent]="outcomeEntity.racingFormOutcome.trainer" data-crlat="trainerName"></strong>
+              </span>
+            </ng-container>
+
+            <span *ngIf="isEventVirtual(eventEntity)" class="odds-small">
+              <span [textContent]="outcomeEntity.jockey"></span>
+            </span>
+            <span *ngIf="isEventVirtual(eventEntity) && outcomeEntity.racingFormOutcome?.trainer" class="odds-small">
+              <strong [textContent]="outcomeEntity.racingFormOutcome.trainer" data-crlat="trainerName"></strong>
+            </span>
+
+            <span *ngIf="outcomeEntity.racingFormOutcome" class="odds-small form-guide-color" data-crlat="raceCard.runnerFormGuide">
+              <span [i18n]="'racing.form_colon'"></span>
+              <strong class="text-bold" [textContent]="outcomeEntity.racingFormOutcome?.formGuide || '-'"></strong>
+            </span>
+          </div>
+        </div>
+        <div class="odds-right odds-right-vertical" data-crlat="oddsRight">
+          <price-odds-button [event]="eventEntity"
+                             [market]="market"
+                             [outcome]="outcomeEntity"
+                             [isRacing]="isRacing"
+                             [goToBetslip]="true"
+                             [gtmModuleTitle]="gtmModuleTitle">
+          </price-odds-button>
+          <historic-prices [outcome]="outcomeEntity"
+                            *ngIf="!raceNewStyleCard && outcomeEntity.correctPriceType !== 'SP'"></historic-prices>
+        </div>
+      </div>
+    </div>
+    <show-all-button data-crlat="showAllButton"
+                     class="light-show-all"
+                     *ngIf="isFeaturedRaceCard && isShowAllActive"
+                     (click)="toggleShow()"
+                     [seeMoreMode]="true"
+                     [allShown]="allShown">
+    </show-all-button>
+  </section>
+</ng-container>

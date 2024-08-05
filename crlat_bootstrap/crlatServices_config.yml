@@ -1,0 +1,10 @@
+---
+- name: Install software
+  hosts: tag_Name_services
+  user: ubuntu
+  become: yes
+  gather_facts: yes
+  tasks:
+  - name: Execute crlat.software role
+    include_role:
+      name: crlat.software

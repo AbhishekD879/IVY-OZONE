@@ -1,0 +1,61 @@
+<section class="page-container" [ngClass]="{'is-expanded' : isExpanded, 'page-inner-container' : inner || card, 'no-header' : !accordionTitle}"
+         data-crlat="accordion">
+  <header class="container-header" (click)="toggled($event)"
+          *ngIf="!isHeaderHidden"
+          [ngClass]="headerClasses"
+          data-crlat="containerHeader">
+    <div *ngIf="isChevronToLeft" class="chevron"
+         [ngClass]="{'chevron-up' : isExpanded && !isShowAll,
+                     'chevron-down' : !isExpanded,
+                     'chevron-right' : isShowAll && isExpanded,
+                     'left' : isChevronToLeft}"
+         data-crlat="chevronArrow">
+    </div>
+    <div class="accordion-left-side">
+      <ng-content select="left-side"></ng-content>
+    </div>
+
+    <ng-container *ngIf="!isSeoContent">
+      <div *ngIf="isCustomElement && isExpanded; else elseBlock" class="hr-header" [ngClass]="{'isByb': isByb}" data-crlat="headerTitle.centerMessage"> 
+        <lazy-component
+          *ngIf="eventEntity"
+          moduleUri="@lazy-modules-module/InplayHRHeader/inplay-hr-header.module#InplayHRHeaderModule"
+          entryComponent="InplayHRHeaderComponent" (init)="inplayHRHeaderLoaded()"
+          [inputs]="{eventEntity:eventEntity}">
+        </lazy-component>
+      </div>
+      <ng-template #elseBlock>
+        <span class="header-title" [textContent]="accordionTitle" data-crlat="headerTitle.centerMessage" [ngClass]="{'isByb': isByb}"></span>
+      </ng-template>
+    </ng-container>    
+        
+    <h1 class="title-header" *ngIf="isSeoContent"
+        [textContent]="accordionTitle"
+        data-crlat="headerTitle.centerMessage"></h1>
+
+    <div class="accordion-right-side">
+      <ng-content select="right-side"></ng-content>
+    </div>
+    <div *ngIf="!isChevronToLeft && !isBybState" class="chevron"
+         [ngClass]="{'chevron-up' : isExpanded,
+                     'chevron-down' : !isExpanded,
+                     'right' : !isChevronToLeft}"
+         data-crlat="chevronArrow">
+    </div>
+    <div *ngIf="!isChevronToLeft && isBybState" class="chevron"
+    [ngClass]="{'chevron-byb' : isExpanded,
+                'chevron-down' : !isExpanded,
+                'right' : !isChevronToLeft}">
+    </div>
+  </header>
+  <article class="container-content"
+           [ngClass]="{'text-section': pcTextBlock}"
+           *ngIf="!isSeoContent && isExpanded" data-crlat="containerContent">
+    <ng-content select="accordion-body"></ng-content>
+  </article>
+  <article *ngIf="isSeoContent"
+           [ngClass]="{'seo-content-show': isExpanded,
+                       'seo-content-hide': !isExpanded}">
+    <ng-content select="seo-block-content"></ng-content>
+  </article>
+</section>

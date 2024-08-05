@@ -1,0 +1,44 @@
+<div class="splash-page" [ngClass]="{'qeWrap':isDektop}" *ngIf="qeData && qeData.splashPage">
+<div *ngIf="serviceClosureService.userServiceClosureOrPlayBreakCheck() &&
+serviceClosureService.userServiceClosureOrPlayBreak" class="error-msg-f2p"
+   [innerHTML]="f2pErrMsg"></div>
+  <div class="qe-container">
+    <button *ngIf="!isDesktop" class="qe-btn-close" (click) = "closeApp();">
+      <svg class="close-svg">
+        <use xlink:href="#close-icon"></use>
+      </svg>
+    </button>
+    <header class="qe-header">
+      <img class="logo"
+           *ngIf="qeData.splashPage?.logoSvgUrl"
+           [src]="qeData.splashPage.logoSvgUrl"
+           alt="logo">
+      <p class="strap-line" [innerHTML]="qeData.splashPage.strapLine"></p>
+    </header>
+    <div class="qe-main-section">
+      <button
+         (click)="onCtaButtonClick()"
+         class="main-btn"
+         [disabled]="loginProcessing || (isUserLoggedIn && (serviceClosureService.userServiceClosureOrPlayBreakCheck() &&
+         serviceClosureService.userServiceClosureOrPlayBreak))"
+         [textContent]="loginProcessing ? btnProcessingMsg : qeData.splashPage.ctaButtonText">
+    </button>
+      <div class="qe-main-section-item" *ngIf="qeData?.splashPage?.showPreviousGamesButton && previousResults && isUserLoggedIn">
+        <a class="qe-main-section-link"
+          [routerLink]="['/footballsuperseries/after/previous-results']"
+        >
+          <span>Previous Results</span>
+          <svg *ngIf="!isDesktop" class="arrow-icon next-arrow qe-main-section-svg">
+            <use xlink:href="#next-arrow"></use>
+          </svg>
+        </a>
+      </div>
+      <qe-footer></qe-footer>
+      <img class="promo-logo"
+           *ngIf="qeData.splashPage.footerSvgUrl"
+           [src]="qeData.splashPage.footerSvgUrl"
+           alt="promoLogo">
+      <p class="bottom-text" [textContent]="qeData.splashPage.footerText"></p>
+    </div>
+  </div>
+</div>

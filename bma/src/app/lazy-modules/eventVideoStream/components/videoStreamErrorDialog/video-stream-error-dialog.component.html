@@ -1,0 +1,29 @@
+<modal #videoStreamErrorDialog class="video-stream-error-dialog" data-uat="popUpWindow" data-crlat="d.videoStreamError">
+  <ng-template #modalHeader>
+    <span [i18n]="params.isReplay?'Watch Replay':'Watch Live'" data-crlat="dTitle" data-uat="popUpTitle"></span>
+  </ng-template>
+  <ng-template #modalBody data-uat="popUpText">
+    <div *ngIf="params.errorMsg">
+      <p>
+        <span data-crlat="errorMsg" [i18n]="params.errorMsg"></span>&nbsp;
+      </p>
+    </div>
+
+    <div *ngIf="countDown">
+      <p>
+        <span class="race-count-down-text" data-crlat="countDownText">Event countdown: </span><span class="race-count-down-counter" data-crlat="countDownTimer">{{ countDown }}</span>
+      </p>
+    </div>
+    <div class="btn-list">
+      <button data-uat="popUpButton" *ngIf="!params.isInactivePopup" class="btn btn-style2" (click)="close()">
+        <span [i18n]="'OK'" data-crlat="verifyMeButton"></span>
+      </button>
+      <button data-uat="popUpButton" *ngIf="params.isInactivePopup" class="btn btn-style4" (click)="close()">
+        <span [i18n]="'sb.okThanks'"></span>
+      </button>
+      <button data-uat="popUpButton" *ngIf="params.isInactivePopup" class="btn btn-style2" (click)="openDeposit()">
+        <span [i18n]="'sb.deposit'"></span>
+      </button>
+    </div>
+  </ng-template>
+</modal>

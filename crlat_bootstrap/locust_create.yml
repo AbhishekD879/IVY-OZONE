@@ -1,0 +1,21 @@
+---
+- name: Create locust cluster
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    key_name: crlat
+    instance_type: t2.micro
+    security_group: crlat
+    image_name: ubuntu_1604
+    subnet_name: public
+    region: eu-west-1
+    execution_id: 1
+    action: create
+    tag_groupname: BPPLT
+    num_nodes: 1
+  tasks:
+  - name: crlat.vpc
+    include_role:
+      name: crlat.vpc
+

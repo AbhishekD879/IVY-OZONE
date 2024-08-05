@@ -1,0 +1,23 @@
+<!-- Checkbox matrix-->
+<div class="checkboxes-body uk-tote" data-crlat="checkboxes">
+  <div class="check-area"
+    *ngFor="let element of checkBoxMatrix; trackBy: trackByIndex"
+    (click)="checkPlace(outcome.id, element.key)"
+    [ngClass]="getCssClass(element)"
+    data-crlat="checkbox.area">
+
+    <div *ngIf="!outcome.nonRunner"
+         class="checkbox"
+         data-crlat="checkbox.runner"></div>
+
+    <div *ngIf="outcome.nonRunner"
+         class="non-runner-text"
+         [i18n]="'uktote.nonRunner'"
+         data-crlat="checkbox.nonRunner"></div>
+
+    <div class="guide-container" *ngIf="guide">
+      <span class="label" [i18n]="'uktote.guide'"></span>
+      <span class="value" [textContent]="guide"></span>
+    </div>
+  </div>
+</div>

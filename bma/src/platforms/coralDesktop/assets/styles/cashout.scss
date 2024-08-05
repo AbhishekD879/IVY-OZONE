@@ -1,0 +1,16 @@
+@import './tools.mixins.scss';
+
+// IE 11 fix
+.cashout-odds-content {
+  & > * {
+    @include flex-shrink(0);
+  }
+
+  .cashout-odds-names {
+    @include flex-shrink(1);
+  }
+}
+.allWinnerBonus-value-Cashout{
+  font-weight: 700;
+  font-size: 12px;
+}

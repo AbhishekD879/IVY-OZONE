@@ -1,0 +1,122 @@
+<ng-container *ngIf="!isLoading">
+    <breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+
+    <div class="card" *ngIf="!isEdit">
+        <div class="header">
+            <h2 class="has-activity-badge">
+                <span class="font-italic" [textContent]="signpostingConstants.CREATE_SIGNPOSTING"></span>
+            </h2>
+        </div>
+    </div>
+
+    <div class="card" *ngIf="signpostingData && isEdit">
+        <div class="header">
+            <h2 class="has-activity-badge">
+                {{signpostingConstants.EDIT_SIGNPOSTING}}<span>{{signpostingData.title}}</span>
+                <create-updated-at-by [collection]="signpostingData"></create-updated-at-by>
+            </h2>
+            <header-activity-badge [state]="!signpostingData.isActive"></header-activity-badge>
+        </div>
+    </div>
+    <div class="card">
+        <div class="body">
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-checkbox color="primary" [checked]="signpostingData.isActive" (change)='activeStatus()'>Active
+                    </mat-checkbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label" for="title" [textContent]="signpostingConstants.TITLE"></span>
+                </div>
+                <div class="col-md-5">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Title" [(ngModel)]="signpostingData.title"
+                            [value]="signpostingData.title" required trim="blur" maxlength="50" [disabled]="isEdit">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label" for="thresholdValue"
+                        [textContent]="signpostingConstants.THRESHOLD_VALUE"></span>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field class="full-width">
+                        <mat-select [value]="signpostingData.price.priceType"
+                            [(ngModel)]="signpostingData.price.priceType"
+                            placeholder="Threshold type" required>
+                            <mat-option *ngFor="let variant of selectThresholdTypeOptions"
+                                [value]="selectThresholdTypeEnum[variant]">
+                                {{variant}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <ng-container *ngIf="signpostingData.price.priceType.toLowerCase() === 'decimal'">
+                        <mat-form-field class="full-width">
+                            <input matInput type="text" [(ngModel)]="signpostingData.price.priceDec"
+                                [value]="signpostingData.price.priceDec" required trim="blur" name="priceDec"
+                                twoDigitDecimaNumber>
+                        </mat-form-field>
+                    </ng-container>
+
+                    <ng-container *ngIf="signpostingData.price.priceType.toLowerCase() === 'fractional'">
+                        <mat-form-field class="price-input">
+                            <input matInput [(ngModel)]="signpostingData.price.priceNum" appNumberOnly required>
+                        </mat-form-field>
+                        <span class="text-muted">/</span>
+                        <mat-form-field class="price-input">
+                            <input matInput [(ngModel)]="signpostingData.price.priceDen" appNumberOnly required>
+                        </mat-form-field>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label" for="messageDisplay"
+                        [textContent]="signpostingConstants.MESSAGE_DISPLAY"></span>
+                </div>
+                <div class="col-md-5">
+                    <mat-form-field class="full-width">
+                        <input matInput [(ngModel)]="signpostingData.signPost" [value]="signpostingData.signPost"
+                            required trim="blur" maxlength="100">
+                        <mat-hint class="col-red" *ngIf="signpostingData.signPost.length >= 100"
+                            [textContent]="signpostingConstants.ERROR_MESSAGE">
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="body">
+            <div class="row">
+                <div class="col-4 col-md-7 p-b-0 m-b-0">
+                    <button mat-button type="button" class="btn bg-teal waves-effect float-left"
+                        [disabled]="isValidForm()" (click)="saveChanges()">
+                        <mat-icon>save</mat-icon>
+                        <span *ngIf="isEdit" [textContent]="signpostingConstants.SAVE_CHANGES"></span>
+                        <span *ngIf="!isEdit" [textContent]="signpostingConstants.CREATE_NEW_SIGNPOSTING"></span>
+                    </button>
+                </div>
+                <div class="col-4 col-md-2 p-b-0 m-b-0" *ngIf="signpostingData && isEdit">
+                    <button mat-button type="button" class="btn bg-blue-grey waves-effect float-left"
+                        [disabled]="isValidForm()" (click)="revertChanges();">
+                        <mat-icon>undo</mat-icon>
+                        <span [textContent]="signpostingConstants.REVERT_CHANGES"></span>
+                    </button>
+                </div>
+                <div class="col-4 col-md-3 p-b-0 m-b-0" *ngIf="signpostingData && isEdit">
+                    <button mat-button type="button" class="btn bg-red waves-effect float-right" (click)="remove();">
+                        <mat-icon>delete_forever</mat-icon>
+                        <span [textContent]="signpostingConstants.REMOVE"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

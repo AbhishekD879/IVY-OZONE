@@ -1,0 +1,58 @@
+@import 'global.variables.scss';
+
+//----------------------------------------------------------------------
+// Filter buttons
+//
+//   Today   Tomorrow   Future
+//  ________
+
+.filter-buttons {
+  background: $brand-color-dark;
+  height: 40px;
+  position: relative;
+  padding: 0 5px;
+  margin: 0 0 $componets-edge-gap;
+  @include display-flex();
+
+  .filter-btn {
+    position: relative;
+    border: none;
+    background: transparent;
+    outline: none;
+    color: $color-white-disable-btn;
+    text-transform: uppercase;
+    font: bold 11px $base-font-family;
+    cursor: pointer;
+    margin: 0 5px;
+    @include display-flex();
+    @include align-items();
+    @include justify-content();
+
+    &:after {
+      height: 2px;
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: none;
+    }
+
+    &:hover {
+      text-decoration: none;
+      color: $light-blue;
+    }
+
+    &.active {
+      text-shadow: none;
+      color: $color-white;
+
+      &:after {
+        background: $color-red;
+      }
+    }
+  }
+  .activeMatchesTab {
+    display: none;
+  }
+}

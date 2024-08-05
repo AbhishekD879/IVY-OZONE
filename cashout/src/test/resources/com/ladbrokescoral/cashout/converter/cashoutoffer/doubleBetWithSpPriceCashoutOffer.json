@@ -1,0 +1,49 @@
+{
+  "cashoutOfferRequests": [{
+    "cashoutOfferReqRef": "597155",
+    "bet": {
+      "stakeAmount": "1.00",
+      "tokenValue": "0.00",
+      "betType": "DBL",
+      "legType": "W",
+      "cashoutProfile":"NO_LOSS",
+      "legs": [{
+        "legNo": "1",
+        "legSort": "--",
+        "parts": [{
+          "partNo": "1",
+          "type": "2.0",
+          "ladder": "STABLE",
+           "categoryId":"16",
+           "isOff":"Y",
+          "result": "-",
+          "eachWayDen": "7",
+          "eachWayPlaces": "2",
+          "priceType": "L",
+          "strikePrice": {
+            "num": "8",
+            "den": "1"
+          },
+          "spotPrice": {
+            "num": "8",
+            "den": "1"
+          }
+        }]
+      }, {
+        "legNo": "2",
+        "legSort": "--",
+        "parts": [{
+          "partNo": "1",
+          "type": "2.0",
+          "ladder": "STABLE",
+           "categoryId":"16",
+           "isOff":"N",
+          "result": "-",
+          "eachWayDen": "4",
+          "eachWayPlaces": "2",
+          "priceType": "S"
+        }]
+      }]
+    }
+  }]
+}

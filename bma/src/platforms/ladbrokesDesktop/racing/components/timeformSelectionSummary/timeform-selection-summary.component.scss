@@ -1,0 +1,18 @@
+$font-size: 12px;
+$font-size-xs: 8px;
+
+.timeform-selection-summary {
+  .summary-header {
+    .col-xs-6 > span {
+      font-size: $font-size;
+    }
+
+    .rating {
+      font-size: $font-size-xs;
+    }
+  }
+
+  .timeform-description {
+    font-size: $font-size;
+  }
+}

@@ -1,0 +1,22 @@
+@import 'global.variables.scss';
+
+.horse-form-table {
+    width: 100%;
+    background-color: $color-horse-form-table-bg;
+    font-size: 9px;
+    .table-header {
+      background-color: $color-table-header-bg;
+      font-weight: normal;
+      border: 2px solid $color-white;
+    }
+    td, th {
+      text-align: left;
+      height: 20px;
+      padding: 8px;
+      font-weight: normal;
+      border: 2px solid $color-white;
+    }
+    tr:nth-child(even) {
+      background-color: $color-white;
+    }
+  }

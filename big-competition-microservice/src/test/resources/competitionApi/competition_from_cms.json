@@ -1,0 +1,72 @@
+{
+  "id": "5a9fcde4c9e77c0001eeaec5",
+  "name": "CompName",
+  "title": "CompName",
+  "uri": "/CompName",
+  "enabled": true,
+  "path": "/CompName",
+  "competitionTabs": [{
+    "id": "5a9fcdeec9e77c0001e5c54b",
+    "name": "tabEnabled",
+    "uri": "/tabenabled",
+    "path": "/CompName/tabenabled",
+    "hasSubtabs": true,
+    "enabled": true,
+    "competitionSubTabs": [{
+      "id": "5a9fce09c9e77c0001eeaec6",
+      "name": "SubTabEnabled",
+      "uri": "/subtabenabled",
+      "path": "/CompName/tabenabled/subtabenabled",
+      "enabled": true,
+      "competitionModules": [{
+        "id": "5a9fce48c9e77c0001045f97",
+        "name": "ModuleEnabled",
+        "type": "NEXT_EVENTS",
+        "markets": [],
+        "maxDisplay": 10,
+        "viewType": "CARD",
+        "promoTag": null,
+        "enabled": true,
+        "typeId": 442
+      }, {
+        "id": "5a9fce65c9e77c0001045f98",
+        "name": "ModuleDisabled",
+        "type": "NEXT_EVENTS",
+        "markets": [],
+        "maxDisplay": 10,
+        "viewType": "CARD",
+        "promoTag": "",
+        "enabled": false,
+        "typeId": null
+      }]
+    }, {
+      "id": "5a9fce11c9e77c0001e5c54c",
+      "name": "SubTabDisabled",
+      "uri": "/subtabdisabled",
+      "path": "/CompName/tabenabled/subtabdisabled",
+      "enabled": false,
+      "competitionModules": []
+    }],
+    "competitionModules": []
+  }, {
+    "id": "5a9fcdf9c9e77c0001045f96",
+    "name": "TabDisabled",
+    "uri": "/tabdisabled",
+    "path": "/CompName/tabdisabled",
+    "hasSubtabs": false,
+    "enabled": false,
+    "competitionSubTabs": [],
+    "competitionModules": [{
+      "id": "5a9fce4ec9e77c0001eeaec7",
+      "name": "Outright",
+      "type": "OUTRIGHTS",
+      "markets": [],
+      "maxDisplay": 10,
+      "viewType": "CARD",
+      "promoTag": "",
+      "enabled": false,
+      "typeId": null
+    }]
+  }],
+  "competitionParticipants": []
+}

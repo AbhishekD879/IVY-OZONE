@@ -1,0 +1,39 @@
+<div class="sk-container" [ngClass]="{'sk-loading': showLoader && loading}">
+  <loading-screen [displayed]="showLoader && loading" [skeletonOnly]="true"></loading-screen>
+  <header *ngIf="isShowAz" class="split-header" [i18n]="'sb.azCompetitions'"></header>
+  <ng-container *ngFor="let category of categories; trackBy: trackByIndex; let i = index">
+    <ng-container>
+      <ng-template *ngTemplateOutlet="VirtualBanner; context :{ index:  (isAzCategories ? (allAccorditions?.length-categories.length + i) : i)} "></ng-template>
+    </ng-container>
+  <accordion 
+    [accordionTitle]="category.class?.name" [isExpanded]="isExpanded[i]" [className]="competitionsClasses"
+    [isHeaderHidden]="isTennis()" (function)="goToTypes(i)" data-crlat="accordionComp">
+    <accordion-body *ngIf="isExpanded[i]">
+      <loading-screen [displayed]="!initiallyExpanded[i] && category.loading"
+      [ngClass]="{'set-skeleton-height':category.loading, 'set-height-zero':!category.loading}"
+        [skeletonOnlyDisplayed]="!initiallyExpanded[i] && category.loading" [templateType]="'GENERIC_COMPETITION'"
+        [skeletonOnly]="true" data-crlat="spinner.loader">
+      </loading-screen>
+      <ng-container *ngIf="!category.loading">
+        <list-card *ngFor="let typeItem of category.types; trackBy: trackByIndex;" (click)="closeChangeCompetition()"
+          [item]="typeItem" [link]="typeItem.link" data-crlat="linkListItem">
+        </list-card>
+      </ng-container>
+      <no-events *ngIf="!category.loading && !(category.types && category.types.length)"></no-events>
+    </accordion-body>
+  </accordion>
+  <ng-container *ngIf="isAzCategories && (allAccorditions?.length-categories?.length + i ===allAccorditions?.length-1)">
+    <ng-template *ngTemplateOutlet="VirtualBanner; context :{ index:  (allAccorditions?.length)} "></ng-template>
+  </ng-container>
+</ng-container>
+</div>
+<ng-template #VirtualBanner let-index="index">
+  <ng-container *ngIf="targetTab?.interstitialBanners?.bannerEnabled">
+    <lazy-component
+      moduleUri="@lazy-modules-module/virtualEntryPointBanner/virtual-entry-point-banner.module#VirtualEntryPointBannerModule"
+      entryComponent="VirtualEntryPointBannerComponent"
+      [inputs]="{targetTab: targetTab, eventsBySections: allAccorditions, index: index,sportName : sportName}">
+    </lazy-component>
+  </ng-container>
+  
+</ng-template>

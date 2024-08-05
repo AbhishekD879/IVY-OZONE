@@ -1,0 +1,172 @@
+<breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<ng-container *ngIf="parentSport">
+  <div class="card">
+    <div class="header">
+      <h2 class="waves-effect waves-block has-activity-badge">
+        Virtual Sport: {{parentSport.title}}
+        <create-updated-at-by [collection]="parentSport"></create-updated-at-by>
+      </h2>
+      <header-activity-badge [state]="!parentSport.active"></header-activity-badge>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-2">
+          <mat-checkbox color="primary"
+                        [checked]="parentSport.active"
+                        (change)="parentSport.active = !parentSport.active">
+            Active
+          </mat-checkbox>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Name
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !parentSport.title}">
+            <input matInput placeholder="Name" [(ngModel)]="parentSport.title" [value]="parentSport.title" required
+                   trim="blur">
+            <mat-hint class="col-red" *ngIf="!parentSport.title">Name should be entered!</mat-hint>
+            <mat-hint class="col-red" [align]='"end"' *ngIf="initialTitle!==parentSport.title">Name was changed! Related children silks will be
+              removed if any exist!
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <ng-container *ngIf="isIMActive; else cmsUpload">
+          <div class="col-md-2">
+            <span class="mat-label">Sport Icon (SVG only)</span>
+          </div>
+          <div class="col-md-8">
+            <svg-icon-select-input [formFieldsModels]="parentSport"></svg-icon-select-input>
+          </div>
+        </ng-container>
+
+        <ng-template #cmsUpload>
+          <div class="col-md-12">
+            <cms-upload
+              [label]="'Sport Icon (SVG only)'"
+              [filename]="parentSport.svgFilename"
+              (onImageUpload)="uploadImageHandler($event)"
+              (onImageRemove)="removeImageHandler()">
+            </cms-upload>
+          </div>
+        </ng-template>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-2">
+      <span class="mat-label">
+        Cross-sell URL
+      </span>
+        </div>
+        <div class="col-sm-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Cross-sell URL" [(ngModel)]="parentSport.ctaButtonUrl"
+                   [value]="parentSport.ctaButtonUrl"
+                   trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-2">
+      <span class="mat-label">
+        Button text
+      </span>
+        </div>
+        <div class="col-sm-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Button text" [(ngModel)]="parentSport.ctaButtonText"
+                   [value]="parentSport.ctaButtonText"
+                   trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+            <span class="mat-label">Desktop Image ID</span>
+        </div>
+        <div class="col-md-8">
+            <mat-form-field class="full-width">
+                <input matInput [(ngModel)]="parentSport.desktopImageId" [value]="parentSport.desktopImageId" trim="blur">
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <span class="mat-label">Mobile Image ID</span>
+        </div>
+        <div class="col-md-8">
+            <mat-form-field class="full-width">
+                <input matInput [(ngModel)]="parentSport.mobileImageId" [value]="parentSport.mobileImageId" trim="blur">
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <span class="mat-label">Signposting</span>
+        </div>
+        <div class="col-md-8">
+            <mat-form-field class="full-width">
+                <input matInput [(ngModel)]="parentSport.signposting" [value]="parentSport.signposting"
+                 trim="blur" maxlength="100">
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <span class="mat-label">Redirection URL</span>
+        </div>
+        <div class="col-md-8">
+            <mat-form-field class="full-width">
+                <input matInput [(ngModel)]="parentSport.redirectionURL" [value]="parentSport.redirectionURL">
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox class="mat-label" color="primary" [checked]="parentSport.topSports"
+          (change)="onTopSportsChange(parentSport)">
+          Is Top Sports
+        </mat-checkbox>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput type="number" placeholder="Top Sports Index" [(ngModel)]="parentSport.topSportsIndex"
+            [value]="parentSport.topSportsIndex" [disabled]="!parentSport.topSports" (ngModelChange)="onTopSportsIndexChange(parentSport)" min="1" max="4" appNumberOnly required>
+        </mat-form-field>
+        <mat-hint class="col-red" *ngIf="parentSport.topSportsIndex > 4">
+          Top Sports Index should not be greater than 4
+        </mat-hint>
+        <mat-hint class="col-red" *ngIf="existIndexSport">
+          The Top Sport Index {{existIndex}} is used in {{existIndexSport}}
+        </mat-hint>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <child-sports-list [parentSportId]="parentSport.id">
+  </child-sports-list>
+
+  <div *ngIf="getDataError">
+    Request Error
+  </div>
+</ng-container>
+
+<action-buttons
+  #actionButtons
+  [validateHandler]="isModelValid"
+  [fieldOrItemName]="'title'"
+  [collection]="parentSport"
+  (actionsEmitter)="actionsHandler($event);">
+</action-buttons>

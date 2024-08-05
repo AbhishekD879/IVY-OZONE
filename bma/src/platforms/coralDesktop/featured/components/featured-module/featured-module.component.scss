@@ -1,0 +1,33 @@
+@import 'global.variables.scss';
+
+.see-all-link {
+  font-size: $font-size-md;
+
+  &:hover{
+    text-decoration: underline;
+  }
+  &:active{
+    text-decoration: underline;
+  }
+}
+
+.race-card {
+  ::ng-deep {
+    .accordion-header {
+      .chevron-up {
+        transform: rotate(90deg);
+
+        &:before {
+          width: 7px;
+          left: 4px;
+          transform: rotate(45deg);
+        }
+
+        &:after {
+          width: 7px;
+          transform: rotate(-45deg);
+        }
+      }
+    }
+  }
+}

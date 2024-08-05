@@ -1,0 +1,15 @@
+<div class="outer-rectangle" *ngIf = !loaded>
+    <div class="byb-align">
+      <div [ngClass]="cssClass" *ngFor="let teamName of goalscorerGroup; index as i">
+        <div class="col-inner col-vertical">
+          <button [ngClass]="{'active':isteamSelectedGS(teamName)}" class="one-row-btn btn-bet-stat btn-bet-{i}"
+           (click)="check(player,teamName)">
+            {{ teamName.title }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="player-bets-step done-button-step">
+      <button class="one-row-btn btn-bet btn-bet-stat btn-act-bg-builder" [i18n]="getShowCardDup(player.name)?'ADDED':'ADD TO BET BUILDER'" (click)="done(player)"></button>
+    </div>
+  </div>

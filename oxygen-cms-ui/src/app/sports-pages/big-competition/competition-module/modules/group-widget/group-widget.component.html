@@ -1,0 +1,57 @@
+<!-- Qualified countries field -->
+<div class="row">
+  <div class="col-md-2">
+        <span class="mat-label">
+          Qualified teams
+        </span>
+  </div>
+  <div class="col-md-10">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Qualified Place" type="number"
+             [(ngModel)]="module.groupModuleData.numberQualifiers"
+             [value]="module.groupModuleData.numberQualifiers"
+             onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+             step="1" min="1" required>
+    </mat-form-field>
+  </div>
+</div>
+<!-- Available Seasons -->
+<div class="row" *ngIf="!groupsNotFound">
+  <div class="col-md-2">
+    <span class="mat-label">
+      Available Seasons
+    </span>
+  </div>
+  <div class="col-md-3">
+    <mat-form-field class="full-width">
+      <mat-select placeholder="Show seasons"
+                  (selectionChange)="onSelectSeasonChanged($event.value)"
+                  [(ngModel)]="currentSeasonName" required>
+        <mat-option *ngFor="let season of seasonsNames" [value]="season">
+          {{ season }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+<!-- Group widget redirect links -->
+<div *ngIf="groupsNames && redirectLinkPaths && module.groupModuleData.details">
+  <div class="row">
+    <div class="col-md-4"><h4 class="mat-label">Group name</h4></div>
+    <div class="col-md-6"><h4 class="mat-label">Redirect link paths</h4></div>
+  </div>
+  <div class="row" *ngFor="let group of groupsNames">
+    <div class="col-md-4">
+      <span class="mat-label">{{ group.name }}</span>
+    </div>
+    <div class="col-md-6">
+      <mat-form-field class="full-width">
+        <mat-select placeholder="All paths" [(ngModel)]="module.groupModuleData.details[group.id]" required>
+          <mat-option *ngFor="let link of redirectLinkPaths" [value]="link">
+            {{ link }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</div>

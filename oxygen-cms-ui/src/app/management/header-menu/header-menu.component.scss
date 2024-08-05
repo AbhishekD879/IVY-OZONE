@@ -1,0 +1,72 @@
+@import '../../../styles/custom-theme/variables.scss';
+
+.navbar {
+  padding: 0;
+  &.bmaColor { background-color: $oxygenBlue; }
+  &.ladbrokesColor { background-color: $roxanneRed; }
+}
+
+.navbar-header {
+  float: left;
+  width: auto;
+  display: flex;
+  .bars {
+    margin-right: 30px;
+    &:after, &:before {
+      top: 16px;
+    }
+  }
+  .navbar-brand {
+    margin: 0;
+    font-size: 18px;
+  }
+}
+
+.navbar-right {
+  padding: 5px 15px 0;
+  display: flex;
+  align-items: center;
+  float: right;
+
+  mat-form-field {
+    font-size: 14px;
+  }
+
+  ::ng-deep .mat-form-field {
+    margin: 5px 15px 0 0;
+    width: 100px;
+
+    &.colWhite {
+
+      .mat-select-value,
+      .mat-form-field-label,
+      .mat-input-placeholder {
+        color: #fff;
+        background-color: transparent;
+      }
+
+      .mat-form-field-underline {
+        background-color: rgba(255,255,255,.42);
+      }
+
+      .mat-select-arrow {
+        border-top-color: #fff;
+      }
+    }
+  }
+
+  .btn {
+    background-color: white;
+  }
+}
+
+@media (max-width: 767px) {
+  .navbar-right {
+    padding: 5px 0 0;
+
+    .mat-form-field {
+      margin-right: 0;
+      width: 85px;
+    }
+  }
+}

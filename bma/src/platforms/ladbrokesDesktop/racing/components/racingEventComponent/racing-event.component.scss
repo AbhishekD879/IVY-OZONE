@@ -1,0 +1,211 @@
+@import 'global.variables.scss';
+
+.top-event-panel .race-details-container {
+  height: auto;
+  @include display-flex();
+  @include justify-content(space-between);
+  @include flex-direction(row);
+
+  .event-header {
+    padding: 4px 0;
+    .event-time, .event-title {
+      display: inline-block;
+      font-size: $font-size-lgr;
+    }
+  }
+
+  .left{
+    @include display-flex();
+    @include justify-content(space-between);
+    @include flex-direction(column);
+    .value {
+      color: $color-gray-darkest;
+      font-size: $font-size;
+      font-weight: bold;
+      margin-right: 5px;
+      padding-left: 5px;
+    }
+    .event-header {
+      padding: 4px 0;
+
+      .event-title {
+        margin-bottom: 0;
+      }
+    }
+    .race-title {
+      padding: 4px 0;
+      margin: 0;
+    }
+    .race-details-container-l {
+      padding-top: 4px;
+      .race-type {
+        margin-right: 24px;
+        .value {
+          padding-left: 0;
+        }
+      }
+    }
+  }
+  .race-details-container-r{
+    @include align-items(flex-end);
+  }
+}
+
+.terms-before-market {
+  color: $color-gray-dark-alt;
+  font-size: $font-size-md;
+  font-family: $alt-font-family;
+  border-bottom: 1px solid $lGrayLight;
+  padding-top: 0;
+  padding-bottom: 0;
+
+  .terms-label {
+    flex: 1;
+  }
+
+  ::ng-deep {
+    promotion-icon {
+      .promotion-icon-container {
+        &:not(cashout-label) {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+.greyhound-event {
+  .terms-before-market {
+    padding: 16px;
+    color: $color-gray-dark;
+
+    &.antepost-terms {
+      padding: 17px 0 0 13px;
+      border-bottom: none;
+      min-height: auto;
+      .race-market-terms {
+        font-size: $font-size-md;
+        font-family: $alt-font-family;
+      }
+    }
+  }
+}
+
+.media-area-container {
+  background: none !important;
+  .racing-post-media-btns-container {
+    background: $lGray;
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 12px;
+
+    .media-btns-left {
+      .watch-btn {
+        color: $lGray;
+        &.active {
+          color: $color-yellow-alt;
+        }
+
+        &.disabled {
+          svg {
+            display: inline-block;
+          }
+        }
+      }
+
+      .livesim-btn {
+        border: 1px solid $color-white;
+        background: $lGray;
+        color: $color-white;
+        &:hover{
+          background: $color-gray-medium;
+          color: $color-white;
+        }
+        &:active{
+          background: $color-white !important;
+          color: $color-gray-darkest;
+          opacity: 1;
+        }
+      }
+    }
+
+    .media-btns-right {
+      .btn-live-commentary {
+        color: $color-white;
+        font-size: 12px;
+        font-family: $alt-font-family;
+        position: relative;
+        text-decoration: none;
+        &:hover{
+          text-decoration: underline;
+          color: $color-white;
+        }
+        &:active{
+          text-decoration: none;
+          color:$color-gray-original;
+        }
+
+        .live-commentary-icon {
+          width: 14px;
+          height: 14px;
+          position: absolute;
+          bottom: 1px;
+          left: -19px;
+        }
+      }
+    }
+  }
+
+  ::ng-deep .desktop-error-message {
+    background: $lGrayLight;
+    color: $color-gray-darkest;
+    font-family:  $alt-font-family;
+  }
+}
+
+.horse-racing-icons promotion-icon {
+  font-size: 10px;
+}
+
+.racing-post-pick-container{
+  max-width:200px;
+  @include display-flex();
+  @include align-self(flex-end);
+}
+
+.specials-header {
+  margin-bottom: 10px;
+
+  .specials-title {
+    box-shadow: 0 -1px 0 0 $lGrayDark, 0 1px 0 0 $lGrayDark;
+    background-color: $lGrayLight;
+    color: $lGray;
+    font-family: $base-font-family;
+    font-size: $font-size-tablet;
+    font-weight: bold;
+    padding: 9px 12px;
+    text-transform: uppercase;
+  }
+
+  .specials-body {
+    box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+    padding: 21px 12px 23px 12px;
+    font-family: $alt-font-family;
+
+    .specials-event-name {
+      font-size: $font-size-lgst;
+      color: $color-gray-darkest;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .specials-date {
+      color: $color-gray-darkest;
+      font-size: $font-size-xl;
+    }
+  }
+}
+.eprSection{
+  justify-content: space-between;
+  align-content: space-around;
+}

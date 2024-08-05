@@ -1,0 +1,29 @@
+<modal #betFilterDialog class="bet-filter-dialog" data-crlat="d.betFilter">
+  <ng-template #modalHeader>
+    <span data-crlat="dTitle" data-uat="popUpTitle" [i18n]="'retail.bettingDialog'"></span>
+    <a data-uat="popUpCloseButton" class="btn-close" (click)="cancel()">
+      <svg>
+        <use xlink:href="#close-icon"></use>
+      </svg>
+    </a>
+  </ng-template>
+  <ng-template #modalBody>
+      <div class="btn-group">
+        <button class="btn btn-style1"
+                [i18n]="'retail.onlineButtonTitle'"
+                (click)="selectMode(CONST.modes.online)"
+                data-crlat="onlineBtn">
+        </button>
+        <p [i18n]="'retail.onlineButtonLabel'" data-crlat="onlineLabel"></p>
+      </div>
+      <div class="separator-field">
+        <span>or</span>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-style1" [i18n]="'retail.inshopButtonTitle'" (click)="selectMode(CONST.modes.inshop)"
+        data-crlat="inshopBtn">
+        </button>
+        <p [i18n]="'retail.inshopButtonLabel'" data-crlat="inshopLbl"></p>
+      </div>
+  </ng-template>
+</modal>

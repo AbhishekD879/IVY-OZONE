@@ -1,0 +1,140 @@
+<div class="card" *ngIf="qualificationRule">
+  <div class="header">
+    <div class="row">
+      <div class="col-md-10">
+        <h2 class="waves-effect waves-block">
+          Qualification Rule Page
+        </h2>
+      </div>
+      <div class="col-md-2">
+        <mat-checkbox color="primary"
+                      [checked]="qualificationRule.enabled"
+                      (change)="qualificationRule.enabled = !qualificationRule.enabled">
+          Active
+        </mat-checkbox>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="qualificationRule">
+  <div class="body">
+    <div class="row" *ngIf="!qualificationRule.createdAt">
+      <div class="col-md-12">
+        <span class="mat-label" style="color: red; font-weight: bold; font-size: 14pt;">
+           Qualification Rule is not configured yet
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Message
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input
+            matInput placeholder="Message"
+            [(ngModel)]="qualificationRule.message"
+            [value]="qualificationRule.message"
+            trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Days to check user activity
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input
+            matInput placeholder="Days to check activity"
+            [(ngModel)]="qualificationRule.daysToCheckActivity"
+            [value]="qualificationRule.daysToCheckActivity"
+            trim="blur"
+            type="number"
+            min="0">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Upload Blacklisted Users [CSV]
+        </span>
+      </div>
+      <div class="col-md-5">
+        <mat-form-field class="full-width">
+          <input matInput placeholder=""
+                 [(ngModel)]="csvFileName"
+                 [value]="csvFileName" disabled>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <div style="display:none;"><input id="upload-csv" #csvUpload (change)="prepareToUploadFile($event)"
+                                          type="file" value="upload"/>
+        </div>
+        <button type="button" (click)="handleUploadImageClick()"
+                class="main-image-btn btn bg-teal waves-effect">
+          {{getButtonName(csvFileName)}}
+        </button>
+        <button type="button" (click)="removeImage()"
+                class="main-image-btn btn bg-red waves-effect">Remove File
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Recurring Users
+        </span>
+      </div>
+      <div class="col-md-10" *ngFor="let i = index; let user of qualificationRule.recurringUsersList"
+           [class.offset-md-2]="i !== 0">
+        <mat-icon class="user-remove-icon"
+                  (click)="removeRecurringUser(user.username)"
+                  matPrefix>
+          delete
+        </mat-icon>
+        <mat-form-field>
+          <input
+            matInput placeholder="Username"
+            [(ngModel)]="user.username"
+            [value]="user.username"
+            trim="blur">
+        </mat-form-field>
+        <mat-checkbox class="user-enabled-checkbox"
+                      color="primary"
+                      [checked]="user.enabled"
+                      (change)="user.enabled = !user.enabled"
+                      matSuffix>
+          Enabled
+        </mat-checkbox>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col offset-md-2">
+        <button mat-button type="button" class="btn bg-teal waves-effect float-left" (click)="addRecurringUser()">
+          <mat-icon>person_add</mat-icon>
+          <span>Add User</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="qualificationRule"
+  [fieldOrItemName]="'Qualification Rule'"
+  [collection]="qualificationRule"
+  (actionsEmitter)="actionsHandler($event);"
+  [showRemoveButton]="false"
+  [validateHandler]="verifyQualificationRuleData">
+</action-buttons>

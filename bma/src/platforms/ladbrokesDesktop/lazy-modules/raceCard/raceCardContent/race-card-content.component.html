@@ -1,0 +1,81 @@
+<div *ngIf="raceData" [ngClass]="{'carousel-one-slide': raceData.length === 1,
+               'carousel-half-slides': (raceData.length === 2 && !raceWidget),
+               'fit-slides': isFitSize}"
+     class="race-card-carousel"
+     data-crlat="race.next4Carousel">
+  <div class="race-carousel-buttons" *ngIf="showCarouselButtons">
+    <button class="race-arrow prev-race"
+            (click)="prevSlide()"
+            [ngClass]="{'race-arrow-hide': !showPrev}">
+      <svg>
+        <use xlink:href="#prev-arrow-alt"></use>
+      </svg>
+      <span [i18n]="'sb.previousRaces'"
+            data-crlat="sb.previousRaces"></span>
+    </button>
+    <button class="race-arrow next-race"
+            (click)="nextSlide()"
+            [ngClass]="{'race-arrow-hide': !showNext}">
+      <span [i18n]="'sb.nextRaces'" data-crlat="sb.nextRaces"></span>
+      <svg>
+        <use xlink:href="#next-arrow-alt"></use>
+      </svg>
+    </button>
+  </div>
+  <div class="race-carousel ng-carousel"
+       *ngIf="raceData && raceCarousel"
+       [ngCarousel]
+       [ngCarouselName]="raceCarousel"
+       [ngCarouselLoop]="false"
+       [ngCarouselWatch]="raceData.length"
+       [ngCarouselFluid]="fluid"
+       [ngCarouselMoveThresholdPercentage]="5"
+       data-crlat="raceData">
+    <slidecontainer class="carousel-slides"
+                    [ngClass]="{'carousel-no-scroll': raceData.length === 1 || disableScroll}">
+      <ng-container *ngFor="let eventEntity of raceData; let i = index; trackBy: trackByEvents">
+      <slide class="slide slide-all-events"
+             *ngIf="eventEntity?.markets?.length"
+             [attr.data-eventid]="eventEntity.id"
+             data-crlat="raceCard.event">
+
+        <race-card-home
+          [trackGa]="trackGa"
+          [raceData]="[eventEntity]"
+          [raceDataCollection]="raceData"
+          [raceIndex]="raceIndex"
+          [raceOrigin]="raceOrigin"
+          [raceMaxSelections]="raceMaxSelections"
+          [raceNewStyleCard]="true"
+          [showTimer]="showTimer && !showBriefHeader"
+          [trackFunction]="trackEvent"
+          [carouselView]="true"
+          [showBriefHeader]="showBriefHeader"
+          [hideNonRunners]="hideNonRunners"
+          [gtmModuleTitle]="gtmModuleTitle"
+          [isNextRacesModule]="isNextRacesModule">
+        </race-card-home>
+
+        <footer *ngIf="showBriefHeader" class="race-footer">
+          <race-timer *ngIf="showTimer"
+                      [event]="eventEntity"
+                      [utc]="true"
+                      [displayTime]="false"></race-timer>
+          <a class="race-next-link"
+             [attr.id]="eventEntity.typeName + eventEntity.id"
+             (click)="trackEvent(eventEntity)"
+             [linkHref]
+             [link]="formEdpUrl(eventEntity)"
+             data-crlat="raceNextLink">
+            <span [attr.id]="eventEntity.typeName + eventEntity.id"
+                  data-crlat="viewFullRace">{{ viewFullRaceText }}</span>
+            <svg>
+              <use xlink:href="#next-arrow"></use>
+            </svg>
+          </a>
+        </footer>
+      </slide>
+      </ng-container>
+    </slidecontainer>
+  </div>
+</div>

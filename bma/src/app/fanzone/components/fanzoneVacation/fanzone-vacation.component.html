@@ -1,0 +1,20 @@
+<div class="fanzoneVacation"
+  *ngIf="fanzoneVacation[0] && fanzoneBgImage.length && fanzoneVacationImage.length && fanzoneLightningImage.length">
+  <top-bar [title]="fanzoneHead" data-crlat="topBar"></top-bar>
+  <div class="fanzoneVacation-container" [ngStyle]="{'background':'url(' + fanzoneBgImage + ') no-repeat'}">
+    <img [hidden]="true" [attr.src]="getImageWidth(fanzoneBgImage)" />
+    <div class="fanzoneVacation-content" [ngStyle]="{'height': containerHeight}">
+      <div class="fanzoneVacation-content-section">
+        <div class="fanzoneVacation-content--title" [textContent]="fanzoneVacation[0].fzNewSeasonTitle"></div>
+        <div id="vacationDescription" [innerHtml]="fanzoneVacation[0].fzNewSeasonDescription">
+        </div>
+        <div *ngIf="fanzoneVacationImage" class="fanzoneVacation-kits">
+          <img class="fanzoneVacation-kits_img" [attr.src]="fanzoneVacationImage" />
+        </div>
+      </div>
+    </div>
+    <div *ngIf="fanzoneLightningImage" class="fanzoneVacation-lightning">
+      <img class="fanzoneVacation-lightning_img" [attr.src]="getImageWidth(fanzoneLightningImage)" />
+    </div>
+  </div>
+</div>

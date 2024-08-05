@@ -1,0 +1,17 @@
+<!-- Checkbox matrix-->
+<div class="checkboxes-body forecast-tricast-checkboxes" data-crlat="checkboxes">
+  <div class="check-area"
+       *ngFor="let element of checkBoxMatrix; trackBy: trackByCheckBox"
+       (click)="checkPlace(outcome.id, element.key)"
+       [ngClass]="getCssClass(element)"
+       data-crlat="betButton">
+    <div *ngIf="!outcome.nonRunner"
+         class="checkbox"
+         data-crlat="checkbox.runner"></div>
+
+    <div *ngIf="outcome.nonRunner"
+         class="non-runner-text"
+         [i18n]="'racing.nonRunner'"
+         data-crlat="checkbox.nonRunner"></div>
+  </div>
+</div>

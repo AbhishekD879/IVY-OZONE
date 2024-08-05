@@ -1,0 +1,81 @@
+<loading-screen [displayed]="!allEvents?.length"
+                  [templateType]="'GENERIC'"></loading-screen>
+
+<ng-container *ngIf="isDisplayBanner(sectionTitle) && targetTab?.interstitialBanners?.bannerEnabled && allEvents?.length ">
+  <lazy-component
+    moduleUri="@lazy-modules-module/virtualEntryPointBanner/virtual-entry-point-banner.module#VirtualEntryPointBannerModule"
+    entryComponent="VirtualEntryPointBannerComponent"
+    [inputs]="{targetTab: targetTab,isUnTiedSport:true,sportName : sportName}">
+  </lazy-component>
+</ng-container>
+
+<accordion *ngIf="allEvents?.length"
+           [accordionTitle]="sectionTitle"
+           [isExpanded]="true"
+           (function)="sendCollapseGTM()"
+           data-crlat="outerAccordion"
+           class="extra-place-carousel-section"
+           [ngClass]="{'sectionExpanded' : isEventOverlay, 'outerAccordionFeatured':isRacingFeatured}">
+  <accordion-body data-crlat="race.enhancedRacesCarousel">
+    <ng-container *ngFor="let key of raceKeys">
+      <div *ngIf="!isEventOverlay && groupedEvents[key]?.events?.length"
+           [ngCarousel]
+           [ngCarouselAmount]="slidesOnPage"
+           [ngCarouselName]="key"
+           [ngCarouselLoop]="false"
+           [ngCarouselWatch]="groupedEvents[key]?.events?.length"
+           [attr.data-crlat]="groupedEvents[key].title"
+           class="extra-place-carousel ng-carousel">
+        <div class="carousel-inner"
+             [ngClass]="{'single-slide': groupedEvents[key].events.length === 1}">
+          <slidecontainer class="carousel-slides">
+            <slide class="slide"
+                   *ngFor="let event of groupedEvents[key].events; trackBy: trackById"
+                   data-crlat="raceCard.event">
+              <div class="carousel-slide">
+                <div class="slide-label">
+                  <div class="title" data-crlat="raceCard.title" [textContent]="groupedEvents[key].title"></div>
+                  <div class="timer" data-crlat="raceCard.timer">
+                    <race-timer [event]="event" [utc]="true" [displayTime]="false"></race-timer>
+                  </div>
+                </div>
+                <a (click)="goToEvent(event)"
+                   [linkHref]
+                   [link]="event.link"
+                   class="slide-body">
+                  <div class="selection-title">
+                    <div class="meeting-name" [textContent]="event.originalName" data-crlat="raceCard.eventName"></div>
+                    <lazy-component
+                    moduleUri="@lazy-modules-module/extraPlaceSignposting/extra-place-signposting.module#ExtraPlaceSignpostingModule"
+                    [inputs]="{marketData: event.markets[0],origin:'offers',changeStrategy: changeStrategy}" 
+                    entryComponent="ExtraPlaceSignpostingComponent">
+                  </lazy-component>
+                    <div class="odds" *ngIf="event.odds" [innerHTML]="event.odds" data-crlat="eachWayContainer"></div>
+                  </div>
+                  <svg class="next-arrow" data-crlat="nextArrow">
+                    <use xlink:href="#next-arrow"></use>
+                  </svg>
+                </a>
+              </div>
+            </slide>
+          </slidecontainer>
+        </div>
+      </div>
+      <!-- Below html content will display only in quick-navigation popup in horse racing event page (mobile)-->
+      <div class="tabs-panel tabs-bottom" data-crlat="panel.tabs"
+        *ngIf="isEventOverlay && groupedEvents[key]?.events?.length">
+        <p class="sub-header" [textContent]="'EXTRA PLACE OFFERS'"></p>
+        <div class="scroll-container" [scrollable-racing]>
+          <ul class="scroll-inner scroll-panel">
+            <li *ngFor="let event of groupedEvents[key].events; trackBy: trackById" data-crlat="raceCard.event">
+              <a class="tab" (click)="goToEvent(event)" [linkHref] [link]="event.link" data-crlat="tab">
+                <span class="race-time"><b [textContent]="event.localTime"></b></span>
+                <span class="race-type" [textContent]="event.typeName.toLowerCase().substring(0,4)"></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </ng-container>
+  </accordion-body>
+</accordion>

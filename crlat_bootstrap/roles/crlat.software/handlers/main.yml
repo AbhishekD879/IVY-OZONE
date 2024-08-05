@@ -1,0 +1,38 @@
+---
+
+- name: Restart Grafana Container
+  listen:
+  - restart_grafana
+  docker_container:
+    name: Grafana
+    image: grafana/grafana
+    state: started
+    restart: yes
+    env:
+      GF_SECURITY_ADMIN_PASSWORD: secret#1
+      GF_AUTH_ANONYMOUS_ENABLED: false
+      GF_USERS_ALLOW_SIGN_UP: false
+      GF_INSTALL_PLUGINS: grafana-piechart-panel
+    ports:
+     - "3000:3000"
+    volumes:
+      - /var/lib/grafana:/var/lib/grafana
+
+- name: Wait Grafana port accessible
+  listen: restart_grafana
+  wait_for:
+    port: 3000
+    delay: 1
+    timeout: 15
+    state: started
+
+
+- name: Got restart_grafana event
+  listen: restart_grafana
+  debug:
+    msg: "Got restart_grafana event"
+
+- name: Got "restart grafana" event
+  listen: "restart grafana"
+  debug:
+    msg: "Got restart grafana event"

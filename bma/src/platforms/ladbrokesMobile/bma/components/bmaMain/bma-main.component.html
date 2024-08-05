@@ -1,0 +1,114 @@
+<!--- Slide-out Betslip -->
+<ng-container *ngIf="device.isMobile && !isMyBetsInCasino">
+  <lazy-component data-crlat="betslipSidebar" moduleUri="@lazy-modules-module/sidebar/sidebar.module#SideBarModule"
+    [inputs]="{sideClass: 'slide-out-betslip', sideHideClose: true, 
+    sidePosition: 'bottom', sideId: 'slide-out-betslip'}"
+    entryComponent="SidebarComponent">
+  </lazy-component>
+</ng-container>
+
+<!-- Gaming Overlay -->
+<lazy-component *ngIf="isGamingOpen && !isMyBetsInCasino"
+                moduleUri="@lazy-modules/gamingOverlay/gaming-overlay.module#GamingOverlayModule">
+</lazy-component> 
+
+<!-- Fanzone coming back overlay -->
+<lazy-component *ngIf="user.status && fanzoneCbData && fanzoneCbData.length" moduleUri="@lazy-modules-module/fanzone/fanzone-shared.module#FanzoneSharedModule"
+  entryComponent="FanzoneCbOverlayComponent" [inputs]="{fanzoneCbData: fanzoneCbData}">
+</lazy-component>
+
+<!-- Quiz dialog component -->
+<lazy-component *ngIf="!isMyBetsInCasino" moduleUri="@lazy-modules-module/quiz/quiz-dialog.module#QuizDialogModule"
+                [inputs]="{user: user}">
+</lazy-component>
+
+<!-- TimeLine component -->
+<lazy-component *ngIf="user?.data?.custId && sysConfig?.FeatureToggle?.Timeline && device.isMobile && !isMyBetsInCasino"
+                moduleUri="@lazy-modules-module/timeline/timeline.module#TimelineModule"
+                [inputs]="{user: user}">
+</lazy-component>
+<div *ngIf="!device.isDesktop" #retailOverlay></div>
+
+<div class="side-page" [ngClass]="{'skeleton': !device.isDesktop && sysConfig?.FeatureToggle.skeletonLoadingScreen}" scroll-fix>
+  <!--- Header -->
+  <!--- Content -->
+  <div id="page-content" data-crlat="pageContent">
+    <!--- Menu Carousel-->
+    <div [ngClass]="{'carousel-block': isHomeURL}">
+      <ng-container *ngIf="menuItems && isHomeURL">
+        <lazy-component data-crlat="menuCarousel" moduleUri="@lazy-modules-module/carouselMenu/carousel-menu.module#CarouselMenuModule"
+          [inputs]="{menuItems: menuItems, isSticky: true, 
+            isTopScroll: true, GATrackingModule: 'sportsribbon', GTMTrackingObj: GTMTrackingObj,
+            carouselClass: 'sticky-carousel'}"
+          entryComponent="CarouselMenuComponent">
+        </lazy-component>
+      </ng-container>
+    </div>
+   
+    <!-- <carousel-menu class="sticky-carousel"
+                   *ngIf="menuItems && isHomeURL"
+                   [menuItems]="menuItems"
+                   [isSticky]="true"
+                   [isTopScroll]="true"
+                   data-crlat="menuCarousel"
+                   [GATrackingModule]="'sportsribbon'"
+                   [GTMTrackingObj]="GTMTrackingObj">
+    </carousel-menu> -->
+
+    <div id="page-wrap-content">
+      <!--- Left Side -->
+      <left-column></left-column>
+
+      <div class="page-wrapper" [ngClass]="{'five-a-side-bg': checkForFiveASideUrl()}">
+        <div class="page-wrap-inner">
+
+          <div data-uat="pageContent" id="content" [ngClass]="{'five-a-side-bg': checkForFiveASideUrl()}">
+            <router-outlet></router-outlet>
+            <lazy-component 
+              moduleUri="@lazy-modules/seoStaticBlock/seo-static-block.module#SeoStaticBlockModule">
+            </lazy-component>
+          </div>
+
+          <!--- Right Side -->
+          <lazy-component
+            *ngIf="showRC"
+            moduleUri="@rightColumnModule/right-column.module#RightColumnModule"
+            id="right-column"
+            data-crlat="rightColumn">
+          </lazy-component>
+
+          <button class="btn-bet bet-animation animate" *ngIf="betSlipAnimation === 'On'" data-crlat="betSlipAnimation"></button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--- Footer -->
+  <div class="network-indicator-parent-lads" *ngIf="!device.isRobot()">
+    <lazy-component moduleUri="@lazy-modules/networkIndicator/network-indicator.module#NetworkIndicatorModule"
+      [inputs]="{config: NW_I_Object}">
+    </lazy-component>
+ </div>
+  <footer-section data-crlat="footer"></footer-section>
+</div>
+
+<!-- SVG ICONS -->
+<svg-list id="iconsSprite_cmsInitial" *ngIf="initialIcons" [list]="initialIcons" [keepFill]="true"></svg-list>
+<svg-list id="iconsSprite_cmsFeatured" *ngIf="featuredIcons" [list]="featuredIcons" [keepFill]="true"></svg-list>
+<svg-list id="iconsSprite_cmsAdditional" *ngIf="additionalIcons" [list]="additionalIcons" [keepFill]="true"></svg-list>
+
+<live-serv-iframe><!-- LiveServ integration iframe --></live-serv-iframe>
+
+<loading-overlay *ngIf="!isMyBetsInCasino && !streamBetVideoMode" data-crlat="loadingOverlay"></loading-overlay>
+
+<oxygen-dialog></oxygen-dialog>
+<oxygen-notification></oxygen-notification>
+
+<quickbet-panel-wrapper *ngIf="!isMyBetsInCasino"></quickbet-panel-wrapper>
+
+<promotion-footer *ngIf="!isMyBetsInCasino"></promotion-footer>
+
+<lazy-component *ngIf="sysConfig?.Grid?.overlay && !isMyBetsInCasino" moduleUri="@retail-lazy-load/retail.module#RetailModule"
+  entryComponent="RetailOverlayComponent">
+</lazy-component>

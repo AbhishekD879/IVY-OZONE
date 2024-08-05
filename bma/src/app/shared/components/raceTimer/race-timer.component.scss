@@ -1,0 +1,97 @@
+@import 'global.variables.scss';
+
+$race-stage-default-color: $color-white;
+$race-stage-default-bkg: $color-gray-dark;
+
+$race-stage-down-bkg: $color-blue-lighter;
+$race-stage-post-color: $color-gray-dark;
+$race-stage-post-bkg: $color-orange-light;
+$race-stage-behind-bkg: $brand-color-main;
+$race-stage-off-bkg: $color-red;
+$race-stage-awaiting-bkg: lighten($color-green, 10%);
+$race-stage-delayed-bkg: $color-orange;
+$race-stage-desktop-label: $color-gray-dark;
+
+.race-timer {
+  font-family: $base-font-family;
+  .label {
+    font-size: 9px;
+  }
+  .label:after {
+    content: " ";
+  }
+  .value {
+    font-weight: bold;
+    font-size: 12px;
+  }
+}
+
+.status-badge {
+  @include display-flex();
+  @include align-items(center);
+  label {
+    font-size: 10px;
+    font-weight: normal;
+    font-family: $base-font-family;
+    padding-right: 3px;
+    @media (min-width: 970px) {
+      font-size: 11px;
+      color: $race-stage-desktop-label;
+    }
+  }
+  span {
+    font-family: $base-font-family;
+    text-transform: uppercase;
+    font-size: 8px;
+    color: $race-stage-default-color;
+    background: $race-stage-default-bkg;
+    padding: 1px 5px;
+    border-radius: 2px;
+    line-height: 12px;
+
+    &.status-hr-b,
+    &.status-gh-a {
+      background: $race-stage-down-bkg;
+    }
+    &.status-hr-c,
+    &.status-gh-f {
+      color: $race-stage-post-color;
+      background: $race-stage-post-bkg;
+    }
+    &.status-hr-d,
+    &.status-gh-r {
+      background: $race-stage-delayed-bkg;
+    }
+    &.status-hr-e,
+    &.status-gh-g {
+      background: $race-stage-behind-bkg;
+    }
+    &.status-hr-o,
+    &.status-gh-o {
+      background: $race-stage-off-bkg;
+    }
+    &.status-hr-w,
+    &.status-gh-w {
+      background: $race-stage-awaiting-bkg;
+    }
+  }
+}
+
+$race-footer-background: $color-gray-light;
+
+.race-footer {
+  @include display-flex();
+  align-items: center;
+  padding-left: 15px;
+  background: $race-footer-background;
+
+  .race-timer {
+    font-size: 12px;
+  }
+
+  .race-next-link {
+    @include flex(1, 1, auto);
+    padding-left: 0;
+  }
+}
+

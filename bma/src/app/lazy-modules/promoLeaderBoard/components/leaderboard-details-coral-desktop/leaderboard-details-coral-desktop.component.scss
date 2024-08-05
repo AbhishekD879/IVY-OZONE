@@ -1,0 +1,312 @@
+@import "global.variables.scss";
+
+@mixin col-fonts-mixin($ff, $fs, $fw, $fsz, $lh) {
+    font-family: $ff;
+    font-style: $fs;
+    font-weight: $fw;
+    font-size: $fsz;
+    line-height: $lh;
+}
+
+@mixin col-background-mixin() {
+    background: $lb-bg-color;
+    border-radius: 5px;
+    padding: 10px 10px;
+}
+
+@mixin col-flex-mixin($f, $fg, $o) {
+    flex: $f;
+    flex-grow: $fg;
+    order: $o;
+}
+
+@mixin col-lb-flex-mixin($disp, $fd, $af) {
+    display: $disp;
+    flex-direction: $fd;
+    align-self: $af;
+}
+
+.content {
+    background: $lb-th-bg-color !important;
+    padding: 8px 0px;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+
+    .outer-layout {
+       width:100%;
+       margin: 8px 0px;
+    }
+
+    .no-top-margin {
+        margin-top: 0px;
+    }
+
+    .updated-date {
+        color: $bch-blue;
+        font-family: $lato-font-family;
+        font-style: normal;
+        font-size: 10px;
+        text-align: center;
+        text-transform: capitalize;
+        line-height: normal;
+        font-weight: 400;
+    }
+
+    .generic-text {
+        display: flex;
+        padding: 16px 8px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 10px;
+        align-self: stretch;
+        background: $lb-header-bg-color;
+        color: $lb-col-coral-color;
+        font-size: 10px;
+        font-family: Lato;
+
+        .generic-text-label {
+            display: flex;
+            width: 339px;
+            flex-direction: column;
+        }
+    }
+
+    .header-leaderBoard {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        align-self: stretch;
+        padding: 8px 10px;
+        gap: 10px;
+        align-self: stretch;
+        background: $lb-header-bg-color;
+        justify-content: space-between;
+
+        .header-leaderBoard-label {
+            @include col-fonts-mixin($lato-font-family, normal, 700, 10px, normal);
+            text-transform: uppercase;
+            color: $lb-coral-color;
+            display: flex;
+            width: 266px;
+            flex-direction: column;
+        }
+
+        .header-leaderboard-entry-label {
+            @include col-fonts-mixin($lato-font-family, normal, 700, 10px, normal);
+            text-transform: uppercase;
+            color: $lb-coral-color;
+            display: flex;
+            flex-direction: column;
+            flex: 1 0 0;
+        }
+    }
+
+    .table-flex {
+        display: flex;
+        background: $color-white;
+        padding: 10px 10px;
+        align-items: center;
+        gap: 18px 8px;
+        align-self: stretch;
+        margin: 1px;
+
+        .table-col {
+            color: $lb-col-coral-color;
+            font-size: 12px;
+            font-family: $lato-font-family;
+        }
+    }
+
+    //Table Body styles 
+    .header-row {
+        .non-name-column {
+            &:first-child {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                align-self: stretch;
+                flex: 1 0 0;
+            }
+
+            &:not(:first-child):not(:last-child) {
+                display: flex;
+                height: 32px;
+                justify-content: center;
+                align-items: center;
+                font-weight: 700;
+                flex: 1 0 0;
+                
+            }
+
+            &:last-child {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                font-weight: 700;
+                flex: 1 0 0;
+                
+            }
+
+            color: $lb-col-coral-color;
+            font-size: 12px;
+            font-family: $lato-font-family;;
+        }
+
+        .name-column {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            flex: 1 0 0;
+
+            .name-description {
+                display: flex;
+                flex-direction: column;
+                align-self: stretch;
+                color: $lb-col-coral-color;
+                font-size: 12px;
+                font-family: $lato-font-family;
+                font-weight: 700;
+                line-height: normal;
+                align-items: flex-start !important;
+            }
+        }
+
+        .subtitle {
+            display: flex;
+            flex-direction: column;
+            align-self: stretch;
+            color: $lb-col-coral-color;
+            font-size: 10px;
+            font-family: $lato-font-family;
+        }
+    }
+
+    // Table header styles
+    .header-row-heading {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background-color: $color-white;
+        display: flex;
+        background: $color-white;
+        padding: 4px 10px;
+        align-items: center;
+        justify-content: center;
+        gap: 18px 8px;
+        align-self: stretch;
+        border-radius: 2px 2px 0px 0px;
+
+        .table-col-header {
+            color: $bch-blue;
+            font-size: 10px;
+            font-family: $lato-font-family;
+            text-transform: capitalize;
+            text-align: center;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+
+        .non-name-column {
+            &:first-child {
+                display: flex;
+                flex-direction: column;
+                flex: 1 0 0;
+            }
+
+            &:not(:first-child):not(:last-child) {
+                display: flex;
+                flex-direction: column;
+                flex: 1 0 0;
+            }
+
+            &:last-child {
+                display: flex;
+                flex-direction: column;
+                flex: 1 0 0;
+            }
+        }
+
+        .name-column {
+            display: flex;
+            flex-direction: column;
+            flex: 1 0 0;
+            text-align: left;
+        }
+    }
+}
+
+
+
+.leaderBoard-col-font-default-bma {
+    @include col-fonts-mixin($lato-font-family, normal, 700 !important, 12px !important, normal);
+}
+
+.leaderBoard-col-font-normal {
+    @include col-fonts-mixin($lato-font-family, normal, 500 !important, 12px !important, normal);
+}
+
+.leaderBoard-col-normal-background {
+    @include col-fonts-mixin($lato-font-family, normal, 500 !important, 12px !important, normal);
+    text-align: center;
+    @include col-background-mixin();
+    text-align: center;
+    padding: 8px 13px;
+    justify-content: center;
+    align-items: center;
+    color: $color-gray-darkest;
+    gap: 10px;
+}
+
+.leaderBoard-col-font-bold {
+    color: $lb-col-coral-color;
+    @include col-fonts-mixin($lato-font-family, normal, 700 !important, 15px !important, normal);
+}
+
+.leaderBoard-col-bold-background {
+    @include col-fonts-mixin($lato-font-family, normal, 500 !important, 16px !important, normal);
+    color: $lb-col-coral-color;
+    @include col-background-mixin();
+    padding:6px 10px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+
+.lb-col-color-coral {
+    color: $lb-col-coral-color;
+}
+
+.name-three-column {
+    flex: 3 0 0 !important;
+}
+
+.name-four-column {
+    flex: 2.5 0 0 !important;
+}
+
+section {
+    &:first-child{
+        max-height: 200px;
+        overflow-y:  auto;
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+    max-height: 950px;
+    overflow-y:  hidden;
+}
+
+section::-webkit-scrollbar {
+    display: none;
+}
+
+section:hover{
+    overflow-y:  auto; 
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}

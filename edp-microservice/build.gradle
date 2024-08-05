@@ -1,0 +1,123 @@
+// base build v1.2
+// https://bitbucket.org/symphonydevelopers/codebase-main/src/master/tools/gradle/build.gradle
+
+// Limitations of the plugins DSL
+// https://docs.gradle.org/5.2.1/userguide/plugins.html#plugins_dsl_limitations
+
+plugins {
+  id 'org.springframework.boot' version '2.7.1'
+  id 'com.coral.tools' version '3.0-SNAPSHOT'
+}
+
+apply plugin: "io.spring.dependency-management"
+
+group 'com.coral.oxygen'
+
+
+def nexusMavenRepo = 'https://nexus-vie.coral.co.uk/repository/maven-public/'
+ext.nexusUser = System.getenv("NEXUS_USER") ?: project.properties.nexusUser
+ext.nexusPass = System.getenv("NEXUS_PASS") ?: project.properties.nexusPass
+
+repositories {
+  maven {
+    credentials {
+      username = "${nexusUser}"
+      password = "${nexusPass}"
+    }
+    url nexusMavenRepo
+  }
+  mavenCentral()
+}
+
+configurations {
+  all {
+    exclude module: 'spring-boot-starter-tomcat'
+    // exclude module: 'joda-time'
+  }
+  compileOnly {
+    extendsFrom annotationProcessor
+  }
+}
+
+ext {
+  set('springCloudVersion', '2021.0.3')
+  set('spockBomVersion', '2.0-groovy-3.0')
+}
+
+jar{
+  enabled=false
+}
+
+dependencies {
+
+  // Development
+  developmentOnly 'org.springframework.boot:spring-boot-devtools'
+  annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+  // Fortify Annotations manual https://drive.google.com/open?id=15SbZt-C937-CnBNs6-zIH-Wy8T_KAFNZ
+  compileOnly 'com.hp.fortify:fortifyAnnotations:4.30'
+
+  // Spring Cloud
+  implementation platform("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
+  implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+  // implementation 'org.springframework.cloud:spring-cloud-starter-config'
+
+  // Spring
+  implementation "org.springframework.boot:spring-boot-starter-web"
+  implementation "org.springframework.boot:spring-boot-starter-jetty"
+  implementation "org.springframework.boot:spring-boot-starter-actuator"
+  implementation "org.springframework.boot:spring-boot-starter-cache"
+
+  // Project dependencies
+  implementation 'com.ladbrokescoral.oxygen:cms-client:1.39'
+  implementation 'com.egalacoral.spark:siteserver-api:release-154.0.0-jdk-17'
+  implementation 'com.egalacoral.spark:liveserv-api:1.7'
+  implementation 'com.newrelic.agent.java:newrelic-api:latest.release'
+  implementation 'com.egalacoral.spark:df-api:2.20'
+  // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
+  // Liveserver api produces Socket is closed exceptions when never version of okhttp is used (3.14.x and up)
+  // Setting old here until issue is fixed
+  implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.9.0'
+
+  implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+  implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+  implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+
+  // Web
+  //  implementation 'com.squareup.okhttp3:logging-interceptor:3.14.9'
+  //  implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+  //  implementation 'com.squareup.retrofit2:adapter-rxjava:2.9.0'
+  implementation 'com.corundumstudio.socketio:netty-socketio:1.7.18'
+
+  // Other
+  implementation 'com.github.ben-manes.caffeine:caffeine:2.8.6'
+  implementation 'com.google.guava:guava:30.0-jre' // FIXME: use JDK
+  implementation 'org.modelmapper:modelmapper:3.0.0'
+  implementation 'joda-time:joda-time:2.12.2'
+
+  // Testing
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testImplementation 'org.junit.vintage:junit-vintage-engine:5.9.0'
+
+  testImplementation 'io.socket:socket.io-client:1.0.0'
+
+  testImplementation platform("org.spockframework:spock-bom:$spockBomVersion")
+  testImplementation 'org.spockframework:spock-core'
+  testImplementation 'org.spockframework:spock-spring'
+}
+
+jacocoTestReport.reports.xml.enabled = true
+
+
+test.doFirst {
+  systemProperty 'spring.profiles.active', 'UNIT'
+  useJUnitPlatform()
+}
+
+springBoot {
+  buildInfo()
+}
+
+bootBuildImage {
+  imageName = "${rootProject.name}"
+}

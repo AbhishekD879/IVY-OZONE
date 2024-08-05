@@ -1,0 +1,185 @@
+// base build v2.0
+// https://bitbucket.org/symphonydevelopers/codebase-main/src/master/tools/gradle/build.gradle
+
+// Limitations of the plugins DSL
+// https://docs.gradle.org/5.2.1/userguide/plugins.html#plugins_dsl_limitations
+
+plugins {
+  id 'java'
+  id 'jacoco'
+  id 'groovy'
+
+  id 'eclipse'
+  id 'idea'
+
+  id 'org.springframework.boot' version '2.4.0'
+  id 'com.coral.tools' version '2.0-SNAPSHOT'
+}
+
+apply plugin: "io.spring.dependency-management"
+
+group = 'com.ladbrokescoral.oxygen'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+def nexusMavenRepo = 'https://nexus-vie.coral.co.uk/repository/maven-public/'
+ext.nexusUser = System.getenv("NEXUS_USER") ?: project.properties.nexusUser
+ext.nexusPass = System.getenv("NEXUS_PASS") ?: project.properties.nexusPass
+
+repositories {
+  maven {
+    credentials {
+      username = "${nexusUser}"
+      password = "${nexusPass}"
+    }
+    url nexusMavenRepo
+  }
+  jcenter()
+}
+
+configurations {
+  all {
+    exclude module: 'spring-boot-starter-tomcat'
+    exclude module: 'spring-boot-starter-logging'
+    // exclude module: 'joda-time' // used by AWS SDK
+    // exclude module: 'gson' // keep for control
+  }
+  compileOnly {
+    extendsFrom annotationProcessor
+  }
+}
+
+ext {
+  set('springCloudVersion', '2020.0.0-M5')
+  set('springdocOpenapiVersion', '1.4.8')
+  set('spockBomVersion', '1.3-groovy-2.5')
+}
+
+dependencies {
+
+  // Development
+  developmentOnly 'org.springframework.boot:spring-boot-devtools'
+  annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+  // Fortify Annotations manual https://drive.google.com/open?id=15SbZt-C937-CnBNs6-zIH-Wy8T_KAFNZ
+  compileOnly 'com.hp.fortify:fortifyAnnotations:4.30'
+
+  implementation 'org.mapstruct:mapstruct:1.4.1.Final'
+  annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.1.Final'
+  // annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.1.0' // FIXME: use with JDK 11 and lombok v1.18.16 only
+
+  implementation 'org.modelmapper:modelmapper:2.3.8' // TODO: mapstruct replacement
+  // implementation 'org.modelmapper:modelmapper-spring:2.3.8'
+
+  // Monitoring
+  implementation 'com.newrelic.agent.java:newrelic-api:latest.release'
+  // implementation 'com.newrelic.telemetry:micrometer-registry-new-relic:0.5.0' // TODO: New Relic Micrometer
+
+  // Logging
+  implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+  runtime 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml' // log4j
+  runtime 'com.lmax:disruptor:3.4.2'
+
+  // Spring Cloud
+  implementation platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
+  implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+  // implementation 'org.springframework.cloud:spring-cloud-starter-config'
+
+  // Spring Boot
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+  implementation 'org.springframework.boot:spring-boot-starter-undertow'
+  implementation 'org.springframework.boot:spring-boot-starter-aop'
+  implementation 'org.springframework.boot:spring-boot-starter-cache'
+  implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+  // Spring Boot - MongoDB/Mongock
+  implementation platform('com.github.cloudyrock.mongock:mongock-bom:4.1.17')
+  implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+  implementation "com.github.cloudyrock.mongock:mongock-spring-v5"
+  implementation "com.github.cloudyrock.mongock:mongodb-springdata-v3-driver"
+
+  // Spring Boot - Security
+  implementation 'org.springframework.boot:spring-boot-starter-security'
+  implementation 'io.jsonwebtoken:jjwt:0.9.1' // FIXME: spring security jwt library?
+
+  // Spring Boot - Actuator
+  implementation 'org.springframework.boot:spring-boot-starter-actuator'
+  implementation 'org.jolokia:jolokia-core' // JMX per HTTP support
+
+  //log4j
+  implementation 'org.apache.logging.log4j:log4j-core:2.17.2'
+  implementation 'org.apache.logging.log4j:log4j-api:2.17.2'
+  implementation 'org.apache.logging.log4j:log4j-jul:2.17.2'
+  implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.17.2'
+
+  // Spring - Kafka
+  implementation 'org.springframework.kafka:spring-kafka'
+
+  // Project dependencies
+  implementation 'com.ladbrokescoral.lib:master-slave-lock-starter:1.3'
+  implementation 'com.ladbrokescoral.oxygen:stats-center-client:1.11'
+  implementation 'com.egalacoral.spark:siteserver-api:release-154.0.0-jdk11'
+  implementation 'com.egalacoral.spark:df-api:1.5'
+  //common library
+
+  implementation 'com.entain.oxygen:oxygen-commons-lib:1.4.25-SNAPSHOT'
+
+  // Springdoc - OpenAPI
+  implementation "org.springdoc:springdoc-openapi-ui:${springdocOpenapiVersion}"
+  // implementation "org.springdoc:springdoc-openapi-webmvc-core:${springdocOpenapiVersion}" // YAML /v3/api-docs.yml
+  // implementation "org.springdoc:springdoc-openapi-security:${springdocOpenapiVersion}"
+
+  // SDKs
+  implementation 'com.amazonaws:aws-java-sdk-s3:1.11.898'
+  implementation 'com.google.apis:google-api-services-bigquery:v2-rev459-1.25.0'
+  implementation 'com.akamai.edgegrid:edgegrid-signer-google-http-client:4.0.1'
+  implementation 'com.akamai:NetStorageKit:3.6.6'
+
+  // Tools
+  implementation 'com.github.dfabulich:sitemapgen4j:1.1.2'
+  implementation 'com.github.ben-manes.caffeine:caffeine'
+  implementation 'commons-io:commons-io:2.8.0' // FIXEM: use JDK 8 or Spring Utils
+  implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-csv'
+  implementation 'org.buildobjects:jproc:2.3.0'
+
+  // Sanitizer / OWASP
+  implementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20200713.1'
+  // implementation 'com.mikesamuel:json-sanitizer:1.2.0'
+  // implementation 'org.owasp.encoder:encoder:1.2.2'
+  // implementation 'org.simplify4u:slf4j-mock:2.1.1'
+
+  // Testing
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testRuntimeOnly 'org.junit.vintage:junit-vintage-engine'
+
+  // testImplementation 'org.springframework.security:spring-security-test'
+  testImplementation platform("org.spockframework:spock-bom:${spockBomVersion}")
+  testImplementation 'org.spockframework:spock-core'
+  testImplementation 'org.spockframework:spock-spring'
+  testImplementation 'org.springframework.security:spring-security-test'
+
+  implementation 'org.owasp.encoder:encoder:1.2.2'
+
+}
+
+jacocoTestReport.reports.xml.enabled = true
+
+test {
+  systemProperty 'spring.profiles.active', 'UNIT'
+  useJUnitPlatform()
+}
+
+springBoot {
+  buildInfo()
+}
+
+bootBuildImage {
+  imageName = "${rootProject.name}"
+}
+
+sonarqube {
+  properties {
+    property 'sonar.coverage.exclusions', "**/util/Util.java"
+  }
+}

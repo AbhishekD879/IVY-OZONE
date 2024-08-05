@@ -1,0 +1,17 @@
+/* Global styles */
+@import 'global.variables.scss';
+.vn-bma{
+/* Modules styles */
+@import "./modules/top-event-panel.scss";
+@import "./modules/res-panel.scss";
+@import "./modules/private-markets.scss";
+@import "./modules/scorecast.scss";
+@import "./modules/sticky-market-selector.scss";
+@import "./modules/couponsDetails.scss";
+@import "./modules/inplayScore.scss";
+
+@import '../../../lazy-modules/competitionsSportTab/components/competitionsPage/competitions-page.component.scss';
+
+/* General styles */
+@import "./style.scss";
+}

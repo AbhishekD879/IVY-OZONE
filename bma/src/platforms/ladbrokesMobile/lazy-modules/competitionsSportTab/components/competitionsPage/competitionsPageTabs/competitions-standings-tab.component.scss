@@ -1,0 +1,39 @@
+@import 'global.variables.scss';
+
+$table-menu-height: 57px;
+$table-head-height: 36px;
+
+.table-widget {
+
+  .table-menu {
+    color: $color-gray-darkest;
+    height: $table-menu-height;
+    font-size: 16px;
+    border: none;
+    margin-bottom: 8px;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.15);
+    .year {
+      font-size: 11px;
+      font-family: $alt-font-family;
+    }
+    svg {
+      fill: $lBlack-light;
+    }
+  }
+
+  ::ng-deep .tabs-panel .scroll-container .scroll-inner li.active .tab {
+    border-bottom: none;
+  }
+
+  .table-panel-widget {
+    font-family: $alt-font-family;
+    th {
+      text-align: center;
+      font-family: $alt-font-family;
+    }
+    thead tr {
+      height: $table-head-height;
+      background-color: $lGrayLight;
+    }
+  }
+}

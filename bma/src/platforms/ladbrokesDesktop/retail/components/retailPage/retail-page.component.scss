@@ -1,0 +1,192 @@
+@import "global.variables.scss";
+
+@mixin font-family-mixin($font-family) {
+  font-family: $font-family;
+}
+@mixin font-size-mixin($font-size) {
+  font-size: $font-size;
+}
+
+.retail-page {
+  ::ng-deep {
+    #banner-section {
+      &:not(:empty) {
+        padding: 10px 0 0;
+      }
+    }
+
+    .vertical-menu {
+      box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05),
+        0 2px 4px 0 rgba(0, 0, 0, 0.15);
+      background-color: $color-white;
+      margin-top: 10px;
+
+      .list-item-link {
+        @include font-family-mixin($alt-font-family);
+        padding: 14px 12px 15px;
+        margin: 0;
+        border-bottom: 1px solid $lGrayLight;
+        .item-icon {
+          width: 16px;
+          height: 14px;
+          margin: 0 12px 0 0;
+        }
+        .item-next-arrow {
+          width: 6px;
+          right: 16px;
+          height: 11px;
+          margin-top: -5px;
+          fill: $lBlack-light;
+        }
+
+        .item-name {
+          @include font-family-mixin($alt-font-family);
+          @include font-size-mixin($font-size-lg);
+          font-weight: normal;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: normal;
+          letter-spacing: 0px;
+          color: $color-gray-darkest;
+
+          .item-description {
+            padding-top: 0;
+          }
+        }
+      }
+    }
+
+    .multiples-header {
+      width: 100%;
+      display: inline-block;
+      background-color: $color-white;
+      height: auto;
+      border: 1px solid $lGrayDark;
+      margin: 10px 0 0;
+      box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05),
+        0 2px 4px 0 rgba(0, 0, 0, 0.15);
+
+      .text-section {
+        margin: 5px 0 0 0;
+
+        .item-name {
+          width: 63.3%;
+          display: inline-block;
+          margin: 12px 0 0 0;
+          @include font-family-mixin($alt-font-family);
+
+          strong {
+            @include font-size-mixin(16px);
+          }
+
+          .item-description {
+            @include font-size-mixin(12px);
+            line-height: 1;
+          }
+        }
+
+        .upgradeBtn {
+          width: 33.2%;
+          @include font-family-mixin($base-font-family);
+
+          .btn {
+            width: 33.2%;
+            background: $btn-bg-green-color;
+            height: 44px;
+            line-height: 28px;
+            @include font-size-mixin(15px);
+            text-shadow: none;
+            border-radius: 2px;
+            margin: 10px 22px 4px 0;
+            box-shadow: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+::ng-deep {
+  .build-card-top {
+    padding: 13px 22px 14px 12px;
+    height: 70px;
+    background: $color-white;
+    margin: 10px 0 10px 0;
+    border: 1px solid $lGrayDark;    
+    box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+    @include display-flex();
+    @include align-items();
+    .build-card-button {
+      border-radius: 2px;
+      text-decoration: none;
+    }
+  }
+
+  .build-card-description p {
+    @include font-size-mixin($font-size-lgr);
+  }
+
+  .build-card-description {
+    @include flex-grow(1);
+    color: $color-gray-darkest;
+    margin: 3px 0 0;
+    .build-card-text {
+      @include font-family-mixin($alt-font-family);
+      @include font-size-mixin($font-size-lgr);
+      font-weight: 700;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: 0px;
+      color: $color-gray-darkest;
+      line-height: initial;
+      margin: 0 0 6px;
+
+      .build-card-text-highlighted {
+        font-weight: bold;
+      }
+    }
+    .build-card-additional-text {
+      @include font-size-mixin($font-size);
+      @include font-family-mixin($alt-font-family);
+      margin: 0 10px 0 0;
+      line-height: initial;
+      line-height: 1;
+    }
+  }
+
+  .build-card-additional-text {
+    margin-bottom: 3px;
+  } 
+
+  .build-card-button {
+    @include align-items();
+    @include flex-grow(3);
+    @include justify-content(flex-end);
+    text-transform: uppercase;
+    background: $btn-bg-green-color;
+    color: $color-white;
+    line-height: 44px;
+    padding: 13px 0 14px 0;
+    min-width: 150px;
+    height: 44px;
+    border: none;
+    @include font-size-mixin(15px);
+    text-shadow: none;
+    border-radius: 2px;
+    margin: 12px 22px 4px 0;
+    box-shadow: none;
+    z-index: 11;
+  }
+
+  .build-card-button a {
+    color: $color-white;
+    font-weight: 700;
+    @include font-size-mixin($font-size-lgr);
+    text-shadow: none;
+    border-radius: 2px;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

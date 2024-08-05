@@ -1,0 +1,43 @@
+<accordion *ngFor="let event of outrights; index as eventIndex; trackBy: trackEvent;"
+           [isExpanded]="openedItems[eventIndex]">
+  <left-side>
+    <span class="left-title-text" data-crlat="headerTitle.leftMessage">{{ event.name }}</span>
+    <svg *ngIf="isLive(event)" class="live-label co-outrights-label" data-crlat="liveLabel">
+      <use xlink:href="#live-label"></use>
+    </svg>
+  </left-side>
+  <right-side>
+    <cashout-label *ngIf="isCashoutAvailable(event)"></cashout-label>
+  </right-side>
+  <accordion-body>
+    <div class="co-container">
+      <div class="co-wrapper" *ngFor="let market of event.markets; trackBy: trackMarket">
+        <div class="co-status-header">
+          <div class="co-left-header">
+            <span class="co-name-title">{{ market.name }}</span>
+            <span class="co-each-way" *ngIf="isEachWayTermsAvailable(market)">
+                {{ genTerms(market) }}
+            </span>
+          </div>
+          <div class="co-right-header">
+            <span class="co-time">
+              {{ getStartTime(event) }}
+            </span>
+          </div>
+        </div>
+        <div class="co-odds-card-container">
+          <div class="co-odds-card-wrapper"
+               *ngFor="let outcome of market.outcomes; trackBy: trackOutcome; odd as oddOutcome; even as evenOutcome; last as lastOutcome">
+            <div class="co-odds-card" [ngClass]="{'co-card-odd': oddOutcome, 'co-card-even-last': lastOutcome && evenOutcome}">
+              <span class="co-outcome-name">{{ outcome.name }}</span>
+              <price-odds-button [event]="event"
+                                 [market]="market"
+                                 [outcome]="outcome">
+              </price-odds-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </accordion-body>
+</accordion>

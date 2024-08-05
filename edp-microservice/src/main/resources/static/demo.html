@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <title>Webpack Demo</title>
+    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.11.0/styles/default.min.css">
+</head>
+<body><div id="app1"></div><script type="text/javascript" src="main.js"></script>
+
+<H4>URL</H4>
+<input id="url" type = text />
+<button onclick="connect('websocket')">Socket</button>
+<button onclick="connect('polling')">Polling</button>
+
+<br/>
+<H4>Event ID</H4>
+<input id="eventId" type = "text" />
+<br/>
+<button onclick="subscribeEvent()">Subscribe on 5 markets</button>
+<br/>
+<button onclick="subscribeVirtual()">Subscribe on virtual</button>
+<br/>
+<button onclick="subscribeSports()">Subscribe on sports</button>
+<br/>
+<button onclick="unsubscribeEvent()">Unsubscribe</button>
+<br/>
+<button onclick="unsubscribeSports()">Unsubscribe from sports</button>
+<br/>
+<button onclick="subscribeNextNMarkets()">Subscribe on N markets</button>
+N:
+<input id="marketCount" type="text"/>
+</body>
+<script src="//cdn.jsdelivr.net/highlight.js/9.11.0/highlight.min.js"></script>
+<script>
+
+function connect(method) {
+    var url = document.getElementById('url').value;
+    window.io = socketio(url, {
+          path: '/edp',
+          resource: '',
+          transports: [method],
+          upgrade: false,
+          'reconnection delay': 2000,
+          'force new connection': true,
+          'connection timeout': 1000,
+          'max reconnection attempts': 100
+        });
+
+}
+
+function subscribeEvent() {
+  eventId = document.getElementById('eventId').value;
+  io.emit('11001', +eventId);
+}
+
+function subscribeVirtual() {
+  eventId = document.getElementById('eventId').value;
+  io.emit('11011', +eventId);
+}
+
+function subscribeSports() {
+  eventId = document.getElementById('eventId').value;
+  io.emit('11012', +eventId);
+}
+
+function unsubscribeEvent() {
+  eventId = document.getElementById('eventId').value;
+  io.emit('11002', +eventId);
+}
+
+function unsubscribeSports() {
+  eventId = document.getElementById('eventId').value;
+  io.emit('11022', +eventId);
+}
+
+function subscribeNextNMarkets() {
+    eventId = document.getElementById('eventId').value;
+    marketCount = document.getElementById('marketCount').value;
+    io.emit('11003', eventId+ "_" + marketCount);
+}
+
+function extractHostname(url) {
+    var hostname;
+    //find & remove protocol (http, ftp, etc.) and get hostname
+
+    if (url.indexOf("://") > -1) {
+        hostname = url.split('/')[2];
+    }
+    else {
+        hostname = url.split('/')[0];
+    }
+
+    //find & remove port number
+    hostname = hostname.split(':')[0];
+    //find & remove "?"
+    hostname = hostname.split('?')[0];
+
+    return hostname;
+}
+
+var domain = extractHostname(document.location.href);
+if (document.location.href.indexOf("https") > -1) {
+   domain = 'wss://' + domain;
+} else {
+   domain = 'ws://' + domain + ':8080';
+}
+document.getElementById('url').value = domain
+
+
+
+</script>
+</html>

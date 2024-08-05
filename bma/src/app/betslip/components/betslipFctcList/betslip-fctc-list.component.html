@@ -1,0 +1,10 @@
+<div class="fctc-outcome" *ngFor="let outcome of outcomes; trackBy: trackByOutcome; index as outcomeIndex">
+  <ng-container *ngIf="+lines === 1">
+    <span class="fctc-place" [ngPlural]="outcomeIndex + 1">
+      <ng-template ngPluralCase="1">1st.</ng-template>
+      <ng-template ngPluralCase="2">2nd.</ng-template>
+      <ng-template ngPluralCase="3">3rd.</ng-template>
+    </span>
+  </ng-container>
+  <span [textContent]="modifire === 'betslip' ? outcome.name : outcome.description"></span>
+</div>

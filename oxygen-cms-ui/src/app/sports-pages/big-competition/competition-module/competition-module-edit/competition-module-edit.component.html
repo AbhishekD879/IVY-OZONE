@@ -1,0 +1,108 @@
+<breadcrumbs *ngIf="module" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+
+<div class="card" *ngIf="module">
+  <div class="header">
+    <h2 class="has-activity-badge">Competition Module: <span class="font-italic">{{ module.name }}</span></h2>
+    <create-updated-at-by class="has-activity-badge" [collection]="module"></create-updated-at-by>
+    <header-activity-badge [state]="!module.enabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="module">
+  <div class="body">
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-md-2">
+          <mat-checkbox class="mat-label" color="primary" formControlName="enabled"
+                        [checked]="module.enabled"
+                        (change)="module.enabled = !module.enabled">
+            Active
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Module Name
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !module.name}">
+            <input matInput placeholder="Module Name" type="text" formControlName="name"
+                   [(ngModel)]="module.name" [value]="module.name" trim="blur" required>
+            <mat-hint class="col-red" *ngIf="!module.name">Module name should be entered</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Module Type
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput type="text" formControlName="type"
+                   [(ngModel)]="module.type" [value]="module.type" trim="blur" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row" *ngIf="module.type === 'SURFACEBET'">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="module.name"></span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Select Surface Bet" [(ngModel)]="module.categoryIDs" multiple
+                        formControlName="categoryIDs"> 
+              <mat-option *ngFor="let bets of surfaceBetsData; trackBy: trackSportById" [value]="bets.id">
+                {{ bets.title }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row" *ngIf="module.type === 'HIGHLIGHT_CAROUSEL'">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="module.name"></span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Select Highlight Carousel" [(ngModel)]="module.categoryIDs" multiple
+                        formControlName="categoryIDs"> 
+              <mat-option *ngFor="let bets of highlighCarouselData; trackBy: trackSportById" [value]="bets.id">
+                {{ bets.title }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card" [hidden]="!module" *ngIf="show">
+  <div class="body">
+    <ng-template #moduleComponent></ng-template>
+  </div>
+</div>
+
+<action-buttons
+  *ngIf="module"
+  #actionButtons
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'name'"
+  [collection]="module"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>
+
+<div class="card" *ngIf="moduleNotFound">
+  <div class="header">
+    <h2>Failed to Load Module Data</h2>
+  </div>
+  <div class="body">
+    <a href="/sports-pages/big-competition">
+      <span>Back to Competitions Page</span>
+    </a>
+  </div>
+</div>

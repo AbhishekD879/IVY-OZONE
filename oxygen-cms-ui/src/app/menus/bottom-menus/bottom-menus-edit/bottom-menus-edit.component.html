@@ -1,0 +1,104 @@
+<breadcrumbs *ngIf="bottomMenu" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="bottomMenu">
+  <div class="header">
+    <h2 class="has-activity-badge">Bottom Menu:
+      <span class="font-italic">{{bottomMenu.linkTitle}}</span>
+      <create-updated-at-by [collection]="bottomMenu"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="bottomMenu.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="bottomMenu">
+  <form [formGroup]="form" novalidate>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-4">
+          <mat-checkbox color="primary" formControlName="disabled"
+                        (change)="bottomMenu.disabled=!bottomMenu.disabled">Active</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-checkbox color="primary"
+                        (change)="bottomMenu.inApp=!bottomMenu.inApp" formControlName="inApp">In App</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-checkbox color="primary" formControlName="authRequired"
+                        (change)="bottomMenu.authRequired=!bottomMenu.authRequired">Auth Required</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Link Title*
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Link Title" [(ngModel)]="bottomMenu.linkTitle" formControlName="linkTitle" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+              Target Uri*
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Target Uri" [(ngModel)]="bottomMenu.targetUri" formControlName="targetUri" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+              Start Url
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Start Url" [(ngModel)]="bottomMenu.startUrl" formControlName="startUrl">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Section*
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width" required>
+            <mat-select placeholder="Section" [(ngModel)]="bottomMenu.section" (selectionChange)="onSectionChanged($event)" formControlName="section">
+              <mat-option *ngFor="let section of sections" [value]="section">
+                {{ section | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            System ID
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="System ID" [(ngModel)]="bottomMenu.systemID" formControlName="systemID">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="bottomMenu"
+  [form]="form"
+  [fieldOrItemName]="'linkTitle'"
+  [collection]="bottomMenu"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

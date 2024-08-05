@@ -1,0 +1,27 @@
+@import 'global.variables.scss';
+
+.indicator {
+    display: flex;
+    height: $profit-indicator-height;
+    padding: 3px 6px;
+    justify-content: $profit-indicator-justify-content;
+    align-items: center;
+    gap: 10px;
+    border-radius: $profit-indicator-border-radius;
+    background: $profit-indicator-color-green;
+    margin-left: 8px;
+    text-transform: none;
+
+    &-text {
+        color: #FFF;
+        font-size: 11px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: $profit-indicator-line-height;
+        letter-spacing: 0.001px;
+        font-family: $base-font-family;
+        height: 13px;
+        display: flex;
+        align-items: center;
+    }
+}

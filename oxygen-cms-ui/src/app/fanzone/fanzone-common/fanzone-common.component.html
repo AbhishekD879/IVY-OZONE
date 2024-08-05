@@ -1,0 +1,196 @@
+<form [formGroup]="form">
+  <div class="card">
+    <div class="body pb-0">
+      <div class="row">
+        <div class="col-md-2 mb-0">
+          <mat-checkbox color="primary" formControlName="active" [checked]="fanzone.active"
+            (change)="fanzone.active = !fanzone.active">
+            <span [textContent]="FANZONE_DETAILS.active"></span>
+          </mat-checkbox>
+        </div>
+        <div class="col-md-2 mb-0">
+          <mat-checkbox color="primary" formControlName="is21stOrUnlistedFanzoneTeam" [checked]="fanzone.is21stOrUnlistedFanzoneTeam"
+            (change)="fanzone.is21stOrUnlistedFanzoneTeam = !fanzone.is21stOrUnlistedFanzoneTeam">
+            <span [textContent]="FANZONE_DETAILS.is21stOrUnlistedFanzoneTeam"></span>
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="header">
+      <h2 [textContent]="FANZONE_DETAILS.launchbanner"></h2>
+    </div>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="FANZONE_DETAILS.fanzoneName"></span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput [placeholder]="FANZONE_DETAILS.fanzoneName" formControlName="name"
+              [(ngModel)]="fanzone.name" [value]="fanzone.name" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="FANZONE_DETAILS.launchBannerUrl"></span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput [placeholder]="FANZONE_DETAILS.launchBannerUrl" formControlName="launchBannerUrl"
+              [(ngModel)]="fanzone.launchBannerUrl" [value]="fanzone.launchBannerUrl" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="FANZONE_DETAILS.launchBannerUrlDesktop"></span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput [placeholder]="FANZONE_DETAILS.launchBannerUrlDesktop" formControlName="launchBannerUrlDesktop"
+              [(ngModel)]="fanzone.fanzoneConfiguration.launchBannerUrlDesktop" [value]="fanzone.fanzoneConfiguration.launchBannerUrlDesktop" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="header">
+      <h2 [textContent]="FANZONE_DETAILS.fanzoneDetails"></h2>
+    </div>
+    <div class="body">
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="FANZONE_DETAILS.teamId"></span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput [placeholder]="FANZONE_DETAILS.teamId" maxlength="50" formControlName="teamId"
+              [(ngModel)]="fanzone.teamId" [value]="fanzone.teamId" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="FANZONE_DETAILS.openBetId"></span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput [placeholder]="FANZONE_DETAILS.openBetId" maxlength="50" formControlName="openBetID"
+              [(ngModel)]="fanzone.openBetID" [value]="fanzone.openBetID" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="FANZONE_DETAILS.fanzoneBanner"></span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput [placeholder]="FANZONE_DETAILS.fanzoneBanner" formControlName="fanzoneBanner"
+              [(ngModel)]="fanzone.fanzoneBanner" [value]="fanzone.fanzoneBanner" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="FANZONE_DETAILS.fanzoneBannerDesktop"></span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput [placeholder]="FANZONE_DETAILS.fanzoneBannerDesktop" formControlName="fanzoneBannerDesktop"
+              [(ngModel)]="fanzone.fanzoneConfiguration.fanzoneBannerDesktop" [value]="fanzone.fanzoneConfiguration.fanzoneBannerDesktop" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="FANZONE_DETAILS.assetManagementLink"></span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput [placeholder]="FANZONE_DETAILS.assetManagementLink" formControlName="assetManagementLink"
+              [(ngModel)]="fanzone.assetManagementLink" [value]="fanzone.assetManagementLink" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="FANZONE_DETAILS.fanzoneDescription"></span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput [placeholder]="FANZONE_DETAILS.fanzoneDescription" formControlName="location"
+              [(ngModel)]="fanzone.location" [value]="fanzone.location" maxlength="50" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="FANZONE_DETAILS.primaryCompetitionId"></span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput type="number" [placeholder]="FANZONE_DETAILS.primaryCompetitionId" maxlength="100"
+              formControlName="primaryCompetitionId" [(ngModel)]="fanzone.primaryCompetitionId"
+              [value]="fanzone.primaryCompetitionId" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="FANZONE_DETAILS.secondaryCompetitionId"></span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput [placeholder]="FANZONE_DETAILS.secondaryCompetitionId" maxlength="100"
+              formControlName="secondaryCompetitionId" [(ngModel)]="fanzone.secondaryCompetitionId"
+              [value]="fanzone.secondaryCompetitionId" trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="FANZONE_DETAILS.clubIds"></span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput [placeholder]="FANZONE_DETAILS.clubIds" maxlength="100" formControlName="clubIds"
+              [(ngModel)]="fanzone.clubIds" [value]="fanzone.clubIds" trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="FANZONE_DETAILS.hexColorCode"></span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput [placeholder]="FANZONE_DETAILS.hexColorCode" formControlName="hexColorCode"
+              [(ngModel)]="fanzone.hexColorCode" [value]="fanzone.hexColorCode" trim="blur" required
+              pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3}$)">
+            <mat-hint class="col-red" *ngIf="form.get('hexColorCode').errors?.pattern">
+              <div>The Field Name should Accept HexColorCode Only.</div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <br>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,80 @@
+@import 'global.variables.scss';
+
+.bs-subheader {
+  @include display-flex();
+  @include align-items(center);
+  padding: 0 12px;
+  background-color: $color-white;
+  margin-bottom: 5px;
+  box-shadow: 0px 1px 0px $lGrayDark;
+  background: #fff;
+  .bs-count {
+    @include flex(2);
+    text-align: left;
+    color: $color-black-betslip;
+    font-size: 14px;
+    line-height: 14.02px;
+    padding: 14px 0;
+  }
+  .bs-count-coral-mobile{
+    font-family: $base-font-family;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color:$color-blue-dark;
+    line-height: 17px;
+  }
+  .bs-clear-coral-mobile {
+      font-family: $base-font-family;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 11px;
+      line-height: 13px;
+      text-align: right;
+      text-transform: uppercase;
+      color: $color-blue;
+    }
+  .bs-clear {
+    flex-flow: column;
+    display: flex;
+  }
+  .bs-clear,.bs-clear-mobile {
+    @include flex(1);
+    text-align: right;
+    text-transform: uppercase;
+    color: $color-blue;
+    font-size: 11px;
+    line-height: 13px;
+    font-family: $base-font-family;
+    font-style: normal;
+    &:hover{
+      text-decoration: underline;
+    }
+    &:active{
+      text-decoration: none;
+      color: $color-blue-rich;
+    }
+    span {
+      cursor: pointer;
+    }
+  }
+  .bs-clear-coral-mobile, .bs-clear-mobile {
+    span:last-of-type {
+      margin-left: 12px;
+    }
+  }
+
+}
+.bs-subheader-coral-mobile{
+  background: $color-white;
+}
+.closure-message-container {
+  color: $color-gray-darkest;
+  font-size: 12px;
+  padding: 14px 12px 12px;
+  box-shadow: 0 2px 2px 0 rgba(162, 162, 162, 0.26), 0 0 2px 0 rgba(162, 162, 162, 0.26);
+  background-color: $color-white;
+  margin-bottom: 3px;
+  line-height: 15px;
+  font-family: $base-font-family;
+}

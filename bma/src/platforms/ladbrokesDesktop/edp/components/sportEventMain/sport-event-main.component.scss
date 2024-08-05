@@ -1,0 +1,39 @@
+@import "global.variables.scss";
+@import '../../../../../app/edp/components/sportEventMain/sport-event-main.component.scss';
+.date-side {
+  &.flex {
+    @include display-flex();
+    @include align-items(center);
+  }
+
+  .live-ico {
+    width: 28px;
+    height: 15px;
+  }
+
+  .event-date-time {
+    line-height: 1;
+    margin-left: 6px;
+    color: $color-white-grey;
+    font-family: $alt-font-family;
+  }
+}
+event-markets {
+  ::ng-deep show-all-button {
+    ::ng-deep .show-all-button {
+      text-decoration: none;
+      background: $color-white;
+      span {
+        color: $blue;
+        &:hover{
+         text-decoration: underline;
+         text-decoration-color: $color-blue-alt;
+       }
+       &:active{
+         text-decoration: none;
+         color: darken($color-blue-alt, 25%);
+       }
+      }
+    }
+  }
+}

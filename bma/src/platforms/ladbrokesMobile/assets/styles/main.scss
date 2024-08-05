@@ -1,0 +1,169 @@
+$bet-finder-link-line-height: 17px;
+@import './components/cahout-icon.scss';
+@import './components/odds-boost-page.scss';
+@import './components/odds-card-header.component.scss';
+@import './components/horse-race-grid.component.scss';
+@import './components/price-odds-button.component.scss';
+@import './components/racing-event.scss';
+@import '../../shared/components/oddsCard/odds-card.component.scss';
+@import '../../shared/components/accordion/accordion.component.scss';
+
+@import './modules/tabs-panel.scss';
+@import './modules/race-card.scss';
+@import './modules/showAllButton.scss';
+@import './modules/ema.scss';
+@import './modules/spinner.scss';
+
+@import '../../shared/components/oddsCard/odds-card.component.scss';
+@import '../../promotions/assets/styles/main.scss';
+/* CLS placeholder Css */
+@mixin placeHolderMixin($intrinsicSize) {
+  contain: size;
+  content-visibility: auto;
+  contain-intrinsic-size: auto $intrinsicSize;
+}
+.bet-finder-link {
+  font-size: 11px;
+  color: $color-white;
+  min-width: 0;
+  font: #{$font-size}/#{$bet-finder-link-line-height} $alt-font-family;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  .bet-finder-icon {
+    fill: $color-white;
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    margin-right: 5px;
+    z-index: 1;
+  }
+
+  .bet-finder-title {
+    text-decoration: none;
+  }
+}
+
+/* Default styles for bma app */
+sidebar, .side-page {
+  line-height: normal;
+  color: $color-black;
+}
+.banner-block-place {
+  @media #{$mqMobile} {
+    @include placeHolderMixin($banner-sk-height);
+  }
+}
+.cta-center {
+  min-height: 75px;
+  margin: 10px 0px;
+}
+.cta-right {
+  min-height: 60px;
+  margin: 10px 0px;
+}
+.no-cta {
+  min-height: 79.33px;
+  margin: 8px 0px;
+}
+.ribbon-block-place {
+  min-height: 45px;
+}
+.carousel-block {
+  @include placeHolderMixin(64px);
+}
+@supports (-webkit-touch-callout: none) {
+  /* CSS specific to iOS devices */ 
+  .banner-block-place {
+    @media #{$mqMobile} {
+      @include placeHolderMixin($banner-sk-height);
+      min-height: $banner-sk-height;
+    }
+  }
+  .ribbon-block-place {
+      min-height: 45px;
+  }
+  .carousel-block {
+    @include placeHolderMixin(64px);
+    min-height: 64px;
+  }
+}
+#content {
+  background: $lGray-bg;
+}
+
+#page-content, #page-content #page-wrap-content {
+  background: $lGray-bg;
+}
+
+.split-header {
+  margin: 16px 0 12px;
+  font-size: 12px;
+  font-family: $alt-font-family;
+  color: $lBlack-light;
+}
+
+#page-content {
+ background: $lGray-bg;
+}
+
+.list-container {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .15);
+}
+
+.network-indicator-parent{
+  width: 100%;
+  position: fixed;
+  z-index: 1000;
+  bottom: 51px;
+   &.betslip-shown {
+    z-index: 1019;
+    bottom: 0pxx;
+  }
+}
+
+.interruption-header {
+  font-family: 'Helvetica';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 17px;
+  letter-spacing: unset;
+  color: #252835;
+  padding: 20px;
+  text-transform: unset;
+  border-bottom: unset;
+}
+
+.interruption-content {
+  font-family: "Helvetica";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 15px;
+  color: #777777;
+  padding: 20px;
+  padding-top: 0px;
+}
+
+.interruption-close-button {
+  width: 100px;
+  height: 35px;
+  background: #FAC031;
+  font-size: 13px;
+  font-weight: 400;
+  float: right;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: Roboto Condensed;
+  font-style: normal;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  color: #252835;
+  margin-right: 20px;
+}

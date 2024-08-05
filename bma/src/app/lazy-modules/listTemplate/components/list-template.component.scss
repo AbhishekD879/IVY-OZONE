@@ -1,0 +1,27 @@
+@import 'global.variables.scss';
+.odds-list-template {
+  accordion {
+    margin: 0px !important;
+    border-top: 1px solid $color-gray;
+    .page-container.is-expanded {
+      margin-bottom: 0px !important;
+    }
+  }
+  .show-all-button {
+    border-top: 1.5px solid $color-gray;
+    padding: 4.5px 10px;
+    font-weight: bold;
+  }
+  .odds-card {
+    padding: 10px 12px;
+    .odds-footer {
+      margin: 0px;
+      live-label::before {
+        left: 1px;
+      }
+    }
+  }
+  .odds-card.desktop-sport-card:not(.card-special) {
+    display: block;
+  }
+}

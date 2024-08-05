@@ -1,0 +1,775 @@
+<div *ngIf="shareCardFormData">
+        <div class="card">
+            <div class="header">
+                <span><b>General Configuration</b></span>
+            </div>
+            <div class="body">
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label">
+                            Generic Sharing Link*
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="URL" [(ngModel)]="shareCardFormData.genericSharingLink">
+                            <mat-hint class="col-red"
+                                *ngIf="!shareCardFormData.genericSharingLink">
+                                This Property Should Enter</mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label">
+                            Share Card PopUp Description*
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="URL" [(ngModel)]="shareCardFormData.popUpDesc">
+                            <mat-hint class="col-red"
+                                *ngIf="!shareCardFormData.popUpDesc">
+                                This Property Should Enter</mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="header">
+                <span><b>Open Bets</b></span>
+            </div>
+
+            <div class="body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-checkbox class="mat-label" color="primary" [(ngModel)]="shareCardFormData.openBetShareCardStatus">
+                            Enable
+                        </mat-checkbox>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label">
+                            Message*
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Share Card Message" maxlength="30"
+                                [(ngModel)]="shareCardFormData.openBetShareCardMessage">
+                            <mat-hint class="col-red"
+                                *ngIf="!shareCardFormData.openBetShareCardMessage">
+                                This Property Should not exceed 30 characters</mat-hint>
+                        </mat-form-field>
+                        <small>Note: Ideal number of characters for Header is 20 characters and Sub-Header is 26 Characters (including spaces),
+                            going beyond may impact the Header’s font size on Share Card <br> ${{'{'}}BetType{{'}'}} - Identifier is used to display bet
+                            type anywhere in the message <br>
+                            ${{'{'}}TPR{{'}'}} - Identifier is used to display total potential returns anywhere in the messages.</small>
+                    </div>
+                    <div class="col-md-2 text-length">
+                        {{shareCardFormData.openBetShareCardMessage?.length || 0}} / 30
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label">
+                            Second Message*
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Share Card Second Message"
+                               [(ngModel)]="shareCardFormData.openBetShareCardSecondMessage" maxlength="30">
+                            <mat-hint class="col-red"
+                                *ngIf="!shareCardFormData.openBetShareCardSecondMessage">
+                                This Property Should not exceed 30 characters</mat-hint>
+                        </mat-form-field>
+                        <small>Note: Ideal number of characters for Header is 20 characters and Sub-Header is 26 Characters (including spaces),
+                            going beyond may impact the Header’s font size on Share Card <br> ${{'{'}}BetType{{'}'}} - Identifier is used to display bet
+                            type anywhere in the message <br>
+                            ${{'{'}}TPR{{'}'}} - Identifier is used to display total potential returns anywhere in the messages.</small>
+                    </div>
+                    <div class="col-md-2 text-length">
+                        {{shareCardFormData.openBetShareCardSecondMessage?.length || 0}} / 30
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <span class="mat-label">
+                            User Share Preferences*
+                        </span>
+                    </div>
+
+                    <div class="col-md-12">
+                        <ul>
+                            <li *ngFor="let openbet of shareCardFormData.openBetControl">
+                                <mat-checkbox [(ngModel)]="openbet.isSelected" [ngModelOptions]="{standalone: true}"
+                                    color="primary" (change)="userPerferncesChange('openBetControl')">
+                                    {{openbet.name}}
+                                </mat-checkbox>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="header">
+                <span><b>Won Bets</b></span>
+            </div>
+            <div class="body">
+
+                <div class="row" >
+                    <div class="col-md-12">
+                        <mat-checkbox class="mat-label" color="primary"  [(ngModel)]="shareCardFormData.wonBetShareCardStatus">
+                            Settled Bets [Won/Lost/Cashed Out]
+                        </mat-checkbox>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label">
+                            Message*
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Share Card Message" maxlength="30"
+                                [(ngModel)]="shareCardFormData.wonBetShareCardMessage">
+                            <mat-hint class="col-red"
+                                *ngIf="!shareCardFormData.wonBetShareCardMessage">
+                                This Property Should not exceed 30 characters</mat-hint>
+                        </mat-form-field>
+                        <small>Note: Ideal number of characters for Header is 20 characters and Sub-Header is 26 Characters (including spaces),
+                            going beyond may impact the Header’s font size on Share Card <br> ${{'{'}}BetType{{'}'}} - Identifier is used to display bet
+                            type anywhere in the message <br>
+                            ${{'{'}}TPR{{'}'}} - Identifier is used to display total potential returns anywhere in the messages.</small>
+                    </div>
+                    <div class="col-md-2 text-length">
+                        {{shareCardFormData.wonBetShareCardMessage?.length || 0}} / 30
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <span class="mat-label">
+                            User Share Preferences*
+                        </span>
+                    </div>
+
+                    <div class="col-md-12">
+
+                        <ul>
+                            <li *ngFor="let wonbet of shareCardFormData.wonBetControl">
+                                <mat-checkbox [(ngModel)]="wonbet.isSelected" [ngModelOptions]="{standalone: true}"
+                                    color="primary" (change)="userPerferncesChange('wonBetControl')">
+                                    {{wonbet.name}}
+                                </mat-checkbox>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="header">
+                <span><b>Lost Bets</b></span>
+            </div>
+            <div class="body">
+
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label">
+                            Message*
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Share Card Message" maxlength="30"
+                                [(ngModel)]="shareCardFormData.lostBetsShareCardMessage">
+                            <mat-hint class="col-red"
+                                *ngIf="!shareCardFormData.lostBetsShareCardMessage">
+                                This Property Should not exceed 30 characters</mat-hint>
+                        </mat-form-field>
+                        <small>Note: Ideal number of characters for Header is 20 characters and Sub-Header is 26 Characters (including spaces),
+                            going beyond may impact the Header’s font size on Share Card <br> ${{'{'}}BetType{{'}'}} - Identifier is used to display bet
+                            type anywhere in the message <br>
+                            ${{'{'}}TPR{{'}'}} - Identifier is used to display total potential returns anywhere in the messages.</small>
+                    </div>
+                    <div class="col-md-2 text-length">
+                        {{shareCardFormData.lostBetsShareCardMessage?.length || 0}} / 30
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <span class="mat-label">
+                            User Share Preferences*
+                        </span>
+                    </div>
+
+                    <div class="col-md-12">
+
+                        <ul>
+                            <li *ngFor="let lostbet of shareCardFormData.lostBetControl">
+                                <mat-checkbox [(ngModel)]="lostbet.isSelected" [ngModelOptions]="{standalone: true}"
+                                    color="primary" (change)="userPerferncesChange('lostBetControl')">
+                                    {{lostbet.name}}
+                                </mat-checkbox>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="header">
+                <span><b>Cashed-Out Bets</b></span>
+            </div>
+            <div class="body">
+
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label">
+                            Message*
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Message" maxlength="30"
+                                [(ngModel)]="shareCardFormData.cashedOutBetsShareCardMessage">
+                            <mat-hint class="col-red"
+                                *ngIf="!shareCardFormData.cashedOutBetsShareCardMessage">
+                                This Property Should not exceed 30 characters</mat-hint>
+                        </mat-form-field>
+                        <small>Note: Ideal number of characters for Header is 20 characters and Sub-Header is 26 Characters (including spaces),
+                            going beyond may impact the Header’s font size on Share Card <br> ${{'{'}}BetType{{'}'}} - Identifier is used to display bet
+                            type anywhere in the message <br>
+                            ${{'{'}}TPR{{'}'}} - Identifier is used to display total potential returns anywhere in the messages.</small>
+                    </div>
+                    <div class="col-md-2 text-length">
+                        {{shareCardFormData.cashedOutBetsShareCardMessage?.length || 0}} / 30
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <span class="mat-label">
+                            User Share Preferences*
+                        </span>
+                    </div>
+
+                    <div class="col-md-12">
+
+                        <ul>
+                            <li *ngFor="let cashedoutbet of shareCardFormData.cashedOutBetControl">
+                                <mat-checkbox [(ngModel)]="cashedoutbet.isSelected"
+                                    [ngModelOptions]="{standalone: true}" color="primary"
+                                    (change)="userPerferncesChange('cashedOutBetControl')">
+                                    {{cashedoutbet.name}}
+                                </mat-checkbox>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="header">
+                <span><b>Share card Assets</b></span>
+            </div>
+
+            <div class="body">
+                <div class="row">
+
+                    <div class="col-md-2">
+                        <span class="mat-label">
+                            Horseracing
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Horseracing URL" [(ngModel)]="shareCardFormData.horseRacingUrl">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label">
+                            Football
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Football URL" [(ngModel)]="shareCardFormData.footBallUrl">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="isBrandLads">
+                    <div class="col-md-2">
+                        <span class="mat-label">
+                            5-A-Side
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="5-A-Side URL" [(ngModel)]="shareCardFormData.url5ASide">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label">
+                            Settled Bets Generic*
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Settled Bet Generic URL"
+                                [(ngModel)]="shareCardFormData.settledBetsGenericUrl">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label">
+                            Open Bets Generic*
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Open Bets Generic URL" [(ngModel)]="shareCardFormData.openBetsGenericUrl">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label">
+                            Extension*
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Extension URL" [(ngModel)]="shareCardFormData.extensionUrl">
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label">
+                            Brand Logo*
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Brand Logo URL" [(ngModel)]="shareCardFormData.brandLogoUrl">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label">
+                            BeGambleAware Logo*
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="BeGambleAware Logo URL" [(ngModel)]="shareCardFormData.beGambleAwareLogoUrl">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="header col-md-12">
+                <b class="waves-effect waves-block">Lucky Dip betShareCofigurations</b>
+            </div>
+            <div class="body">
+              <div class="row clearfix">
+                <div class="col-md-12 ">
+                  <mat-checkbox color="primary" [checked]="shareCardFormData.luckyDipBetSharingConfigs.enable" (change)="shareCardFormData.luckyDipBetSharingConfigs.enable = !shareCardFormData.luckyDipBetSharingConfigs.enable">
+                    Enabled
+                  </mat-checkbox>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2">
+                  <span class="mat-label">
+                   Header :
+                  </span>
+                </div>
+                <div class="col-md-8">
+                  <mat-form-field class="full-width">
+                    <input
+                        matInput     
+                        placeholder="Please enter the Header Label"
+                        [(ngModel)]="shareCardFormData.luckyDipBetSharingConfigs.header"
+                        maxlength="20"
+                        required>
+                    <mat-hint class="col-red"
+                        *ngIf="!shareCardFormData.luckyDipBetSharingConfigs.header">
+                        Header Property Should Enter</mat-hint>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">
+                    {{shareCardFormData.luckyDipBetSharingConfigs.header?.length || 0}} / 20
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                  <span class="mat-label">
+                    Take A LuckyDip Label :
+                  </span>
+                </div>
+                <div class="col-md-8">
+                  <mat-form-field class="full-width">
+                    <input
+                        matInput     
+                        placeholder="Please enter the Take A LuckDip Label"
+                        [(ngModel)]="shareCardFormData.luckyDipBetSharingConfigs.luckyDipLabel"
+                        maxlength="30"
+                        required>
+                    <mat-hint class="col-red"
+                        *ngIf="!shareCardFormData.luckyDipBetSharingConfigs.luckyDipLabel">
+                        Lucky Dip label Property Should Enter</mat-hint>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">
+                    {{shareCardFormData.luckyDipBetSharingConfigs.luckyDipLabel?.length || 0}} / 30
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                  <span class="mat-label">
+                   Won Label :
+                  </span>
+                </div>
+                <div class="col-md-8">
+                  <mat-form-field class="full-width">
+                    <input
+                        matInput     
+                        placeholder="Please enter the Won Label"
+                        [(ngModel)]="shareCardFormData.luckyDipBetSharingConfigs.wonLabel"
+                        maxlength="20"
+                        required>
+                    <mat-hint class="col-red"
+                        *ngIf="!shareCardFormData.luckyDipBetSharingConfigs.wonLabel">
+                        Won Label Property Should Enter</mat-hint>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">
+                    {{shareCardFormData.luckyDipBetSharingConfigs.wonLabel?.length || 0}} / 20
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                  <span class="mat-label">
+                   Potential returns Label :
+                  </span>
+                </div>
+                <div class="col-md-8">
+                  <mat-form-field class="full-width">
+                    <input
+                        matInput     
+                        placeholder="Please enter the Potential returns Label"
+                        [(ngModel)]="shareCardFormData.luckyDipBetSharingConfigs.potentialReturnsLabel"
+                        maxlength="30"
+                        required>
+                    <mat-hint class="col-red"
+                        *ngIf="!shareCardFormData.luckyDipBetSharingConfigs.potentialReturnsLabel">
+                        Potential returns Label Property Should Enter</mat-hint>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">
+                    {{shareCardFormData.luckyDipBetSharingConfigs.potentialReturnsLabel?.length || 0}} / 30
+                </div>
+              </div>
+        
+              <div class="row">
+                <div class="col-md-2">
+                  <span class="mat-label">
+                   Background Image URL :
+                  </span>
+                </div>
+                <div class="col-md-8">
+                  <mat-form-field class="full-width">
+                    <input
+                        matInput
+                        placeholder="Please enter Background Image URL"
+                        [(ngModel)]="shareCardFormData.luckyDipBetSharingConfigs.backgroundImageUrl"
+                        required>
+                    <mat-hint class="col-red"
+                        *ngIf="!shareCardFormData.luckyDipBetSharingConfigs.backgroundImageUrl">
+                        Background Image URL Property Should Enter</mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+        
+              <div class="row">
+                <div class="col-md-2">
+                  <span class="mat-label">
+                    LuckyDip Affiliate Link :
+                  </span>
+                </div>
+                <div class="col-md-8">
+                  <mat-form-field class="full-width">
+                    <input
+                        matInput
+                        placeholder="Please enter LuckyDip Affiliate Link"
+                        [(ngModel)]="shareCardFormData.luckyDipBetSharingConfigs.luckyDipAffiliateLink"
+                        required>
+                    <mat-hint class="col-red"
+                        *ngIf="!shareCardFormData.luckyDipBetSharingConfigs.luckyDipAffiliateLink">
+                        LuckyDip Affiliate Link Property Should Enter</mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+      
+              <div class="row">
+                <div class="col-md-6">
+                    <span class="mat-label">
+                        Open Bets User Share Preferences*
+                    </span>
+                </div>
+                <div class="col-md-12">
+          
+                    <ul>
+                        <li *ngFor="let luckyDipOpenControl of shareCardFormData.luckyDipBetSharingConfigs.openBetControl; index as i">
+                            <mat-checkbox [checked]="luckyDipOpenControl.isSelected" [ngModelOptions]="{standalone: true}"
+                                color="primary" (change)="changeBetUserPreference($event, i,'openBetControl','luckyDipBetSharingConfigs')">
+                                {{luckyDipOpenControl.name}}
+                            </mat-checkbox>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <span class="mat-label">
+                        Won Bets User Share Preferences*
+                    </span>
+                </div>
+                <div class="col-md-12">
+          
+                    <ul>
+                        <li *ngFor="let luckyDipWonControl of shareCardFormData.luckyDipBetSharingConfigs.wonBetControl; index as i">
+                            <mat-checkbox [checked]="luckyDipWonControl.isSelected" [ngModelOptions]="{standalone: true}"
+                                color="primary" (change)="changeBetUserPreference($event, i,'wonBetControl','luckyDipBetSharingConfigs')">
+                                {{luckyDipWonControl.name}}
+                            </mat-checkbox>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <span class="mat-label">
+                        Lost Bets User Share Preferences*
+                    </span>
+                </div>
+                <div class="col-md-12">
+          
+                    <ul>
+                        <li *ngFor="let luckyDipLostControl of shareCardFormData.luckyDipBetSharingConfigs.lostBetControl; index as i">
+                            <mat-checkbox [checked]="luckyDipLostControl.isSelected" [ngModelOptions]="{standalone: true}"
+                                color="primary" (change)="changeBetUserPreference($event, i,'lostBetControl','luckyDipBetSharingConfigs')">
+                                {{luckyDipLostControl.name}}
+                            </mat-checkbox>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            </div>
+          </div>
+
+        <div class="card">
+            <div class="body">
+                <div class="header col-md-12">
+                    <h2 class="waves-effect waves-block"> FTP betShareCofigurations</h2>
+                </div>
+        
+                <div class="row clearfix">
+                    <div class="col-md-12 ">
+                        <mat-checkbox color="primary"
+                            [(ngModel)]="shareCardFormData.ftpBetSharingConfigs.enable">
+                            Enabled
+                        </mat-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label">
+                            Header :
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Please enter the Header Label" #header
+                                [(ngModel)]="shareCardFormData.ftpBetSharingConfigs.header" maxlength="25" required>
+                                <mat-hint class="col-red"
+                                *ngIf="!shareCardFormData.ftpBetSharingConfigs.header">
+                                Header Property Should Enter</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2 text-length">
+                        {{shareCardFormData.ftpBetSharingConfigs.header?.length || 0}} / 25
+                    </div>
+                </div>
+        
+                <div class="row" *ngIf="isBrandLads">
+                    <div class="col-md-2">
+                        <span class="mat-label">
+                            Sub header:
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Please enter Sub Header" #subHeader
+                                [(ngModel)]="shareCardFormData.ftpBetSharingConfigs.subHeader" maxlength="25" required>
+                                <mat-hint class="col-red"
+                                *ngIf="!shareCardFormData.ftpBetSharingConfigs.subHeader">
+                                Sub Header Property Should Enter</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2 text-length">
+                        {{shareCardFormData.ftpBetSharingConfigs.subHeader?.length || 0}} / 25
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label">
+                            Play Label:
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Please enter Play Label"
+                                #backgroundImageUrl [(ngModel)]="shareCardFormData.ftpBetSharingConfigs.playLabel"
+                                maxlength="30"
+                                required>
+                                <mat-hint class="col-red"
+                                *ngIf="!shareCardFormData.ftpBetSharingConfigs.playLabel">
+                                PlayLabel Property Should Enter</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2 text-length">
+                        {{shareCardFormData.ftpBetSharingConfigs.playLabel?.length || 0}} / 30
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label">
+                            Background Image URL :
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Please enter Background Image URL"
+                                #backgroundImageUrl [(ngModel)]="shareCardFormData.ftpBetSharingConfigs.backgroundImageUrl"
+                                required>
+                                <mat-hint class="col-red"
+                                *ngIf="!shareCardFormData.ftpBetSharingConfigs.backgroundImageUrl">
+                                Background Image URL Property Should Enter</mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label">
+                            FTP AffiliateLink :
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Please enter Background Image URL"
+                                #backgroundImageUrl [(ngModel)]="shareCardFormData.ftpBetSharingConfigs.affiliateLink"
+                                required>
+                                <mat-hint class="col-red"
+                                *ngIf="!shareCardFormData.ftpBetSharingConfigs.affiliateLink">
+                                AffiliateLink Property Should Enter</mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="mat-label">
+                    <button (click)="createFilter()" type="button" class="btn bg-teal waves-effect float-left">
+                        <i class="material-icons">add_box</i>
+                        <span>Add Teams</span>
+                    </button>
+                </div>
+                <cms-alert #requestError ></cms-alert>
+                <cms-data-table
+                [customTableData]="shareCardFormData.ftpBetSharingConfigs.teamDetails"
+                [customTableColumns]="dataTableColumns"
+                [reorder]="false"
+                [actions]="['remove','onPageEdit']"
+                [filterString]="searchField"
+                [filterProperties]="filterProperties"
+                (onPageEditTableElement)="editFilter($event)" 
+                (onRemoveTableElement)="removeFilter($event, 'eventStartsFilter')"
+                >
+            </cms-data-table>
+            </div>
+        </div>
+</div>
+<action-buttons #actionButtons *ngIf="shareCardFormData" [collection]="shareCardFormData" (actionsEmitter)="actionsHandler($event);"
+[fieldOrItemName]="'shareCardFormData'" [showRemoveButton]="false" [validateHandler]="verifyBetSharingData">
+</action-buttons>
+<!-- <div class="card">
+    <div class="body">
+        <div class="row">
+            <div class="col-4 col-md-7 p-b-0 m-b-0">
+                <button mat-button type="button" [disabled]="isValid()"
+                    class="btn bg-teal waves-effect float-left" (click)="saveChanges()">
+                    <mat-icon>save</mat-icon>
+                    <span>Save Changes</span>
+                </button>
+
+
+            </div>
+
+            <div class="col-4 col-md-5 p-b-0 m-b-0">
+                <button mat-button type="button" class="btn bg-teal waves-effect float-right" (click)="revertChanges()">
+                    <mat-icon>undo</mat-icon>
+                    <span>Revert Changes</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div> -->

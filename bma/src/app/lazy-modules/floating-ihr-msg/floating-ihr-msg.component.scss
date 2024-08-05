@@ -1,0 +1,75 @@
+@import 'global.variables.scss';
+
+$color-coral-blue: #0b4d8c;
+
+.floating-msg-area{
+    animation: floating-msg-area 1s linear 1 backwards;
+    width: auto; 
+    height: 30px; 
+    line-height: 30px; 
+    border-top: 1px solid $color-white;
+    color: $color-white; 
+    font-size: 12px; 
+    font-family: $base-font-family;
+    text-align: center;
+}
+
+@keyframes floating-msg-area {
+    0% {
+        height: 0px;
+        color: $color-gray;
+    }
+
+    100% {
+        position: sticky; 
+        height: 30px;
+        color: $color-white;
+        border-top: 1px solid $color-white;
+        z-index: 6;
+    }
+}
+
+.floating-msg-horse {
+    animation: floating-msg-horse 1s linear 1 backwards;
+    width: 26px;
+    height: 18px;
+    margin-top: 5px;
+    margin-right: 6px;
+    fill: $color-white;
+}
+
+.floating-msg-text {
+    display: inline-block;
+    position: relative;
+    top: -5px;
+}
+
+.ladbrokes-font-family {
+    font-family: $alt-font-family;
+}
+
+.floating-msg-close {
+    display: inline-block; 
+    position: absolute; 
+    right: 8px;
+    height: 12px;
+    width: 12px;
+    margin-top: 8px;
+}
+
+.ladbrokes-background {
+    background-color: $color-blue-alt;
+}
+
+.coral-background {
+    background-color: $color-coral-blue;
+}
+
+@keyframes floating-msg-horse {
+    0% {
+        fill: $color-gray;
+    }
+    100% {
+        fill: $color-white;
+    }
+}

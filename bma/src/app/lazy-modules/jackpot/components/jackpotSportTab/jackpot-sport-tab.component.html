@@ -1,0 +1,116 @@
+<loading-screen [displayed]="!isLoaded" [templateType]="'GENERIC'"></loading-screen>
+<div class="container" *ngIf="isLoaded && !isResponseError && initialData.length">
+  <accordion [disabled]="true"
+             [isExpanded]="true"
+             [accordionTitle]="headerMessage"
+             *ngIf="initialDataByTimeOrder.length > 0">
+    <accordion-body>
+      <div class="container-inner-content" data-crlat="containerInnerContent">
+        <div class="odds-card">
+          <div class="odds-content">
+            <div class="odds-left">
+              <div class="odds-side">
+                <svg class="info-icon">
+                  <use xlink:href="#info"></use>
+                </svg>
+              </div>
+              <div class="odds-names" [i18n]="'fb.howToPlay'" (click)="openHowToPlayDialog()" data-crlat="howToPlay"></div>
+            </div>
+            <div class="odds-right">
+              <button class="btn btn-style1" (click)="makeLuckyDipClicked()" [i18n]="'fb.luckyDip'"
+                      data-crlat="luckyDipButton"></button>
+            </div>
+          </div>
+        </div>
+        <div class="odds-card" *ngFor="let eventEntity of initialDataByTimeOrder" [attr.data-eventid]="eventEntity.id"
+             data-crlat="eventEntity">
+          <div class="message" [i18n]="'fb.marketUnavailable'"
+               *ngIf="eventEntity.unavailable && eventEntity.markets[0].marketStatusCode === 'S' && eventEntity.eventStatusCode !== 'S'"
+               data-crlat="message"></div>
+          <div class="message" [i18n]="'fb.eventUnavailable'"
+               *ngIf="eventEntity.unavailable && eventEntity.eventStatusCode === 'S'" data-crlat="message"></div>
+          <ng-container *ngFor="let outcomeEntity of eventEntity.markets[0].outcomes">
+            <div class="message"
+                 *ngIf="eventEntity.markets[0].marketStatusCode !== 'S' && eventEntity.eventStatusCode !== 'S' && outcomeEntity.outcomeStatusCode === 'S'"
+                 [i18n]="'fb.unavailable'" data-crlat="message"></div>
+          </ng-container>
+          <div class="odds-content" data-crlat="oddsCard.jackpotTemplate">
+            <div class="odds-left" [ngClass]="{'odds-disabled': eventEntity.unavailable}">
+              <div class="odds-names">
+                <span class="odds-small" [textContent]="eventEntity.filteredStartTime" data-crlat="eventEntity.startTime"></span><br/>
+                <span [textContent]="eventEntity.name" data-crlat="eventEntity.name"></span>
+              </div>
+            </div>
+            <div class="odds-right" *ngIf="eventEntity.markets[0].outcomes" data-crlat="oddsRight">
+              <div class="odds-btn-content">
+                <div class="odds-btn-wrapper" *ngFor="let outcomeEntity of eventEntity.markets[0].outcomes" data-crlat="oddsBtnContent">
+                  <button class="btn-bet"
+                          [ngClass]="{'active': isSelected(outcomeEntity.id)}"
+                          (click)="addBet(outcomeEntity.id, eventEntity)"
+                          [disabled]="eventEntity.unavailable || outcomeEntity.outcomeStatusCode === 'S'"
+                          [textContent]="outcomeEntity?.outcomeMeaningMinorCode | callBack : setButtonText : this"
+                          data-crlat="betButton">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="item-inner item-btm-pad" data-crlat="stakePanel">
+        <div class="row stake-panel">
+          <div class="col-xs-4 label-text" [i18n]="'fb.stakePerLine'" data-crlat="stakePerLineLabel"></div>
+          <div class="col-xs-4 label-text" [i18n]="'fb.totalLines'"></div>
+          <div class="col-xs-4 label-text" [i18n]="'fb.totalStake'" data-crlat="totalStakeLabel"></div>
+        </div>
+        <div class="row row-middle">
+          <div class="col-xs-4">
+            <custom-select>
+              <select class="form-control"
+                      [(ngModel)]="stakePerLine.value"
+                      (change)="addStake(stakePerLine.value)"
+                      data-crlat="stakePerLine">
+                <option *ngFor="let stake of stakePerLineOptions"
+                        [ngValue]="stake"
+                        [textContent]="setCurrency(stake, true)"></option>
+              </select>
+            </custom-select>
+          </div>
+          <strong class="col-xs-4" [textContent]="totalLines" data-crlat="totalLines"></strong>
+          <strong class="col-xs-4" [textContent]="totalLines*stakePerLine.value | callBack : setCurrency : this" data-crlat="totalStake"></strong>
+        </div>
+      </div>
+    </accordion-body>
+  </accordion>
+  <div #errorElm class="bet-content" data-crlat="errorMessage">
+    <div *ngIf="internalError" class="error-msg" [i18n]="'app.errorMessage'"></div>
+    <div *ngIf="betRejectedError" class="error-msg" [i18n]="'sb.betRejectedError'"></div>
+    <div *ngIf="insuficientFoundsError" class="error-msg">
+      <span [i18n]="'sb.insuficientFoundsError'"></span>
+      <a [i18n]="'sb.depositSmall'" [routerLink]="['/deposit/registered']" style="color: #fff; text-decoration: underline;"></a>
+    </div>
+  </div>
+  <div class="btn-group">
+    <div class="group-col">
+      <button (click)="confirmClear()" class="btn btn-style4" [i18n]="'fb.clearAllSelections'" *ngIf="!confirm"
+              [disabled]="betsArray.length === 0" data-crlat="clearSelectionsButton"></button>
+      <button (click)="removeAllBets(); stakePerLine.value = 1" class="btn btn-style3" [i18n]="'sb.confirmClearOfBetSlip'"
+              *ngIf="confirm" data-crlat="confirmClearOfBetSlipButton"></button>
+    </div>
+    <div class="group-col">
+      <button class="btn btn-style1"
+              (click)="placeJackpotBets()"
+              [disabled]="placeJackpotPending || totalLines === 0"
+              data-crlat="placeBetButton">
+            <span ngClass="{'btn-spinner': placeJackpotPending}" data-crlat="spinner.loader"></span>
+        <span [i18n]="'fb.betNow'"></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<request-error *ngIf="isLoaded && isResponseError"
+               (reloadFn)="loadJackpotData()"
+               [loadFailed]="isResponseError">
+</request-error>
+<no-events *ngIf="isLoaded && !isResponseError && !initialData.length"></no-events>

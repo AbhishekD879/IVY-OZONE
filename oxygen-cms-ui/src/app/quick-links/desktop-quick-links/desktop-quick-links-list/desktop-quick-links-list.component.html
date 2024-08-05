@@ -1,0 +1,49 @@
+<div *ngIf="desktopQuickLinks" class="card">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Desktop Quick Links Page
+      <small *ngIf="desktopQuickLinks.length">Total Desktop Quick Links Amount: {{desktopQuickLinks.length}}</small>
+      <small *ngIf="!desktopQuickLinks.length">No Desktop Quick Links Found</small>
+    </h2>
+  </div>
+</div>
+
+<div class="card">
+  <div class="body">
+    <!-- search and download button.-->
+    <div *ngIf="desktopQuickLinks" class="row clearfix">
+      <div class="col-md-3">
+        <button (click)="createDesktopQuickLink()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create Desktop Quick Link</span>
+        </button>
+      </div>
+      <div class="col-md-3">
+        <download-cvs [cvsData]="desktopQuickLinks" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Desktop Quick Link" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="desktopQuickLinks">
+      <cms-data-table
+        [customTableData]="desktopQuickLinks"
+        [customTableColumns]="dataTableColumns"
+        [actions]="['remove', 'edit']"
+        [filterString]="searchField"
+        [filterProperties]="searchableProperties"
+        [reorder]="true"
+        (onElementsOrder)="reorderHandler($event)"
+        (onRemoveTableElement)="removeHandler($event)">
+      </cms-data-table>
+    </div>
+    <div *ngIf="error">
+      Request Error
+    </div>
+  </div>
+</div>

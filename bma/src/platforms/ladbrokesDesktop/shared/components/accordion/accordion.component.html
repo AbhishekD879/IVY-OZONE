@@ -1,0 +1,72 @@
+<header class="accordion-header"
+        *ngIf="!isHeaderHidden"
+        (click)="toggled($event)"
+        [ngClass]="headerClasses"
+        data-crlat="containerHeader">
+  <svg class="chevron-svg left" *ngIf="isChevronToLeft" data-crlat="chevronArrow"
+       [ngClass]="{'chevron-up' : isExpanded && !isShowAll,
+                   'chevron-down' : !isExpanded, 
+                   'chevron-ld': isLuckyDipMarketAvailable
+                   }">
+    <use xlink:href="#chevron-edp"></use>
+  </svg>
+
+  <div *ngIf="!accordionTitle" class="accordion-left-side">
+    <ng-content select="left-side"></ng-content>
+  </div>
+  
+  <div *ngIf="accordionTitle" class="accordion-left-side">
+    <ng-container *ngIf="!isSeoContent">
+      <div *ngIf="isCustomElement && isExpanded; else elseBlock" class="hr-header">
+        <lazy-component
+          *ngIf="eventEntity"
+          moduleUri="@lazy-modules-module/InplayHRHeader/inplay-hr-header.module#InplayHRHeaderModule"
+          entryComponent="InplayHRHeaderComponent" (init)="inplayHRHeaderLoaded()"
+          [inputs]="{eventEntity:eventEntity, showRaceDetails: showRaceDetails}">
+        </lazy-component>
+      </div>
+      <ng-template #elseBlock>
+        <span class="header-title hd-title"
+        [textContent]="accordionTitle"
+        data-crlat="headerTitle.centerMessage"
+        [ngClass]="{'header-title-ld':isLuckyDipMarketAvailable}"></span>
+      </ng-template>
+    </ng-container>    
+    <h1 class="header-title" *ngIf="isSeoContent"
+        [textContent]="accordionTitle"
+        data-crlat="headerTitle.centerMessage">
+    </h1>
+    <div *ngIf="isLuckyDipMarketAvailable" >
+      <svg class="luckyDipSignposting">
+        <use xlink:href="#icn-new-lucky-dip"></use>
+      </svg>
+    </div> 
+  </div>
+   
+  <div *ngIf="accordionHeaderHtml" >
+    <span class="header-title"
+        [innerHtml]="accordionHeaderHtml"></span>
+  </div>
+
+  <div class="accordion-right-side">
+    <ng-content select="right-side"></ng-content>
+  </div>
+
+  <svg class="chevron-svg" *ngIf="!isChevronToLeft && !isBybState"
+       [ngClass]="{'chevron-up' : isExpanded && !isShowAll,
+                   'chevron-down' : !isExpanded
+                  }">
+    <use xlink:href="#chevron-main"></use>
+  </svg>
+  <svg class="chevron-svg" *ngIf="!isChevronToLeft && isBybState" data-crlat="chevronArrow" [ngClass]="{'chevron-byb' : isExpanded && !isShowAll,
+              'chevron-down' : !isExpanded
+             }">
+    <use xlink:href="#chevron-main"></use>
+  </svg>
+</header>
+<ng-content *ngIf="!isSeoContent && isExpanded" select="accordion-body"></ng-content>
+<article *ngIf="isSeoContent"
+         [ngClass]="{'seo-content-show': isExpanded,
+                     'seo-content-hide': !isExpanded}">
+  <ng-content select="seo-block-content"></ng-content>
+</article>

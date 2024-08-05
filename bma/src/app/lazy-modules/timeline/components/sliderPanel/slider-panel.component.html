@@ -1,0 +1,31 @@
+<div class="slider-panel-overlay" [ngClass]="isBrandLadbrokes ? 'lads-slider-background' : 'coral-slider-background'"
+     [class.closed]="!visible"
+     [overscroll-fix]
+     [overscrollFix]="'always'">
+  <div class="slider-panel-wrapper">
+    <div class="slider-header">
+      <div class="timeline-title" [i18n]="isBrandLadbrokes ? 'timeline.ladbrokesTitle' : 'timeline.coralTitle'"></div>
+      <div class="minimise" [i18n]="'timeline.minimise'" (click)="show($event, false)"></div>
+    </div>
+    <div #sliderPanel class="slider-panel" [ngClass]="{'bounce': (bounce$ | async)}"
+         (click)="$event.stopPropagation()">
+      <div class="sk-container" *ngIf="visible" [ngClass]="{'sk-loading': state.loading}" >
+        <outlet-status *ngIf="showSkeleton" [skeletonType]="'TIMELINE'" [state]="state"></outlet-status>
+      </div>
+
+      <div class="slider-content">
+        <request-error *ngIf="isReconectedFailedMsg" (click)="callToReload($event)"></request-error>
+        <div class="timeline-post-container" [ngClass]="{'slider-hidden': showSkeleton || isReconectedFailedMsg}">
+          <timeline-post *ngFor="let post of displayedPosts; let first = first; trackBy:trackByPost;"
+                         [post]="post"
+                         [first]="first"
+                         (stateChange)="onStateChange(false)"
+                         [priceButtonClass]="priceButtonClasses[post.id] || ''"
+                         [isBrandLadbrokes]="isBrandLadbrokes"
+                         [gtmModuleBrandName]="gtmModuleBrandName">
+          </timeline-post>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="d-flex" *ngIf="market?.outcomes?.length">
+  <ng-container *ngFor="let outcome of market.outcomes; trackBy: getTrackById">
+    <div class="Rectangle">
+
+      <div class="hr-position">
+        <ng-container *ngIf="isNumberNeeded(event, outcome) && !outcome.isFavourite && !outcome.nonRunner">
+          <span class="odds-runner">{{outcome.runnerNumber}}</span>        
+          <span *ngIf="outcome?.racingFormOutcome?.draw" class="odds-draw">({{outcome.racingFormOutcome.draw}})</span>
+        </ng-container>
+      </div>
+
+      <div class="hr-bitmap">
+        <race-silk [eventEntity]="event" [outcomeEntity]="outcome" [isStreamBet]="true"></race-silk>
+      </div>
+
+      <span class="Horse-Name">{{outcome.name}}</span>
+
+      <div class="Rectangle-odds">
+        <span class="Odds">
+          <sb-price-odds-button [event]="event" [market]="market" [outcome]="outcome" 
+              [isStreamAndBet]="true" (selectionClickEmit)="handleSelectionClick($event)" 
+              class="one-row-btn">
+          </sb-price-odds-button>
+        </span>
+      </div>
+
+    </div>    
+  </ng-container>  
+</div>

@@ -1,0 +1,14 @@
+---
+- name: Terminate DNSmasq server
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    action: terminate
+    node_type: SingleNode
+    tag_groupname: Monitoring
+    tag_name: dnsmasq
+  tasks:
+  - name: crlat.vpc
+    include_role:
+      name: crlat.vpc

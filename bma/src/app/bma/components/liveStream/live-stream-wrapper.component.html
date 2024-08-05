@@ -1,0 +1,12 @@
+<div class="sk-container" [ngClass]="{'sk-loading': !initialized}">
+  <loading-screen [displayed]="!initialized" [skeletonOnly]="true"></loading-screen>
+
+  <top-bar *ngIf="isTopBarShown" [title]="'sb.liveStream'"></top-bar>
+
+  <lazy-component moduleUri="@inplayModule/inplay.module#InplayModule"
+                  entryComponent="InplayWatchLivePageComponent"
+                  [inputs]="{isLiveStreamPage: true}"
+                  (init)="childComponentLoaded()"
+                  (failed)="childComponentLoaded()"
+                  [handleError]="true"></lazy-component>
+</div>

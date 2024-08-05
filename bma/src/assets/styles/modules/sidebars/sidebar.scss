@@ -1,0 +1,164 @@
+$animation-time  : .22s;
+$ico-close-size  : 30px;
+$ico-m-close-size: 24px;
+$ico-close-pos   : 20px;
+$ico-m-close-pos : 16px;
+
+.scrollable-content { -webkit-overflow-scrolling: touch; }
+
+.sidebar,
+.sidebar:before{
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sidebar {
+  position: fixed;
+  z-index: $ngdialog-zindex - 1;
+  overflow: hidden;
+  height: 0;
+
+  pointer-events: none;
+  &:before {
+    position: absolute;
+    content: '';
+    background: rgba(0,0,0,.8);
+  }
+  &.is-visible {
+    pointer-events: auto;
+    height: 100%;
+  }
+
+  &.left-side {
+    .sidebar-inner {
+      float: left;
+      margin-right: $ico-close-size*2;
+    }
+    .sidebar-close {
+      right: -($ico-close-size + $ico-close-pos);
+
+      @media #{$mqMobile} {
+        right: -($ico-m-close-size + $ico-close-pos);
+      }
+    }
+  }
+
+  &.right-side {
+    .sidebar-inner {
+      float: right;
+    }
+    .sidebar-close {
+      left: -($ico-close-size + $ico-close-pos);
+
+      @media #{$mqMobile} {
+        left: -($ico-m-close-size + $ico-m-close-pos);
+      }
+    }
+  }
+
+  &.bottom-side {
+    .sidebar-inner {
+      max-width: 100%;
+    }
+
+    .sidebar-close {
+      top: 13px;
+      left: 5px;
+      z-index: 1;
+      padding: 8px;
+      width: 30px;
+      height: 30px;
+
+      .close-icon {
+        top: 0;
+        height: 15px;
+        width: 15px;
+        fill: #fff;
+        pointer-events: none;
+      }
+
+      &:before, &:after {
+        display: none;
+      }
+    }
+  }
+
+  .sidebar-inner {
+    min-width: 220px;
+    height: 100%;
+    background: $page-bg;
+    position: relative;
+    width: calc(100% - 50px);
+
+    .sidebar-content {
+      height: 100%;
+    }
+  }
+
+  .sidebar-close {
+    position: absolute;
+    top: 5px;
+    height: $ico-close-size;
+    width: $ico-close-size;
+    cursor: pointer;
+    padding: $ico-close-size 0 0 0;
+    color: $color-white;
+    font-size: 10px;
+    text-transform: uppercase;
+    text-align: center;
+    border: none;
+    background: none;
+    outline: none;
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    @media #{$mqMobile} {
+      width: $ico-m-close-size;
+      height: $ico-m-close-size;
+      padding-top: $ico-m-close-size;
+      font-size: 8px;
+    }
+
+    &:before, &:after {
+      height: 2px;
+      margin-top: -2px;
+      content: '';
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      left: 3px;
+      background: $color-white;
+      @include transform(rotate(0deg));
+    }
+
+    &:before {
+      @include transform(rotate(45deg));
+      @include bg-gradient($color-orange 50%, $color-green 50%, left);
+    }
+
+    &:after {
+      @include transform(rotate(-45deg));
+      @include bg-gradient($color-red 50%, $color-yellow 50%, left);
+    }
+  }
+}
+
+/* To fix UI crash on Android native browser when betslip are open */
+.sidebar-android {
+  position: fixed;
+}
+
+.sidebar-skip-animation {
+  .side-page,
+  .sidebar .sidebar-inner {
+    transition: none !important;
+  }
+}
+
+.side-page {
+  height: 100%;
+  margin: 0;
+}

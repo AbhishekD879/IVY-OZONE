@@ -1,0 +1,47 @@
+<div class="card">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      One Two Free Static Text
+    </h2>
+  </div>
+</div>
+<div class="card">
+  <div class="body">
+    <div class="row clearfix">
+      <div class="col-md-3">
+        <button (click)="createStaticText()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create Static Text</span>
+        </button>
+      </div>
+      <div class="col-md-3">
+        <download-cvs [cvsData]="staticTextsData" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Static Texts" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="staticTextsData">
+      <cms-data-table
+        [customTableData]="staticTextsData"
+        [customTableColumns]="dataTableColumns"
+        [multyRemove]="true"
+        [actions]="['remove','edit']"
+        [filterString]="searchField"
+        [filterProperties]="filterProperties"
+        (onRemoveTableElement)="removeStaticText($event)"
+        (onMultyRemove)="removeHandlerMulty($event)">
+      </cms-data-table>
+    </div>
+
+    <div *ngIf="getDataError">
+      Request Error
+    </div>
+  </div>
+</div>

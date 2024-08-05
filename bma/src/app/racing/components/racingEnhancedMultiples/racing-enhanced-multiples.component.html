@@ -1,0 +1,71 @@
+<ng-container
+  *ngIf=" isDisplayBanner('Enhanced multiples') && targetTab?.interstitialBanners?.bannerEnabled && events.length">
+  <lazy-component
+    moduleUri="@lazy-modules-module/virtualEntryPointBanner/virtual-entry-point-banner.module#VirtualEntryPointBannerModule"
+    entryComponent="VirtualEntryPointBannerComponent"
+    [inputs]="{targetTab: targetTab,sportName : sportName,isUnTiedSport: true}">
+  </lazy-component>
+</ng-container>
+
+<section *ngIf="events.length" class="enhanced-multiples-carousel-section">
+  <accordion [accordionTitle]="'Enhanced multiples'" 
+             [isExpanded]="true"
+             (function)="sendCollapseGTM()"
+             data-crlat="outerAccordion" [ngClass]="{'outerAccordionFeatured' : isRacingFeatured}">
+    <accordion-body>
+      <div (mouseover)="isHovered = true"
+           (mouseleave)="isHovered = false">
+        <div class="enhanced-multiples-carousel-wrapper enhanced-multiples-mobile"
+             [ngCarousel]
+             [ngCarouselAmount]="1"
+             [ngCarouselName]="carouselName"
+             [ngCarouselLoop]="false"
+             [ngCarouselWatch]="events.length"
+             data-crlat="race.enhancedMultiplesCarousel">
+          <slidecontainer class="carousel-slides" [ngClass]="{'enhanced-carousel-container-many-slides': !isSingleSlide}">
+            <ng-container *ngFor="let event of events; trackBy: trackById">
+              <slide class="slide enhanced-slide-mobile"
+                     *ngFor="let outcome of event.markets[0]?.outcomes; trackBy: trackById"
+                     [ngClass]="{'enhanced-single-slide': isSingleSlide}" data-crlat="raceCard.event">
+                <article>
+                  <header class="enhanced-slide-header-container" data-crlat="raceHeader">
+                    <span class="enhanced-slide-header">
+                      <span class="enhanced-slide-title-mobile" data-crlat="raceCard.eventName" [textContent]="event.name"></span>
+                    </span>
+                  </header>
+                  <section class="enhanced-slide-body row-no-gutter">
+                    <div class="enhanced-slide-body-left">
+                      <h4 class="outcome-name" data-crlat="raceCard.outcomeName" [textContent]="outcome.name"></h4>
+                    </div>
+                    <div class="enhanced-slide-body-right">
+                      <price-odds-button (click)="$event.preventDefault()"
+                                         [event]="event"
+                                         [market]="event?.markets[0]"
+                                         [outcome]="outcome"
+                                         data-crlat="betButton">
+                      </price-odds-button>
+                    </div>
+                  </section>
+                </article>
+              </slide>
+            </ng-container>
+          </slidecontainer>
+        </div>
+        <div *ngIf="isHovered && isPrevActionAvailable()"
+             class="action-arrow left row-middle"
+             (click)="prevSlide()">
+          <svg class="arrow-icon prev-arrow row-center">
+            <use xlink:href="#prev-arrow"></use>
+          </svg>
+        </div>
+        <div *ngIf="isHovered && isNextActionAvailable()"
+             class="action-arrow right row-middle"
+             (click)="nextSlide()">
+          <svg class="arrow-icon next-arrow">
+            <use xlink:href="#next-arrow"></use>
+          </svg>
+        </div>
+      </div>
+    </accordion-body>
+  </accordion>
+</section>

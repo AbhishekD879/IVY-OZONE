@@ -1,0 +1,5 @@
+<div class="filter-wrapper"
+     [class.active]="filter.active"
+     (click)="onFilterSelect(filter)">
+  <p class="filter" [textContent]="filter?.name"></p>
+</div>

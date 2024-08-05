@@ -1,0 +1,16 @@
+<header id="desktop-header" data-crlat="header">
+  <nav class="header-bottom-menu" data-crlat="header.bottomMenu" *ngIf="headerSubMenuIsExists">
+    <ng-container *ngFor="let link of headerSubLinks; trackBy: trackByLink">
+      <a *ngIf="!link.disabled"
+         [linkHref]
+         [link]="link.targetUri"
+         (click)="goToURL(link.targetUri, link.inApp, link.linkTitle, 'main')"
+         [ngClass]="{'disabled': link.disabled}"
+         [activeLinkClass]
+         [attr.title]="link.linkTitle"
+         [textContent]="link.linkTitle"
+         data-crlat="subNavigationTab">
+      </a>
+    </ng-container>
+  </nav>
+</header>

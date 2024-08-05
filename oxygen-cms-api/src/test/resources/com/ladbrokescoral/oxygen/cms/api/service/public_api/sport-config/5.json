@@ -1,0 +1,85 @@
+{
+  "config" : {
+    "title": "Baseball",
+    "name" : "baseball",
+    "path" : "baseball",
+    "tier" : 2,
+    "categoryType" : "gaming",
+    "isOutrightSport" : false,
+    "isMultiTemplateSport" : false,
+    "oddsCardHeaderType" : "oneTwoType",
+    "request" : {
+      "categoryId" : "5",
+      "siteChannels" : "M",
+      "marketsCount" : true,
+      "isActive" : false,
+      "dispSortName" : [ "HH", "MH", "WH" ],
+      "dispSortNameIncludeOnly" : [ "HH", "MH", "WH" ],
+      "marketTemplateMarketNameIntersects" : "|Money Line|,|Handicap Match Result|"
+    },
+    "tabs" : {
+      "live" : { },
+      "coupons" : {
+        "date" : "today",
+        "isActive" : true
+      },
+      "today" : {
+        "isNotStarted" : true
+      },
+      "tomorrow" : { },
+      "future" : { },
+      "outrights" : {
+        "isActive" : true,
+        "marketsCount" : false
+      }
+    }
+  },
+  "tabs" : [ {
+    "id" : "tab-outrights",
+    "name" : "outrights",
+    "label" : "Outrights",
+    "url" : "/sport/baseball/outrights",
+    "hidden" : true,
+    "sortOrder" : 3.0
+  }, {
+    "id" : "tab-coupons",
+    "name" : "coupons",
+    "label" : "Coupons",
+    "url" : "/sport/baseball/coupons",
+    "hidden" : true,
+    "sortOrder" : 4.0
+  }, {
+    "id" : "tab-matches",
+    "name" : "matches",
+    "label" : "Matches",
+    "url" : "/sport/baseball/matches",
+    "hidden" : false,
+    "sortOrder" : 1.0,
+    "subTabs" : [ {
+      "id" : "tab-today",
+      "name" : "today",
+      "label" : "Today",
+      "url" : "/sport/baseball/matches/today",
+      "hidden" : false
+    }, {
+      "id" : "tab-tomorrow",
+      "name" : "tomorrow",
+      "label" : "Tomorrow",
+      "url" : "/sport/baseball/matches/tomorrow",
+      "hidden" : false
+    }, {
+      "id" : "tab-future",
+      "name" : "future",
+      "label" : "Future",
+      "url" : "/sport/baseball/matches/future",
+      "hidden" : false
+    } ]
+  }, {
+    "id" : "tab-competitions",
+    "name" : "competitions",
+    "label" : "Competitions",
+    "url" : "/sport/baseball/competitions",
+    "hidden" : false,
+    "sortOrder" : 2.0
+  } ]
+}

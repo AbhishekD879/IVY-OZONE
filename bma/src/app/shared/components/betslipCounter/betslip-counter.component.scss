@@ -1,0 +1,25 @@
+@import 'global.variables.scss';
+
+betslip-counter:host {
+  @include display-flex();
+  min-width: 25px;
+  height: 21px;
+}
+
+.bet-counter-container {
+  @include flex(1, 1, auto);
+  @include align-items(center);
+  background-color: $brand-color-dark;
+  border-radius: 5px;
+  text-align: center;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  height: 21px;
+  line-height: 21px;
+
+  &.has-bets {
+    color: $brand-color-main;
+    background-color: $color-yellow;
+  }
+}

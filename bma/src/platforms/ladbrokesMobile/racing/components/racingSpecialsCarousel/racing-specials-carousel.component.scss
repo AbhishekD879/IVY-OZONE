@@ -1,0 +1,134 @@
+@import 'global.variables.scss';
+
+.racing-specials-carousel-section {
+  a {
+    &:focus,
+    &:hover {
+      text-decoration: none;
+      outline: none;
+    }
+  }
+  .racing-specials-carousel {
+    margin: 0 5px;
+    padding: 10px 3px;
+    width: auto;
+
+    .carousel-inner {
+      width: 280px;
+
+      &.single-slide {
+        width: 100%;
+
+        .slide .carousel-slide {
+          margin: 0;
+          width: 100%;
+        }
+      }
+    }
+
+    .carousel-slides {
+      position: relative;
+      @include display-flex();
+
+      .slide {
+        @include flex(1,0,auto);
+        height: auto;
+        @include display-flex();
+
+        .carousel-slide {
+          padding: 12px 15px;
+          background: $color-white;
+          border-radius:  $border-radius-sm;
+          margin-right: 5px;
+          width: calc(100% - 5px);
+          box-shadow: 0 2px 4px 0 rgba(0,0,0,.15), 0 -1px 2px 0 rgba(0,0,0,.05);
+          @include display-flex();
+        }
+
+        .selection-title {
+          margin-bottom: 5px;
+          color: $color-black-soft;
+          font-size: $font-size-tablet;
+          @include word-break();
+          white-space: pre-line;
+          margin-right: auto;
+          max-width: calc(100% - 80px);
+        }
+
+        .historic-prices {
+          width: 100%;
+          font-weight: bold;
+          text-align: center;
+        }
+
+        .selection-btn {
+          margin-left: 10px;
+          color: $color-gray-dark;
+          @include display-flex();
+          @include flex-direction(column);
+
+          ::ng-deep {
+            price-odds-button {
+              @include justify-content(center);
+              @include display-flex();
+            }
+
+            .btn-bet {
+              width: 70px;
+              height: 40px;
+            }
+
+            .odds-price {
+              font-size: $font-size-lg;
+            }
+
+            .previous-prices {
+              margin-top: 8px;
+              font-size: $font-size-lg;
+              text-decoration: line-through;
+
+              &:empty {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .slide-label {
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: $font-size-md;
+    font-weight: bold;
+    margin: 0 0 3px -15px;
+    padding-right: 8px;
+
+    .label-inner {
+      display: inline-block;
+      line-height: 15px;
+      background: $color-yellow;
+      vertical-align: top;
+      padding: 0 1px;
+      max-width: 100%;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .label-icon {
+      vertical-align: top;
+      height: 15px;
+      width: 8px;
+      fill: $color-yellow;
+      margin-left: -1px;
+    }
+  }
+
+  .specials-icon {
+    width: 8px;
+    height: 8px;
+    fill: $color-black-soft;
+    margin: 0 5px 0 15px;
+  }
+}

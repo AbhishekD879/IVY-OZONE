@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <title>Webpack Demo</title>
+    <link rel="stylesheet"
+          href="//fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet"
+          href="//cdn.jsdelivr.net/highlight.js/9.11.0/styles/default.min.css">
+</head>
+<body>
+<div id="app1"></div>
+<script type="text/javascript" src="main.js"></script>
+<script
+        src="https://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous"></script>
+
+<H4>URL</H4>
+<input id="url" type='text' value="ws://localhost:8081"/>
+<H4>SID</H4>
+<input id="sid" type='text' value=""/>
+<button onclick="connect('websocket')">Socket</button>
+<button onclick="connect('polling')">Polling</button>
+<hr/>
+<H3>Add Selection</H3>
+<div class="add-selection" >
+    <label>Selection type</label><br/>
+    <input id="simple-selection" class="selectionType" name="selectionType" value="simple" type="radio">Simple</input><br/>
+    <input id="scorecast-selection" class="selectionType" name="selectionType" value="scorecast" type="radio" checked="checked">Scorecast</input><br/>
+    <div style="display: block">
+        <label>Outcome id</label>
+        <input id="outcomeId1" type="text" />
+    </div>
+    <div style="display: block">
+        <label class="scorecastInput" >Second outcome id</label>
+        <input id="outcomeId2" class="scorecastInput" type="text" />
+    </div>
+    <div style="display: block" class="scorecastInput">
+        <label class="scorecastInput">Scorecast market id</label>
+        <input id="scorecastMarketId" name="scorecastMarketId"  class="scorecastInput" value="" type="text" />
+    </div>
+    <div style="display: block" class="selectionType oddsboost-selection">
+        <label >oddsboost</label>
+        <input id="oddsboostSel" type="checkbox" checked="checked"/>
+    </div>
+    <div style="display: block" class="selectionType oddsboost-selection token-selection">
+        <label>token</label>
+        <input id="tokenSel" type="text"/>
+    </div>
+    <button onclick="addSelection()">Send</button><br/>
+</div>
+<hr/>
+<h3>Remove selection</h3>
+<div>
+    <div style="display: block">
+        <label>Outcome to unselect</label>
+        <input id="outcomeToRemove" class="outcomeToRemove" name="outcomeToRemoveId" type="text" />
+    </div>
+    <button onclick="removeSelection()">Remove Selection</button><br/>
+</div>
+<hr/>
+<h3>Add selection (multiples)</h3>
+<div>
+    <div style="display: block">
+        <label>Outcome to Select</label>
+        <input id="outcomeToAdd"  name="outcomeToAdd" type="text" />
+    </div>
+    <button onclick="addMultipleSelection()">Add Selection (multiples)</button><br/>
+</div>
+<hr/>
+<h3>Anything</h3>
+<label>Message Id</label>
+<input id="messageId" type="text"/>
+<div>
+    <label>Message Body</label>
+    <textarea id="messageBody" onkeyup="prettyPrint('messageBody')"></textarea>
+</div>
+<button onclick="sendMessage()">Send</button>
+<br/>
+<br/>
+<hr/>
+<h3>Place multiple</h3>
+<div class="place-fixed-multi">
+    <label>Token</label>
+    <input id="multi-token" type="text"/><br/>
+    <label>Bet Type</label>
+    <input id="betType" type="text" value="SGL"/><br/>
+    <label>bets</label>
+    <textarea id="bets" onkeyup="prettyPrint('bets')"></textarea><br/>
+    <button onclick="placeMultiBet()">Send</button>
+    <br/>
+</div>
+<br/>
+<br/>
+<hr/>
+<h4>Place Fixed SGL</h4>
+<div class="place-fixed-sgl">
+    <label>Token</label>
+    <input id="token" type="text"/>
+    <br/>
+    <label>Price</label>
+    <input id="price" type="text"/>
+    <br/>
+    <label>Stake</label>
+    <input id="stake" type="text" value="2"/>
+    <br/>
+    <label>winType</label>
+    <input id="winType" type="text" value="WIN"/>
+    <br/>
+    <label>handicap</label>
+    <input id="handicap" type="text"/>
+    <br/>
+    <label>oddsboost</label>
+    <input id="oddsboost" type="checkbox"/>
+    <br/>
+    <button onclick="placeRegularBet()">Send</button>
+</div>
+<br/>
+<br/>
+<button onclick="clearSelection()">Clear Selection</button>
+
+</body>
+
+<button id="clientUUID">Tr</button>
+<script src="//cdn.jsdelivr.net/highlight.js/9.11.0/highlight.min.js"></script>
+<script>
+
+$(document).ready(function(){
+    $('#clientUUID').click(function(){
+        console.log(io.id);
+    });
+    localStorage.clear();
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    var loc = window.location;
+    var isHttps = loc.protocol == 'https:';
+    var remoteBetSlip = (isHttps ? 'wss' : 'ws') + '://' + loc.hostname + ':' + (isHttps ? '443' : '8081');
+    document.getElementById('url').value = remoteBetSlip;
+});
+
+function connect(method) {
+    var url = document.getElementById('url').value;
+    var qbsid = document.getElementById('sid').value;
+    var query;
+    if (qbsid == '') {
+        query = {};
+    } else {
+        query = {
+            id: qbsid
+        }
+    }
+    window.io = socketio(url, {
+          path: '/quickbet',
+          transports: [method],
+          query: query,
+          upgrade: false,
+          'reconnection delay': 2000,
+          'force new connection': true,
+          'connection timeout': 1000,
+          'max reconnection attempts': 100
+        })
+
+    window.io.on('30000', function(events) {
+        console.log("new session id: " + events.id);
+        localStorage.setItem(io.id, events.id);
+    })
+
+    window.io.on('eventResponse', function(events) {
+        drawMarkets(events);
+    })
+
+    window.io.on('eventChanged', function(events) {
+        drawMarkets(events);
+    })
+
+}
+
+function sendMessage() {
+    var msgId = document.getElementById('messageId').value;
+    var msgBody = document.getElementById('messageBody').value;
+    io.emit(msgId, JSON.parse(msgBody));
+}
+
+function addYourCallSelection() {
+
+}
+
+function prettyPrint(elementId) {
+    var target = document.getElementById(elementId);
+    var ugly = target.value;
+    var obj = JSON.parse(ugly);
+    var pretty = JSON.stringify(obj, undefined, 4);
+    target.value = pretty;
+}
+
+function placeRegularBet() {
+  var fixedSglFields = $('.place-fixed-sgl');
+  var outcomeId = fixedSglFields.find('#outcomeId').val();
+  var token = fixedSglFields.find('#token').val();
+  var price = fixedSglFields.find('#price').val();
+  var stake = fixedSglFields.find('#stake').val();
+  var winType = fixedSglFields.find('#winType').val();
+  var handicap = fixedSglFields.find('#handicap').val();
+  var isOddsBoost = fixedSglFields.find('#oddsboost').is(':checked');
+  var emitValue = {
+      outcomeId: outcomeId,
+      token: token,
+      winType: winType,
+      stake: stake,
+      price: price,
+      handicap: handicap,
+  };
+  if(isOddsBoost) {
+      emitValue.freebet = { oddsBoost: isOddsBoost };
+  }
+  io.emit('30011', emitValue);
+}
+
+function clearSelection() {
+  io.emit('30002', null);
+}
+
+function addSelection() {
+  var fixedSglFields = $('.add-selection');
+  var selectionType = fixedSglFields.find('input[name=selectionType]:checked').val();
+  var outcomeId = fixedSglFields.find('#outcomeId1').val();
+  var request;
+  if (selectionType == 'simple') {
+    var isOddsBoost = fixedSglFields.find('#oddsboostSel').is(':checked');
+      request = {
+          oddsBoost: isOddsBoost,
+          outcomeIds: [+outcomeId],
+          selectionType: selectionType
+      };
+    if(isOddsBoost) {
+        request.token = fixedSglFields.find('#tokenSel').val();
+    }
+  }
+  else if (selectionType == 'scorecast') {
+    var outcomeId2 = fixedSglFields.find('#outcomeId2').val();
+    var scorecastMarketId = fixedSglFields.find('#scorecastMarketId').val();
+    request = {
+        outcomeIds: [+outcomeId, +outcomeId2],
+        selectionType: selectionType,
+        additional: {
+            scorecastMarketId: +scorecastMarketId
+        }
+    };
+  }
+  io.emit('30001', request);
+}
+
+function placeMultiBet() {
+    var token = document.getElementById('multi-token').value;
+    var bets = document.getElementById('bets').value;
+    var betType = document.getElementById('betType').value;
+    var parsedBets = JSON.parse(bets);
+    var request = {
+        "token": token,
+        "betType": betType,
+        "channel": "I",
+        "clientUserAgent": "S|H|O0000000",
+        "currency": "GBP",
+        "uiBets": parsedBets
+    };
+    console.log(JSON.stringify(request));
+    io.emit('PLACE_BET', request)
+}
+
+function removeSelection() {
+    var outcomeToRemove = document.getElementById('outcomeToRemove').value;
+    io.emit('REMOVE_ONE_SELECTION', outcomeToRemove);
+}
+
+function addMultipleSelection() {
+    var selectionToAdd = document.getElementById('outcomeToAdd').value;
+    io.emit('ADD_SELECTION', {"outcomeIds": [selectionToAdd]});
+}
+
+
+$(document).ready(function() {
+    $(".oddsboost-selection").hide();
+    $(".selectionType").click(function() {
+        var isScorecast = $("#scorecast-selection").is(':checked');
+        if (isScorecast) {
+            $(".scorecastInput").show();
+            $(".oddsboost-selection").hide();
+        }
+        else {
+            $(".scorecastInput").hide();
+            $(".oddsboost-selection").show();
+        }
+    });
+
+    $("#oddsboostSel").on('change', function() {
+        if ($(this).is(':checked')) {
+            $(".token-selection").show();
+        } else {
+            $(".token-selection").hide();
+        }
+    });
+});
+
+</script>
+</html>

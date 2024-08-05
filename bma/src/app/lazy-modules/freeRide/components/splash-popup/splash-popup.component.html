@@ -1,0 +1,41 @@
+<modal class="splashPopup" #dialog>
+    <ng-template #modalBody>
+      <header class="container-header">
+        <a class="btn-close closePopup" (click)="closeSplashDialog()">
+          <svg>
+            <use xlink:href="#close-icon"></use>
+          </svg>
+        </a>
+      </header>
+      <div class="container">
+        <p class="text-center">
+          <img class="imgMainContainer" loading="lazy" [src]="splashImg" alt="splash-heading-image">
+        </p>
+        <p class="text-center">
+          <img class="imgContainer" loading="lazy" [src]="freeRideImg" alt="splash-heading-image">
+        </p>
+        <div class="subHeading" [textContent]="splashInfo.welcomeMsg"></div>
+        <div class="soundDiv">
+          <hr class="horizontalLine"/>
+          <div class="controlSwitch">
+            <span class="soundText" [textContent]=FREERIDECONSTS.SOUND_EFFECTS></span>
+            <label class="switch">
+              <input type="checkbox" [checked]="isSoundChecked" (change)="toggle(isSoundChecked)">
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <hr class="horizontalLine"/>
+        </div>
+        <p class="text-center">
+          <button class="freeRideButton" [textContent]="splashInfo.buttonText" (click)="goToFreeRideOverlay()"></button>
+        </p>
+        <div class="tnCText" >
+          <span [textContent]="splashInfo.termsAndConditionHyperLinkText"></span>
+          <br>
+          <a class="tnCLink" [href]="splashInfo.termsAndConditionLink" target="_blank"> Terms & Conditions</a>
+        </div>
+      </div>
+    </ng-template>
+</modal>
+
+<free-ride-overlay *ngIf="overLayFlag" [campaignData] ="campaignData" (freeRideClose) ="freeRideClose()"></free-ride-overlay>

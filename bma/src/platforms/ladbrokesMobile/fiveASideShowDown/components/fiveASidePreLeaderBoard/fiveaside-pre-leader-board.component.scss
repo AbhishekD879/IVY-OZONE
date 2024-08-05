@@ -1,0 +1,68 @@
+@import "global.variables.scss";
+@import "./fiveASidePreLeaderBoardMixin/fiveaside-pre-leader-board-mixin.scss";
+$imagesPath: '/assets/images/';
+
+.leader-board-header {
+  top: 12%;
+  @include leader-board-mixin(159px, 0, url('#{$imagesPath}soccerwithgrass.png'), cover, no-repeat);
+  background-position: center;
+  @media (min-width: $mobilePoint) and (max-width: $desktopPoint ) {
+    top: 12%;
+    @include leader-board-mixin(159px, 0px, url('#{$imagesPath}soccerwithgrassdesktop.png'), cover, no-repeat);
+    background-position: center;
+    }
+  .contest-description {
+    @include contest-mixin(22px, $color-gray-fiveaside, 3px 8px, $color-white, flex, space-between, $base-font-family, $font-size-base, bold);
+
+    .description-name {
+      @include contest-detail-mixin(70%, 16px, hidden);
+      text-transform: uppercase;
+    }
+
+    .clock-time {
+      @include contest-detail-mixin(85px, 16px, hidden);
+      text-align: right;
+    }
+  }
+
+  .description-hidden {
+    visibility: hidden;
+  }
+
+  .country-flags {
+    @include country-detail-mixin(23px 34px 10px, uppercase, flex, space-between);
+
+    .home-flag {
+      @include country-flags-mixin(25px, 41px, 41px, 0 2px 4px 0 #828282);
+    }
+
+    .away-flag {
+      @include country-flags-mixin(25px, 41px, 41px, 0 2px 4px 0 #828282);
+    }
+  }
+
+  .country-names {
+    @include country-detail-mixin(0px 5px 20px 5px, uppercase, flex, space-between);
+
+    .home-name {
+      @include country-name-mixin(100px, 48px, $color-white, 10px, center, $base-font-family, 1px, bold, hidden);
+    }
+
+    .away-name {
+      @include country-name-mixin(100px, 48px, $color-white, 10px, center, $base-font-family, 1px, bold, hidden);
+    }
+  }
+}
+
+.divider {
+  height: 1px;
+  background-color: $color-border-top-dark-black;
+}
+
+::ng-deep {
+  .description-name {
+    &>p {
+      @include contest-desc-p-mixin($font-size-base, $base-font-family, bold);
+    }
+  }
+}

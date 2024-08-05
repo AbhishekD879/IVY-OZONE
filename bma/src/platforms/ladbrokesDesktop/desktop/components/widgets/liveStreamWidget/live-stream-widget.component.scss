@@ -1,0 +1,141 @@
+@import 'global.variables.scss';
+
+.ls-widget {
+  min-height: 180px;
+  background: $brand-color-dark no-repeat url(/assets/images/bg-live-matches.jpg) 0 0;
+  background-size: cover;
+  padding: 8px 10px 10px;
+  margin: 1px 0;
+  color: $color-white;
+
+  .ls-type-header {
+    font-size: 10px;
+    line-height: 12px;
+    font-weight: bold;
+    padding-bottom: 8px;
+    @include display-flex();
+  }
+
+  .ls-type {
+    white-space: nowrap;
+    text-transform: uppercase;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .ls-cashout {
+    position: absolute;
+    right: 10px;
+  }
+
+  .ls-score > span {
+    color: lighten($color-gray-dark, 50%);
+    margin-left: 8px;
+
+    &:last-child {
+      color: $color-white;
+    }
+  }
+
+  .ls-status {
+    padding: 1px 2px;
+    margin: 0 8px;
+    border-radius: 2px;
+    font-size: 10px;
+    line-height: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: $color-red;
+    color: $color-gray-light;
+  }
+
+  .ls-teams {
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: bold;
+    white-space: nowrap;
+    @include display-flex();
+  }
+
+  .ls-name {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding-right: 20px;
+    @include flex();
+  }
+
+  .ls-play {
+    display: block;
+    width: 40px;
+    margin: 20px auto;
+    transition: opacity 0.3s ease;
+    opacity: .6;
+
+    &:hover {
+      opacity: .8;
+    }
+  }
+
+  .ls-play-svg {
+    width: 40px;
+    height: 40px;
+    fill: $color-white;
+  }
+
+  .ls-odds-wrapper {
+    @include display-flex();
+    @include justify-content();
+    margin: 0 -3px;
+
+    .ls-odds-inner {
+      width: 100%;
+      margin: 0 3px;
+
+      &:empty {
+        pointer-events: none;
+        position: relative;
+
+        &:after, &:before {
+          content: '';
+          position: absolute;
+          width: 100%;
+          background: rgba-color($color-gray-light, .4);
+          opacity: .4;
+          left: 0;
+        }
+        &:after {
+          border-top-right-radius: 2px;
+          border-top-left-radius: 2px;
+          margin-bottom: 1px;
+          height: 15px;
+          top: 0;
+        }
+        &:before {
+          border-bottom-right-radius: 2px;
+          border-bottom-left-radius: 2px;
+          height: 30px;
+          bottom: 0;
+        }
+      }
+    }
+
+    .ls-odds-btn {
+      width: 100%;
+
+      .btn-bet {
+        width: 100%;
+
+        &.bet-up, &.bet-down {
+          animation: none;
+        }
+      }
+    }
+  }
+}
+
+.ls-stream-svg {
+  width: 18px;
+  height: 18px;
+  fill: $color-white;
+  margin-right: 5px;
+}

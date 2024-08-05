@@ -1,0 +1,45 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="edpMarket">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      EDP Market: {{edpMarket.name}}
+      <create-updated-at-by [collection]="edpMarket"></create-updated-at-by>
+    </h2>
+  </div>
+</div>
+
+<div class="card" *ngIf="edpMarket">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-checkbox color="primary"
+                      [checked]="edpMarket.lastItem"
+                      (change)="edpMarket.lastItem = !edpMarket.lastItem">
+          Last Item
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Name
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !edpMarket.name}">
+          <input matInput placeholder="Name" [(ngModel)]="edpMarket.name" [value]="edpMarket.name" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!edpMarket.name">Name should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="edpMarket"
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'name'"
+  [collection]="edpMarket"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

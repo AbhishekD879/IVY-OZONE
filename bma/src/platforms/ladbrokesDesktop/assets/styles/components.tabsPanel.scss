@@ -1,0 +1,103 @@
+@import 'global.variables.scss';
+
+.bordered-tabs-account {
+  .tabs-panel {
+    box-shadow: none;
+
+    .scroll-inner {
+      background: $brand-color-dark;
+
+      li {
+        .tab {
+          overflow: visible;
+        }
+      }
+    }
+
+    .action-arrow {
+      top: 0;
+      padding-top: 0;
+    }
+  }
+}
+
+.tabs-panel {
+  box-shadow: inset 0 -12px 0 $color-gray;
+
+  .scroll-container .scroll-inner li {
+    .tab {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 13px 10px;
+      min-width: 50px;
+    }
+
+    .yourcall-tab {
+      a.yourcall-tab-text.tab {
+        padding: 13px 10px;
+      }
+    }
+  }
+
+  &.tabs-style1 {
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+
+    ul {
+      justify-content: center;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+    }
+
+    .scroll-container .scroll-inner.flex-tabs li {
+      width: 180px;
+      @include flex(0, 1, auto);
+
+      &:hover {
+        background: $IGreyLightDark;
+      }
+
+      &.active {
+        background: transparent;
+        cursor: pointer;
+      }
+
+      .tab {
+        min-height: 40px;
+        padding: 12px;
+      }
+    }
+  }
+
+  &.has-market-description {
+    margin-bottom: 0px;
+  }
+
+  &.tabs-xl {
+    margin-bottom: 10px;
+    box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+
+    ul {
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+    }
+
+    .scroll-container .scroll-inner li {
+      .tab, .tab.time-ribbon {
+        font-weight: bold;
+        font-size: $font-size-header1;
+        padding: 8px 0 27px;
+        color: $color-gray-darkest;
+        line-height: 24px;
+        opacity: 1;
+
+        .race-time {
+          padding: 0 11px;
+          border-right: 1px solid $lGrayLightBg;
+        }
+      }
+
+      &:not(.active):hover .tab {
+        color: $color-gray-darkest;
+      }
+    }
+  }
+}

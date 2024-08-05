@@ -1,0 +1,211 @@
+@import "global.variables.scss";
+
+@mixin position-overlay() {
+  position: absolute;
+}
+
+@mixin base_font_family() {
+  font-family: $base-font-family;
+}
+
+@mixin retail_overlay_tlrb($top, $left, $right, $bottom) {
+  top: $top;
+  left: $left;
+  right: $right;
+  bottom: $bottom;
+}
+
+@mixin retail_overlay_tl($top, $left) {
+  top: $top;
+  left: $left;
+}
+
+@mixin retail_overlay_tr($top, $right) {
+  top: $top;
+  right: $right;
+}
+
+@mixin retail_overlay_t($top) {
+  top: $top;
+}
+
+@mixin retail_overlay_wh($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+@mixin retail_overlay_w($width) {
+  width: $width;
+}
+
+#retail-overlay {
+  background: rgba(0, 0, 0, 0.87);
+  position: fixed;
+  @include retail_overlay_tlrb(0, 0, 0, 0);
+  z-index: 1010;
+  overflow: auto;
+  color: $color-white;
+
+  .swipe-arrow {
+    @include position-overlay();
+    @include retail_overlay_tl(56px, 43px);
+    text-align: center;
+    @include retail_overlay_w(145px);
+
+    svg {
+      @include retail_overlay_wh(34px, 25px);
+      margin-top: 16px;
+
+      @media #{$mqTablet} {
+        @include retail_overlay_w(85px);
+        margin-top: 21px;
+      }
+    }
+
+    @media #{$mqTablet} {
+      @include retail_overlay_w(207px);
+      @include retail_overlay_tl(60px, 230px);
+    }
+  }
+
+  .retail-icon {
+    @include position-overlay();
+    @include retail_overlay_wh(102px, 102px);
+    @include retail_overlay_tr(50px, 57px);
+    background-size: 60px;
+    display: inline-block;
+    text-align: center;
+
+    @media #{$mqTablet} {
+      @include retail_overlay_tr(38px, 144px);
+    }
+
+    svg {
+      @include retail_overlay_wh(76px, 76px);
+      
+      @media #{$mqTablet} {
+        @include retail_overlay_wh(102px, 102px);
+      }
+    }
+  }
+
+  .close-icon {
+    @include position-overlay();
+    @include retail_overlay_tr(19px, 19px);
+
+    svg {
+      fill: $color-white;
+      @include retail_overlay_wh(21px, 21px);
+    }
+  }
+
+  .overlayTopDetails {
+    top: 26%;
+  }
+
+  @media (max-height: 640px) {
+    .overlayTopDetails {
+      @include retail_overlay_t(26%);
+    }
+    .close-icon {
+      @include retail_overlay_tr(21px, 21px);
+    }
+  }
+
+  .overlayDetails {
+    bottom: 3%;
+    @include position-overlay();
+    @include retail_overlay_w(100%);
+
+    @media #{$mqIphoneX} {
+      bottom: 7%;
+    }
+
+    @media #{$mqTablet} {
+      bottom: 6%;
+    }
+  }
+
+  .text-panel {
+    padding: 27px;
+  }
+
+  .arrow-text {
+    margin-bottom: 0px;
+    @include base_font_family();
+    font-size: 16px;
+
+    @media #{$mqTablet} {
+      font-size: 25px;
+    }
+  }
+
+  ::ng-deep {
+    .gridOverlayHeader {
+      font-family: $alt-font-family;
+      font-size: 25px;
+      @include retail_overlay_wh(249px, 62px);
+
+      @media #{$mqIphoneX} {
+        font-size: 27px;
+      }
+
+      @media #{$mqTablet} {
+        @include retail_overlay_wh(496px, 104px);
+        font-size: 42px;
+      }
+    }
+
+    .gridOverlayBullets {
+      @include base_font_family();
+      font-size: 16px;
+      color: $color-black;
+      @include retail_overlay_w(249px);
+
+      @media #{$mqTablet} {
+        font-size: 25px;
+        @include retail_overlay_w(594px);
+      }
+    }
+  }
+
+  .buttons-panel {
+    line-height: 16px;
+    bottom: 26px;
+    padding: 24px 27px 0px;
+    text-align: center;
+    @include retail_overlay_w(100%);
+
+    @media #{$mqIphoneX} {
+      padding-top: 44px;
+    }
+
+    @media #{$mqTablet} {
+      padding-top: 57px;
+    }
+
+    .btn {
+      @include retail_overlay_wh(100%, 44px);
+      line-height: 24px;
+      box-shadow: initial;
+      text-transform: uppercase;
+      border-radius: 1px;
+      @include base_font_family();
+      font-size: 15px;
+      text-shadow: initial;
+    }
+
+    .closeLink {
+      padding-top: 24px;
+      text-decoration: underline;
+      padding-bottom: 8px;
+
+      a {
+        color: $color-white;
+        @include base_font_family();
+        font-size: 16px;
+        font-weight: normal;
+      }
+    }
+  }
+}

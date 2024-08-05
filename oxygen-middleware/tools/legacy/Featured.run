@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+
+export inplay_scheduled_task_enabled=false
+export featured_scheduled_task_enabled=true
+export SPRING_PROFILES_ACTIVE=$1
+export pessimistic_mode=false
+export redis_host=localhost
+export spring_kafka_bootstrapservers=localhost:9092
+export masterlock_enabled=false
+
+if [[ -n $1 && $1 == "--help" ]]
+  then
+    echo ""
+    echo " "
+    echo ""
+    echo " ./Featured.run environment [-log LEVEL] "
+    echo ""
+    echo " example> ./Featured.run DEV2 -log DEBUG  "
+fi
+
+if [[ -n $2 && $2 == "-log" && -n $3 ]]
+  then
+    echo "log level is $3"
+    export logging_level=$3
+fi
+
+./gradlew bootRun

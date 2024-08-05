@@ -1,0 +1,125 @@
+@import 'global.variables.scss';
+.btn-group-parent {
+    display: flex;
+    flex-direction: column;
+    background-color: $color-white;
+}
+.btn-group {
+    @include display-flex();
+    @include align-items();
+    padding: 5px 10px 20px;
+    background-color: $color-white;
+    justify-content: center;
+    font-size: 12px;
+    width: 343px;
+    margin: 0px auto;
+}
+.align {
+    text-align: center;
+    background-color: $color-white;
+}
+.btn {
+    width: 95%;
+    margin: 0px auto;
+    background-color: $color-maingreen;
+}
+.btn-select-coral {
+    width: 100%;
+    border-radius: 21px;
+    min-height: 32px;
+    background-color: $color-white;
+    box-shadow: 0 2px 5px 0 rgb(84 84 84 / 26%);
+    border: 0px;
+    margin: 0px 3px;
+    max-width: 110px;
+    &:hover{
+      background-color: $color-blue;
+      color: $color-white;
+    }
+    &:active{
+      background-color: $color-blue-rich-heavy;
+      color: $color-white;
+    }
+}
+.active {
+    background-color: $color-blue;
+    color: $color-white;
+}
+
+.btn-select-lads {
+  &.active-lads {
+    background-color: $color-blue-alt;
+    color: $color-white;
+  }
+  width: 100%;
+  border-radius: 21px;
+  min-height: 32px;
+  background-color: $color-white;
+  box-shadow: 0 2px 5px 0 rgb(84 84 84 / 26%);
+  border: 0px;
+  margin: 0px 3px;
+  max-width: 110px;
+
+  &:hover{
+    background-color: $color-blue-alt !important;
+    color: $color-white;
+  }
+  &:active{
+    background-color: $color-blue-alt-heavy !important;
+    color: $color-white;
+  }
+}
+.sign-button {
+    width: 32px;
+    height: 32px;
+    flex-grow: 0;
+    padding: 0px;
+    font-size: 20px;
+    border: solid 1px $color-grey-darker-byb-2;
+    background-color: $lGrayLight;
+}
+.text-btn {
+    width: 31px;
+    height: 26px;
+    flex-grow: 0;
+    margin: 3px 21px;
+    font-family: $font-increment-number;
+    font-size: 22px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.01px;
+    text-align: center;
+    color: $color-blue-selected;
+}
+
+.switchers-1 {
+  margin-bottom: 0px;
+  padding-bottom: 20px !important;
+  justify-content: center
+}
+
+.switchers {
+  @include user-select();
+  padding: 5px 10px 0;
+  margin-bottom: 0px !important;
+}
+
+.switch-btn.active>span {
+  background-color: $switch-btn-active-color;
+  color: $color-white;
+  font-weight: normal;
+}
+
+
+.partition {
+    height: 2px;
+    background-color: $lGrayLight;
+  }
+  
+#switch-custom {
+  height: 100%;
+  margin: 0px 3px;
+  font-family: $alt-font-family;
+}

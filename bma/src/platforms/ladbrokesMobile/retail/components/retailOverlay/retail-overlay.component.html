@@ -1,0 +1,38 @@
+<div>
+  <div id="retail-overlay" *ngIf="isVisible" class="cookie-margin-top" data-crlat="retailOverlay">
+    <div class="overlayTopDetails">
+      <a data-crlat="overlayCloseBtn" class="close-icon" (click)="hideOverlay()">
+        <svg>
+          <use xlink:href="#close-icon"></use>
+        </svg>
+      </a>
+      <div class="swipe-arrow">
+        <p class="arrow-text" [i18n]="'retail.scrollRightGridText'" data-crlat="arrowText"></p>
+        <svg>
+          <use xlink:href="#grid_swipe_right_arrow" data-crlat="swipeArrow"></use>
+        </svg>
+      </div>
+      <div class="retail-icon" (click)="navigateToRetail()" data-crlat="connectIcon">
+        <svg>
+          <use xlink:href="#grid_overlay_icon" data-crlat="swipeArrow"></use>
+        </svg>
+      </div>
+    </div>
+
+    <div class="overlayDetails">
+      <div class="text-panel" data-crlat="overlayTextPanel">
+        <static-block [service]="'grid-overlay'"></static-block>
+      </div>
+      <div class="buttons-panel" data-crlat="overlayButtons">
+        <button class="btn btn-style1" [i18n]="'retail.overlayGridButton'" data-crlat="navigateToConnect"
+          (click)="navigateToRetail()">
+        </button>
+        <div class="closeLink" data-crlat="">
+          <a href="javascript:void(0)" data-crlat="dontShowOverlay" (click)="hideOverlay(true)">
+            <span [i18n]="'retail.okGotItOverlayGrid'"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

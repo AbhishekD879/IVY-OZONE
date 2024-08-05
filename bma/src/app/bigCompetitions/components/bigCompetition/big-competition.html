@@ -1,0 +1,55 @@
+<div class="sk-container" [ngClass]="{'sk-loading': state.loading}">
+  <outlet-status [state]="state">
+    <request-error [loadFailed]="true" (reloadFn)="reloadComponent()">
+    </request-error>
+  </outlet-status>
+
+  <ng-container *ngIf="!state.loading && !state.error">
+    <top-bar [title]="bchPageName"></top-bar>
+    <ng-container>
+      <div class="outer-div">
+        <svg [class.header-color]="competition?.background" viewBox="0 0 375 65" preserveAspectRatio="none">
+        <use [attr.xlink:href]="'#' + competition.svgBgId + '_mobile'"></use>
+        </svg>
+        <div class="text-title" [textContent]="competitionName"></div>
+        </div>
+      </ng-container>
+      <div class="banner-block" *ngIf="aemBanner?.length">
+        <lazy-component
+        moduleUri="@lazy-modules-module/banners/banners.module#BannersModule"
+        [inputs]="{ page: aemBanner[0]?.aemPageName}"></lazy-component>
+      </div>
+
+    <action-arrows *ngIf="competitionTabs">
+      <action-arrows-content>
+        <switchers
+          [type]="'scrollable'"
+          [switchers]="competitionTabs"
+          [activeTab]="activeTab"
+          [noPaddings]="true"
+          [detectGTMLocation]="'location'"
+          [preventReload]="true"
+        ></switchers>
+      </action-arrows-content>
+    </action-arrows>
+    <svg-list *ngIf="participantsFlags" [list]="participantsFlags" [keepStyles]="true">
+    </svg-list>
+
+    <lazy-component moduleUri="@lazy-modules-module/superButton/super-button.module#SuperButtonModule" [inputs]="{
+                            type: 'bigCompetition',
+                            competitionId: competition.id
+                          }">
+    </lazy-component>
+    <lazy-component *ngIf="surfaceBets || highlightCarousels" moduleUri="@featuredModule/featured.module#FeaturedModule" [inputs]="{
+          sportId: competition?.sportId,
+          sportName: competition?.name,
+          showOnlyBigCompetitionData: true,
+          participants: participantsService.participants,
+          surfaceBetIds: surfaceBets,
+          highlightCarouselIds: highlightCarousels
+              }" entryComponent="FeaturedModuleComponent">
+    </lazy-component>
+    <big-competition-tabs *ngIf="defaultTabName === activeTabName" [tab]="defaultTabName"></big-competition-tabs>
+    <router-outlet></router-outlet>
+  </ng-container>
+</div>

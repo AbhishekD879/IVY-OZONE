@@ -1,0 +1,148 @@
+<breadcrumbs *ngIf="campaign && !isFreeRidePot" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card">
+  <div class="body">
+    <div class="row">
+      <div class="col-2">
+        <mat-form-field class="full-width">
+          <input matInput placeholder='Fetch for classIds:' [(ngModel)]="refreshEventsClassesString"
+                 [value]="refreshEventsClassesString"
+                 trim="blur" [disabled]="isFreeRidePot && isPotsCreated">
+          <mat-hint>Separate classIds by comma</mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-4">
+        <date-time-inputs class="full-width"
+                          [placeholderColumn]="false"
+                          [isSetDateButtons]="false"
+                          [initialDate]="this.refreshEventsFrom"
+                          [placeholder]="'Fetch from'"
+                          (outputIsoTime)="handleEntryDeadline($event)"
+                          [disableFlag]="isFreeRidePot && isPotsCreated">
+        </date-time-inputs>
+      </div>
+      <div class="col-3">
+        <mat-checkbox color="primary"
+                      [checked]="restrictToUkAndIre"
+                      (change)="restrictToUkAndIre = !restrictToUkAndIre"
+                      [disabled]="isFreeRidePot && isPotsCreated">
+          Restrict to UK And IRE
+        </mat-checkbox>
+      </div>
+      <div class="col-3">
+        <button (click)="refreshSpotlightData()" type="button"
+          class="btn bg-teal waves-effect d-flex align-items-center float-right" [disabled]="isFreeRidePot && isPotsCreated">
+          <mat-icon class="material-icons">refresh_box</mat-icon>
+          <span>Refetch Events</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="spotlightRelatedEventsData && spotlightRelatedEventsData.typeEvents.length && !isFreeRidePot">
+      <div class="col-12">
+        <h4 class="waves-effect waves-block has-activity-badge">
+          Please click on event time below to get Spotlight data:
+        </h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+          <h5 class="waves-effect waves-block has-activity-badge">
+          {{freeRideConstants.HORSE_SELECTION}}
+        </h5> 
+      </div>
+  </div>
+    <div class="row">
+      <div class="col-12 event-data-container">
+        <table class="event-data-content" *ngIf="spotlightRelatedEventsData">
+          <caption *ngIf="!isFreeRidePot" style="display: none">Spotlight Related Events from SiteServe</caption>
+          <tr *ngIf="isFreeRidePot && spotlightRelatedEventsData && spotlightRelatedEventsData.typeEvents.length">
+            <th></th>
+          <th> <button class="btn btn-block bg-teal" (click)="getSelectedEvent(spotlightRelatedEventsData.typeEvents)">
+            All Races
+           </button></th>
+          </tr>
+          <tr *ngFor="let eventData of spotlightRelatedEventsData.typeEvents;let i = index" [ngClass]="{selectBackground:isFreeRidePot && eventSeleted[i]}">
+            <td class="spotlight-event-cell" [ngClass]="isFreeRidePot?'spotlight-event-typename-cell-fr':'spotlight-event-typename-cell' ">{{eventData.typeName}}</td>
+            <td  *ngIf="isFreeRidePot" class="spotlight-event-cell spotlight-event-cell-content align_center">
+              <mat-checkbox color="primary"
+              [checked]="eventSeleted[i]"
+              (change)="getSelectedEvent(eventData,i)"
+              [disabled]="isPotsCreated">
+              </mat-checkbox>
+            </td>
+            <td class="spotlight-event-cell spotlight-event-cell-content"
+                [ngClass]="{'bold-cell':!isFreeRidePot && event === activeEvent,'selectBackgroundCell':isFreeRidePot&& selSingleEvent[i][n]}"
+                *ngFor="let event of eventData.events;let n =index"
+                (click)="handleClickOnEvent(event,n,eventData,i)"
+            >{{event.startTimeUkFormattedString}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div *ngIf="isFreeRidePot && spotlightRelatedEventsData && spotlightRelatedEventsData.typeEvents.length" class="row">
+      <div class="offset-9 col-3">
+        <button class="btn btn-block bg-teal" [disabled]="campaignEventData === null || isvalidDate || !dataChanged || isPotsCreated" (click)="createCampaignLevelPots()">
+           {{freeRideConstants.CREATE_POTS_BTN }}
+          </button>
+      </div>
+  </div>
+
+  </div>
+
+
+
+
+
+  <div class="body">
+    <div class="row">
+      <div class="col-12">
+        <div class="selected-event-title" *ngIf="activeEvent">
+          <h4 class="selected-event-title-part">
+            {{activeEvent.startTimeUkFormattedString}} {{activeEvent.typeName}}<span *ngIf="verdict"> [{{verdict.raceName}}]</span>
+          </h4>
+        </div>
+        <div class="verdict-info" *ngIf="verdict">
+          <h5 class="verdict-info-racename">Verdict</h5>
+          <div class="verdict-info-body">{{verdict.verdict}}</div>
+          <div class="verdict-info-action-container">
+            <button class="btn btn-block bg-teal" (click)="createVerdictPost(verdict)">
+              Create Verdict Post
+            </button>
+          </div>
+        </div>
+        <div class="spotlight">
+          <table *ngIf="spotlights && spotlights.length">
+            <caption style="display: none">Spotlight Feed</caption>
+            <tr class="spotlights-header">
+              <th class="spotlight-item-cell spotlight-item-cell-header" scope="col">Horse</th>
+              <th class="spotlight-item-cell spotlight-item-cell-content" scope="col">Spotlight</th>
+              <th class="spotlight-item-cell spotlight-item-cell-content" scope="col">SelectionId</th>
+              <th class="spotlight-item-cell">Action</th>
+            </tr>
+            <tr *ngFor="let spotlight of spotlights">
+              <td class="spotlight-item-cell spotlight-item-cell-header">
+                {{spotlight.horseName}}
+              </td>
+              <td class="spotlight-item-cell spotlight-item-cell-content">
+                {{spotlight.spotlight}}
+              </td>
+              <td class="spotlight-item-cell spotlight-item-cell-content">
+                {{spotlight.selectionId}}
+              </td>
+              <td>
+                <button class="btn bg-teal" [disabled]="!spotlight.horseName || !spotlight.spotlight" (click)="createSpotlightPost(spotlight)">
+                  Create Post
+                </button>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="getDataError">
+      Request Error
+    </div>
+  </div>
+</div>
+
+

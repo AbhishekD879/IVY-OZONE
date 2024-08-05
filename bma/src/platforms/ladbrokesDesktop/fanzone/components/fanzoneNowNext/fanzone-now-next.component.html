@@ -1,0 +1,28 @@
+<loading-screen [displayed]="showLoader" [longRenderView]="true" [templateType]="'GENERIC'"></loading-screen>
+<div class="container" *ngIf="!showLoader && isModuleAvailable">
+    <ng-container *ngFor="let module of fanzoneModuleData?.modules; index as i; trackBy: trackByModules">
+        <surface-bets-carousel class="surface-bets-carousel" *ngIf="module['@type'] === 'SurfaceBetModule'"
+            [module]="module">
+        </surface-bets-carousel>
+        <!-- higlight carousel start -->
+        <accordion class="highlight_carousel" [accordionTitle]="fanzoneDetails.nextGamesLbl" [card]="false" [isExpanded]="true"
+            [isHeaderHidden]="false" *ngIf=" module['@type'] === 'HighlightCarouselModule'  && module.data.length > 0" 
+            #featuredAccordion>
+            <accordion-body>
+                <ng-container *ngIf="module.data.length > 0">
+                    <odds-card-header  [events]="module.data"></odds-card-header>
+                    <ng-container *ngFor="let event of module.data; trackBy: trackByModuleData">
+                        <odds-card-component [featuredModule]="module" [event]="event" [gtmModuleTitle]="'HighlightCarouselModule'"></odds-card-component>
+                    </ng-container>
+                </ng-container>
+            </accordion-body>
+        </accordion>
+        <!--highlight carousel-->
+    </ng-container>
+    <no-events *ngIf="noEventFound"></no-events>
+    <request-error *ngIf="ssDown || !isConnectSucceed" [loadFailed]="ssDown || !isConnectSucceed"
+        (reloadFn)="reloadComponent()">
+    </request-error>
+</div>
+<!-- Fanzone Outrights -->
+<fanzone-outrights [fanzoneTeam]="fanzoneTeam"></fanzone-outrights>

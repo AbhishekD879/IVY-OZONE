@@ -1,0 +1,32 @@
+
+- name: "Run pre-install configuration for {{ s3mountpoints_item }}"
+  include_tasks: "{{ preconf_actions[s3mountpoints_item] }}"
+  when: s3mountpoints_item in preconf_actions.keys()
+
+- name: "Provision {{ s3mountpoints_item }} S3 bucket on AWS"
+  local_action: s3_bucket name={{ s3mountpoints_item }} region=eu-west-1
+
+- local_action: set_fact ec2_access_key="{{ lookup('env','AWS_ACCESS_KEY_ID') }}" ec2_secret_key="{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
+
+- name: Edit AWS identity file
+  copy:
+    content: "{{ec2_access_key}}:{{ec2_secret_key}}"
+    dest: "/etc/s3fs-password"
+    mode: 0600
+
+- name: "Create mnt directory for {{ s3mountpoints_item }}"
+  file:
+    path: "/mnt/{{ s3mountpoints_item }}"
+    state: directory
+
+- name: Configuring s3fs mountpoint
+  mount:
+    path: "/mnt/{{ s3mountpoints_item }}"
+    src: "s3fs#{{ s3mountpoints_item }}"
+    fstype: fuse
+    opts: _netdev,allow_other,passwd_file=/etc/s3fs-password,rw,user
+    state: mounted
+
+- name: "Run post-install configuration for {{ s3mountpoints_item }}"
+  include_tasks: "{{ postconf_actions[s3mountpoints_item] }}"
+  when: s3mountpoints_item in postconf_actions.keys()

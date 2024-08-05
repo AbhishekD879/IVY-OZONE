@@ -1,0 +1,248 @@
+@import 'global.variables.scss';
+@import "../../../../ladbrokesMobile/fiveASideShowDown//components/fiveasidePreEventTutorial/fiveaside-pre-tutorial-mixin.scss";
+@import "./fiveaside-pre-tutorial-animation";
+
+$rectangle-svg: '/assets/images/rectangle.svg';
+$button-svg:'/assets/images/next-button.svg';
+$top-right-arrow-svg:'/assets/images/top-right-arrow.svg';
+$right-arrow-svg:'/assets/images/right-arrow.svg';
+$end-button-svg:'/assets/images/finish-button.svg';
+$down-arrow-svg:'/assets/images/down-arrow.svg';
+
+@mixin cards-overlay-content() {
+    @include cards-overlay-mixin(hidden, relative, 100% , auto);
+}
+.animated,.animated-rules {
+  @include fade-animated-mixin(2s, 2s, 2s, both, both);
+}
+.animatedarrow {
+  @include fade-animated-mixin(2s, 2s, 2.5s, both, both);
+}
+.animating {
+  @include fade-animated-mixin(2s, 2s, 0s, both, both);
+}
+.animating-start {
+  @include fade-animated-mixin(2s, 2s, 2s, both, both);
+}
+@-webkit-keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+
+#fiveaside-pre-event-tutorial {
+  background-color: $color-overlay-background;
+  transition: 2s;
+}
+
+#fiveaside-pre-event-tutorial, #fiveaside-prizepool-tutorial, #fiveaside-rulesarea-tutorial, #fiveaside-entrybutton-tutorial, #fiveaside-buildanother-team, #fiveaside-buildanother-team-entries, #fiveaside-rulesbutton-tutorial {
+clip: rect(auto, auto, auto, auto);
+@include header-mixin(none, fixed, 0, 0, 0, 0, 1, hidden);
+    position: absolute;
+  &.active {
+    display: block;
+  }
+  .header-content {
+    background-size: cover;
+    background-position: center;
+    .close-content {
+      cursor: pointer;
+      padding: 15px;
+      text-align: right;
+      .close-icon {
+        height: 15px;
+        width: 15px;
+      }
+    }
+  }
+  >.centered {
+    margin: 0 auto;
+    padding: 0 5px;
+    >.welcome-cards{
+      @include display-flex();
+      flex-direction: column;
+      height: calc(100vh - 100px);
+      >.welcome-card {
+        flex: 0.05 auto;
+        box-sizing: border-box;
+        margin: 1px;
+        &:last-child {
+          margin-bottom: 0;
+        }
+        >.overlay-context {
+          text-align: center;
+          margin: 0 auto;
+          height: 100%;
+          max-width: 305px;
+          color: $color-white;
+          @include display-flex();
+          @include align-items(center);
+          .overlay-header {
+            font-family: $base-font-family;
+            @include overlay-header-mixin(bold, 22px, $color-yellow-extra, 24px, 0.28px ,auto, 20px, center, 20%);
+          }
+          .overlay-content {
+            font-family: $alt-font-family;
+            @include overlay-content-mixin(18px, 21px, 0.23px ,relative, center);
+          }
+        }
+        #welcome-header {
+          margin-top: 30%;
+        }
+        #another-build-text {
+          width: 300px;
+          padding-top: 30px;
+          position: relative;
+          top: 230px;
+        }
+        #another-footer {
+            position: relative;
+        }
+        #rectangle {
+          box-shadow:  0 0 4px 3px $color-blue-selected, 0 0 0 1170px $color-overlay-background;
+          transition: top 0.5s ease-in, height 0.5s ease-in;
+          @include prize-pool-mixin(50px, 100%, fixed, -1, 'smooth', 0.5s, 0.5s,showdown-box-shadow-animation-prize, 1s, ease-in);
+        }
+        
+        .animate-bottom {
+          position: relative;
+          transition: top 1s ease-in;
+        }
+
+        #rules-area {
+          box-shadow: 0 0 4px 3px $color-blue-selected, 0 0 0 850px $color-overlay-background;
+          transition:  top 0.5s ease-in, height 0.5s ease-in;
+          @include rules-area-mixin(10px, 100%, absolute, -1, 0.5s, 0.5s, showdown-box-shadow-animation-rules, 1s, ease-in);
+        }
+
+        #entry-area {
+          box-shadow: 0 0 4px 3px $color-overlay-background, 0 -25px 0 850px $color-overlay-background, 0 250px 0 0 $color-overlay-background;
+          transition: top 0.2s ease-in, height 0.2s ease-in;
+          @include rules-area-mixin(0px, 100%, absolute, -1, 0.5s, 0.5s, showdown-box-desktop, 1s, ease-in);
+        }
+
+        #entry-area-button {
+          @include position-index-box-mixin(absolute, -1);
+          transition: box-shadow 0.5s ease-in;
+          transition-delay: 1s;
+        }
+        #rules-entry-area {
+          box-shadow: 0 0 4px 3px $color-overlay-background, 0 0 0 65px $color-overlay-background, 0 250px 0 0;
+          @include position-index-box-mixin(fixed, -1);
+        }
+        #entry-area-rules {
+          box-shadow: 0 0 0px 0px $color-blue-selected, 0 0 0 65px $color-overlay-background;
+          @include position-index-box-mixin(fixed, -1);
+        }
+        #entry-area-another, #entry-area-another-new {
+          box-shadow: 0px 0px 0px 0px $color-blue-selected,0 -315px 0 580px $color-overlay-background;
+          transition: box-shadow 0.5s ease-in;
+          transition-delay: 1s;
+          @include rules-area-mixin(50px, 200px, absolute, -1, 0.5s, 1s ,unset, 1s, ease-in);
+        }
+
+        #user-entry {
+          box-shadow: 0 0 4px 3px $color-blue-selected, 20px 0 20px $color-overlay-background, 0 0 0 662px $color-overlay-background;
+          transition: top 0.2s ease-in, height 0.2s ease-in;
+          @include rules-area-mixin(290px, 100%, absolute, -1, 0.5s, 0.5s, showdown-box-shadow-animation-user, 1s, ease-in);
+        }
+        
+        #rules-area-text-overlay {
+          width: 166px;
+        }
+        #entry-area-text-overlay {
+          width: 206px;
+        }
+        .top-arrow, .rules-top-arrow, .entry-top-arrow {
+          @include arrow-mixin(none, 0 auto, 58px, relative, bottom 0.5s ease-in, 1s);
+          bottom: -1150px;
+        }
+        .side-arrow {
+          @include arrow-mixin( none, 0 auto, 58px, relative, bottom 0.5s ease-in, 1.5s);
+          width: 340px;
+          top: 180px;
+          float: right;
+        }
+        #rules-button-area {
+          position: absolute;
+          z-index: -1;
+          height: 45px;
+          top: 215px;
+          width: 45px;
+          border-radius: 50px;
+          transition: border-radius 0.5s ease-in;
+          animation-duration: 0.5s;
+          animation-timing-function: ease-in;
+          animation-name: showdown-box;
+          box-shadow: 0 0 4px 3px $color-blue-selected, 0 0 0 1107px $color-overlay-background;
+        }
+
+        #rules-button-content {
+            top: 372px;
+            left: 822px;
+            animation-name: showdown-box;
+        }
+        
+        #centered-rules {
+          background-color: cadetblue;
+        }
+        #rules-button-text {
+            top: 230px;
+        }
+        #go-to-end {
+            top: 240px;
+        }
+        #go-to-finish {
+            top: 425px;
+        }
+        .nxt-btn-svg {
+          width: 170px;
+          height: 44px;
+          margin-left: 287px;
+        }
+        .top-right-arrow-icon {
+          height: 53px;
+          margin-left: 219px;
+        }
+        .side-arrow-rules-icon {
+          margin-left: 20px;
+          height: 73px;
+          margin-top: -14px;
+        }
+        #another-build-arrow {
+          @include arrow-mixin(url($down-arrow-svg) center no-repeat, 0 auto, 58px, relative, top 0.5s ease-in, 2s);
+          top: -200px;
+        }
+        .down-arrow {
+          background: url($down-arrow-svg) center no-repeat;
+          margin: 0 auto;
+          height: 58px;
+          position: relative;
+          margin-left: 35%;
+        }
+        .getStarted {
+          cursor: pointer;
+          @include button-mixin( url($button-svg) center no-repeat, 0 auto, 44px, relative, 100%);
+        }
+        #getStarted {
+          cursor: pointer;
+          @include button-mixin(url($button-svg) center no-repeat, 0 auto, 44px, relative, 100%);
+            margin-top: 10%;
+        }
+        .getEnded {
+          cursor: pointer;
+          @include button-mixin(url($end-button-svg) center no-repeat, 0 auto, 44px, relative, 100%);
+        }
+      }
+    }
+  }
+}

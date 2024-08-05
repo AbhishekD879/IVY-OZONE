@@ -1,0 +1,13 @@
+<div class="yourcall-betslip" [overscrollFix]="'always'">
+  <div>
+    <div *ngIf="selectionData && selectionData.selections.length">
+      <lazy-component moduleUri="@quickbetModule/quickbet.module#QuickbetModule"
+                      [inputs]="{title: panelTitle, selection: selectionData, leftBtnLocale: leftBtnLocale, ycOddsValue: ycOddsValue, bodyClass: bodyClass, isFiveASideBet: isFiveASideBet,betslipType: betslipType}"
+                      [outputs]="['placeBetFn', 'closePanelFn', 'reuseSelectionFn']"
+                      (event)="onQuickbetEvent($event)"
+                      entryComponent="QuickbetYourcallWrapperComponent"
+                      data-crlat="quickbetPanel">
+      </lazy-component>
+    </div>
+  </div>
+</div>

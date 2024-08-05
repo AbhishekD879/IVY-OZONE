@@ -1,0 +1,29 @@
+<div class="svg-icon-select">
+  <mat-form-field class="full-width">
+    <input type="text"
+           placeholder="start typing to pick one.."
+           aria-label="Number"
+           matInput
+           [formControl]="input"
+           [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" class="test TODO">
+      <mat-option *ngFor="let option of options; index as i"
+                  [value]="option.svgId"
+      (onSelectionChange)="selectChanges($event)">
+        <div *ngIf="!haveData">No data found by your request</div>
+        <div *ngIf="i === 0 && haveData" class="row svg-select-header" (click)="$event.stopPropagation()">
+          <div class="col-2">Preview</div>
+          <div class="col-5">SVG Name</div>
+          <div class="col-5">Sprite name</div>
+        </div>
+        <div *ngIf="i > 0 && haveData" class="row svg-select-item" [title]="option.svgId">
+          <div class="col-sm-2">
+            <div class="svg-wrapper highlight-svg" [innerHTML]="sanitizer.bypassSecurityTrustHtml(option.preview)"></div>
+          </div>
+          <div class="col-sm-5 svg-name">{{ option.svgId }}</div>
+          <div class="col-sm-5">{{ option.sprite }}</div>
+        </div>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>

@@ -1,0 +1,139 @@
+@import 'global.variables.scss';
+
+$triangle-side-width: 9.5px;
+
+.regular-bet-header {
+  padding-right: 12px;
+  padding-left: 12px;
+  min-height: $bh-bet-min-height;
+  background-color: $bh-bet-header-bg-color;
+  border-top: $bh-bet-border-top-size solid $bh-bet-border-color;
+  border-bottom: 1px solid $bh-bet-border-color;
+  position: relative;
+
+  .regular-bet-item-header-text {
+    color: $bh-bet-header-text-color;
+    font-size: $bh-bet-header-font-size;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    .each-way-label:before {
+      display: inline-block;
+      content: "";
+    }
+
+    .bet-history-label {
+      text-transform: capitalize;
+      font-weight: 300;
+    }
+  }
+
+  .regular-bet-item-status {
+    white-space: nowrap;
+    position: relative;
+
+    // Styles for arrow near the status
+    &:before, &:after {
+      content: "";
+      position: absolute;
+      border-left: $triangle-side-width solid transparent;
+      border-right: $triangle-side-width solid transparent;
+      top: 100%;
+      left: 50%;
+      margin-left: -$triangle-side-width;
+    }
+
+    &:before {
+      border-bottom: $triangle-side-width solid $bh-bet-border-color;
+      margin-top: $bh-bet-dark-triangle-margin-top;
+    }
+
+    &:after {
+      border-bottom: $triangle-side-width solid $color-white;
+      margin-top: $bh-bet-light-triangle-margin-top;
+      z-index: 1;
+    }
+  }
+
+  &.edited-acca-bet-header {
+    padding: $ema-edited-acca-bet-header-padding;
+    min-height: $ema-history-bet-header-min-height;
+    line-height: $ema-history-header-line-height;
+    color: $ema-edited-acca-bet-header-color;
+    border: none;
+
+    .regular-bet-item-header-text {
+      .bet-history-label {
+        font-size: $font-size;
+        font-weight: normal;
+        @include ema-bet-history-label();
+      }
+    }
+
+    .bet-type-container {
+      @include display-flex();
+      @include justify-content(center);
+      @include flex-direction(column);
+    }
+  }
+}
+
+.chevron {
+  &:before, &:after {
+    background: $color-black;
+  }
+}
+
+.display-header-block {
+  display: block;
+}
+.widget-container {
+  @include display-flex();
+  @include justify-content(space-between);
+}
+
+.mybet-buttons-wrapper {
+  padding: 4px;
+  .reuse-button {
+    box-sizing: border-box;
+    border: 1px solid $reuse-selection-border-button;
+    border-radius: 2px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: $reuse-selection-border-button;
+    padding:  $reuse-button-padding;
+    width: -moz-max-content;
+    width: max-content;
+    line-height: 13px;
+    outline: none;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: top;
+    white-space: nowrap;
+    display: inline-block;
+    position: relative;
+    font-size: $reuse-selection-font-size;
+    background: #F9FAFE;
+    @media #{$mqTabletAndDesktop} {
+      &:hover {
+        background: lighten($color: $blue, $amount: 20%);
+        color: $blue;
+      }
+    }
+    &:active{
+      background: $blue;
+      color: $color-white;
+      opacity: 1;
+    }
+  
+    .reuse-text {
+      font-family:  $reuse-selection-font-family;
+      font-style: normal;
+      font-weight: 700;
+      font-size: $reuse-selection-font-size;
+      /* identical to box height */
+      text-align: right;
+      text-transform: uppercase;
+    }
+  }
+}

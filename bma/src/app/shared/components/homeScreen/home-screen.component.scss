@@ -1,0 +1,183 @@
+@use "sass:math";
+@import 'global.variables.scss';
+
+$phone-height: 170px;
+
+@-webkit-keyframes landscape-cover {
+  0% {
+    opacity: 1; }
+
+  50% {
+    opacity: 0; }
+
+  100% {
+    opacity: 1; }
+}
+
+@keyframes landscape-cover {
+  0% {
+    opacity: 1; }
+
+  50% {
+    opacity: 0; }
+
+  100% {
+    opacity: 1; }
+}
+
+.landscape-mobile-overlay {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  opacity: 0;
+  z-index: 10000;
+  background: $home-screen-bg;
+}
+
+@media screen and (max-width: $tabletPoint) and (orientation: landscape),
+       screen and (max-width: ($landscapeTabletPoint - 1px)) and (orientation: landscape) {
+  .landscape-mobile-overlay.landscape-mode {
+    display: block;
+    opacity: 1;
+
+    .phone-landscape {
+      animation: landscape-cover 5s infinite;
+    }
+  }
+}
+
+.app-logo {
+  background: url($home-screen-logo) center center no-repeat;
+  height: 40px;
+  width: 110px;
+  margin: 2% auto;
+}
+
+.phone-text {
+  color: #fff;
+  width: 380px;
+  font-size: 14px;
+  position: absolute;
+  left: 50%;
+  bottom: 30px;
+  margin-left: -190px;
+  text-align: center;
+}
+
+.phone-wrapper {
+  position: absolute;
+  width: 100%;
+  height: $phone-height;
+  top: 50%;
+  margin-top: math.div(-$phone-height, 2);
+}
+
+.phone-inner {
+  height: 100%;
+  width: 100%;
+  background: $home-screen-bg;
+  @include display-flex();
+  z-index: 1;
+
+  &.phone-landscape {
+    top: 0;
+    left: 0;
+    position: absolute;
+    opacity: 0;
+    z-index: 2;
+  }
+}
+
+.i-phone {
+  width: 80px;
+  height: $phone-height;
+  border-radius: 15px;
+  background: #fff;
+  margin: 0 auto;
+  position: relative;
+  opacity: .8;
+
+  &.landscape {
+    @include transform(rotate(-90deg));
+  }
+
+  &:before {
+    background: $home-screen-bg;
+    border: 1px solid $home-screen-bg;
+    box-shadow: inset 0 0 0 1px #fff;
+    width: calc(100% - 2px);
+    height: calc(100% - 2px);
+    position: absolute;
+    top: 1px;
+    content: '';
+    left: 1px;
+    border-radius: 15px;
+  }
+
+  &:after {
+    background: $home-screen-bg;
+    border: 1px solid #fff;
+    width: calc(100% - 12px);
+    height: calc(100% - 58px);
+    position: absolute;
+    top: 30px;
+    content: '';
+    left: 6px;
+    border-radius: 3px;
+  }
+
+  .camera {
+    height: 4px;
+    width: 4px;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    top: 10px;
+    border: 1px solid #fff;
+    margin-left: -2px;
+    background: $home-screen-bg;
+
+    &:after {
+      content: '';
+      height: 5px;
+      width: 5px;
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      top: 6px;
+      border: 1px solid #fff;
+      margin-left: -21px;
+      background: $home-screen-bg;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      width: 26px;
+      height: 5px;
+      border-radius: 30%;
+      left: 50%;
+      top: 6px;
+      border: 1px solid #fff;
+      margin-left: -13px;
+      background: $home-screen-bg;
+    }
+  }
+
+  .home-btn {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: $home-screen-bg;
+    border: 1px solid #fff;
+    margin-left: -9px;
+    left: 50%;
+    bottom: 6px;
+  }
+}

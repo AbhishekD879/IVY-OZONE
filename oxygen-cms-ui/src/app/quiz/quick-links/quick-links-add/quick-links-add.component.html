@@ -1,0 +1,80 @@
+<breadcrumbs *ngIf="newQEQuickLinks" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+
+<div class="card" *ngIf="newQEQuickLinks">
+  <div class="body">
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Title
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Title" [(ngModel)]="newQEQuickLinks.title" [value]="newQEQuickLinks.title"
+                 required trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label font-bold">
+          Links:
+        </span>
+      </div>
+    </div>
+    <div *ngFor="let link of newQEQuickLinks.links; let i = index">
+      <div class="row">
+        <div class="col-md-2">
+        <span class="mat-label">
+          Link {{i + 1}}
+        </span>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Title" [(ngModel)]="link.title" [value]="link.title"
+                   trim="blur">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="URL" [(ngModel)]="link.relativePath" [value]="link.relativePath"
+                   trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+        <span class="mat-label">
+          Description
+        </span>
+        </div>
+        <div class="col-md-10">
+          <tinymce-editor [pageName]="i"
+                          [pageItemId]="i"
+                          (outputEditorData)="updateText($event, i)"
+                          [initialEditorContent]="link.description">
+          </tinymce-editor>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="newQEQuickLinks">
+  <div class="body">
+    <div class="row --m-t-10">
+      <div class="col-md-3 m-b-0">
+        <button mat-button type="button" class="btn bg-teal waves-effect"
+                (click)="saveQuickLinksChanges()"
+                [disabled]="!isValidModel()">
+          <mat-icon>save</mat-icon>
+          <span>Create Quick Links Page</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

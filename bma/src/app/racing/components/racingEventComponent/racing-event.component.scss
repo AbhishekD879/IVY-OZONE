@@ -1,0 +1,19 @@
+@import 'global.variables.scss';
+
+:host ::ng-deep div.odds-small {
+  .course-distance {
+      margin-left: 0px;
+  }
+}
+.eprSection{
+  justify-content: space-between;
+  align-content: space-around;
+}
+
+.snb-sticky{
+  position: -webkit-fixed;
+  position: fixed;
+  width: 100%;
+  top: 96px;
+  z-index: 1010;
+}

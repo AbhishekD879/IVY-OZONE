@@ -1,0 +1,46 @@
+@import 'global.variables.scss';
+
+.empty-betslip-container {
+  @include display-flex();
+  @include flex-direction(column);
+  @include align-items(center);
+  background: #fff;
+  padding: 18px 0;
+  @media screen and (max-width: $tabletPoint) {
+    margin: 4px;
+  }
+  @media #{$mqTablet} {
+    padding: 16px 0;
+  }
+
+  .title {
+    font-weight: bold;
+    font-size: 14px;
+    color: $color-gray-dark;
+  }
+
+  .msg {
+    font-size: 12px;
+    padding: 4px 0 10px;
+    color: $color-gray-dark;
+    opacity: 0.75;
+  }
+
+  button {
+    width: 120px;
+    height: 38px;
+    border-radius: 0;
+    font-size: 12px;
+    color: $brand-color-dark;
+  }
+}
+.closure-message-container {
+    color: $color-gray-darkest;
+    font-size: 12px;
+    padding: 14px 12px 12px;
+    box-shadow: 0 2px 2px 0 rgba(162, 162, 162, 0.26), 0 0 2px 0 rgba(162, 162, 162, 0.26);
+    background-color: $color-white;
+    margin-bottom: 3px;
+    line-height: 15px;
+    font-family: $base-font-family;
+}

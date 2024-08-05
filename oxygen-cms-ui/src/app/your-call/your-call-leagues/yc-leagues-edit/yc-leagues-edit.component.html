@@ -1,0 +1,65 @@
+<breadcrumbs *ngIf="yourCallLeague" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="yourCallLeague">
+  <div class="header">
+    <h2>Edit Banach League: <span class="font-italic">{{yourCallLeague.name}}</span></h2>
+    <create-updated-at-by [collection]="yourCallLeague"></create-updated-at-by>
+    <header-activity-badge [state]="!yourCallLeague.enabled"></header-activity-badge>
+  </div>
+</div>
+<div class="card" *ngIf="yourCallLeague">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox color="primary"
+          [checked]="yourCallLeague.enabled"
+          (change)="yourCallLeague.enabled = !yourCallLeague.enabled">
+          Active for BYB
+        </mat-checkbox>
+      </div>
+      <div class="col-md-2">
+        <mat-checkbox color="primary"
+          [checked]="yourCallLeague.activeFor5aSide"
+          (change)="yourCallLeague.activeFor5aSide = !yourCallLeague.activeFor5aSide">
+          Active for 5 A Side
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-2">
+        <span class="mat-label">League Title</span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !yourCallLeague.name}">
+          <input matInput placeholder="League Title" [(ngModel)]="yourCallLeague.name" [value]="yourCallLeague.name" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!yourCallLeague.name">League Title should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Type ID</span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !yourCallLeague.typeId}">
+          <input matInput placeholder="Type ID" [(ngModel)]="yourCallLeague.typeId" [value]="yourCallLeague.typeId" type="number" required>
+          <mat-hint class="col-red" *ngIf="!yourCallLeague.typeId">Type ID should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="getDataError">
+  <div class="body">
+    Failed to load BanachLeague data
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="yourCallLeague"
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'name'"
+  [collection]="yourCallLeague"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

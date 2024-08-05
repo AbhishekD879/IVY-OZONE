@@ -1,0 +1,51 @@
+@import 'global.variables.scss';
+
+/* Show All Button */
+.show-all-button {
+  width: 100%;
+  background: $show-all-bg;
+  height: 30px;
+  font-size: $font-size-sm;
+  font-weight: bold;
+  color: $color-gray-dark;
+  text-decoration: underline;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 10px;
+  padding: 10px 10px;
+  border: none;
+}
+
+.show-all-button-light {
+  font-family: $base-font-family;
+  width: 100%;
+  background: $color-white;
+  height: 30px;
+  font-size: $font-size-pre-xs;
+  font-weight: normal;
+  box-shadow: 10px 0 0 $color-white, -10px 0 0 $color-white;
+  color: $color-gray-dark;
+  text-decoration: underline;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: block;
+  position: relative;
+  line-height: 10px;
+  border: none;
+  border-top: 1px solid $color-gray;
+  margin-top: -1px;
+  padding: 9px 0 10px 0;
+}
+
+.show-all-button-competitions-results {
+  background: #fff;
+  height: 38px;
+  width: 100%;
+  border: none;
+  text-transform: uppercase;
+  width: 100%;
+  font-size: 11px;
+  font-family: $base-font-family;
+  color: #093864;
+}

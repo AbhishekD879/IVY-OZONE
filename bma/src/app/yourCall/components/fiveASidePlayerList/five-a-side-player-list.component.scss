@@ -1,0 +1,52 @@
+@import 'global.variables.scss';
+
+.head {
+  padding-top: 0;
+}
+
+.title {
+  .title-text {
+    margin-top: 7px;
+    margin-bottom: 0;
+    font-size: $font-size-xl;
+    line-height: 1.39;
+    font-weight: bold;
+    color: $lGray;
+    display: block;
+  }
+
+  .subtitle {
+    margin: 0;
+    color: $lBlack-light;
+    font-size: $font-size-tablet;
+    font-weight: normal;
+    line-height: 1.54;
+  }
+}
+
+.five-a-side-body {
+  padding: 7px 6px;
+  border-top: 1px solid #e0e2eb;
+  background-color: $color-gray-alabaster;
+}
+
+.event-name {
+  margin-top: 14px;
+  margin-bottom: 12px;
+  font-size: $font-size;
+  font-family: $alt-font-family;
+  opacity: 0.45;
+}
+
+.stats-unavailable {
+  background: $lGrayLight;
+  padding: 13px 14px 10px;
+  line-height: 15px;
+  .stats-unavailable-text {
+    font-size: $font-size-md;
+    font-family: $alt-font-family;
+    color: $lGray;
+    display: inline-block;
+    line-height: 12px;
+  }
+}

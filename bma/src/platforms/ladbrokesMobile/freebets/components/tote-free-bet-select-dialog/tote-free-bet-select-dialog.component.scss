@@ -1,0 +1,160 @@
+@import 'global.variables.scss';
+
+
+::ng-deep .fb-select-dialog {
+  .modal-body {
+    padding: 0;
+    max-height: 380px;
+  }
+  .modal-header {
+    display: none;
+  }
+}
+
+.free-bet-group__container {
+  overflow: auto;
+  max-height: 200px;
+}
+
+.wrap {
+  padding: 24px 0 0;
+
+  .header {
+    position: relative;
+    padding: 0;
+    box-shadow: none;
+    background: $color-white;
+
+    .header-text {
+      font-weight: 700;
+      color: $lGray;
+      font-size: 15px;
+    }
+
+    .close-icon {
+      display: none;
+    }
+  }
+
+  .popup-description {
+    display: none;
+  }
+
+  .list {
+    font-family: $core-font-family;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    .option {
+      position: relative;
+      cursor: pointer;
+      padding-left: 27px;
+      padding-right: 5px;
+      display: inline-block;
+      word-break: break-word;
+      font-size: 13px;
+
+      &.selected .option-circle:after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 100%;
+        background-color: #3a3d49;
+      }
+    }
+
+    .option-circle {
+      position: absolute;
+      top: calc(50% - 10px);
+      left: 0;
+      width: 19px;
+      height: 19px;
+      border: 1px solid $color-gray-silver;
+      border-radius: 100%;
+      background-color: #f8f8f8;
+      padding: 3px;
+    }
+
+    .option-text {
+      color: $color-gray-darkest;
+      opacity: 0.75;
+    }
+
+    li {
+      margin-top: 16px;
+
+      &:last-child {
+        margin-bottom: 5px;
+      }
+    }
+  }
+
+  .btn-group {
+    @include display-flex;
+    @include justify-content(center);
+    padding: 14px 0 0 24px;
+
+    .btn {
+      height: 35px;
+      width: 120px;
+      font-family: $base-font-family;
+      color: $lGray;
+      background-color: $color-yellow-alt;
+
+      &.btn-add {
+        line-height: 15px;
+        width: 120px;
+        @include display-flex();
+        @include align-items(center);
+        @include justify-content(center);
+        &:hover{
+          text-decoration: none;
+          opacity: 0.85;
+        }
+        &:active{
+          text-decoration: none;
+          background-color: $color-orange-peel;
+          color: $lGrayMedium;
+        }
+
+      }
+
+    }
+      .btn-remove {
+        background-color: transparent;
+        display: block;
+        color:$color-gray-darkest;
+        &:hover{
+          text-decoration: underline;
+        }
+        &:active{
+          color: $lGrayMedium;
+          text-decoration: none;
+        }
+      }
+  }
+
+  .fb-item__value {
+    color: $color-gray-dark;
+    font-family: $alt-font-family;
+    text-transform: lowercase;
+    
+    & span:nth-child(2) {
+      font-weight: 400;
+    }
+  }
+
+  .fb-item__expiration {
+    color: $color-nevada;
+    font-family: $alt-font-family;
+    font-size: 10px;
+  }
+
+  .bet-tabs {
+    .bet-tab {
+      font-family: $base-font-family;
+    }
+  }
+}

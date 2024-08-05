@@ -1,0 +1,21 @@
+- name: Restart Telegraf Container
+  docker_container:
+    name: Telegraf
+    image: telegraf:alpine
+    state: started
+    restart: yes
+    restart_policy: always
+    dns_servers:
+      - "{{ dns_server_ip }}"
+    network_mode: host
+    env:
+      HOST_PROC: /rootfs/proc
+      HOST_SYS: /rootfs/sys
+      HOST_ETC: /rootfs/etc
+    volumes:
+    - '/etc/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro'
+    - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    - '/var/run/utmp:/var/run/utmp:ro'
+    - '/sys:/rootfs/sys:ro'
+    - '/proc:/rootfs/proc:ro'
+    - '/etc:/rootfs/etc:ro'

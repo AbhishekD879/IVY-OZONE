@@ -1,0 +1,12 @@
+<jxb:bindings
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+        version="2.1">
+
+    <jxb:bindings schemaLocation="http://backoffice-tst2.coralbip.co.uk/bet-webservice/BetService?xsd=system.xsd">
+        <jxb:bindings node="//xs:complexType[@name='override']">
+            <jxb:class name="SystemOverride"/>
+        </jxb:bindings>
+    </jxb:bindings>
+
+</jxb:bindings>

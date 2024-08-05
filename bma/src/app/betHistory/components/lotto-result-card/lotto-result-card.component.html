@@ -1,0 +1,38 @@
+<ng-container *ngIf="lottoResult">
+  <div class="draw-result-sec" >
+    <!-- Draw Name result section -->
+    <div class="draw-result">
+      <div class="line-draw">
+        <strong class="lotto-draw-name" data-crlat="drawName"> Line-{{ index + 1 }}</strong>
+        <span> - </span>
+        <span class="lotto-draw-time" [ngClass]="{'lads-text' : isBrandLadbrokes}" data-crlat="settledAt"
+          [dateTimeFmt]="drawAt" [isMyBets]="true"></span>
+      </div>
+      <div class="line-draw">
+        <span class="drawResults" data-crlat="drawResults" [textContent]="drawResults"></span>
+      </div>
+      <!-- Lotto Balls result section-->
+      <div class="balls-wrapper">
+        <div class="bet-status-container" data-crlat="betStatusContainer"
+          [class.won]="(lottoResult.winnings.value > '0.00' && settled === 'Y')"
+          [class.lost]="(lottoResult.winnings.value <= '0.00' && settled === 'Y')"
+          [class.open]="(lottoResult.winnings.value <= '0.00' && settled === 'N')">
+          <span class="bet-status" [attr.data-crlat]="'bet.status.' + lottoResult.winnings.value > '0' ? 'won' : 'lost'"
+            [textContent]="lottoResult.winnings.value > '0' ? 'won' : 'lost'"></span>
+        </div>
+    
+        <ul class="lotto-balls line-draw" data-crlat="balls">
+          <li class="lotto-ball-res " *ngFor="let ball of lottoResult.lotteryDrawResult; trackBy: trackByBall"
+            data-crlat="ball" [textContent]="ball.ballNo" [class.success]="ball.matched">
+          </li>
+    
+        </ul>
+      </div>
+    
+      <div class="returned-line">
+        <span class="returned">{{returned}}: </span>
+        <strong class="text-style-1" [textContent]="lottoResult.winnings.value | currency:currency:'code'"></strong>
+      </div>
+  </div>
+</div>
+</ng-container>

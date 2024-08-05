@@ -1,0 +1,13 @@
+<div class="footer-wrapper">
+  <footer id="footer" *ngIf="showFooter">
+
+    <!-- Footer Menu-->
+    <lazy-component class="footer-menu" [inputs]="{showFooterMenu: showFooterMenu, footerMenuVisible: footerMenuVisible}"
+      moduleUri="@lazy-modules-module/footerMenu/footer-menu.module#FooterMenuModule" entryComponent="FooterMenuComponent">
+    </lazy-component>
+    <!-- data-crlat="footerNotification" used for SSR -->
+    <div class="footer-notification" [ngClass]="{'hide': (!showFooterMenu || hideNotification), 'hidden': (!footerMenuVisible || hideNotification)}">
+      <acca-notification *ngIf="isMobile"></acca-notification>
+    </div>
+  </footer>
+</div>

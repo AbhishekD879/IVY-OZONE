@@ -1,0 +1,5 @@
+mixin listNote(list)
+  - var note = list.get('note');
+  - var noteClass = 'alert alert-' + list.get('noteType');
+  if note
+    div(class=noteClass)!= note

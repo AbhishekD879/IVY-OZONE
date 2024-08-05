@@ -1,0 +1,70 @@
+@import 'global.variables.scss';
+
+$score-card-text-margin: 36px;
+
+.scores-card {
+  padding: 12px 8px;
+  border-left: 1px solid $color-gray;
+  border-right: 1px solid $color-gray;
+  font-family: $alt-font-family;
+  color: $color-gray-dark;
+}
+
+.left-side {
+  padding-right: 1px;
+  text-align: right;
+  .team-name {
+    margin-right: $score-card-text-margin;
+  }
+  .goal-scorers {
+    margin-right: $score-card-text-margin;
+  }
+  .score {
+    float: right;
+    margin-left: 8px;
+  }
+}
+
+.right-side {
+  padding-left: 1px;
+  .team-name {
+    margin-left: $score-card-text-margin;
+  }
+  .goal-scorers {
+    margin-left: $score-card-text-margin;
+  }
+  .score {
+    float: left;
+    margin-right: 8px;
+  }
+}
+
+.team-name {
+  font-weight: 700;
+  line-height: 24px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.goal-scorers {
+  font-size: 11px;
+  color: rgba(65, 73, 78, 0.9);
+  p {
+    margin: 0;
+    font-size: inherit;
+    line-height: normal;
+  }
+}
+
+.score {
+  width: 28px;
+  height: 24px;
+  background-color: #072a4b;
+  color: $color-yellow;
+  text-align: center;
+  display: inline-block;
+  line-height: 24px;
+}
+
+

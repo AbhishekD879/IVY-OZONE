@@ -1,0 +1,161 @@
+@import 'global.variables.scss';
+$lads-box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+
+
+@media (min-width: $desktopPoint) {
+  .page-segment{
+   min-width: 60% !important;
+  }
+  .group-buttons .group-btn {
+    max-width: initial;
+  }
+
+  .widget-column {
+    min-width: 40% !important;
+  }
+}
+
+.lotto-segment {
+  font-family: $base-font-family!important;
+  &-lads {
+    font-family: $alt-font-family!important;
+    .previousResults-drawBalls {
+      font-family: "Roboto Condensed";
+    }
+  }
+
+.page-container {
+  margin-bottom: unset !important;
+}
+
+.previous-balls {
+  padding: 0;
+  list-style: none;
+  margin: 0;
+  display: flex;
+
+  .previous-ball {
+      @include lotto-ball();
+      margin-right: 7px;
+      border-radius: 20px;
+      &:last-child {
+        margin-right: 0px;
+      }
+   
+     &.lads {
+       margin-right: 8px;
+     }
+   
+     @media (min-width: $desktopPoint)and (max-width: 1350px) {
+       width: 27px;
+       height: 27px;
+       line-height:25px;
+       font-size: 14px;
+     }
+ 
+   }
+}
+.bonus-ball-wrapper{
+  position: relative;
+  margin-left: 10px;
+  &::before {
+    content: '';
+    border-right: 1px solid $lotto-b-ball-separator-color;
+    left:  -9px;
+    position: absolute;
+    height: 24px;
+    width: 1px;
+    top: 7px;
+    @media (min-width:  $desktopPoint) and (max-width: 1350px){
+      left: -9px;
+      position: absolute;
+      height: 16px;
+      width: 1px;
+      top: 6px;
+      }
+    
+  }   
+  .previous-ball {
+    border: 2px solid #084d8d;
+  }
+  .lads-bonusball{
+    border: 2px solid #2b2b2b;
+  }
+ 
+}
+    .previousResults-label {
+      padding: 12px 12px 0 12px;
+      background: #ffff;
+      margin-bottom: -2px;
+      font-size: 14px;
+      color: $color-gray-dark;
+    }
+  
+    .previousResults-drawBalls {
+      padding: 0 0 0 5px;
+      background: #ffff;
+      font-family: $base-font-family!important;
+
+    }
+  
+   
+  
+    .p-returns-container {
+      color: #41494e;
+      background: #ffff;
+      padding: 14px 8px 10px;
+      line-height: 15px;
+      .potentialReturns-label {
+        padding: 0 0 12px 1px;
+        font-size: 14px;
+        font-family: $base-font-family!important;
+      }
+      P {
+        color: #41494e;
+        margin: 0;
+        letter-spacing: -0.4px;
+        font-family: $base-font-family!important;
+      }
+      .retuns-price{
+        margin-bottom: 12px;
+      }
+     
+    }
+  
+    .lads-returns-container {
+      padding: 12px;
+      background-color: #fff;
+      box-shadow: $lads-box-shadow;
+      .lads-pb {
+        padding: 0 0 16px 1px;
+        font-family: $alt-font-family!important;
+      }
+  
+      p {
+        margin: 0;
+        font-family: $alt-font-family!important;
+      }
+  
+      .p-returns-price {
+        margin-bottom: 13px;
+      }
+    }
+  
+    .prev-results {
+      padding-bottom: 5px; 
+      .draw-name-time {
+        font-size: 12px;
+        font-family: $base-font-family!important;
+        &.lads {
+          font-size: 12px;
+          box-shadow: none;
+          font-family: $alt-font-family!important;
+        }
+      }
+    }
+    .lads{
+      box-shadow: $lads-box-shadow;
+      margin: 0 0 12px;
+      padding: 0;
+    }
+}

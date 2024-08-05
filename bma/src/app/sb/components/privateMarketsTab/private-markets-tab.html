@@ -1,0 +1,49 @@
+<div data-crlat="tab.showPrivateMarketsModule">
+  <div class="private-markets heuristic-container" data-crlat="accordionsList">
+    <loading-screen [displayed]="!events" [templateType]="'GENERIC'"></loading-screen>
+    <div *ngFor="let event of events; trackBy:trackEventsByFn;">
+      <ng-container *ngFor="let market of event.markets; trackBy:trackMarketsByFn;">
+        <div>
+          <accordion [accordionTitle]="market.marketName"
+                     [isExpanded]="isExpanded"
+                     [card]="true"
+                     *ngIf="market.outcomes.length">
+            <right-side *ngIf="market.cashoutAvail === 'Y'">
+              <cashout-label></cashout-label>
+            </right-side>
+            <accordion-body>
+              <ng-container *ngFor="let outcome of market.outcomes; trackBy:trackOutcomesByFn; let i = index;">
+                <div class="odds-card" *ngIf="market.allShown || i < maxElements" data-crlat="oddsCard">
+                  <div class="odds-content">
+                    <div class="odds-left" data-crlat="oddsLeft">
+                      <svg class="private-market-icon" data-crlat="privateMarketIcon">
+                        <use xlink:href="#private-market"></use>
+                      </svg>
+                      <div class="odds-names" data-crlat="outcome.name">{{ outcome.name }}</div>
+                    </div>
+                    <div class="odds-right" data-crlat="oddsRight">
+                      <price-odds-button [event]="event"
+                                         [market]="market"
+                                         [outcome]="outcome"
+                                         [gtmModuleTitle]="'private markets'"
+                                         data-crlat="marketsGroup.eventEntity"></price-odds-button>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <show-all-button
+                (click)="market.allShown = !market.allShown"
+                *ngIf="market.outcomes.length > maxElements"
+                [allShown]="market.allShown"
+                data-crlat="showAllButton">
+              </show-all-button>
+            </accordion-body>
+          </accordion>
+        </div>
+      </ng-container>
+    </div>
+    <div class="term-conditions-link" *ngIf="events">
+      <a [routerLink]="['/private-markets', 'terms-conditions']" [i18n]="'sb.termsAndConditionsLabel'" data-crlat="termsAndConditions"></a>
+    </div>
+  </div>
+</div>

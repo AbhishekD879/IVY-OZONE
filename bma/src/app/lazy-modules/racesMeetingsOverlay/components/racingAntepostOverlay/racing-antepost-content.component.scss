@@ -1,0 +1,156 @@
+@import 'global.variables.scss';
+
+::ng-deep {
+
+  .racing-event-desktop { 
+    .meeting-selector { 
+      .coupons-list {
+        &.desktop-list {
+          &.active{
+            background: $color-gray-dark !important;
+            right: 0px !important;
+            max-width: 351px !important;
+          }
+        }
+      }
+    }
+  }
+  .future-meetings {      
+    .switchers {
+        .switch-btn {
+            color: $antepost-btn !important;
+            font-weight: 400 !important;
+
+            &.active {
+                font-weight: 700 !important;
+            }
+        }
+    }
+
+    .page-container {
+        .container-content {
+            .list-card-name {
+                color: $color-gray-dark !important;
+            }
+        }
+    }
+
+    .page-container {
+        .container-header {
+            .header-title {
+                color: $bch-blue !important;
+            }
+        }
+    }
+
+    &.hr-desktop-fm-layout {
+      &.hr-desktop-fm-coral-layout {
+        .container-content {
+            background: $fb-scorebox-border !important;
+        }
+        .page-inner {
+          background: $bch-blue !important;
+        }
+        .accordion-header .accordion-title {
+          font-family: 'Lato' !important;
+          font-weight: 700;
+          font-size: 11px;
+        }
+        .switchers {
+          background: $bch-blue !important;
+          padding: 4px 6px;
+          &.no-paddings {
+            margin: 0px !important;
+          }
+          .scroll-container {
+            background: $fb-scorebox-border !important;
+          }
+          .switch-btn {
+            font-family: 'Lato' !important;
+            background: $fb-scorebox-border !important;
+            font-weight: 400;
+            color: $rock-blue !important;
+            border-bottom: none !important;
+            font-size: 11px;
+            &.active {
+              font-weight: 700;
+              color: $color-white !important;
+              border-bottom: 3px solid $color-white !important;
+              &::after {
+                background: $color-white !important;
+              }
+            }
+          }
+        }
+        list-card {
+          font-family: 'Lato' !important;
+          background-color: $fb-scorebox-border !important;
+          color: $color-white !important;
+          border-bottom: 1px solid $color-white-light-grey-byb !important;
+          border-top: none !important;
+          padding: 12px 17px !important;
+          &:last-child {
+            border-bottom: none !important;
+          }
+          .list-card-date {
+            font-size: 11px;
+            font-weight: 400 !important;
+            order: 0 !important;
+            margin-top: 10px !important;
+            text-transform: capitalize;
+          }
+          .list-card-name {
+            font-size: 13px;
+            color: $color-white !important;
+            font-weight: 700 !important;
+            overflow: visible !important;
+          }
+          &::after {
+            visibility: hidden !important;
+          }
+  
+        }
+        .chevron {
+          &:after,&:before {
+            background: $color-white !important;
+          }
+        }
+        .accordion-header{
+          background: $bch-blue !important;
+          color: $color-white;
+          border-bottom: 0.5px solid $header-border-grey-dark;
+          border-top: 0.5px solid $header-border-grey-dark;
+        }
+        .accordion, .top-accordion{
+          margin: 0px !important;
+        }
+        accordion{
+          margin-bottom: 0px !important;
+        }
+      }
+
+      &.gh-desktop-fm-coral-layout {
+        .accordion-header .accordion-title {
+          font-weight: 700;
+        }
+        list-card {
+          padding: 12px 17px !important;
+          .list-card-date {
+            font-size: 12px !important;
+            font-weight: 400;
+          }
+          .list-card-name{
+            color: $color-white !important;
+            font-weight: 700;
+          }
+        }
+        .switchers {
+          margin-bottom: 0px !important;
+          .switch-btn {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+}

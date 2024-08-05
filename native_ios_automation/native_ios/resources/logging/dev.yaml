@@ -1,0 +1,27 @@
+version: 1
+disable_existing_loggers: False
+loggers:
+  native_ios_logger:
+    level: DEBUG
+    handlers: [console]
+  requests.packages.urllib3:
+    propagate: True
+    level: DEBUG
+  selenium.webdriver.remote.remote_connection:
+    level: WARNING
+    handlers: [console]
+  faker.factory:
+    level: ERROR
+    handlers: [console]
+  chardet.charsetprober:
+    level: ERROR
+    handlers: [console]
+formatters:
+  default:
+    format: '%(asctime)s.%(msecs)03d: %(levelname)-8s %(name)s.%(module)s.%(funcName)-10s %(message)s'
+    datefmt: '%Y-%m-%d %H:%M:%S'
+handlers:
+  console:
+    class : logging.StreamHandler
+    formatter: default
+    level   : DEBUG

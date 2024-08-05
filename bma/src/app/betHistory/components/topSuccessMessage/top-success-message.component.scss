@@ -1,0 +1,25 @@
+@import 'global.variables.scss';
+
+.top-success-message {
+  @include display-flex();
+  @include align-items(center);
+  margin: $bh-top-success-message-margin;
+  font-size: $font-size-tablet;
+  font-family: $bh-top-success-message-font;
+  color: $bh-top-success-message-color;
+}
+
+.cashed-out-mark {
+  width: $cashed-out-mark-size;
+  height: $cashed-out-mark-size;
+}
+
+.cashed-out-label {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+.cashed-out-value {
+  font-weight: bold;
+}
+

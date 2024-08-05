@@ -1,0 +1,34 @@
+<div class="competition-view">
+  <!-- Each Way terms -->
+<div class="competition-terms-before-market">
+    <div class="competition-term-value" [textContent]="this.market?.terms || this.market.name"
+    *ngIf="this.market?.terms || this.market.name"></div>
+    <div class="competition-term-value" [textContent]="setHeader()"></div>
+  </div>
+
+  <div class="competition-view-container" [ngClass]="{'two-columns': isTwoColumns()}">
+    <div class="odds-card competition-view"
+         *ngFor="let outcomeEntity of limitTo(market.outcomes); trackBy: trackByFn;">
+      <div class="odds-content">
+        <svg class="flag" *ngIf="outcomeEntity.participants.HOME.svgId">
+          <use [attr.xlink:href]="outcomeEntity.participants.HOME.svgId"></use>
+        </svg>
+        <div class="odds-names" [textContent]="getOutcomeName(outcomeEntity.participants)"></div>
+
+        <price-odds-button class="odds-btn"
+                           [event]="eventEntity"
+                           [market]="market"
+                           [outcome]="outcomeEntity"
+                           [gtmModuleTitle]="gtmModuleTitle">
+        </price-odds-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="all-selections-container" *ngIf="outcomesCount > maxDisplay">
+    <a class="see-all-selections"
+       (click)="expandSelections()">
+      <span class="label" [i18n]="limit ? 'bigcompetitions.showMore' : 'bigcompetitions.showLess'"></span>
+    </a>
+  </div>
+</div>

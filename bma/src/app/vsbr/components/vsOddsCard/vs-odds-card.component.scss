@@ -1,0 +1,55 @@
+@import 'global.variables.scss';
+
+.col-bordered{
+  .col-inner .col-name {
+    padding-bottom: 45px;
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: $font-size-md;
+  }
+  &:nth-child(2) .col-inner.col-vertical:last-child {
+    border-bottom: 1px solid $color-gray;
+  }
+}
+
+.virtual-silk {
+  margin-right: 8px;
+}
+
+.odds-card {
+  box-shadow: none;
+  &:first-child {
+    border-top: none;
+  }
+  .odds-names {
+    padding: 0;
+    font-family: $alt-font-family;
+    font-weight: 500;
+  }
+
+  &-header {
+    height: 35px;
+    background: $color-white;
+    .odds-header-title {
+      font-weight: normal;
+      text-transform: uppercase;
+    }
+  }
+
+  &-column {
+    .odds-card-header {
+      @include justify-content(center);
+      border-bottom: 1px solid $color-gray;
+      border-top: none;
+    }
+
+    .col-xs.cols-3 {
+      @include flex(0, 0, 33.3%);
+      max-width: 33.3%;
+    }
+  }
+
+  .odds-side {
+    font-size: $font-size-lg;
+  }
+}

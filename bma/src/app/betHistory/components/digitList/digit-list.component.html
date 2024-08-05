@@ -1,0 +1,9 @@
+<ng-container *ngIf="!isAndroidWrapper">
+  <div class="list" [ngStyle]="{transform: 'translateY(' + offset + 'px)'}">
+    <span *ngFor="let digit of digits; trackBy: trackByIndex"
+          class="live-scores-digit"
+          [textContent]="digit"
+          [attr.data-crlat]="'scoreDigit-' + number"></span>
+  </div>
+</ng-container>
+<span *ngIf="isAndroidWrapper" [textContent]="number"></span>

@@ -1,0 +1,88 @@
+<breadcrumbs *ngIf="marketLink" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="marketLink">
+  <div class="header">
+    <h2>Edit Market Link: <span class="font-italic">{{marketLink.marketName}}</span></h2>
+    <create-updated-at-by [collection]="marketLink"></create-updated-at-by>
+    <header-activity-badge [state]="!marketLink.enabled"></header-activity-badge>
+  </div>
+</div>
+<div class="card" *ngIf="marketLink">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox color="primary"
+          [checked]="marketLink.enabled"
+          (change)="marketLink.enabled = !marketLink.enabled">
+          Active for Market Link
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-2">
+        <span class="mat-label">Market Name</span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !marketLink.marketName && !isCorrectName(marketLink.marketName)}">
+          <input matInput placeholder="Market Name" [(ngModel)]="marketLink.marketName" [value]="marketLink.marketName" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!marketLink.marketName">Market Name should be entered</mat-hint>
+          <mat-hint class="col-red" *ngIf="marketLink.marketName && !isCorrectName(marketLink.marketName)">Name needs to start with letters</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row ">
+      <div class="col-md-2">
+        <span class="mat-label">Link Name</span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !marketLink.linkName && !isCorrectName(marketLink.linkName)}">
+          <input matInput placeholder="Link Name" [(ngModel)]="marketLink.linkName" [value]="marketLink.linkName" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!marketLink.linkName">Link Name should be entered</mat-hint>
+          <mat-hint class="col-red" *ngIf="marketLink.linkName && !isCorrectName(marketLink.linkName)">Name needs to start with letters</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row ">
+      <div class="col-md-2">
+        <span class="mat-label">Tab key</span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !marketLink.tabKey}">
+          <mat-select required placeholder="Tab key" [(ngModel)]="marketLink.tabKey">
+            <mat-option *ngFor="let tabKey of tabKeys" [value]="tabKey">
+              {{ tabKey }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row ">
+      <div class="col-md-2">
+        <span class="mat-label">Overlay key</span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !marketLink.overlayKey}">
+          <mat-select required placeholder="Overlay key" [(ngModel)]="marketLink.overlayKey">
+            <mat-option *ngFor="let overlayKey of overlayKeys" [value]="overlayKey">
+              {{ overlayKey }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="getDataError">
+  <div class="body">
+    Failed to load Market Link data
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="marketLink"
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'marketName'"
+  [collection]="marketLink"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

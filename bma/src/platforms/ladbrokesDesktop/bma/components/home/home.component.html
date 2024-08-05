@@ -1,0 +1,58 @@
+<ng-container *ngIf="!state.loading && !state.error" data-crlat="accordionsList" class="home">
+  <div class="banner-block" data-crlat="bannerBlock">
+    <!--- Banners Section-->
+    <lazy-component 
+        moduleUri="@lazy-modules-module/banners/banners.module#BannersModule"
+        [inputs]='{ page: bannerHome}' data-crlat="bannersSection"></lazy-component>
+  </div>
+  <!-- Fanzone Banner  -->
+  <lazy-component *ngIf="user.status && isFanzoneEnabled" moduleUri="@lazy-modules-module/fanzone/fanzone-shared.module#FanzoneSharedModule"
+  entryComponent="FanzoneBannerComponent">
+  </lazy-component>
+  <!-- Fanzone Banner -->
+
+  <!--- Free Ride module -->
+  <lazy-component *ngIf="user.status && bonusSuppressionService.checkIfYellowFlagDisabled('freeRide') && bonusSuppressionService.checkIfYellowFlagDisabled('freeRide') && freeRideHelperService.showFreeRide()" 
+    moduleUri="@lazy-modules-module/freeRide/freeRide.module#FreeRideModule" 
+    entryComponent="LadsDeskLaunchBannerComponent"
+    [inputs]="{config:'HOME'}">
+  </lazy-component>
+
+  <!--- Enhanced multiples section -->
+  <enhanced-multiples-carousel *ngIf="isEnhancedMultiplesEnabled" [isHomePage]="true" data-crlat="tab.showEnhancedMultiples"></enhanced-multiples-carousel>
+  <!--- private-markets section -->
+  <private-markets data-crlat="tab.showPrivateMarkets"></private-markets>
+  <ng-container *ngFor="let module of moduleOrder">
+    <!--- in-play-live-stream section -->
+      <!-- <inplay-live-stream *ngIf="module[0]==='inPlay'"></inplay-live-stream> -->
+      <ng-container *ngIf="module[0]==='inPlay'">
+        <lazy-component moduleUri="@inPlayLiveStream/inplay-live-stream.module#InplayLiveStreamModule"
+        entryComponent="InPlayLiveStreamComponent">
+        </lazy-component>
+      </ng-container>
+    <!--- Next 4 race module -->
+    <ng-container *ngIf="!isGermanUser && module[0]==='nextRace'">
+      <lazy-component moduleUri="@lazy-modules-module/nextRaces/next-races.module#NextRacesModule"
+      [inputs]="{moduleType: 'horseracing',trackGaDesktop:true,showLoader: true,
+          fluid: true, hostContext:'featured-races', moduleAllLink: true, compName:'home'}"
+      entryComponent="LadbrokesNextRacesModuleComponent" data-crlat="tab.showNextRacesModuleDesktop">
+      </lazy-component>
+  </ng-container>
+    <lazy-component *ngIf="showRibbon() && module[0]==='yourCall'" moduleUri="@yourCallModule/your-call.module#YourCallModule"
+      entryComponent="DesktopBybHomeComponent" data-crlat="tab.showBYBModule">
+    </lazy-component>
+  
+    <!--- Featured Modules -->
+    <lazy-component *ngIf="module[0]==='featured'" moduleUri="@featuredModule/featured.module#FeaturedModule"
+                      data-crlat="tab.showFeaturedContent">
+    </lazy-component>
+  </ng-container>
+
+  <lazy-component moduleUri="@lazy-modules-module/quickLinks/quick-links.module#QuickLinksModule"
+  [inputs]="{applyCss: true}" entryComponent="QuickLinksComponent">
+  </lazy-component>
+</ng-container>
+
+<outlet-status [state]="state">
+  <request-error (reloadFn)="reloadComponent()"></request-error>
+</outlet-status>

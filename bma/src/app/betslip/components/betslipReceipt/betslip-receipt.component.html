@@ -1,0 +1,108 @@
+<div class="sk-container" [ngClass]="{'sk-loading': !loadComplete && !loadFailed, 'widget': isTablet}">
+  <loading-screen [displayed]="!loadComplete && !loadFailed" [templateType]="'GENERIC_BET'"
+    [isUsedFromWidget]="isTablet" data-crlat="spinner.loader"></loading-screen>
+  <div *ngIf="loadComplete && !loadFailed" class="bs-receipt-wrapper" data-crlat="betslipReceipt">
+    <div class="bs-content" [class.bs-content-height]="isDesktop">
+      <div class="bs-selections-wrapper scrollable-content" data-crlat="betreceiptSectionsContainer"
+        [ngStyle]="{'max-height': bsMaxHeight}">
+        <ds-betslip-link></ds-betslip-link>
+
+        <ng-container *ngIf="!isAllBetsDeclined">
+          <receipt-header [betDate]="betDate"></receipt-header>
+
+          <betslip-receipt-subheader [events]="allEvents" [isFootballAvailable]="isFootballAvailable"
+            [counter]="receiptsCounter">
+          </betslip-receipt-subheader>
+        </ng-container>
+
+       <ng-container *ngIf="!isLottoBets()">
+        <lazy-component *ngIf="racingPostData && enableRacingPostTip()"
+          moduleUri="@lazy-modules-module/racingPostTip/racing-post-tip.module#RacingPostTipModule" [inputs]="{mainBetReceipts: allReceipts?.singles, multiReceipts: allReceipts?.multiples,
+          racingPostTipTime: racingPostTipTime,racingPostData: racingPostData,
+          racingPostToggle: racingPostToggle, isNextRacesData: isNextRacesData}" [outputs]="['racingPostGTM']" (event)="onRacingPostGTMEvent($event)">
+        </lazy-component>
+
+        <betslip-singles-receipt *ngIf="isSingles()" [singleReceipts]="allReceipts.singles"
+          (winAlertsToggleChanged)="toggleWinAlerts($event)" [winAlertsActive]="winAlertsActive"
+          [winAlertsEnabled]="winAlertsEnabled">
+        </betslip-singles-receipt>
+        <betslip-multiples-receipt *ngIf="isMultiples()" [multiReceipts]="allReceipts.multiples"
+          [winAlertsEnabled]="winAlertsEnabled" [winAlertsActive]="winAlertsActive"
+          (winAlertsToggleChanged)="toggleWinAlerts($event)">
+        </betslip-multiples-receipt>
+      </ng-container>
+      
+      <lazy-component *ngIf="isLottoBets()"
+        moduleUri="@lazy-modules-module/lottoBetSlip/lotto-betslip.module#LottoBetslipModule"
+        entryComponent="LottoBetReceiptComponent"
+        [inputs]="{lottobetslipData:getAllBets(allReceipts), winAlertsEnabled: winAlertsEnabled}"
+        [outputs]="['winAlertsToggleChanged']"
+        (event)="toggleWinAlertsHandler($event)">
+      </lazy-component>
+       
+        <lazy-component *ngIf="isBPMPFreeBetToken" moduleUri="@lazy-modules-module/bpmpFreeTokens/bpmp-tokens.module#BpmpFreeBetTokensModule">
+        </lazy-component>
+        <!--- Bet Slip Footer -->
+        <div class="bs-scrolling-fix-ios bs-footer-anchoring bs-anchoring-fix-ios">
+          <lazy-component *ngIf="onBoardingData?.tutorialEnabled"
+          moduleUri="@lazy-modules-module/onBoardingTutorial/firstBetPlacement/first-bet-placement.module#OnBoardingFirstBetModule"
+          entryComponent="OnBoardingFirstBetComponent" [inputs]="{onBoardingData: onBoardingData, changeStrategy: changeStrategy}">
+          </lazy-component>
+          <div class="scrollable-content prevented-container">
+            <div class="bs-footer" data-crlat="bsFoot">
+              <bs-notification *ngIf="message && message.msg" [bsType]="message.type" [bsPosition]="'bottom'"
+                [bsMessage]="message.msg">
+              </bs-notification>
+
+              <!-- Total panel -->
+              <betslip-total-wrapper *ngIf="!isAllBetsDeclined" [totalFreeBetsStake]="freeBetsStake"
+                [totalStake]="(totalStake || '0.00' | currency:currencySymbol:'code')"
+                [totalReturns]="(totalEstimatedReturns | currency:currencySymbol:'code') || 'N/A'"
+                [freeBetLabelText]="getFreebetLabelText()"
+                [isBetReceipt]="true" [multiReceipts]="allReceipts.multiples">
+              </betslip-total-wrapper>
+
+              <div class="bs-buttons-wrapper">
+                <button *ngIf="!overask.isInFinal" class="base-btn reuse-selection-btn" (click)="reuse()"
+                  [disabled]="reusePending" data-crlat="reuseButton">
+                  <spinner *ngIf="reusePending"></spinner>
+                  <span *ngIf="!reusePending" [i18n]="'bs.reuseSelection'"></span>
+                </button>
+                <button class="base-btn {{overask.isInFinal ? 'wide' : 'done'}}-btn" (click)="done()"
+                  data-crlat="doneButton">
+                  <span [i18n]="'bs.done'"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <lazy-component *ngIf="nextRacesToBetslipToggle"
+          moduleUri="@lazy-modules-module/nextRacesToBetslip/nextraces-to-betslip.module#NextRacesToBetslipModule"
+          [inputs]="{mainBetReceipts: allReceipts?.singles, multiReceipts: allReceipts?.multiples, racingPostData: racingPostData,
+            isNextRacesData: isNextRacesData, changeStrategy: changeStrategy}">
+        </lazy-component>
+        <ng-container *ngIf= "bsReceiptBannerImages && bsReceiptBannerImages.length">
+          <ng-container *ngFor="let bsReceiptBannerImage of bsReceiptBannerImages">
+            <div *ngIf="bsReceiptBannerImage.imageSrc" class="bs-receipt-banner">
+              <a (click)="trackSiteCoreBanners(bsReceiptBannerImage.bannerName)" class="bs-receipt-banner__link" [href]="bsReceiptBannerImage.imageHref">
+                <img class="bg-image bs-receipt-banner__image" alt="banner-img"
+                  [attr.src]="bsReceiptBannerImage.imageSrc">
+              </a>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+<request-error *ngIf="loadFailed" [loadFailed]="loadFailed" (reloadFn)="reloadComponent()" ></request-error>
+</div>
+
+<ng-container *ngIf="isBPMPFreeBetToken && !onBetReceiptOverlaySeen && isUserLoggedIn && isMobile">
+  <lazy-component moduleUri="@lazy-modules-module/betpackOnboarding/betpack-onboarding.module#BetpackOnBoardingModule"
+    entryComponent="BetpackOnboardingComponent" 
+    [inputs]="{storageKey: storageKey, onBoardingType: onBoardingType, changeStrategy: changeStrategy }"
+    [outputs]="['closeOnboardingEmitter']"
+    (event)="handleOnBoardingEvents($event)">
+  </lazy-component>
+</ng-container>

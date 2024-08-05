@@ -1,0 +1,56 @@
+<div class="race-grid" data-crlat="accordionsList">
+  <section class="rg-section" *ngFor="let meeting of meetings" data-crlat="raceGrid.sectionRace">
+    <header class="rg-header">
+      <svg class="rg-icon">
+        <use [attr.xlink:href]="raceTypeIcon()"></use>
+      </svg>
+      <span class="rg-title" [textContent]="meeting.name" data-crlat="raceGrid.meeting.name"></span>
+      <cashout-label *ngIf="meeting.cashoutAvail"></cashout-label>
+    </header>
+    <div class="tabs-panel tabs-bottom" data-crlat="panel.tabs">
+      <div class="scroll-container" scrollable>
+        <ul class="scroll-inner">
+          <li [attr.data-eventid]="eventEntity.id" *ngFor="let eventEntity of orderEvents(meeting)"
+              data-crlat="raceGrid.event"
+              class="race-grid-event"
+              [ngClass]="{ 'race-resulted': eventEntity.isResulted }">
+            <a class="tab"
+               [routerLink]="genEventDetailsUrl(eventEntity)" click-link data-crlat="tab">
+              <!--TODO: DKHilchuk click-link-->
+                <span class="race-time" [textContent]="eventEntity.localTime"
+                      [ngClass]="{'text-bold': isLpAvailable(eventEntity)}"
+                      data-crlat="raceGrid.raceTime">
+                </span>
+              <svg class="race-icon" data-crlat="raceGrid.iconRace" *ngIf="eventEntity.isResulted">
+                <use xlink:href="#result-post"></use>
+              </svg>
+            </a>
+            <!-- Promotional signposting -->
+            <!--<div oc-lazy-load="['promotions']">-->
+              <promotion-icon
+                class="tabs-panel-promotion-icon"
+                [type]="'event'"
+                [display]="eventEntity.drilldownTagNames"
+                data-crlat="promotionIcons">
+              </promotion-icon>
+           <!-- </div>-->
+          </li>
+        </ul>
+      </div>
+    </div>
+    <footer class="rg-footer">
+      <time [textContent]="getFullDate()" data-crlat="raceGrid.getFullDate"></time>
+      <svg class="rg-stream-icon" *ngIf="meeting.liveStreamAvailable"
+           data-crlat="raceGrid.iconStream">
+        <use xlink:href="#stream"></use>
+      </svg>
+      <span class="rg-stream-text" [i18n]="'app.watchLive'"
+            *ngIf="meeting.liveStreamAvailable"
+            data-crlat="raceGrid.liveStream"></span>
+    </footer>
+  </section>
+  <small *ngIf="raceType !== 'tote'" class="rd-legend" data-crlat="section.boldPriced">
+    <strong [i18n]="'sb.bold'" data-crlat="bold"></strong>
+    <span [i18n]="'sb.priced'" data-crlat="priced"></span>
+  </small>
+</div>

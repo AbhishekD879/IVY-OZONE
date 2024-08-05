@@ -1,0 +1,11 @@
+<ng-container *ngIf="showAnimatedDigit; else staticDigit">
+  <span *ngFor="let digit of digits; trackBy: trackByIndex"
+        class="live-scores-digit"
+        [ngClass]="'digit-' + digit"
+        data-crlat="scoreDigit"
+        [textContent]="digit">
+  </span>
+</ng-container>
+<ng-template #staticDigit>
+  <span data-crlat="scoreDigit" [textContent]="number"></span>
+</ng-template>

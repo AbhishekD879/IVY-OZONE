@@ -1,0 +1,136 @@
+@import 'global.variables.scss';
+
+.draw-result-sec {
+  display: flex;
+  border-bottom: 1px solid $color-platinum-light;
+  padding-left: 40px;
+  line-height: normal;
+  font-family: $lotto-base-font-family;
+  color: $lotto-mybets-draws-color;
+
+  .lotto-draw-name{
+    font-size: $lotto-draw-lable-font;
+  }
+
+  .lotto-draw-time {
+    @include lotto-draw-time();
+    &.lads-text{
+       color: #777777 !important ;
+    }
+  }
+  .drawResults{
+    font-size: $lotto-drawResults-font;
+  }
+
+  .lotto-balls {
+      padding: 0;
+      list-style: none;
+      margin: 0;
+      display: flex;
+      
+      .lotto-ball-res {
+        width: 25px;
+        height: 25px;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        margin-right: 12px;
+        border-radius: 20px;
+        text-align: center;
+        background: $lotto-ball-bg-color;
+        color:$lotto-mybets-draws-color;
+        font-family: $base-font-family;
+      }
+  }
+
+  .draw-result {
+    padding: 8px 8px 8px 8px;
+    margin: 1px 0px;
+
+    .line-draw {
+      padding-bottom: 8px;
+        li{
+           &.success {
+            border:1.5px solid $color-green;
+            line-height: 23px;
+          }  
+      }   
+    }
+  }
+  .balls-wrapper {
+    position: relative;
+  }
+  .bet-status-container {
+    min-width: 26px;
+    position: absolute !important;
+    left: -25px;
+    display: inline-block;
+    top: 6px;
+    height: 26px;
+    .bet-status {
+      @include leg-status();
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    &.won,
+    &.lost, 
+    &.open {
+      max-width: 26px;
+      position: relative;
+
+      .bet-status {
+        display: none;
+      }
+    }
+    &.won {
+      &:after {
+        content: '';
+        display: block;
+        width: 6px;
+        height: 12px;
+        border: solid $color-green;
+        border-width: 0 2px 2px 0;
+        @include transform(rotate(45deg));
+        
+      }
+    }
+    &.open {
+      &:after {
+        content: '';
+        display: block;
+        width: 6px;
+        height: 6px;
+        margin-top: 4px;
+        border-radius:10px;
+        background-color:$lotto-draw-open-bg;     
+      }
+    }
+
+    &.lost {
+
+      &:before,
+      &:after {
+        position: absolute;
+        content: ' ';
+        height: 13px;
+        width: 2px;
+        background-color: $lotto-draw-lost-bg;
+      }
+
+      &:before {
+        @include transform(rotate(45deg));
+      }
+
+      &:after {
+        @include transform(rotate(-45deg));
+      }
+    }
+  }
+  .returned-line {
+    font-size: $lotto-drawResults-font;
+  }
+
+}

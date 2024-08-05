@@ -1,0 +1,449 @@
+/* Global styles */
+@import 'global.variables.scss';
+
+$qb-content-side-padding: 15px;
+$qb-small-font-size: 11px;
+$qb-large-font-size: 14px;
+$qb-outcome-name-height: 13px;
+$qb-medium-font-size: 12px;
+$qb-input-with: 80px;
+$qb-input-border-radius: 2px;
+$qb-default-input-border: 1px solid rgba($color-gray-dark, 0.35);
+
+/* Quickbet content */
+.quickbet-content {
+  background: $color-white;
+  @include display-flex();
+  @include flex-direction(column);
+  padding: 15px $qb-content-side-padding;
+
+  &.suspended {
+    select {
+      opacity: .5;
+    }
+
+    form,
+    input,
+    select {
+      pointer-events: none;
+    }
+
+    .qb-stake-section {
+      .stake span,
+      .odds-label,
+      .odds-value {
+        font-weight: 700;
+        color: lighten($color-gray-dark, 50%);
+      }
+
+      .each-way .each-way-label {
+        color: lighten($color-gray-dark, 50%);
+        font-weight: normal;
+      }
+    }
+  }
+
+  .quickbet-sectionwrap {
+    width: 100%;
+    @include display-flex();
+
+    .yc-content-info {
+      -webkit-box-flex: 1 1 auto;
+      -webkit-flex: 1 1 auto;
+      -ms-flex: 1 1 auto;
+      -moz-flex: 1 1 auto;
+      flex: 1 1 auto;
+      max-height: 250px;
+      margin-right: 0;
+
+      @media #{$mqDesktop}{
+        max-height: 350px;
+      }
+
+      & + .qb-stake-section {
+        width: auto;
+      }
+    }
+  }
+
+  /*// if quick bet is for racing:*/
+  .qb-stake-section .odds-select {
+    color: $color-gray-dark;
+    font-size: $qb-small-font-size;
+  }
+  .qb-content-info{
+    width: 50%;
+    &.odd-boost-active {
+      width: 40%;
+      @media #{$mqSmallMobile} {
+        width: 30%;
+      }
+    }
+    .outcome-name {
+      overflow: hidden;
+    }
+  }
+
+  .qb-stake-section {
+    @include display-flex;
+    @include align-items(baseline);
+    @include justify-content(flex-end);
+    @include align-self(baseline);
+    text-align: right;
+    font-weight: normal;
+    font-size: $qb-medium-font-size;
+    width: 60%;
+    @media #{$mqSmallMobile} {
+      width: 75%;
+    }
+  }
+  .outcome-name,
+  .market-name,
+  .event-name {
+    margin: 0 0 6px;
+    color: $color-gray-dark;
+    line-height: normal;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .outcome-name {
+    font-weight: bold;
+    font-size: $qb-large-font-size;
+  }
+  .market-name {
+    font-size:  $qb-medium-font-size;
+    color: rgba($color-gray-dark, 0.65);
+    margin-bottom: 3px;
+    font-weight: normal;
+  }
+  .event-name {
+    font-weight: normal;
+    font-size:  $qb-medium-font-size;
+  }
+
+  .each-way {
+    margin-top: 8px;
+
+    .each-way-label {
+      font-size: $qb-medium-font-size;
+      color: rgba($color-gray-dark, 0.75);
+      text-transform: capitalize;
+    }
+    .each-way-checkbox:not(:checked),
+    .each-way-checkbox:checked {
+      position: absolute;
+      left: -9999px;
+    }
+    .each-way-checkbox:not(:checked) + label,
+    .each-way-checkbox:checked + label {
+      position: relative;
+      padding-left: 19px;
+      padding-top: 4px;
+      cursor: pointer;
+      font-size: $qb-medium-font-size;
+      font-weight: 400;
+      color: $color-gray-dark;
+      top: 2px;
+      right: -5px;
+    }
+    .each-way-checkbox:not(:checked) + label:before,
+    .each-way-checkbox:checked + label:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 1px;
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(0deg, #FFFFFF, #FFFFFF), rgba(65, 73, 78, 0.05);
+      border: 1px solid rgba(65, 73, 78, 0.35);
+      box-shadow: inset 4px 4px 7px rgba(162, 162, 162, 0.0579144);
+      border-radius: 2px;
+    }
+    .each-way-checkbox:not(:checked) + label:after,
+    .each-way-checkbox:checked + label:after {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 6px;
+      width: 12px;
+      height: 7px;
+      border: 0;
+      border-left-width: 2px;
+      border-bottom-width: 2px;
+      border-style: solid;
+      border-color: rgba($color-gray-dark, 0.7);
+      @include transform(skewX(-12deg) rotate(-51deg));
+    }
+    .each-way-checkbox:not(:checked) + label:after {
+      opacity: 0;
+    }
+    .each-way-checkbox:checked + label:after {
+      opacity: 1;
+    }
+    .each-way-checkbox:disabled:not(:checked) + label:before,
+    .each-way-checkbox:disabled:checked + label:before {
+      box-shadow:none;
+      border-color: $color-gray;
+      background-color: $color-gray;
+    }
+    .each-way-checkbox:disabled:checked + label:after {
+      border-color: lighten($color-gray-dark, 50%);
+    }
+    .each-way-checkbox:disabled + label {
+      color: lighten($color-gray-dark, 50%);
+    }
+  }
+
+  .qb-stake-section {
+
+    odds-boost-price {
+      margin-left: 4px;
+    }
+
+    .stake-label,
+    .odds-label {
+      color: $color-gray-dark;
+      text-transform: capitalize;
+      font-weight: normal;
+      font-size: $qb-small-font-size;
+    }
+
+    .odds-label {
+      color: lighten($color-gray-dark, 50%);
+    }
+
+    .input-stake-label {
+      position: relative;
+      left: 19px;
+      font-size: 14px;
+      &.filled-input:before {
+        color: $color-gray-dark;
+        font-size: $qb-small-font-size;
+      }
+    }
+    .odds {
+      font-weight: normal;
+      font-size: $qb-medium-font-size;
+      margin-bottom: 10px;
+      @include display-flex();
+      @include align-items(baseline);
+      @include justify-content(flex-end);
+      margin-right: 5px;
+      @media #{$mqSmallMobile} {
+        margin-right: 0;
+      }
+    }
+
+    .odds-value {
+      color: $color-gray-dark;
+      font-weight: bold;
+      font-size: $qb-large-font-size;
+
+      &.crossed {
+        text-decoration: line-through;
+        font-family: $base-font-family;
+        font-size: $qb-small-font-size;
+        font-weight: normal;
+        color: lighten($color-gray-dark, 25%);
+        margin-right: 6px;
+      }
+    }
+
+    .stake {
+      position: relative;
+      display: inline-block;
+    }
+    .stake span {
+      font-weight: normal;
+      font-size: $qb-small-font-size;
+      text-transform: capitalize;
+    }
+
+    .odds-select {
+      height: auto;
+      font-size: $qb-large-font-size;
+      padding: 0 23px 0 0;
+    }
+
+    .stake-input {
+      display: inline-block;
+      outline: none;
+      height: 35px;
+      width: $qb-input-with;
+      border-radius: $qb-input-border-radius;
+      background: $color-white;
+      font-weight: normal;
+      font-size: $qb-large-font-size;
+      margin-left: 5px;
+      @include appearance(none);
+
+      line-height: 30px;
+      padding: 0 9px 0 19px;
+      border: $qb-default-input-border;
+      text-align: center;
+      color: $color-gray-dark;
+      box-shadow: inset 4px 4px 7px 0 rgba($color-gray-shadow, 0.06);
+      @include custom-placeholder { font-size: $qb-large-font-size; color: $color-gray; text-align: center; font-weight: normal; };
+
+      &.dk-active-input,
+      &:focus {
+        border: $bs-stake-input-border-focused;
+        box-shadow: $bs-stake-input-shadow-focused-out, $bs-stake-input-shadow-focused-in;
+      }
+      &.invalid {
+        border-color: $color-red;
+      }
+    }
+
+    .odds-select-label {
+      color: $color-gray-dark;
+      display: inline-block;
+    }
+  }
+
+  .freebet-input {
+    width: 100%;
+    margin-top: 10px;
+    position: relative;
+    &>select {
+      width: 100%;
+      height: 30px;
+      border: 1px solid $color-gray;
+      padding: 0 10px;
+      border-radius: 3px;
+      color: $color-gray-dark;
+      font-size: 11px;
+      font-weight: 700;
+      @include appearance(none);
+      background: none;
+      &:focus {
+        outline: 0 transparent;
+        box-shadow: none;
+      }
+    }
+  }
+  .stake-input-arrow {
+    position: absolute;
+    top: 7px;
+    right: 10px;
+    pointer-events: none;
+    svg {
+      width: 10px;
+      height: 6px;
+    }
+  }
+
+  .promos-boost {
+    display: flex;
+    justify-content: space-between;
+  }
+
+}
+.reboost-info {
+  padding: 0 10px;
+  background: $color-white;
+  @include display-flex();
+  @include justify-content(center);
+  @include align-items(center);
+  .alert-icon {
+    fill: $color-red;
+    margin: 6px;
+    width: 16px;
+    min-width: 16px;
+    height: 16px;
+  }
+  span {
+    font-size: 12px;
+    color: $color-gray-darkest;
+  }
+}
+
+.quickbet-boosted-price {
+  margin-left: 5px;
+}
+
+.quickbet-boost-button {
+  text-align: right;
+  margin-top: 4px;
+}
+
+/* Quickbet controls */
+.quickbet-controls {
+  .qb-quick-deposit-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.twoUpMarketContent {
+  margin-top: 3px;
+}
+
+// samsung8,9, oneplus nord and IOS 6  devices design issue reslove by @media query 
+@media screen and ( max-width: 420px ) {
+  ::ng-deep {
+    .yc-content-info {
+      flex: 1 1 !important;
+    }
+  }
+}
+
+.qb-stake-section {
+  @include flex-direction(column);
+}
+
+#quickBetEW {
+  .qb-odds-stake-wrapper {
+    @include display-flex;
+    @include justify-content(flex-end);
+    @include align-items(baseline);
+    width: 100%;
+  }
+  
+  .each-way {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+    width: 100%;
+    position: relative;
+
+    .each-way-highlight {
+      padding: 6px;
+      background: #EFEFF3;
+      display: flex;
+      flex-direction: row;
+      border-radius: 2px;
+      height: 28px;
+      line-height: 15px;
+    }
+
+    .each-way-label {
+      margin-right: 6px;
+    }
+
+    .each-way-checkbox:checked+label,
+    .each-way-checkbox:not(:checked)+label {
+      padding-left: 20px;
+      right: 0;
+      top: -3px;
+      margin: 0;
+    }
+  }
+}
+.extraplacesignpostOffer_coral{
+  padding: 2px 7px;
+  background: $color-yellow-alt;
+  text-transform: uppercase;
+  line-height: 11px;
+  border-radius: 2px;
+ @include setFontProps('Lato',9px,500,$extraPlaceMsg-color);
+   width: fit-content;
+  margin: 6px 0px;
+   @media #{$mqMobile} { 
+    width: fit-content;
+    border-radius: 2px;
+  }
+}

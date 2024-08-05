@@ -1,0 +1,58 @@
+$blue-link-color: #084D8D;
+$light-gray: #E0E2EB;
+$font-size: 10px;
+
+.root {
+    background-color: white;
+    margin-bottom: 5px;
+}
+
+.bet-token-basic {
+    min-height: 40px;
+    border-top: 1px solid $light-gray;
+    border-bottom: 1px solid $light-gray;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.bet-token-header {
+    @extend .bet-token-basic;
+    padding-left: 12px;
+    background-color: #F9FAFE;
+}
+
+.bet-token-footer {
+    @extend .bet-token-basic;
+    justify-content: center;
+    text-transform: uppercase;
+    color: $blue-link-color;
+    font-size: $font-size;
+    text-align: center;
+    line-height: 12px;
+}
+
+.bet-token-area {
+    margin: 10px 10px 0px 10px;
+}
+
+.bet-token {
+    display: flex;
+}
+
+.bet-token-name {
+    width: 100%;
+}
+
+.bet-token-usenow-link {
+    width: 20%;
+    font-weight: bold;
+    text-align: center;
+    font-size: $font-size;
+    color: $blue-link-color;
+}
+
+.bet-token-useby {
+    font-size: 12px;
+    opacity: 0.75;
+}

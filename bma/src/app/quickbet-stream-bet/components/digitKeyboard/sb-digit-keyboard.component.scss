@@ -1,0 +1,141 @@
+@import 'global.variables.scss';
+@import '../../../../assets/styles/modules/jump-vibrate-animation.scss';
+
+:host(.betslip-keyboard) {
+  .dk-key {
+    font-family: $alt-font-family;
+  }
+}
+
+.dk-keyboard {
+  width: 290px;
+  z-index: 9999;
+  overflow: hidden;
+
+  &.dk-keyboard-shown {
+    display: inline-block;
+  }
+
+  &.keyboard-slide-up {
+    opacity: 0;
+    height: 0;
+    padding: 0;
+    display: flex;
+    @include transition(height, 0.3s, cubic-bezier(0.39, 0.58, 0.57, 1));
+    border: none;
+  }
+
+  &.keyboard-slide-up.dk-keyboard-shown {
+    opacity: 1;
+    height: 168px;
+    @include transition(height, 0.4s);
+    border: none;
+  }
+
+  .dk-column {
+    margin-left: 2px;
+  }
+
+  .dk-column:first-child {
+    margin-left: 0px;
+  }
+}
+
+.dk-column {
+  width: 66px;
+  float: left;
+  text-align: center;
+}
+
+.dk-key {
+  font-family: $base-font-family;
+  background: rgba(0, 0, 0, 0.4);
+  color: $color-white;
+  width: 66px;
+  height: 40px;
+  border-radius: 2px;
+  margin: 0 0 2px 0;
+  text-align: center;
+  line-height: 38px;
+  font-size: $dk-font-size;
+  @include display-flex();
+  @include justify-content(center);
+  @include align-items(center);
+
+  svg {
+    pointer-events: none;
+  }
+}
+
+.dk-key.dk-enter {
+  height: 76px;
+  line-height: 76px;
+}
+
+.dk-key.dk-large {
+  height: 114px;
+  line-height: 114px;
+}
+
+.dk-key.dk-free-bet-coral {
+  background: $color-yellow;
+}
+
+.dk-key.dk-free-bet-sel-coral{
+  background: $color-gray-light;
+  border: 1px solid $color-yellow !important;
+}
+
+.dk-key.dk-free-bet-lads {
+  background: $color-yellow-alt;
+}
+
+.dk-key.dk-free-bet-sel-lads{
+  background: $lGrayLight;
+  border: 1px solid $color-yellow-alt !important;
+}
+
+.dk-key.disabled {
+  opacity: 0.5;
+}
+
+.dk-key.enter {
+  svg {
+    height: 21px;
+    width: 20px;
+  }
+}
+
+.dk-key.delete {
+  svg {
+    height: 16px;
+    width: 19px;
+  }
+}
+
+.dk-active-input {
+  border: 1px solid $lGray !important;
+}
+
+.dk-quick-deposit {
+  margin-left: 2px;
+  .dk-column-stake {
+    width: 66px;
+    float: left;
+    text-align: center;
+  }
+
+  .dk-key {
+    background-color: $lGray;
+    color: $color-white;
+    font-size: 15px;
+    height: 40px;
+    width: 86px;
+    line-height: 18px;
+    font-weight: 700;
+    border-top: none;
+  }
+  .coral-key-background {
+    background-color: #084076;
+  }
+}

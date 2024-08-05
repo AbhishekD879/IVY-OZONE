@@ -1,0 +1,112 @@
+
+@import 'global.variables.scss';
+
+:host {
+    ::ng-deep .modal {
+        background-color: black !important;
+        overflow-y: hidden;
+    }
+}
+
+:host {
+    ::ng-deep .modal-dialog {
+        margin: 0;
+        width: 100vh !important;
+
+        .modal-content {
+            .modal-header {
+                display: none;
+            }
+
+            .modal-body {
+                max-height: 100vh;
+                overflow-y: hidden;
+                height: 100vh;
+                background-color: black;
+
+                .path {
+                    margin-top: 10%;
+                    fill: $color-white;
+                    font-weight: bold;
+                    font-family: $robo-font-family;
+                    text-transform: uppercase;
+                }
+
+                .playerCardDescriptionPotential {
+                    font-size: 23.408pt;
+                }
+
+                .outcomeValue {
+                    font-size: 30.235pt;
+                }
+
+                .playerName {
+                    font-size: 13.654pt;
+                }
+
+                .returnsDescription {
+                    font-size: 12pt;
+                    fill: black;
+                }
+
+                .amount {
+                    font-size: 31pt;
+                    fill: black;
+                }
+
+                svg {
+                    height: 80vh;
+                }
+
+                .button.btn-secondary.lucky-dip {
+                    text-transform: uppercase;
+                    background: $color-light-green-leaf;
+                    width: 88%;
+                    padding: $sup-btn-padding;
+                    margin: 10px auto;
+                    color: $sup-btn-font;
+                    font-size: 15px;
+                    border-radius: 2px;
+                    position: fixed;
+                    bottom: 2%;
+                    &:active {
+                        background: $color-green-shine;
+                    }
+                }
+            }
+        }
+    }
+    ::ng-deep .modal {
+        @media #{$mqDesktop} {
+            width: 50%;
+            height: 85%;
+            min-height: 80%;
+            border-radius: 10px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            top: 52%;
+            .modal-dialog {
+                .modal-content {
+                    .modal-body {
+                        .path {
+                            margin-top: 2%!important;
+                            margin-left: 12%;
+                            fill: $color-white;
+                            font-weight: bold;
+                            font-family: $robo-font-family;
+                            text-transform: uppercase;
+                        }
+                        svg {
+                            height: 68vh;
+                        }
+                        .button.btn-secondary.lucky-dip {
+                            width: 341.991px;
+                            height: 44px;
+                            margin-left: 20%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

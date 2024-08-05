@@ -1,0 +1,363 @@
+@import 'global.variables.scss';
+
+$bet-finder-link-line-height: 17px;
+$bet-finder-title-size: 15px;
+$star-default-color: #e5e5e5;
+$secondary-btn-bg-color: #e6e6e6;
+
+.bet-finder-container {
+  color: $color-gray-darkest;
+  font-family: $alt-font-family;
+
+  .bf-header {
+    background: $color-white;
+    padding: 0 10px;
+    font-size: $font-size;
+
+    .bf-header-holder {
+      padding: 21px 0 15px;
+    }
+    .bf-header-title {
+      font-size: $bet-finder-title-size;
+      color: $lGray;
+      font-weight: 500;
+      margin: 0 0 9px;
+    }
+    .bf-header-text {
+      font-size: $font-size;
+      margin: 0;
+      line-height: $line-height-sm;
+    }
+
+    .bf-header-message {
+      font-size: 11px;
+      font-weight: bold;
+    }
+  }
+
+  .page-container {
+    background: $color-white;
+    box-shadow: none;
+  }
+
+  .bf-filter-holder {
+    border-bottom: 1px solid $lGrayLight;
+  }
+
+  .bf-form-container {
+    padding: 0 10px 20px;
+    position: relative;
+
+    .bf-form-part {
+      border-bottom: 1px solid $lGrayLight;
+      padding: 12px 0;
+      margin: 8px 0 0;
+
+      .bf-form-title {
+        font-size: $font-size-tablet;
+        font-weight: bold;
+        margin-bottom: 2px;
+
+        &.star-title {
+          display: inline-block;
+          margin: 0;
+        }
+      }
+
+      &.bf-form-last {
+        margin-bottom: 55px;
+        border-bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 0;
+      }
+
+      input[type="text"] {
+        height: 36px;
+        background: $color-white;
+        border: 1px solid $color-gray;
+        padding: 10px;
+        margin-top: 10px;
+        outline: 0;
+        box-shadow: 0 1px 0 $color-white;
+      }
+
+      select {
+        border: 1px solid $color-gray;
+        background: $color-white;
+      }
+
+      .custom-select {
+        margin: 10px 0 0;
+      }
+
+      .group-buttons {
+        margin: 0 -5px 0;
+        width: auto;
+
+        .group-btn {
+          max-width: 100%;
+
+          .group-col-toggle {
+            padding: 0 5px;
+            .btn {
+              height: auto;
+              font: normal #{$font-size-md}/#{$line-height-sm} $alt-font-family;
+              margin-top: 10px;
+              box-shadow: none;
+              text-shadow: none;
+              border-radius: 0;
+              padding: 10px;
+              border: 1px solid $lGrayLight;
+              color: $color-gray-darkest;
+              background: $color-white;
+              text-transform: uppercase;
+
+              &.active {
+                background: $light-grey;
+                color: $color-gray-darkest;
+                font-weight: bold;
+                border: 1px solid $light-grey;
+              }
+
+              .check-icon {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+
+      .bf-btn {
+        height: auto;
+        font: #{$font-size-md}/#{$line-height-sm} $alt-font-family;
+        margin-top: 10px;
+        box-shadow: none;
+        text-shadow: none;
+        border-radius: 0;
+        padding: 10px;
+        font-weight: normal;
+        border: 1px solid $lGrayLight;
+        color: $color-gray-darkest;
+        text-transform: uppercase;
+
+        &.disabled {
+          opacity: .4;
+        }
+        &.active {
+          background: $light-grey;
+          color: $color-gray-darkest;
+          font-weight: bold;
+          border: 1px solid $light-grey;
+        }
+
+        .check-icon {
+          display: none;
+        }
+      }
+
+      .float-section {
+        float: right;
+      }
+
+      .bf-stars {
+        cursor: pointer;
+        display: inline-block;
+        @extend .float-section;
+
+        .star-icon {
+          width: 21px;
+          height: 21px;
+          stroke: $star-default-color;
+          fill: $star-default-color;
+          margin-left: 6px;
+
+          &.active {
+            stroke: $color-yellow-alt;
+            fill: $color-yellow-alt;
+          }
+        }
+      }
+    }
+
+    .bf-buttons {
+      position: absolute;
+      bottom: 0;
+      background: $color-white;
+      margin: 0 -10px;
+      padding: 0 4px 15px;
+      text-align: center;
+
+      &.fixed {
+        position: fixed;
+        bottom: 52px;
+        box-shadow: 0px -6px 10px -4px rgba(0,0,0,0.4);
+
+        @media #{$mqDesktop} {
+          position: absolute;
+          bottom: 0;
+          box-shadow: none;
+        }
+
+        @media #{$mqIphoneX} {
+          bottom: 71px;
+        }
+      }
+
+      .bf-btn {
+        font: bold #{$bet-finder-title-size}/#{$line-height} $base-font-family;
+        padding: 2px 10px;
+        height: 44px;
+        margin-top: 15px;
+        border-radius: 2px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        &.btn-primary {
+          background: $btn-bg-green-color !important;
+          &:hover{
+            background: $color-green-light2 !important;
+          }
+          &:active{
+            background: $color-green-shine !important;
+          }
+        }
+
+        &.btn-secondary {
+          padding: 2px 10px;
+          background: $secondary-btn-bg-color;
+          color: $lGray;
+        }
+        .bf-found {
+          font: normal #{$font-size-md}/#{$line-height-sm} $alt-font-family;
+          text-transform: none;
+
+          &:before {
+            content: '(';
+          }
+          &:after {
+            content: ')';
+          }
+        }
+      }
+    }
+  }
+}
+
+.bf-top-header {
+  .bf-reset {
+    margin-right: 6px;
+    cursor: pointer;
+
+    .bf-reset-text {
+      text-decoration: none;
+      color: $color-white;
+      font: #{$font-size}/#{$line-height-sm} $alt-font-family;
+      vertical-align: middle;
+      &:hover {
+        text-decoration: underline;
+        color: $color-white;
+      }
+      &:active {
+        text-decoration: none;
+        color: $color-gray-original;
+      }
+    }
+
+    .refresh-icon {
+      width: 22px;
+      height: 22px;
+      fill: $color-gray-dark;
+      cursor: pointer;
+      vertical-align: middle;
+      display: none;
+
+      &.rotate-icon {
+        animation: spin 1s 1;
+        @-moz-keyframes spin {
+          from { -moz-transform: rotate(360deg); }
+          to { -moz-transform: rotate(0deg); }
+        }
+        @-webkit-keyframes spin {
+          from { -webkit-transform: rotate(360deg); }
+          to { -webkit-transform: rotate(0deg); }
+        }
+        @keyframes spin {
+          from {transform:rotate(360deg);}
+          to {transform:rotate(0deg);}
+        }
+      }
+    }
+  }
+}
+
+.bf-meetings {
+  border-top: 1px solid $lGrayLight;
+  display: block;
+  position: relative;
+  z-index: 1;
+  outline: none;
+  text-align: right;
+
+  .meetings-title {
+    text-transform: uppercase;
+    color: $color-blue-alt;
+    display: inline-block;
+    vertical-align: top;
+    padding: 11px 15px;
+    cursor: pointer;
+
+    .title {
+      font-size: $font-size;
+      font-family: $base-font-family;
+      font-weight: bold;
+    }
+    svg {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      display: block;
+      width: 10px;
+      height: 6px;
+      fill: $color-blue-alt;
+    }
+  }
+  .bf-meetings-list {
+    transition: all .2s ease-in-out, top 0s .2s;
+    text-align: left;
+    margin: 4px 0 0;
+    position: absolute;
+    top: -9999px;
+    right: 0;
+    list-style: none;
+    width: 295px;
+    font: #{$font-size-lg}/#{$line-height} $alt-font-family;
+    background: $color-white;
+    padding: 0;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
+    transform: translate3d(0, -30px, 0);
+    opacity: 0;
+
+    > li {
+      cursor: pointer;
+      padding: 15px 16px;
+      display: block;
+
+      &.active {
+        background: $light-grey;
+      }
+    }
+  }
+  &.active-dropdown {
+    .bf-meetings-list {
+      transition: all .2s ease-in-out, top 0s;
+      top: 100%;
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    }
+  }
+}

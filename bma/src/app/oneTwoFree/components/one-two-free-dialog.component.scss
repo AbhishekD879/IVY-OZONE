@@ -1,0 +1,84 @@
+@import 'global.variables.scss';
+
+::ng-deep {
+  #one-two-free-overlay {
+    width: 100%;
+    .modal {
+      width: 100%;
+      min-height: 100%;
+      background: white !important;
+      .modal-dialog {
+        padding-top: 0;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 420px;
+
+        .modal-content {
+          height: 100%;
+          overflow-y: scroll;
+
+          .modal-header {
+            height: 0;
+            padding: 0;
+            min-height: 0;
+            margin-bottom: 0;
+          }
+
+          .modal-body {
+            min-height: 100%;
+            width: 100%;
+            padding: 0;
+          }
+        }
+      }
+    }
+
+    .splashPage-content p {
+      line-height: inherit;
+      font-size: inherit;
+    }
+
+    .modalBody {
+      #main-content {
+        margin: 17px auto 37px;
+      }
+      [class^="header__"] .close {
+        opacity: 1;
+        text-shadow: none;
+        font-weight: normal;
+      }
+    }
+
+    [class^="eventItemsListWrap__"] [class^="eventItemContainer__"] {
+      min-width: 0;
+    }
+
+    [class^="upsellSlider__"] [class^="teamItem__"] p {
+      font-size: inherit;
+      line-height: inherit;
+    }
+
+    // fix to not overlap with Iphone X bottom software button.
+    @supports (height: constant(safe-area-inset-bottom)) {
+      .modal {
+        --safe-area-inset-bottom: constant(safe-area-inset-bottom);
+        height: calc(100% + var(--safe-area-inset-bottom));
+      }
+    }
+
+    @supports (height: env(safe-area-inset-bottom)) {
+      .modal {
+        --safe-area-inset-bottom: env(safe-area-inset-bottom);
+        height: calc(100% + var(--safe-area-inset-bottom));
+      }
+    }
+  }
+  .error-message {
+    position: relative;
+    padding: 15px;
+    color: $color-white;
+    background-color : #4da2f9;
+    font-size : 12px;
+    margin: 0;
+  }
+}

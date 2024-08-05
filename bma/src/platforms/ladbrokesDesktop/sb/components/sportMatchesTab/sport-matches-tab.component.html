@@ -1,0 +1,102 @@
+<div *ngIf="!isLoaded" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+
+<lazy-component *ngIf="isMarketSelectorActive && isMarketSwitcherConfigured && eventsBySectionsCopy.length"
+                moduleUri="@sharedModule/components/marketSelector/market-selector.module#MarketSelectorModule"
+                data-crlat="marketSelectorModule" entryComponent="DesktopMatchesMarketSelectorComponent" [inputs]="{sportId: sportId,
+                multipleEventsDataSections: eventsBySectionsCopy,sticky:false,
+                selectorType:'sportMatches', targetTab: targetTab}" [outputs]="['filterChange','hideEnhancedSection']"
+                (event)="handleOutput($event)">
+</lazy-component>
+
+<!-- Fanzone Banner  -->
+<lazy-component *ngIf="user.status && isFanzoneEnabled && currentTabName === 'today' "
+  moduleUri="@lazy-modules-module/fanzone/fanzone-shared.module#FanzoneSharedModule"
+  entryComponent="FanzoneBannerComponent">
+</lazy-component>
+<!-- Fanzone Banner -->
+
+<ng-container *ngIf="isLoaded && !isResponseError && eventsBySections.length">
+  <ng-container *ngIf="isMarketSwitcherComponentLoaded">
+
+    <lazy-component
+    moduleUri="@lazy-modules-module/twoUpSignpostingBlurbMsg/twoup-signposting-blurbmsg.module#TwoUpSignPostingBlurbMsgModule"
+    [inputs]="{
+      marketName:selectedMarketSwitcher
+    }"
+    entryComponent="TwoUpSignPostingBlurbMsgComponent"  >
+    </lazy-component>
+    <ng-container *ngFor="let eventsBySection of eventsBySections; trackBy:trackByTypeId; let i = index">
+
+      <!-- Fanzone entry point -->
+    <ng-container *ngIf="i===0 && isFanzoneEnabled && isFootballPage">
+      <ng-container *ngTemplateOutlet="FanzoneEntry"></ng-container>
+    </ng-container> 
+
+      <ng-container *ngIf="!eventsBySection.deactivated">
+        <ng-template *ngTemplateOutlet="VirtualBanner; context :{ index: activeIndex(i) } "></ng-template>
+      </ng-container>
+     
+
+    <!-- Fanzone entry point -->
+      <!--main sport events sections-->
+      <accordion *ngIf="!eventsBySection.deactivated" [accordionTitle]="eventsBySection.sectionTitle"
+        data-crlat="accordion" (function)="updateState($event, 'event', eventsBySection)"
+        [isExpanded]="eventsBySection.isExpanded">
+        <right-side>
+          <see-all-link [targetTab]="targetTab" [sportId]="sportId" [eventType]="eventsBySection.typeName" *ngIf="eventsBySection.isExpanded" (click)="goToCompetition(eventsBySection)"></see-all-link>
+        </right-side>
+        <accordion-body *ngIf="eventsBySection.isExpanded">
+          <div class="container-inner-content" data-crlat="containerInnerContent">
+            <ng-container *ngFor="let dates of eventsBySection.groupedByDate">
+              <ng-container *ngIf="isListTemplate; else loadDefault">
+            <odds-card-header *ngIf="dates.marketsAvailability[eventsBySection.defaultValue.toLowerCase()]" [events]="dates.events" [sportConfig]="sport?.sportConfig"
+              [isFilterByTemplateMarketName]="true" [undisplayedMarket]="undisplayedMarket"
+              [isMarketSwitcherConfigured]="isMarketSwitcherConfigured" [selectedMarket]="selectedMarket(eventsBySection)"
+              [dateTitle]="isListTemplate ? dates.title: ''">
+            </odds-card-header>
+            </ng-container>
+            <ng-template #loadDefault>
+                <odds-card-header [events]="dates.events" [sportConfig]="sport?.sportConfig"
+                [isFilterByTemplateMarketName]="true" [undisplayedMarket]="undisplayedMarket" [isMarketSwitcherConfigured]="isMarketSwitcherConfigured"
+                [selectedMarket]="selectedMarket(eventsBySection)">
+              </odds-card-header>
+            </ng-template>
+            <ng-container *ngFor="let eventEntity of dates.events; trackBy:trackById">
+              <odds-card-component *ngIf="eventEntity.markets[0]?.outcomes?.length" data-crlat="eventEntity"
+                [sportConfig]="sport?.sportConfig" [event]="eventEntity" [selectedMarket]="selectedMarket(eventsBySection)"
+                [isFilterByTemplateMarketName]="true" [isMarketSwitcherConfigured]="isMarketSwitcherConfigured"
+                (marketUndisplayed)="reinitHeader($event)" [markets]="eventEntity.markets">
+              </odds-card-component>
+            </ng-container>
+            </ng-container>
+          </div>
+        </accordion-body>
+      </accordion>
+
+    </ng-container>
+
+    <ng-container>
+      <ng-template *ngTemplateOutlet="VirtualBanner; context :{ index :  activeIndex(eventsBySections.length) } "></ng-template>
+    </ng-container>
+  </ng-container>
+</ng-container>
+
+<request-error *ngIf="isLoaded && isResponseError" (reloadFn)="loadMatchesData()" [loadFailed]="isResponseError">
+</request-error>
+<no-events *ngIf="isLoaded && !isResponseError && !eventsBySections.length"></no-events>
+
+   <ng-container *ngIf="isLoaded && (!eventsBySections.length || (eventsBySections.length && !isMarketSwitcherComponentLoaded))">
+
+   <ng-template *ngTemplateOutlet="VirtualBanner; context :{ index: -1 } "></ng-template>
+  </ng-container>
+  
+<ng-template #VirtualBanner let-index="index">
+  <ng-container *ngIf="targetTab?.interstitialBanners?.bannerEnabled">
+    <lazy-component
+      moduleUri="@lazy-modules-module/virtualEntryPointBanner/virtual-entry-point-banner.module#VirtualEntryPointBannerModule"
+      entryComponent="VirtualEntryPointBannerComponent"
+      [inputs]="{targetTab: targetTab, eventsBySections: eventsBySections, index: index,sportName : sportName}">
+    </lazy-component>
+  </ng-container>
+</ng-template>
+

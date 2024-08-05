@@ -1,0 +1,155 @@
+@import 'global.variables.scss';
+
+.filter-toggle {
+
+  .scroll-container {
+    display: flex;
+    background-color: $market-pills-bg;
+    padding: 10px 0px 10px 6px;
+
+    &.horseracing-tab {
+      padding: 10px 0px 4px 6px !important;
+
+      @media (max-width: 500px) {
+        padding-bottom: 10px !important;
+        padding-top: 2px !important;
+        background-color: $market-pills-bg !important;
+        padding-left: 0px !important;
+
+      }
+    }
+
+    &.greyhounds-coral-tab {
+      background-color: $color-white !important;
+      padding-bottom: 4px;
+
+      @media (max-width:500px) {
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+        background-color: $color-white !important;
+      }
+    }
+
+    &.horseracing-home-tab {
+       @media (max-width:500px) {
+        padding-top: 10px !important;
+        background-color: $color-white !important;
+        padding-left: 5px !important;
+
+      }
+    }
+
+    &.greyhounds-lads-tab {
+      padding: 0px 0px 10px 1px;
+      background: none;
+
+      @media (max-width:500px) {
+      padding: 2px 0px 12px 4px;
+      background: none;
+      }
+    }
+
+    &.greyhounds-lads-tab-today {
+      padding: 10px 0px 10px 6px;
+      background: none;
+
+      @media (max-width:500px) {
+        padding: 12px 0px 8px 4px !important;
+      }
+    }
+
+    &.horseracing-tab-lads {
+      padding: 10px 0px 10px 6px;
+      background: none;
+
+      @media (max-width: 500px) {
+        padding: 12px 0px 8px 4px !important;
+      }
+    }
+
+    &.horse-nextraces-lads-tab {
+      padding: 4px 0px 10px 6px;
+      background: none;
+
+      @media (max-width: 500px) {
+        padding: 6px 0px 12px 4px !important;
+        background: none;
+      }
+    }
+
+    &.horse-meetings-lads-tab {
+      padding: 10px 0px 10px 6px;
+          }
+
+    &.lads-home {
+      padding: 10px 0px 4px 1px;
+      background: none;
+
+      @media (max-width: 500px) {
+        padding: 6px 0px 12px 4px !important;
+        background: none;
+      }
+    }
+
+    &.lads-side-widget {
+      padding: 6px 0px 10px 6px;
+      background: none;
+
+      @media (max-width: 500px) {
+        padding: 12px 0px 7px 4px !important;
+        background: none !important;
+      }
+    }
+  }
+
+
+  .filter-wrapper {
+    color: #383838;
+    background-color: $color-white;
+    border-radius: 21px;
+    box-shadow: $quick-filter-box-shadow;
+    margin: 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    font-size: 12px;
+    cursor: pointer;
+
+
+    .filter {
+      color: #6F6F6F;
+      font-size: $font-size;
+      font-family: 'Lato';
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      letter-spacing: 0.01px;
+      margin: 0;
+      padding: 9px 16px;
+      text-align: center;
+      white-space: nowrap;
+      min-width: 76px;
+      width: auto;
+      min-height: 32px;
+      height: auto;
+      text-transform: capitalize;
+    }
+
+    &.active {
+      background-color: $color-blue-shade-heavy;
+      color: white;
+
+      .filter {
+        font-weight: 400;
+        color: $color-white;
+      }
+
+      &.lads-active {
+        background: $blue !important;
+        font-family: 'Helvetica Neue';
+        color: #848599 !important;
+      }
+
+    }
+  }
+
+}

@@ -1,0 +1,80 @@
+@import 'global.variables.scss';
+
+.racing-result-card {
+
+  &.odds-card {
+    padding: 12px 24px 10px 12px;
+    box-shadow: none;
+    color: $color-gray-darkest;
+    border-top: none;
+  }
+
+  .label-void {
+    border-radius: 100%;
+    background: $brand-color-dark;
+    font-size: $font-size;
+    font-weight: bold;
+    display: block;
+    height: 21px;
+    width: 21px;
+    line-height: 21px;
+    text-align: center;
+    color: $color-white;
+  }
+
+  .odds-content {
+    .odds-side {
+      text-align: left;
+      font-size: $font-size-lg;
+
+      strong {
+        min-width: 30px;
+      }
+    }
+
+    .silk-img {
+      width: 40px;
+      height: 29px;
+      margin-right: 9px;
+
+      &.has-img,
+      &.has-img div,
+      &.has-img svg{
+        width: 40px;
+        height: 29px;
+      }
+    }
+
+    gh-silk {
+      margin: 0 12px 0 0;
+    }
+
+    .odds-right {
+      font-family: $alt-font-family;
+      font-size: $font-size;
+      line-height: normal;
+      min-width: 36px;
+      max-width: 36px;
+      padding: 0;
+      @include justify-content(center);
+
+      .odds-favourite {
+        text-transform: lowercase;
+        padding-left: 5px;
+        line-height: 1;
+      }
+    }
+
+    .odds-names {
+      font-family: $alt-font-family;
+      line-height: normal;
+      font-size: $font-size-tablet;
+      color: $color-gray-darkest;
+      padding: 0;
+
+      .odds-normal {
+        font-size: $font-size-md;
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+<div *ngIf="matches">
+  <div class="row clearfix">
+    <div class="col-md-3">
+      <button (click)="createMatch();" mat-button type="button" class="btn bg-teal waves-effect float-left">
+        <mat-icon>add_box</mat-icon>
+        <span>Add Match Details</span>
+      </button>
+    </div>
+    <div class="col-md-3" *ngIf="matches.length">
+      <download-cvs [cvsData]="matches" [cvsDataTable]="dataTableColumns"></download-cvs>
+    </div>
+    <div class="col-md-6 m-b-0" *ngIf="matches.length">
+      <div class="input-with-icon m-b-0">
+        <i class="material-icons">search</i>
+        <mat-form-field>
+          <input matInput placeholder="Search For Matches" [(ngModel)]="searchField" [value]="searchField">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="matches.length">
+    <cms-data-table
+      [customTableData]="matches"
+      [customTableColumns]="dataTableColumns"
+      [filterString]="searchField"
+      [filterProperties]="filterProperties"
+      [actions]="['remove', 'edit']"
+      (onRemoveTableElement)="removeMatch($event)">
+    </cms-data-table>
+  </div>
+  <div *ngIf="!matches.length">Matches Details List is Empty</div>
+</div>

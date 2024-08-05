@@ -1,0 +1,87 @@
+<breadcrumbs *ngIf="qeQuickLinks" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="qeQuickLinks">
+  <div class="header">
+    <div class="row">
+      <div class="col-md-10">
+        <h2 class="waves-effect waves-block has-activity-badge">
+          QE Quick Links: {{qeQuickLinks.title}}
+          <create-updated-at-by [collection]="qeQuickLinks"></create-updated-at-by>
+        </h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="qeQuickLinks">
+  <div class="body">
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Title
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Title" [(ngModel)]="qeQuickLinks.title" [value]="qeQuickLinks.title"
+                 required trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label font-bold">
+          Links:
+        </span>
+      </div>
+    </div>
+    <div *ngFor="let link of qeQuickLinks.links; let i = index">
+      <div class="row" >
+        <div class="col-md-2">
+        <span class="mat-label">
+          Link {{i + 1}}
+        </span>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Title" [(ngModel)]="link.title" [value]="link.title"
+                   trim="blur">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="URL" [(ngModel)]="link.relativePath" [value]="link.relativePath"
+                   trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+        <span class="mat-label">
+          Description
+        </span>
+        </div>
+        <div class="col-md-10">
+          <tinymce-editor [pageName]="i"
+                          [pageItemId]="i"
+                          (outputEditorData)="updateText($event, i)"
+                          [initialEditorContent]="link.description">
+          </tinymce-editor>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<action-buttons
+  #actionButtons
+  *ngIf="qeQuickLinks"
+  [validateHandler]="isValidModel"
+  [fieldOrItemName]="'title'"
+  [collection]="qeQuickLinks"
+  (actionsEmitter)="actionsHandler($event);">
+</action-buttons>

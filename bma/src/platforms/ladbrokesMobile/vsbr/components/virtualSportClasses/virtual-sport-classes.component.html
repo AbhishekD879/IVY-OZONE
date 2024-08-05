@@ -1,0 +1,203 @@
+<div class="sk-container virtual-classes-container" [ngClass]="{'sk-loading': state.loading}">
+  <outlet-status [state]="state">
+    <request-error (reloadFn)="reloadComponent()"></request-error>
+  </outlet-status>
+  <ng-container *ngIf="!state.loading && !state.error">
+    <div class="container" *ngIf="events">
+      <div class="no-requested-event"
+           *ngIf="requestedEventNotFound"
+           [i18n]="'vsbr.requestedEventNotFound'"></div>
+      <div [ngClass]="{'no-events': !currentEvent }" class="virtual-stream-container">
+        <header class="virtual-class-header" [hidden]="!isDesktop">
+          <p class="virtual-class-header-name" data-crlat="virtualSportsHeader">
+            {{ currentEvent.event.name }}
+          </p>
+          <div class="virtual-class-header-right">
+            <span class="virtual-class-header-time" data-crlat="virtualSportsDate">
+              {{ currentEvent?.event?.startTimeUnix | callBack : getEventStartDate : this }}
+            </span>
+            <span class="virtual-class-header-time" data-crlat="virtualSportsTime" *ngIf="!isEventOngoing()">
+              {{ currentEvent?.event?.startTimeUnix | callBack : getEventStartTime : this }}
+            </span>
+            <span class="virtual-class-header-time virtual-class-header-time-live" data-crlat="virtualSportsLive"
+                  *ngIf="isEventOngoing()" [i18n]="'vsbr.liveNow'">
+            </span>
+          </div>
+        </header>
+        <div class="virtual-class-frame virtual-class-frame-t"
+          [ngClass]="categoryAlias"
+          *ngIf="!currentEvent">
+        </div>
+        <div *ngIf="!isLegendsSport" class="virtual-class-frame" data-crlat="vsVideoStream" [ngClass]="{'d': isDesktop}">
+          <vs-video-stream
+            [baseStreamURL]="childMenu[activeChild]?.streamUrl"
+            [deviceViewType]="this.deviceService.strictViewType">
+          </vs-video-stream>
+        </div>
+
+        <div class="racing-content top-event-panel">
+          <div class="media-area-container media-area watch-live-widget"
+            *ngIf="isLegendsSport && !isMarketAntepost && (showQuantumLeap && streamFilter === 'showLiveSim' || event?.liveStreamAvailable)">
+            <div class="media-area">
+              <quantum-leap [eventEntity]="currentEvent.event" [spinner]="spinner" data-crlat="iframeWatchFree"></quantum-leap>
+              <div [style.height.px]="!videoStreamStarted && event?.liveStreamAvailable ? (this.frameHeight ? this.frameHeight : 400) : unset" [ngClass]="{'video-stream-loading': !videoStreamStarted && event?.liveStreamAvailable}">
+                <lazy-component
+                  moduleUri="@lazy-modules-module/eventVideoStream/event-video-stream.module#LazyEventVideoStreamModule"
+                  [inputs]="{eventEntity: currentEvent.event, preloadStream: true, autoPlay: true, cssClassesForStreams: cssClassesForStreams}"
+                  [outputs]="['playStreamError', 'liveStreamStarted']" (event)="onPlayLiveStreamError($event)"
+                  (event)="onLiveStreamStarted()" data-crlat="eventVideoStreamArea">
+                </lazy-component>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  Child menu for specific parent    -->
+        <virtual-carousel-sub-menu
+          *ngIf="childMenu?.length"
+          [activeMenuItemUri]="childMenu[activeChild]?.targetUriSegment"
+          [menuElements]="childMenu"
+          data-crlat="childVirtualCarouselMenu">
+        </virtual-carousel-sub-menu>
+      </div>
+
+      <div *ngIf="!isDesktop" class="virtual-class-title" [textContent]="childMenu[activeChild]?.name"></div>
+      <div class="virtual-tab-wrap">
+        <tabs-panel
+          [tpTabs]="events"
+          [routerLinkDisable]="true"
+          [tpActiveTab]="currentEvent"
+          (tpFunction)="onTabClick($event)"
+          [maxElementsToDisplay]="childMenu[activeChild]?.numberOfEvents">
+        </tabs-panel>
+      </div>
+
+      <countdown-header
+        [eventName]="currentEvent.event.name"
+        [startTimeUnix]="currentEvent.event.startTimeUnix">
+      </countdown-header>
+
+      <div class="heuristic-container" *ngIf="currentEvent" data-crlat="accordionsList">
+        <ng-container *ngIf="hasWinOrEachWay" [ngSwitch]="filter">
+          <switchers class="btm-switchers no-margin"
+                     [type]="'scrollable'"
+                     [noPaddings]="true"
+                     [filter]="filter"
+                     *ngIf="switchers.length && switchers.length > 1"
+                     [switchers]="switchers"></switchers>
+          <ng-container *ngFor="let section of sections; trackBy: trackMarketSectionById; let mIndex = index;">
+            <ng-container *ngIf="filter.includes(section.template.toLowerCase()) || filter.includes(section.marketName.toLowerCase())">
+              <div class="terms-block" *ngIf="terms && showTerms && section.template.toLowerCase() === 'winew'" data-crlat="terms">
+                <p class="terms-block-content" [textContent]="terms"></p>
+              </div>
+              <div class="virtual-cards-container">
+                <!-- Racing Event page-container page-inner-container (runner spotlight)-->
+                <div [ngClass]="{'page-inner-container': !isDesktop}">
+                  <div *ngIf="isLegendsSport" class="inner-container racing-content">
+                    <race-cards-controls class="sort-by-container race-cards-controls" [sortBy]="sortBy" [market]="market"
+                      [isInfoHidden]="isInfoHidden" [isGreyhoundEdp]="false"
+                      [sortOptionsEnabled]="sortOptionsEnabledFn(true, marketEntity)"
+                      (toggleShowOptions)="toggleShowOptions(expandedSummary, mIndex, $event)"
+                      (toggleShowOptionsGATracking)="toggleShowOptionsGATracking($event)" [eventEntityId]="event.id"
+                      *ngIf="isNotAntepostOrSpecials && !isSpOnly && racingPostDataLoaded">
+                    </race-cards-controls>
+                    <!-- Inner Container -->
+                    <div *ngFor="let outcomeEntity of market?.outcomes; trackBy: trackById; let oIndex = index"
+                      data-crlat="outcomeEntity">
+                      <!-- Inner Container racing-outcome-card -->
+                      <racing-outcome-card [eventEntity]="event" [marketEntity]="market" [isGreyhoundEdp]="false"
+                        [outcomeEntity]="outcomeEntity" [showSummary]="expandedSummary[mIndex][oIndex]"
+                        (expand)="onExpandSection(expandedSummary, mIndex, oIndex);" [isNotRacingSpecials]="!false">
+                        <price-odds-button (click)="stopPropagation($event)" [event]="event" [market]="market" [outcome]="outcomeEntity"
+                          [cssClass]="'space-to-history-4'" [gtmModuleTitle]="'racecard'" [nonRunner]="outcomeEntity.nonRunner"
+                          [isShowHistoricPrices]="false">
+                        </price-odds-button>
+                      </racing-outcome-card>
+                    </div>
+                  </div>
+                </div>
+                <!-- Legends Block Ends  -->
+                <vs-odds-card-component
+                  *ngIf="!isLegendsSport"
+                  [eventOutcomes]="section.children"
+                  [eventOngoing]="isEventOngoing()"
+                  [currentEvent]="currentEvent"
+                  [template]="'WinEw'"
+                  [showRunnerImages]="childMenu[activeChild]?.showRunnerImages"
+                  [showRunnerNumber]="childMenu[activeChild]?.showRunnerNumber"
+                  [gtmModuleTitle]="section.sectionTitle"
+                  data-crlat="accordion">
+                </vs-odds-card-component>
+              </div>
+              <div class="virtual-sport-btn" *ngIf="ctaText && ctaUrl">
+                <button class="btn btn-style1 button-full-width"
+                        (click)="goToCtaUrl()"
+                        [textContent]="ctaText"
+                        data-crlat="buttonSubmit">
+                </button>
+              </div>
+          </ng-container>
+        </ng-container>
+
+          <lazy-component *ngSwitchCase="forecastFilter"
+                          [isLoaderEnabled]="true"
+                          moduleUri="@lazy-modules-module/forecastTricast/forecastTricast.module#ForecastTricastModule"
+                          [inputs]="{event: event, marketEntity: market, selectedPoolType: MARKETS_CONFIG[forecastFilter], isVirtual: true }"></lazy-component>
+          <lazy-component *ngSwitchCase="tricastFilter"
+                          [isLoaderEnabled]="true"
+                          moduleUri="@lazy-modules-module/forecastTricast/forecastTricast.module#ForecastTricastModule"
+                          [inputs]="{event: event, marketEntity: market, selectedPoolType: MARKETS_CONFIG[tricastFilter], isVirtual: true }"></lazy-component>
+        </ng-container>
+
+        <ng-container *ngIf="!hasWinOrEachWay" class="virtual-cards-container">
+          <accordion [card]="true" [isExpanded]="i === 0 || activeStatePanel(section.id)"
+                     (function)="changeStatePanel(section.id)"
+                     [headerClass]="'virtual-accordion'"
+                     [isChevronToLeft]="true"
+                     [isShowAll]="true"
+                     [inner]="true"
+                     *ngFor="let section of sections; trackBy: trackMarketSectionById; let i = index;"
+                     data-crlat="accordion">
+          <left-side>
+            <span class="left-title-text" [i18n]="section.sectionTitle" data-crlat="headerTitle.leftMessage"></span>
+          </left-side>
+          <accordion-body>
+            <div class="terms-block" *ngIf="terms && showTerms" data-crlat="terms">
+              <p class="terms-block-content" [textContent]="terms"></p>
+            </div>
+            <vs-odds-card-component
+              [eventOutcomes]="section.children"
+              [eventOngoing]="isEventOngoing()"
+              [currentEvent]="currentEvent"
+              [template]="section.template"
+              [templateMarketName]="section.templateMarketName"
+              [showRunnerImages]="childMenu[activeChild]?.showRunnerImages"
+              [showRunnerNumber]="childMenu[activeChild]?.showRunnerNumber"
+              [gtmModuleTitle]="section.sectionTitle">
+            </vs-odds-card-component>
+          </accordion-body>
+        </accordion>
+        <div class="virtual-sport-btn" *ngIf="ctaText && ctaUrl">
+          <button class="btn btn-style1 button-full-width"
+                  (click)="goToCtaUrl()"
+                  [textContent]="ctaText"
+                  data-crlat="buttonSubmit">
+          </button>
+        </div>
+        </ng-container>
+      </div>
+
+      <!-- Current event not available  -->
+      <div class="item-inner text-center" *ngIf="!currentEvent">
+        <strong [i18n]="'vsbr.unavailableEvents'"></strong>
+      </div>
+      <!-- eof Current event not available  -->
+    </div>
+
+    <div class="no-events" *ngIf="!events && !currentEvent">
+      <div class="virtual-class-frame virtual-class-frame-t" [ngClass]="categoryAlias"></div>
+      <div class="item-inner text-center">
+        <strong [i18n]="'vsbr.unavailableEvents'"></strong>
+      </div>
+    </div>
+  </ng-container>
+</div>

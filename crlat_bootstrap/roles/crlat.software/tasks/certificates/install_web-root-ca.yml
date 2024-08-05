@@ -1,0 +1,36 @@
+- name: "Download root certificate files if they are existing on s3"
+  local_action:
+    module: aws_s3
+    bucket: "{{ default_s3_bucket }}"
+    object: "{{ s3_certs_path }}/{{ web_root_cert_filename }}.crt"
+    dest: "/tmp/{{ web_root_cert_filename }}.crt"
+    mode: get
+  register: s3_cert_root
+  failed_when: false
+  changed_when: false
+
+- name: "Check that the /tmp/{{ web_root_cert_filename }}.crt exists"
+  local_action:
+    module: stat
+    path: "/tmp/{{ web_root_cert_filename }}.crt"
+  register: crt_result
+
+- name: "Store {{ web_root_cert_filename }}.crt"
+  copy:
+    src="/tmp/{{ web_root_cert_filename }}.crt"
+    dest="/usr/local/share/ca-certificates/{{ web_root_cert_filename }}.crt"
+  when:
+    - crt_result.stat.exists|bool
+
+- name: Update cert index
+  shell: /usr/sbin/update-ca-certificates
+  when:
+    - crt_result.stat.exists|bool == True
+
+- name: "Delete root ca tmp copy: /tmp/{{ web_root_cert_filename }}.crt"
+  local_action:
+    module: file
+    path: "/tmp/{{ web_root_cert_filename }}.crt"
+    state: absent
+  when:
+    - crt_result.stat.exists|bool == True

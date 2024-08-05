@@ -1,0 +1,16 @@
+<modal #emaDialog class="ema-history-dialog no-body-padding centered-header" data-crlat="d.emaH">
+  <ng-template #modalHeader>
+    <span [i18n]="'ema.history.accaHistory'" data-crlat="dTitle"></span>
+    <a data-uat="popUpCloseButton" class="btn-close visible black" (click)="closeDialog()">
+      <svg>
+        <use xlink:href="#close-icon"></use>
+      </svg>
+    </a>
+  </ng-template>
+  <ng-template #modalBody>
+    <div class="ema-history-list" data-crlat="emaHistoryList">
+      <div *ngIf="loading" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+      <edit-my-acca-history-list *ngIf="!loading" [bets]="bets"></edit-my-acca-history-list>
+    </div>
+  </ng-template>
+</modal>

@@ -1,0 +1,53 @@
+@import 'global.variables.scss';
+
+.plus-minus-template {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 10px 12px 12px;
+    width: 340px;
+    height: 91px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 2px;
+    margin-right: 8px;
+
+    .market-name {
+        height: 16px;
+        font-family: $base-font-family;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 16px;
+        color: #FFFFFF;
+    }
+
+    .items-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 316px;
+        height: 45px;
+
+        .odds-button {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 14px 12px;
+            width: 86px;
+            height: 45px;
+            background: rgba(0, 0, 0, 0.4);
+        }
+        .divider {
+            height: 100%;
+            padding-top: 24px;
+        }
+        .sb-cs-button {
+            width: 86px;
+            height: 45px;
+        }
+    }
+
+}

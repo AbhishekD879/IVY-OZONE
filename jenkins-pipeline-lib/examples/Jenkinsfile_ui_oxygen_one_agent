@@ -1,0 +1,193 @@
+@Library('jenkins-pipeline-lib@0.0.4')
+
+def entityService = lcgCommonConstants('serviceBma')
+def branch_name = env.getProperty(lcgCommonFunctions.getJobGitRefParameter(entityService))
+entityService["hostWebServerDev"] = lcgCommonConstants("hostWebServerDev")
+entityService["userWebServerDev"] = lcgCommonConstants("userWebServerDev")
+entityService["pathWebServerDev"] = lcgCommonConstants("pathWebServerDev")
+entityService["urlWebServerDev"] = "framework-invictus.coral.co.uk"
+relativeTargetDir = lcgCommonFunctions.getGitTargetDirectory(entityService)
+
+def scmRepositories = [entityService]
+def agentLabel = "BuildHybrid || BuildUI"
+
+def entityCommonSonarQube = lcgCommonConstants('commonSonarCloud')
+entityCommonSonarQube["parametersSonarCloud"]["-Dsonar.login"] = "7f256574dba56d9df7c092241922d830b880aeca"
+entityCommonSonarQube["parametersSonarCloud"]["-Dsonar.projectKey"] = "pipeline-testing"
+entityCommonSonarQube["parametersSonarCloud"]["-Dsonar.projectName"] = "pipeline-testing"
+entityCommonSonarQube["parametersSonarCloud"]["-Dsonar.projectBaseDir"] = "./" + relativeTargetDir
+entityCommonSonarQube["parametersSonarCloud"]["-Dsonar.sources"] = "./src"
+entityCommonSonarQube["parametersSonarCloud"]["-Dsonar.branch.name"] = branch_name
+
+pipeline {
+    agent {label agentLabel}
+    parameters {
+        string(name: "env_profile", defaultValue: "dev1", description: "Environment profile")
+        choice(name: 'brand', choices: "coral\nladbrokes", description: 'Please choose brand')
+        choice(name: 'compression', choices: "geflate\nbrotli", description: 'Please choose compression type')
+    }
+
+    stages {
+        stage ("Sanity workspace") {
+            steps {
+                deleteDir()
+            }
+        }
+        stage ('Getting SCM sources') {
+                steps {
+                    script {
+                        lcgScmGitParallel(scmRepositories)
+                    }
+                }
+        }
+        stage ("Start Docker Build Container") {
+            steps {
+                script {
+                    echo branch_name
+                    lcgAwsEcrLogin()
+                    containerBuild = lcgCommonDockerRun(entityService)
+                    lcgCommonDockerBootstrap(containerBuild)
+                }
+            }
+        }
+        stage ("Pre build tasks") {
+            steps {
+                script {
+                    lcgCommonDockerExecService(entityService, containerBuild, "mkdir -pv src/assets/lib")
+                }
+            }
+        }
+        stage ("NPM install global") {
+            steps {
+                script {
+                    lcgCommonDockerExecService(entityService, containerBuild, "npm install -g @angular/cli svg-sprite")
+                }
+            }
+        }
+        stage ("NPM install local") {
+            steps {
+                script {
+                    lcgCommonDockerExecService(entityService, containerBuild, "npm install")
+                }
+            }
+        }
+        stage('Run Tests') {
+            parallel {
+                stage ("TypeScript Lint") {
+                    steps {
+                        script {
+                            // lcgCommonDockerExecService(entityService, containerBuild, "npm run lint")
+                            echo "hi"
+                        }
+                    }
+                    /*
+                    post {
+                        always {
+                            checkstyle(pattern: "./${relativeTargetDir}/eslint.xml")
+                        }
+                    }
+                    */
+                }
+                stage('Unit Tests') {
+                    steps {
+                        script {
+                            lcgCommonDockerExecService(entityService, containerBuild, "npm run test")
+                        }
+                    }
+                }
+                stage('Coverage report') {
+                    steps {
+                        script {
+                            lcgCommonDockerExecService(entityService, containerBuild, "npm run coverage-report-sonar")
+                        }
+                    }
+                    /*
+                    post {
+                        always {
+                            cobertura coberturaReportFile: "${relativeTargetDir}/coverage-report/cobertura-report.xml"
+                        }
+                    }
+                    */
+                }
+            }
+        }
+        stage ("Code Analysis") {
+            steps {
+                script {
+                    lcgCodeQualitySonarGate(entityCommonSonarQube)
+                }
+            }
+        }
+
+        stage('Build') {
+            parallel {
+                stage('Mobile') {
+                    steps {
+                        script {
+                            lcgCommonDockerExecService(entityService, containerBuild, "npm run preBuild --env.environment=${env_profile} --env.platform=mobile")
+                            lcgCommonDockerExecService(entityService, containerBuild, "ng build ${brand}Mobile -c ${env_profile}")
+                        }
+                    }
+                }
+                stage('Desktop') {
+                    steps {
+                        script {
+                            lcgCommonDockerExecService(entityService, containerBuild, "npm run preBuild --env.environment=${env_profile} --env.platform=desktop")
+                            lcgCommonDockerExecService(entityService, containerBuild, "ng build ${brand}Desktop -c ${env_profile}")
+                        }
+                    }
+                }
+                stage('Desktop IE') {
+                    steps {
+                        script {
+                            // lcgCommonDockerExecService(entityService, containerBuild, "npm run preBuild --env.environment=${env_profile} --env.platform=desktop")
+                            // lcgCommonDockerExecService(entityService, containerBuild, "ng build coralDesktopIE -c ${env_profile}")
+                            echo "Desktop IE"
+                        }
+                    }
+                }
+            }
+        }
+        stage ("Brotli compression") {
+            when {
+                expression { return params.compression == "brotli" }
+            }
+            steps {
+                script {
+                    sh """
+                    cd ${relativeTargetDir}
+                    test -d dist/${brand}Mobile && cp -r dist/${brand}Mobile dist/mobilebro
+                    test -d dist/${brand}Desktop &&  cp -r dist/${brand}Desktop dist/desktopbro
+
+                    """
+                }
+            }
+        }
+        stage ("Post build tasks") {
+            steps {
+                script {
+                    sh """
+                    cd ${relativeTargetDir}
+                    test -d dist/${brand}Mobile  && mv dist/${brand}Mobile mobile
+                    test -d dist/${brand}Desktop && mv dist/${brand}Desktop desktop
+                    mkdir -p dist && mv desktop dist && mv mobile dist
+                    """
+                }
+            }
+        }
+        stage ("Deploy") {
+            steps {
+                script {
+                    lcgDeployNginxRsync(entityService)
+                }
+            }
+        }
+    }
+        post {
+            always {
+                script {
+                    lcgCommonDockerRm(containerBuild)
+                }
+            }
+        }
+}

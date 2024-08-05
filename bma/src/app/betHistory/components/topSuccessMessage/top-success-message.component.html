@@ -1,0 +1,10 @@
+<div *ngIf="messageTranslateValue && value"
+     class="top-success-message">
+  <svg class="cashed-out-mark" data-crlat="cashedOutMark"><use xlink:href="#won-settled"></use></svg>
+  <span class="cashed-out-label" data-crlat="cashedOutLabel" [i18n]="messageTranslateValue"></span>
+  <span>&nbsp;</span>
+  <span class="cashed-out-value" data-crlat="cashedOutValue" [textContent]="valueWithCurrency"></span>
+  <lazy-component *ngIf="displayProfitIndicator" [inputs]="{stake: stake, betEventSource: betEventSource, returns: value, currencySymbol: currencySymbol}"
+    moduleUri="@lazy-modules-module/profit-indicator/profit-indicator.module#ProfitIndicatorModule">
+  </lazy-component>
+</div>

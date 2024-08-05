@@ -1,0 +1,300 @@
+<breadcrumbs *ngIf="navigationPoint" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="navigationPoint">
+  <div class="header">
+    <h2 class="has-activity-badge">Super Button:
+      <span class="font-italic">{{navigationPoint.title}}</span>
+      <create-updated-at-by [collection]="navigationPoint"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="!navigationPoint.enabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="navigationPoint">
+  <form [formGroup]="form" novalidate>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-12">
+          <mat-checkbox color="primary" [checked]="navigationPoint.enabled"
+                        (change)="navigationPoint.enabled = !navigationPoint.enabled">
+            Active
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            CTA Alignment
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="CTA Alignment" [(ngModel)]="navigationPoint.ctaAlignment"
+                        formControlName="ctaAlignment"
+                        (selectionChange)="getCTAalignment($event)" 
+                        required>
+              <mat-option *ngFor="let options of titleOptions" [value]="options.key">
+                {{ options.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+            <div class="row">
+              <div class="col-md-2">
+                <span class="mat-label">
+                  <ng-container *ngIf="alignment == 'center'">
+                    Center Aligned CTA Title
+                  </ng-container>
+                  <ng-container *ngIf="alignment == 'right'">
+                    Right Aligned CTA Title
+                  </ng-container>
+                  <ng-container *ngIf="alignment == 'bgImage'">
+                    Background Image Aligned CTA Title
+                  </ng-container>
+                </span>
+              </div>
+              <div class="col-md-8">
+                <mat-form-field class="full-width">
+                  <input matInput [(ngModel)]="navigationPoint.title"
+                         placeholder="Title"
+                         formControlName="title"
+                         required
+                         trim="blur">
+                </mat-form-field>
+                <mat-error *ngIf="isMaxLengthReached('title')">
+                  <ng-container *ngIf="alignment == 'center'">
+                    Title can be max 40 characters long
+                  </ng-container>
+                  <ng-container *ngIf="alignment == 'right'">
+                    Title can be max 12 characters long
+                  </ng-container>
+                  <ng-container *ngIf="alignment == 'bgImage'">
+                    Title can be max 20 characters long
+                  </ng-container>
+                </mat-error>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2">
+                <span class="mat-label">
+                  <ng-container *ngIf="alignment == 'center'">
+                    Center Aligned Description
+                  </ng-container>
+                  <ng-container *ngIf="alignment == 'right'">
+                    Right Aligned Description
+                  </ng-container>
+                  <ng-container *ngIf="alignment == 'bgImage'">
+                    Background Image Aligned Description
+                  </ng-container>
+                </span>
+              </div>
+              <div class="col-md-8">
+                <mat-form-field class="full-width">
+                  <input matInput [(ngModel)]="navigationPoint.description"
+                         placeholder="Description"
+                         formControlName="description"
+                         trim="blur">
+                </mat-form-field>
+                <mat-error *ngIf="isMaxLengthReached('description')">
+                  <ng-container *ngIf="alignment == 'center'">
+                    Description can be max 65 characters long
+                  </ng-container>
+                  <ng-container *ngIf="alignment == 'right'">
+                    Description can be max 25 characters long
+                  </ng-container>
+                  <ng-container *ngIf="alignment == 'bgImage'">
+                    Description can be max 27 characters long
+                  </ng-container>
+                </mat-error>
+              </div>
+            </div>
+            <div class="row" *ngIf="alignment == 'right'">
+              <div class="col-md-2">
+                <span class="mat-label">
+                  Right Aligned Short Description
+                </span>
+              </div>
+              <div class="col-md-8">
+                <mat-form-field class="full-width">
+                  <input matInput [(ngModel)]="navigationPoint.shortDescription"
+                         placeholder="Short Description"
+                         formControlName="shortDescription" 
+                         trim="blur">
+                </mat-form-field>
+                <mat-error *ngIf="isMaxLengthReached('shortDescription')">
+                  <ng-container *ngIf="isBrandLads;else goToBlue;">
+                    Description can be max 42 characters long
+                  </ng-container>
+                  <ng-template #goToBlue>
+                    Description can be max 38 characters long
+                  </ng-template>
+                </mat-error>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="alignment == 'bgImage'">
+              <div class="col-md-2">
+                <span class="mat-label">
+                  Background Image Aligned Short Description
+                </span>
+              </div>
+              <div class="col-md-8">
+                <mat-form-field class="full-width">
+                  <input matInput [(ngModel)]="navigationPoint.shortDescription"
+                         placeholder="Short Description"
+                         formControlName="shortDescription" 
+                         trim="blur">
+                </mat-form-field>
+                <mat-error *ngIf="isMaxLengthReached('shortDescription')">
+                  <ng-container *ngIf="isBrandLads">
+                    Short Description can be max 64 characters long
+                  </ng-container>
+                </mat-error>
+              </div>
+            </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Destination URL
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput [(ngModel)]="navigationPoint.targetUri"
+                   placeholder="Destination URL"
+                   formControlName="targetUri"
+                   required
+                   trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row" *ngIf="alignment == 'bgImage'">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Background Image URL
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput [(ngModel)]="navigationPoint.bgImageUrl"
+                   placeholder=" Background Image URL"
+                   formControlName="bgImageUrl" required trim="blur">
+                   <mat-hint class="col-red" *ngIf="form.get('bgImageUrl').invalid">
+                    <div *ngIf="form.get('bgImageUrl').value?.length == 0"> Please enter Background Image URL </div>
+                </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Show on Home Tabs
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Show on Home Tabs" [(ngModel)]="navigationPoint.homeTabs"
+                        formControlName="homeTabs"
+                        multiple>
+              <mat-option *ngFor="let tab of homeTabs" [value]="tab.url">
+                {{ tab.title }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Show on Sports
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Show on Sports" [disabled]="alignment == 'bgImage'"[(ngModel)]="navigationPoint.categoryId"
+                        formControlName="sportCategories"
+                        multiple>
+              <mat-option *ngFor="let sport of sportCategories" [value]="sport.categoryId">
+                {{ sport.imageTitle }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Show on Big Competitions
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Show on Big Competitions" [disabled]="alignment == 'bgImage'" [(ngModel)]="navigationPoint.competitionId"
+                        formControlName="competitions"
+                        multiple>
+              <mat-option *ngFor="let competition of bigCompetitions" [value]="competition.id">
+                {{ competition.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <date-range
+            [isSetDateButtons]="true"
+            [startDate]="navigationPoint.validityPeriodStart"
+            [endDate]="navigationPoint.validityPeriodEnd"
+            [startPlaceholder]="'Validity Period Start Date'"
+            [endPlaceholder]="'Validity Period End Date'"
+            (onDateUpdate)="handleDateUpdate($event)">
+          </date-range>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Themes
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Select Themes" [(ngModel)]="navigationPoint.themes"
+                        formControlName="themes"
+                        required>
+              <mat-option *ngFor="let theme of themesArray" [value]="theme.key">
+                {{ theme.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <app-theme-preview 
+      [alignment]="alignment"
+      [themeValue]="form.controls['themes'].value"
+      [titleOptions]="titleOptions"
+      [bgImage]="form.controls['bgImageUrl'].value">
+      </app-theme-preview>
+
+      <div class="row">
+        <div class="col-md-10">
+          <cms-universal-segmented [segmentsDataObj]='segmentsList' [isRevert]="isRevert" (isFormValid)="isSegmentFormValid($event)"
+            (segmentsModifiedData)="modifiedSegmentsHandler($event)"></cms-universal-segmented>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="navigationPoint"
+  [validateHandler]="validationHandler"
+  [fieldOrItemName]="'title'"
+  [collection]="navigationPoint"
+  [isTypeAdd]="typeAddEdit== 'ADD'"
+  [showRevertButton]="typeAddEdit== 'EDIT'"
+  [showRemoveButton]="typeAddEdit== 'EDIT'"
+  (actionsEmitter)="actionsHandler($event);">
+</action-buttons>

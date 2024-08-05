@@ -1,0 +1,22 @@
+<div class="event-title-bar__container">
+  <div
+    class="event-title-bar__fallback-container"
+    *ngIf="isFallbackScoreboards" data-crlat="sbBar">
+    <fallback-scoreboard
+      [event]="event"
+      [score]="parseScores(event.originalName, fallbackScoreboardType)"
+      [scoreType]="fallbackScoreboardType">
+    </fallback-scoreboard>
+  </div>
+  <div class="event-title-bar__default-title" *ngIf="!isFallbackScoreboards" data-crlat="defBar">
+
+    <span class="event-name"
+        [textContent]="event.name | eventName"
+        data-crlat="eventEntity.name">
+  </span>
+    <div class="event-date" data-crlat="eventEntity.filteredTime">
+      <live-label *ngIf="event.eventIsLive" data-crlat="liveLabel"></live-label>
+      {{ eventStartDate | date: 'HH:mm, d MMM' }}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,98 @@
+@import 'global.variables.scss';
+
+$menu-active-color: #3c4052;
+
+:host {
+  background: $lGray;
+  margin-right: 10px;
+  @include flex(0,0,$left-column-width);
+  width: $left-column-width;
+  display: block;
+
+  @media #{$mqLandscapeAndDesktop} {
+    margin-right: 0;
+  }
+}
+
+.left-column-menu {
+  font-family: $alt-font-family;
+  letter-spacing: 0;
+
+  .left-menu-items {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .left-column-title {
+    font-size: 10px;
+    font-weight: normal;
+    color: $color-white;
+    min-height: 36px;
+    line-height: 11px;
+
+    @include display-flex();
+    @include align-items();
+    opacity: 0.41;
+    margin: 0;
+    padding: 10px 0 10px 12px;
+  }
+
+  .star {
+    visibility: hidden;
+    font-size: 15px;
+    cursor: pointer;
+    color: $color-white;
+    &:before {
+      content: "\2606";
+      visibility: visible;
+    }
+    &:checked:before {
+      content: "\2605";
+      color: $color-yellow;
+    }
+  }
+
+  .cardcheckbox {
+    align-self: center;
+    line-height: 14px;
+    pointer-events: auto;
+  }
+
+
+  .left-menu-item {
+    font-size: 12px;
+
+    @include display-flex();
+    @include align-items();
+
+    padding: 9px 12px;
+    margin: 0 0 1px;
+    color: $menu-items-color;
+    line-height: 12px;
+    width: 100%;
+
+    .left-menu-item-icon {
+      fill: $menu-items-color;
+      width: 18px;
+      min-width: 18px;
+      height: 18px;
+      margin-right: 12px;
+    }
+
+    .left-menu-item-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    &:hover, &.active {
+      text-decoration: none;
+      background: $menu-active-color;
+    }
+    
+    &.active {
+      pointer-events: none;
+    }
+  }
+}

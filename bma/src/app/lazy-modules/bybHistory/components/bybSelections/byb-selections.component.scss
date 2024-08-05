@@ -1,0 +1,172 @@
+@import 'global.variables.scss';
+
+$desc-color: #83888c;
+
+:host {
+  display: block;
+  padding: 7px 12px;
+}
+
+@mixin byb-mixin($width, $position) {
+width: $width;
+position: $position;
+}
+
+.byb-void {
+  text-align: center;
+  @include byb-mixin(40px, inherit);
+  .void {
+    text-align: center;
+    font-weight: bold;
+    @include byb-mixin(40px, absolute);
+    font-size: 12px;
+    font-family: 'Roboto Condensed', sans-serif;
+    color: $color-black;
+    top: calc(50% - 40px);
+    background-color: $color-white;
+  }
+}
+.byb-outcome {
+  position: relative;
+  padding: 7px 0 7px 47px;
+
+  &:first-child .outcome-line {
+    top: 50%;
+  }
+  &:last-child .outcome-line {
+    bottom: 50%;
+  }
+}
+.byb-outcome-unsettled-bet {
+  position: relative;
+  padding: 7px 0 7px 17px;
+
+  &:first-child .outcome-line {
+    top: 50%;
+  }
+  &:last-child .outcome-line {
+    bottom: 50%;
+  }
+}
+.outcome-title {
+  font-size: 13px;
+  font-weight: bold;
+}
+.line-up {
+color: $byb-line-color;
+}
+.fade-title {
+  font-size: 13px;
+  font-weight: bold;
+  color: $color-gray-disabled;
+}
+
+.outcome-desc {
+  font-size: 12px;
+  font-weight: normal;
+  line-height: normal;
+  color: $desc-color;
+}
+
+.outcome-line {
+  position: absolute;
+  background-color: $lGrayLight;
+  left: 1px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+}
+
+.outcome-bullet {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border: 3px solid $color-white;
+  background-color: $lGrayLight;
+  border-radius: 100%;
+  top: calc(50% - 7px);
+  left: -5px;
+}
+
+.outcome-status-indicator {
+  position: absolute;
+  top: calc(50% - 8px);
+  left: -7px;
+  width: 16px;
+  height: 16px;
+  background-color: $color-white;
+}
+
+.bet-progress {
+  margin-top: 8px;
+  progress-bar {
+    margin-bottom: 8px;
+  }
+  .progress-desc {
+    color: $desc-color;
+    font-size: 12px;
+  }
+}
+
+.outcome-title-container {
+  width: 100%;
+  @media (max-width: $mobileSmallPoint) {
+    width: 100%;
+  }
+  position: relative;
+  @include inline-flex();
+
+  .outcome-title {
+    display: inline;
+    line-height: normal;
+  }
+
+  .tooltip-container {
+    position: relative;
+    margin-left: 6px;
+    margin-top: $byb-tooltip-margin-top;
+
+    .info-tooltip {
+      svg {
+        width: 14px;
+        height: 14px
+      }
+    }
+
+    .tooltip-arrow {
+      position: absolute;
+      top: 12px;
+      left: 2px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent transparent $byb-stats-unavailable-tooltip-background transparent;
+    }
+
+    .stats-tooltip {
+      position: absolute;
+      height: 42px;
+      top: 21px;
+      left: -100px;
+      white-space: nowrap;
+      z-index: 1;
+      font-size: 13px;
+      line-height: normal;
+      color: $color-white;
+      background-color: $byb-stats-unavailable-tooltip-background;
+      padding: $byb-tooltip-padding;
+    }
+  }
+}
+
+.outcome-title-lineup {
+  position: relative;
+  @include inline-flex();
+
+  .line-up {
+    display: inline;
+    line-height: normal;
+    color: $byb-line-color;
+    font-size: 12px;
+    margin: 2px;
+    }
+}

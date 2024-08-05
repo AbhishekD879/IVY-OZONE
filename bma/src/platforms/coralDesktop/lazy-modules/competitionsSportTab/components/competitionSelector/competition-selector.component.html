@@ -1,0 +1,7 @@
+<drop-down-menu *ngIf="list.length"
+                [selectedItem]="selectedItem"
+                [menuList]="list"
+                [icon]="true"
+                (clickFunction)="openCompetition($event)"
+                [selectionKey]="'originalName'">
+</drop-down-menu>

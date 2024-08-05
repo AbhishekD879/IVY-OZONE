@@ -1,0 +1,39 @@
+<div class="card">
+  <div class="header">
+    <h2>Stream and Bet</h2>
+    <small>This is the List of selection trees of Stream and Bet by Currently Selected Brand</small>
+  </div>
+</div>
+
+<!-- search and add group bar.-->
+<div class="card" *ngIf="!isLoading">
+  <div class="body">
+    <div class="row clearfix">
+      <div class="col-md-6">
+        <button (click)="createNewCategory()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Add New Category</span>
+        </button>
+      </div>
+      <div class="col-md-6">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For category" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <!-- main content, config groups list-->
+    <div *ngIf="!isLoading">
+      <div class="card" *ngFor="let category of categoriesList">
+        <stream-and-bet-category-table [category]="category"
+                                       [isNewCategory]="isNewCategory(category)"
+                                       (callRemoveCategory)="callRemoveCategory(category)"
+                                       (applyCategoryChanges)="applyCategoryChanges($event)">
+        </stream-and-bet-category-table>
+      </div>
+    </div>
+  </div>
+</div>

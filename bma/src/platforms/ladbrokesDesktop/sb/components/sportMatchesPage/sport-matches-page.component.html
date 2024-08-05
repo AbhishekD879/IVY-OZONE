@@ -1,0 +1,34 @@
+<ng-container *ngIf="!state.loading && !state.error">
+  <lazy-component moduleUri="@featuredModule/featured.module#FeaturedModule"
+                      [inputs]="{sportId: categoryId,
+                                sportName: sportName,
+                                shouldDisplayLoader: false,
+                                isGolfMatchesTab: isGolfMatchesTab}"
+                      [outputs]="['isLoadedEvent', 'featuredEventsCount']"
+                      (event)="updateLoadStatus(0, $event)">
+  </lazy-component>
+  <!-- Time | League Filters -->
+  <lazy-component *ngIf="isSportEventFiltersEnabled && competitionFilters.length && tab === 'today' && displayFilters"
+                  data-crlat="competitionFilters"
+                  moduleUri="@lazy-modules-module/competitionFilters/competitionFilters.module#CompetitionFiltersModule"
+                  [inputs]="{filters: competitionFilters, sportId: categoryId, paddingTop: true}"
+                  [outputs]="['filterChange']"
+                  (event)="handleCompetitionFilterOutput($event)"
+  ></lazy-component>
+  <filter-buttons *ngIf="switchers.length" [items]="switchers" [position]="indexPage" data-crlat="switchers">
+  </filter-buttons>
+  <sport-matches-tab class="tab-content"
+                     [sport]="sport"
+                     [tab]="tab"
+                     [timeFilter]="timeFilter"
+                     [leagueFilter]="leagueFilter"
+                     [targetTab]="targetTab"
+                     [isSportEventFiltersEnabled]="isSportEventFiltersEnabled"
+                     data-crlat="accordionsList"
+                     [targetTab]="targetTab"
+                     (displayFilters)="updateFiltersDisplay($event)">
+  </sport-matches-tab>
+</ng-container>
+<outlet-status [state]="state">
+  <request-error (reloadFn)="reloadComponent()"></request-error>
+</outlet-status>

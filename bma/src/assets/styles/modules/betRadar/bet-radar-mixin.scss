@@ -1,0 +1,1183 @@
+/*Define the base mixin layout for the ladbrokes and coral layout */
+
+/* Mixin for setting the background color,border color,color.*/
+@mixin setBgBrColor($bgColor,$borderColor,$color) {
+    background-color: $bgColor;
+    border-color: $borderColor;
+    color: $color;
+  }
+
+  /*Mixin for the bet radar scoreboard layout */
+  @mixin bet-radar-layout($bs-color0,$bs-color1,$bs-color2,$bs-color3,$bs-color4,$bs-color5,$bs-color6,$bs-color7,$bs-color8,$bs-color9,$bs-color10,$bs-color11,$bs-color12,$bs-color13,
+  $bs-color14,$bs-color15,$bs-color16,$bs-color17,$bs-color18,$bs-color19,$bs-color20,$bs-color21,$bs-color22,$bs-color23,$bs-color24,$bs-color25,$bs-color26,$bs-color27,$bs-color28,
+  $bs-color29,$bs-color30,$bs-color31,$bs-color32,$bs-color33,$bs-color34,$bs-color35,$bs-color36,$bs-color37,$bs-color38,$bs-color39,$bs-color40,$bs-color41,$bs-color42,$bs-color43,$bs-color44,
+  $bs-color45,$bs-color46,$bs-color47,$bs-color48,$bs-color49,$bs-color50,$bs-color51,$srt1-base1-bgcolor,$srt1-primary1-bgcolor) {
+    .sr-bb.sr-rtl {
+      text-align: right;
+    }
+    .sr-bb {
+      .sr-bb {
+        background: none;
+      }
+      .srt-base-1 {
+        @include setBgBrColor(transparent,rgba(255, 255, 255, 0.12),$bs-color1);
+      }
+      .srt-base-1-win {
+        @include setBgBrColor(transparent,$bs-color3,$bs-color3);
+      }
+      .srt-base-1-draw {
+        @include setBgBrColor(transparent,rgba(255, 255, 255, 0.4),rgba(255, 255, 255, 0.4));
+      }
+      .srt-base-1-lose {
+        @include setBgBrColor(transparent,$bs-color4,$bs-color4);
+      }
+      .srt-base-1-is-active {
+        @include setBgBrColor($srt1-primary1-bgcolor,rgba(255, 255, 255, 0.12),$bs-color1);
+      }
+      .srt-base-1-is-active-2 {
+        @include setBgBrColor($bs-color11,rgba(255, 255, 255, 0.12),$bs-color1);
+      }
+      .srt-base-1-is-hoverable {
+        &:hover {
+          @include setBgBrColor($srt1-primary1-bgcolor,rgba(255, 255, 255, 0.12),$bs-color1);
+        }
+      }
+      .srt-base-1-primary {
+        @include setBgBrColor(transparent,$bs-color2,$bs-color2);
+      }
+      .srt-base-1-home-1 {
+        @include setBgBrColor(transparent,$bs-color3,$bs-color3);
+      }
+      .srt-base-1-away-1 {
+        @include setBgBrColor(transparent,$bs-color4,$bs-color4);
+      }
+      .srt-base-1-home-2 {
+        @include setBgBrColor(transparent,$bs-color8,$bs-color3);
+      }
+      .srt-base-1-away-2 {
+        @include setBgBrColor(transparent,$bs-color8,$bs-color4);
+      }
+      .srt-base-1-home-3 {
+        @include setBgBrColor(transparent,rgba(255, 255, 255, 0.12),$bs-color3);
+      }
+      .srt-base-1-away-3 {
+        @include setBgBrColor(transparent,rgba(255, 255, 255, 0.12),$bs-color4);
+      }
+      .srt-base-1-home-4 {
+        @include setBgBrColor(transparent,$bs-color19,$bs-color19);
+      }
+      .srt-base-1-away-4 {
+        @include setBgBrColor(transparent,$bs-color16,$bs-color16);
+      }
+      .srt-base-1-home-5 {
+        @include setBgBrColor(transparent,$bs-color14,$bs-color14);
+      }
+      .srt-base-1-away-5 {
+        @include setBgBrColor(transparent,$bs-color13,$bs-color13);
+      }
+      .srt-base-1-background {
+        @include setBgBrColor($bs-color10,rgba(255, 255, 255, 0.12),$bs-color1);
+      }
+      .srt-base-2 {
+        @include setBgBrColor($bs-color10,rgba(255, 255, 255, 0.12),$bs-color1);
+      }
+      .srt-base-2-is-active {
+        @include setBgBrColor($bs-color12,rgba(255, 255, 255, 0.12),$bs-color1);
+      }
+      .srt-base-2-is-hoverable {
+        &:hover {
+          @include setBgBrColor($bs-color12,rgba(255, 255, 255, 0.12),$bs-color1);
+        }
+      }
+      .srt-base-3 {
+        @include setBgBrColor($bs-color12,rgba(255, 255, 255, 0.12),$bs-color1);
+      }
+      .srt-base-3-is-active {
+        @include setBgBrColor($bs-color29,rgba(255, 255, 255, 0.12),$bs-color1);
+      }
+      .srt-base-3-is-hoverable {
+        &:hover {
+          @include setBgBrColor($bs-color29,rgba(255, 255, 255, 0.12),$bs-color1);
+        }
+      }
+      .srt-base-3-background {
+        @include setBgBrColor($bs-color10,rgba(255, 255, 255, 0.12),$bs-color1);
+      }
+      .srt-base-4 {
+        @include setBgBrColor($bs-color37,rgba(255, 255, 255, 0.12),$bs-color1);
+      }
+      .srt-base-5-is-active {
+        @include setBgBrColor($bs-color51,rgba(255, 255, 255, 0.12),$bs-color1);
+      }
+      .srt-base-5-is-hoverable {
+        &:hover {
+          @include setBgBrColor($bs-color51,rgba(255, 255, 255, 0.12),$bs-color1);
+        }
+      }
+      .srt-base-6 {
+        @include setBgBrColor(transparent,rgba(255, 255, 255, 0.3),$bs-color1);
+      }
+      .srt-primary-1 {
+        @include setBgBrColor($bs-color2,rgba(0, 0, 0, 0.16),$bs-color0);
+      }
+      .srt-primary-1-is-active {
+        @include setBgBrColor($bs-color5,rgba(0, 0, 0, 0.16),$bs-color0);
+      }
+      .srt-primary-1-is-hoverable {
+        &:hover {
+          @include setBgBrColor($bs-color5,rgba(0, 0, 0, 0.16),$bs-color0);
+        }
+      }
+      .srt-primary-1-is-disabled {
+        @include setBgBrColor($srt1-base1-bgcolor,rgba(0, 0, 0, 0.16),$bs-color0);
+      }
+      .srt-primary-2 {
+        @include setBgBrColor($bs-color15,rgba(0, 0, 0, 0.16),$bs-color0);
+      }
+      .srt-primary-3 {
+        @include setBgBrColor($bs-color5,rgba(0, 0, 0, 0.16),$bs-color0);
+      }
+      .srt-primary-4 {
+        @include setBgBrColor($bs-color6,rgba(0, 0, 0, 0.16),$bs-color0);
+      }
+      .srt-primary-5 {
+        @include setBgBrColor($bs-color6,rgba(0, 0, 0, 0.16),$bs-color0);
+      }
+      .srt-primary-5-is-hoverable {
+        &:hover {
+          @include setBgBrColor($bs-color2,rgba(0, 0, 0, 0.16),$bs-color0);
+        }
+      }
+      .srt-primary-6 {
+        @include setBgBrColor($bs-color8,rgba(0, 0, 0, 0.16),$bs-color0);
+      }
+      .srt-primary-7 {
+        @include setBgBrColor($bs-color2,rgba(0, 0, 0, 0.16),$bs-color0);
+      }
+      .srt-primary-8 {
+        @include setBgBrColor($bs-color2,rgba(0, 0, 0, 0.16),$bs-color0);
+      }
+      .srt-primary-8-is-active-1 {
+        @include setBgBrColor($bs-color5,rgba(0, 0, 0, 0.16),$bs-color0);
+      }
+      .srt-primary-8-is-active-2 {
+        @include setBgBrColor($bs-color5,$bs-color10,$bs-color0);
+      }
+      .srt-primary-9 {
+        @include setBgBrColor($bs-color17,rgba(255, 255, 255, 0.12),$bs-color1);
+      }
+      .srt-primary-10 {
+        @include setBgBrColor($bs-color18,rgba(0, 0, 0, 0.16),$bs-color0);
+      }
+      .srt-primary-11 {
+        @include setBgBrColor($bs-color5,rgba(0, 0, 0, 0.16),$bs-color0);
+      }
+      .srt-primary-12 {
+        @include setBgBrColor($bs-color2,$bs-color0,$bs-color0);
+      }
+      .srt-primary-13 {
+        @include setBgBrColor($bs-color37,rgba(132, 184, 238, 0.3),$bs-color0);
+      }
+      .srt-base-1-primary-1 {
+        @include setBgBrColor(transparent,$bs-color2,$bs-color2);
+      }
+      .srt-base-1-primary-2 {
+        @include setBgBrColor(transparent,$bs-color15,$bs-color15);
+      }
+      .srt-base-1-primary-3 {
+        @include setBgBrColor(transparent,$bs-color5,$bs-color5);
+      }
+      .srt-base-1-primary-4 {
+        @include setBgBrColor(transparent,$bs-color6,$bs-color6);
+      }
+      .srt-base-1-primary-5 {
+        @include setBgBrColor(transparent,$bs-color6,$bs-color6);
+      }
+      .srt-base-1-primary-6 {
+        @include setBgBrColor(transparent,$bs-color8,$bs-color8);
+      }
+      .srt-base-1-primary-7 {
+        @include setBgBrColor(transparent,$bs-color2,$bs-color2);
+      }
+      .srt-base-1-primary-8 {
+        @include setBgBrColor(transparent,$bs-color2,$bs-color2);
+      }
+      .srt-base-1-primary-9 {
+        @include setBgBrColor(transparent,$bs-color17,$bs-color17);
+      }
+      .srt-base-1-primary-10 {
+        @include setBgBrColor(transparent,$bs-color18,$bs-color18);
+      }
+      .srt-base-1-primary-11 {
+        @include setBgBrColor(transparent,$bs-color5,$bs-color5);
+      }
+      .srt-base-1-primary-13 {
+        @include setBgBrColor($bs-color10,rgba(132, 184, 238, 0.3),$bs-color37);
+      }
+      .srt-base-1-neutral-1 {
+        @include setBgBrColor(transparent,$bs-color9,$bs-color9);
+      }
+      .srt-base-1-neutral-2 {
+        @include setBgBrColor(transparent,$bs-color26,$bs-color26);
+      }
+      .srt-base-1-neutral-3 {
+        @include setBgBrColor(transparent,rgba(255, 255, 255, 0.12),rgba(255, 255, 255, 0.12));
+      }
+      .srt-base-1-neutral-4 {
+        @include setBgBrColor(transparent,$bs-color7,$bs-color7);
+      }
+      .srt-base-1-neutral-5 {
+        @include setBgBrColor(transparent,$bs-color27,$bs-color27);
+      }
+      .srt-base-1-neutral-6 {
+        @include setBgBrColor(transparent,$bs-color21,$bs-color21);
+      }
+      .srt-base-1-neutral-7 {
+        @include setBgBrColor(transparent,$bs-color7,$bs-color7);
+      }
+      .srt-base-1-neutral-8 {
+        @include setBgBrColor(transparent,$bs-color9,$bs-color9);
+      }
+      .srt-base-1-neutral-9 {
+        @include setBgBrColor(transparent,$bs-color25,$bs-color25);
+      }
+      .srt-base-1-neutral-10 {
+        @include setBgBrColor(transparent,$bs-color24,$bs-color24);
+      }
+      .srt-base-1-neutral-11 {
+        @include setBgBrColor(transparent,$bs-color23,$bs-color23);
+      }
+      .srt-base-1-neutral-12 {
+        @include setBgBrColor(transparent,$bs-color22,$bs-color22);
+      }
+      .srt-base-1-neutral-13 {
+        @include setBgBrColor(transparent,$bs-color11,$bs-color11);
+      }
+      .srt-base-1-is-active-primary {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color2,$bs-color2);
+      }
+      .srt-base-1-is-active-home-1 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color3,$bs-color3);
+      }
+      .srt-base-1-is-active-away-1 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color4,$bs-color4);
+      }
+      .srt-base-1-is-active-home-2 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color8,$bs-color3);
+      }
+      .srt-base-1-is-active-away-2 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color8,$bs-color4);
+      }
+      .srt-base-1-is-active-home-3 {
+        @include setBgBrColor($srt1-primary1-bgcolor,rgba(255, 255, 255, 0.12),$bs-color3);
+      }
+      .srt-base-1-is-active-away-3 {
+        @include setBgBrColor($srt1-primary1-bgcolor,rgba(255, 255, 255, 0.12),$bs-color4);
+      }
+      .srt-base-1-is-active-home-4 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color19,$bs-color19);
+      }
+      .srt-base-1-is-active-away-4 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color16,$bs-color16);
+      }
+      .srt-base-1-is-active-home-5 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color14,$bs-color14);
+      }
+      .srt-base-1-is-active-away-5 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color13,$bs-color13);
+      }
+      .srt-base-1-is-active-primary-1 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color2,$bs-color2);
+      }
+      .srt-base-1-is-active-primary-2 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color15,$bs-color15);
+      }
+      .srt-base-1-is-active-primary-3 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color5,$bs-color5);
+      }
+      .srt-base-1-is-active-primary-4 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color6,$bs-color6);
+      }
+      .srt-base-1-is-active-primary-5 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color6,$bs-color6);
+      }
+      .srt-base-1-is-active-primary-6 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color8,$bs-color8);
+      }
+      .srt-base-1-is-active-primary-7 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color2,$bs-color2);
+      }
+      .srt-base-1-is-active-primary-8 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color2,$bs-color2);
+      }
+      .srt-base-1-is-active-primary-9 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color17,$bs-color17);
+      }
+      .srt-base-1-is-active-primary-10 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color18,$bs-color18);
+      }
+      .srt-base-1-is-active-primary-11 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color5,$bs-color5);
+      }
+      .srt-base-1-is-active-neutral-1 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color9,$bs-color9);
+      }
+      .srt-base-1-is-active-neutral-2 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color26,$bs-color26);
+      }
+      .srt-base-1-is-active-neutral-3 {
+        @include setBgBrColor($srt1-primary1-bgcolor,rgba(255, 255, 255, 0.12),rgba(255, 255, 255, 0.12));
+      }
+      .srt-base-1-is-active-neutral-4 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color7,$bs-color7);
+      }
+      .srt-base-1-is-active-neutral-5 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color27,$bs-color27);
+      }
+      .srt-base-1-is-active-neutral-6 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color21,$bs-color21);
+      }
+      .srt-base-1-is-active-neutral-7 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color7,$bs-color7);
+      }
+      .srt-base-1-is-active-neutral-8 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color9,$bs-color9);
+      }
+      .srt-base-1-is-active-neutral-9 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color25,$bs-color25);
+      }
+      .srt-base-1-is-active-neutral-10 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color24,$bs-color24);
+      }
+      .srt-base-1-is-active-neutral-11 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color23,$bs-color23);
+      }
+      .srt-base-1-is-active-neutral-12 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color22,$bs-color22);
+      }
+      .srt-base-1-is-active-neutral-13 {
+        @include setBgBrColor($srt1-primary1-bgcolor,$bs-color11,$bs-color11);
+      }
+      .srt-home-1 {
+        @include setBgBrColor($bs-color3,$bs-color3,$bs-color0);
+      }
+      .srt-away-1 {
+        @include setBgBrColor($bs-color4,$bs-color4,$bs-color0);
+      }
+      .srt-home-2 {
+        @include setBgBrColor($bs-color3,$bs-color8,$bs-color0);
+      }
+      .srt-away-2 {
+        @include setBgBrColor($bs-color4,$bs-color8,$bs-color0);
+      }
+      .srt-home-3 {
+        @include setBgBrColor($bs-color3,$bs-color10,$bs-color0);
+      }
+      .srt-away-3 {
+        @include setBgBrColor($bs-color4,$bs-color10,$bs-color0);
+      }
+      .srt-home-4 {
+        @include setBgBrColor($bs-color19,$bs-color19,$bs-color0);
+      }
+      .srt-away-4 {
+        @include setBgBrColor($bs-color16,$bs-color16,$bs-color0);
+      }
+      .srt-home-5 {
+        @include setBgBrColor($bs-color14,$bs-color14,$bs-color0);
+      }
+      .srt-away-5 {
+        @include setBgBrColor($bs-color13,$bs-color13,$bs-color0);
+      }
+      .srt-neutral-1 {
+        @include setBgBrColor($bs-color9,rgba(255, 255, 255, 0.12),$bs-color1);
+      }
+      .srt-neutral-2 {
+        @include setBgBrColor($bs-color26,rgba(0, 0, 0, 0.16),$bs-color0);
+      }
+      .srt-neutral-3 {
+        @include setBgBrColor(rgba(255, 255, 255, 0.12),rgba(255, 255, 255, 0.12),$bs-color1);
+      }
+      .srt-neutral-4 {
+        @include setBgBrColor($bs-color7,rgba(0, 0, 0, 0.16),$bs-color0);
+      }
+      .srt-neutral-5 {
+        @include setBgBrColor($bs-color27,rgba(0, 0, 0, 0.16),$bs-color0);
+      }
+      .srt-neutral-6 {
+        @include setBgBrColor($bs-color21,rgba(255, 255, 255, 0.12),$bs-color1);
+      }
+      .srt-neutral-7 {
+        @include setBgBrColor($bs-color7,rgba(0, 0, 0, 0.16),$bs-color0);
+      }
+      .srt-neutral-8 {
+        @include setBgBrColor($bs-color9,rgba(255, 255, 255, 0.12),$bs-color1);
+      }
+      .srt-neutral-9 {
+        @include setBgBrColor($bs-color25,rgba(255, 255, 255, 0.12),$bs-color1);
+      }
+      .srt-neutral-10 {
+        @include setBgBrColor($bs-color24,rgba(255, 255, 255, 0.12),rgba(255, 255, 255, 0.82));
+      }
+      .srt-neutral-11 {
+        @include setBgBrColor($bs-color23,rgba(255, 255, 255, 0.12),$bs-color1);
+      }
+      .srt-neutral-12 {
+        @include setBgBrColor($bs-color22,rgba(0, 0, 0, 0.16),$bs-color0);
+      }
+      .srt-neutral-13 {
+        @include setBgBrColor($bs-color11,rgba(255, 255, 255, 0.12),$bs-color1);
+      }
+      .srt-win {
+        @include setBgBrColor($bs-color3,rgba(0, 0, 0, 0.16),$bs-color0);
+      }
+      .srt-draw {
+        @include setBgBrColor(rgba(255, 255, 255, 0.4),rgba(0, 0, 0, 0.16),$bs-color0);
+      }
+      .srt-lose {
+        @include setBgBrColor($bs-color4,rgba(0, 0, 0, 0.16),$bs-color0);
+      }
+      .srt-text-secondary {
+        -webkit-font-smoothing: antialiased;
+        opacity: 0.8;
+      }
+      .srt-text-disabled {
+        opacity: 0.6;
+      }
+      .srt-text-tertiary {
+        opacity: 0.7;
+      }
+      .srt-icon {
+        opacity: 0.33;
+      }
+      .srt-icon-secondary {
+        opacity: 0.7;
+      }
+      .srt-elevation-1 {
+        box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2),
+          0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+      }
+      .srt-elevation-2 {
+        box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.23),
+          0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+      }
+      .srt-elevation-3 {
+        box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.26),
+          0px 10px 20px 0px rgba(0, 0, 0, 0.19);
+      }
+      .srt-elevation-center-2 {
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.23), 0 1px 5px rgba(0, 0, 0, 0.16);
+      }
+      .srt-inset-top-1 {
+        box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.23);
+      }
+      .srt-inset-bottom-1 {
+        box-shadow: inset 0 -1px 2px 0 rgba(0, 0, 0, 0.23);
+      }
+      .srt-inset-top-2 {
+        box-shadow: inset 0 3px 6px 0 rgba(0, 0, 0, 0.23);
+      }
+      .srt-inset-bottom-2 {
+        box-shadow: inset 0 -3px 6px 0 rgba(0, 0, 0, 0.23);
+      }
+      .srt-inset-top-3 {
+        box-shadow: inset 0 6px 6px 0 rgba(0, 0, 0, 0.23);
+      }
+      .srt-inset-bottom-3 {
+        box-shadow: inset 0 -6px 6px 0 rgba(0, 0, 0, 0.23);
+      }
+      .srt-fill-blue-card {
+        fill: $bs-color50;
+      }
+      .srt-stroke-blue-card {
+        stroke: $bs-color50;
+      }
+      .srt-fill-soccer-yellow-card {
+        fill: $bs-color49;
+      }
+      .srt-stroke-soccer-yellow-card {
+        stroke: $bs-color49;
+      }
+      .srt-fill-soccer-red-card {
+        fill: $bs-color28;
+      }
+      .srt-stroke-soccer-red-card {
+        stroke: $bs-color28;
+      }
+      .srt-stroke-soccer-substitution-in {
+        fill: transparent;
+        stroke: $bs-color48;
+      }
+      .srt-fill-soccer-substitution-in {
+        fill: $bs-color48;
+      }
+      .srt-stroke-soccer-substitution-out {
+        fill: transparent;
+        stroke: $bs-color28;
+      }
+      .srt-fill-soccer-substitution-out {
+        fill: $bs-color28;
+      }
+      .srt-stroke-soccer-own-goal {
+        fill: transparent;
+        stroke: $bs-color28;
+      }
+      .srt-fill-soccer-own-goal {
+        fill: $bs-color28;
+      }
+      .srt-fill-soccer-relegation-1 {
+        fill: $bs-color47;
+      }
+      .srt-stroke-soccer-relegation-1 {
+        stroke: $bs-color47;
+      }
+      .srt-fill-soccer-relegation-2 {
+        fill: $bs-color46;
+      }
+      .srt-stroke-soccer-relegation-2 {
+        stroke: $bs-color46;
+      }
+      .srt-fill-soccer-relegation-3 {
+        fill: $bs-color45;
+      }
+      .srt-stroke-soccer-relegation-3 {
+        stroke: $bs-color45;
+      }
+      .srt-fill-soccer-relegation-4 {
+        fill: $bs-color44;
+      }
+      .srt-stroke-soccer-relegation-4 {
+        stroke: $bs-color44;
+      }
+      .srt-fill-soccer-relegation-5 {
+        fill: $bs-color43;
+      }
+      .srt-stroke-soccer-relegation-5 {
+        stroke: $bs-color43;
+      }
+      .srt-fill-soccer-promotion-1 {
+        fill: $bs-color41;
+      }
+      .srt-stroke-soccer-promotion-1 {
+        stroke: $bs-color41;
+      }
+      .srt-fill-soccer-promotion-2 {
+        fill: $bs-color42;
+      }
+      .srt-stroke-soccer-promotion-2 {
+        stroke: $bs-color42;
+      }
+      .srt-fill-soccer-promotion-3 {
+        fill: $bs-color38;
+      }
+      .srt-stroke-soccer-promotion-3 {
+        stroke: $bs-color38;
+      }
+      .srt-fill-soccer-promotion-4 {
+        fill: $bs-color40;
+      }
+      .srt-stroke-soccer-promotion-4 {
+        stroke: $bs-color40;
+      }
+      .srt-fill-soccer-promotion-5 {
+        fill: $bs-color39;
+      }
+      .srt-stroke-soccer-promotion-5 {
+        stroke: $bs-color39;
+      }
+      .srt-nfl-timeout-1 {
+        @include setBgBrColor($bs-color30,rgba(0, 0, 0, 0.16),$bs-color0);
+      }
+      .srt-nfl-timeout-2 {
+        @include setBgBrColor(rgba(245, 166, 35, 0.3),rgba(0, 0, 0, 0.16),$bs-color0);
+      }
+      .srt-nfl-penalty {
+        @include setBgBrColor($bs-color36,$bs-color36,$bs-color0);
+      }
+      .srt-nfl-negative-yards-1 {
+        @include setBgBrColor($bs-color20,$bs-color20,$bs-color0);
+      }
+      .srt-nfl-negative-yards-2 {
+        @include setBgBrColor($bs-color20,$bs-color20,$bs-color0);
+      }
+      .srt-nfl-first-line {
+        @include setBgBrColor($bs-color35,$bs-color35,$bs-color0);
+      }
+      .srt-nfl-ten-line {
+        @include setBgBrColor($bs-color30,$bs-color30,$bs-color0);
+      }
+      .srt-fill-nfl-penalty {
+        fill: $bs-color36;
+      }
+      .srt-stroke-nfl-penalty {
+        stroke: $bs-color36;
+      }
+      .srt-fill-nfl-negative-yards-1 {
+        fill: $bs-color20;
+      }
+      .srt-stroke-nfl-negative-yards-1 {
+        stroke: $bs-color20;
+      }
+      .srt-fill-nfl-negative-yards-2 {
+        fill: $bs-color20;
+      }
+      .srt-stroke-nfl-negative-yards-2 {
+        stroke: $bs-color20;
+      }
+      .srt-fill-nfl-first-line {
+        fill: $bs-color35;
+      }
+      .srt-stroke-nfl-first-line {
+        stroke: $bs-color35;
+      }
+      .srt-fill-nfl-ten-line {
+        fill: $bs-color30;
+      }
+      .srt-stroke-nfl-ten-line {
+        stroke: $bs-color30;
+      }
+      .srt-mlb-run-1 {
+        @include setBgBrColor($bs-color34,$bs-color34,$bs-color1);
+      }
+      .srt-mlb-run-2 {
+        @include setBgBrColor($bs-color1,$bs-color34,$bs-color34);
+      }
+      .srt-mlb-hit-1 {
+        @include setBgBrColor($bs-color33,$bs-color33,$bs-color1);
+      }
+      .srt-mlb-hit-2 {
+        @include setBgBrColor($bs-color1,$bs-color33,$bs-color33);
+      }
+      .srt-mlb-hit-3 {
+        @include setBgBrColor($bs-color32,$bs-color32,$bs-color1);
+      }
+      .srt-mlb-error-1 {
+        @include setBgBrColor($bs-color31,$bs-color31,$bs-color1);
+      }
+      .srt-mlb-error-2 {
+        @include setBgBrColor($bs-color1,$bs-color31,$bs-color31);
+      }
+      .srt-mlb-neutral-1 {
+        @include setBgBrColor(#212121,$bs-color1,$bs-color1);
+      }
+      .srt-fill-mlb-base {
+        fill: $bs-color32;
+      }
+      .srt-strole-mlb-base {
+        fill: $bs-color32;
+      }
+      .srt-fill-change-increase {
+        fill: $bs-color3;
+      }
+      .srt-stroke-change-increase {
+        stroke: $bs-color3;
+      }
+      .srt-fill-change-decrease {
+        fill: $bs-color4;
+      }
+      .srt-stroke-change-decrease {
+        stroke: $bs-color4;
+      }
+      .srt-fill-text {
+        fill: $bs-color1;
+      }
+      .srt-fill-text-invert {
+        fill: $bs-color0;
+      }
+      .srt-fill-text-secondary {
+        fill-opacity: 0.8;
+      }
+      .srt-fill-text-disabled {
+        fill-opacity: 0.6;
+      }
+      .srt-fill-base-1 {
+        fill: transparent;
+      }
+      .srt-stroke-base-1 {
+        stroke: transparent;
+      }
+      .srt-fill-base-1-active {
+        fill: $srt1-primary1-bgcolor;
+      }
+      .srt-stroke-base-1-active {
+        stroke: $srt1-primary1-bgcolor;
+      }
+      .srt-fill-base-1-active-2 {
+        fill: $bs-color11;
+      }
+      .srt-stroke-base-1-active-2 {
+        stroke: $bs-color11;
+      }
+      .srt-fill-base-1-primary {
+        fill: transparent;
+      }
+      .srt-stroke-base-1-primary {
+        stroke: transparent;
+      }
+      .srt-fill-base-1-home {
+        fill: transparent;
+      }
+      .srt-stroke-base-1-home {
+        stroke: transparent;
+      }
+      .srt-fill-base-1-away {
+        fill: transparent;
+      }
+      .srt-stroke-base-1-away {
+        stroke: transparent;
+      }
+      .srt-fill-base-2 {
+        fill: currentColor;
+      }
+      .srt-stroke-base-2 {
+        stroke: currentColor;
+      }
+      .srt-fill-base-2-active {
+        fill: $bs-color12;
+      }
+      .srt-stroke-base-2-active {
+        stroke: $bs-color12;
+      }
+      .srt-fill-base-2-hover {
+        fill: $bs-color12;
+      }
+      .srt-stroke-base-2-hover {
+        stroke: $bs-color12;
+      }
+      .srt-fill-base-3 {
+        fill: $bs-color12;
+      }
+      .srt-stroke-base-3 {
+        stroke: $bs-color12;
+      }
+      .srt-fill-base-3-active {
+        fill: $bs-color29;
+      }
+      .srt-stroke-base-3-active {
+        stroke: $bs-color29;
+      }
+      .srt-fill-base-3-hover {
+        fill: $bs-color29;
+      }
+      .srt-stroke-base-3-hover {
+        stroke: $bs-color29;
+      }
+      .srt-fill-primary-1 {
+        fill: $bs-color2;
+      }
+      .srt-stroke-primary-1 {
+        stroke: $bs-color2;
+      }
+      .srt-fill-primary-2 {
+        fill: $bs-color15;
+      }
+      .srt-stroke-primary-2 {
+        stroke: $bs-color15;
+      }
+      .srt-fill-primary-3 {
+        fill: $bs-color5;
+      }
+      .srt-stroke-primary-3 {
+        stroke: $bs-color5;
+      }
+      .srt-fill-primary-4 {
+        fill: $bs-color6;
+      }
+      .srt-stroke-primary-4 {
+        stroke: $bs-color6;
+      }
+      .srt-fill-primary-5 {
+        fill: $bs-color6;
+      }
+      .srt-stroke-primary-5 {
+        stroke: $bs-color6;
+      }
+      .srt-fill-primary-6 {
+        fill: $bs-color8;
+      }
+      .srt-stroke-primary-6 {
+        stroke: $bs-color8;
+      }
+      .srt-fill-primary-7 {
+        fill: $bs-color2;
+      }
+      .srt-stroke-primary-7 {
+        stroke: $bs-color2;
+      }
+      .srt-fill-primary-8 {
+        fill: $bs-color2;
+      }
+      .srt-stroke-primary-8 {
+        stroke: $bs-color2;
+      }
+      .srt-fill-primary-8-is-active-1 {
+        fill: $bs-color5;
+      }
+      .srt-stroke-primary-8-is-active-1 {
+        stroke: $bs-color5;
+      }
+      .srt-fill-primary-8-is-active-2 {
+        fill: $bs-color5;
+      }
+      .srt-stroke-primary-8-is-active-2 {
+        stroke: $bs-color5;
+      }
+      .srt-fill-primary-9 {
+        fill: $bs-color17;
+      }
+      .srt-stroke-primary-9 {
+        stroke: $bs-color17;
+      }
+      .srt-fill-primary-10 {
+        fill: $bs-color18;
+      }
+      .srt-stroke-primary-10 {
+        stroke: $bs-color18;
+      }
+      .srt-fill-primary-11 {
+        fill: $bs-color5;
+      }
+      .srt-stroke-primary-11 {
+        stroke: $bs-color5;
+      }
+      .srt-fill-primary-12 {
+        fill: $bs-color2;
+      }
+      .srt-stroke-primary-12 {
+        stroke: $bs-color2;
+      }
+      .srt-fill-home-1 {
+        fill: $bs-color3;
+      }
+      .srt-stroke-home-1 {
+        stroke: $bs-color3;
+      }
+      .srt-fill-home-2 {
+        fill: $bs-color3;
+      }
+      .srt-stroke-home-2 {
+        stroke: $bs-color3;
+      }
+      .srt-fill-home-3 {
+        fill: $bs-color3;
+      }
+      .srt-stroke-home-3 {
+        stroke: $bs-color3;
+      }
+      .srt-fill-home-4 {
+        fill: $bs-color19;
+      }
+      .srt-stroke-home-4 {
+        stroke: $bs-color19;
+      }
+      .srt-fill-home-5 {
+        fill: $bs-color14;
+      }
+      .srt-stroke-home-5 {
+        stroke: $bs-color14;
+      }
+      .srt-fill-away-1 {
+        fill: $bs-color4;
+      }
+      .srt-stroke-away-1 {
+        stroke: $bs-color4;
+      }
+      .srt-fill-away-2 {
+        fill: $bs-color4;
+      }
+      .srt-stroke-away-2 {
+        stroke: $bs-color4;
+      }
+      .srt-fill-away-3 {
+        fill: $bs-color4;
+      }
+      .srt-stroke-away-3 {
+        stroke: $bs-color4;
+      }
+      .srt-fill-away-4 {
+        fill: $bs-color16;
+      }
+      .srt-stroke-away-4 {
+        stroke: $bs-color16;
+      }
+      .srt-fill-away-5 {
+        fill: $bs-color13;
+      }
+      .srt-stroke-away-5 {
+        stroke: $bs-color13;
+      }
+      .srt-fill-neutral-1 {
+        fill: $bs-color9;
+      }
+      .srt-stroke-neutral-1 {
+        stroke: $bs-color9;
+      }
+      .srt-fill-neutral-2 {
+        fill: $bs-color26;
+      }
+      .srt-stroke-neutral-2 {
+        stroke: $bs-color26;
+      }
+      .srt-fill-neutral-3 {
+        fill: rgba(255, 255, 255, 0.12);
+      }
+      .srt-stroke-neutral-3 {
+        stroke: rgba(255, 255, 255, 0.12);
+      }
+      .srt-fill-neutral-4 {
+        fill: $bs-color7;
+      }
+      .srt-stroke-neutral-4 {
+        stroke: $bs-color7;
+      }
+      .srt-fill-neutral-5 {
+        fill: $bs-color27;
+      }
+      .srt-stroke-neutral-5 {
+        stroke: $bs-color27;
+      }
+      .srt-fill-neutral-6 {
+        fill: $bs-color21;
+      }
+      .srt-stroke-neutral-6 {
+        stroke: $bs-color21;
+      }
+      .srt-fill-neutral-7 {
+        fill: $bs-color7;
+      }
+      .srt-stroke-neutral-7 {
+        stroke: $bs-color7;
+      }
+      .srt-fill-neutral-8 {
+        fill: $bs-color9;
+      }
+      .srt-stroke-neutral-8 {
+        stroke: $bs-color9;
+      }
+      .srt-fill-neutral-9 {
+        fill: $bs-color25;
+      }
+      .srt-stroke-neutral-9 {
+        stroke: $bs-color25;
+      }
+      .srt-fill-neutral-10 {
+        fill: $bs-color24;
+      }
+      .srt-stroke-neutral-10 {
+        stroke: $bs-color24;
+      }
+      .srt-fill-neutral-11 {
+        fill: $bs-color23;
+      }
+      .srt-stroke-neutral-11 {
+        stroke: $bs-color23;
+      }
+      .srt-fill-neutral-12 {
+        fill: $bs-color22;
+      }
+      .srt-stroke-neutral-12 {
+        stroke: $bs-color22;
+      }
+      .srt-fill-neutral-13 {
+        fill: $bs-color11;
+      }
+      .srt-stroke-neutral-13 {
+        stroke: $bs-color11;
+      }
+      .srt-fill-win {
+        fill: $bs-color3;
+      }
+      .srt-stroke-win {
+        stroke: $bs-color3;
+      }
+      .srt-fill-draw {
+        fill: rgba(255, 255, 255, 0.4);
+      }
+      .srt-stroke-draw {
+        stroke: rgba(255, 255, 255, 0.4);
+      }
+      .srt-fill-lose {
+        fill: $bs-color4;
+      }
+      .srt-stroke-lose {
+        stroke: $bs-color4;
+      }
+      .srt-stop-base-1 {
+        stop-color: transparent;
+      }
+      .srt-stop-primary-1 {
+        stop-color: $bs-color2;
+      }
+      .srt-stop-primary-2 {
+        stop-color: $bs-color15;
+      }
+      .srt-stop-primary-3 {
+        stop-color: $bs-color5;
+      }
+      .srt-stop-primary-4 {
+        stop-color: $bs-color6;
+      }
+      .srt-stop-primary-5 {
+        stop-color: $bs-color6;
+      }
+      .srt-stop-primary-6 {
+        stop-color: $bs-color8;
+      }
+      .srt-stop-primary-7 {
+        stop-color: $bs-color2;
+      }
+      .srt-stop-primary-8 {
+        stop-color: $bs-color2;
+      }
+      .srt-stop-primary-9 {
+        stop-color: $bs-color17;
+      }
+      .srt-stop-primary-10 {
+        stop-color: $bs-color18;
+      }
+      .srt-stop-primary-11 {
+        stop-color: $bs-color5;
+      }
+      .srt-stop-primary-12 {
+        stop-color: $bs-color2;
+      }
+      .srt-stop-home-1 {
+        stop-color: $bs-color3;
+      }
+      .srt-stop-away-1 {
+        stop-color: $bs-color4;
+      }
+      .srt-fill-neutral-14 {
+        fill: $bs-color10;
+      }
+      .srt-stroke-neutral-14 {
+        stroke: $bs-color10;
+      }
+      .srt-logo-powered-by-light {
+        display: none;
+      }
+      .srt-logo-powered-by-dark {
+        display: inline-block;
+      }
+    }
+    .sr-bb .srt-primary-1 .srt-text-secondary,
+    .sr-bb .srt-primary-1.srt-text-secondary,
+    .sr-bb .srt-primary-1-is-active .srt-text-secondary,
+    .sr-bb .srt-primary-1-is-active.srt-text-secondary,
+    .sr-bb .srt-primary-1-is-hoverable:hover .srt-text-secondary,
+    .sr-bb .srt-primary-1-is-hoverable:hover.srt-text-secondary,
+    .sr-bb .srt-primary-1-is-disabled .srt-text-secondary,
+    .sr-bb .srt-primary-1-is-disabled.srt-text-secondary,
+    .sr-bb .srt-primary-2 .srt-text-secondary,
+    .sr-bb .srt-primary-2.srt-text-secondary,
+    .sr-bb .srt-primary-3 .srt-text-secondary,
+    .sr-bb .srt-primary-3.srt-text-secondary,
+    .sr-bb .srt-primary-4 .srt-text-secondary,
+    .sr-bb .srt-primary-4.srt-text-secondary,
+    .sr-bb .srt-primary-5 .srt-text-secondary,
+    .sr-bb .srt-primary-5.srt-text-secondary,
+    .sr-bb .srt-primary-5-is-hoverable:hover .srt-text-secondary,
+    .sr-bb .srt-primary-5-is-hoverable:hover.srt-text-secondary,
+    .sr-bb .srt-primary-6 .srt-text-secondary,
+    .sr-bb .srt-primary-6.srt-text-secondary,
+    .sr-bb .srt-primary-7 .srt-text-secondary,
+    .sr-bb .srt-primary-7.srt-text-secondary,
+    .sr-bb .srt-primary-8 .srt-text-secondary,
+    .sr-bb .srt-primary-8.srt-text-secondary,
+    .sr-bb .srt-primary-8-is-active-1 .srt-text-secondary,
+    .sr-bb .srt-primary-8-is-active-1.srt-text-secondary,
+    .sr-bb .srt-primary-8-is-active-2 .srt-text-secondary,
+    .sr-bb .srt-primary-8-is-active-2.srt-text-secondary,
+    .sr-bb .srt-primary-9 .srt-text-secondary,
+    .sr-bb .srt-primary-9.srt-text-secondary,
+    .sr-bb .srt-primary-10 .srt-text-secondary,
+    .sr-bb .srt-primary-10.srt-text-secondary,
+    .sr-bb .srt-primary-11 .srt-text-secondary,
+    .sr-bb .srt-primary-11.srt-text-secondary,
+    .sr-bb .srt-primary-12 .srt-text-secondary,
+    .sr-bb .srt-primary-12.srt-text-secondary,
+    .sr-bb .srt-primary-13 .srt-text-secondary,
+    .sr-bb .srt-primary-13.srt-text-secondary {
+      -webkit-font-smoothing: antialiased;
+      opacity: 0.7;
+    }
+    .sr-bb .srt-primary-1 .srt-text-disabled,
+    .sr-bb .srt-primary-1.srt-text-disabled,
+    .sr-bb .srt-primary-1-is-active .srt-text-disabled,
+    .sr-bb .srt-primary-1-is-active.srt-text-disabled,
+    .sr-bb .srt-primary-1-is-hoverable:hover .srt-text-disabled,
+    .sr-bb .srt-primary-1-is-hoverable:hover.srt-text-disabled,
+    .sr-bb .srt-primary-1-is-disabled .srt-text-disabled,
+    .sr-bb .srt-primary-1-is-disabled.srt-text-disabled,
+    .sr-bb .srt-primary-2 .srt-text-disabled,
+    .sr-bb .srt-primary-2.srt-text-disabled,
+    .sr-bb .srt-primary-3 .srt-text-disabled,
+    .sr-bb .srt-primary-3.srt-text-disabled,
+    .sr-bb .srt-primary-4 .srt-text-disabled,
+    .sr-bb .srt-primary-4.srt-text-disabled,
+    .sr-bb .srt-primary-5 .srt-text-disabled,
+    .sr-bb .srt-primary-5.srt-text-disabled,
+    .sr-bb .srt-primary-5-is-hoverable:hover .srt-text-disabled,
+    .sr-bb .srt-primary-5-is-hoverable:hover.srt-text-disabled,
+    .sr-bb .srt-primary-6 .srt-text-disabled,
+    .sr-bb .srt-primary-6.srt-text-disabled,
+    .sr-bb .srt-primary-7 .srt-text-disabled,
+    .sr-bb .srt-primary-7.srt-text-disabled,
+    .sr-bb .srt-primary-8 .srt-text-disabled,
+    .sr-bb .srt-primary-8.srt-text-disabled,
+    .sr-bb .srt-primary-8-is-active-1 .srt-text-disabled,
+    .sr-bb .srt-primary-8-is-active-1.srt-text-disabled,
+    .sr-bb .srt-primary-8-is-active-2 .srt-text-disabled,
+    .sr-bb .srt-primary-8-is-active-2.srt-text-disabled,
+    .sr-bb .srt-primary-9 .srt-text-disabled,
+    .sr-bb .srt-primary-9.srt-text-disabled,
+    .sr-bb .srt-primary-10 .srt-text-disabled,
+    .sr-bb .srt-primary-10.srt-text-disabled,
+    .sr-bb .srt-primary-11 .srt-text-disabled,
+    .sr-bb .srt-primary-11.srt-text-disabled,
+    .sr-bb .srt-primary-12 .srt-text-disabled,
+    .sr-bb .srt-primary-12.srt-text-disabled,
+    .sr-bb .srt-primary-13 .srt-text-disabled,
+    .sr-bb .srt-primary-13.srt-text-disabled {
+      opacity: 0.35;
+    }
+    .sr-bb .srt-primary-1 .srt-text-tertiary,
+    .sr-bb .srt-primary-1.srt-text-tertiary,
+    .sr-bb .srt-primary-1-is-active .srt-text-tertiary,
+    .sr-bb .srt-primary-1-is-active.srt-text-tertiary,
+    .sr-bb .srt-primary-1-is-hoverable:hover .srt-text-tertiary,
+    .sr-bb .srt-primary-1-is-hoverable:hover.srt-text-tertiary,
+    .sr-bb .srt-primary-1-is-disabled .srt-text-tertiary,
+    .sr-bb .srt-primary-1-is-disabled.srt-text-tertiary,
+    .sr-bb .srt-primary-2 .srt-text-tertiary,
+    .sr-bb .srt-primary-2.srt-text-tertiary,
+    .sr-bb .srt-primary-3 .srt-text-tertiary,
+    .sr-bb .srt-primary-3.srt-text-tertiary,
+    .sr-bb .srt-primary-4 .srt-text-tertiary,
+    .sr-bb .srt-primary-4.srt-text-tertiary,
+    .sr-bb .srt-primary-5 .srt-text-tertiary,
+    .sr-bb .srt-primary-5.srt-text-tertiary,
+    .sr-bb .srt-primary-5-is-hoverable:hover .srt-text-tertiary,
+    .sr-bb .srt-primary-5-is-hoverable:hover.srt-text-tertiary,
+    .sr-bb .srt-primary-6 .srt-text-tertiary,
+    .sr-bb .srt-primary-6.srt-text-tertiary,
+    .sr-bb .srt-primary-7 .srt-text-tertiary,
+    .sr-bb .srt-primary-7.srt-text-tertiary,
+    .sr-bb .srt-primary-8 .srt-text-tertiary,
+    .sr-bb .srt-primary-8.srt-text-tertiary,
+    .sr-bb .srt-primary-8-is-active-1 .srt-text-tertiary,
+    .sr-bb .srt-primary-8-is-active-1.srt-text-tertiary,
+    .sr-bb .srt-primary-8-is-active-2 .srt-text-tertiary,
+    .sr-bb .srt-primary-8-is-active-2.srt-text-tertiary,
+    .sr-bb .srt-primary-9 .srt-text-tertiary,
+    .sr-bb .srt-primary-9.srt-text-tertiary,
+    .sr-bb .srt-primary-10 .srt-text-tertiary,
+    .sr-bb .srt-primary-10.srt-text-tertiary,
+    .sr-bb .srt-primary-11 .srt-text-tertiary,
+    .sr-bb .srt-primary-11.srt-text-tertiary,
+    .sr-bb .srt-primary-12 .srt-text-tertiary,
+    .sr-bb .srt-primary-12.srt-text-tertiary,
+    .sr-bb .srt-primary-13 .srt-text-tertiary,
+    .sr-bb .srt-primary-13.srt-text-tertiary {
+      opacity: 0.54;
+    }
+  }

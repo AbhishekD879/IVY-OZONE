@@ -1,0 +1,59 @@
+<offers-and-featured-races *ngIf="isExtraPlaceAvailable"
+                            [sectionTitle]="offersAndFeaturedRacesTitle"
+                            [events]="racing.events"
+                            [isRacingFeatured]="true"
+                            [sportName]="sportName">
+</offers-and-featured-races>
+
+<!--- Next 4 race module -->
+<ng-container *ngIf="displayNextRaces">
+  <lazy-component moduleUri="@lazy-modules-module/nextRaces/next-races.module#NextRacesModule"
+  [inputs]="{hideLoader: true, moduleType: sportModule, trackGa: true,isRacingFeatured :true,sportName : sportName, compName: 'horseracing'}"  [outputs]="['eventsLoaded']" (event)="handleNextRacesLoaded()"
+  entryComponent="NextRacesModuleComponent">
+  </lazy-component>
+</ng-container>
+<loading-screen [displayed]="!showFeaturedModules"
+    [templateType]="'GENERIC'" [skeletonOnly]="true"></loading-screen>
+  <ng-container *ngIf="showFeaturedModules">
+  <ng-container  *ngFor="let module of featuredModuleData?.modules; index as i; trackBy: trackByModules">
+      <racing-events *ngIf="!reloadEventsModule && (module['@type'] === 'RacingEventsModule' && !responseError && module.data[0]?.id)"
+                    [racing]="races[module._id]"
+                    [sectionTitle]="sectionTitle"
+                    [eventsGroup]="races[module.data[0].name]"
+                    [sportName]="sportName"
+                    [moduleTitle]="module.title"
+                    [eventsOrder]="eventsOrder"
+                    [filter]="filter"
+                    [display]="display"
+                    (gaTracking)="trackModule($event[0], $event[1])"
+                    [racingIndex]="i">
+      </racing-events>
+
+      <inspired-virtual-module *ngIf="!responseError && isHorseracingVirtualsEnabled
+                              && module['@type'] === 'VirtualRaceModule' && inspiredVirtualsDataReady && (module.data[0]?.id || module.data[0]?.name === 'VRC')"
+                              [virtualsTitle]="module.title"
+                              [sportName]="sportName"
+                              [eventsData]="module.data">
+      </inspired-virtual-module>
+
+      <lazy-component *ngIf="!responseError && isTotePoolsAvailable
+                      && (module['@type'] === 'InternationalToteRaceModule' && module.data[0]?.id || module.data[0]?.name === 'ITC')"
+                      moduleUri="@toteModule/tote.module#ToteModule"
+                      [inputs]="{
+                        sport: 'horseracing',
+                        sportName: sportName,
+                        sectionTitle: sectionTitle['UK'],
+                        moduleTitle: module.title,
+                        eventsData: module.data
+                      }">
+      </lazy-component>
+
+  </ng-container>
+  </ng-container>
+
+<request-error *ngIf="responseError"
+               [loadFailed]="responseError"
+               (reloadFn)="reloadComponent()"></request-error>
+<!-- Show only when no events -->
+<no-events *ngIf="!responseError && noEvents" [message]="'sb.noEventsFound'"></no-events>
+

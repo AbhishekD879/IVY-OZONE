@@ -1,0 +1,49 @@
+<div class="correct-score">
+  <div class="correct-score-container">
+    <p class='select-name'> Score </p>
+    <div class="teams-group">
+      <div class="container">
+        <div class='btn-group1' *ngIf="true">
+          <button class="alignment" (click)="rotateH(-1)">-</button>
+          <p class="alignment1"> {{selectedValueHome }} </p>
+          <button class="alignment" (click)="rotateH(1)">+</button>
+        </div>
+        
+        <div class="correct-score-team-label" data-crlat="homeTeamLabel" [textContent]="game.homeTeam?.title?.toLowerCase()">
+        </div>
+        </div>
+        <div class="container">
+          <div class='btn-group1' *ngIf="true">
+            <button class="alignment" (click)="rotateA(-1)">-</button>
+            <p class="alignment1"> {{selectedValueAway }} </p>
+            <button class="alignment" (click)="rotateA(1)">+</button>
+          </div>
+       
+        <div class="correct-score-team-label" data-crlat="awayTeamLabel" [textContent]="game.visitingTeam?.title?.toLowerCase()">
+        </div>
+        </div>
+
+    </div>
+    <p class="align"  [textContent]="'Increments of 1'"></p>
+    <button class='btn-group btn btn-active' [ngClass]="{'btn-active': isCoral, 'btn-active-lads': !isCoral}" (click)="addToDashboard()" [textContent]='betButtonText'> 
+   </button>
+
+  </div>
+  <div class="container-inner-content" data-crlat="containerInnerContent">
+    <div [equal-column]
+         class="row row-center row-no-gutter row-col-last row-pad"
+         *ngIf="filterValueType === 'all'">
+      <div class="col-xs col-bordered"
+           *ngFor="let market of groupedMarkets; trackBy: trackByMarket;" data-crlat="market.outcomes">
+        <div *ngFor="let selection of market; trackBy: trackBySelection" class="col-inner col-vertical" data-crlat="oddsCard">
+          <button [ngClass]="{'active': isSelected(selection)}"
+                  class="one-row-btn btn-bet"
+                  (click)="selectValue(selection)"
+                  data-crlat="betButton">
+            {{ getScores(selection) }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

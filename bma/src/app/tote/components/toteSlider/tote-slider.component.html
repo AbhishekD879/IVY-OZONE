@@ -1,0 +1,29 @@
+
+<ng-container *ngIf="isDisplayBanner(moduleTitle) && targetTab?.interstitialBanners?.bannerEnabled && eventsData?.length ">
+  <lazy-component
+    moduleUri="@lazy-modules-module/virtualEntryPointBanner/virtual-entry-point-banner.module#VirtualEntryPointBannerModule"
+    entryComponent="VirtualEntryPointBannerComponent"
+    [inputs]="{targetTab: targetTab,isUnTiedSport:true,sportName : sportName}">
+  </lazy-component>
+</ng-container>
+
+<div class="split-header outerAccordionFeatured"  *ngIf="eventsData.length" [i18n]="'racing.internationalTitle'"></div>
+<section class="rg-section" *ngIf="eventsData.length" data-crlat="toteEventsCarousel">
+  <header [textContent]="moduleTitle" data-crlat="carouselHeader"></header>
+    <div class="scroll-container" [scrollable-racing]>
+      <ul class="scroll-inner">
+        <ng-container *ngFor="let event of eventsData; trackBy: trackById; ">
+        <li [ngClass]="{ 'race-resulted': event.isResulted, 'race-on': !event.isResulted }"
+            data-crlat="toteEvent">
+          <a (click)="clickEvent(event)">
+            <div [textContent]="event.localTime" data-crlat="eventTime"></div>
+            <span [textContent]="event.displayName" data-crlat="eventName"></span>
+          </a>
+          <svg *ngIf="event.isResulted" class="race-icon">
+            <use xlink:href="#icn_race-finished"></use>
+          </svg>
+        </li>
+        </ng-container>
+      </ul>
+    </div>
+</section>

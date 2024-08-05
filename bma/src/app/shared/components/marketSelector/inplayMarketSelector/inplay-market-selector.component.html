@@ -1,0 +1,7 @@
+<drop-down-menu class="market-selector"
+                [selectedItem]="marketFilter"
+                [menuList]="selectOptions"
+                selectionNameKey="text"
+                [selectionValueKeys]="['name']"
+                (clickFunction)="filterMarkets($event[0])">
+</drop-down-menu>

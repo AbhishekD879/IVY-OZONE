@@ -1,0 +1,38 @@
+
+@import "global.variables.scss";
+:host {
+  ::ng-deep .modal-dialog {
+     width: 90%;
+    .modal-content {
+      height: 95vh;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+      .modal-header {
+        background-color: $red;
+        height: 40px;
+        padding: 12px 24px;
+
+        .games-title {
+          @include setFontProps($base-font-family, 16px, 700, $color-white);
+          font-style: $fanzone-syt-popup-title-style;
+          line-height: 17px;
+        }
+        .btn-close {
+          display: block;
+          fill: $color-white;
+          width: 16px;
+          height: 16px;
+          cursor: pointer;
+        }
+      }
+      .modal-body {
+        padding: 0;
+        max-height: calc(95vh - 39px);
+        overflow-y: hidden;
+        .game-launch-container {
+          width: 100%;
+          height: calc(95vh - 39px);
+        }
+      }
+    }
+  }
+}

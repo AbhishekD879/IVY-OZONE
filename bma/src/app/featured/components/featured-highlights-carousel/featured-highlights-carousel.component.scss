@@ -1,0 +1,190 @@
+@import 'global.variables.scss';
+
+$highlight-carousel-button-color: #41494E;
+$highlight-carousel-box-shadow: rgba(162, 162, 162, 0.26);
+$highlight-carousel-bg-color: #ffffff;
+$highlight-carousel-button-width: 20px;
+
+/**
+* Highlight card slide width is constant
+* Odds buttons widths inside the card are equal automatically
+ */
+$highlight-carousel-card-width: 219px;
+
+:host {
+  position: relative;
+}
+
+@mixin highlight-carousel-font {
+  font-size: 13px;
+  line-height: 16px;
+  color: $color-gray-dark;
+}
+
+.highlight-carousel-container {
+  background-color: $highlight-carousel-bg-color;
+  position: relative;
+  overflow: hidden;
+  min-height: 170px;
+  padding-bottom: 11px;
+  margin: 4px 0;
+}
+
+.highlight-carousel-header {
+  @include display-flex();
+  @include highlight-carousel-font;
+  position: relative;
+  padding: 11px;
+
+  .icon {
+    height: 18px;
+    width: 18px;
+    margin-right: 8px;
+
+    svg {
+      height: 18px;
+      width: 18px;
+    }
+  }
+
+  .desktop-header-font {
+    font-weight: 700;
+    font-size: 12px;
+  }
+
+  .more-link {
+    margin: 0 7px 0 auto;
+    font-size: 11px;
+    line-height: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+    padding-left: 5px;
+    color: $brand-color-dark;
+    text-transform: uppercase;
+
+    &:hover {
+      text-decoration: underline;
+    }
+    &:active {
+      text-decoration: underline;
+    }
+    &:after {
+      content: '';
+      position: relative;
+      top: -1px;
+      left: 4px;
+      border: solid black;
+      border-width: 0 1px 1px 0;
+      display: inline-block;
+      padding: 2px;
+      @include transform(rotate(-45deg));
+    }
+  }
+}
+
+.highlight-carousel {
+  width: auto;
+  overflow: visible;
+
+  .carousel-slides {
+    overflow: visible;
+    position: relative;
+    width: $highlight-carousel-card-width;
+  }
+
+  .slide {
+    min-width: auto;
+    padding-left: 10px;
+    width: $highlight-carousel-card-width;
+  }
+
+  &:hover {
+    .highlight-carousel-buttons .hc-arrow {
+      opacity: 1;
+
+      &.prev-hc-card {
+        left: 0;
+      }
+
+      &.next-hc-card {
+        right: 0;
+      }
+    }
+  }
+
+  &:active {
+    .highlight-carousel-buttons .hc-arrow:not(:hover) {
+      pointer-events: none;
+    }
+  }
+
+  .highlight-carousel-buttons {
+    background: transparent;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+
+    &:after,
+    &:before {
+      content: '';
+      display: table;
+    }
+
+    &:after {
+      clear: both;
+    }
+
+    .hc-arrow {
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      width: $highlight-carousel-button-width;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      background: rgba(92, 99, 107, 0.6);
+      opacity: 0;
+      @include transition();
+
+      &.hc-arrow-hide {
+        display: block;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      &.prev-hc-card, &.hc-arrow-hide.prev-hc-card {
+        left: -$highlight-carousel-button-width;
+      }
+
+      &.next-hc-card, &.hc-arrow-hide.next-hc-card {
+        right: -$highlight-carousel-button-width;
+      }
+
+      & > svg {
+        position: static;
+        left: auto;
+        top: auto;
+        height: 10px;
+        width: 5px;
+        margin: 0;
+        padding: 0;
+        fill: $color-white;
+        text-shadow: none;
+      }
+
+      & > span {
+        display: none;
+      }
+    }
+
+    .hc-arrow.hc-arrow-hide.prev-hc-card {
+      left: -20px;
+    }
+  }
+
+  &.one-card-mode {
+    @include display-flex();
+    @include justify-content(center);
+  }
+}

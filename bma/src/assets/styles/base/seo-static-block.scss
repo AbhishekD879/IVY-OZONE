@@ -1,0 +1,65 @@
+@mixin seo-headings-style() {
+  font-weight: bold !important;
+  margin-top: 0px;
+}
+@mixin seo-h1-headings-style() {
+  font-size: 1.75rem !important;
+}
+@mixin seo-h2-headings-style() {
+  font-size: 1.25rem !important;
+}
+@mixin seo-h3-headings-style() {
+  font-size: 1rem !important;
+}
+
+
+.seo-main-content {
+  .seo-static-block-content {
+    padding: 12px;
+    border-top: 1px solid $lGraySemiLight;
+    background-color: $color-white;
+    *, *[style] {
+      font-size: $font-size-tablet !important;
+      font-family: $seo-static-content-font-family !important;
+      color: $seo-static-content-color !important;
+    }
+    p, p *[style] {
+      line-height: 17px;
+    }
+    h1, h2, h3 {
+      @include seo-headings-style();
+      &[style] {
+        @include seo-headings-style();
+      }
+    }
+    h1, h1 * {
+      @include seo-h1-headings-style();
+      &[style] {
+        @include seo-h1-headings-style()
+      }
+    }
+    h2, h2 * {
+      @include seo-h2-headings-style();
+      &[style] {
+        @include seo-h2-headings-style()
+      }
+    }
+    h3, h3 * {
+      @include seo-h3-headings-style();
+      &[style] {
+        @include seo-h3-headings-style()
+      }
+    }
+    a, a[style] {
+      color: $seo-static-content-link-color !important;
+    }
+  
+    .container-content {
+      color: $color-black;
+    }
+  }
+  &:active {
+    background: $IGreyLightDark
+  }
+}
+

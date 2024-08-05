@@ -1,0 +1,183 @@
+@import 'global.variables.scss';
+
+@mixin void-mixin() {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: normal;
+  color: $info-gray-color;
+}
+
+@mixin five-a-side-mixin($width, $height) {
+ width: $width;
+ height: $height;
+}
+.five-A-Side-BetVoid {
+    .five-A-Side-Info {
+      margin: 5px 15px;
+      padding: 10px;
+      background-color: $bh-gray-color;
+      text-align: left;
+      & > span {
+      text-align: center;
+      @include five-a-side-mixin(100%, 42px);
+      @include void-mixin();
+      }
+    }
+    .five-A-Side-Button {
+        margin-bottom: 15px;
+        text-align: center;
+        @include five-a-side-mixin(100%, 45px);
+        font-weight: bold;
+        color: $color-white;
+        border: none;
+      }
+    .five-A-Side-Info-text {
+      height: 32px;
+      background: $color-white;
+      margin: 10px, 15px, 10px, 15px;
+      text-align: center;
+      .infoIcon {
+        margin-right: 5px;
+        vertical-align: middle;
+        @include five-a-side-mixin(14px, 14px);
+    }
+      .five-a-side-text {
+        @media (max-width: $mobileSmallPoint) {
+          width: 270px;
+        }
+        @include five-a-side-mixin(100%, 14px);
+        @include void-mixin();
+      }
+    }
+    }
+
+.reuse-button-cashout {
+  text-align: center;
+  padding: 12px;
+  border-top: 1px solid #EFEFF3;
+  border-radius: 0px;
+  cursor: pointer;
+
+  .reuse-text-cashout {
+    font-family:  $reuse-selection-font-family;
+    font-style: normal;
+    font-weight: 700;
+    font-size: $reuse-selection-font-size;
+    line-height: 15px;
+    /* identical to box height */
+    text-transform: uppercase;
+    color: $reuse-selection-border-button;
+    &:hover{
+      text-decoration: underline;
+    }
+    &:active{
+      text-decoration: none;
+      color: darken($color: $reuse-selection-border-button, $amount: 25%);
+    }
+  }
+}
+    .alerts-wrapper {
+      padding: 0 15px;
+      border-top: 1px solid $color-gray-border;
+      align-items: center;
+      height: 36px;
+      display: flex;
+
+      .notification-icon-wrapper {
+        width: 50%;
+
+        .match-alert-wrapper {
+          align-items: center;
+          display: flex;
+
+          svg {
+            height: 20px;
+            width: 26px;
+            margin-left: 3px;
+          }
+        }
+      }
+
+      .bs-win-alerts-wrapper {
+        z-index: 2;
+        position: relative;
+        display: inline-block;
+        width: 50%;
+
+        .bs-win-alerts-content {
+          @include display-flex();
+          flex-flow: column;
+          @include justify-content(flex-end);
+
+          .bs-win-alerts-info {
+            @include display-flex();
+            @include align-items(center);
+            @include justify-content(flex-end);
+            font-size: 11px;
+            position: relative;
+
+            .win-alerts-info-icon {
+              width: 14px;
+              height: 14px;
+              position: relative;
+            }
+
+            span {
+              margin-left: 4px;
+              white-space: nowrap;
+              margin-right: 5px;
+            }
+          }
+        }
+      }
+    }
+
+    .allWinnerBonus-OpenBets{
+      color: $color-blue;
+      font-weight: 400;
+      font-size: 13px;
+      display: flex;
+      justify-content: end;
+      width: 100%;
+      padding: 0 12px; 
+      align-items: baseline; 
+    }
+    .allWinnerBonus-OpenBets-lads{
+      color:#4A90E2;
+      font-weight: 700;
+      font-size: 12px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      display: flex;
+      justify-content: end;
+      width: 100%;
+      padding: 0 12px;
+      align-items: baseline;  
+    }
+    .allWinnerBonus-OpenBets-value{
+      font-weight: 700;
+      font-size: 12px;
+    }
+    .allWinnerBonus-openbets-mobile-coral{ 
+      color: $color-blue;
+      font-weight: 400;
+      font-size: 13px;
+      display: flex;
+      justify-content: flex-start;
+      padding-left: 12px;
+      align-items: baseline;
+      position: relative;
+      top: 3px;  
+    }
+    .allWinnerBonus-openbets-mobile-lads{
+      color:#4A90E2;
+      font-weight: 400;
+      font-size: 12px;
+      display: flex ;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      justify-content: flex-start ;
+      padding-left: 12px;
+      align-items: baseline;
+      position: relative;
+      top:3px;
+    }

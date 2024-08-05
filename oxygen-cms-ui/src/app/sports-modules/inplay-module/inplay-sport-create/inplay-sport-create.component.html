@@ -1,0 +1,35 @@
+<div class="custom-dialog">
+    <h1 mat-dialog-title>New Inplay Sport</h1>
+    <div>
+      <cms-alert #requestError ></cms-alert>
+    </div>
+    <div mat-dialog-content>
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <div class="m-b-0 mat-label">
+            Sports Name:
+            <mat-form-field class="sports-select">
+              <mat-select [(value)]="inplaySport.sportName"
+                          [(ngModel)]="inplaySport.sportName" (selectionChange)="onSportsChange($event.value)" required placeholder="Sports Name">
+                <mat-option *ngFor="let sport of sportsList" [value]="sport.sportName">{{sport.sportName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Sport Event Count" [(ngModel)]="inplaySport.eventCount" [formControl]="eventCount" [value]="inplaySport.eventCount" type="number" trim="blur" required>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <cms-universal-segmented [segmentsDataObj]='segmentsList' (isFormValid)="isSegmentFormValid($event)"
+            (segmentsModifiedData)="modifiedSegmentsHandler($event)"></cms-universal-segmented>
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+      <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="!inplaySport.sportName || !isSegmentValid || !isEventCountValid()" (click)="createInplaySport()">Create</button>
+    </div>
+  </div>
+  

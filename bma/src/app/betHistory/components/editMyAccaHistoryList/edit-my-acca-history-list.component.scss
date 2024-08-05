@@ -1,0 +1,64 @@
+@import 'global.variables.scss';
+
+.bet-item {
+  @include bet-item-outer-space();
+}
+.bet-container {
+  box-shadow: $ema-bet-container-shadow;
+
+  .stake-boosted {
+    padding: 10px 15px;
+    border-bottom: 1px dashed $color-gray;
+    color: $color-black;
+    .boosted-icon {
+      height: 13px;
+      width: 26px;
+      margin-right: 5px;
+    }
+  }
+}
+.stake-container {
+  padding-bottom: $ema-stake-and-returns-bottom-padding;
+  border-top: 1px solid $color-gray;
+  padding-top: 12px;
+}
+.cashout-history {
+  $bgColor: $color-gray-light;
+  padding: 5px 12px;
+  font-size: 12px;
+  background-color: $bgColor;
+  color: $cashout-history-color;
+  header {
+    font-size: $font-size-md;
+    text-transform: uppercase;
+    @include cashout-history-header-text();
+  }
+
+  .cashout-item {
+    font-family: $cashout-history-item-font-family;
+    font-size: $cashout-history-item-font-size;
+    .cashout-item-name {
+      font-weight: bold;
+    }
+
+    .cashout-item-value {
+      float: right;
+    }
+
+    & + .cashout-item {
+      margin-top: 5px;
+    }
+  }
+
+  .cashout-used-msg {
+    font-family: $cashout-used-msg-font-family;
+    margin-top: 8px;
+    font-size: $font-size;
+    opacity: 0.65;
+  }
+
+  &.ema-history-cashout {
+    background: transparent;
+    padding-bottom: 15px;
+  }
+}

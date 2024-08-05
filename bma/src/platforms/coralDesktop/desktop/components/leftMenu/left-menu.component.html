@@ -1,0 +1,74 @@
+<section class="left-column-menu" data-crlat="leftColumnSection">
+  <span class="left-column-title" *ngIf="quickLinkHeader" [i18n]="'sbdesktop.quickLinkTitle'" data-crlat="quickTitle"></span>
+  <nav *ngIf="quickLinks && quickLinks.length">
+    <ul class="left-menu-items">
+      <ng-container *ngFor="let menuItem of quickLinks; trackBy: trackById">
+        <li *ngIf="menuItem.isAtoZQuickLink" data-crlat="menuItem">
+          <a [linkHref] [link]="menuItem.target" [activeLinkClass]
+            (click)="navigationService.openUrl(menuItem.target, menuItem.inApp)" [attr.title]="menuItem.alt"
+            class="left-menu-item" data-crlat="menuItem.link">
+          
+            <div *ngIf="menuItem.uriMedium; then thenBlock else elseBlock"></div>
+            <ng-template #thenBlock><img [attr.src]="menuItem.uriMedium"
+                class="left-menu-item-icon"></ng-template>
+            <ng-template #elseBlock>
+              <svg class="left-menu-item-icon">
+                <use [attr.xlink:href]="'#' + ('icon-generic')"></use>
+              </svg>
+            </ng-template>
+            <span class="left-menu-item-title" data-crlat="menuItemTitle"
+              [textContent]="menuItem.title"></span>
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </nav>
+  <nav *ngIf="showFavourites">
+    <span class="left-column-title" [i18n]="'sbdesktop.favourites'" data-crlat="favouriteTitle"></span>
+    <ul class="left-menu-items">
+      <ng-container *ngFor="let favouriteItem of favouriteItems; trackBy: trackById">
+        <li data-crlat="favouriteItem">
+          <a [linkHref] 
+             [link]="favouriteItem.targetUri"
+             [activeLinkClass]
+             (click)="openUrl($event, favouriteItem)" [attr.title]="favouriteItem.alt"
+             class="left-menu-item" 
+             data-crlat="favouriteItem.link">
+             <svg class="left-menu-item-icon">
+               <use [attr.xlink:href]="'#' + (favouriteItem.svgId || 'icon-generic')"></use>
+             </svg>
+            <span class="left-menu-item-title" data-crlat="favouriteItemTitle" [textContent]="favouriteItem.imageTitle"></span>
+            <input type="checkbox" checked data-crlat="favouriteCheckbox" class="cardcheckbox star"
+              (change)="openUrl($event, favouriteItem);" />
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </nav>
+  <span class="left-column-title" [i18n]="'sbdesktop.AZSports'" data-crlat="columnTitle"></span>
+  <nav *ngIf="menuItems && menuItems.length">
+    <ul class="left-menu-items">
+      <ng-container *ngFor="let menuItem of menuItems; trackBy: trackById; let menuItemIndex = index" >
+        <li *ngIf="!menuItem.hidden" data-crlat="menuItem"
+             (mouseenter)="selectedItemIndex = menuItemIndex"
+             (mouseleave)="selectedItemIndex = null">
+          <a [linkHref]
+             [link]="menuItem.targetUri"
+             [activeLinkClass]
+             (click)="openUrl($event, menuItem)"
+             [attr.title]="menuItem.alt"
+             class="left-menu-item"
+             data-crlat="menuItem.link">
+            <svg class="left-menu-item-icon">
+              <use [attr.xlink:href]="'#' + (menuItem.svgId || 'icon-generic')"></use>
+            </svg>
+            <span class="left-menu-item-title" data-crlat="menuItemTitle" [textContent]="menuItem.imageTitle"></span>
+            <input *ngIf="userService.status && ((selectedItemIndex == menuItemIndex && favouriteIds.length<favLimit) || favouriteIds.includes(+menuItem.categoryId))"
+            [checked]="favouriteIds.includes(+menuItem.categoryId)" type="checkbox" 
+            data-crlat="favouriteCheckbox" class="cardcheckbox star" (change)="openUrl($event, menuItem);"/>
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </nav>
+</section>

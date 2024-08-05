@@ -1,0 +1,16 @@
+<button class="btn btn-style1" [disabled]="disabled" data-crlat="oddsBoostButton">
+  <span class="boost-indicator"
+    [ngClass]="{ enabled: enabled, disabled: !enabled, animated: canAnimate }" data-crlat="boostIndicator">
+    <svg class="boost-meter" viewBox="0 0 25 20">
+      <use xlink:href="#odds-boost-meter"></use>
+    </svg>
+    <svg class="boost-arrow active" viewBox="0 0 12 10">
+      <use xlink:href="#odds-boost-arrow-active"></use>
+    </svg>
+    <svg class="boost-arrow inactive" viewBox="0 0 12 10">
+      <use xlink:href="#odds-boost-arrow"></use>
+    </svg>
+  </span>
+  <span class="boost-text" [i18n]="oddsBoostLabel">
+  </span>
+</button>

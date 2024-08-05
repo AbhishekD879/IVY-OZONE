@@ -1,0 +1,190 @@
+@import 'global.variables.scss';
+.btn-group {
+    @include display-flex();
+    @include align-items();
+    background-color: $color-white;
+    justify-content: center;
+}
+
+.btn-group button {
+    color: $color-gray-darkest; /* White text */
+    padding: 10px 24px; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+    float: left; /* Float the buttons side by side */
+    border-radius: 21px;
+    margin: 5px;
+    min-height: 32px;
+    font-size: 12px;
+    box-shadow: 0 2px 5px 0 rgba(84, 84, 84, 0.26);
+  }
+  
+  /* Clear floats (clearfix hack) */
+  .btn-group:after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  .btn-group button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+  }
+  
+  /* Add a background color on hover */
+  .btn-group button:hover {
+    background-color: $color-blue-shade-heavy;
+  }
+
+  .market-cont {
+      color: red;
+  }
+
+  .switchers {
+    @include user-select();
+    padding: 5px 10px 0;
+    margin-bottom: 0px;
+  }
+
+  .switch-btn {
+    box-shadow: 0 2px 5px 0 rgba(84, 84, 84, 0.26);
+  }
+
+  .switch-btn.active:after {
+    content: '';
+    position: absolute;
+    width: 0px;
+    height: 3px;
+    background: $switch-btn-active-color;
+    bottom: -3px;
+    left: 0;
+}
+
+.switch-btn.active {
+  background-color: $color-blue !important;
+  span {
+    color: $color-white !important;
+  }
+}
+.switch-btn {
+  &.switch-btn-coral {
+    &:hover {
+      background-color: $color-blue !important;
+
+      span {
+        color: $color-white !important;
+      }
+    }
+
+    &:active {
+      background-color: $color-blue-rich-heavy !important;
+
+      span {
+        color: $color-white !important;
+      }
+    }
+  }
+
+  &.switch-btn-lads {
+    &.active-lads {
+      background-color: $color-blue-alt;
+      span {
+        color: $color-white !important;
+      }
+    }
+    &:hover {
+      background-color: $color-blue-alt !important;
+
+      span {
+        color: $color-white !important;
+      }
+    }
+
+    &:active {
+      background-color: $color-blue-alt-heavy !important;
+
+      span {
+        color: $color-white !important;
+      }
+    }
+  }
+
+  &.active {
+    &:after {
+      content: '';
+      position: absolute;
+      width: 0px !important;
+    }
+  }
+}
+
+.switch-btn.active>span {
+  background-color: none;
+  color: $color-white;
+}
+
+#switch-custom > span {
+  font-weight: normal;
+}
+.switch-btn > span {
+  color: $color-gray-darkest;
+}
+
+a {
+  box-shadow: 0 2px 5px 0 rgba(84, 84, 84, 0.26);
+  border-radius: 21px;
+}
+
+.switch-btn {
+  text-transform: none;
+  font-size: 12px;
+  min-height: 32px;
+  margin: 0px 3px;
+  &.active {
+    &:after {
+      content: '';
+      position: absolute;
+      width: 0px !important;
+    }
+  }
+}
+
+.switchers-1 {
+  padding-bottom: 20px !important;
+  justify-content: center;
+  width: 343px;
+  margin: 0px auto;
+}
+
+.switch-btn.active > span {
+  background-color: none;
+  color: $color-white;
+}
+
+.partition {
+  height: 1px;
+  background-color: $lGrayLight;
+}
+
+.select-name {
+  text-align: center;
+  background-color: $color-white;
+  padding: 10px 0px;
+  margin: 0px;
+  color: $selection-btn-text-color;
+  font-size: 14px;
+  font-family: $font-increment-number;
+}
+
+#switch-custom {
+  height: 100%;
+  margin: 0px 3px;
+  font-family: $font-increment-number;
+  font-size: 12px;
+  height: 32px;
+  text-transform: none;
+  border-bottom: none;
+}
+
+.switchers-container {
+  width: 100%;
+  background-color: $color-white;
+}

@@ -1,0 +1,22 @@
+<div class="item-inner text-center" data-crlat="requestError">
+  <div *ngIf="loginNeed">
+    <p data-crlat="textMsg" [textContent]="errorMsg"></p>
+    <button class="btn btn-style1"
+            (click)="openLoginDialog()"
+            data-crlat="signInButton"
+            [disabled]="loginPending">
+            <span [ngClass]="{'btn-spinner': loginPending}"
+            data-crlat="spinner.loader"></span>
+      <span [i18n]="'app.signIn'"></span>
+    </button>
+  </div>
+  <div *ngIf="isServerError">
+    <p [i18n]="'app.requestErrorMessage'"></p>
+    <button class="btn btn-style1"
+            (click)="reloadSection()"
+            data-crlat="refresh">
+      <span *ngIf='!reloadPending' [i18n]="'app.tryAgain'"></span>
+      <span [ngClass]="{'btn-spinner': reloadPending}" data-crlat="spinner.loader"></span>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<div *ngIf="isShowColumn">
+  <!-- oc-lazy-load="inplay" -->
+  <div>
+    <inplay-widget
+      *ngIf="activeWidgets.inPlay"
+      [sportName]="sportName"
+      [categoryId]="params.categoryId">
+    </inplay-widget>
+    <live-stream-widget
+      *ngIf="activeWidgets.liveStream"
+      [sportName]="sportName"
+      [categoryId]="params.categoryId">
+    </live-stream-widget>
+  </div>
+  <!-- oc-lazy-load="stats" -->
+  <div>
+    <table-widget
+      *ngIf="activeWidgets.table && params.typeId"
+      [params]="params">
+    </table-widget>
+    <results-widget
+      *ngIf="activeWidgets.results && params.typeId"
+      [params]="params">
+    </results-widget>
+  </div>
+</div>

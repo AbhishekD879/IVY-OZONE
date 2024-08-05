@@ -1,0 +1,7 @@
+<div class="sk-container" [ngClass]="{'sk-loading': !initialized}">
+  <loading-screen [displayed]="!initialized" [skeletonOnly]="true"></loading-screen>
+  <lazy-component moduleUri="@inplayModule/inplay.module#InplayModule"
+                  entryComponent="InplayTabComponent" [handleError]="true"
+                  (init)="childComponentLoaded()"
+                  (failed)="childComponentLoaded()"></lazy-component>
+</div>

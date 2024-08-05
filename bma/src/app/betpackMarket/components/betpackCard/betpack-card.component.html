@@ -1,0 +1,64 @@
+<div class="betpack-content-page" [ngClass]="{'slider-betpack-content-page' : isInCarousel}">
+  <div class="betpack-content">
+    <div class="betpack-cost" [ngClass]="{'slider-betpack-cost' : isInCarousel }">
+      <div class="pay-bet" [textContent]="'PAY'"></div>
+      <div [textContent]="bp.betPackPurchaseAmount"></div>
+    </div>
+    <div class="betpack-title betpack-name" [title]="bp.betPackTitle" [textContent]="bp.betPackTitle"></div>
+    <div class="circles" *ngIf="bp.betPackSpecialCheckbox">
+      <div class="circle-with-text" [ngClass]="{'slider-circle-with-text' : isInCarousel }">
+        <div class="euro" [textContent]="bp.betPackFreeBetsAmount">
+        </div>
+        <br>
+        <div class="euro-text" [textContent]="inBetPackStaticText.INBETTOKENS"></div>
+      </div>
+    </div>
+    <div *ngIf="!bp.betPackSpecialCheckbox" class="betpack-freebet">
+      <div class="buy-euro" [textContent]="bp.betPackFreeBetsAmount">
+      </div>
+      <div class="buy-euro-text">IN BET TOKENS</div>
+    </div>
+  </div>
+  <div class="betpack-tokens" [title]="bp.betPackFrontDisplayDescription"
+    [textContent]="bp.betPackFrontDisplayDescription"></div>
+  <div class="betpack-token-place">
+    <div class="betpack-token" *ngFor="let betPackTokenList of bp?.betPackTokenList;let i = index;">
+      <div class="betpack-tokenName" *ngIf='i < 4 || bp?.betPackTokenList.length === 5'
+        [ngClass]="{'slider-betpack-tokenName' : isInCarousel }" [title]="betPackTokenList.tokenTitle"
+        [textContent]="betPackTokenList.tokenTitle"></div>
+      <div class="betpack-tokenName extra" *ngIf='i === 5 && bp?.betPackTokenList.length > 5'
+        [ngClass]="{'slider-betpack-tokenName' : isInCarousel }"
+        [textContent]="'Plus ' + tokenLengthCheck(bp.betPackTokenList.length) + ' Others'"></div>
+    </div>
+  </div>
+  <div class="sportTag-container">
+    <div class="betpack-sportTag">
+      <div class="betpack-sportTag-place d-block overflowTokens" *ngFor="let betPacSportList of bp?.sportsTag" [title]='betPacSportList' >
+        <span class="tokenText" *ngFor="let tokenContent of betPacSportList.trim().split(' ')" [textContent]="tokenContent"></span>
+    </div>
+    </div>
+
+    <div *ngIf="bp.signPostingMsg" class="signPostingMsg">
+      <span class="signPost-check" *ngIf='!isExpiresIn' [title]="bp.signPostingToolTip"
+        [ngStyle]="signPostingBkg(bp.signPostingMsg)">
+        <span *ngIf="bp.signPostingMsg === betpackLabels.comingSoon" class="icons-area">
+          <svg class="nextArrowSvg">
+              <use [attr.xlink:href]="'#' + betpackLabels.comingSoonSvg"></use>
+          </svg>
+        </span>
+
+        <span [textContent]="bp.signPostingMsg | uppercase"></span>
+      </span>
+      <betpack-expiresin-timer class="mt-1" *ngIf='isExpiresIn' [title]="bp.signPostingToolTip" [signPost]= "bp.signPostingMsg" [timer]="expiresIntimer" [utc]="true" [displayTime]="false"
+        [displayCountdown]="true" (EmitTimer)="ontimerEmits($event)"></betpack-expiresin-timer>
+    </div>
+  </div>
+  <div class="betpack-buttons">
+    <button class="betpack-moreInfo" [ngClass]="{'full-width-bp' : bp.disableBuyBtn}"
+      (click)="moreInfo(bp,$event,bp.signPostingMsg,bp.signPostingToolTip)"
+      [textContent]="betpackLabels?.moreInfoLabel"></button>
+    <button class="betpack-buyNow" [ngClass]="{'hide-btn' : bp.disableBuyBtn}" [disabled]="checkStatus(bp.signPostingMsg)"
+      (click)="buyNow(bp,$event,bp.signPostingMsg,bp.signPostingToolTip);sendgmt(bp)"
+      [textContent]="buyNowbtn"></button>
+  </div>
+</div>

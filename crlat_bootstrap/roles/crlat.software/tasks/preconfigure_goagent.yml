@@ -1,0 +1,16 @@
+- name: Add an Apt signing key, uses whichever key is at the URL
+  apt_key:
+    url: https://download.gocd.org/GOCD-GPG-KEY.asc
+    state: present
+
+- name: Add sources.list record
+  lineinfile:
+    path: /etc/apt/sources.list.d/gocd.list
+    create: yes
+    regexp: '^deb.+gocd.+/$'
+    line: 'deb https://download.gocd.org /'
+    state: present
+
+- name: Update APT cache
+  apt:
+    update_cache: yes

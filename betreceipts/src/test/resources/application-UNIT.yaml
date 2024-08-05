@@ -1,0 +1,35 @@
+spring:
+  data:
+    redis:
+      repositories:
+        enabled: false
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration
+
+debug: true
+
+logging:
+
+  # FIXME: remove me after Filebeat migration
+  pattern.console: "%clr{%d{${LOG_DATEFORMAT_PATTERN}}}{faint} %clr{${LOG_LEVEL_PATTERN}} %clr{%pid}{magenta} %clr{---}{faint} %clr{[%15.15t]}{faint} %clr{%-40.40c{1.}}{cyan} %clr{:}{faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD}"
+
+masterlock:
+  lease-duration: 15
+  heartbeat-period: 3
+  aws:
+    region: eu-west-2
+    dynamo.url: https://dynamodb.eu-west-2.amazonaws.com
+  partitionKey: key
+
+
+
+app:
+  redis:
+    bet:
+      ttl: 2
+  nextRaces:
+    categoryId: 21
+    maxNextRaces: 3
+    timePeriodMinutes: 15

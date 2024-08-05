@@ -1,0 +1,175 @@
+@import "global.variables.scss";
+
+.timeline-post {
+  position: relative;
+  width: 100%;
+
+  border-bottom: 1px solid $lGrayLight;
+  background-color: $color-white;
+  padding: 12px 40px;
+  &.first {
+    border-radius: 11px 11px 0 0;
+  }
+  &.red-line {
+    background-color: $color-gray-alabaster;
+    border-left: 2px solid $red;
+    margin-left: 1px;
+  }
+  &.blue-line {
+    background-color: $color-gray-alabaster;
+    border-left: 2px solid $color-blue-rich;
+    margin-left: 1px;
+  }
+  &-time {
+    font-family: $timeline-font-family;
+    font-size: $font-size-sm;
+    letter-spacing: 0px;
+    color: $lBlack-light;
+  }
+  &-header {
+    @include align-items(center);
+    @include flex-wrap(wrap);
+    display: inline-flex;
+    margin-bottom: 7px;
+  }
+  &-icon {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background-size: 100%;
+    left: 10px;
+    top: 14px;
+    &.time-padding {
+      top: 27px;
+    }
+  }
+  &-watch{
+    margin-right: .5rem;
+    height: 15px;
+    width:67px;
+  }
+  &-label {
+   margin-right: .5rem;
+   display: inline;
+  }
+  &-title {
+    font-family: $base-font-family;
+    font-size: $font-size-tablet;
+    font-weight: bold;
+    letter-spacing: 0.39px;
+    text-transform: uppercase;
+    color: $color-black;
+    display: inline;
+    margin-right: 8px;
+  }
+  &-racing-post {
+    display: inline-flex;
+    .icon {
+      height: 10px;
+      width: 83px;
+    }
+    &::before {
+      content: "";
+      display: inline-block;
+      height: 11px;
+      width: 1px;
+      background-color: $lGray;
+      margin-right: 8px;
+    }
+  }
+  &-label-container {
+    display: inline-flex;
+  }
+  &-verdict,
+  &-spotlight {
+    font-family: $base-font-family;
+    font-size: $font-size-md;
+    font-weight: bold;
+    font-stretch: condensed;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.01px;
+    color: $color-gray-darkest;
+    text-transform: uppercase;
+    margin-left: 4px;
+  }
+  &-subheader {
+    font-family: $timeline-font-family;
+    font-size: $font-size;
+    color: $color-black;
+    margin: 1px 0;
+  }
+  &-title,
+  &-label,
+  &-subheader {
+    &.yellow {
+      color: $color-black;
+      background-color: $color-yellow-alt;
+      font-family: $base-font-family;
+      padding: 0 4px;
+      border-radius: $border-radius-sm;
+      text-transform: uppercase;
+      font-weight: bold;
+      width: fit-content;
+      font-size: $font-size-md;
+      line-height: initial;
+    }
+  }
+  &-info {
+    display: flex;
+    justify-content: space-between;
+    word-break: break-word;
+  }
+  .promo-img {
+    @include align-items(center);
+    @include inline-flex();
+    padding: 0 10px;
+    img {
+      width: 46px;
+    }
+  }
+
+  .redirect-arrow {
+    @include inline-flex();
+    position: absolute;
+    top: calc(50% - 5px);
+    right: 12px;
+    margin-left: 10px;
+    width: 7px;
+    height: 7px;
+    border: solid $color-gray-darkest;
+    border-width: 0 2px 2px 0;
+    @include transform(rotate(-45deg));
+  }
+}
+
+:host .timeline-post-description ::ng-deep p ,
+:host .timeline-post-description ::ng-deep pre {
+      font-family: $timeline-font-family;
+      font-size: $font-size-md;
+      font-style: normal;
+      line-height: 13px;
+      color: $lBlack-light;
+      margin: 0;
+}
+
+.bet-text {
+  display: flex;
+  align-items: center;
+  color: $lBlack-light;
+}
+
+.price-odd-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  width: 100%;
+
+  .btn-bet-na {
+    &[disabled] {
+      background-image: $bet-btn-bg-disabled;
+      color: $color-gray-dark;
+      border-color: $color-gray-darker;
+    }
+  }
+}

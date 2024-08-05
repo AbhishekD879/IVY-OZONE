@@ -1,0 +1,141 @@
+<div data-crlat="isSingles" class="bs-scrolling-fix-ios bs-container">
+  <div class="stakes-wrapper">
+    <div *ngFor="let receipt of singleReceipts; trackBy:trackByIndex; let index = index;"
+         class="bs-stake bs-single-receipt"
+         data-crlat="receiptSingles">
+      <ng-container *ngIf="!isStakeCanceled(receipt); else declinedBet">
+        <div *ngIf="receipt.oddsBoosted" class="bs-stake-boost" data-crlat="boostSect">
+          <svg class="boost-icon" data-crlat="boostIcon">
+            <use xlink:href="#odds-boost-icon-dark"></use>
+          </svg>
+          <span [i18n]="'bs.boostedMsg'" data-crlat="boostText"></span>
+        </div>
+        <div class="stake-row">
+          <div class="stake-column favourites-column">
+            <favourites-add-button *ngIf="receipt.isFootball" [event]="receipt.leg[0].part[0].event"
+                                   [sportName]="'football'" [config]="configFavourites" data-crlat="favouriteIcon">
+            </favourites-add-button>
+          </div>
+          <div class="stake-column">
+            <div class="bs-stake-header">
+              <div class="bs-stake-info">
+                <div class="bs-single-receipt-odds" data-crlat="betType">
+                  <strong class="selection-type" [i18n]="'bs.single'" data-crlat="selType"></strong>&nbsp;
+                  <span *ngIf="!receipt.isFCTC">
+                  <strong class="bs-receipt-odds" [textContent]="'@ '"></strong>
+                  <strong class="bs-receipt-odds" [textContent]="getOdds(receipt)" data-uat="odds"></strong>
+                </span>
+                </div>
+                <div class="bet-id-number"><span class="bet-id" [i18n]="'bs.betId'"></span><span class="bet-id"
+                  [textContent]="receipt.receipt" data-uat="betId" data-crlat="betId.value"></span></div>
+                <span *ngIf="receipt.isFCTC" class="bs-stake-title" data-uat="selectionName">
+                  <betslip-fctc-list [outcomes]="receipt.leg[0].part" [modifire]="'receipt'" [lines]="receipt.numLines">
+                  </betslip-fctc-list>
+                </span>
+                <span class="eprmessage">
+                <strong *ngIf="!receipt.isFCTC" class="bs-stake-title" [textContent]="filterPlayerName(receipt.name)"
+                        data-uat="selectionName"></strong>
+                <lazy-component *ngIf="(receipt.eventMarket === 'Win or Each Way' && receipt.leg[0].part[0].event.markets[0].templateMarketName === 'Win or Each Way') || receipt.leg[0].part[0].event.markets[0].templateMarketName === 'Outright'"
+                moduleUri="@lazy-modules-module/extraPlaceSignposting/extra-place-signposting.module#ExtraPlaceSignpostingModule"
+                [inputs]="{marketData:receipt.leg[0].part[0].event.markets[0],origin:'betreceipts',changeStrategy: changeStrategy}" 
+                entryComponent="ExtraPlaceSignpostingComponent">
+              </lazy-component></span>
+                <span class="stake-type" [textContent]="filterAddScore(receipt.eventMarket, receipt.name) + ' / ' "
+                      data-uat="marketName"></span>
+                <span class="stake-description" [textContent]="receipt.leg[0].part[0].eventDesc" data-uat="eventName"></span>
+                <div class="eachway-terms-block" *ngIf="receipt.legType === 'E'" data-crlat="eachWay">
+                  <span class="eachway-terms" [textContent]="getEWTerms(receipt.leg[0].part[0])"></span>
+                  <span class="eachway-terms" [textContent]="getLinesPerStake(receipt)"></span>
+                </div>
+                <div class="promotion-icon-label">
+                  <ng-container *ngIf="receipt.isFootball && receipt.eventMarket === twoUpMarketName">
+                    <promotion-icon
+                    [type]="'market'"
+                    [mode]="'sm'"
+                    [cashoutAvailable]="receipt.cashoutAvail === 'Y'"
+                    [display]="appendDrillDownTagNames(receipt)"
+                    [marketName]="receipt.eventMarket"
+                    [sport]="'sport'"
+                    data-crlat="promotionIcons"
+                    [disablePopUp]=true>
+                    </promotion-icon>
+                  </ng-container> 
+                    <!-- Promo labels -->
+                    <promo-labels *ngIf="!receipt.isFCTC"
+                                  [isBogEnabled]="receipt.leg[0].part[0].isBog"
+                                  [mode]="'betslip'"
+                                  [cashoutValue]="receipt.cashoutValue"
+                                  [event]="receipt.leg[0].part[0].event"
+                                  [exclude]="receipt.excludedDrillDownTagNames"
+                                  [marketId]="receipt.leg[0].part[0].marketId">
+                    </promo-labels>
+                    <span *ngIf="receipt.isFCTC" class="lines-info" [textContent]="buildLinesTitle(receipt)"></span>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div *ngIf="isSportIconEnabled" class="sports-icon" [ngClass]="{'sports-icon-wrapper':winAlertsEnabled}">
+            <svg class="sports-icon-position">
+              <use [attr.xlink:href]="'#'+receipt.leg[0].svgId"></use>
+            </svg>
+          </div>
+        </div>
+        <div class="alerts-wrapper" *ngIf="winAlertsEnabled || receipt.footballAlertsVisible">
+          <div class="notification-icon-wrapper fav-icon">
+          <div class="match-alert-wrapper" *ngIf="receipt.footballAlertsVisible" (click)="onFootballBellClick(receipt)">
+              <span [i18n]="'bs.matchAlerts'"></span>
+              <svg *ngIf="receipt.footballBellActive">
+                <use xlink:href="#bell-icon-on"></use>
+              </svg>
+              <svg *ngIf="!receipt.footballBellActive">
+                <use xlink:href="#bell-icon-turn-off"></use>
+              </svg>
+            </div>
+          </div>
+          <div class="bs-win-alerts-wrapper" *ngIf="winAlertsEnabled">
+              <div class="bs-win-alerts-content">
+                <div class="bs-win-alerts-info">
+                  <svg class="win-alerts-info-icon" data-crlat="infoButton" [tooltip]="'winAlerts'"
+                       [showTooltip]="showWinAlertsTooltip() && !index" (click)="handleAlertInfoClick(receipt)">
+                    <use xlink:href="#win-alert-icon"></use>
+                  </svg>
+                  <span [i18n]="'bs.winAlerts'"></span>
+                  <toggle-switch [initialState]="winAlertsActive" [componentId]="setToggleSwitchId(receipt)"
+                  [disabled]="!nativeBridge.pushNotificationsEnabled" (switcherControl)="toggleWinAlerts(receipt, $event)"
+                  (clickIfDisabled)="nativeBridge.showNotificationSettings()" data-crlat="allowQuickBetSwitch">
+                  </toggle-switch>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="bs-stake-footer">
+          <div class="line bs-stake-row">
+            <strong [i18n]="'bs.stake'"></strong>&nbsp;
+            <span *ngIf="receipt.stakeValue > 0" [textContent]="receipt.stakeValue | currency:currencySymbol:'code'" data-crlat="totalStake"></span>
+            <span class="free-bet-label">
+              <free-bet-label *ngIf="receipt.tokenValue > 0"
+                            [freeBetLabelText]="receipt.freebetOfferCategory"
+                            [selected]="receipt.tokenValue"
+                            [plusPrefix]="receipt.stakeValue > 0">
+              </free-bet-label>
+            </span>
+          </div>
+          <div class="line">
+            <strong [i18n]="'bs.estimatedResults'"></strong>&nbsp;
+            <span [textContent]="(+receipt.potentialPayout && receipt.potentialPayout | currency:currencySymbol:'code') || 'N/A'"
+                  data-uat="estReturns"></span>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-template #declinedBet>
+        <declined-bet data-crlat="declinedBet" [selectionName]="!receipt.isFCTC ? filterPlayerName(receipt.name) : ''"
+                      [fctcData]="receipt.isFCTC ? {outcomes: receipt.leg[0].part, lines: receipt.numLines, modifire: 'receipt'} : null"
+                      [marketName]="filterAddScore(receipt.eventMarket, receipt.name)"
+                      [eventName]="receipt.eventName">
+        </declined-bet>
+      </ng-template>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,88 @@
+@import "global.variables.scss";
+@import "../../../../ladbrokesMobile/fiveASideShowDown/components/fiveASideShowDownLobby/fiveaside-show-down-lobby.component.scss";
+@import '../../../../ladbrokesMobile/fiveASideShowDown/components/fiveASidePreLeaderBoard/fiveASidePreLeaderBoardMixin/fiveaside-pre-leader-board-mixin.scss';
+$imagesPath: '/assets/images/';
+
+.overlayTopbar {
+    display: inline;
+}
+
+.leaderboard-container {
+    @include leader-board-mixin(100%, 10px 0px 0px 0px, url('#{$imagesPath}5ASideWithPlayers.png') #010101, auto, no-repeat);
+    background-position-x: center;
+    position: relative;
+    display: flex;
+
+    section {
+        width: 750px;
+        margin: 0 auto;
+        padding: $font-size;
+        object-fit: contain;
+        height: 1724px;
+        border-radius: 9px;
+
+        .cards-content {
+            height: 95%;
+            overflow-y: scroll;
+            margin-bottom: 25px;
+            background-image: linear-gradient($color-lobby-desktop, $color-lobby-desktop);
+            background-repeat: no-repeat;
+            background-position: -23px 0, 0 0;
+        }
+
+        .force-overflow {
+            min-height: 450px;
+            margin-right: 12px;
+        }
+
+        #custom-scroll::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px $color-scrollbar-webkit;
+            box-shadow: inset 0 0 6px $color-scrollbar-webkit;
+            border-radius: 10px;
+            background-color: $color-scrollbar-track;
+        }
+
+        #custom-scroll::-webkit-scrollbar {
+            width: 12px;
+            background-color: $color-scrollbar-track;
+        }
+
+        #custom-scroll::-webkit-scrollbar-thumb {
+            -webkit-box-shadow: inset 0 0 6px $color-scrollbar-webkit;
+            box-shadow: inset 0 0 6px $color-scrollbar-webkit;
+            border-radius: 11.5px;
+            background-color: $color-scrollbar-thumb;
+        }
+    }
+
+    .tsCs-And-FAQs {
+        height: 15px;
+        margin: 42px 0 0 0;
+    }
+
+    .lobby-section-title {
+        display: block;
+        @include setFontProps($base-font-family, 12px, bold, $color-white);
+        font-stretch: condensed;
+        text-transform: uppercase;
+        margin: 4px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        margin-left: 12px;
+    }
+
+    .tutorial-link {
+        padding: 0px;
+        margin-right: 8px;
+        height: 5px;
+        margin-top: 20px;
+        background-color: unset;
+        cursor: pointer;
+    }
+
+    .lobby-title {
+        display: flex;
+        justify-content: space-between;
+    }
+
+}

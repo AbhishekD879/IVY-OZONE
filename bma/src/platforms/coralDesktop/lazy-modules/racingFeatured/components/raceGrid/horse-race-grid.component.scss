@@ -1,0 +1,193 @@
+@import 'global.variables.scss';
+@import '../../../../../../app/shared/components/racingGrid/racing-grid.component.scss';
+ 
+
+$racing-desktop-grid-content-height: 40px;
+$racing-desktop-stream-icon-size: 10px;
+
+.horserace.desktop-race-grid {
+  &.race-grid {
+
+    .rg-section {
+      margin-bottom: 1px;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+    .rg-header {
+      font-size: 10px;
+
+      .rg-stream-icon {
+        width: $racing-desktop-stream-icon-size;
+        height: $racing-desktop-stream-icon-size;
+      }
+    }
+    .rg-footer {
+      min-height: 2px;
+    }
+
+    .tabs-panel {
+      &.tabs-bottom {
+        margin-bottom: 0;
+
+        .prom-icon {
+          padding: 12px 4px;
+          &:first-child {
+            margin-left: 0;
+          }
+        }
+
+        .scroll-container {
+          .pool-indicators-container {
+            li {
+              cursor: pointer;
+            }
+            display: inherit;
+          }
+          .scroll-inner li {
+            height: $racing-desktop-grid-content-height;
+            &:active {
+              background: transparent;
+            }
+            .tab {
+              font-size: 12px;
+              height: $racing-desktop-grid-content-height;
+              min-width: 60px;
+              @include justify-content(space-around);
+            }
+            .tote-indicator {
+              background-color: $color-blue;
+              padding: 5px 3px;
+              color: $color-white;
+              text-transform: uppercase;
+              min-height: 22px;
+              height: 5px;
+              font-size: 11px;
+              margin-right: 10px;
+              border-radius: 1px;
+              @include justify-content(center);
+              &:hover{
+                background: $color-blue-alt2;
+                color: $color-white;
+              }
+              &:active{
+                background: $color-blue-rich2;
+                color: $color-white;
+              }
+            }
+          }
+        }
+      }
+      .race-resulted {
+        .race-icon {
+          height: 9px;
+        }
+      }
+      .action-arrow {
+        top: 0;
+        padding-top: 0;
+      }
+    }
+  }
+
+  .prom-icons-wrap {
+    padding-top: 6px;
+  }
+}
+
+.desktop-race-grid {
+  .tabs-panel.tabs-bottom {
+    .scroll-container {
+      .scroll-inner {
+        li {
+          @include flex(0, 0, auto);
+
+          .tab {
+            @include flex(0, 0, auto);
+          }
+
+          &.build-card-enabled {
+            border-right: 1px solid $color-gray-light;
+          }
+        }
+      }
+    }
+  }
+
+  .prom-icons-wrap {
+    @include display-flex();
+    @include flex(0, 0, auto);
+    height: 40px;
+    padding-top: 10px;
+  }
+
+  .build-card-box .check-styled,
+  .build-card-box .check-styled label,
+  .build-card-box .check-styled input[type=checkbox] {
+    width: 14px;
+    height: 14px;
+    border-radius: 2px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  .build-card-box {
+    height: 50px;
+    min-width: 14px;
+    margin: 0 2px 0 10px;
+    @include display-flex();
+    @include align-items(center);
+    @include flex(0, 0, auto);
+
+    .check-styled {
+      display: block;
+      margin: 0;
+
+      label {
+        border: solid 1px $color-black-soft;
+      }
+
+      label:after {
+        border-color: $color-white;
+        border-width: 2px;
+      }
+
+      :checked + label {
+        background: $color-green;
+        border-radius: 0;
+      }
+
+      input[disabled] + label {
+        border-color: lighten($color-gray-dark, 50%);
+        cursor: default;
+      }
+    }
+  }
+}
+ 
+  .early-price-sign-post {
+    z-index: 99;
+    position: relative;
+    padding-left: 10px; 
+    font-size: 9px;
+    line-height: 16px;
+    font-weight: 400;
+    color: #2b2b2b;
+    text-transform: none;
+    font-family: Lato,Arial,Helvetica Neue,Helvetica,sans-serif;
+    letter-spacing: 0.001px;
+    span {
+      width: 85px;
+      height: 11px;
+      display: inline-block;
+      white-space: nowrap;
+    }
+  }
+  .move-left {
+    position: relative;
+    left: 0px;
+    margin-top: 15px;
+  }
+  

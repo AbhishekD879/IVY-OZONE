@@ -1,0 +1,43 @@
+@import 'global.variables.scss';
+
+.login-need-wrapper {
+  background: $lGrayLight;
+  padding: 12px;
+  font-family: $alt-font-family;
+
+  .login-need {
+    p {
+      white-space: pre;
+      font-size: 13px;
+      line-height: 20px;
+      margin-bottom: 0;
+    }
+  }
+}
+.request-error {
+  box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+  background-color: $color-white;
+  padding: 16px;
+}
+
+.error-message {
+  font-size: 13px;
+  font-family: $alt-font-family;
+  color: $lGray;
+  font-weight: normal;
+  margin-bottom: 12px;
+}
+
+.try-againg-btn {
+  background: $btn-bg-green-color;
+  width: 100px;
+  height: 35px;
+  box-shadow: none;
+  border-radius: 0;
+  span {
+    text-shadow: none;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}

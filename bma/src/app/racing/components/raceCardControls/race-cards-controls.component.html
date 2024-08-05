@@ -1,0 +1,14 @@
+<div class="race-cards-controls">
+    <div class="race-cards-show-option" (click)="toggleShowOptionChange()" *ngIf="showControl">
+      <span class="show-option"
+            [ngClass]="{'active' : showMore}">
+        <span [textContent]="toggleInfoText"></span>
+      </span>
+    </div>
+  
+    <lazy-component *ngIf="sortOptionsEnabled"
+                    moduleUri="@lazy-modules-module/sortByOptions/sort-by-options.module#SortByOptionsModule"
+                    [inputs]="{ sortBy: sortBy }"
+                    class="sort-by-section">
+    </lazy-component>
+  </div>

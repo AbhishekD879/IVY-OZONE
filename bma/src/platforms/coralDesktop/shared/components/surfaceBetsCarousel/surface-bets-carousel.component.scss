@@ -1,0 +1,132 @@
+@import 'global.variables.scss';
+
+$surface-bet-scroll-step: 288px;
+$surface-bet-card-width: 280px;
+$surface-bet-card-height: 95px;
+$scroll-button-width: 20px;
+
+:host {
+  position: relative;
+}
+
+.surface-bets-container {
+  position: relative;
+  overflow: hidden;
+  // to collapse with other margins
+  margin: 8px 0;
+  // to display card shadow
+  padding: 4px;
+
+  &:hover {
+    .scroll-buttons .hc-arrow {
+      opacity: 1;
+
+      &.prev-hc-card {
+        left: 0;
+      }
+
+      &.next-hc-card {
+        right: 0;
+      }
+    }
+  }
+
+  &:active {
+    scroll-buttons .hc-arrow:not(:hover) {
+      pointer-events: none;
+    }
+  }
+
+  .scroll-buttons {
+    background: transparent;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+
+    &:after,
+    &:before {
+      content: '';
+      display: table;
+    }
+
+    &:after {
+      clear: both;
+    }
+
+    .hc-arrow {
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      width: $scroll-button-width;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      background: rgba(92, 99, 107, 0.6);
+      opacity: 0;
+      @include transition();
+
+      &.hc-arrow-hide {
+        display: block;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      &.prev-hc-card, &.hc-arrow-hide.prev-hc-card {
+        left: -$scroll-button-width;
+      }
+
+      &.next-hc-card, &.hc-arrow-hide.next-hc-card {
+        right: -$scroll-button-width;
+      }
+
+      & > svg {
+        position: static;
+        left: auto;
+        top: auto;
+        height: 10px;
+        width: 5px;
+        margin: 0;
+        padding: 0;
+        fill: $color-white;
+        text-shadow: none;
+      }
+
+      & > span {
+        display: none;
+      }
+    }
+  }
+}
+
+.surface-bets-carousel {
+  width: auto;
+  overflow: visible;
+
+  .carousel-slides {
+    overflow: visible;
+    position: relative;
+    @include display-flex();
+    @include justify-content(flex-start);
+    height: 100%;
+    width: $surface-bet-scroll-step;
+
+    .slide {
+      height: auto;
+      min-height: $surface-bet-card-height;
+      width: $surface-bet-card-width;
+      min-width: $surface-bet-card-width;
+      margin-right: 8px;
+      display: flex;
+
+      @media (min-width: $odds-button-big-size) {
+        width: $surface-bet-card-width + $price-odd-btn-min-width-1600;
+        min-width: $surface-bet-card-width + $price-odd-btn-min-width-1600;
+      }
+    }
+  }
+
+  &.one-card-mode {
+    @include display-flex();
+    @include justify-content(center);
+  }
+}

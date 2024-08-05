@@ -1,0 +1,60 @@
+<div class="card">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Module Configuration Page
+      <!-- <small *ngIf="!(menuSubTree? menuSubTree['sub-menus'].length:null)">No Sub-Modules</small> -->
+    </h2>
+  </div>
+</div>
+
+<div class="body">
+  <div>
+    <div class="row clearfix">
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input [(ngModel)]="moduleName" (ngModelChange)="dataChanged()" matInput type="text" placeholder="Module Name" required trim="blur">
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12" *ngIf="!dataLoading">
+        <ng-select [items]="UserDataValue" [loading]="dataLoading" [addTag]="addTagFn" (ngModelChange)="dataChanged()" [hideSelected]="true" [multiple]="true"
+        bindLabel="title" bindValue="id" class="ng-custom" placeholder="Alias Module Names" [(ngModel)]="aliasModuleIds">
+    </ng-select>
+      </div>
+    </div>
+
+    <div class="row clearfix">
+      <div class="col-md-12">
+        <mat-checkbox class="mat-label" color="primary" [checked]="subModuleEnabled" [(ngModel)]="subModuleEnabled" (ngModelChange)="dataChanged()">
+          {{dialogLabels.subModulesEnabled}}
+        </mat-checkbox>
+      </div>
+    </div>
+  </div>
+
+  <div class="row clearfix" *ngIf="subModuleEnabled">
+    <div class="col-md-12">
+      <mat-form-field class="full-width">
+        <mat-select placeholder="Module Name Code" [(value)]="selectedSubModuleId">
+          <mat-option *ngFor="let mn of moduleNames" [value]="mn.id">
+            {{mn.moduleName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="createSubModule()"
+        [textContent]="moduleRowId > -1 ? dialogLabels.update : dialogLabels.add"></button>
+    </div>
+    <div class="col-md-12">
+      <cms-data-table [customTableData]="subModules" [customTableColumns]="moduleListColumns" [reorder]="false"
+        [filterString]="searchField" [filterProperties]="filterProperties" [actions]="['remove']"
+        (onRemoveTableElement)="removeSubModule($event)">
+      </cms-data-table>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()"
+    [textContent]="dialogLabels.noOption"></button>
+  <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="!checkButtonEnable()" (click)="saveModule()"
+    [mat-dialog-close]="subModuleData" [textContent]="dialogLabels.yesOption"></button>
+</div>

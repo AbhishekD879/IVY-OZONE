@@ -1,0 +1,20 @@
+@import 'global.variables.scss';
+
+.quickbet-quick-stake {
+  font-family: $base-font-family;
+  padding: 0;
+  margin: 0 14px 12px;
+
+  .qb-quick-stake-item{ 
+    span {
+    font-size: 15px;
+    }
+    &.qb-fb-toggle{
+      background-color: $color-yellow-alt;
+    }
+    &.qb-free-bet-sel{
+      background: $lGrayLight;
+    }
+  }
+}
+

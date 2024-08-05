@@ -1,0 +1,43 @@
+<div class="tote-pot-pool-bet single-item-inner"
+     [ngClass]="{'suspended': pool.isSuspended}">
+  <div class="pot-pool-bet-header pool-block">
+    <div class="select-market-header top" data-crlat="section.marketHeader">
+      <div class="single-left" data-crlat="marketHeader">
+        <!-- Outcome names -->
+        <div class="selection-names">
+          <div [textContent]="pool.toteMarketTitle ==='Placepot7' ? 'ITV7 Placepot': pool.toteMarketTitle"
+               class="selection-name">
+          </div>
+        </div>
+      </div>
+      <!-- Suspended icon-->
+      <div class="single-right" data-crlat="section.odds">
+        <div class="tote-leg-status-container" *ngIf="pool.isSuspended">
+          <svg class="tote-leg-status suspended" data-crlat="leg.status">
+            <use xlink:href="#icon-suspended" data-crlat="#icon-suspended"></use>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pot-pool-bet-item pool-block"
+       *ngFor="let leg of pool.leg; trackBy: trackByLeg; let i = index;" data-crlat="cashout.betLeg">
+    <div *ngIf="isSportIconEnabled" class="sports-icon sports-icon-pool">
+      <svg class="sports-icon-position">
+        <use [attr.xlink:href]="'#'+leg.svgId"></use>
+      </svg>
+    </div>
+    <div class="leg-z-index-lotto">
+      <div class="pot-pool-bet-item-header"
+          [ngClass]="{'active': leg.eventEntity}"
+          [textContent]="getLegTitle(leg, i)"
+          data-crlat="eventName">
+      </div>
+      <div class="pot-pool-bet-outcomes-list" data-crlat="outcomesList">
+        <div *ngFor="let outcome of leg.orderedOutcomes; trackBy: trackByOutcome">
+          <div [textContent]="getOutcomeTitle(outcome)" data-crlat="selectionName"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

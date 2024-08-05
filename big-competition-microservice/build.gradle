@@ -1,0 +1,126 @@
+// base build v1.3
+// https://bitbucket.org/symphonydevelopers/codebase-main/src/master/tools/gradle/build.gradle
+
+// Limitations of the plugins DSL
+// https://docs.gradle.org/5.2.1/userguide/plugins.html#plugins_dsl_limitations
+
+plugins {
+  id 'org.springframework.boot' version '2.7.1'
+  id 'com.coral.tools' version '3.0-SNAPSHOT'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+
+group = 'com.ladbrokescoral.oxygen'
+
+def nexusMavenRepo = System.getenv("NEXUS_HOST") ?: 'https://nexus-vie.coral.co.uk/repository/maven-public/'
+ext.nexusUser = System.getenv("NEXUS_USER") ?: project.properties.nexusUser
+ext.nexusPass = System.getenv("NEXUS_PASS") ?: project.properties.nexusPass
+
+repositories {
+  maven {
+    credentials {
+      username = "${nexusUser}"
+      password = "${nexusPass}"
+    }
+    url nexusMavenRepo
+  }
+  mavenCentral()
+}
+
+configurations {
+  all {
+    exclude module: 'spring-boot-starter-tomcat'
+    exclude module: 'spring-boot-starter-logging'
+  }
+  compileOnly {
+    extendsFrom annotationProcessor
+  }
+}
+
+ext {
+  set('springCloudVersion', '2021.0.3')
+  set('springdocOpenapiVersion', '1.6.14')
+  set('spockBomVersion', '2.4-M1-groovy-4.0')
+}
+
+dependencies {
+
+  // Development
+  developmentOnly 'org.springframework.boot:spring-boot-devtools'
+  annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+  // Fortify Annotations manual https://drive.google.com/open?id=15SbZt-C937-CnBNs6-zIH-Wy8T_KAFNZ
+  compileOnly 'com.hp.fortify:fortifyAnnotations:4.30'
+
+  // Spring Cloud
+  implementation platform("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
+  implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+  // implementation 'org.springframework.cloud:spring-cloud-starter-config'
+
+  // Spring Boot
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+  implementation 'org.springframework.boot:spring-boot-starter-undertow'
+  implementation 'org.springframework.boot:spring-boot-starter-actuator'
+  implementation 'org.springframework.boot:spring-boot-starter-cache'
+  implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+
+  // Spring - Cache
+  implementation 'com.github.ben-manes.caffeine:caffeine'
+
+  // Spring - Tools
+  implementation 'de.codecentric:chaos-monkey-spring-boot:2.2.0' // TODO: is it used?
+
+  // Project dependencies
+  implementation 'com.newrelic.agent.java:newrelic-api:latest.release'
+  implementation 'com.egalacoral.spark:siteserver-api:release-154.0.0-jdk11'
+  implementation 'com.ladbrokescoral.oxygen:cms-client:OZONE-12255-SNAPSHOT2'
+  implementation 'com.ladbrokescoral.oxygen:stats-center-client:release-152.4.0'
+  implementation 'joda-time:joda-time:2.12.5'
+
+  // Springdoc - OpenAPI
+  implementation "org.springdoc:springdoc-openapi-ui:$springdocOpenapiVersion"
+
+  // Other
+  implementation 'org.apache.commons:commons-text:1.9'
+  implementation 'commons-io:commons-io:2.8.0'
+
+  // Utils
+  implementation 'org.mapstruct:mapstruct:1.4.1.Final'
+  annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.1.Final'
+
+  // Testing
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  //testRuntimeOnly 'org.junit.vintage:junit-vintage-engine' // FIXME: remove me after JUnit 5 migration
+  // https://mvnrepository.com/artifact/org.junit.vintage/junit-vintage-engine
+  testImplementation group: 'org.junit.vintage', name: 'junit-vintage-engine', version: '5.9.0'
+  // https://mvnrepository.com/artifact/org.mockito/mockito-core
+  testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.1.1'
+
+
+
+  testImplementation platform("org.spockframework:spock-bom:$spockBomVersion")
+  testImplementation 'org.spockframework:spock-core'
+  testImplementation 'org.spockframework:spock-spring'
+
+}
+
+jacocoTestReport.reports.xml.enabled = true
+
+jar{
+  enabled=false
+}
+
+test.doFirst {
+  systemProperty 'spring.profiles.active', 'UNIT'
+  useJUnitPlatform()
+}
+
+springBoot {
+  buildInfo()
+}
+
+bootBuildImage {
+  imageName = "${rootProject.name}"
+}

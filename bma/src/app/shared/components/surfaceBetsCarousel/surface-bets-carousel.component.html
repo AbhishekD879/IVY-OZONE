@@ -1,0 +1,20 @@
+<div *ngIf="slides" class="surface-bets-container" data-crlat="surfaceBetsCarousel" 
+scrollonce [elemEventType]="'touchmove'" [scrollonce]="'surfaceBet'" [GATrackingObj]="GATrackingObj">
+  <div class="ng-carousel surface-bets-carousel"
+       [class.one-card-mode]="isOneCard"
+       ngCarouselExtended
+       [ngCarouselWatch]="slides"
+       [ngCarouselName]="carouselName"
+       [ngCarouselFluid]="true"
+       [ngCarouselLoop]="false"
+       [ngCarouselMoveThresholdPercentage]="5">
+
+    <slidecontainer class="carousel-slides">
+      <ng-container *ngFor="let betData of module.data; let betInd = index; trackBy: trackByCard">
+        <slide class="slide" *ngIf="betData.markets.length">
+          <odds-card-surface-bet [surfaceBet]="betData" [surfaceBetIndex]="betInd+1"></odds-card-surface-bet>
+        </slide>
+      </ng-container>
+    </slidecontainer>
+  </div>
+</div>

@@ -1,0 +1,124 @@
+@import 'global.variables.scss';
+
+:host {
+  flex: 1 1 auto;
+  display:flex
+}
+
+.surface-bet-card {
+  white-space: normal;
+  border-radius: 10px;
+  box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+  background-color: $color-white;
+  color: $color-gray-darkest;
+  letter-spacing: 0;
+  font-stretch: condensed;
+  font-family: $alt-font-family;
+  min-height: 95px;
+  flex:1 1 auto;
+
+  @include word-break();
+  @include display-flex();
+  @include flex-direction(row);
+  @include justify-content(space-between);
+
+  #disabledImg{
+    display: none;
+   }
+
+  .left-side {
+    min-width: 0;
+    @include display-flex();
+    @include flex-direction(column);
+    @include align-items(start);
+  }
+
+  .surface-bet-header {
+    padding: 0 12px;
+    min-height: 15px;
+    border-top-left-radius: 9px;
+    font-size: $font-size-md;
+    font-weight: bold;
+    position: relative;
+    background-color: $color-yellow-alt;
+    @include display-flex();
+    @include justify-content(start);
+
+    .bet-img-container {
+      margin-right: 4px;
+      max-width: 15px;
+      max-height: 15px;
+      @include display-flex();
+      @include justify-content(center);
+      @include align-items(center);
+
+      > svg {
+        display: block;
+        max-height: 11px;
+      }
+    }
+
+    .surface-bet-title {
+      text-transform: uppercase;
+      line-height: 15px;
+      font-family: $base-font-family;
+      max-width: 160px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .header-background {
+      position: absolute;
+      right: 0;
+      width: 4px;
+      height: 100%;
+      background-color: $color-yellow-alt;
+
+      @include transform(skewX(-15deg));
+      @include transform-origin(bottom left);
+    }
+  }
+
+  .surface-bet-content {
+    font-size: $font-size;
+    padding-left: 12px;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    text-overflow: ellipsis;
+    margin: 12px 0px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: $line-height-normal;
+    letter-spacing: -0.2px;
+
+    .surface-bet-contentHeader {
+      font-weight: bold;
+    }
+  }
+
+  .price-odd-container {
+    padding: 15px 12px 8px 12px;
+  }
+
+  .old-price {
+    font-family: $base-font-family;
+    font-size: $font-size-lg;
+    font-weight: bold;
+    text-decoration: line-through;
+    text-align: center;
+  }
+
+  .image-cls-container .content-color{
+    color: $color-white;
+  }
+}
+
+.surface-bet-bg-image {
+  background-size:     cover;
+  background-repeat:   no-repeat;
+  background-position: center center;
+}
+
+

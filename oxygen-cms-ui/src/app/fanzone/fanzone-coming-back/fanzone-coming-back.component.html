@@ -1,0 +1,109 @@
+<div *ngIf="isReady">
+  <breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+  <form [formGroup]="form">
+    <div class="card">
+      <div class="header">
+        <h2 [textContent]="FZ_COMING_BACK_CONST.fzComingBackHeading"></h2>
+      </div>
+      <div class="body">
+        <div class="row">
+          <div class="col-md-2 mb-0">
+            <mat-checkbox color="primary" formControlName="fzComingBackPopupDisplay"
+            [checked]="fanzoneComingBack.fzComingBackPopupDisplay"
+            (change)="fanzoneComingBack.fzComingBackPopupDisplay = !fanzoneComingBack.fzComingBackPopupDisplay">
+              <span [textContent]="FZ_COMING_BACK_CONST.active"></span>
+            </mat-checkbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FZ_COMING_BACK_CONST.fzComingBackTitle"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="FZ_COMING_BACK_CONST.fzComingBackTitle" formControlName="fzComingBackTitle"
+                [(ngModel)]="fanzoneComingBack.fzComingBackTitle" [value]="fanzoneComingBack.fzComingBackTitle" required
+                trim="blur">
+              <mat-hint class="col-red"
+                *ngIf="fzComingBackTitle.invalid && (fzComingBackTitle.dirty || fzComingBackTitle.touched) && fzComingBackTitle.errors.required">Title
+                should be max 25 characters</mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 text-length">{{fanzoneComingBack.fzComingBackTitle?.length || 0}} /25</div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FZ_COMING_BACK_CONST.fzComingBackDescription"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="FZ_COMING_BACK_CONST.fzComingBackDescription"
+                formControlName="fzComingBackDescription" [(ngModel)]="fanzoneComingBack.fzComingBackDescription"
+                [value]="fanzoneComingBack.fzComingBackDescription" required trim="blur">
+              <mat-hint class="col-red"
+                *ngIf="fzComingBackDescription.invalid && (fzComingBackDescription.dirty || fzComingBackDescription.touched) && fzComingBackDescription.errors.required">Description
+                should be max 150 characters</mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 text-length">{{fanzoneComingBack.fzComingBackDescription?.length || 0}} /150</div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FZ_COMING_BACK_CONST.fzComingBackOKCTA"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="FZ_COMING_BACK_CONST.fzComingBackOKCTA" formControlName="fzComingBackOKCTA"
+                [(ngModel)]="fanzoneComingBack.fzComingBackOKCTA" [value]="fanzoneComingBack.fzComingBackOKCTA" required
+                trim="blur">
+              <mat-hint class="col-red"
+                *ngIf="fzComingBackOKCTA.invalid && (fzComingBackOKCTA.dirty || fzComingBackOKCTA.touched) && fzComingBackOKCTA.errors.required">OK CTA
+                should be max 20 characters</mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 text-length">{{fanzoneComingBack.fzComingBackOKCTA?.length || 0}} /20</div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FZ_COMING_BACK_CONST.fzComingBackBadgeUrl"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="FZ_COMING_BACK_CONST.fzComingBackBadgeUrl"
+                formControlName="fzComingBackBadgeUrlDesktop" [(ngModel)]="fanzoneComingBack.fzComingBackBadgeUrlDesktop"
+                [value]="fanzoneComingBack.fzComingBackBadgeUrlDesktop" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FZ_COMING_BACK_CONST.fzComingBackDisplayFromDays"></span>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="FZ_COMING_BACK_CONST.fzComingBackDisplayFromDays"
+                formControlName="fzComingBackDisplayFromDays"
+                [(ngModel)]="fanzoneComingBack.fzComingBackDisplayFromDays"
+                [value]="fanzoneComingBack.fzComingBackDisplayFromDays" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FZ_COMING_BACK_CONST.fzComingBackBgImage"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="FZ_COMING_BACK_CONST.fzComingBackBgImage"
+                formControlName="fzComingBackBgImageDesktop" [(ngModel)]="fanzoneComingBack.fzComingBackBgImageDesktop"
+                [value]="fanzoneComingBack.fzComingBackBgImageDesktop" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <action-buttons #actionButtons [validateHandler]="validationHandler" [fieldOrItemName]="'Fanzone Coming Soon'"
+    [collection]="fanzoneComingBack" [showRemoveButton]="false" (actionsEmitter)="actionsHandler($event);">
+  </action-buttons>
+</div>

@@ -1,0 +1,20 @@
+<button id="bet-{{outcome.id}}"
+        [sbpriceOddsDisabled]="[outcome, outcome.outcomeStatusCode, market.marketStatusCode,
+        event.eventStatusCode, event.displayed, market.priceTypeCodes, outcome.prices[0],isRacing]"
+        (sboddsPriceDisabled) = "showOddsPriceValue($event)"
+        last-made-bet
+        [sbPriceOddsClass]="[outcome, cssClass, outcome.prices[0]?.liveShowTimer?.type, isActive]"
+        (click)="onPriceOddsButtonClick($event)"
+        class="snb-btn-bet"
+                data-crlat="betButton">
+  <span class="odds-head" [ngClass]="{'odds-head-caps': isBrandLadbrokes}" [innerHTML]="head" *ngIf="head"></span>
+  <span class="odds-price" *ngIf="!showSuspendValue"
+        [priceOddsValue]="[outcome, outcome.prices[0]?.priceDen, outcome.prices[0]?.priceNum,
+        market.priceTypeCodes]"
+        [(oddsPrice)]="oddsPrice"
+        [textContent]="oddsPrice"
+        data-crlat="oddsPrice">
+  </span>
+  <span class="odds-price" *ngIf="showSuspendValue" [i18n]="'app.suspended'"></span>
+</button>
+

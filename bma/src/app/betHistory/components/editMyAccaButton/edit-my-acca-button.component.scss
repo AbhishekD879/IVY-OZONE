@@ -1,0 +1,29 @@
+@import 'global.variables.scss';
+
+edit-my-acca-button:host {
+  .ema-button {
+    border: 1px solid $blue;
+    color: $blue;
+    border-radius: 2px;
+    background: $color-gray-light;
+    font-size: $ema-button-font-size;
+    padding: $ema-button-padding;
+    min-width: 85px;
+    &:hover {
+      background: lighten($color: $blue, $amount: 20%);
+      color: $blue;
+    }
+    &:active{
+      background: $blue;
+      color: $color-white;
+      opacity: 1;
+    }
+  }
+
+  ::ng-deep .tooltip {
+    will-change: transform;
+    transform : translateY(7px) translateX(-8px);
+    right: 0;
+    width: 196px;
+  } 
+}

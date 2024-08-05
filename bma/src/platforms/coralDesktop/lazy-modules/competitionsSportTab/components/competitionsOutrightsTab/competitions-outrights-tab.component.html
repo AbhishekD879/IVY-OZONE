@@ -1,0 +1,13 @@
+<!--If only one event is present-->
+<competitions-outrights-tab-one-event *ngIf="isSingleEvent"
+  [outrights]="outrights"
+  [openedItems]="openedItems">
+</competitions-outrights-tab-one-event>
+
+<!--If many events are present-->
+<competitions-outrights-tab-multiple-events *ngIf="!isSingleEvent"
+  [outrights]="outrights"
+  [openedItems]="openedItems">
+</competitions-outrights-tab-multiple-events>
+
+<no-events *ngIf="!outrights.length"></no-events>

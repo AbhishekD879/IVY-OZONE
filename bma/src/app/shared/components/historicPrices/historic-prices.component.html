@@ -1,0 +1,5 @@
+<div class="previous-prices"
+     [ngClass]="{'prev-long-prices': setLongPriceStyle, 'has-no-previous-price': !hasHistoricPrice}"
+     data-crlat="previousPrices">
+  <span [innerHtml]="outputRacingHistoricPrice()"></span>
+</div>

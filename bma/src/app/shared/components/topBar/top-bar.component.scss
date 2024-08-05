@@ -1,0 +1,239 @@
+@import 'global.variables.scss';
+
+/* TOP BAR */
+$top-bar-back-height: 40px;       /* Top Bar Back Button Height */
+$top-bar-back-width: 40px;        /* Back Button Width */
+$top-bar-title-pad: 10px;
+$top-bar-border: none;
+$tabs-font-weight: bold;
+
+top-bar {
+  display: block;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 12;
+  top: $app-header-height;
+  width: 100%;
+}
+ 
+
+ 
+.top-bar {
+  height: $top-bar-height;
+  width: 100%;
+  border-bottom: $top-bar-border;
+  overflow: hidden;
+  background: $top-bar-wrap-bg;
+  margin-bottom: -0.4px;
+  @include display-flex();
+  @include align-items();
+  @include user-select();
+
+  @media #{$mqTablet} {
+    z-index: 100;
+  }
+
+  .top-bar-title {
+    font: $tabs-font-weight $font-size $base-font-family;
+    text-transform: uppercase;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    padding-left: $top-bar-title-pad;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: $top-bar-height;
+    @include flex();
+    line-height: 40px;
+
+    a {
+      color: $top-bar-color;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    .breadcrumbs_container {
+      height: $top-bar-height;
+      background-color: $top-bar-wrap-bg;
+      padding: 0;
+
+      .breadcrumb_item {
+        font-size: 14px;
+        color: $top-bar-color;
+        line-height: $top-bar-height;
+
+        .breadcrumb_link {
+          text-transform: none;
+          color: $top-bar-color;
+        }
+        &:last-child {
+          padding-right: 0;
+          .breadcrumb_link {
+            cursor: pointer;
+            color: $top-bar-color;
+          }
+        }
+        .toggle-icon {
+          svg {
+            fill: $title-icon-color;
+          }
+        }
+      }
+    }
+
+    .quick-nav {
+      line-height: normal;
+      white-space: normal;
+      text-transform: none;
+
+      .links-list {
+        .list-link {
+          font-weight: normal;
+
+          &.active-link {
+            font-weight: bold;
+          }
+        }
+      }
+      .quick-subtitle {
+        text-transform: uppercase;
+      }
+    }
+
+    .title-icon {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 5px;
+      width: 17px;
+      height: 17px;
+      fill: $title-icon-color;
+    }
+  }
+
+  .fav-icon-active {
+    background: $top-bar-fav-icon;
+  }
+
+  .fav-icon-inactive {
+    background: $fav-icon-top-bar;
+  }
+
+  .bar-title {
+    margin: auto;
+  }
+
+  .top-bar-side {
+    @include display-flex();
+    @include justify-content(flex-end);
+    @include align-items();
+    height: $top-bar-height;
+    padding-left: 6px;
+    padding-right: 8px;
+  }
+
+    .change-match-coral-mobile {
+      color: $color-white-disable-btn;
+      text-align: right;
+      font-family: Lato;
+      font-size: 11px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: -0.006px;
+      padding-right: 8px;
+      cursor: pointer;
+      display: flex;
+      .title {
+          display: inline-block;
+          height: 13px;
+        }
+      .arrow {
+        height: 6px;
+        width: 10px;
+        fill: $quick-switch-color;
+        margin-left: 5px;
+        align-self: center;
+      }
+    }
+
+  /* back button */
+  .btn-back {
+    height: $top-bar-back-height;
+    min-width: 31px;
+    max-width: $top-bar-back-width;
+    background: $top-bar-back-bg;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    @include flex();
+
+    &:active {
+      background: $top-bar-back-hover-bg;
+    }
+    
+    svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      height: 10px;
+      width: 6px;
+      fill: $btn-back-color;
+    }
+  }
+}
+.top-bar__scroll-on-top {
+  .vn-bma .carousel-menu .scroll-container.fixed-menu,
+  .vn-bma .breadcrumbs_container {
+    position: relative;
+  }
+
+  .vn-bma .competitions-top-bar .competitions-top-bar-inner,
+  .vn-bma .top-title-wrapper .top-title,
+  .vn-bma .top-bar .top-bar-inner {
+    position: relative;
+    @include transform(translate3d(0, 0, 0));
+    top: auto;
+  }
+  .vn-bma {
+    .carousel-menu {
+      /* huck to avoid sticking carousel menu */
+      overflow: hidden;
+      @include transform(translateZ(0));
+
+      .scroll-container,
+      .scroll-container.fixed-menu,
+      .scroll-container.fixed-menu.menu-hide {
+        position: relative;
+        top: auto;
+        margin-top: 0;
+        transition: none;
+        @include transform(translate3d(0, 0, 1px));
+      }
+    }
+  }
+}
+
+.vn-bma {
+  .breadcrumbs_container,
+  .competitions-top-bar .competitions-top-bar-inner,
+  .top-title-wrapper .top-title,
+  .top-bar .top-bar-inner {
+    will-change: top, position;
+    @include transform(translateZ(0));
+    position: fixed;
+  }
+
+  .carousel-menu {
+    .scroll-container,
+    .scroll-container.fixed-menu,
+    .scroll-container.fixed-menu.menu-hide {
+      will-change: top, position, margin-top, transform;
+    }
+  }
+}
+

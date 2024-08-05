@@ -1,0 +1,28 @@
+<ng-container *ngIf="!state.loading && !state.error">
+  <div class="tote">
+
+    <!--- Top Bar -->
+    <top-bar [title]="'tt.toteTitle'"
+             [iconSvg]="icon.svg"
+             [iconId]="icon.svgId"
+             (titleFunc)="goToDefaultPage()"></top-bar>
+  
+    <!--- Banners Section-->
+    <lazy-component 
+        moduleUri="@lazy-modules-module/banners/banners.module#BannersModule"
+        [inputs]='{ page: bannerCategory}' data-crlat="bannersSection">
+    </lazy-component>
+
+    <!--- Tabs -->
+    <tabs-panel [tpTabs]="tabs"
+                [tpActiveTab]="activeTab"></tabs-panel>
+  
+    <router-outlet></router-outlet>
+  </div>
+  <lazy-component moduleUri="@lazy-modules-module/quickLinks/quick-links.module#QuickLinksModule"
+  [inputs]="{applyCss: true}" entryComponent="QuickLinksComponent">
+  </lazy-component>
+</ng-container>
+<outlet-status [state]="state">
+  <request-error (reloadFn)="reloadComponent()"></request-error>
+</outlet-status>

@@ -1,0 +1,61 @@
+<div class="sk-container" [ngClass]="{'sk-loading': state.loading }">
+  <outlet-status [skeletonType]="'GENERIC_FULL'" [state]="state">
+    <request-error (reloadFn)="reloadComponent()"></request-error>
+  </outlet-status>
+  <loading-screen [displayed]="!isLazyComponentLoaded" [templateType]="'GENERIC_FULL'"></loading-screen>
+
+  <ng-container *ngIf="!state.loading && !state.error">
+    <!--- Top Bar -->
+    <top-bar *ngIf="!isSportDetailPage && isChildComponentLoaded"
+             [title]="sportTitle || 'sb.' + sportName" [iconSvg]="sportIconSvg" [iconId]="sportIconId"
+             [innerContent]="topBarInnerContent" (titleFunc)="goToDefaultPage()">
+      <top-bar-body class="top-bar-side" data-crlat="topBarContent">
+        <favourites-counter [listenerName]="'sportInplay'" data-crlat="counter.favourites"></favourites-counter>
+      </top-bar-body>
+    </top-bar>
+
+    <ng-container *ngIf="!isSportDetailPage">
+      <!--- Banners Section-->
+      <lazy-component
+        moduleUri="@lazy-modules-module/banners/banners.module#BannersModule"
+        [inputs]='{ page: sportBanner}'
+        data-crlat="bannersSection">
+      </lazy-component>
+
+      <switchers *ngIf="isChildComponentLoaded"
+        [type]="'scrollable'"
+        [switchers]="sportTabs"
+        [activeTab]="sportActiveTab"
+        [noPaddings]="true"
+        [detectGTMLocation]="'location'"
+        [sportName]="sportName"
+        [preventReload]="true"
+      ></switchers>
+      
+      <!-- Free Ride -->
+      <lazy-component *ngIf="isChildComponentLoaded && bonusSuppressionService.checkIfYellowFlagDisabled('freeRide') && freeRideHelperService.showFreeRide() && freeRideHelperService.showFreeRideOnSportPage(categoryId)" moduleUri="@lazy-modules-module/freeRide/freeRide.module#FreeRideModule" entryComponent="LadsLaunchBannerComponent">
+      </lazy-component>
+
+      <!--- Navigation Points -->
+      <lazy-component *ngIf="isChildComponentLoaded" moduleUri="@lazy-modules-module/superButton/super-button.module#SuperButtonModule"
+                      [inputs]="{
+                                type: 'sport',
+                                categoryId: categoryId
+                              }"
+                      (failed)="initLazyHandler()"
+                      (init)="initLazyHandler()">
+      </lazy-component>
+      <router-outlet *ngIf="!isHomeUrl()"></router-outlet>
+      <ng-container *ngIf="isHomeUrl()">
+        <ng-container [ngSwitch]="defaultTab">
+          <sport-matches-page *ngSwitchCase="'matches'"></sport-matches-page>
+          <sport-tabs-page *ngSwitchDefault [displayTab]="{name: defaultTab}"></sport-tabs-page>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+    <lazy-component *ngIf="isSportDetailPage"
+    moduleUri="@edpModule/edp.module#EdpModule"
+    (failed)="initLazyHandler()"
+    (init)="initLazyHandler()"></lazy-component>
+  </ng-container>
+</div>

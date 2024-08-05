@@ -1,0 +1,98 @@
+<div>
+  <div class="content-wrapper" data-crlat="cashoutPanel">
+    <!-- Button section -->
+    <div *ngIf="isButtonShown" data-crlat="panel.showButton">
+      <div class="cashout-button-container">
+        <div class="tooltip-container cashout-button-wrapper"
+             *ngIf="['base', 'partial'].indexOf(buttonState) !== -1">
+          <button class="btn cashout-button"
+                  (click)="doCashOut('full')"
+                  [ngClass]="{ animated: buttonState === 'partial',
+                  'full-width': !isPartialAvailable,
+                  'cashout-button-coral': isCoral}"
+                  data-crlat="button.doFullCashOut">
+            <span class="partial-active" data-crlat="closePartialCashOut">
+              <svg class="close-partial-icon"><use xlink:href="#close-icon"></use></svg>
+            </span>
+            <span class="partial-inactive">
+              <span [textContent]="stateConfig.base.text" data-crlat="cashOutButton.label"></span>
+              <span>&nbsp;</span>
+              <span [textContent]="stateConfig.base.value()" class="cashout-button-value" data-crlat="cashOutButton.value"></span>
+            </span>
+          </button>
+
+          <div *ngIf="buttonState === 'partial'"
+               data-crlat="panel.showSlider">
+            <range-slider [id]="bet.eventSource.betId"
+                          [model]="bet.eventSource.partialCashOutPercentage"
+                          (modelChangeHandler)="partialPercentageChange($event)"
+                          [ngClass]="{ animating: bet.eventSource.animating}"
+                          class="cashout-slider"
+                          data-crlat="partialCashOut.slider">
+            </range-slider>
+          </div>
+
+          <button class="btn partial-cashout-button"
+                  *ngIf="isPartialAvailable"
+                  (click)="doCashOut('partial')"
+                  [ngClass]="{ animated: buttonState === 'partial',
+                         animating: bet.eventSource.animating,
+                        'partial-cashout-button-coral': isCoral}"
+                  data-crlat="button.doPartialCashOut">
+            <span class="partial-active">
+              <span [textContent]="stateConfig.partial.text" data-crlat="partialCashoutLabel"></span>
+              <span class="partial-cashout-button-text live-scores" data-crlat="partialCashoutAmount">
+                <span class="partial-value-piece" [textContent]="bet.eventSource.currencySymbol" data-crlat="currencySymbol"></span>
+                <span class="cashout-points" data-crlat="partCashout.intPart">
+                  <digit-list [isDecimalPart]="false" [number]="stateConfig.partial.value().toString().split('.')[0]"></digit-list>
+                </span>
+                <span class="partial-value-piece">.</span>
+                <span class="cashout-points" data-crlat="partCashout.decPart">
+                  <digit-list [isDecimalPart]="true" [number]="stateConfig.partial.value().toString().split('.')[1]"></digit-list>
+                </span>
+              </span>
+            </span>
+            <span class="partial-inactive">
+              <span [i18n]="'bethistory.partialCashoutButton.partial'"></span>
+              <span class="partial-cashout-button-text" [i18n]="'bethistory.partialCashoutButton.cashout'"></span>
+            </span>
+          </button>
+
+        </div>
+
+        <div class="tooltip-container cashout-button-wrapper" *ngIf="buttonState === 'unavailable' && bet.eventSource.isCashoutSuspendedState">
+            <button class="btn cashout-button" disabled data-crlat="cashOutButton">
+              <span [textContent]="stateConfig.unavailable.text" data-crlat="cashOutButton.label"></span>
+            </button>
+        </div>
+
+        <div class="tooltip-container cashout-button-wrapper" *ngIf="buttonState === 'confirm'">
+          <button class="btn cashout-button status green confirm"
+                  (click)="doCashOut()" data-crlat="cashOutButton">
+            <span [textContent]="stateConfig.confirm.text" data-crlat="cashOutButton.label"></span>
+            <span>&nbsp;</span>
+            <span class="cashout-button-value" [textContent]="stateConfig.confirm.value()" data-crlat="cashOutButton.value"></span>
+          </button>
+        </div>
+
+        <div class="tooltip-container cashout-button-wrapper" *ngIf="buttonState === 'progress'">
+          <button class="btn cashout-button status green" data-crlat="cashOutButton">
+            <spinner  data-crlat="spinner.loader" class="btn-spinner" ></spinner>
+            <span *ngIf="countDownTimer && eventIsLive"
+                  class="cashout-countdown-time"
+                  data-crlat="timer"
+                  [textContent]="countDownTimer.value">
+            </span>
+            <span *ngIf="!eventIsLive" class="cashout-countdown-time"
+              [i18n]="'bethistory.cashingOutText'">
+            </span>
+          </button>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <div class="cash-out-message" *ngIf="(isShowCashoutMessaging() || isShow) && enableCashOut">
+      <cash-out-message [bet]="bet" [isMarketLevelDisabled]='isMarketLevelDisabled' [isEventLevelDisabled]='isEventLevelDisabled' [gaTrackDetails]='gaTrackDetails' ></cash-out-message>
+    </div>
+    </div>
+</div>

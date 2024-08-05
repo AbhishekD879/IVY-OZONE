@@ -1,0 +1,13 @@
+<div *ngIf="isQuickLinksEnabled" [ngClass]="{'quick-links-container': applyCss}">
+  <static-block class="quick-links-title"
+                *ngIf="quickLinks.length"
+                [service]="'quick-links'">
+  </static-block>
+
+  <div class="quick-links-area">
+    <a *ngFor="let quickLink of quickLinks; trackBy: trackByQuickLink" [attr.title]="quickLink.title" [linkHref]
+      [link]="quickLink.target" [activeLinkClass] (click)="navigateByUrl($event, quickLink.target)">
+      <span [textContent]="quickLink.title"></span>
+    </a>
+  </div>
+</div>

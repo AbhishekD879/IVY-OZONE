@@ -1,0 +1,7 @@
+<div class="profit-loss-link" [ngClass]="isCoral ? 'coral-background': 'lads-background'" data-crlat="profitLossLink">
+  <a [i18n]="'bethistory.profitLossLink'" data-crlat="link" (click)="profitLossClick()"></a>
+</div>
+<lazy-component
+  moduleUri="@lazy-modules-module/casinoMyBetsIntegration/casino-my-bets-integration.module#CasinoMyBetsIntegrationModule"
+  [inputs]="{showLeavingCasinoDialog}" [outputs]="['userAction']" (event)="confirmationDialogClick($event)" entryComponent="LeavingCasinoDialogComponent">
+</lazy-component>

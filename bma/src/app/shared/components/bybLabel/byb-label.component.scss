@@ -1,0 +1,46 @@
+@import 'global.variables.scss';
+
+.byb-label-wrapper {
+  background-color: $color-yellow;
+
+  &:hover{
+    background: $color-yellow-alt2;
+   }
+   &:active{
+    background: $color-orange-peel;
+   }
+  &.big-icon {
+    .byb-label {
+      width: 16px;
+    }
+    .byb-label-text {
+      display: none;
+    }
+    &.byb-big-icon-mobile {
+      height: 36px;
+    }
+  }
+  &.small-icon {
+    .byb-label {
+      width: 9px;
+      height: 7px;
+    }
+    .byb-label-text {
+      font-size: 8px;
+      line-height: 8px;
+      text-transform: uppercase;
+      color: $brand-color-main;
+      letter-spacing: -0.05px;
+      padding-left: 3.5px;
+      font-weight: bold;
+      margin-right: 0;
+    }
+  }
+
+  &.mini-icon {
+    @extend .small-icon;
+    .byb-label-text {
+      display: none;
+    }
+  }
+}

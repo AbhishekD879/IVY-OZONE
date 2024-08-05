@@ -1,0 +1,86 @@
+<breadcrumbs *ngIf="participant" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+
+<div class="card" *ngIf="participant">
+  <div class="header">
+    <h2>Participant: <span class="font-italic">{{ participant.obName }}</span></h2>
+    <create-updated-at-by [collection]="participant"></create-updated-at-by>
+  </div>
+</div>
+
+<div class="card" *ngIf="participant">
+  <div class="body">
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            OB Name
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width" [ngClass]="{'mat-form-field-invalid': !participant.obName}">
+            <input matInput placeholder="OB Name" type="text" formControlName="obName"
+                   [(ngModel)]="participant.obName" [value]="participant.obName" required trim="blur">
+            <mat-hint class="col-red" *ngIf="!participant.obName">OB Name should be entered</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Front End Full Name
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Front End Full Name" type="text" formControlName="fullName"
+                   [(ngModel)]="participant.fullName" [value]="participant.fullName" trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Name Abbreviation
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Name Abbreviation" type="text" formControlName="abbreviation"
+                   [(ngModel)]="participant.abbreviation" [value]="participant.abbreviation" trim="blur">
+
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <cms-upload
+            [label]="'SVG Flag/Logo'"
+            [filename]="svgFile"
+            (onImageUpload)="uploadSvgHandler($event)"
+            (onImageRemove)="removeSvgHandler()">
+          </cms-upload>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<action-buttons
+  *ngIf="participant"
+  #actionButtons
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'obName'"
+  [collection]="participant"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>
+
+<div class="card" *ngIf="participantNotFound">
+  <div class="header">
+    <h2>Failed to Load Participant Details</h2>
+  </div>
+  <div class="body">
+    <a href="/sports-pages/big-competition">
+      <span>Back to Competitions Page</span>
+    </a>
+  </div>
+</div>

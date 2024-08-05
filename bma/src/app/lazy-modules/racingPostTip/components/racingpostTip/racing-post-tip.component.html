@@ -1,0 +1,70 @@
+<ng-container *ngIf="showRacePostTip && showTipBetReciept && !isNextRacesData">
+  <div class="race-tip-container">
+    <div class="tip-header">
+      <div class="r-tip r-tip-header">
+        <strong>
+          <span [i18n]="'racingposttip.logoStart'"> </span>
+          <span [i18n]="'racingposttip.logost1'"></span>
+          <span class="po-red"></span>
+          <span [i18n]="'racingposttip.logoEnd'"></span>
+        </strong>
+        <span class="ttp" [i18n]="'racingposttip.tipText'"></span>
+      </div>
+      <div class="r-link">
+        <div class="racetip_right">
+          <a class="race_r_title" (click)="redirectEdpUrl()" [linkHref] [routerLink]="edpPageUrl">
+            <span [i18n]="'racingposttip.fullCardText'"></span>
+            <svg>
+              <use xlink:href="#next-arrow"></use>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="race-tip-body">
+      <div class="tip-bdy">
+        <div class="tip-horse">
+          <div class="tip-horse-left">
+            <div class="silkImage">
+              <div class="silk-img" [ngClass]="{'with-default': !isSilkLoaded,'has-img inter-silk' : isSilkLoaded}"
+                *ngIf="priceOutCome?.racingFormOutcome?.silkName">
+                <div [ngStyle]="silkStyle"></div>
+              </div>
+            </div>
+         
+            <div class="horse-info">
+              <div class="info1">
+                <span [textContent]="mostTippedRace?.time"></span>&nbsp;
+                <span><strong class="name" [textContent]="mostTippedRace?.name"></strong></span>
+              </div>
+              <div class="info2"><strong [textContent]="mostTippedRace?.powerHorse?.horseName"></strong></div>
+              <div class="info3">
+                <strong [i18n]="'racingposttip.trainer'"></strong>
+                <span [textContent]="mostTippedRace?.powerHorse.trainer"></span> / <strong
+                  [i18n]="'racingposttip.jockey'"></strong>
+                <span [textContent]="mostTippedRace?.powerHorse.jockey"></span>
+              </div>
+            </div>
+          </div>
+          <button #priceOddsBtn class="btn-bet" (click)="addToBetSlip();" [textContent]="currentPrice">
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="conditional-jockey" [ngClass]="{noMargin: !mostTippedRace?.powerHorse?.spotlight}">
+      <span *ngIf="mostTippedRace?.powerHorse?.spotlight" [textContent]="mostTippedRace?.powerHorse?.spotlight"></span>
+    </div>
+    <div class="path">
+      <div class="path-title">
+        <strong>
+          <span [i18n]="'racingposttip.logoStart'"></span>
+          <span [i18n]="'racingposttip.logost1'"></span>
+          <span class="po-red1"></span>
+          <span [i18n]="'racingposttip.logoEnd'"></span>
+        </strong>
+      </div>
+    </div>
+  </div>
+</ng-container>

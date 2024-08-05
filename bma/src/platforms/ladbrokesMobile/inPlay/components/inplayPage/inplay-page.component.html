@@ -1,0 +1,28 @@
+<div class="sk-container" [ngClass]="{'sk-loading': state.loading}" >
+  <outlet-status [state]="state">
+    <request-error [reloadMethods]="['RELOAD_IN_PLAY']" (reloadFn)="reloadComponent()"></request-error>
+  </outlet-status>
+  <ng-container *ngIf="!state.loading && !state.error && sportsAvailable">
+    <!--inPlay Sports Ribbon-->
+    <ng-container *ngIf="menuItems && menuItems.data.length">
+        <lazy-component data-crlat="menuCarousel.inPlay" moduleUri="@lazy-modules-module/carouselMenu/carousel-menu.module#CarouselMenuModule"
+          [inputs]="{activeMenuItem: activeMenuItemUri, menuItems: menuItems.data, 
+            isLiveCounter: true, isTopScroll: true, carouselClass: 'inplay-carousel'}"
+          entryComponent="CarouselMenuComponent">
+        </lazy-component>
+      </ng-container>
+    <!-- <carousel-menu *ngIf="menuItems && menuItems.data.length"
+                  [activeMenuItem]="activeMenuItemUri"
+                  [menuItems]="menuItems.data"
+                  [isLiveCounter]="true"
+                  [isTopScroll]="true"
+                  class="inplay-carousel"
+                  data-crlat="menuCarousel.inPlay">
+    </carousel-menu> -->
+
+    <router-outlet></router-outlet>
+  </ng-container>
+  <no-events *ngIf="!state.loading && !state.error && !sportsAvailable"
+             [message]="'inplay.noEventsFound'">
+  </no-events>
+</div>

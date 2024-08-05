@@ -1,0 +1,25 @@
+- name: Provision crlatRegistry Container
+  docker_container:
+    name: crlatRegistry
+    image: registry:2
+    state: started
+    restart: yes
+    restart_policy: always
+    dns_servers:
+      - "{{ dns_server_ip }}"
+    env:
+      REGISTRY_HTTP_ADDR: 0.0.0.0:443
+      REGISTRY_HTTP_TLS_CERTIFICATE: "/certificates/{{ private_domain }}.crt"
+      REGISTRY_HTTP_TLS_KEY: "/certificates/{{ private_domain }}.key"
+    ports:
+      - "443:443"
+    volumes:
+      - "/mnt/{{ default_s3_bucket }}/docker-registry:/var/lib/registry"
+      - "/mnt/{{ default_s3_bucket }}/certificates:/certificates"
+
+- name: Wait crlatRegistry port accessible
+  wait_for:
+    port: 443
+    delay: 2
+    timeout: 30
+    state: started

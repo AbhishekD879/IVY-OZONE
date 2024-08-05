@@ -1,0 +1,93 @@
+@import 'global.variables.scss';
+
+.sort-by-container {
+  width: 100%;
+  position: relative;
+  display: block;
+  border-bottom: 1px solid $lGray-bg;
+
+  .sort-by-selector {
+    padding: 6px 10px;
+    font-size: $font-size;
+    text-align: right;
+    font-weight: normal;
+    background-color: $lGray-bg;
+    color: $blue;
+
+    .sort-by-arrow {
+      margin-left: 5px;
+      height: 6px;
+      width: 10px;
+      fill: $color-blue-alt;
+    }
+
+    &.active .sort-by-arrow {
+      @include transform(rotateX(180deg));
+    }
+  }
+
+  .sort-by-option {
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  &.grouped {
+    margin-bottom: 11px;
+  }
+
+  .sort-by-list {
+    position: absolute;
+    width: 135px;
+    right: 0;
+    z-index: 2;
+    height: 0;
+    top: 100%;
+    overflow: hidden;
+    transition: height 300ms ease;
+
+    &.active {
+      height: 94px;
+      border: 1px solid $color-gray;
+    }
+
+    .list-item-link {
+      margin: 0;
+      padding-left: 10px;
+      padding-right: 10px;
+      height: 46px;
+      font-size: 12px;
+      padding-left: 10px;
+      padding-right: 10px;
+      height: 46px;
+      font-size: 12px;
+      .item-name {
+        margin: 0 auto;
+        color: $color-gray-darkest;
+        font-weight: normal;
+        font-size: $font-size-lg;
+        text-shadow: none;
+        font-family: $alt-font-family;
+      }
+
+      &.selected {
+        background: $light-grey;
+      }
+    }
+  }
+}
+
+.sort-by-container + .page-inner-container.no-header {
+  margin-top: 0;
+}
+
+.racing-content {
+  .terms-before-market + .sort-by-container {
+    border-top: 1px solid $lGray-bg;
+    margin-top: -1px;
+    display: block;
+
+    .sort-by-selector {
+      background-color: $lGray-bg;
+    }
+  }
+}

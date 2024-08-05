@@ -1,0 +1,27 @@
+<div class="sk-container" [ngClass]="{'sk-loading': !isLoaded || isSpinnerVisible}">
+  <loading-screen [displayed]="!isLoaded || isSpinnerVisible" [templateType]="'GENERIC'"></loading-screen>
+
+  <div *ngIf="isLoaded && !isSpinnerVisible" class="heuristic-container" data-crlat="accordionsList">
+    <accordion *ngFor="let item of results; let first = first;"
+               data-crlat="accordion"
+               [isExpanded]="first">
+      <left-side>
+      <span class="left-title-text" [textContent]="item.title"
+            data-crlat="headerTitle.leftMessage"></span>
+      </left-side>
+      <accordion-body>
+        <odds-card-result-component [event]="event" *ngFor="let event of item.matches">
+        </odds-card-result-component>
+      </accordion-body>
+    </accordion>
+    <show-all-button
+      (click)="loadResultsData(true)"
+      *ngIf="isShowMoreAvailable && !isLoadingMore"
+      [showMoreLocaleStr]="'sb.seeMoreDates'"
+      [customStylesClass]="['show-all-button-competitions-results']"
+      [showMoreMode]="true">
+    </show-all-button>
+    <div *ngIf="isLoadingMore" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+  </div>
+  <no-events *ngIf="isLoaded && !isSpinnerVisible && !results.length"></no-events>
+</div>

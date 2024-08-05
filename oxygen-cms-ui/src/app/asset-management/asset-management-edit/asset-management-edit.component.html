@@ -1,0 +1,167 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="!isLoading">
+  <div class="header">
+    <h2>Edit Asset Management for team: <span class="font-italic">{{ assetManagement.teamName }}</span></h2>
+    <create-updated-at-by [collection]="assetManagement"></create-updated-at-by>
+  </div>
+</div>
+
+<form [formGroup]="form">
+  <div class="card" *ngIf="!isLoading">
+    <div class="body">
+      <div class="row clearfix">
+        <div class="col-md-3">
+            <span class="mat-label">
+              Team Name
+            </span>
+        </div>
+        <div class="col-md-7">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !assetManagement.teamName}">
+            <input matInput type="text"
+                   placeholder="Team name"
+                   [(ngModel)]="assetManagement.teamName"
+                   formControlName="teamName"
+                   required trim="blur">
+            <mat-hint class="col-red" *ngIf="!assetManagement.teamName">Team name should be entered</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-3">
+            <span class="mat-label">
+              Secondary team names
+            </span>
+        </div>
+        <div class="col-md-7">
+          <mat-form-field class="full-width">
+            <input matInput type="text"
+                   placeholder="Secondary team names"
+                   [(ngModel)]="assetManagement.secondaryNamesStr"
+                   formControlName="secondaryNamesStr"
+                   trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-3">
+            <span class="mat-label">
+              Sport Id
+            </span>
+        </div>
+        <div class="col-md-7">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !assetManagement.sportId}">
+            <input matInput type="number"
+                   placeholder="Sport Id"
+                   [(ngModel)]="assetManagement.sportId"
+                   formControlName="sportId"
+                   required trim="blur">
+            <mat-hint class="col-red" *ngIf="!assetManagement.sportId">Sport Id should be entered</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-3">
+            <span class="mat-label">
+              Primary Colour
+            </span>
+        </div>
+        <div class="col-md-7">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !assetManagement.primaryColour}">
+            <input matInput type="text"
+                   placeholder="Primary Colour"
+                   [(ngModel)]="assetManagement.primaryColour"
+                   formControlName="primaryColour"
+                   pattern="^#([A-Fa-f0-9]{6})$"
+                   required trim="blur">
+            <mat-hint class="col-red" *ngIf="!assetManagement.primaryColour">Primary Colour should be entered</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-3">
+            <span class="mat-label">
+              Secondary Colour
+            </span>
+        </div>
+        <div class="col-md-7">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !assetManagement.secondaryColour}">
+            <input matInput type="text"
+                   placeholder="Secondary Colour"
+                   [(ngModel)]="assetManagement.secondaryColour"
+                   formControlName="secondaryColour"
+                   pattern="^#([A-Fa-f0-9]{6})$"
+                   required trim="blur">
+            <mat-hint class="col-red" *ngIf="!assetManagement.secondaryColour">Secondary Colour should be entered
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <!--Team image for upload-->
+      <div class="row clearfix">
+        <div class="col-md-3">
+          <span class="mat-label" [textContent]="teamImageLabel">
+          </span>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              [value]="assetManagement?.teamsImage?.name || assetManagement?.teamsImage?.originalname"
+              disabled
+            />
+            <mat-hint class="col-red" *ngIf="teamsImage.errors">
+              <span [textContent]= "errorMaxSizeMsg"></span>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 space-btns-evenly">
+          <div class="d-none"><input #imageUploadInput 
+            (change)="handleImageChange($event)"
+            formControlName = "teamsImage"
+            type="file" value="upload"/>
+          </div>
+          <button type="button"  class="main-image-btn btn bg-teal waves-effect" (click)="uploadImageHandler()">
+            <span [textContent]="getUploadBtnName()"></span>
+          </button>
+        </div>
+      </div>
+      <!--Five a side toggle flag for team image-->
+      <div class="row clearfix" *ngIf="assetManagement.teamsImage">
+        <div class="col-md-3">
+          <span class="mat-label" [textContent]="fiveASideLabel"></span>
+        </div>
+        <div class="col-md-3">
+          <mat-slide-toggle [(ngModel)]="assetManagement.fiveASideToggle"
+          formControlName="fiveASideToggle"
+          [color]="'primary'"
+          [checked]="assetManagement.fiveASideToggle"
+          [disabled]="false">
+          </mat-slide-toggle>
+        </div>
+      </div>
+      <!--Highlight carousel toggle flag for team image-->
+      <div class="row clearfix" *ngIf="assetManagement?.teamsImage">
+        <div class="col-md-3">
+          <span class="mat-label" [textContent]="highlightsToggleLabel"></span>
+        </div>
+        <div class="col-md-3">
+          <mat-slide-toggle [(ngModel)]="assetManagement.highlightCarouselToggle"
+          formControlName="highlightCarouselToggle"
+          [color]="'primary'"
+          [checked]="assetManagement.highlightCarouselToggle"
+          [disabled]="false">
+          </mat-slide-toggle>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<action-buttons
+    #actionButtons
+    *ngIf="!isLoading"
+    [validateHandler]="isValidModel"
+    [fieldOrItemName]="'teamName'"
+    [collection]="this.assetManagement"
+    (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

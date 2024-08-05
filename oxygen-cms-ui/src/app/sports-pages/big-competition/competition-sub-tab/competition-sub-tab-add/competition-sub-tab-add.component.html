@@ -1,0 +1,26 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>Create a Sub Tab</h1>
+  <form [formGroup]="form">
+    <div mat-dialog-content>
+      <div class="row clearfix">
+        <div class="col-md-12">
+            <mat-form-field class="full-width">
+              <input [(ngModel)]="tab.name" matInput type="text" placeholder="Sub Tab Name"
+                     formControlName="name" required trim="blur">
+            </mat-form-field>
+
+            <mat-checkbox class="mat-label" color="primary" formControlName="enabled"
+                          [checked]="tab.enabled"
+                          (change)="tab.enabled = !tab.enabled">
+              Active
+            </mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions >
+      <button mat-button (click)="closeDialog()" class="btn btn-sm bg-cean m-r-20 float-right">Cancel</button>
+      <button mat-button [disabled]="form.invalid" class="btn btn-sm bg-teal float-right"
+              [mat-dialog-close]="tab">Create</button>
+    </div>
+  </form>
+</div>

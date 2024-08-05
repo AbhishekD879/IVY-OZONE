@@ -1,0 +1,30 @@
+---
+- name: Create SeleniumMaster EC2 node
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    instance_type: t2.medium
+    security_group: crlat
+    subnet_name: private
+    volume_size: 16
+    action: create
+    node_type: SingleNode
+    assign_public_ip: no
+    tags:
+      Team: Automation
+      NodeType: "{{ node_type }}"
+      Name: selenium-single
+      ClusterName: SeleniumCluster
+      ClusterNodeType: SeleniumSingleNode
+      packages: docker,go-agent
+      dockers: telegraf
+      s3mounts: crlat-storage
+      GoAgentEnv: crlat_vpc
+      GoAgentResources: OxygenWebUITesting,SeleniumSingle
+    influx_tag_name: monitor
+    num_nodes: 10
+  tasks:
+  - name: crlat.vpc
+    include_role:
+      name: crlat.vpc

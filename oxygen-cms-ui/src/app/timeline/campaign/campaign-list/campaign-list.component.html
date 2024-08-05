@@ -1,0 +1,59 @@
+<div class="card">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Campaign
+    </h2>
+  </div>
+</div>
+<div class="card">
+  <div class="body">
+    <div class="row clearfix" *ngIf="campaignData" >
+      <div class="col-md-3">
+        <button (click)="openCreateCampaign()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create Campaign</span>
+        </button>
+      </div>
+      <div class="col-md-2">
+        <download-cvs [cvsData]="campaignData" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div class="col-4 m-b-0 pagination-block">
+        <mat-icon class="m-r-5">format_list_numbered</mat-icon>
+        <mat-form-field class="pagination-select">
+          <mat-select placeholder="Rows per page" [(ngModel)]="paginationLimit">
+            <mat-option *ngFor="let option of paginationLimitOptions"
+                        [textContent]="option || 'No pagination'"
+                        [value]="option">
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Campaign" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="campaignData">
+      <cms-data-table
+        [customTableData]="campaignData"
+        [customTableColumns]="dataTableColumns"
+        [multyRemove]="true"
+        [actions]="['remove','edit']"
+        [filterString]="searchField"
+        [filterProperties]="filterProperties"
+        [paginationLimit]="paginationLimit"
+        (onRemoveTableElement)="removeCampaign($event)"
+        (onMultyRemove)="removeHandlerMulti($event)">
+      </cms-data-table>
+    </div>
+
+    <div *ngIf="getDataError">
+      Request Error
+    </div>
+  </div>
+</div>

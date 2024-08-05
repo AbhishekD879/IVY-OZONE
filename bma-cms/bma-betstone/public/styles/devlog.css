@@ -1,0 +1,25 @@
+#dev-log {
+    z-index: 1001;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background: #000;
+    color: #fff;
+    padding: 10px;
+    font-family: monospace,monospace;
+    -webkit-opacity: .9;
+    -moz-opacity: .9;
+    opacity: .9;
+}
+#dev-log-close {
+    width: 20px;
+    height: 20px;
+    float: right;
+    background-color: #fff;
+    color: #000;
+    text-align: center;
+    cursor: pointer;
+}
+#dev-log .log-line {
+    display: block;
+}

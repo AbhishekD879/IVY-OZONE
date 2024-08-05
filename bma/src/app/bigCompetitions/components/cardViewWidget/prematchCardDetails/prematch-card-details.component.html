@@ -1,0 +1,21 @@
+<div class="card-title">
+  <div class="participants" *ngIf="event.participants">
+    <div class="participant team-home">
+      <svg class="team-flag" *ngIf="event.participants.HOME?.svgId">
+        <use [attr.xlink:href]="event.participants.HOME?.svgId"></use>
+      </svg>
+      <span class="team-abbreviation" [textContent]="event.participants.HOME?.abbreviation"></span>
+    </div>
+    <span [i18n]="'bigcompetitions.vs'"></span>
+    <div class="participant team-away">
+      <span class="team-abbreviation" [textContent]="event.participants.AWAY?.abbreviation"></span>
+      <svg class="team-flag" *ngIf="event.participants.AWAY?.svgId">
+        <use [attr.xlink:href]="event.participants.AWAY?.svgId"></use>
+      </svg>
+    </div>
+  </div>
+
+  <span *ngIf="!event.participants" [textContent]="event.name"></span>
+</div>
+
+<div class="card-start-time" [textContent]="startTime"></div>

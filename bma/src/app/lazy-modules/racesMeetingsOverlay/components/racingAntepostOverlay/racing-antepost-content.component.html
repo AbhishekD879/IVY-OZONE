@@ -1,0 +1,5 @@
+<div class="future-meetings" [ngClass]="{'hr-desktop-fm-layout': deviceService.isDesktop, 'hr-desktop-fm-coral-layout': !isBrandLadbrokes,
+     'gh-desktop-fm-layout': sportName === 'greyhound', 'gh-desktop-fm-coral-layout': sportName === 'greyhound' && !isBrandLadbrokes }">
+    <racing-tabs-main-component [isEventOverlay]="isEventOverlay" [sportName]="sportName">
+    </racing-tabs-main-component>
+</div>

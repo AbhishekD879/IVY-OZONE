@@ -1,0 +1,16 @@
+@Library(value='jenkins-pipeline-lib@master', changelog=false)
+
+def service = lcgCommonFunctions.getConstantsParameters("services.serviceVoltronBmaUiTest")
+def parameterizedCronDef = """\
+# Coral prod
+# 30 6 * * * %node_label=dev-slave-crlat-ui;target_host=sports.coral.co.uk;ref_voltron=release-101.1.3;env_test_path=tests;back_end=prod;mark=crl_prod or prod;custom_marks=not connect and not jackpot and not tote;email_recipients=mykola.shandra@gvcgroup.com,support.operation.coral@symphony-solutions.eu,lcl.aqa@ladbrokescoral.com,Krishna.Naidu@ivycomptech.com,oksana.tkach@ladbrokescoral.com,lcl.qa@ladbrokescoral.com,lcl.leads@ladbrokescoral.com,oleksandra.shcheholinska@ladbrokescoral.com,mykhailo.salnikov@ladbrokescoral.com,Iryna.Futorianska@symphony-solutions.eu,roman.kuzyk@symphony-solutions.eu,Mariia.Godlevska@symphony-solutions.eu,Andrii.Matsa@symphony-solutions.eu,Andrii.Kravtsov@symphony-solutions.eu,Oleksandr.Kutaiev@symphony-solutions.eu,Yaroslav.Kulak@symphony-solutions.eu,Yaroslava.Kryvenko@symphony-solutions.eu,Pavlo.Holubets@symphony-solutions.eu
+# Ladbrokes prod
+# 0 8 * * * %node_label=lad-dev-slave-crlat-ui;target_host=sports.ladbrokes.com;ref_voltron=release-102.1.0;env_test_path=tests;back_end=prod;mark=lad_prod or prod;custom_marks=vanilla_adapted;email_recipients=mykola.shandra@gvcgroup.com,support.operation.coral@symphony-solutions.eu,lcl.aqa@ladbrokescoral.com,Krishna.Naidu@ivycomptech.com,oksana.tkach@ladbrokescoral.com,lcl.qa@ladbrokescoral.com,lcl.leads@ladbrokescoral.com,oleksandra.shcheholinska@ladbrokescoral.com,mykhailo.salnikov@ladbrokescoral.com,Iryna.Futorianska@symphony-solutions.eu,roman.kuzyk@symphony-solutions.eu,Mariia.Godlevska@symphony-solutions.eu,Andrii.Matsa@symphony-solutions.eu,Andrii.Kravtsov@symphony-solutions.eu,Oleksandr.Kutaiev@symphony-solutions.eu,Yaroslav.Kulak@symphony-solutions.eu,Yaroslava.Kryvenko@symphony-solutions.eu,Pavlo.Holubets@symphony-solutions.eu
+"""
+
+arguments = [
+        service: service,
+        parameterizedCronDef: parameterizedCronDef
+]
+
+lcgJobCrlatUITesting(arguments)

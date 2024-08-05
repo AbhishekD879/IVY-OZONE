@@ -1,0 +1,31 @@
+<div *ngIf="preferences">
+  <top-bar [title]="getTitleAndDescription('title')"></top-bar>
+  <div class="preference-description" [textContent]="getTitleAndDescription('description')"></div>
+  <ng-container *ngIf="!fanzoneSharedService.isSubscribedToCustomTeam()">
+    <div class="line-divider"></div> 
+    <div class="preference-toggle">
+      <span class="preference-toggle-name" [textContent]="'All'"></span>
+      <toggle-switch [initialState]="allPreferences" [componentId]="'All'"
+        [disabled]="!nativeBridge.pushNotificationsEnabled"
+        (switcherControl)="allPreferencesSwitch($event)"
+        (clickIfDisabled)="nativeBridge.showNotificationSettings()">
+      </toggle-switch>
+    </div>
+    <div class="preference-toggle" *ngFor="let preference of preferences.pcKeys; let i = index;">
+      <span class="preference-toggle-name" [textContent]="preference.name"></span>
+      <toggle-switch [initialState]="preference.value" [componentId]="preference.name"
+        [disabled]="!nativeBridge.pushNotificationsEnabled"
+        (switcherControl)="preferenceSwitch($event, preference.key,preference.name)"
+        (clickIfDisabled)="nativeBridge.showNotificationSettings()">
+      </toggle-switch>
+    </div>
+    <button class="preference-submit-btn" (click)="onSubmitPreference()" [textContent]="preferences.ctaText"></button>
+    <div class="line-divider line-divider-fz"></div> 
+  </ng-container>
+  <div *ngIf='preferences.showToggle' class="preference-toggle">
+    <span class="preference-toggle-name" [textContent]="preferences.subscribeText"></span>
+    <toggle-switch [initialState]="fanzoneSubscription" [componentId]="preferences.subscribeText"
+      (switcherControl)="unsubcribeFanzone()">
+    </toggle-switch>
+  </div>
+</div>

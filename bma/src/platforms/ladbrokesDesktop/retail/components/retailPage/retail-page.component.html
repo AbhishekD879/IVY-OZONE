@@ -1,0 +1,12 @@
+<div class="retail-page">
+  <top-bar [title]="'retail.title'"></top-bar>  
+  <lazy-component class="lobby-banners"
+      moduleUri="@lazy-modules-module/banners/banners.module#BannersModule"
+      [inputs]='{ page: CONST.trackingLocation}'>
+  </lazy-component>
+  <div *ngIf="showUpgradeButton" class="retail-page-upgrade" [innerHtml]="upgradeButtonContent"
+    (click)="trackUpgradeNavigation(linkTitle)"></div>
+  <retail-menu *ngIf="showRetailMenu" [showDescription]="true" [trackingLocation]="CONST.trackingLocation"
+    [disableDefaultNavigation]="disableDefaultNavigation"
+    (showFootballBetFilterConfirmDialog)="showFootballFilterConfirmDialog()"></retail-menu>
+</div>

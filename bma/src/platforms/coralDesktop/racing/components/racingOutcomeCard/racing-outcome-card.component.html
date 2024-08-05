@@ -1,0 +1,128 @@
+<div *ngIf="eventEntity && marketEntity && outcomeEntity">
+  <img *ngIf="!isSilkLoaded" class="visibility-hidden" [src]="spriteUrl" (load)="isSilkLoaded = true">
+  <div class="odds-card race-card new-race-card"
+       (click)="onExpand()"
+       [ngClass]="{
+           'active' : showSummary,
+           'smart-boosts': marketEntity.isSmartBoosts,
+           'type-tote': raceType === 'tote'
+         }"
+       data-crlat="raceCard.odds">
+    <div class="odds-content">
+      <div class="odds-left">
+        <div class="odds-side"
+             *ngIf="isNumberNeeded(eventEntity, outcomeEntity) && !outcomeEntity.isFavourite && !outcomeEntity.nonRunner">
+          <strong [textContent]="outcomeEntity.runnerNumber || null" data-crlat="runnerNumber"></strong><br/>
+          <div class="label-text" *ngIf="outcomeEntity.racingFormOutcome?.draw" data-crlat="outcomeDraw">
+            (<span [textContent]="outcomeEntity.racingFormOutcome.draw"></span>)
+          </div>
+        </div>
+        <div class="silk-img" *ngIf="isGenericSilk(eventEntity, outcomeEntity) || getDefaultSilk(eventEntity, outcomeEntity)" data-crlat="imageSilk"></div>
+        <gh-silk *ngIf="isGreyhoundSilk(eventEntity, outcomeEntity)"
+          [event]="eventEntity"
+          [outcome]="outcomeEntity"></gh-silk>
+          <div class="silk-img"
+            [ngClass]="(eventEntity.isUKorIRE ? 'with-default': 'inter-silk') + ' '+ (!outcomeEntity.nonRunner && isSilkLoaded ? 'has-img silk-margin' : '')"
+            *ngIf="outcomeEntity.racingFormOutcome?.silkName" data-crlat="sectionSilkImg">
+            <div *ngIf="!outcomeEntity.nonRunner" [ngStyle]="getSilkStyle(marketEntity, outcomeEntity)" data-crlat="imageSilk">
+            </div>
+          </div>
+        <div class="odds-names odds-names-list odds-names-coral"
+             [ngClass]="{'odds-disabled' : outcomeEntity.nonRunner, 'tote-triexa-name': (toteTabName == 'UEXA' || toteTabName == 'UTRI')}"
+             data-crlat="horseInfoContainer">
+             <strong class="odds-names odds-names-wrap" [textContent]="(eventEntity.categoryCode === 'GREYHOUNDS') ? nameWithoutLineSymbol(outcomeEntity.name): nameWithoutNonRunner(outcomeEntity.name)" data-crlat="horseName"></strong>
+
+          <span class="odds-normal" data-crlat="jockeyAndTrainer" *ngIf="outcomeEntity.racingFormOutcome && eventEntity.categoryCode !== 'GREYHOUNDS' && !outcomeEntity.nonRunner">
+            <span *ngIf="outcomeEntity.racingFormOutcome?.jockey">
+              <span [textContent]="'J: '" class="text-bold"></span>
+              <span [textContent]="raceOutcomeData.formatJockeyWeight(outcomeEntity.racingFormOutcome)" data-crlat="jockeyName"></span>
+            </span>
+            <span *ngIf="raceOutcomeData.isJockeyAndTrainer(outcomeEntity.racingFormOutcome)" data-crlat="jockeyName&trainerName"> / </span>
+            <span *ngIf="outcomeEntity.racingFormOutcome?.trainer">
+                  <span [textContent]="'T: '" class="text-bold"></span>
+                  <span [textContent]="outcomeEntity.racingFormOutcome.trainer" data-crlat="trainerName"></span>
+            </span>
+          </span>
+          <span class="non-runner" *ngIf="outcomeEntity.nonRunner && !(eventEntity.categoryCode === 'GREYHOUNDS')" [i18n]="'racing.nonRunner'" data-crlat="nr">
+          </span>
+          <div class="timeform-trainer" *ngIf="outcomeEntity.timeformData?.trainer && !outcomeEntity.nonRunner" data-crlat="trainerName">
+            <strong [textContent]="'T: '"></strong>
+            <strong [textContent]="outcomeEntity.timeformData.trainer" data-crlat="value"></strong>
+          </div>
+          <div class="timeform-trainer" *ngIf="eventEntity.categoryCode === 'GREYHOUNDS' && eventEntity.racingFormEvent && outcomeEntity.racingFormOutcome?.trainer && !outcomeEntity.nonRunner">
+            <strong [textContent]="'T: '"></strong>
+            <span [textContent]="outcomeEntity.racingFormOutcome.trainer"></span>
+          </div>
+          <span class="odds-small" [ngClass]="{'odd-small-exa' : (toteTabName == 'UEXA' || toteTabName == 'UTRI')}" *ngIf="!outcomeEntity.nonRunner">
+            <span *ngIf="outcomeEntity.racingFormOutcome" class="form-guide-color" data-crlat="racingForm">
+              <span [i18n]="'racing.form_colon'"></span>
+              <strong class="text-bold form-colon" [textContent]="outcomeEntity.racingFormOutcome?.formGuide || '-'"></strong>
+            </span>
+            <ng-container *ngIf="(toteTabName == 'UEXA' || toteTabName == 'UTRI') && !outcomeEntity.nonRunner">
+              <span *ngIf="(outcomeEntity.racingFormOutcome && !outcomeEntity.isFavourite && !isGreyhoundEdp) ||
+              (outcomeEntity.racingFormOutcome?.overview && !outcomeEntity.isFavourite && isGreyhoundEdp) ||
+              outcomeEntity.timeformData" class="toggle-icon tricon" [ngClass]="{'active' : showSummary}"
+                data-crlat="toggleIcon">
+                <svg>
+                <use xlink:href="#down-arrow"></use>
+                </svg>
+                </span>
+            </ng-container>
+            <span class="timeform-odds-small" *ngIf="outcomeEntity.timeformData?.form">
+              <span [i18n]="'racing.form'" class="timeform-label"></span>&nbsp;
+              <span [textContent]="outcomeEntity.timeformData.form"></span>
+            </span>
+            <ng-container *ngIf="!(toteTabName == 'UEXA' || toteTabName == 'UTRI')" >
+              <span *ngIf="(outcomeEntity.racingFormOutcome && !outcomeEntity.isFavourite && !isGreyhoundEdp) ||
+              (outcomeEntity.racingFormOutcome?.overview && !outcomeEntity.isFavourite && isGreyhoundEdp) ||
+              outcomeEntity.timeformData" class="toggle-icon" [ngClass]="{'active' : showSummary}"
+                    data-crlat="toggleIcon">
+                    <span *ngIf="showSummary" class="showMoreLess" [i18n]="'racing.showLess'"></span>
+                    <span *ngIf="!showSummary" class="showMoreLess" [i18n]="'racing.showMore'"></span>
+                    <svg>
+                    <use xlink:href="#down-arrow"></use>
+                    </svg>
+                    </span>
+                    <span class="course-distance" *ngIf="outcomeEntity.racingFormOutcome?.isBeatenFavourite" [i18n]="'racing.bf'">
+                    </span>
+                    <span class="course-distance" *ngIf="outcomeEntity.racingFormOutcome?.courseDistanceWinner"
+                    [textContent]="outcomeEntity.racingFormOutcome.courseDistanceWinner" data-crlat="courseDistanceWinner">
+                    </span>
+            </ng-container>
+          </span>
+          <ng-container *ngIf="(toteTabName == 'UEXA' || toteTabName == 'UTRI') && !outcomeEntity.nonRunner">
+            <div class="tote-exa-tri">
+              <span class="course-distance course-distance-tote" *ngIf="outcomeEntity.racingFormOutcome?.isBeatenFavourite" [i18n]="'racing.bf'">
+              </span>
+              <span class="course-distance course-distance-tote" [ngClass]="{'tote-flgs': outcomeEntity.racingFormOutcome?.isBeatenFavourite}" *ngIf="outcomeEntity.racingFormOutcome?.courseDistanceWinner"
+                [textContent]="outcomeEntity.racingFormOutcome.courseDistanceWinner" data-crlat="courseDistanceWinner">
+              </span>
+            </div>
+            </ng-container>
+        </div>
+      </div>
+
+
+      <div class="odds-right">
+        <ng-content></ng-content>
+      </div>
+    </div>
+    <div class="odds-footer" *ngIf="marketEntity.isSmartBoosts && outcomeEntity.wasPrice">
+      <div class="odds-right">
+        <div class="was-price">
+          <span [i18n]="'sb.wasPrice'"></span>
+          <strike [textContent]="outcomeEntity.wasPrice"></strike>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <lazy-component *ngIf="outcomeEntity.racingFormOutcome && showSummary && !outcomeEntity.nonRunner"
+    moduleUri="@lazy-modules-module/runnerSpotlight/runner-spotlight.module#RunnerSpotlightModule"
+    [inputs]='{ outcome: outcomeEntity, isUKorIRE: eventEntity.isUKorIRE, isGreyhoundEdp: isGreyhoundEdp }'>
+  </lazy-component>
+
+  <timeform-selection-summary [outcome]="outcomeEntity"
+                              *ngIf="outcomeEntity.timeformData && showSummary">
+  </timeform-selection-summary>
+</div>

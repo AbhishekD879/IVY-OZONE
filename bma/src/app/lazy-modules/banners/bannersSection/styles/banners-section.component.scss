@@ -1,0 +1,124 @@
+@import 'global.variables.scss';
+
+$font-family: 'Tungsten Bold',sans-serif;
+#banner-section {
+  background: $banners-section-color;
+  @media #{$mqMobile} {
+    min-height: $banner-sk-height;
+  }
+  max-height: 410px;
+
+  &:not(:empty) {
+    @media (max-width: $desktopPointLow) {
+      padding: 8px 0;
+    }
+  }
+  @mixin img-position($position) {
+    position: $position;
+  }
+  @mixin offertext-font($fontsize) {
+    font-size: $fontsize
+  }
+  @mixin offertext-size($right,$top) {
+    right: $right;
+    top: $top;
+  }
+  @mixin offer-fontfamily($fontfamily,$lineheight,$texttransform) {
+    font-family: $fontfamily;
+    line-height: $lineheight;
+    text-transform: $texttransform;
+  }
+  .terms-conditionsifnot {
+    padding-top: 25px;
+  }
+  .lc-offer {
+    @include img-position(relative);
+    .bg-image {
+      @include img-position(absolute);
+    }
+    .fg-image {
+      @include img-position(absolute);
+      @include offertext-size(0px,15px);
+      max-width: 25%;
+      max-height: 60%;
+    }
+    .lc-text--ladbrokes {
+      color: $color-white!important;
+    }
+    .lc-offer__terms {
+      @media (min-width: $tabletPoint) and (max-width: $desktopPointLow) {
+        @include offertext-font(6px);
+      }
+    }
+    .offer-text {
+      @include img-position(absolute);
+      @include offertext-size(23px,10px);
+      color: $color-white;
+      width: 70%;
+      left: 15px;
+      bottom: 12px;
+      white-space: pre-wrap;
+      height: 100%;
+      .offer-introductorytext,.offer-subtitle {
+        @include offer-fontfamily($font-family,100%,uppercase);
+        color: $banners-subtitle;
+        @media (min-width: $desktopPoint) {
+          @include offertext-font(1.3em);
+        }
+        @media (min-width: $tabletPoint) and (max-width: $desktopPointLow) {
+          @include offertext-font(0.8em);
+        }
+        @media (max-width: $tabletPointLow) {
+          @include offertext-font(1.3em);
+        }
+      }
+      .offer-title {
+        @include offer-fontfamily($font-family,100%,uppercase);
+        font-weight: bold;
+        color: $banners-title;
+        @media (min-width: $desktopPoint) {
+          @include offertext-font(2.2em);
+        }
+        @media (min-width: $tabletPoint) and (max-width: $desktopPointLow) {
+          @include offertext-font(1.3em);
+        }
+        @media (max-width: $tabletPointLow) {
+          @include offertext-font(2.2em);
+        }
+      }
+    }
+  }
+  .offer-odds {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: $banners-subtitle;
+    opacity: 0.8;
+    @include offer-fontfamily($font-family,125%,uppercase);
+    @include img-position(absolute);
+    color: $color-white;
+    right: 10px;
+    bottom: 40px;
+    width: 28%;
+    height: 30%;
+    .odds-now {
+      @include offertext-font(25px);
+      @media (min-width: $tabletPoint) and (max-width: $desktopPointLow) {
+        @include offertext-font(15px);
+        line-height: 100%;
+      }
+    }
+    .odds-then {
+      @include offertext-font(20px);
+      @media (min-width: $tabletPoint) and (max-width: $desktopPointLow) {
+        @include offertext-font(13px);
+        line-height: 100%;
+      }
+    }
+  }
+}
+
+#five-a-side-bg {
+  background: $color-border-bottom-dark-black !important;
+}

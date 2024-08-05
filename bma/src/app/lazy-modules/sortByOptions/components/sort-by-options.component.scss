@@ -1,0 +1,75 @@
+@import 'global.variables.scss';
+
+.sort-by-container {
+  width: 100%;
+  position: relative;
+  display: block;
+
+  .sort-by-selector {
+    padding: 6px 10px;
+    font-size: 11px;
+    font-weight: normal;
+    font-style: normal;
+    text-align: right;
+    color: $color-blue;
+    background-color: $color-white;
+
+    .sort-by-arrow {
+      margin-left: 5px;
+      height: 7px;
+      width: 7px;
+    }
+
+    &.active .sort-by-arrow {
+      @include transform(rotateX(180deg));
+    }
+  }
+
+  &.grouped {
+    margin-bottom: 11px;
+  }
+
+  .sort-by-option {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 11px;
+    font-stretch: normal;
+  }
+
+  .sort-by-list {
+    position: absolute;
+    width: 150px;
+    right: 0;
+    z-index: 2;
+    height: 0;
+    top: 100%;
+    overflow: hidden;
+    transition: height 300ms ease;
+    background: $color-white;
+
+    &.active {
+      height: 76px;
+      border: 1px solid $color-gray;
+    }
+
+    .list-item-link.selected {
+      background: $color-gray-light;
+    }
+  }
+}
+
+.sort-by-container + .page-inner-container.no-header {
+  margin-top: 0;
+}
+
+.racing-content {
+  .terms-before-market + .sort-by-container {
+    border-top: 1px solid $color-gray-light;
+    margin-top: -1px;
+    display: block;
+
+    .sort-by-selector {
+      background-color: $color-gray-light;
+    }
+  }
+}

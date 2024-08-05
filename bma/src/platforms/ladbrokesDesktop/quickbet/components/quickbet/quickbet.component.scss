@@ -1,0 +1,87 @@
+@import 'global.variables.scss';
+@import '../../../../../app/quickbet/components/quickbetPanel/quickbet-panel.component.scss';
+
+$quickbet-button-height: 44px;
+
+#quickbet-panel.quickbet-panel {
+  font-family: $alt-font-family;
+  line-height: initial;
+  margin: 0;
+
+  .qb-fee {
+    text-align: center;
+  }
+
+  .quickbet-header {
+    height: 44px;
+
+    .title-section {
+      @include display-flex();
+      @include justify-content(center);
+      width: 100%;
+    }
+
+    .qb-header-title {
+      text-align: left;
+      width: auto;
+      font-size: 17px;
+      font-weight: normal;
+      line-height: 23px;
+    }
+
+    .qb-header-close-btn svg {
+      height: 15px;
+      width: 15px;
+    }
+
+    .qb-header-5-a-side-logo{
+      height: 21px;
+      width: 18px;
+      margin-right: 10px;
+    }
+  }
+
+  .dk-keyboard {
+    .dk-key {
+      font-family: $alt-font-family;
+    }
+  }
+}
+
+.quickbet-controls {
+  padding: 0 16px 24px 16px;
+  height: auto;
+  font-family: $base-font-family;
+  background: $lGray-bg;
+
+  .qb-left-cta-btn {
+    background: $lGrayLighter;
+    border-radius: 2px;
+    margin-right: 3.5px;
+    font-size: 15px;
+    font-weight: bold;
+    height: $quickbet-button-height;
+    color: $lGray;
+  }
+  .qb-right-cta-btn-ld{
+    width:100%;
+  }
+  .qb-right-cta-btn {
+    border-radius: 2px;
+    font-size: 15px;
+    font-weight: bold;
+    height: $quickbet-button-height;
+    color: $color-white;
+    background: $btn-bg-green-color;
+
+    &:disabled {
+      background: $color-green-disabled;
+      color: $color-white;
+    }
+  }
+}
+.closure-message-container {
+    line-height: 16px;
+    font-family: $alt-font-family;
+}
+

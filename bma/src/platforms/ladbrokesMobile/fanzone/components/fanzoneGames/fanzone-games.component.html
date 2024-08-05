@@ -1,0 +1,5 @@
+<div class="fanzone-games-wrapper">
+    <div class="carousel-item" *ngFor="let game of fanzoneGames;index as i" (click)="launchGame(game, i)">
+        <img *ngIf="!game.showGame" [attr.src]="game.gameThumbnailUrl"  class="carousel-image">
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<modal #bonusSuppresionErrorDialog class="bonussuppression-error-popup dialog-top-priority">
+  <ng-template #modalBody>
+    <div [i18n]="bonusSuppresionErrorMessage" class="text-center"></div>
+    <div class="buttons">
+      <div class="close-button" (click)="closeDialog()">Home</div>
+      <div class="close-button" (click)="goToChatPage()">Chat</div>
+    </div>
+  </ng-template>
+</modal>

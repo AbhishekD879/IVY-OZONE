@@ -1,0 +1,25 @@
+<modal #fanzoneComingBackDialog>
+  <div data-uat="popUpWindow" class="FCB-Popup">
+    <ng-template #modalBody>
+      <div class="FCB-Popup" *ngIf="showModal && fanzoneBgImage.length" [ngStyle]="{'background':'url(' + fanzoneBgImage + ') no-repeat center'}">
+        <div class="FCB-Popup-button">
+          <a data-uat="popUpCloseButton" class="FCB-Popup-button_close" (click)="closeDialog()">
+            <svg>
+              <use xlink:href="#close-icon"></use>
+            </svg>
+          </a>
+        </div>
+        <div class="FCB-Popup-title" [textContent]="fanzoneCbData[0].fzComingBackTitle"></div>
+        <div class="FCB-Popup-text" [textContent]="fanzoneCbData[0].fzComingBackDescription"></div>
+        <div *ngIf="fanzoneBadge" class="FCB-Popup-img">
+            <img class="FCB-Popup-img_svg" [attr.src]="fanzoneBadge"/>
+        </div>
+        <div class="FCB-Popup-button FCB-Popup-okbutton" (click)="closeDialog()">
+          <button class="FCB-Popup-button_okCTA button" 
+            [textContent]="fanzoneCbData[0].fzComingBackOKCTA">
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</modal>

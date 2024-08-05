@@ -1,0 +1,75 @@
+@Library('jenkins-pipeline-lib')
+
+def repoApplicationBuild = lcgCommonConstants('commonRepoApplicationBuild')
+def entityService = lcgCommonConstants('serviceTimeform')
+def scmRepositories = [ repoApplicationBuild, entityService]
+
+def repoOxygenPlaybook = lcgCommonConstants(entityService['repoPlaybooks'])
+def repoAnsibleInventories = lcgCommonConstants(entityService['repoInventories'])
+def scmRepositoriesDeploy = [ repoOxygenPlaybook, repoAnsibleInventories ]
+
+pipeline {
+    agent {
+        label 'dev-slave'
+    }
+    environment {
+        // I am not sure that is good place describing service name
+        SERVICE_NAME = "timeform"
+    }
+    parameters {
+        booleanParam(name: 'deploy', defaultValue: false, description: 'Enable deploy')
+        choice(name: 'env', choices: "DEV0\nTST20\nSTG20\nPROD20", description: 'Please chose the environment you want to deploy')
+    }
+    stages {
+
+        stage ('Delete workspase') {
+            steps {
+                deleteDir()
+            }
+        }
+        stage ('Getting SCM sources') {
+                steps {
+                    script {
+                        lcgScmGitParallel(scmRepositories)
+                    }
+                }
+        }
+        stage ('Building App') {
+            steps {
+                lcgAppBuildDockerImage("${SERVICE_NAME}")
+                }
+        }
+        stage ('Quality Gate') {
+            parallel {
+                stage ("Sonar Cloud") {
+                        steps {
+                            lcgQualityGateSonarCloud()
+                        }
+                }
+                stage ("Fortyfy security") {
+                        steps {
+                            sh "echo Fortyfy security"
+                        }
+                }
+            }
+        }
+        stage ('Push Application') {
+            steps {
+                lcgAppPushDockerImage("${SERVICE_NAME}")
+            }
+        }
+        stage ('Getting Deploy Tools') {
+            when { expression { return params.deploy } }
+            steps {
+                lcgScmGitParallel(scmRepositoriesDeploy)
+            }
+        }
+        stage ("Deploy") {
+            when { expression { return params.deploy } }
+
+            steps {
+                lcgDeployAnsibleDocker(entityService)
+            }
+        }
+    }
+}

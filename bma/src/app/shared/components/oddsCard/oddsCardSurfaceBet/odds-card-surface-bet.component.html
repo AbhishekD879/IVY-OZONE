@@ -1,0 +1,36 @@
+<div class="surface-bet-card" *ngIf="surfaceBet" data-crlat="surfaceBetCard">
+  <div [appSymbolBackground]="surfaceBet" class="surface-bet-card">
+    <div class="left-side">
+      <div class="surface-bet-header" data-crlat="surfaceBetCard.header">
+        <div class="bet-img-container" *ngIf="surfaceBet.svgId" data-crlat="surfaceBetCard.icon">
+          <svg [class.brand-color]="surfaceBet.svgId">
+            <use [attr.xlink:href]="'#' + surfaceBet.svgId"></use>
+          </svg>
+        </div>
+        <div class="surface-bet-title brand-title-color" [textContent]="surfaceBet.title" data-crlat="surfaceBetCard.title"></div>
+        <div class="header-background"></div>
+      </div>
+      <div class="surface-bet-content content-color">
+        <div class="surface-bet-contentHeader" [textContent]="surfaceBet.contentHeader || ''" data-crlat="surfaceBetCard.contentHeader"></div>
+        <div [textContent]="surfaceBet.content || ''" data-crlat="surfaceBetCard.content"></div>
+      </div>
+    </div>
+    <div>
+      <div class="price-odd-container" *ngIf="isButton">
+        <price-odds-button [event]="surfaceBet"
+                           [market]="surfaceBet.markets[0]"
+                           [outcome]="surfaceBet.markets[0].outcomes[0]"
+                           [cssClass]="'surface-bet-btn'"
+                           [isShowHistoricPrices]="false"
+                           [gtmModuleTitle]="'surface bets'"
+                           [sbPosition]="surfaceBetIndex">
+        </price-odds-button>
+      </div>
+      <div class="was-price content-color" *ngIf="oldPrice" data-crlat="surfaceBetCard.oldPrice">
+        <span [i18n]="'sb.wasPrice'" data-crlat="label"></span>
+        <strike class="content-color" [textContent]="oldPrice" data-crlat="value"></strike>
+      </div>
+    </div>
+  </div>
+  </div>
+  

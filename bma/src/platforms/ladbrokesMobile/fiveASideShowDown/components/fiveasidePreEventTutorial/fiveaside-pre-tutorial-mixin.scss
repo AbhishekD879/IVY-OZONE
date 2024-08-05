@@ -1,0 +1,87 @@
+@mixin fade-animated-mixin($webkit-duration, $animation-duration, $animation-delay, $web-fill-mode, $animation-fill-mode) {
+    -webkit-animation-duration: $webkit-duration;
+    animation-duration: $animation-duration;
+    animation-delay: $animation-delay;
+    -webkit-animation-fill-mode: $web-fill-mode;
+    animation-fill-mode: $animation-fill-mode;
+  }
+
+  @mixin prize-pool-mixin($top, $height, $position, $z-index, $scroll-behavior ,$transition-duration, $transition-delay, $animation-name, $animation-duration, $animation-timing-function) {
+    top: $top;
+    height: $height;
+    position: $position;
+    z-index: $z-index;
+    scroll-behavior: $scroll-behavior;
+    transition-duration: $transition-duration;
+    transition-delay: $transition-delay;
+    animation-name: $animation-name;
+    animation-duration: $animation-duration;
+    animation-timing-function: $animation-timing-function
+  } 
+
+  @mixin rules-area-mixin($top, $height, $position, $z-index, $transition-duration, $transition-delay, $animation-name, $animation-duration, $animation-timing-function) {
+    top: $top;
+    height: $height;
+    position: $position;
+    z-index: $z-index;
+    transition-duration: $transition-duration;
+    transition-delay: $transition-delay;
+    animation-name: $animation-name;
+    animation-duration: $animation-duration;
+    animation-timing-function: $animation-timing-function
+  }
+
+  @mixin position-index-box-mixin($position, $z-index) {
+    position: $position;
+    z-index: $z-index;
+  }
+
+  @mixin arrow-mixin($background, $margin, $height, $position, $transition, $transition-delay) {
+    background: $background;
+    margin: $margin;
+    height: $height;
+    position: $position;
+    transition: $transition;
+    transition-delay: $transition-delay
+  }
+  @mixin button-mixin($background, $margin, $height, $position, $width) {
+    background: $background;
+    margin: $margin;
+    height: $height;
+    position: $position;
+    width: $width;
+  }
+  @mixin header-mixin($display, $position, $top, $left, $right, $bottom, $z-index, $overflow) {
+    display: $display;
+    position: $position;
+    top: $top;
+    left: $left;
+    right: $right;
+    bottom: $bottom;
+    z-index: $z-index;
+    overflow: $overflow;
+  }
+  @mixin cards-overlay-mixin($overflow, $position, $max-height ,$height) {
+    overflow: $overflow;
+    position: $position;
+    max-height: $max-height;
+    height: $height;
+  }
+  @mixin overlay-header-mixin($font-weight, $font-size, $color, $line-height, $letter-spacing ,$margin, $padding-bottom, $text-align, $margin-top) {
+    font-weight: $font-weight;
+    font-size: $font-size;
+    color: $color;
+    line-height: $line-height;
+    letter-spacing: $letter-spacing;
+    margin: $margin;
+    padding-bottom: $padding-bottom;
+    text-align: $text-align;
+    margin-top: $margin-top;
+  }
+  @mixin overlay-content-mixin($font-size, $line-height, $letter-spacing ,$position, $text-align) {
+    font-size: $font-size;
+    line-height: $line-height;
+    letter-spacing: $letter-spacing;
+    position: $position;
+    text-align: $text-align;
+  }

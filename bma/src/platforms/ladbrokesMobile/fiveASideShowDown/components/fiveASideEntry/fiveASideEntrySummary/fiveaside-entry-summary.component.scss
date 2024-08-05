@@ -1,0 +1,233 @@
+@import 'global.variables.scss';
+
+.container {
+    margin-bottom: 2px;
+
+    @media #{$mqDesktop}{
+        margin-bottom: 3px;
+    }
+
+    @mixin font-prop($font-stretch, $font-style, $line-height, $letter-spacing, $text-align) {
+      font-stretch: $font-stretch;
+      font-style: $font-style;
+      line-height: $line-height;
+      letter-spacing: $letter-spacing;
+      text-align: $text-align;
+  }
+
+    .marginall>div {
+        margin: auto;
+    }
+
+    .marginall {
+        margin: 0px;
+        padding: 2px;
+        background-color: $color-bluecharcoal;
+        box-shadow: -1px 2px 0 0 $color-black-boxshadow, 0 2px 5px 0 $color-black-boxshadowend;
+        color: $color-white;
+        height: 55px;
+
+        @media (min-width: $tabletPoint) {
+            padding: 6px;
+        }
+        .percentage {
+            width: 41px;
+            display: flex;
+            align-items: center;
+            padding: 0;
+
+            p {
+                @include font-prop(normal, normal, 12px, normal, center);
+                 margin: 0;
+                 @include setFontProps($alt-font-family, $font-size-lg, normal, $color-gainsboro);
+
+                 @media #{$mqMobile} {
+                     @include setFontProps($alt-font-family, 12px, normal, $color-gainsboro);
+                 }
+             }
+            .percentage-img  {
+                line-height: 12px;
+                margin: 0 5px 0px 0px;
+
+                @media #{$mqDesktop}{
+                    margin: 0 5px 0px 10px;
+                }
+            }
+        }
+
+        .percentageFull {
+            p {
+            margin: 0;
+            @include font-prop(normal, normal, 15px, normal, center);
+            @include setFontProps($alt-font-family, $font-size-bit-lgr, bold, $color-gainsboro);
+            }
+        }
+
+        .nosvg {
+            @media #{$mqDesktop}{
+                padding-left: 10px
+            }
+        }
+    }
+    .border-radius {
+      border-radius: 4px;
+  }
+
+  .border-radius-top {
+      border-top-right-radius: 4px;
+      border-top-left-radius: 4px;
+  }
+    .focus {
+        border: solid 2px transparent;
+        border-radius: 7px;
+    }
+
+    .right-fivedigit {
+        right: 2px;
+    }
+
+    .active-user-border {
+        border: 2px solid $color-mainblue;
+    }
+
+    .rank {
+        margin: auto;
+        @include font-prop(condensed, normal, normal, normal, center);
+
+        @media #{$mqDesktop}{
+            padding-right: 20px;
+            text-align: center;
+        }
+    }
+
+    .digitThree {
+        @media #{$mqMobile} {
+            @include setFontProps($base-font-family, 13px, bold, $color-gainsboro);
+            right: 1px;
+        }
+        @media #{$mqDesktop}{
+            @include setFontProps($base-font-family, 16px, bold, $color-gainsboro);
+        }
+
+        @media #{$mqTablet} {
+            @include setFontProps($base-font-family, 16px, bold, $color-gainsboro);
+        }
+    }
+
+    .digitFive {
+        @media #{$mqMobile} {
+            @include setFontProps($base-font-family, 13px, bold, $color-gainsboro);
+            right: 8px;
+        }
+
+        @media #{$mqDesktop}{
+            @include setFontProps($base-font-family, 14px, bold, $color-gainsboro);
+        }
+
+        @media #{$mqTablet} {
+            @include setFontProps($base-font-family, 14px, bold, $color-gainsboro);
+        }
+    }
+
+    .digitSix {
+        @media #{$mqMobile} {
+            @include setFontProps($base-font-family, 11px, bold, $color-gainsboro);
+            right: 8px;
+        }
+
+        @media #{$mqDesktop}{
+            @include setFontProps($base-font-family, 14px, bold, $color-gainsboro);
+            right: 6px;
+        }
+
+        @media #{$mqTablet} {
+            @include setFontProps($base-font-family, 13px, bold, $color-gainsboro);
+            right: 6px;
+        }
+    }
+
+    .digitSeven {
+        @media #{$mqMobile} {
+            @include setFontProps($base-font-family, 10px, bold, $color-gainsboro);
+            right: 9px;
+        }
+
+        @media #{$mqDesktop}{
+            @include setFontProps($base-font-family, 13px, bold, $color-gainsboro);
+            right: 8px;
+        }
+
+        @media #{$mqTablet} {
+            @include setFontProps($base-font-family, 12px, bold, $color-gainsboro);
+            right: 8px;
+        }
+    }
+
+    .defaultrankStyle {
+        @media #{$mqMobile} {
+            @include setFontProps($base-font-family, 15px, bold, $color-gainsboro);
+        }
+
+        @media #{$mqDesktop}{
+            @include setFontProps($base-font-family, 16px, bold, $color-gainsboro);
+        }
+
+        @media #{$mqTablet} {
+            @include setFontProps($base-font-family, 16px, bold, $color-gainsboro);
+        }
+    }
+
+    .pull-right {
+        @media #{$mqDesktop}{
+            right: 15px;
+        }
+    }
+
+    .name {
+        @include setFontProps($alt-font-family, $font-size, normal, $color-gainsboro);
+    }
+
+    #myProgress {
+        @media #{$mqDesktop}{
+            padding: 0px 40px;
+        }
+
+        @media #{$mqMobile} {
+            padding-left: 10px;
+        }
+    }
+
+    .odds {
+        margin: 4px 0 0 0;
+        @include setFontProps($alt-font-family, $font-size-sm, normal, $color-gainsboro);
+    }
+
+    .winprize {
+        @include setFontProps($alt-font-family, $font-size-lgr, bold, $color-maingreen);
+        text-align: right;
+    }
+
+    .percentage {
+        @include setFontProps($alt-font-family, $font-size, normal, $color-gainsboro);
+
+        @media #{$mqDesktop}{
+            @include setFontProps($alt-font-family, $font-size-xl, normal, $color-gainsboro);
+            right: 50px;
+        }
+    }
+
+    .gifts {
+        display: flex;
+        justify-content: center;
+        align-items: end;
+    }
+
+    .prize>svg {
+        height: 15px;
+        width: 18px;
+        position: relative;
+        bottom: -2px
+    }
+}
+
+

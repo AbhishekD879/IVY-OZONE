@@ -1,0 +1,106 @@
+@import 'global.variables.scss';
+.btn-group-parent {
+    display: flex;
+    flex-direction: column;
+    background-color: $color-white;
+}
+.btn-group {
+    @include display-flex();
+    @include align-items();
+    background-color: $color-white;
+    justify-content: center;
+    padding: 10px;
+    margin-top: 15px;
+}
+.align {
+    text-align: center;
+    background-color: $color-white;
+    color: $increment-color;
+    font-size: 12px;
+    font-family: $font-increment-number;
+    margin-bottom: 10px;
+}
+.btn {
+    width: 343px;
+    height: 40px;
+    margin: 0px auto;
+    margin-bottom: 15px;
+    background-color: $color-green-shade !important;
+    color :$color-white !important;
+    font-family: $base-font-family;
+    font-size: $bet-buildbet-font-size;
+    text-shadow: none;
+    opacity: 0.50;
+}
+
+.btn-select {
+    width: 100%;
+    border-radius: 21px;
+    min-height: 40px;
+    background-color: $color-white;
+    box-shadow: 0 2px 5px 0 rgb(84 84 84 / 26%);
+    border: 0px;
+}
+.active {
+    background-color: $color-blue-alt;
+}
+.sign-button {
+    width: 32px;
+    height: 32px;
+    flex-grow: 0;
+    border: solid 1px $color-grey-darker-byb-2;
+    background-color: $lGrayLight;
+    font-size: 20px;
+    border-radius: 50%;
+    color: $sign-enabled;
+    padding: 0px;
+}
+.text-btn {
+    width: 31px;
+    height: 26px;
+    margin: 3px 21px 10px 21px;
+    font-family: Lato;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    color: $color-sign-enabled;
+    font-family: $font-increment-number;
+    line-height: 150%;
+}
+
+.btn-active {
+    background-color: $color-green-shade !important;
+    color: $color-white !important;
+    font-family: $base-font-family;
+    font-size: $bet-buildbet-font-size;
+    box-shadow: none;
+    opacity: 1;
+    &:hover {
+        background-color: $color-green-light-leaf !important;
+        box-shadow: none;
+    }
+    &:active {
+        background-color: $color-green-dark-leaf !important;
+    }
+}
+.btn-active-lads {
+    background-color: $color-light-green-leaf !important;
+    box-shadow: none;
+    opacity: 1;
+    &:hover {
+      background-color: $color-green-light2 !important;
+      box-shadow: none;
+    }
+    &:active {
+      background-color: $color-green-shine !important;
+    }
+}
+
+.sign-disabled {
+    color: $sign-disabled;
+}
+
+.initial-disabled {
+    color: $sign-disabled;
+}
+  

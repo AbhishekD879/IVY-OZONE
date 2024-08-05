@@ -1,0 +1,28 @@
+<modal #fanzoneSycDialog>
+  <ng-template #modalHeader>
+    <div class="SYT-Popup-title" [textContent]="fanzonePopupData.sycPopUpTitle"></div>
+  </ng-template>
+  <ng-template #modalBody>
+    <div class="body">
+      <div class="SYT-Popup-text" [textContent]="fanzonePopupData.sycPopUpDescription"></div>
+      <div class="SYT-Popup-img">
+        <svg class="submenu-list-icon" [disable-dragging] data-crlat="submenuListIcon">
+          <use [attr.xlink:href]="'#' + fanzonePopupData.sycImage"></use>
+        </svg>
+      </div>
+      <div class="remind-later-button i-m-in-button">
+        <button class="remind-later" (click)="checkDialogButtonClick('Remind Me Later')"
+          [textContent]="fanzonePopupData.remindLater"></button>
+        <button class="i-m-in" (click)="checkDialogButtonClick('I M IN')"
+          [textContent]="fanzonePopupData.okCTA"></button>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #modalFooter>
+    <div class="line-break"></div>
+    <div class="dont-show-me-button">
+      <button class="dont-show-me" (click)="checkDialogButtonClick('Dont show me this again')"
+        [textContent]="fanzonePopupData.dontShowAgain"></button>
+    </div>
+  </ng-template>
+</modal>

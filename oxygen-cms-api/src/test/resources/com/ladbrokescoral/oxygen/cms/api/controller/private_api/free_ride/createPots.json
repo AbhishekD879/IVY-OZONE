@@ -1,0 +1,107 @@
+{
+  "name": "TEST_21",
+  "brand": "ladbrokes",
+  "displayFrom": "2021-08-13T06:59:59.547Z",
+  "displayTo": "2021-08-13T06:59:59.547Z",
+  "openBetCampaignId": "2222",
+  "optimoveId": "32",
+  "updatedByUserName": "test.admin@coral.co.uk",
+  "createdByUserName": "test.admin@coral.co.uk",
+  "questionnarie": {
+    "questions": [{
+      "questionId":1,
+        "quesDescription": "Question 1",
+        "options": [{
+            "optionId": 1,
+            "optionText": "top player"
+          },
+          {
+            "optionId": 2,
+            "optionText": "Dark player"
+          },
+          {
+            "optionId": 3,
+            "optionText": "Surprise Me"
+          }
+        ],
+        "chatBoxResp": "Great choice"
+      },
+      {
+      "questionId":2,
+        "quesDescription": "Question 2",
+        "options": [{
+            "optionId": 4,
+            "optionText": "top player"
+          },
+          {
+            "optionId": 5,
+            "optionText": "Dark player"
+          },
+          {
+            "optionId": 6,
+            "optionText": "Surprise Me"
+          }
+        ],
+        "chatBoxResp": "Great choice"
+      },
+      {
+      "questionId":3,
+        "quesDescription": "Question 3",
+        "options": [{
+            "optionId": 7,
+            "optionText": "top player"
+          },
+          {
+            "optionId": 8,
+            "optionText": "Dark player"
+          },
+          {
+            "optionId": 9,
+            "optionText": "Surprise Me"
+          }
+        ],
+        "chatBoxResp": "Great choice"
+      }
+    ],
+    "summaryMsg": "Question is saved",
+    "welcomeMessage": "welcomeMessage",
+    "horseSelectionMsg": "Please select right horse"
+  },
+  "eventClassInfo": {
+    "classId": 223,
+    "marketPlaceFetchDate": "2021-08-13T06:59:59.547Z",
+    "marketPlace": [{
+        "typeId": "11",
+        "typeName": "Ayr",
+        "isSelected": "true",
+        "events": [{
+            "_id": "110",
+            "name": "110:10",
+            "isSelected": "true"
+          },
+          {
+            "_id": "111",
+            "name": "111:20",
+            "isSelected": "true"
+          }
+        ]
+      },
+      {
+        "typeId": "12",
+        "typeName": "Kempton",
+        "isSelected": "true",
+        "events": [{
+            "_id": "120",
+            "name": "120:10",
+            "isSelected": "true"
+          },
+          {
+            "_id": "122",
+            "name": "120:20",
+            "isSelected": "true"
+          }
+        ]
+      }
+    ]
+  }
+}

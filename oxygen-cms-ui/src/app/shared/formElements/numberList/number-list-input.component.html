@@ -1,0 +1,11 @@
+<mat-form-field class="full-width">
+    <input 
+        matInput 
+        [placeholder]="placeholder"
+        [(ngModel)]="value"
+        (blur)="onBlur()"
+        (input)="transformToNumber($event)"
+        [required]="required"
+        [disabled] ="isDisabled"
+        trim="blur">
+</mat-form-field>

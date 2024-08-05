@@ -1,0 +1,137 @@
+bpp:
+    api:
+        path: /Proxy
+        url: ${bpp.url}${bpp.api.path}
+    connect:
+        timeout: 2000
+    pool:
+        keep:
+            alive: false
+        size: 2000
+        timeout: 30000
+    read:
+        timeout: 3000
+    retry:
+        number: 0
+        timeout: 0
+    url: http://localhost:9090/Proxy
+    write:
+        timeout: 2000
+cms:
+    base:
+        url: http://localhost:8083
+    brand: bma
+    connect:
+        timeout: 2000
+    pool:
+        keep:
+            alive: false
+        size: 2000
+        timeout: 30000
+    read:
+        timeout: 3000
+    retry:
+        number: 0
+        timeout: 0
+    write:
+        timeout: 2000
+df:
+    kafka:
+        admin:
+            properties:
+                bootstrap:
+                    servers: ${df.kafka.bootstrap-servers}
+        bootstrap-servers: df-app-kafka-test.ladbrokescoral.com:9092
+        consumer:
+            auto-commit-interval: 1s
+            auto-offset-reset: latest
+            bootstrap-servers: ${df.kafka.bootstrap-servers}
+            group-id: BET-PACK-CONSUMER-PROMOTION-${spring.profiles.active}
+            #group-id: "bet-pack-updates-{{ bet_pack_mp_build_number }}-{{ ansible_default_ipv4.address }}"
+            key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+            security:
+                protocol: SSL
+            ssl:
+                key-password: changeit
+                key-store-location: classpath:ssl/dev/oxygen-dev.keystore-dev.jks
+                key-store-password: changeit
+                key-store-type: JKS
+                trust-store-location: classpath:ssl/dev/oxygen-dev.truststore-dev.jks
+                trust-store-password: changeit
+                trust-store-type: JKS
+            value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+        listenersConcurrency: 1
+        properties:
+            security:
+                protocol: SSL
+    paf:
+        topic:
+            name: df-reward-streamer-paf
+    brand: Coral
+
+distributed:
+    prefix: ${spring.profiles.active}
+internal:
+    active:
+        bet-pack-ids:
+            kafka:
+                groupId: ${distributed.prefix}-internal-active-bet-pack-ids
+                listenersConcurrency: 1
+    bet-pack:
+        kafka:
+            groupId: ${distributed.prefix}-internal-bet-packs
+            listenersConcurrency: 1
+kafka:
+    bet-pack-live-updates:
+        listeners:
+            number: 1
+        partition:
+            default: 1
+        replica:
+            factor: 1
+    bet-pack-subscription:
+        listeners:
+            number: 1
+        partition:
+            default: 1
+        replica:
+            factor: 1
+management:
+    endpoint:
+        health:
+            show-details: always
+    endpoints:
+        web:
+            base-path: /actuator
+            exposure:
+                include: '*'
+            path-mapping:
+                health: /health
+                info: /info
+max:
+    poll:
+        interval:
+            ms: 500000
+spring:
+    aop:
+        proxy-target-class: true
+    application:
+        name: bet-pack-marketplace
+    cloud:
+        discovery:
+            enabled: false
+    config:
+        discovery:
+            enabled: true
+    kafka:
+        bootstrap-servers: 10.152.48.99:9092,10.152.48.100:9092,10.152.48.101:9092
+    redis:
+        password: D2D2D9FBB87079F58F2FE3C4B367006C695D63FD
+        sentinel:
+          master: master
+          nodes: at1t5xacod658.dbz.unix:26384,at1t5xacod659.dbz.unix:26384,at1t5xacod678.dbz.unix:26384
+ssl:
+    certificates:
+        resource: classpath:/ssl
+topic:
+    prefix: TST

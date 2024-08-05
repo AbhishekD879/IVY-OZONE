@@ -1,0 +1,7 @@
+<ng-container *ngIf="!state.loading && !state.error">
+  <top-bar [title]="content.title"></top-bar>
+  <static-block [cmsContent]="content" data-crlat="cmsContent"></static-block>
+</ng-container>
+<outlet-status [state]="state">
+  <request-error (reloadFn)="reloadComponent()"></request-error>
+</outlet-status>

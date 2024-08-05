@@ -1,0 +1,166 @@
+<table matSort (matSortChange)="sortData($event)" class="custom-table table table-hover table-condensed table-bordered m-b-0"
+       [ngClass]="reorder ? tableUniqueClass : ''">
+  <thead>
+    <tr [ngClass]="background">
+      <th *ngFor="let column of customTableColumns; let i = index"
+          [ngClass]="{'text-center': (column.alignment === 'center')}"
+          mat-sort-header="{{column.property}}"
+          [attr.colspan]="(i === 0 ? 2 : 1)"
+          class="table-col-{{column.width || 1}}"
+          scope="col">
+        {{column.name}}
+      </th>
+      <th *ngFor="let action of actions"
+          scope="col"
+          class="table-col-1">
+        {{action}}
+      </th>
+      <th style="width:1%;"
+          *ngIf="multyRemove"
+          scope="col">
+        <a (click)="removeDataElements();" *ngIf="selectedRows.length > 0">
+          <i class="material-icons col-red">remove_circle</i>
+        </a>
+      </th>
+    <th style="width:1%;" *ngIf="removebybdata" scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dataElement of dataElementsList | async; let i = index;"
+    [ngClass]="{'disabled': dataElement.disabled, 'not-valid': (dataElement.isValid === false)}"
+      [class.highlighted]="dataElement.highlighted">
+      <!--drag handler element-->
+      <td *ngIf="reorder" class="drag-handler" [ngClass]="{'disabled': (isSorted || isFiltered)}">
+        <i class="material-icons">swap_vert</i></td>
+ 
+      <td *ngIf="!reorder" class="number-cell">{{i + 1 + paginationStart}}</td>
+
+      <!--main table columns-->
+      <td *ngFor="let column of customTableColumns"
+          [ngClass]="{'text-center': (column.alignment === 'center')}"
+          class="shortened-view">
+        <a *ngIf="column.type === 'link'  && ( !dataElement?.universalSegment || selectedSegment === 'Universal')" [routerLink]="getLink(dataElement, column.link)" matTooltip="{{dataElement[column.property]}}">
+          {{dataElement[column.property]}}
+        </a>
+        <span *ngIf="column.type === 'link' && (selectedSegment !== 'Universal' && dataElement?.universalSegment) " matTooltip="{{dataElement[column.property]}}">
+          {{dataElement[column.property]}}
+        </span>
+
+        <i *ngIf="column.type === 'boolean' && column.name !== showOnSportsRibbonColumName && !surfaceBetsFlag" class="material-icons col-{{isActiveColumn(dataElement, column) ? 'light-blue' : 'blue-grey'}}">
+          {{isActiveColumn(dataElement, column) ? 'check_circle' : 'cancel'}}
+        </i>
+
+        <i *ngIf="column.name === showOnSportsRibbonColumName && !sportsCategoryFlag && !(dataElement?.inclusionList.includes(selectedSegment)); else checkable" class="material-icons col-{{isActiveColumn(dataElement, column) ? 'light-blue' : 'blue-grey'}}">
+          {{isActiveColumn(dataElement, column) ? 'check_circle' : 'cancel'}}
+        </i>
+
+        <ng-template #checkable>
+          <div *ngIf="column.name === showOnSportsRibbonColumName && !sportsCategoryFlag && (dataElement?.universalSegment || dataElement?.inclusionList.includes(selectedSegment))" class="material-icons col-{{isActiveColumn(dataElement, column) ? 'light-blue' : 'blue-grey'}}">
+            <mat-checkbox color="primary"
+                        [checked]="isActiveColumn(dataElement, column) ? true : false"
+                        (change)="selectingShowOnSportsRibbon($event.checked,i)">
+            
+            </mat-checkbox>
+          </div>
+        </ng-template>
+
+        <div *ngIf="surfaceBetsFlag"
+          class="material-icons col-{{isActiveColumn(dataElement, column) ? 'light-blue' : 'blue-grey'}}">
+          <mat-checkbox
+            *ngIf="column.name === enabled ||column.name === highlightsTab ||column.name === edp || column.name === displayInDesktop"
+            color="primary" [checked]="isActiveColumn(dataElement, column) ? true : false"
+            (change)="selectingShowOnSurfaceBets($event.checked,i,column.name)">
+          </mat-checkbox>
+        </div>
+
+        <span *ngIf="column.type === 'date' && isValidDate(dataElement[column.property])" matTooltip="{{dataElement[column.property] | date : 'yyyy-MM-dd HH:mm:ss a'}}">
+          {{dataElement[column.property] | date : 'yyyy-MM-dd HH:mm:ss a'}}
+        </span>
+
+        <span *ngIf="column.type === 'date' && !isValidDate(dataElement[column.property])" matTooltip="{{dataElement[column.property]}}">
+          {{dataElement[column.property]}}
+        </span>
+
+        <span *ngIf="column.type === 'date-no-time' && isValidDate(dataElement[column.property])" matTooltip="{{dataElement[column.property] | date : 'yyyy-MM-dd HH:mm:ss a'}}">
+          {{dataElement[column.property] | date : 'yyyy-MM-dd'}}
+        </span>
+
+        <span *ngIf="column.type === 'html'">
+          {{getHtmlString(dataElement[column.property])}}
+        </span>
+
+        <span *ngIf="column.type === 'custom'"
+              class="custom"
+              [innerHTML]="dataElement[column.property]"
+              (click)="column.customOnClickHandler(dataElement, $event)">
+        </span>
+
+        <span *ngIf="column.type === 'svgIcon'" class="svg-icon highlight-svg">
+          <svg>
+            <use [attr.xlink:href]="'#' + dataElement['svgId']"></use>
+          </svg>
+        </span>
+
+        <span *ngIf="column.type === 'array'" matTooltip="{{ dataElement[column.property] | arrayNoNull}}">
+          {{ dataElement[column.property] | arrayNoNull }}
+        </span>
+
+        <span *ngIf="column.type === 'nested'">
+          {{getNestedValue(dataElement, column.property)}}
+        </span>
+
+        <span *ngIf="column.type === 'array/link'">
+          <ng-container *ngFor="let item of dataElement[column.property]; let isLast = last">
+            <a [routerLink]="getLink(item, column.link)">{{item[column.link.nameProperty]}}</a><span *ngIf="!isLast">, </span>
+          </ng-container>
+        </span>
+
+        <div *ngIf="column.type === 'select'">
+            <mat-select
+              disableRipple
+              [value]="dataElement[column.activeValue]"
+              (selectionChange)="dataElement.onSelectChangeHandler($event, dataElement.id)">
+              <mat-option *ngFor="let option of dataElement['select']"
+                          [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-select>
+        </div>
+
+        <span *ngIf="!column.type" matTooltip="{{dataElement[column.property]}}">
+          {{dataElement[column.property]}}
+        </span>
+      </td>
+
+      <!--actions column-->
+      <td *ngFor="let action of actions" class="text-center">
+        <ng-container *ngIf=" !dataElement?.universalSegment || selectedSegment === 'Universal' ">
+          <a *ngIf="action === 'remove'" (click)="removeDataElement(dataElement);"><span
+              class="material-icons col-red">remove_circle</span></a>
+          <a *ngIf="action === 'edit'" [routerLink]="getLink(dataElement)"><span
+              class="material-icons col-light-blue-grey">mode_edit</span></a>
+          <a *ngIf="action === 'onPageEdit'" (click)="editDataElement(dataElement);"><span
+              class="material-icons col-red">mode_edit</span></a>
+        </ng-container>
+      </td>
+
+      <td *ngIf="removebybdata">
+        <a (click)="removebybData(dataElement);" title="Remove"><span style="color: red !important;" class="material-icons col-red">remove_circle</span></a>
+     </td>
+     
+      <td *ngIf="multyRemove">
+        <mat-checkbox color="primary"
+          [disabled]="isRemoveCheckboxEnabled && isRemoveCheckboxEnabled(dataElement)"
+          [checked]="dataElement.multyRowSelected"
+          (change)="dataElement.multyRowSelected = !dataElement.multyRowSelected">
+        </mat-checkbox>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<cms-data-table-pagination *ngIf="paginationLimit"
+                           (goToPage)="goToPage($event)"
+                           [range]="paginationRange"
+                           [currentIndex]="paginationIndex">
+</cms-data-table-pagination>

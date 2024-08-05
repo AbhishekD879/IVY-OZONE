@@ -1,0 +1,20 @@
+subnets:
+  public: subnet-ef38c888
+  services: subnet-153dcd72
+  private: subnet-903ecef7
+os_images:
+  ubuntu1604v3: ami-051e9d7c
+  ubuntu1604v2: ami-72ed6d0b
+  ubuntu_1604: ami-4bc01132
+  ubuntu_1604_ansible: ami-14974d6d
+influx_host_name: monitor
+web_root_cert_filename: crlat-web-root
+s3_certs_path: certificates
+private_domain: crlat.net
+region: eu-west-1
+os_type: ubuntu_1604_ansible
+key_name: crlat2
+default_s3_bucket: crlat-storage
+gocd_server: goserver.crlat.net
+dns_server_ip: 192.168.192.174
+base_tags: {}

@@ -1,0 +1,65 @@
+@import 'global.variables.scss';
+ ::ng-deep {
+  .multi-market-cm {
+    .btn-bet {
+        height: 40px;
+        width: 50px;
+        margin-bottom: 6px;
+        margin-left: 6px;
+    }
+    .eventFirstName {
+        margin-bottom: 32px;
+    }
+    .eventSecondName {
+        padding-bottom: 9px;
+    }
+    .eventFirstName-threeOdds {
+        padding-bottom: 30px;
+    }
+    .eventSecondName-threeOdds {
+        padding-bottom: 32px;
+    }
+    .eventThirdName-threeOdds {
+        padding-bottom: 3px;
+      }
+    .odds-name-row b {
+        height: 14px;
+    }
+    .odds-name-row {
+        color: #41494e;
+        font: 13px/13px Lato,Arial,Helvetica Neue,Helvetica,sans-serif;
+    }
+    .applyOpacity {
+        opacity: 30%;
+    }
+    .emptyNA {
+        margin-left: 6px;
+        @include display-flex();
+        @include flex-flow(column);
+        @include justify-content(center);
+        @include align-items(flex-end);
+        word-break: break-word;
+    }
+    .odds-card-header .odds-header-col {
+        word-wrap: break-word;
+        white-space: break-spaces;
+        line-height: 1.1;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2; 
+        -webkit-box-orient: vertical;
+        width: 52px;
+        margin: 0 4px;
+    
+        @media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) { 
+            width: 55px;
+            margin: 0 3px;
+        }
+    }
+    .odds-card-header {
+        padding: 7px 6px 7px 10px;
+        height: auto;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+<div class="sort-by-container">
+  <div class="sort-by-selector" [ngClass]="{'active': showSortBy}" (click)="showDropdown(!showSortBy)"
+       data-crlat="sort-by-selector">
+    <span class="sort-by-title">SORT BY: </span>
+    <span class="sort-by-option" [textContent]="sortBy" data-crlat="selected-option"></span>
+    <svg class="sort-by-arrow">
+      <use xlink:href="#down-arrow"></use>
+    </svg>
+  </div>
+  <div class="sort-by-list" [ngClass]="{'active': showSortBy}" (click)="showDropdown(!showSortBy)"
+       data-crlat="sortSelector">
+    <ul class="links-list-panel">
+      <li class="list-item" *ngFor="let option of sortByOptions; trackBy: indexNumber">
+        <a class="list-item-link" [ngClass]="{'selected': option === sortBy}" (click)="selectSortByOption(option)"
+           data-crlat="item">
+          <span class="item-name" [textContent]="option" data-crlat="item-name"></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

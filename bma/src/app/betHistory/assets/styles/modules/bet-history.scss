@@ -1,0 +1,626 @@
+@import 'global.variables.scss';
+
+$font-family-lato: 'Lato';
+$font-family-tungsten: 'Tungsten Bold';
+.history-bets .history-loader .loader-spinner-container{
+  margin-top: 50px;
+}
+
+.bet-container {
+  margin-bottom: 8px;
+  background-color: $color-white;
+  font-family: $base-font-family;
+  box-shadow: $event-card-shadow;
+}
+
+.tote-leg-status-container {
+  position: absolute;
+  right: 0;
+  bottom: -22px;
+}
+
+.tote-leg-status {
+  height: 12px;
+  width: 29px;
+  &.suspended {
+    width: 56px;
+  }
+}
+
+.container-content.jackpot-receipt {
+  .tote-leg-status {
+    position: absolute;
+    right: 4px;
+    bottom: 0px;
+  }
+  .cashout-stake-and-returns {
+    padding-bottom: $ema-stake-and-returns-bottom-padding;
+    .unit-stake-row {
+      padding: 0;
+    }
+  }
+
+  .bordered-row {
+    padding: 15px 10px;
+    border-top: 1px solid $color-gray;
+  }
+
+  .item-inner {
+    padding: 5px;
+  }
+
+  .win-lines-label {
+    margin-left: 5px;
+  }
+  .win-lines-number {
+    color: $color-green;
+  }
+
+  .carousel-slides {
+    .bordered-row {
+      padding: 15px;
+    }
+  }
+  .my-bets-item-header {
+    padding: 7px 40px 7px 10px;
+  }
+  .leg-info, .adjusted-result {
+    font-weight: bold;
+    color: $color-gray-dark;
+  }
+
+  .leg-info {
+    font-size: 12px;
+    .leg-name {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+
+  .single-left {
+    @include display-flex();
+    @include align-items();
+    @include flex(1, 1, 100%);
+  }
+
+  .single-right {
+    @include display-flex();
+    @include align-items();
+    @include flex(1, 0, auto);
+    @include justify-content(flex-end);
+    position: relative;
+  }
+
+  .start-time {
+    margin-left: 5px;
+    font-weight: normal;
+  }
+
+  .full-time {
+    margin-left: 3px;
+  }
+
+  .adjusted-result {
+    font-size: 14px;
+  }
+
+  .default-mark{
+    display:inline-block;
+
+    &:after{
+      content: '\2014';
+      display: block;
+      width: 8px;
+      height: 14px;
+    }
+  }
+
+  .not-resulted {
+    color: lighten($color-gray-dark, 50%);
+  }
+
+  .check-mark{
+    display:inline-block;
+
+    &:after{
+      content: '';
+      display: block;
+      width: 8px;
+      height: 14px;
+      position: absolute;
+      right: 14px;
+      bottom: 2px;
+      border: solid $color-green;
+      border-width: 0 2px 2px 0;
+      @include transform(rotate(45deg));
+    }
+  }
+
+  .text-result {
+    text-align: right;
+    padding-right: 20px;
+    bottom: 10px;
+  }
+
+  .x-mark {
+    position: absolute;
+    width: 0;
+    height: 20px;
+    bottom: 0;
+  }
+
+  .x-mark:before, .x-mark:after {
+    position: absolute;
+    content: ' ';
+    height: 20px;
+    width: 2px;
+    left: 0;
+    background-color: $color-red;
+  }
+  .x-mark:before {
+    @include transform(rotate(45deg));
+  }
+  .x-mark:after {
+    @include transform(rotate(-45deg));
+  }
+}
+
+.items-list {
+  list-style: none;
+  margin: 5px 0;
+  padding: 0 20px;
+  color: $color-black;
+
+  &.game-list {
+    padding: 0;
+    margin: 15px 0 5px;
+
+    &:first-child {
+      margin: 0 0 15px;
+    }
+  }
+
+  li {
+    margin: 3px 0 0 0;
+
+    &.head-list {
+      margin: 0;
+      padding: 5px 0 0;
+      font-weight: bold;
+    }
+
+    &.btm-list {
+      margin: 5px 0 0;
+      color: lighten($color-gray-dark, 50%);
+      font-size: 10px;
+      padding: 5px 0 0;
+    }
+
+    .status-label {
+      font-size: 9px;
+      border-radius: 2px;
+    }
+  }
+}
+
+.bet-history-page {
+  .select-panel {
+    margin: 0 auto;
+    width: 100%;
+  }
+  .track-name {
+    margin-left: 7px;
+  }
+}
+
+.status-label {
+  padding: 3px 5px 2px;
+  color: $color-white;
+  font-size: 12px;
+  display: inline;
+  line-height: 13px;
+  background: lighten($color-gray-dark, 50%);
+
+  &.status-Cashed.Out, &.status-Won, &.status-win {
+    background: $color-green;
+  }
+
+  &.status-Open {
+    background: $color-yellow;
+  }
+}
+
+.win-text {
+  color: $color-green;
+}
+
+.open-text {
+  color: $color-yellow;
+}
+
+.digital-sport-bets {
+  margin-top: 15px;
+}
+.ox-datepicker-container {
+  border-right: 1px solid $color-gray-light;
+}
+
+.my-bets-lotto-receipt {
+  @include display-flex();
+  @include justify-content(space-between);
+  font-size: 10px;
+  background: $color-gray;
+  color: $color-gray-dark;
+  padding: 5px 10px;
+}
+
+.won {
+  .cashout-stake-and-returns .single-right .stake-label.stake-value {
+    color: $color-green;
+  }
+}
+.livePriceBOG {
+  padding-top: 5px;
+  font-size: 11px;
+  color: $color-gray-darkest;
+}
+.ema-stake-and-returns {
+  .stake-value {
+    font-weight: $ema-stake-value-font-weight;
+  }
+}
+
+.account-history {
+  .tabs-panel .scroll-inner {
+    @include display-flex();
+  }
+}
+
+.transaction-history-warnings {
+  padding-bottom: 15px
+}
+
+.ema-history-dialog {
+  .modal-dialog {
+    width: $ema-history-dialog-width;
+    max-width: $ema-history-dialog-width;
+  }
+}
+
+.ema-error-container {
+  text-align: center;
+  padding: 5px 0 10px;
+  font-weight: 400;
+  font-size: 14px;
+  color: $switch-byb-market-player-color;
+
+  .message-icon {
+    fill: red;
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+}
+
+	// BOG styles for ladbrokes	
+  .bog-section-container{	
+    display: block; 	
+    padding-bottom: 8px; 	
+    border-bottom: 1px solid $color-gray;	
+    .bog-icon-label-container{	
+      display: inline-flex; 	
+      margin-left: 10px;
+      .event-card-label-wrapper {
+        background-color: $color-yellow;
+        fill: $brand-color-main;
+        width: 24px;
+        height: 24px;
+        margin-top: 10px;
+        @include inline-flex();
+        @include align-items(center);
+        @include justify-content(center);
+        .event-card-text {
+          color: $brand-color-main;
+          font-weight: bold;
+        }
+        &.event-card-label-wrapper {
+          .event-card-label {
+            width: 12px;
+            height: 12px;
+            margin: 0;
+            &.bog-text {
+              width: 16px;
+            }
+          }
+          .event-card-text {
+            display: none;
+          }
+        }
+      }
+      .bog-icon-border-radius-coral{
+        border-radius: 2px;
+      }
+      .bog-label{	
+        width: 170px; 	
+        height: 16px;
+        font-weight: normal; 	
+        font-stretch: normal; 	
+        font-style: normal;	
+        line-height: normal;
+      }
+      .bog-label-coral{ 
+        margin: 14px 132px 0px 10px; 
+        font-family: $base-font-family; 
+        font-size: 13px;
+        letter-spacing: normal; 
+        color: $color-gray-dark;
+      }
+      .bog-label-ladbrokes{
+        margin: 14px 91px 0px 10px; 
+        font-family: $alt-font-family; 
+        font-size: 14px;
+        letter-spacing: 0px; 
+        color: $color-gray-darkest;
+      }
+    }	
+    .bog-extra-earnings-label{	
+      display: block;
+      font-weight: bold; 	
+      font-stretch: normal; 	
+      font-style: normal; 	
+      line-height: normal; 	
+      letter-spacing: 0px;
+    }
+    .bog-extra-earnings-label-coral{
+      height: 13px; 
+      margin: 0px 70px 0 45px; 
+      font-family: $base-font-family; 
+      font-size: 11px; 
+      color: $color-blue;
+    }
+    .bog-extra-earnings-label-ladbrokes{
+      height: 15px; 
+      margin: 0px 70px 0 44px; 
+      font-family: $alt-font-family; 
+      font-size: 12px; 
+      color: $color-blue-cornflower;
+    }    
+  }
+
+    .openBet-overPeriod-limit-container {
+      @include display-flex();
+      width: 100%;
+      height: auto;
+      margin: 8px 0px;
+      padding: 5px 8px;
+      box-shadow: 0 -1px 2px 0 $color-black-boxshadow, 0 2px 4px 0 $color-black-boxshadowend;
+      background-color: $color-white;  
+      .icon-container {
+        @include display-flex();
+        align-items: center;
+      }
+      .alert-icon {
+        width: 16px;
+        height: 16px;
+        margin: 7px 8px 7px 0;
+        object-fit: contain;
+      }
+      .underlined {
+        text-decoration: underline;
+        color: $color-blue-alt;
+      }
+      .text-content-container {
+        font-size: 12px;
+        width: 100%;    
+        height: 30px;
+        margin: 0 0 0 8px;
+        letter-spacing: 0px;
+        color: $color-gray-darkest;
+        display: table-cell;
+        vertical-align: middle;
+      }
+      .lads-text{
+        font-family: $alt-font-family;
+        font-size: 13px;
+        padding: 0 8px 0 0;
+      }
+      .coral-text{
+        font-family: $base-font-family;
+        font-size: 12px;
+        padding: 0 4px 0 2px;
+      }
+  }
+  .data-mybet-disclaimer--container {
+    width: 100%;
+      box-sizing: border-box;
+    margin-bottom: 5px;
+    .disclaimer {
+      font-family: $base-font-family;
+      font-size: 10px;
+      color: #363c3f;
+      text-align: center;
+      position: relative;
+      bottom: 7px;
+    }
+    border-bottom: 1px solid $color-gray;
+  }
+
+  .marketdesc {	
+    color: $color-blue-dark;	
+    margin: 0 9px 24px 12px;	
+    font-family: HelveticaNeue;	
+    font-size: 12px;	
+    font-weight: normal;	
+    font-stretch: normal;	
+    font-style: normal;	
+    line-height: normal;	
+    letter-spacing: 0px;	
+    text-align: left;	
+  }
+  .static-banner{
+    position: relative;
+    padding-top: 0px;
+    height: 67px;
+    @include display-flex();
+    border-bottom: 2px solid $color-gray;
+	  background-image: url("/assets/images/celebration-banner.svg");
+  }
+  .static-banner-image {
+    height: 67px;
+    width: 353px;
+  }
+  .congrats-message {
+    border-bottom: 2px solid $color-gray;
+    height: 67px;
+    padding-top: 11px;
+    &-lads {
+      height: 67px;
+      border-bottom: 2px solid $color-gray;
+    }
+  }
+  .celebration-message {
+    width: 133px;
+    height: 28px;
+    padding-left: 12px;
+    top: 11px;
+  
+    font-family: $font-family-lato;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 23px;
+    line-height: 28px;
+    letter-spacing: 0.218182px;
+    text-transform: uppercase;
+    color: $color-blue-dark;
+    &-lads {
+      width: 104px;
+      height: 36px;
+      padding-left: 11px;
+      font-family: $font-family-tungsten;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 30px;
+      line-height: 36px;
+      @include display-flex();
+      @include align-items(center);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: $lGray;
+    }
+  }
+  .winning-message {
+    height: 14px;
+    padding-left: 12px;
+    font-family: $font-family-lato;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: 0.218182px;
+    text-transform: uppercase;
+    color: $color-blue-dark;
+    display: flex;
+    align-items: center;
+    &-lads {
+      height: 16px;
+      padding-left: 11px;
+      font-family: $font-family-tungsten;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 16px;
+      letter-spacing: 1px;
+      text-transform: uppercase;  
+      color: $lGray;
+      display: flex;
+      align-items: center;
+    }
+  }
+  .static-celebration-block {
+    position: relative;
+    border-bottom: 2px solid $color-gray;
+    height: 67px;
+    @include display-flex();
+  }
+  .static-celebration-message {
+    position: absolute;
+    top: 0px;
+    padding-top: 11px;
+    &-lads {
+      padding-top: 7px;
+    }
+  }
+  .sports-icon {
+    position: absolute;
+    right: 3%;
+    padding-top: 3.62px;
+    z-index: 0;
+    &-position {
+      width: 52.8px;
+      height: 52.8px;
+      padding-top: 1.1px;
+      padding-left: 1.1px;
+      fill: $ghost-white;
+    }
+    &-pool {
+      margin-top: -7px;
+    }
+  }
+  .leg-z-index {
+    z-index: 1;
+    &-lotto {
+      position: relative;
+      z-index: 1;
+    }
+  }
+  .celebration-text {
+    padding-top: 14px;
+    &-lads {
+      padding-top: 5px; 
+    }
+  }
+  
+  p {
+    font-size: 13px;
+    margin-bottom: 2px;
+  }
+  .flower-text-coral {
+    p {
+      font-size: 13px;
+      margin-bottom: 2px;
+      font-weight: 400;
+      display: inline-block;
+      min-width: 52px;
+      height: 16px;
+      color: #41494E;
+    }
+  }
+  .flower-img-coral {
+    padding-right: 10px;
+    background-image: url('/assets/images/lucky-signposting.png');
+    background-size: 18px;
+    background-repeat: no-repeat;
+    padding-left: 16px !important;
+    background-position: left;
+    background-position-y: 54%;
+    background-position-x: 9%;
+    color:#252835;
+    width: 22px;
+    height: 22px;
+    position: relative;
+    top: -3px;
+  }
+
+
+  .allWinnerBonus-mybets{
+    color: $color-blue;
+    font-weight: 400;
+    font-size: 13px;
+    display: flex;
+    justify-content: end;
+    width: 100%;
+    padding: 0 12px; 
+    align-items: baseline;
+  }

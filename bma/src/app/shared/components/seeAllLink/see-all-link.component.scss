@@ -1,0 +1,37 @@
+@import 'global.variables.scss';
+
+see-all-link {
+  display: block;
+  position: relative;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin: 0 -18px 0 8px;
+
+  a {
+    &.see-all-link {
+      color: $see-all-color;
+      text-decoration: none;
+      padding-right: 10px;
+      &:hover {
+        text-decoration: underline;
+      }
+      &:active {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &:after {
+    position: absolute;
+    content: '';
+    border: solid $see-all-color;
+    border-width: 0 2px 2px 0;
+    padding: 2px;
+    @include transform(rotate(-45deg));
+    top: 50%;
+    margin-top: -3px;
+    right: 0;
+  }
+}

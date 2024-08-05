@@ -1,0 +1,244 @@
+@import 'global.variables.scss';
+
+.eventVideoStream {
+
+  .icon-text {
+    top: 13px;
+    right: 13px;
+    position: absolute;
+  }
+
+  .video-frame {
+    border-radius: 3px;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .stream-msg {
+    font-size: 10px;
+  }
+
+  .stream-msg-wrapper {
+    text-align: center;
+
+    .stream-msg {
+      float: none;
+    }
+  }
+
+  .stream-link {
+    display: block;
+    margin-bottom: 3px;
+    width: auto;
+  }
+
+  iframe {
+    border: none;
+    overflow: hidden;
+  }
+}
+
+.watch-free-popup-container {
+  .watch-free-logo {
+    height: 50px;
+    padding: 5px 0 10px;
+    display: block;
+    margin: 0 auto;
+  }
+  .half-width-button {
+    width: 100px;
+    display: block;
+    margin: 0 auto;
+  }
+  .popup-footer-text {
+    font-size: 14px;
+  }
+}
+
+.racing-content {
+
+  .item-legend {
+    padding: 10px;
+    background: $color-white;
+    font-family: $base-font-family;
+
+    .question-icon {
+      fill: $color-gray-dark;
+      position: relative;
+      top: 1px;
+      width: 12px;
+      height: 12px;
+      margin-right: 2px;
+    }
+
+    a {
+      text-decoration: underline;
+      color: $color-gray-dark;
+      font-size: 11px;
+      position: relative;
+      bottom: 2px;
+
+      &:focus {
+        outline: 0;
+        border: 0;
+      }
+
+      @media (min-width: 768px) {
+        font-size: 11px;
+      }
+    }
+  }
+
+  .btn-icon {
+    display: inline-block;
+    fill: currentColor;
+
+    &.video-stream-icon {
+      right: 0;
+      top: 0;
+      cursor: pointer;
+      height: 9px;
+      width: 9px;
+    }
+
+    &.watch-free-icon {
+      width: 26px;
+      height: 17px;
+      margin: 2px 3px -4px 0;
+    }
+    @media (min-width: $st-point) {
+      .video-stream-icon {
+        right: 0;
+        top: 0;
+        cursor: pointer;
+        height: 9px;
+        width: 9px;
+        margin: 2px 3px -4px 0;
+      }
+  
+    }
+  }
+
+  .media-area-container {
+    @include display-flex();
+    @include flex-direction(column);
+    background: $color-white;
+    &.no-header {
+      border-bottom-width: 11px;
+    }
+  }
+
+  .media-area {
+    #QL_goingDown, #QL_Result, #QL_video, #QL_Text, #QL_videoScript, #QL_visualiser {
+      width: 100%!important;
+    }
+
+    #QL_goingDown {
+      position: relative;
+
+      #QL_loading {
+        position: absolute;
+        top: 0;
+        width: 100%;
+      }
+    }
+  }
+
+  .media-buttons {
+    @media (min-width: $st-point) {
+      background: $media-btns-bg;
+    }
+
+    &.v2-media-buttons.group-buttons .group-btn .group-col:not(.group-default) {
+
+      &:first-child {
+        margin-right: 1px;
+      }
+
+      .btn {
+        background: $color-gray-light;
+        color: $color-gray-dark;
+        font-size: 11px;
+        font-family: $base-font-family;
+        line-height: 18px;
+        text-shadow: none;
+        white-space: normal;
+        position: relative;
+        fill: $color-gray-dark;
+        padding: 10px 0;
+        text-transform: uppercase;
+        box-shadow: none;
+        border-radius: 0;
+
+        @media (min-width: $st-point) {
+          background: $media-btns-bg;
+          color: $color-gray;
+          padding: 14px 0 13px;
+          line-height: 1.25;
+
+          svg {
+            display: none;
+          }
+
+        }
+
+        &.active {
+          background: $color-blue-lighter;
+          color: $color-white;
+          fill: $color-white;
+
+          &:after {
+            top: 100%;
+            left: 50%;
+            margin-left: -4px;
+            content: '';
+            z-index: 4;
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 4px 4px 0 4px;
+            border-color: $color-blue-lighter transparent transparent transparent;
+          }
+
+          @media (min-width: $st-point) {
+            background: $media-btns-bg;
+            color: $color-white;
+            border-bottom: 3px solid $color-red;
+
+            &:after {
+              content: '';
+              border: none;
+            }
+          }
+        }
+        &.toggled {
+          pointer-events: auto;
+        }
+      }
+    }
+  }
+  .media-area-container-horse {
+    flex-direction: column-reverse !important;    
+  }
+}
+
+.video-section {
+  background: $color-black;
+
+  .stream-text {
+    padding: 5px;
+    color: $color-white;
+    font-size: 11px;
+  }
+
+  .video-js {
+    width: 100%;
+  }
+
+  .vjs-error-display {
+    &:before {
+      content: ' '!important; //need to override videojs player error content 'X'
+    }
+  }
+}

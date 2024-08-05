@@ -1,0 +1,66 @@
+@import 'global.variables.scss';
+
+/*Event top container*/
+.top-event-panel {
+
+  .title-container {
+    padding: 0 15px 15px;
+    position: relative;
+  }
+
+  .tote-event .title-container {
+    padding: 15px;
+  }
+
+  .event-title {
+    color: $color-black;
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+  }
+
+  .post-container {
+    border-top: 1px solid $color-gray;
+    margin: 0;
+    overflow: hidden;
+
+    .post-text {
+      font-size: 11px;
+      line-height: 14px;
+      padding: 0 15px 15px;
+    }
+
+    .post-header {
+      padding: 15px;
+      clear: both;
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+
+      .r-post-logo {
+        width: 77px;
+        height: 9px;
+        float: left;
+      }
+
+      .post-btn {
+        text-decoration: underline;
+        color: $color-gray-dark;
+        text-transform: uppercase;
+        font-size: 10px;
+        float: right;
+      }
+    }
+
+  }
+}
+
+.watch-live-icon {
+  display: inline-block;
+  margin-left: 10px;
+  margin-bottom: -3px;
+  height: 15px;
+  width: 21px;
+}

@@ -1,0 +1,59 @@
+<section *ngIf="events.length" class="enhanced-multiples-carousel-section">
+  <div (mouseover)="isHovered=true" (mouseleave)="isHovered=false">
+    <div class="enhanced-multiples-carousel-wrapper ng-carousel" [ngCarousel] [ngCarouselAmount]="1"
+      [ngCarouselName]="carouselName" [ngCarouselFluid]="true" [ngCarouselLoop]="false"
+      [ngCarouselWatch]="events.length" data-crlat="race.enhancedMultiplesCarousel">
+      <slidecontainer class="carousel-slides" [ngClass]="{'enhanced-carousel-container-many-slides': !isSingleSlide}">
+        <ng-container *ngFor="let event of events; trackBy: trackById">
+          <slide class="slide enhanced-slide" data-crlat="raceCard.event"
+            *ngFor="let outcome of event.markets[0]?.outcomes; trackBy: trackById" [ngClass]="{'enhanced-single-slide': isSingleSlide}">
+            <article>
+              <header class="enhanced-slide-header-container" data-crlat="enhancedSlideHeaderContainer">
+                <span class="enhanced-slide-header">
+                  <span class="enhanced-slide-type-title">
+                    <span [i18n]="'sbdesktop.enhanced'"></span>
+                    <span *ngIf="sportName === 'horseracing'" [i18n]="'sbdesktop.multiples'"></span>
+                  </span>
+                </span>
+                <span *ngIf="isHomePage" class="enhanced-sport-name-title" data-crlat="enhancedSportNameTitle"
+                  [textContent]="event.categoryName"></span>
+              </header>
+              <section class="enhanced-slide-body row-no-gutter">
+                <div class="slide-body-top">
+                  <div class="enhanced-slide-title">
+                    <span class="enhanced-title-event-name" data-crlat="enhancedTitleEventName"
+                      [textContent]="event.name"></span>
+                  </div>
+                  <div class="enhanced-slide-time">
+                    <span>&nbsp;-&nbsp;</span>&nbsp;<time [datetime]="event.dateTime" [textContent]="event.time"></time>
+                  </div>
+                </div>
+                <div class="enhanced-slide-body-bottom row-no-gutter">
+                  <div class="enhanced-slide-body-bottom-left">
+                    <h4 class="outcome-name" data-crlat="outcomeName" [textContent]="outcome.name">
+                    </h4>
+                  </div>
+                  <div class="enhanced-slide-body-bottom-right">
+                    <price-odds-button [event]="event" [market]="event.markets[0]"
+                      [outcome]="outcome">
+                    </price-odds-button>
+                  </div>
+                </div>
+              </section>
+            </article>
+          </slide>
+        </ng-container>
+      </slidecontainer>
+    </div>
+    <div class="action-arrow left row-middle" (click)="prevSlide()" *ngIf="isHovered && isPrevActionAvailable()">
+      <svg class="arrow-icon prev-arrow row-center">
+        <use xlink:href="#prev-arrow"></use>
+      </svg>
+    </div>
+    <div class="action-arrow right row-middle" (click)="nextSlide()" *ngIf="isHovered && isNextActionAvailable()">
+      <svg class="arrow-icon next-arrow">
+        <use xlink:href="#next-arrow"></use>
+      </svg>
+    </div>
+  </div>
+</section>

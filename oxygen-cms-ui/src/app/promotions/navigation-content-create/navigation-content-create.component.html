@@ -1,0 +1,109 @@
+<breadcrumbs *ngIf="navTypeContent && !isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+
+<div class="card" *ngIf="!isLoading && navData">
+    <div class="header">
+        <h2 class="has-activity-badge">Edit Navigation Content: <span class="font-italic">{{navData.name}}</span></h2>
+        <create-updated-at-by class="has-activity-badge" [collection]="navData"></create-updated-at-by>
+    </div>
+</div>
+
+<div class="card" *ngIf="navTypeContent && !isLoading">
+    <div class="body">
+        <div class="row">
+            <div class="col-md-2">
+                <span class="mat-label">
+                    Type
+                </span>
+            </div>
+            <div class="col-md-10">
+                <mat-form-field class="full-width">
+                    <mat-select [(value)]="navTypeContent.navType" [(ngModel)]="navTypeContent.navType"
+                        (selectionChange)="setType($event)" placeholder="Nav Type">
+                        <mat-option *ngFor="let t of type" [value]="t.id">{{t.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <span class="mat-label">
+                    Tab Name *
+                </span>
+            </div>
+            <div class="col-md-10">
+                <mat-form-field class="full-width" [ngClass]="{ 'custom-form-field-invalid' : !name.valid}">
+                    <input #TabName matInput placeholder="Name" [formControl]="name" [(ngModel)]="navTypeContent.name"
+                        required trim="blur" maxlength="15">
+                    <mat-hint align="end">{{TabName.value?.length || 0}}/15</mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+        <!-- url section start -->
+        <div class="row" *ngIf="navTypeContent.navType === 'url'">
+            <div class="col-md-2">
+                <span class="mat-label">
+                    URL *
+                </span>
+            </div>
+            <div class="col-md-10">
+                <mat-form-field class="full-width" [ngClass]="{ 'custom-form-field-invalid' : !url.valid}">
+                    <input matInput placeholder="Enter URL" [formControl]="url" [(ngModel)]="navTypeContent.url"
+                        required trim="blur">
+                        <mat-hint class="col-red" *ngIf="navTypeContent?.url?.length > 0 && !checkValidUrl(navTypeContent.url)">Enter correct URL</mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+        <!-- url section end -->
+        <!-- leaderboard drop down section start-->
+        <div class="row" *ngIf="navTypeContent?.navType?.toLowerCase() === 'leaderboard'">
+            <div class="col-md-2">
+                <span class="mat-label">
+                    Leaderboard*
+                </span>
+            </div>
+            <div class="col-md-10">
+                <mat-form-field class="full-width">
+                    <mat-select name="leaderboardId" (selectionChange)="setLeaderboard($event)"
+                        [(ngModel)]="navTypeContent.leaderboardId" placeholder="Promotion Leaderboard" required>
+                        <mat-option value="none" default selected>Select</mat-option>
+                        <mat-option *ngFor="let lb of activeLeaderboard" [value]="lb.id">{{lb.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <!-- leaderboard drop down section end-->
+
+        <!-- description section start -->
+        <div class="row" *ngIf="navTypeContent.navType === 'description'">
+            <div class="col-md-2">
+                <span class="mat-label">
+                    Description*
+                </span>
+            </div>
+            <div class="col-md-10">
+                <tinymce-editor [initialEditorContent]="navTypeContent.descriptionTxt || ''"
+                    (outputEditorData)="updateNavTypeContent($event, 'descriptionTxt')"></tinymce-editor>
+            </div>
+        </div>
+        <!-- description section end -->
+    </div>
+</div>
+
+<div class="card" *ngIf="!navData?.id">
+    <div class="body">
+        <div class="row --m-t-10">
+            <div class="col-md-3 m-b-0">
+                <button mat-button type="button" class="btn bg-teal waves-effect" (click)="saveNavContent()"
+                    [disabled]="!isValidForm()">
+                    <mat-icon>save</mat-icon>
+                    <span>Create NavItem</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<action-buttons #actionButtons *ngIf="!isLoading && navData?.id" [validateHandler]="isValidModel"
+    [collection]="navTypeContent" [fieldOrItemName]="'title'" (actionsEmitter)="actionsHandler($event);"></action-buttons>

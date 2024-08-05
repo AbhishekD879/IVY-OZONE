@@ -1,0 +1,153 @@
+@import 'global.variables.scss';
+.correct-score{
+    border-top: 1px solid $color-grey-darker-byb;
+}
+
+.betbuttonalignment{
+    margin: 0px 12px;
+    @media screen and (min-width: 1020px) {
+        // margin: 0px 12px;
+        margin-left: 104px;
+        margin-top: 10px;
+    }
+    .btnbet{
+        background: $color-green-shade;
+        border-radius: unset;
+        margin: 16px 0px;
+        @media screen and (min-width: 1020px) {
+            // margin: 0px auto;
+            // width: 70%;
+            width:86%;
+        }
+    }
+
+}
+
+
+.teams-group{
+    justify-content: space-evenly;
+}
+
+.btn-group1{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    .alignment{
+    width: 32px;
+    height: 32px;
+    flex-grow: 0;
+    padding: 4px 9px 6px 10px;
+    border: 1px solid $color-grey-darker-byb-2;
+    background-color: $lGrayLight;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+    color: $switch-btn-active-color;
+    font-family: $font-increment-number;
+    }
+    .alignment1{
+        margin: 13px 0px 13px 13px;
+        width: 32px;
+        font-size: 27px;
+        color: $switch-btn-active-color;
+        font-family: $font-increment-number;
+    }
+
+}
+.align{
+    text-align: center;
+    background-color: $color-white;
+    color: $increment-color;
+    font-size: 12px;
+    font-family: $font-increment-number;
+    margin-bottom: 10px;
+}
+
+.correct-score-team-label{
+    margin: 0 auto;
+    font-size: 12px;
+    font-family: $font-increment-number;
+    color: $color-gray-darkest;
+    font-weight: normal;
+    text-transform: capitalize;
+    text-align: center;
+    max-width: 180px;
+    max-height: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.btn {
+    width: 343px;
+    height: 40px;
+    margin: 0px auto;
+    margin-bottom: 15px;
+    background-color: $bet-builder !important;
+    color: $color-white !important;
+    font-family: $base-font-family;
+    font-size: $bet-buildbet-font-size;
+    text-shadow: none;
+}
+
+.btn-group {
+    @include display-flex();
+    @include align-items();
+    background-color: $color-white;
+    justify-content: center;
+    padding: 10px;
+    margin-top: 15px;
+}
+
+.btn-active {
+    background-color: $color-green-shade !important;
+    color: $color-white !important;
+    font-family: $base-font-family;
+    font-size: $bet-buildbet-font-size;
+    box-shadow: none;
+    &:hover {
+        background-color: $color-green-light-leaf !important;
+        color: $color-white !important;
+        box-shadow: none;
+    }
+    &:active {
+        background-color: $color-green-dark-leaf !important;
+        color: $color-white !important;
+    }
+}
+.btn-active-lads {
+    background-color: $color-light-green-leaf !important;
+    color: $color-white !important;
+    box-shadow: none;
+    opacity: 1;
+    &:hover {
+      background-color: $color-green-light2 !important;
+      color: $color-white !important;
+      box-shadow: none;
+    }
+    &:active {
+      background-color: $color-green-shine !important;
+      color: $color-white !important;
+    }
+}
+
+.select-name {
+    text-align: center;
+    background-color: $color-white;
+    padding: 20px 0px 0px;
+    margin: 0px;
+    color: $selection-btn-text-color;
+    font-size: 14px;
+    font-family: $font-increment-number;
+  }
+
+  .container {
+      width: 50%;
+      flex: 1;
+  }

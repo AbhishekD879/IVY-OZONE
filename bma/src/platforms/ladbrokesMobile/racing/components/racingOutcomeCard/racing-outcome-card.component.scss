@@ -1,0 +1,64 @@
+@import 'global.variables.scss';
+
+.racing-outcome-container {
+  .odds-card {
+    border-bottom: none;
+
+    &.active {
+      background: $color-white;
+    }
+
+    .odds-content {
+      .odds-left {
+        .odds-side {
+          .label-text {
+            font-family: $alt-font-family;
+            font-size: $font-size;
+            color: $color-gray-darkest;
+          }
+        }
+      }
+    }
+  }
+}
+
+.start-rating {
+  margin-left: 5px;
+  padding: 0 4px;
+  letter-spacing: 1px;
+  color: $color-yellow-alt;
+  border: 1px solid $color-yellow-alt;
+  border-radius: 2px;
+  height: 15px;
+  line-height: 14px;
+  font-family: $base-font-family;
+  font-size: $font-size;
+  display: inline-block;
+  .star-icon {
+    width: 10px;
+    height: 9px;
+    fill: $color-yellow-alt;
+  }
+}
+
+:host ::ng-deep { 
+  .chevron {
+    margin-left: 0px !important;
+  }
+  .showMoreLess {
+    padding-right: 4px;
+  }
+  .toggle-icon {
+    padding-left: 0px !important;
+  }
+  .toggle-icon svg {
+    margin-left: 0px !important;
+  }
+
+}
+
+.verdict-border {
+  border-top: 1px solid $lGrayLight !important;
+  border-bottom: 1px solid $lGrayLight !important;
+  margin-bottom: 12px !important;
+}

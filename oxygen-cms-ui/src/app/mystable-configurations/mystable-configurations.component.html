@@ -1,0 +1,589 @@
+<div class="card">
+    <div class="header">
+        <h2 class="waves-effect waves-block" [textContent]="MyStableConstants.myStable"></h2>
+    </div>
+</div>
+
+<div class="card">
+    <div class="header">
+        <h2 class="has-activity-badge">
+            <span class="font-italic" [textContent]="MyStableConstants.myStableConfigurations"></span>
+            <create-updated-at-by *ngIf="myStableData" [collection]="myStableData"></create-updated-at-by>
+        </h2>
+        <header-activity-badge [state]="!disabled"></header-activity-badge>
+    </div>
+</div>
+
+<form [formGroup]="myStableForm">
+    <div class="card">
+        <div class="body">
+            <div class="row">
+                <div class="col-md-2 m-b-0">
+                    <mat-checkbox color="primary" [checked]="disabled" (change)='activeStatus()'
+                        formControlName="active">Active Mystable</mat-checkbox>
+                </div>
+                <div class="col-md-4 m-b-0">
+                    <mat-checkbox color="primary" [checked]="carousel" (change)='carouselStatus()'
+                        formControlName="horsesRunningToday">Mystable Horses Running Today Carousel</mat-checkbox>
+                </div>
+                <div class="col-md-2 m-b-0">
+                    <mat-checkbox color="primary" [checked]="antepost" (change)='antepostStatus()'
+                        formControlName="antePost">Active Antepost</mat-checkbox>
+                </div>
+                <div class="col-md-2 m-b-0">
+                    <mat-checkbox color="primary" [checked]="mybets" (change)='myBetsStatus()'
+                        formControlName="mybets">Active Open Bets</mat-checkbox>
+                </div>
+                <div class="col-md-2 m-b-0">
+                    <mat-checkbox color="primary" [checked]="settledBets" (change)='settledbetsStatus()'
+                        formControlName="settledBets">Active Settled Bets</mat-checkbox>
+                </div>
+                <div class="col-md-2 m-b-0" *ngIf="isCoral">
+                    <mat-checkbox color="primary" [checked]="crcActive" (change)='crcActiveStatus()'
+                        formControlName="crcActive">Active CRC</mat-checkbox>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="header">
+            <h2 class="waves-effect waves-block" [textContent]="MyStableConstants.entryPoint"></h2>
+        </div>
+        <div class="body">
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.entryPointSVG"></span>
+                </div>
+                <div class="col-md-6">
+                    <svg-icon-select-input [formFieldsModels]="myStableEntryPoint" [externalForm]="myStableForm"
+                        [controlName]="'entryPointIcon'">
+                    </svg-icon-select-input>
+                    <mat-hint class="col-red"
+                        *ngIf="(mystableDataControls?.entryPointIcon.invalid && mystableDataControls?.entryPointIcon.touched && mystableDataControls?.entryPointIcon.errors.required)"
+                        [textContent]="MyStableConstants.svgIconErrorMsg">
+                    </mat-hint>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.entryPointLabel"></span>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="my stable label" formControlName="entryPointLabel" required
+                            trim="blur">
+                    </mat-form-field>
+                    <mat-error
+                        *ngIf="mystableDataControls?.entryPointLabel.errors?.required  && (mystableDataControls?.entryPointLabel?.dirty || mystableDataControls?.entryPointLabel?.touched)"
+                        [textContent]="MyStableConstants.myStableLabelErrorMsg">
+                    </mat-error>
+                    <mat-error *ngIf="mystableDataControls?.entryPointLabel.value.length > 15"
+                        [textContent]="MyStableConstants.myStableLabelCharMsg">
+                    </mat-error>
+                </div>
+                <div class="col-md-2 text-length mt-3">
+                    {{mystableDataControls?.entryPointLabel.value.length}} / 15
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="header">
+            <h2 class="waves-effect waves-block" [textContent]="MyStableConstants.editOrSave"></h2>
+        </div>
+        <div class="body">
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.editSvg"></span>
+                </div>
+                <div class="col-md-6">
+                    <svg-icon-select-input [formFieldsModels]="stableIcon" [externalForm]="myStableForm"
+                        [controlName]="'editIcon'">
+                    </svg-icon-select-input>
+                    <mat-hint class="col-red"
+                        *ngIf="(mystableDataControls?.editIcon.invalid && mystableDataControls?.editIcon.touched && mystableDataControls?.editIcon.errors.required)"
+                        [textContent]="MyStableConstants.svgIconErrorMsg">
+                    </mat-hint>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.editLabel"></span>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="edit stable Label" formControlName="editLabel" required
+                            trim="blur">
+                    </mat-form-field>
+                    <mat-error
+                        *ngIf="mystableDataControls?.editLabel.errors?.required && (mystableDataControls?.editLabel?.dirty || mystableDataControls?.editLabel?.touched)"
+                        [textContent]="MyStableConstants.editLabelErrorMsg">
+                    </mat-error>
+                    <mat-error *ngIf="mystableDataControls?.editLabel.value.length > 15"
+                        [textContent]="MyStableConstants.editLabelCharMsg">
+                    </mat-error>
+                </div>
+                <div class="col-md-2 text-length mt-3">
+                    {{mystableDataControls?.editLabel.value.length}} / 15
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.saveSvg"></span>
+                </div>
+                <div class="col-md-6">
+                    <svg-icon-select-input [formFieldsModels]="saveStableIcon" [externalForm]="myStableForm"
+                        [controlName]="'saveIcon'">
+                    </svg-icon-select-input>
+                    <mat-hint class="col-red"
+                        *ngIf="(mystableDataControls?.saveIcon.invalid && mystableDataControls?.saveIcon.touched && mystableDataControls?.saveIcon.errors.required)"
+                        [textContent]="MyStableConstants.svgIconErrorMsg">
+                    </mat-hint>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.saveLabel"></span>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="save stable label" formControlName="saveLabel" required
+                            trim="blur">
+                    </mat-form-field>
+                    <mat-error
+                        *ngIf="mystableDataControls?.saveLabel.errors?.required && (mystableDataControls?.saveLabel?.dirty || mystableDataControls?.saveLabel?.touched)"
+                        [textContent]="MyStableConstants.saveLabelErrorMsg">
+                    </mat-error>
+                    <mat-error *ngIf="mystableDataControls?.saveLabel.value.length > 15"
+                        [textContent]="MyStableConstants.saveLabelCharMsg">
+                    </mat-error>
+                </div>
+                <div class="col-md-2 text-length mt-3">
+                    {{mystableDataControls?.saveLabel.value.length}} / 15
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.editNoteSvg"></span>
+                </div>
+                <div class="col-md-6">
+                    <svg-icon-select-input [formFieldsModels]="noteIcon" [externalForm]="myStableForm"
+                        [controlName]="'editNoteIcon'">
+                    </svg-icon-select-input>
+                    <mat-hint class="col-red"
+                        *ngIf="(mystableDataControls?.editNoteIcon.invalid && mystableDataControls?.editNoteIcon.touched && mystableDataControls?.editNoteIcon.errors.required)"
+                        [textContent]="MyStableConstants.svgIconErrorMsg">
+                    </mat-hint>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.bookmarkSvg"></span>
+                </div>
+                <div class="col-md-6">
+                    <svg-icon-select-input [formFieldsModels]="myStableBookmarkIcon" [externalForm]="myStableForm"
+                        [controlName]="'bookmarkIcon'">
+                    </svg-icon-select-input>
+                    <mat-hint class="col-red"
+                        *ngIf="(mystableDataControls?.bookmarkIcon.invalid && mystableDataControls?.bookmarkIcon.touched && mystableDataControls?.bookmarkIcon.errors.required)"
+                        [textContent]="MyStableConstants.svgIconErrorMsg">
+                    </mat-hint>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.inProgressSvg"></span>
+                </div>
+                <div class="col-md-6">
+                    <svg-icon-select-input [formFieldsModels]="myStableInprogressBookmarkIcon" [externalForm]="myStableForm"
+                        [controlName]="'inProgressIcon'">
+                    </svg-icon-select-input>
+                    <mat-hint class="col-red"
+                        *ngIf="(mystableDataControls?.inProgressIcon.invalid && mystableDataControls?.inProgressIcon.touched && mystableDataControls?.inProgressIcon.errors.required)"
+                        [textContent]="MyStableConstants.svgIconErrorMsg">
+                    </mat-hint>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.unbookmarkSvg"></span>
+                </div>
+                <div class="col-md-6">
+                    <svg-icon-select-input [formFieldsModels]="myStableUnbookmarkIcon" [externalForm]="myStableForm"
+                        [controlName]="'unbookmarkIcon'">
+                    </svg-icon-select-input>
+                    <mat-hint class="col-red"
+                        *ngIf="(mystableDataControls?.unbookmarkIcon.invalid && mystableDataControls?.unbookmarkIcon.touched && mystableDataControls?.unbookmarkIcon.errors.required)"
+                        [textContent]="MyStableConstants.svgIconErrorMsg">
+                    </mat-hint>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="header">
+            <h2 class="waves-effect waves-block" [textContent]="MyStableConstants.emptyStable"></h2>
+        </div>
+        <div class="body">
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.emptyStableSvg"></span>
+                </div>
+                <div class="col-md-6">
+                    <svg-icon-select-input [formFieldsModels]="myStableNoHorsesIcon" [externalForm]="myStableForm"
+                        [controlName]="'noHorsesIcon'">
+                    </svg-icon-select-input>
+                    <mat-hint class="col-red"
+                        *ngIf="(mystableDataControls?.noHorsesIcon.invalid && mystableDataControls?.noHorsesIcon.touched && mystableDataControls?.noHorsesIcon.errors.required)"
+                        [textContent]="MyStableConstants.svgIconErrorMsg">
+                    </mat-hint>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.emptyStableHeader"></span>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Empty Stable lables" formControlName="emptyStableLabel1" required
+                            trim="blur">
+                    </mat-form-field>
+                    <mat-error
+                        *ngIf="mystableDataControls?.emptyStableLabel1.errors?.required && (mystableDataControls?.emptyStableLabel1?.dirty || mystableDataControls?.emptyStableLabel1?.touched)"
+                        [textContent]="MyStableConstants.emptyStableHeaderErrorMsg">
+                    </mat-error>
+                    <mat-error *ngIf="mystableDataControls?.emptyStableLabel1.value.length > 30"
+                        [textContent]="MyStableConstants.emptyStableHeaderCharMsg">
+                    </mat-error>
+                </div>
+                <div class="col-md-2 text-length mt-3">
+                    {{mystableDataControls?.emptyStableLabel1.value.length}} / 30
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.emptyStableMessage"></span>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Empty Stable lables" formControlName="emptyStableLabel2" required
+                            trim="blur">
+                    </mat-form-field>
+                    <mat-error
+                        *ngIf="mystableDataControls?.emptyStableLabel2.errors?.required  && (mystableDataControls?.emptyStableLabel2?.dirty || mystableDataControls?.emptyStableLabel2?.touched)"
+                        [textContent]="MyStableConstants.emptyStableMessageErrorMsg">
+                    </mat-error>
+                    <mat-error *ngIf="mystableDataControls?.emptyStableLabel2.value.length > 100"
+                        [textContent]="MyStableConstants.emptyStableMessageCharMsg">
+                    </mat-error>
+                </div>
+                <div class="col-md-2 text-length mt-3">
+                    {{mystableDataControls?.emptyStableLabel2.value.length}} / 100
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.emptyStableCtaLabel"></span>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="No Horses CTA Label" formControlName="noHorsesCtaButton" required
+                            trim="blur">
+                    </mat-form-field>
+                    <mat-error
+                        *ngIf="mystableDataControls?.noHorsesCtaButton.errors?.required && (mystableDataControls?.noHorsesCtaButton?.dirty || mystableDataControls?.noHorsesCtaButton?.touched)"
+                        [textContent]="MyStableConstants.emptyStableCtaLabelErrorMsg">
+                    </mat-error>
+                    <mat-error *ngIf="mystableDataControls?.noHorsesCtaButton.value.length > 30"
+                        [textContent]="MyStableConstants.emptyStableCtaLabelCharMsg">
+                    </mat-error>
+                </div>
+                <div class="col-md-2 text-length mt-3">
+                    {{mystableDataControls?.noHorsesCtaButton.value.length}} / 30
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="header">
+            <h2 class="waves-effect waves-block" [textContent]="MyStableConstants.myStableSignposting"></h2>
+        </div>
+        <div class="body">
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.SignpostingSvg"></span>
+                </div>
+                <div class="col-md-6">
+                    <svg-icon-select-input [formFieldsModels]="myStableSignposting" [externalForm]="myStableForm"
+                        [controlName]="'signpostingIcon'">
+                    </svg-icon-select-input>
+                    <mat-hint class="col-red"
+                        *ngIf="(mystableDataControls?.signpostingIcon.invalid && mystableDataControls?.signpostingIcon.touched && mystableDataControls?.signpostingIcon.errors.required)"
+                        [textContent]="MyStableConstants.svgIconErrorMsg">
+                    </mat-hint>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.noteSignpostingSvg"></span>
+                </div>
+                <div class="col-md-6">
+                    <svg-icon-select-input [formFieldsModels]="myStableNotesSignposting" [externalForm]="myStableForm"
+                        [controlName]="'notesSignPostingIcon'">
+                    </svg-icon-select-input>
+                    <mat-hint class="col-red"
+                        *ngIf="(mystableDataControls?.notesSignPostingIcon.invalid && mystableDataControls?.notesSignPostingIcon.touched && mystableDataControls?.notesSignPostingIcon.errors.required)"
+                        [textContent]="MyStableConstants.svgIconErrorMsg">
+                    </mat-hint>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="header">
+            <h2 class="waves-effect waves-block" [textContent]="MyStableConstants.myStableTodayRunningHorseCarousel"></h2>
+        </div>
+        <div class="body">
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.carouselIcon"></span>
+                </div>
+                <div class="col-md-6">
+                    <svg-icon-select-input [formFieldsModels]="myStableTodayRunningHorseCarousel" [externalForm]="myStableForm"
+                        [controlName]="'todayRunningHorsesSvg'">
+                    </svg-icon-select-input>
+                    <mat-hint class="col-red"
+                        *ngIf="(mystableDataControls?.todayRunningHorsesSvg.invalid && mystableDataControls?.todayRunningHorsesSvg.touched && mystableDataControls?.todayRunningHorsesSvg.errors.required)"
+                        [textContent]="MyStableConstants.svgIconErrorMsg">
+                    </mat-hint>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.carouselText"></span>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Carousel Name" formControlName="todayRunningHorsesText" required
+                            trim="blur">
+                    </mat-form-field>
+                    <mat-error
+                        *ngIf="mystableDataControls?.todayRunningHorsesText.errors?.required && (mystableDataControls?.todayRunningHorsesText?.dirty || mystableDataControls?.todayRunningHorsesText?.touched)"
+                        [textContent]="MyStableConstants.carouselTextErrorMsg">
+                    </mat-error>
+                    <mat-error *ngIf="mystableDataControls?.todayRunningHorsesText.value.length > 60"
+                        [textContent]="MyStableConstants.carouselTextCharMsg">
+                    </mat-error>
+                </div>
+                <div class="col-md-2 text-length mt-3">
+                    {{mystableDataControls?.todayRunningHorsesText.value.length}} / 60
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="header">
+            <h2 class="waves-effect waves-block" [textContent]="MyStableConstants.myStablePopups"></h2>
+        </div>
+        <div class="body">
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.horseExceededMsg"></span>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Horse Exceeded Message" formControlName="horseCountExceededMsg" required
+                            trim="blur">
+                    </mat-form-field>
+                    <mat-error
+                        *ngIf="mystableDataControls?.horseCountExceededMsg.errors?.required && (mystableDataControls?.horseCountExceededMsg?.dirty || mystableDataControls?.horseCountExceededMsg?.touched)"
+                        [textContent]="MyStableConstants.horseExceededErrorMsg">
+                    </mat-error>
+                    <mat-error *ngIf="mystableDataControls?.horseCountExceededMsg.value.length > 100"
+                        [textContent]="MyStableConstants.horseExceededCharMsg">
+                    </mat-error>
+                </div>
+                <div class="col-md-2 text-length mt-3">
+                    {{mystableDataControls?.horseCountExceededMsg.value.length}} / 100
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.addStableMsg"></span>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Add To Stable Message" formControlName="stableTooltipText"
+                            trim="blur">
+                    </mat-form-field>
+                    <mat-error *ngIf="mystableDataControls?.stableTooltipText.value.length > 50"
+                        [textContent]="MyStableConstants.addStableCharMsg">
+                    </mat-error>
+                </div>
+                <div class="col-md-2 text-length mt-3">
+                    {{mystableDataControls?.stableTooltipText.value.length}} / 50
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" *ngIf="isCoral">
+        <div class="header">
+            <h2 class="waves-effect waves-block" [textContent]="MyStableConstants.crcRecommendations"></h2>
+        </div>
+        <div class="body">
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.crcLogoImage"></span>
+                </div>
+                <div class="col-md-6">
+                    <svg-icon-select-input [formFieldsModels]="crcLogoImage" [externalForm]="myStableForm"
+                        [controlName]="'crcLogo'">
+                    </svg-icon-select-input>
+                    <mat-hint class="col-red"
+                        *ngIf="(mystableDataControls?.crcLogo.invalid && mystableDataControls?.crcLogo.touched && mystableDataControls?.crcLogo.errors.required)"
+                        [textContent]="MyStableConstants.svgIconErrorMsg">
+                    </mat-hint>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.crcBackgroundLabel"></span>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Background Label" formControlName="crcLabel"  (input)="crcLabelValidate()" required
+                            trim="blur">
+                    </mat-form-field>
+                    <mat-error
+                        *ngIf="mystableDataControls?.crcLabel.errors?.required  && (mystableDataControls?.crcLabel?.dirty || mystableDataControls?.crcLabel?.touched)"
+                        [textContent]="MyStableConstants.crcBackgroundLabelErrorMsg">
+                    </mat-error>
+                    <mat-error *ngIf="mystableDataControls?.crcLabel.value.length > 100"
+                        [textContent]="MyStableConstants.crcBackgroundLabelCharMsg">
+                    </mat-error>
+                </div>
+                <div class="col-md-2 text-length mt-3">
+                    {{mystableDataControls?.crcLabel.value.length}} / 100
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.crcHorseSignposting"></span>
+                </div>
+                <div class="col-md-6">
+                    <svg-icon-select-input [formFieldsModels]="crcSignposting" [externalForm]="myStableForm"
+                        [controlName]="'crcSignPostingIcon'">
+                    </svg-icon-select-input>
+                    <mat-hint class="col-red"
+                        *ngIf="(mystableDataControls?.crcSignPostingIcon.invalid && mystableDataControls?.crcSignPostingIcon.touched && mystableDataControls?.crcSignPostingIcon.errors.required)"
+                        [textContent]="MyStableConstants.svgIconErrorMsg">
+                    </mat-hint>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.crcSaveAllText"></span>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Save All Label" formControlName="crcSaveAllText" (input)="crcSaveAllTextValidate()" required
+                            trim="blur">
+                    </mat-form-field>
+                    <mat-error
+                        *ngIf="mystableDataControls?.crcSaveAllText.errors?.required  && (mystableDataControls?.crcSaveAllText?.dirty || mystableDataControls?.crcSaveAllText?.touched)"
+                        [textContent]="MyStableConstants.crcSaveAllTextErrorMsg">
+                    </mat-error>
+                    <mat-error *ngIf="mystableDataControls?.crcSaveAllText.value.length > 15"
+                        [textContent]="MyStableConstants.crcSaveAllTextCharMsg">
+                    </mat-error>
+                </div>
+                <div class="col-md-2 text-length mt-3">
+                    {{mystableDataControls?.crcSaveAllText.value.length}} / 15
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.crcWhiteBookmarkIcon"></span>
+                </div>
+                <div class="col-md-6">
+                    <svg-icon-select-input [formFieldsModels]="crcWhiteBookmark" [externalForm]="myStableForm"
+                        [controlName]="'crcWhiteBookmarkIcon'">
+                    </svg-icon-select-input>
+                    <mat-hint class="col-red"
+                        *ngIf="(mystableDataControls?.crcWhiteBookmarkIcon.invalid && mystableDataControls?.crcWhiteBookmarkIcon.touched && mystableDataControls?.crcWhiteBookmarkIcon.errors.required)"
+                        [textContent]="MyStableConstants.svgIconErrorMsg">
+                    </mat-hint>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.crcBlackBookmarkIcon"></span>
+                </div>
+                <div class="col-md-6">
+                    <svg-icon-select-input [formFieldsModels]="crcBlackBookmark" [externalForm]="myStableForm"
+                        [controlName]="'crcBlackBookmarkIcon'">
+                    </svg-icon-select-input>
+                    <mat-hint class="col-red"
+                        *ngIf="(mystableDataControls?.crcBlackBookmarkIcon.invalid && mystableDataControls?.crcBlackBookmarkIcon.touched && mystableDataControls?.crcBlackBookmarkIcon.errors.required)"
+                        [textContent]="MyStableConstants.svgIconErrorMsg">
+                    </mat-hint>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.crcGotoRacingClubText"></span>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Go to Racing Club Label" formControlName="crcGotoRacingClubText"  (input)="crcGotoRacingClubTextValidate()" required
+                            trim="blur">
+                    </mat-form-field>
+                    <mat-error
+                        *ngIf="mystableDataControls?.crcGotoRacingClubText.errors?.required && (mystableDataControls?.crcGotoRacingClubText?.dirty || mystableDataControls?.crcGotoRacingClubText?.touched)"
+                        [textContent]="MyStableConstants.crcGotoRacingClubTextErrorMsg">
+                    </mat-error>
+                    <mat-error *ngIf="mystableDataControls?.crcGotoRacingClubText.value.length > 30"
+                        [textContent]="MyStableConstants.crcGotoRacingClubTextCharMsg">
+                    </mat-error>
+                </div>
+                <div class="col-md-2 text-length mt-3">
+                    {{mystableDataControls?.crcGotoRacingClubText.value.length}} / 30
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="MyStableConstants.crcGotoRacingClubUrl"></span>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Go to Racing Club Link" formControlName="crcGotoRacingClubUrl"  (input)="crcGotoRacingClubUrlValidate()" required
+                            trim="blur">
+                    </mat-form-field>
+                    <mat-error
+                        *ngIf="mystableDataControls?.crcGotoRacingClubUrl.errors?.required  && (mystableDataControls?.crcGotoRacingClubUrl?.dirty || mystableDataControls?.crcGotoRacingClubUrl?.touched)"
+                        [textContent]="MyStableConstants.crcGotoRacingClubUrlErrorMsg">
+                    </mat-error>
+                    <mat-error *ngIf="mystableDataControls?.crcGotoRacingClubUrl.value.length > 100"
+                        [textContent]="MyStableConstants.crcGotoRacingClubUrlCharMsg">
+                    </mat-error>
+                </div>
+                <div class="col-md-2 text-length mt-3">
+                    {{mystableDataControls?.crcGotoRacingClubUrl.value.length}} / 100
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<action-buttons *ngIf="hideAction" #actionButtons [collection]="myStableForm.value"
+    (actionsEmitter)="actionsHandler($event);" [form]="myStableForm" [fieldOrItemName]="'My Stable Data'"
+    [showRemoveButton]="false"></action-buttons>

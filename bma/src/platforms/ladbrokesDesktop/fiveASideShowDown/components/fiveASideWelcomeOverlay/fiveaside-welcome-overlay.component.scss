@@ -1,0 +1,112 @@
+@import 'global.variables.scss';
+
+#fiveaside-welcome-overlay {
+  display: none;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.88);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  overflow: auto;
+  &.active {
+    display: block;
+  }
+  .fiveaside-terms-rules-modal {
+    margin: 0;
+    .header-content {
+      background-size: cover;
+      background-position: center;
+
+      .close-content {
+        cursor: pointer;
+        padding: 15px;
+        text-align: right;
+        .close-icon {
+          height: 15px;
+          width: 15px;
+        }
+      }
+    }
+    >.centered {
+      margin: 0 auto;
+      padding: 0 15px;
+      >.welcome-cards{
+        @include display-flex();
+        flex-direction: column;
+        height: calc(100vh - 50px);
+        >.welcome-card {
+          flex: 1 auto;
+          box-sizing: border-box;
+          margin: 1px;
+          margin-bottom: 55px;
+          z-index: 1;
+          &:last-child {
+            margin-bottom: 0;
+          }
+          >.overlay-context {
+            text-align: center;
+            margin: 0 auto;
+            height: 100%;
+            width: 583px;
+            color: $color-white;
+            @include display-flex();
+            @include align-items(center);
+            .overlay-title {
+              text-transform: uppercase;
+              font-family: $base-font-family;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              font-weight: bold;
+              font-size: $font-size-xl;
+              width: 583px;
+              letter-spacing: .23px;
+              font-stretch: condensed;
+              line-height: 1.33;
+            }
+            .overlay-section {
+              font-weight: bold;
+              font-size: $font-size-lgr;
+              color: $color-yellow-extra;
+              letter-spacing: 0.2px;
+              font-family: $base-font-family;
+              font-stretch: condensed;
+              line-height: 1.5;
+            }
+            .overlay-footer {
+              font-size: 15px;
+              line-height: 21px;
+              letter-spacing: 0.19px;
+            }
+          }
+          .rectangle {
+            margin: 0 auto;
+            width: 672px;
+            height: 298px;;
+            object-fit: contain;
+            iframe {
+              width: 100%;
+              height: 100%;
+              border: none;
+            }
+          }
+          .getStarted {
+            margin: 0 auto;
+            height: 44px;
+            cursor: pointer;
+            object-fit: contain;
+            display: block;
+            background-color: $lGraySemiMediumLight;
+            width: 133px;
+            color: $color-black;
+            font-size: 15px;
+            font-weight: 700;
+            border: 0;
+          }
+        }
+      }
+    }
+  }
+}

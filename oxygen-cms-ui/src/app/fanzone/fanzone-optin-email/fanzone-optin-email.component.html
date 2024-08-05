@@ -1,0 +1,79 @@
+<div *ngIf="isReady">
+  <breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+  <form [formGroup]="form">
+    <div class="card">
+      <div class="header">
+        <h2 [textContent]="FANZONE_OPTIN_EMAIL.optinEmailHeading"></h2>
+      </div>
+      <div class="body">
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FANZONE_OPTIN_EMAIL.fanzoneEmailPopupTitle"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="FANZONE_OPTIN_EMAIL.fanzoneEmailPopupTitle" formControlName="fanzoneEmailPopupTitle"
+                [(ngModel)]="fanzoneOptinEmail.fanzoneEmailPopupTitle" [value]="fanzoneOptinEmail.fanzoneEmailPopupTitle" 
+                required trim="blur" name="fanzoneEmailPopupTitle">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FANZONE_OPTIN_EMAIL.fanzoneEmailPopupDescription"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="FANZONE_OPTIN_EMAIL.fanzoneEmailPopupDescription" formControlName="fanzoneEmailPopupDescription"
+                [(ngModel)]="fanzoneOptinEmail.fanzoneEmailPopupDescription" [value]="fanzoneOptinEmail.fanzoneEmailPopupDescription"
+                required trim="blur" name="fanzoneEmailPopupDescription">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FANZONE_OPTIN_EMAIL.fanzoneEmailPopupOptIn"></span>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="FANZONE_OPTIN_EMAIL.fanzoneEmailPopupOptIn" formControlName="fanzoneEmailPopupOptIn"
+                [(ngModel)]="fanzoneOptinEmail.fanzoneEmailPopupOptIn" [value]="fanzoneOptinEmail.fanzoneEmailPopupOptIn" 
+                required trim="blur" name="fanzoneEmailPopupOptIn">
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-2 offset-md-1">
+            <span class="mat-label" [textContent]="FANZONE_OPTIN_EMAIL.fanzoneEmailPopupDontShowThisAgain"></span>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="FANZONE_OPTIN_EMAIL.fanzoneEmailPopupDontShowThisAgain" formControlName="fanzoneEmailPopupDontShowThisAgain"
+                [(ngModel)]="fanzoneOptinEmail.fanzoneEmailPopupDontShowThisAgain" [value]="fanzoneOptinEmail.fanzoneEmailPopupDontShowThisAgain" 
+                required trim="blur" name="fanzoneEmailPopupDontShowThisAgain">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FANZONE_OPTIN_EMAIL.fanzoneEmailPopupRemindMeLater"></span>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="FANZONE_OPTIN_EMAIL.fanzoneEmailPopupRemindMeLater" formControlName="fanzoneEmailPopupRemindMeLater"
+                [(ngModel)]="fanzoneOptinEmail.fanzoneEmailPopupRemindMeLater" [value]="fanzoneOptinEmail.fanzoneEmailPopupRemindMeLater" 
+                required trim="blur" name="fanzoneEmailPopupRemindMeLater">
+            </mat-form-field>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </form>
+
+  <action-buttons #actionButtons [validateHandler]="validationHandler" [fieldOrItemName]="'fanzoneEmailPopupTitle'"
+    [collection]="fanzoneOptinEmail" [showRemoveButton]="false" (actionsEmitter)="actionsHandler($event);">
+  </action-buttons>
+</div>

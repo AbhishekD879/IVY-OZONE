@@ -1,0 +1,68 @@
+<div class="sk-container" [ngClass]="{'sk-loading': !ssError && !wsError.reconnectFailed && (!isDataReady || !contentReady)}">
+  <loading-screen [displayed]="!isErrorState && !isDataReady"
+                  [skeletonOnlyDisplayed]="!isErrorState && !contentReady"
+                  [skeletonOnly]="true"></loading-screen>
+  <div *ngIf="!isErrorState && isDataReady" data-crlat="accordionsList">
+    <ng-container *ngFor="let filter of viewByFilters; trackBy: trackById;">
+      <div class="in-play-header" *ngIf="isLiveNowFilter(filter)" data-crlat="inPlayHeader">
+        <div class="in-play-label" data-crlat="inPlayLabel" [i18n]="'inplay.byLiveNow'"></div>
+        <ng-container *ngIf="eventsByGroups[filter]?.eventsBySports?.length">
+          <div class="see-all-count" data-crlat="seeAllLabel" routerLink="/in-play" [i18n]="'sb.seeAll'"></div>&nbsp;
+          <span class="see-all-count-value" data-crlat="seeAllCount" [textContent]="'(' + eventsByGroups[filter].eventCount + ')'"></span>
+          <svg class="next-arrow">
+            <use xlink:href="#next-arrow"></use>
+          </svg>
+        </ng-container>
+      </div>
+      <div *ngIf="!isLiveNowFilter(filter)"
+           class="in-play-header-counter upcoming-header" data-crlat="inPlayHeader">
+        <div class="in-play-count"><span [i18n]="isUpcomingFilter(filter) ? 'inplay.upcomingEvents': 'inplay.byLiveNow'"
+                                         [attr.data-crlat]="'inplay.' + filter"></span>&nbsp;
+          <span class="live-now-label" data-crlat="inplayCountLabel" [textContent]=" '(' + (eventsByGroups[filter].eventCount || 0 ) + ')' " ></span>
+        </div>
+      </div>
+      <ng-container *ngIf="eventsByGroups[filter]?.eventsBySports?.length">
+        <accordion *ngFor="let eventsBySports of eventsByGroups[filter].eventsBySports; let i = index; trackBy: getSportTrackingId"
+                   [accordionTitle]="eventsBySports.categoryName"
+                   [isExpanded]="eventsBySports[expandedKey]"
+                   (function)="toggleSport($event, eventsBySports, filter, i)"
+                   [isShowAll]="eventsBySports[expandedKey]"
+                   class="multiples-accordion"
+                   [attr.data-crlat]="'accordion.' + filter">
+          <right-side *ngIf="eventsBySports[expandedKey]">
+            <see-all-link *ngIf="eventsBySports.isTierOneSport && eventsBySports?.categoryId?.toString() !== HORSE_RACING_CATEGORY_ID"
+                          [link]="goToSportCompetitionsPage(eventsBySports)"></see-all-link>
+          </right-side>
+          <accordion-body *ngIf="eventsBySports[expandedKey]">
+              <loading-screen [displayed]="skeletonShow[filter] && skeletonShow[filter].length > 0 && skeletonShow[filter][i]"
+                [skeletonOnlyDisplayed]="skeletonShow[filter] && skeletonShow[filter].length > 0 && skeletonShow[filter][i]"
+                [templateType]="'GENERIC_ACCORDION'" [skeletonOnly]="true" data-crlat="spinner.loader"></loading-screen>
+            <single-sport-section
+              *ngIf="eventsByGroups[filter].eventsBySports[i].eventsByTypeName.length"
+              [inner]="eventsBySports?.categoryId?.toString() !== HORSE_RACING_CATEGORY_ID"
+              [isHR]="eventsBySports?.categoryId?.toString() === HORSE_RACING_CATEGORY_ID"
+              [liveLabel]="false"
+              [showExpanded]="showExpanded"
+              [eventsBySports]="eventsByGroups[filter].eventsBySports[i]"
+              [expandedLeaguesCount]="expandedLeaguesCount"
+              [filter]="filter"
+              [gtmModuleTitle]="eventsBySports.categoryName"
+              [virtualScroll]="isVirtualScrollEnabled">
+            </single-sport-section>
+          </accordion-body>
+        </accordion>
+        <div *ngIf="eventsByGroups[filter].eventsBySports.length > limit" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+      </ng-container>
+    <no-events data-crlat="label.noLiveEvents"
+               *ngIf="showNoEventsSection(filter)"
+               [message]="getNoEventsMessage(filter)">
+    </no-events>
+  </ng-container>
+  </div>
+
+  <request-error *ngIf="isErrorState"
+                 [loadFailed]="isErrorState"
+                 (reloadFn)="reloadComponent()"
+                 data-crlat="errorField">
+  </request-error>
+</div>

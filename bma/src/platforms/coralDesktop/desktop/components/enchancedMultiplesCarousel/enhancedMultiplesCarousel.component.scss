@@ -1,0 +1,156 @@
+@import 'global.variables.scss';
+
+.enhanced-multiples-carousel-section {
+  background: $color-gray;
+  margin-bottom: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.enhanced-multiples-carousel-wrapper {
+  height: 126px;
+}
+
+.enhanced-carousel-container-many-slides.carousel-slides {
+  width: 370px;
+}
+
+.slide.enhanced-slide.enhanced-single-slide {
+  width: 100%;
+}
+
+.slide.enhanced-slide {
+  width: 360px;
+  margin-right: 10px;
+}
+
+.enhanced-slide-header {
+  @include display-flex();
+  @include align-items();
+  @include justify-content();
+  height: 100%;
+  border-radius: 2px 0 0 0;
+  background-color: $color-blue-lighter;
+  margin: 0px;
+}
+
+.enhanced-slide-type-title {
+  font-size: 10px;
+  line-height: 10px;
+  font-weight: 700;
+  margin: 0px 10px;
+  color: $color-white;
+  text-transform: uppercase;
+
+  span + span {
+    margin-left: 3px;
+  }
+}
+
+.enhanced-sport-name-title {
+  padding: 0px 10px;
+  font-size: 10px;
+  line-height: 10px;
+  text-transform: uppercase;
+  color: $color-gray-dark;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.enhanced-slide-header-container {
+  @include display-flex();
+  @include align-items();
+  height: 31px;
+  border-radius: 0 2px 0 0;
+  background-color: $color-gray-light;
+  border-bottom: 1px solid $color-blue-lighter;
+}
+
+.enhanced-slide-body {
+  height: 95px;
+  border-radius: 0 0 2px 2px;
+  background-color: $color-white;
+  color: $color-gray-dark;
+  padding: 10px 0 0 15px;
+  font-size: 12px;
+}
+.slide-body-top {
+  @include display-flex();
+  padding-right: 15px;
+}
+
+.enhanced-slide-title {
+  @include inline-flex();
+  margin: 0px;
+  overflow: hidden;
+}
+
+.enhanced-title-event-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.enhanced-slide-body-bottom {
+  @include display-flex();
+  @include flex-direction();
+  @include justify-content(space-between);
+  height: 69px;
+  padding: 5px 0 12px 0;
+}
+
+.outcome-name {
+  font-size: 13px;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.enhanced-slide-body-bottom-left {
+  @include align-items(center);
+  @include inline-flex();
+  white-space: normal;
+}
+
+.enhanced-slide-body-bottom-right {
+  margin: 0 15px 0 15px;
+}
+
+.enhanced-single-slide {
+  width: 100%;
+}
+.enhanced-multiples-carousel-section {
+
+  .action-arrow:hover {
+    opacity: 1;
+  }
+
+  .action-arrow.left {
+    left: 0px;
+  }
+
+  .action-arrow.right {
+    right: 0px;
+  }
+
+  .arrow-icon {
+    width: 5px;
+    height: 10px;
+    fill: $color-white;
+  }
+
+  .action-arrow {
+    @include display-flex();
+    @include justify-content(center);
+    @include align-items(center);
+    user-select: none;
+    background-color: $brand-color-dark;
+    opacity: 0.8;
+    z-index: 1;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    width: 20px;
+    cursor: pointer;
+  }
+}

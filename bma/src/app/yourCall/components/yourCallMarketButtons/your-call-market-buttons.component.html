@@ -1,0 +1,21 @@
+<div *ngIf="market.selections.length"
+     class="yourcall-markets row row-left row-no-gutter row-col-last">
+  <div class="col-xs"
+       [ngClass]="cssClass"
+       *ngFor="let selection of selections; trackBy: trackBySelections"
+       data-crlat="yourcall.selection">
+    <div class="col-inner col-vertical">
+      <button [ngClass]="{'active': isSelected(selection)}"
+              class="one-row-btn btn-bet"
+              data-crlat="betButton"
+              (click)="selectValue(selection);">
+        {{ selection.title }}
+      </button>
+    </div>
+  </div>
+  <show-all-button *ngIf="showMore"
+                   data-crlat="showAllButton"
+                   (click)="toggleShow()"
+                   [allShown]="allShown">
+  </show-all-button>
+</div>

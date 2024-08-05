@@ -1,0 +1,62 @@
+<ng-container *ngIf="!state.loading && !state.error">
+  <top-bar [title]="pageTitle" data-crlat="topBar"></top-bar>
+  <section data-crlat="oddsBoostSection.Todays">
+    <article class="info-content-container">
+      <p class="odds-boosts-title" [i18n]="'oddsboost.page.todayOddsBoosts'" data-crlat="sectionHeader">Today's Odds Boosts</p>
+      <div class="odds-boost" [ngClass]="{'active-boost-value': isLoggedIn}">
+        <div class="boost-icon">
+          <svg viewBox="0 0 150 100">
+            <use [attr.xlink:href]="'#' + (config.svgId || 'odds-boost-icon-dark')"></use>
+          </svg>
+        </div>
+        <div class="odds-boosts-amount" data-crlat="availableNowAmount">
+          <div class="boosts-value" data-crlat="value" [textContent]="isLoggedIn && availableBoosts?.length || 0"></div>
+          <div class="boosts-label" data-crlat="label" [i18n]="'oddsboost.page.availableNow'"></div>
+        </div>
+        <div class="odds-boosts-amount" data-crlat="upcomingAmount">
+          <div class="boosts-value" data-crlat="value" [textContent]="isLoggedIn && upcomingBoosts?.length || 0"></div>
+          <div class="boosts-label" data-crlat="label" [i18n]="'oddsboost.page.upcomingBoosts'"></div>
+        </div>
+      </div>
+      <p class="odds-boosts-description" data-crlat="oddsBoostsDescription"
+         [innerHtml]="isLoggedIn ? loggedInHeaderText : loggedOutHeaderText"></p>
+      <button *ngIf="!isLoggedIn" class="btn btn-style1 login-button" (click)="openLoginDialog()" [i18n]="'bma.signIn'" data-crlat="logIn"></button>
+    </article>
+  </section>
+  <section *ngIf="isLoggedIn" data-crlat="oddsBoostSection.Available">
+    <header class="info-content-header" data-crlat="sectionHeader">
+      <svg class="info-content-icon" viewBox="0 0 150 100">
+        <use [attr.xlink:href]="'#' + (config.svgId || 'odds-boost-icon-dark')"></use>
+      </svg>
+      <span [i18n]="'oddsboost.page.availableNowSectionTitle'"></span>
+    </header>
+    <article class="info-content-container odds-boost-list-container">
+      <odds-boost-list [oddsBoosts]="availableBoosts" data-crlat="availableBoostsList"></odds-boost-list>
+    </article>
+  </section>
+  <section *ngIf="isLoggedIn" data-crlat="oddsBoostSection.Upcoming">
+    <header class="info-content-header" data-crlat="sectionHeader">
+      <svg class="info-content-icon" viewBox="0 0 150 100"
+           [ngClass]="{'mirrored-icon': !config.svgId}">
+        <use [attr.xlink:href]="'#' + (config.svgId || 'odds-boost-icon-unactive')"></use>
+      </svg>
+      <span [i18n]="'oddsboost.page.upcomingBoosts'"></span>
+    </header>
+    <article class="info-content-container odds-boost-list-container">
+      <odds-boost-upcoming-header *ngIf="upcomingBoosts?.length"
+                                  [countDownDate]="nextBoostDate">
+      </odds-boost-upcoming-header>
+      <odds-boost-list [oddsBoosts]="upcomingBoosts" type="upcoming" data-crlat="upcomingBoostsList"></odds-boost-list>
+    </article>
+  </section>
+  <section data-crlat="oddsBoostSection.TermsAndConditions">
+    <header class="info-content-header" data-crlat="sectionHeader">
+      <span [i18n]="'oddsboost.page.termsConditionsNowSectionTitle'"></span>
+    </header>
+    <article class="info-content-container" data-crlat="termsAndConditionsContent">
+      <div class="content" [innerHtml]="termsAndConditionsText"></div>
+    </article>
+  </section>
+
+  <svg-list *ngIf="config.svg" [list]="config.svg"></svg-list>
+</ng-container>

@@ -1,0 +1,147 @@
+[
+  {
+    "id": "594331",
+    "date": "2019-12-02 09:42:58",
+    "source": "M",
+    "cashoutValue": "0.09",
+    "cashoutProfile":"NO_LOSS",
+    "status": "A",
+    "settled": "N",
+    "settledAt": "",
+    "receipt": "O/0208772/0002018",
+    "callId": "",
+    "numLegs": "1",
+    "numLines": "1",
+    "numSelns": "1",
+    "betType": {
+      "code": "SGL",
+      "name": "Single"
+    },
+    "stake": {
+      "type": "current",
+      "value": "5.00",
+      "currency": "GBP",
+      "stakePerLine": "0.10",
+      "tokenValue": "0.00"
+    },
+    "numLinesVoid": "0",
+    "numLinesWin": "0",
+    "numLinesLose": "0",
+    "asyncStatus": "",
+    "asyncDesc": "",
+    "asyncOriginalStake": "",
+    "placedBy": "",
+    "userId": "",
+    "bonus": "",
+    "tax": "0.00",
+    "taxType": "S",
+    "taxRate": "0.00",
+    "paid": "Y",
+    "uniqueId": "208804781330659412804191389528",
+    "leg": [
+      {
+        "status": "A",
+        "legNo": "1",
+        "legType": {
+          "code": "",
+          "name": ""
+        },
+        "legSort": {
+          "code": "--",
+          "name": ""
+        },
+        "part": [
+          {
+            "banker": "N",
+            "noCombinationWith": "",
+            "betInRunning": "N",
+            "betBirIndex": "",
+            "partNo": "1",
+            "cashoutLadder": {
+              "type": "2.0",
+              "value": "STABLE"
+            },
+            "outcome": [
+              {
+                "id": "562593670",
+                "name": "Draw",
+                "runnerNumber": "",
+                "result": {
+                  "confirmed": "N",
+                  "places": "",
+                  "value": "-"
+                },
+                "eventCategory": {
+                  "id": "16",
+                  "name": "Football"
+                },
+                "eventClass": {
+                  "id": "155",
+                  "name": "Football Russia"
+                },
+                "eventType": {
+                  "id": "904",
+                  "name": "Premier League"
+                },
+                "market": {
+                  "id": "150851194",
+                  "name": "Match Result",
+                  "marketSort": {
+                    "code": "MR"
+                  }
+                },
+                "blurb": [
+                  {
+                    "value": ""
+                  }
+                ],
+                "event": {
+                  "id": "10083821",
+                  "name": "Krasnodar v FK Tambov",
+                  "startTime": "2019-12-02 16:30:00",
+                  "isOff":"-",
+                  "raceNumber": "",
+                  "venue": ""
+                }
+              }
+            ],
+            "price": [
+              {
+                "priceNum": "1",
+                "priceDen": "3",
+                "priceDecimal": "4.33",
+                "priceStartingNum": "",
+                "priceStartingDen": "",
+                "priceType": {
+                  "code": "L"
+                }
+              }
+            ],
+            "deduction": [
+              {
+                "type": "deadHeatWin",
+                "value": "20",
+                "priceType": "L"
+              },
+              {
+                "type": "deadHeatEachWay",
+                "value": "30",
+                "priceType": "L"
+              },
+              {
+                "type": "rule4",
+                "value": "10",
+                "priceType": "S"
+              },
+              {
+                "type": "rule4",
+                "value": "10",
+                "priceType": "L"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

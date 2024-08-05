@@ -1,0 +1,29 @@
+@import 'global.variables.scss';
+.odds-list-template {
+    accordion {
+        margin: 0px !important;
+        border-bottom: 4px solid $color-gray-darker-two;
+    }
+    .show-all-button {
+        border-top: 1.5px solid $color-gray;
+        padding: 4.5px 10px;
+        font-weight: bold;
+    }
+    .odds-card {
+        padding: 9px 12px;
+        .odds-footer {
+            margin: 0px;
+            padding-top: 0px;
+            span {
+                line-height: 12px;
+            }
+        }
+    }
+    .odds-card.desktop-sport-card:not(.card-special) {
+        display: block;
+        padding: 9px 12px;
+    }
+    .odds-names {
+        padding: 5px 0px;
+    }
+}

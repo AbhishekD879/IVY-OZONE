@@ -1,0 +1,40 @@
+<div class="bs-total-wrapper" id="bs-total-wrapper">
+
+  <!-- Total stake -->
+  <div class="total total-stake">
+    <div class="total-lable" [i18n]="'bs.totalStake'"></div>
+    <div class="total-value" data-crlat="totalStake">
+      <span class="free-bet-label">
+        <free-bet-label *ngIf="totalFreeBetsStake"
+                        [freeBetLabelText]="getFreeBetText() ? getFreeBetText() :freeBetLabelText"
+                        [selected]="totalFreeBetsStake"
+                        [jump]="jump"
+                        [plusSuffix]="isTotalStakeShown">
+        </free-bet-label>
+      </span>
+      <span *ngIf="isTotalStakeShown" [textContent]="totalStake"></span>
+    </div>
+  </div>
+ <!--Lucky 15/31/63 sign posting -->
+  <!--Calculate All winner bonus-->
+  <div>
+    <span *ngIf="betReceiptService.isLuckySignType(multiReceipts) && !betReceiptService.isSP(multiReceipts) && isShownAllWinner()" class="stake-est-return bet-all-winner-bonus">
+    <span class="allWinnerBonus allbonustext" [i18n]="'bs.betReceiptAllWinnerBonus'" data-crlat="estReturn.label"></span>
+    <span class="stake-est-return-number allWinnerBonus"
+          [textContent]="bonusValue"
+          data-crlat="estReturn">
+    </span>
+    </span>
+  </div>
+  <!-- Total returns -->
+  <div class="total total-returns">
+    <div class="total-lable-bs" [i18n]="'bs.totalPotReturns'"></div>
+    <span class="tooltipBR-max-payout" *ngIf="maxPayOutErrorService.maxPayFlag && betReceiptService?.maxPayOutFlag && betReceiptService?.betReceipt">
+      <svg class="maxPayOut-info-icon" [tooltip]="'maxPayOutTitle'" [showTooltip]="isMaxPayedOut"
+        [toolTipArgs]="maxPayOutErrorService.toolTipArgs" [createElementTag]='true' [gtmInfo]="'bet receipt'" (click)="togglemaxPayedOut()">
+        <use xlink:href="#icn-info"></use>
+      </svg>
+    </span>
+    <div class="total-value" [textContent]="totalReturns" data-crlat="totalEstReturns"></div>
+  </div>
+</div>

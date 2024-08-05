@@ -1,0 +1,48 @@
+<div id="fiveaside-welcome-overlay" class="cookie-top vn-smart-banner-margin-top">
+    <div class="fiveaside-terms-rules-modal">
+        <!-- ToDo -->
+        <div class="header-content">
+            <!-- TODO need to remove this div and uncomment the below div -->
+            <!-- If close icon is asked to display -->
+            <div class="close-content">
+            </div>
+
+        </div>
+        <div class="centered">
+            <section class="welcome-cards">
+                <div class="welcome-card">
+                    <div class="overlay-context">
+                        <div>
+                            <p class="overlay-title" *ngIf="welcomeCard && welcomeCard.headerTitle"
+                                [textContent]="welcomeCard.headerTitle"></p>
+
+                            <p class="overlay-section" *ngIf="welcomeCard && welcomeCard.sectionTitle"
+                                [textContent]="welcomeCard.sectionTitle"></p>
+
+                            <p class="overlay-footer" *ngIf="welcomeCard && welcomeCard.previewTitle"
+                                [textContent]="welcomeCard.previewTitle"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="welcome-card" *ngIf="welcomeUrl">
+                    <div class="rectangle">
+                        <iframe [src]="welcomeUrl | safe: 'resourceUrl'"  *ngIf="videoPlayer"
+                                title="YouTube video player"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                        </iframe>
+                    </div>
+                </div>
+                <div class="welcome-card">
+                    <button class="getStarted" (click)="getStartedClick()" [i18n]="'fs.overlay.next'"></button>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<fiveaside-lobby-overlay *ngIf="isLobbyOverlay" [baseClass]="'fiveaside-show-down-lobby'" [tutorialData]="tutorialData">
+</fiveaside-lobby-overlay>
+<fiveaside-pre-event-tutorial *ngIf="isPreEvent" [preEventData]="preEventData">
+</fiveaside-pre-event-tutorial>
+<five-a-side-live-event-overlay *ngIf="isLiveOverlay" [baseClass]="'fiveaside-live-leader-board'"
+    [tutorialData]="tutorialData">
+</five-a-side-live-event-overlay>

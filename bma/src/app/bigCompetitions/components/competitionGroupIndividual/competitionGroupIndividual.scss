@@ -1,0 +1,88 @@
+.group-individual-container {
+  background-color: $color-gray;
+  margin: 3px 0px 10px;
+  .group-individual {
+    background: $color-white;
+    font-family: $base-font-family;
+    .group-individual-table {
+      border-collapse: collapse;
+      width: 100%;
+      th,td {
+        color: $color-gray-dark;
+        text-align: center;
+        text-transform: uppercase;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      td {
+        color: $color-gray-dark;
+        height: 35px;
+        width: 30px;
+        max-width: 30px;
+        font-weight: bold;
+        font-size: 12px;
+        border: 1px solid $color-gray;
+        &:nth-child(odd) {
+          background-color: $color-gray-light;
+        }
+        &:first-child {
+          width: 25px;
+          border-left: none;
+        }
+        &:last-child {
+          border-right: none;
+        }
+        &.position-cell {
+          color: $color-white;
+          background: lighten($color-gray-dark, 50%);
+          &.team-qualified {
+            background: $brand-color-main;
+          }
+        }
+        &.country-cell {
+          width: auto;
+          text-align: left;
+          .flag-icon {
+            margin: 0 8px -4px 8px;
+          }
+        }
+
+        .group-all button{
+          min-width: 45px;
+          width: 100%;
+          border-radius: 0px;
+          font-size: 12px;
+        }
+        .not-available {
+          background: $color-gray-light;
+          color: $color-gray-dark;
+          line-height: 35px;
+          opacity: .5;
+        }
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+      .caption-row {
+        height: 25px;
+        background-color: $color-gray-light;
+        border-top-right-radius: 2px;
+        border-top-left-radius: 2px;
+        th {
+          height: 25px;
+          font-size: 9px;
+          font-weight: normal;
+          &.group-all {
+            max-width: 82px;
+            width: 80px;
+            padding: 0 5px;
+          }
+          &.points {
+            width: 36px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,124 @@
+<div>
+    <div class="card">
+        <div class="header">
+            <span><b>{{title}}</b></span>
+        </div>
+
+        <div class="body" *ngIf="popularBetsFormData"> 
+            <form [formGroup]="popularBetsFormGroup">
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-checkbox class="mat-label" color="primary" formControlName="active" [(ngModel)]="popularBetsFormData.active" >
+                            {{isBetReceiptRoute ? 'Enable for BetReceipt' : 'Enable' }}
+                        </mat-checkbox>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12" *ngIf = "isBetReceiptRoute">
+                        <mat-checkbox class="mat-label" color="primary" formControlName="isQuickBetReceiptEnabled" [(ngModel)]="popularBetsFormData.isQuickBetReceiptEnabled">
+                            Enable for QuickBet Receipt
+                        </mat-checkbox>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-checkbox class="mat-label" color="primary" formControlName="enableBackedUpTimes" [(ngModel)]="popularBetsFormData.enableBackedUpTimes">
+                            {{isBetReceiptRoute ? 'Display Backed times in Bet receipt & Quick bet receipt' : 'Display Backed times in Bet Slip'}}
+                        </mat-checkbox>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-radio-group formControlName="displayForAllUsers" [(ngModel)]="popularBetsFormData.displayForAllUsers">
+                            <mat-radio-button [value]="true">Displaying Popular Bets For All Users</mat-radio-button>
+                            <mat-radio-button [value]="false">Displaying of popular bets based on the user
+                                behavior</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Most Backed In</label>&nbsp;
+                        <mat-radio-group formControlName="mostBackedIn" [(ngModel)]="popularBetsFormData.mostBackedIn">
+                            <mat-radio-button [value]="'24hr'">24hr</mat-radio-button>
+                            <mat-radio-button [value]="'48hr'">48hr</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Event Starts In</label>&nbsp;&nbsp;&nbsp;
+                        <mat-radio-group formControlName="eventStartsIn" [(ngModel)]="popularBetsFormData.eventStartsIn">
+                            <mat-radio-button [value]="'24hr'">24hr</mat-radio-button>
+                            <mat-radio-button [value]="'48hr'">48hr</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    
+                </div>
+                
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="mat-label">
+                            Max Selections
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Max Selections" formControlName="maxSelections" [(ngModel)]="+popularBetsFormData.maxSelections"  (focusout)="(popularBetsFormData.maxSelections = +popularBetsFormData.maxSelections)"  type="number"
+                                min="2" max="5" trim="blur" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                            <mat-hint class="col-red"
+                                *ngIf="(popularBetsFormGroup.get('maxSelections').invalid) && popularBetsFormGroup.get('maxSelections').hasError('min')">
+                                *Max Selections should not be less than 2 
+                            </mat-hint>
+                            <mat-hint class="col-red"
+                            *ngIf="(popularBetsFormGroup.get('maxSelections').invalid) && popularBetsFormGroup.get('maxSelections').hasError('max')">
+                            *Max Selections should not be greater than 5
+                        </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label">
+                            Bets refresh interval
+                        </span>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Bets refresh interval" formControlName="betRefreshInterval" [(ngModel)]="popularBetsFormData.betRefreshInterval"   (focusout)="(popularBetsFormData.betRefreshInterval = +popularBetsFormData.betRefreshInterval)" 
+                                type="number" trim="blur" min="1" maxlength="3" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                                <mat-hint class="col-red"
+                                *ngIf="(popularBetsFormGroup.get('betRefreshInterval').invalid) && popularBetsFormGroup.get('betRefreshInterval').hasError('min')">
+                                *Bets refresh interval should not be less than 1 
+                            </mat-hint>
+                            <mat-hint class="col-red"
+                            *ngIf="(popularBetsFormGroup.get('betRefreshInterval').invalid) && popularBetsFormData.betRefreshInterval.toString().length > 3">
+                            *Bets refresh interval should be max 3 characters
+                        </mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2">
+                        <mat-form-field class="full-width">
+                            <mat-select formControlName="isTimeInHours" [(ngModel)]="popularBetsFormData.isTimeInHours" appearance="outline" placeholder="Select Hours/Minutes">
+                                <mat-option *ngFor="let hourmin of HourMin" [value]="hourmin.short">
+                                    {{hourmin.time}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<action-buttons *ngIf="popularBetsFormData" #actionButtons [collection]="popularBetsFormData" (actionsEmitter)="actionsHandler($event);"
+    [fieldOrItemName]="'popularBetsFormData'" [showRemoveButton]="false"  [validateHandler]="isFormValid">
+</action-buttons>

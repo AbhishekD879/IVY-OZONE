@@ -1,0 +1,36 @@
+@import 'global.variables.scss';
+
+:host {
+  display: block;
+  margin-bottom: 8px;
+
+  ::ng-deep {
+    .racing-label {
+      @include display-flex();
+      @include align-items(center);
+      background: $color-yellow-alt;
+      font-family: $base-font-family;
+      color: $color-black-soft;
+      text-transform: uppercase;
+      font-size: $font-size-sm;
+      font-weight: 700;
+      line-height: 15px;
+      padding: 0 4px;
+      float: right;
+      min-height: 15px;
+      white-space: nowrap;
+      &:active{
+        background-color: $color-orange-light2;
+        opacity: 1;
+        color: $lGray;
+      }
+    }
+
+    .racing-icon {
+      width: 14px;
+      height: 14px;
+      fill: $color-black-soft;
+      margin-right: 3px;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+<div class="card">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Filters
+      <small *ngIf="filters">Total Active Filters: {{filterLength.active}}, Inactive Filters: {{filterLength.inactive}}</small>
+    </h2>
+  </div>
+</div>
+<div class="card">
+  <div class="body">
+    <div class="row clearfix" *ngIf="filters">
+      <div class="col-md-3">
+        <button (click)="createFilter()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create Filter</span>
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="filters">
+      <cms-data-table [customTableData]="filters" [customTableColumns]="dataTableColumns" [actions]="['remove','edit']"
+        [reorder]="true" (onElementsOrder)="reorderHandler($event)" [paginationLimit]="paginationLimit"
+        (onRemoveTableElement)="removeFilter($event)">
+      </cms-data-table>
+    </div>
+    <div *ngIf="getDataError">
+      Request Error
+    </div>
+  </div>
+</div>

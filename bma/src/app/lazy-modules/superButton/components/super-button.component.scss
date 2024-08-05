@@ -1,0 +1,358 @@
+@import 'global.variables.scss';
+
+@mixin fontGenericStyles() {
+  font-family: $base-font-family;
+  font-weight: 700;
+  font-size: $font-size-base;
+}
+
+@mixin navPointCenterLads() {
+  padding-top: 7px;
+}
+
+@mixin navPointCenterLadsDesc() {
+  margin-bottom: 7px;
+}
+
+@mixin navPointGenericStyles($background) {
+  background: $background;
+  padding-top: 8px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-family: $base-font-family;
+  border-radius: $font-size-xs;
+}
+
+@mixin navPointGenericDescription($color) {
+  color: $color;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  word-break: break-word;
+  margin-bottom: 6px;
+  width: 100%;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+@mixin navPointGenericButton() {
+  width: 100%;
+  padding: 8px 0;
+  font-size: $sup-btn-font-size;
+  border-radius: $font-size-two;
+  line-height: $line-height-sb;
+  height: 36px;
+}
+
+@mixin navPointRightThemeButton($color, $background, $border) {
+  color: $color;
+  background: $background;
+  border: $border;
+  height: 100%;
+  width: 100%;
+  border-radius: $font-size-two;
+  cursor: none;
+  text-transform: uppercase;
+  font-size: $sup-btn-font-size;
+  font-weight: 700;
+  font-family: $base-font-family;
+  line-height: $line-height;
+  align-self: center;
+  word-break: break-word;
+}
+
+@mixin navPointGenericRIghtThemeTop($color, $background) {
+  color: $color;
+  background: $background;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  border-radius: $font-size-xs;
+  font-size: $font-size;
+  margin: 0 auto;
+  padding: $font-size-sm;
+}
+
+@mixin navPointGenericCoralThemeRightTop($color, $background) {
+  color: $color;
+  background: $background;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  border-radius: $font-size-xs;
+  text-align: center;
+  font-size: $font-size;
+  margin: 0 auto;
+  padding: $font-size-sm;
+}
+
+@mixin navPointGenericBtn($color, $background) {
+  color: $color;
+  background: $background;
+}
+
+.btn-alignment {
+  @include display-flex();
+  @include justify-content(center);
+  @include align-items(center);
+}
+
+.nav-point {
+  background: $sup-btn-bg;
+  padding: $nav-point-padding;
+  margin: 8px 4px;
+  font-family: $base-font-family;
+
+  .desctription {
+    color: $color-gray-dark;
+    text-align: center;
+    padding-top: 5px;
+  }
+
+  .button.btn-secondary {
+    background: $sup-btn-color;
+    width: 100%;
+    padding: $sup-btn-padding;
+    margin: 10px auto;
+    color: $sup-btn-font;
+    font-size: $sup-btn-font-size;
+    border-radius: 2px;
+  }
+}
+
+.generic-center-theme {
+  margin: 10px 8px;
+}
+
+.generic-right-theme {
+  width: auto;
+  margin: 10px 8px;
+}
+
+.right-top-desc {
+  width: 100%;
+  font-size: $font-size-lgr;
+  font-weight: 700;
+  font-family: $base-font-family;
+  word-break: break-word;
+  line-height: 20px;
+  margin-bottom: 2px;
+}
+
+.right-top-desc-without-short {
+  margin-block: auto;
+}
+
+.right-bottom-desc-without-desc {
+  align-self: center;
+  margin-block: auto;
+}
+
+.right-bottom-desc {
+  font-size: 12px;
+  font-weight: 400;
+  font-family: $base-font-family;
+  display: block;
+  width: 100%;
+  text-align: center;
+  word-break: break-word;
+  line-height: 18px;
+}
+
+.right-desc-shortdesc {
+  width: 59.234%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 2.455%;
+}
+
+.right-button {
+  width: 38.311%;
+  height: 40px;
+  display: flex;
+  align-self: center;
+}
+
+.nav-point-coral-theme1 {
+  .btn-secondary-theme1 {
+    @include navPointGenericBtn($color-white, $color-blue-dark);
+    @include fontGenericStyles();
+  }
+}
+
+.nav-point-coral-theme2 {
+  .btn-secondary-theme2 {
+    @include navPointGenericBtn($color-gray-dark,$color-lwhite);
+    @include fontGenericStyles();
+  }
+}
+
+.nav-point-coral-theme3 {
+  .btn-secondary-theme3 {
+    @include navPointGenericBtn($color-white,$color-green-3);
+    @include fontGenericStyles();
+  }
+}
+
+.nav-point-coral-theme4 {
+  .btn-secondary-theme4 {
+    @include navPointGenericBtn($color-blue-dark, $color-yellow);
+    @include fontGenericStyles();
+  }
+}
+
+.nav-point-coral-theme5 {
+  .btn-secondary-theme5 {
+    @include navPointGenericBtn($color-blue-dark,$color-yellow);
+    @include fontGenericStyles();
+  }
+}
+
+.nav-point-coral-theme6 {
+  .btn-secondary-theme6 {
+    @include navPointGenericBtn($color-white,$color-green-3);
+    @include fontGenericStyles();
+  }
+}
+
+.right-theme1-coral-top,.right-theme5-coral-top,.right-theme6-coral-top {
+  @include navPointGenericCoralThemeRightTop($color-blue-dark, $sup-btn-mix);
+}
+
+.right-theme1-coral-btn {
+  @include navPointRightThemeButton($color-white, $color-blue-dark, $color-blue-dark);
+}
+
+.right-theme2-coral-top,.right-theme3-coral-top,.right-theme4-coral-top {
+  @include navPointGenericCoralThemeRightTop($color-glacier-white, $sup-btn-color-mix);
+}
+
+.right-theme2-coral-btn {
+  @include navPointRightThemeButton($color-gray-dark, $color-lwhite, $color-lwhite);
+}
+
+.right-theme3-coral-btn,.right-theme6-coral-btn {
+  @include navPointRightThemeButton($color-white, $color-green-3, $color-green-3);
+}
+
+.right-theme4-coral-btn,.right-theme5-coral-btn {
+  @include navPointRightThemeButton($color-gray-dark, $color-yellow, $color-yellow);
+}
+
+.nav-point-theme1 {
+  @include navPointGenericStyles($theme-bg-parent-color);
+  @include navPointCenterLads();
+  .description {
+    @include navPointGenericDescription($color-gray-darkest);
+    @include navPointCenterLadsDesc();
+  }
+  .btn-secondary-theme1 {
+    @include navPointGenericBtn($color-white,$lGray);
+    @include fontGenericStyles();
+  }
+}
+
+.nav-point-theme2 {
+  @include navPointGenericStyles($sup-btn-bg-color);
+  @include navPointCenterLads();
+  .description {
+    @include navPointGenericDescription($color-glacier-white);
+    @include navPointCenterLadsDesc();
+  }
+  .btn-secondary-theme2 {
+    @include navPointGenericBtn($color-white,$color-maingreen);
+    @include fontGenericStyles();
+  }
+}
+
+.nav-point-theme3 {
+  @include navPointGenericStyles($sup-btn-bg-color);
+  @include navPointCenterLads();
+  .description {
+    @include navPointGenericDescription($color-glacier-white);
+    @include navPointCenterLadsDesc();
+  }
+  .btn-secondary-theme3 {
+    @include navPointGenericBtn($lGray,$color-glacier-white);
+    @include fontGenericStyles();
+  }
+}
+
+.nav-point-theme4 {
+  @include navPointGenericStyles($theme-bg-parent-color);
+  @include navPointCenterLads();
+  .description {
+    @include navPointGenericDescription($color-gray-darkest);
+    @include navPointCenterLadsDesc();
+  }
+  .btn-secondary-theme4 {
+    @include navPointGenericBtn($color-white,$color-maingreen);
+    @include fontGenericStyles();
+  }
+}
+
+.right-theme1-top,.right-theme4-top {
+  @include navPointGenericRIghtThemeTop($color-gray-darkest, $btn-mix-sup);
+}
+
+.right-theme1-btn {
+  @include navPointRightThemeButton($color-white, $lGray, $lGray);
+}
+
+.right-theme2-top,.right-theme3-top {
+  @include navPointGenericRIghtThemeTop($color-glacier-white, $btn-blue-mix);
+}
+
+.right-theme2-btn, .right-theme4-btn {
+  @include navPointRightThemeButton($color-white, $color-maingreen, $color-maingreen);
+}
+
+.right-theme3-btn {
+  @include navPointRightThemeButton($lGray, $color-glacier-white, $color-glacier-white);
+}
+
+.nav-point-coral-theme2,
+.nav-point-coral-theme3,
+.nav-point-coral-theme4,
+.nav-point-coral-theme5,
+.nav-point-coral-theme6,
+.nav-point-theme1 {
+  .button {
+    @include navPointGenericButton();
+    @include fontGenericStyles();
+  }
+}
+
+.nav-point-theme2,
+.nav-point-theme3,
+.nav-point-theme4,
+.nav-point-coral-theme1 {
+  .button {
+    @include navPointGenericButton();
+  }
+}
+
+.nav-point-coral-theme2,
+.nav-point-coral-theme3,
+.nav-point-coral-theme4 {
+  @include navPointGenericStyles($btn-bg-theme-color);
+
+  .description {
+    @include navPointGenericDescription($color-glacier-white);
+  }
+}
+
+.nav-point-coral-theme1,
+.nav-point-coral-theme5,
+.nav-point-coral-theme6 {
+  @include navPointGenericStyles($btn-mix-color);
+
+  .description {
+    @include navPointGenericDescription($color-blue-dark);
+  }
+}

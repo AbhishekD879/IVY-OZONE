@@ -1,0 +1,27 @@
+@import "global.variables.scss";
+
+racing-pool-indicator:host li.tote-indicator-container {
+  position: relative;
+  padding: 5px 0 10px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 5px;
+    width: 1px;
+    height: 20px;
+    background: $color-red-lightest;
+  }
+
+  .tab.tote-indicator {
+    background: $color-gray-darkest;
+    padding: 0 10px;
+    color: $color-white;
+    text-transform: uppercase;
+    min-height: 21px;
+    line-height: 21px;
+    font-size: $font-size-sm;
+    margin: 0 12px;
+  }
+}

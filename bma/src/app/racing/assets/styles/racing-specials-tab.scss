@@ -1,0 +1,101 @@
+@import 'global.variables.scss';
+
+.sp-container {
+  .outer-accordion {
+    .page-container {
+      .container-header {
+        background-color: $bch-blue;
+        color: $color-white;
+        .chevron {
+          &:after {
+            background: $color-white;
+          }
+          &:before {
+            background-color: $color-white;
+          }
+        }
+        &.inner-header {
+          .chevron {
+            &:after {
+              background:$lightGrey;
+            }
+            &:before {
+              background-color: $lightGrey;
+            }
+          }
+        }
+      }
+    }
+  }
+  .sp-inner-header:last-of-type {
+    margin-bottom: 0;
+  }
+  .page-container {
+    &.is-expanded {
+      margin-bottom: 0;
+    }
+    .page-inner-container {
+      .container-header {
+        font-family: $base-font-family;
+        font-size: $font-size-sm;
+        font-weight: bold;
+        padding: 6px 10px 6px 35px;
+        background-color: $color-gray-light;
+        color: $lightGrey;
+        &:active {
+          background-color: $IGreyLightDark;
+        }
+
+        span {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .accordion-right-side span {
+          margin-left: 5px;
+        }
+      }
+
+      .competition-date {
+        font-weight: normal;
+      }
+
+      .container-content {
+        border-radius: 2px;
+
+        .container-inner-content {
+          margin: 0;
+          padding: 0 10px;
+          font-family: $base-font-family;
+
+          .each-way-container {
+            margin: -1px 0 0 0;
+            padding: 14px 0;
+            font-size: 10px;
+            font-weight: normal;
+          }
+
+          .odds-card {
+            min-height: 65px;
+            margin: -1px 0 0 0;
+            padding: 14px 0;
+          }
+
+          .show-all-button {
+            display: block;
+            position: relative;
+            background: $color-white;
+            border-top: 1px solid $color-gray;
+            margin-top: -1px;
+            padding: 9px 0 10px 0;
+            color: $color-gray-dark;
+            font-size: $font-size-pre-xs;
+            font-weight: normal;
+            box-shadow: 10px 0 0 $color-white, -10px 0 0 $color-white;
+          }
+        }
+      }
+    }
+  }
+}

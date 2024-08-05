@@ -1,0 +1,15 @@
+<div class="odds-card-result">
+  <div class="odds-content-left">
+      <span class="odds-result-text odds-team" [attr.title]="event.teamA.name" [textContent]="event.teamA.name" data-crlat="firstTeam"></span>
+      <h4 class="odds-result-text odds-goal-scorers" [textContent]="event.teamA.goalScorers" data-crlat="firstTeamScorers"></h4>
+  </div>
+  <div class="odds-content-center">
+    <span class="odds-score" [textContent]="event.teamA.score" data-crlat="firstTeamScore"></span>
+    <span class="odds-score-divider">:</span>
+    <span class="odds-score" [textContent]="event.teamB.score" data-crlat="secondTeamScore"></span>
+  </div>
+  <div class="odds-content-right">
+      <span class="odds-result-text odds-team" [attr.title]="event.teamB.name" [textContent]="event.teamB.name" data-crlat="secondTeam"></span>
+      <h4 class="odds-result-text odds-goal-scorers" [textContent]="event.teamB.goalScorers" data-crlat="secondTeamScorers"></h4>
+  </div>
+</div>

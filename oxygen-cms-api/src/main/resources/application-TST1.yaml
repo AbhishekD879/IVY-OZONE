@@ -1,0 +1,90 @@
+akamai:
+  # deprecated, should be replaced with brand.configs
+  root-path: /328873/CORAL/bet-tst1.coral.co.uk/
+  cms:
+    path: ${akamai.root-path}/cms/
+  root-url: https://bet-tst1.coral.co.uk/
+  url: https://bet-tst1.coral.co.uk/cms/
+  brand.configs:
+    bma:
+      enabled: true
+      storeType: FileStore
+      basePath: ${akamai.root-path}
+      url: ${akamai.root-url}
+    ladbrokes:
+      enabled: true
+      storeType: FileStore
+      basePath: /328873/CORAL/sports-red-tst1.ladbrokes.com
+      url: https://sports-red-tst1.ladbrokes.com
+
+
+homeModule:
+  removeExpired:
+    cron: 0 0/5 * 1/1 * ?
+dashboard:
+  removeExpired:
+    cron: 0 0/5 * 1/1 * ?
+
+siteserver:
+  base:
+    url: https://ss-tst2.coral.co.uk/
+
+stats:
+  center:
+    url: https://statscenter-tst0.coralsports.nonprod.cloud.ladbrokescoral.com/
+
+api:
+  buildyourbet:
+    ladbrokes:
+      url: https://buildyourbet-tst0.ladbrokesoxygen.nonprod.cloud.ladbrokescoral.com/
+    bma:
+      url: https://buildyourbet-tst0.coralsports.nonprod.cloud.ladbrokescoral.com/
+
+fastpurge:
+  cp_code: 730750,755786
+
+masterlock:
+  aws:
+    dynamo:
+      url: https://dynamodb.eu-west-2.amazonaws.com
+      lock-table-name: CR-MSLOCKTABLE-NONPROD
+
+google-cloud:
+  big-query:
+    entriesTableId: Entries_STG
+    timelineChangelogTableId: Change_Log_STG
+
+specialpages:
+  specialpageConfig:
+    ladbrokes:
+      url: https://bpp-tst1.ladbrokesoxygen.nonprod.cloud.ladbrokescoral.com/Proxy/specialpage
+      secret: export MAINTENANCE_KEY=VALUE
+    bma:
+      url: https://bpp-tst1.coralsports.nonprod.cloud.ladbrokescoral.com/Proxy/specialpage
+      secret: export MAINTENANCE_KEY=VALUE
+
+magicurl:
+  longurl: https://qa3.sports.ladbrokes.com/5-a-side/leaderboard/
+
+# always last few seconds should be sync with featured.cron.expression
+last.view.seconds: 5
+
+cfcache:
+  tags:
+    bma: CSP-tst1-coral
+    ladbrokes : CSP-tst1-ladbrokes
+
+topic:
+  bet-pack:
+    prefix: TST
+  lads:
+    cms-push:
+      prefix: TST-LB
+      partitions: 1
+      replicaFactor: 1
+
+  coral:
+    cms-push:
+      prefix: TST-CR
+      partitions: 1
+      replicaFactor: 1

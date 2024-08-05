@@ -1,0 +1,164 @@
+@import '../../../../../../app/lazy-modules/lottoBetSlip/components/lotto-betslip.component.scss';
+$border-box-shadow : 0 -1px 2px 0 rgba(0, 0, 0, 0.05),
+0 2px 4px 0 rgba(0, 0, 0, 0.15);
+
+.lotto-bet-receipt:last-child {
+  padding-bottom:12px;
+}
+
+.bs-receipt-container{
+  border: 0;
+  margin: 0;
+}
+
+.selections-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+  padding-right: 12px;
+  color: #2b2b2b;
+}
+
+.lads-border {
+  box-shadow: $border-box-shadow;
+}
+
+.dot-line {
+  border-top: 2px dotted #dddde4;
+  background-color: #efeff3;
+}
+
+.lotto-num-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.br-lotto-mul-stake {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-weight: bold;
+  font-size: 13px;
+  color: #2b2b2b;
+
+  .est-Returns-Amt {
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    font-size: 13px;
+  }
+}
+
+.br-lotto-content {
+  width: 100%;
+  background: #ffffff;
+  max-height: 100%;
+  position: relative;
+  padding: 16px;
+ }
+
+.br-lotto-wrapper {
+  padding: 8px 0px 0px 0px;
+  font-family: $lotto-base-font-family;
+}
+
+.lotto-details-layout {
+  &.summary-details {
+    flex-direction: column;
+
+    .lotto-summary {
+      padding: 12px 0;
+    }
+  }
+}
+
+.lotto-heading {
+  color: #2b2b2b;
+  .receipt-lable{
+    font-size: 15px;
+  }
+
+  p {
+    font-size: 14px;
+    margin: 0px;
+    font-family: $lotto-base-font-family;
+  }
+
+  .receiptId {
+    margin-top: 0px;
+    font-size: 12px;
+    font-weight: 300;
+    color: #777;
+  }
+}
+
+:host ::ng-deep .toggle-switch {
+  padding-top: 6px;
+}
+
+.bs-win-alerts-info{
+  font-size: 12px;
+  font-weight: bold;
+  color: #2b2b2b;
+}
+
+.win-alerts-info-icon {
+  width: 14px;
+  height: 14px;
+  position: relative;
+  top: 2px;
+  right: 2px;
+}
+
+.show-hide-accordion{
+  height: unset;
+  font-family: $base-font-family;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: bold;
+  font-stretch: condensed;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0px;
+  color: #4a90e2;
+   svg{ 
+      fill:#4a90e2;
+   }
+}
+
+.lotto-top-padng {
+  padding-top: 6px;
+  &.nOfDraws{
+    color: #2b2b2b;
+  }
+}
+
+.lotto-padding {
+  padding: 12px 16px
+}
+
+.lotto-description {
+  padding-top: 8px;
+  font-size: 12px;
+}
+
+.lotto-text-format {
+  padding-top: 4px;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #2b2b2b;
+}
+
+ .sports-icon {
+  position: absolute;
+  right: 3%;
+  z-index: 0;
+  top: 4rem;
+}

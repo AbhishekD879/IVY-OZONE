@@ -1,0 +1,72 @@
+@import 'global.variables.scss';
+
+.tab-wrapper {
+  background-color: $color-white;
+  border-radius: 21px;
+  box-shadow: $quick-filter-box-shadow;
+  margin: 0 5px;
+  min-width: 30px;
+
+  .tab {
+    color: $info-gray-color;
+    font-size: $font-size;
+    letter-spacing: $quick-filter-letter-spacing;
+    margin: 0;
+    padding: 9px 16px;
+    text-align: center;
+    white-space: nowrap;
+    font-family: $font-increment-number;
+  }
+
+  &.active {
+    background-color: $switch-btn-active-color;
+
+    .tab {
+      color: $color-white;
+    }
+  }
+}
+
+.betpack-tabs-container {
+  @include display-flex();
+  @include align-items(center);
+  padding: 10px 0 5px 0px;
+  cursor: pointer;
+  margin-top: 10px;
+
+  .betpack-container {
+    @include display-flex();
+    padding: 1px 0 6px;
+
+    &.padding-top {
+      padding-top: 6px;
+    }
+  }
+
+  &.margin-top {
+    margin-top: 6px;
+  }
+
+}
+
+.infoIcon {
+  height: 12px;
+  width: 12px;
+  fill: red;
+}
+
+.msgColor {
+  color: $color-gray-dark;
+  line-height: 1.1;
+  .filerMsg{
+    vertical-align: middle;
+    display: inline-block;
+    line-height: 1.1;  
+  }
+}
+
+.msgContainer {
+  .svgIcon {
+    height: 100%;
+  }
+}

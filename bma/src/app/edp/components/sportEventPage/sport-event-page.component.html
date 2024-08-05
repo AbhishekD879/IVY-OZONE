@@ -1,0 +1,233 @@
+<div class="sk-container" [ngClass]="{'sk-loading': state.loading}" >
+  <outlet-status [state]="state" *ngIf="!state.loading && state.error">
+    <request-error (reloadFn)="reloadComponent()"></request-error>
+  </outlet-status>
+  <ng-container *ngIf="!state.loading && !state.error">
+    <switchers  *ngIf="!isSpecialEvent && eventEntity?.markets?.length && !((eventTabs?.length === 1) && eventTabs[0].id === 'tab-all-markets')"
+                [type]="'scrollable'"
+                [switchers]="eventTabs"
+                [activeTab]="activeTab"
+                [noPaddings]="true"
+                [detectGTMLocation]="'location'"
+                (switchAction)="recalculateExpandedMarkets($event)"></switchers>
+    <div *ngIf="eventEntity && eventEntity?.markets?.length" class="scroll-container" [scrollable]
+    [ngClass]="{'pill-height': !isSpecialEvent && eventEntity?.markets?.length && !((eventTabs?.length === 1) && eventTabs[0].id === 'tab-all-markets')}">
+      <div *ngFor="let event of eventTabs">
+        <div *ngIf="event?.pills && showPills" class="competition-filters">
+          <div *ngFor="let pill of event.pills">
+            <div class="filter-wrapper" [class.active]="pill.active" (click)="onFilterSelect(pill)">
+              <p class="filter" [textContent]="pill?.label"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+                
+                
+    <edp-surface-bets-carousel *ngIf="showSurfaceBets" [eventId]="eventEntity.id"></edp-surface-bets-carousel>
+
+    <!--- Sport Event Page -->
+    <div *ngIf="!isSpecialEvent && !showFiveASideContent && !showYourCallContent && !loading"
+        class="tab-content heuristic-container top-padding"
+        data-crlat="accordionsList">
+      <ng-container *ngIf="isMTASport">
+        <ng-container *ngFor="let market of aggregatedMarketsGroup; trackBy: getTrackByValue; let index = index">
+          <aggregated-markets data-crlat="accordion" 
+            [isChevronToLeft]="true"
+            [headerClass]="'secondary-header'"
+            [hidden]="market.hidden"
+            [isHeaderHidden]="isHeaderHidden(market)"
+            [isExpanded]="isExpanded(market.id, market)"
+            (function)="changeAccordionState(market, $event)"
+            [ngClass]="{'accordion-margin': isHeaderHidden(market)}"
+            [accordionTitle]="market.name"
+            [event]="eventEntity"
+            [templateMarketGroup]="market"
+            [marketGroup]="marketGroup"
+            [index]="index">
+            <!-- Promotional signposting  -->
+            <right-side>
+              <promotion-icon [type]="'market'"
+                            [mode]="'big'"
+                            [cashoutAvailable]="market.cashoutAvail === 'Y'"
+                            [display]="appendDrillDownTagNames(market)"
+                            [accordionTitle]="market.templateMarketName"
+                            [marketName]="market.name"
+                            [sport]="'sport'"
+                            [eventName]="eventName"
+                            data-crlat="promotionIcons">
+              </promotion-icon>
+            </right-side>
+            <statistical-content *ngIf="isStatContentInfo && (!eventEntity.isStarted || !eventEntity.isLiveNowEvent) && market.drilldownTagNames && market.viewType !== 'Scorer' && market.viewType !== 'Correct Score'">
+              <lazy-component
+                moduleUri="@lazy-modules-module/statisticalContentInformation/statistical-content-information.module#StatisticalContentInformationModule"
+                [inputs]="{
+                  market:market,
+                  brand:brand,
+                  display:appendDrillDownTagNames(market)}" 
+                  [outputs]="['marketStatistical']"
+                  (event)="handleStatisticalEvents($event)"
+                entryComponent="StatisticalContentInformationComponent">
+              </lazy-component>
+            </statistical-content>
+          </aggregated-markets>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="!isMTASport">
+      <ng-container *ngFor="let market of filteredMarketGroup; trackBy: getTrackByValue; let index = index">
+        <accordion data-crlat="accordion"
+                 *ngIf="!isYourCallMarket(market)"
+                 [isChevronToLeft]="true"
+                 [hidden]="market.hidden"
+                 [headerClass]="'secondary-header'"
+                 [isHeaderHidden]="isHeaderHidden(market)"
+                 [isExpanded]="isExpanded(market.id, market)"
+                 (function)="changeAccordionState(market, $event)"
+                 [ngClass]="{'accordion-margin': isHeaderHidden(market)}"
+                 [accordionTitle]="market.name">
+        <right-side>
+          <!-- Promotional signposting -->
+
+            <promotion-icon [type]="'market'"
+                            [mode]="'big'"
+                            [cashoutAvailable]="market.cashoutAvail === 'Y'"
+                            [display]="appendDrillDownTagNames(market)"
+                            [accordionTitle]="market.templateMarketName"
+                            [marketName]="market.name"
+                            [sport]="'sport'"
+                            [eventName]="eventName"
+                            data-crlat="promotionIcons">
+            </promotion-icon>
+        </right-side>
+        <accordion-body>
+          <div *ngIf="!market.marketsGroup" data-crlat="containerContent">
+            <scoreboard-link *ngIf="isFootball && isOptaProviderPresent && market.marketOptaLink && isOptaAvailable"
+            [market]="market"
+            [event]="eventEntity">
+          </scoreboard-link>          
+          <ng-container *ngIf="isStatContentInfo && (!eventEntity.isStarted || !eventEntity.isLiveNowEvent) && market.drilldownTagNames && market.viewType !== 'Scorer' && market.viewType !== 'Correct Score'">
+            <lazy-component
+              moduleUri="@lazy-modules-module/statisticalContentInformation/statistical-content-information.module#StatisticalContentInformationModule"
+              [inputs]="{
+                market:market,
+                brand:brand,
+                display:appendDrillDownTagNames(market)}" 
+                [outputs]="['marketStatistical']"
+                (event)="handleStatisticalEvents($event)"
+              entryComponent="StatisticalContentInformationComponent">
+            </lazy-component>
+          </ng-container>
+          <lazy-component
+            moduleUri="@lazy-modules-module/twoUpSignpostingBlurbMsg/twoup-signposting-blurbmsg.module#TwoUpSignPostingBlurbMsgModule"
+          [inputs]="{
+            marketName:market.name
+          }"
+          entryComponent="TwoUpSignPostingBlurbMsgComponent"  >
+        </lazy-component>
+            <single-markets *ngIf="isSingleMarketViewType(market.viewType)"  [eventEntity]="eventEntity" [market]="market"></single-markets>
+          </div>
+
+          <div *ngFor="let config of marketConfig; trackBy: getTrackById">
+            <markets-group-component
+              *ngIf="config && market.marketsGroup &&
+                marketAvailable[config.localeName] &&
+                market.localeName === config.localeName"
+              [markets]="marketGroup"
+              [isFootball] = "isFootball"
+              [marketsGroup]="config"
+              [isOptaAvailable] = "isOptaAvailable"
+              [isOptaProviderPresent] = "isOptaProviderPresent"
+              [isExpanded]="isExpanded(market.id)"
+              [eventEntity]="eventEntity">
+            </markets-group-component>
+          </div>
+
+          <correct-score *ngIf="market.viewType === 'Correct Score'"
+                         [market]="market"
+                         [marketGroup]="marketGroup"
+                         [eventEntity]="eventEntity"
+                         [isExpanded]="isExpanded(market.id)"
+                         data-crlat="correctScoreMarket"></correct-score>
+
+          <scorecast
+            *ngIf="hasScorecastMarket(market)"
+            [markets]="marketGroup"
+            [eventEntity]="eventEntity"
+            [isExpanded]="isExpanded(market.id)">
+          </scorecast>
+          <scorer
+          *ngIf="market.viewType === 'Scorer'"
+          [markets]="marketGroup"
+          [marketsGroup]="market"
+          [eventEntity]="eventEntity"
+          [isExpanded]="isExpanded(market.id)">
+        </scorer>
+          <your-call-player-stats [marketsGroup]="market"
+                                  [isExpanded]="isExpanded(market.id)"
+                                  [eventEntity]="eventEntity"
+                                  *ngIf="market.localeName === 'playerStats' && isEnabledOnCms()">
+          </your-call-player-stats>
+        </accordion-body>
+      </accordion>
+
+        <ng-container *ngIf="isYourCallMarket(market)">
+          <accordion
+            [isChevronToLeft]="true"
+            [accordionTitle]="market.name"
+            [isExpanded]="isExpanded(market.id)"
+            data-crlat="accordion">
+            <right-side>
+              <cashout-label *ngIf="market.cashoutAvail === 'Y'"></cashout-label>
+            </right-side>
+            <accordion-body>
+              <scoreboard-link *ngIf="isFootball && isOptaProviderPresent && market.marketOptaLink && isOptaAvailable"
+                               [market]="market"
+                               [event]="eventEntity">
+              </scoreboard-link>
+              <div class="odds-card odds-single"
+                   *ngFor="let outcomeEntity of market.outcomes | slice:0:showLimit(market); trackBy: getTrackById"
+                   data-crlat="oddsCard">
+                <div class="odds-content">
+                  <div class="odds-left">
+                    <div class="odds-names odds-names-wrap" data-crlat="oddsNames">{{ outcomeEntity.name }}</div>
+                  </div>
+                  <div class="odds-right">
+                    <price-odds-button [event]="eventEntity"
+                                       [market]="market"
+                                       [outcome]="outcomeEntity"
+                                       [gtmModuleTitle]="[market.name, market.name].join('. ')">
+                    </price-odds-button>
+                  </div>
+                </div>
+              </div>
+              <show-all-button
+                (click)="toggleShowYourCallMarket(market)"
+                *ngIf="market.outcomes.length > market.showLimit"
+                [allShown]="market.isAllShown">
+              </show-all-button>
+            </accordion-body>
+          </accordion>
+        </ng-container>
+      </ng-container>
+      </ng-container>
+    </div>
+    <div class="heuristic-container sk-container"
+      [ngClass]="{'sk-loading': !initialized}"
+      *ngIf="showFiveASideContent || showYourCallContent">
+      <loading-screen
+        [displayed]="(showYourCallContent || showFiveASideContent) && !initialized"
+        [templateType]="'GENERIC'">
+      </loading-screen>
+      <lazy-component *ngIf="showFiveASideContent" moduleUri="@yourCallModule/your-call.module#YourCallModule"
+        [inputs]="{eventEntity: eventEntity}" entryComponent="FiveASideTabContentComponent"
+        (init)="childComponentLoaded()"
+        (failed)="childComponentLoaded()">
+      </lazy-component>
+      <lazy-component *ngIf="showYourCallContent" moduleUri="@yourCallModule/your-call.module#YourCallModule"
+        [inputs]="{eventEntity: eventEntity}" entryComponent="YourCallTabContentComponent"
+        (init)="childComponentLoaded()"
+        (failed)="childComponentLoaded()">
+      </lazy-component>
+    </div>
+  </ng-container>
+</div>

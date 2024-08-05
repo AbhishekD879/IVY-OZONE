@@ -1,0 +1,91 @@
+<div class="timeline-post" *ngIf="post?.template" [ngClass]="{
+  'red-line': post.template.showLeftSideRedLine && isBrandLadbrokes,
+  'blue-line': post.template.showLeftSideBlueLine && !isBrandLadbrokes,
+  'header-icon': post.template.postIconSvgId,
+  'first': first
+}" (click)="openUrl(post.template.postHref)">
+  <div class="timeline-post-content">
+    <div class="timeline-post-info">
+      <div>
+        <div class="timeline-post-time"
+             *ngIf="post.template.showTimestamp && post.createdDate"
+             [textContent]="post.createdDate | dateAgo">
+        </div>
+        <div class="timeline-post-header">
+
+          <svg class="timeline-post-icon"
+               [disable-dragging]
+               [ngClass]="{'time-padding': post.template.showTimestamp && post?.createdDate}"
+               *ngIf="post.template.postIconSvgId">
+            <use [attr.xlink:href]="'#' + post.template.postIconSvgId"></use>
+          </svg>
+
+          <svg class="timeline-post-watch"
+               [disable-dragging]
+               *ngIf="post.template.headerIconSvgId">
+            <use [attr.xlink:href]="'#' + post.template.headerIconSvgId"></use>
+          </svg>
+
+          <span class="timeline-post-label yellow"
+                *ngIf="post.template.yellowHeaderText"
+                [textContent]="post.template.yellowHeaderText"></span>
+
+          <div class="timeline-post-title"
+               [ngClass]="{'yellow': post.template.isYellowHeaderBackground}">
+            <span [textContent]="post.template.headerText"></span>
+          </div>
+
+          <div class="timeline-post-racing-post"
+               *ngIf="post.template.showRacingPostLogoInHeader">
+            <svg class="icon">
+              <use xlink:href="#rp-black"></use>
+            </svg>
+          </div>
+
+          <div class="timeline-post-label-container">
+            <span class="timeline-post-verdict"
+                  *ngIf="post.template.isVerdictTemplate">Verdict</span>
+
+            <span class="timeline-post-spotlight"
+                  *ngIf="post.template.isSpotlightTemplate">Spotlight</span>
+          </div>
+        </div>
+
+        <div class="timeline-post-subheader"
+             *ngIf="post.template.subHeader"
+             [ngClass]="{'yellow': post.template.isYellowSubHeaderBackground}"
+             [textContent]="post.template.subHeader">
+        </div>
+
+        <div class="timeline-post-description" [innerHtml]="post.template.text"></div>
+      </div>
+
+      <div class="promo-img" *ngIf="post.template?.topRightCornerImagePath">
+        <img [src]="promoImageUrl">
+      </div>
+    </div>
+  </div>
+  <a class="redirect-arrow"
+     *ngIf="post.template?.showRedirectArrow"></a>
+
+  <div class="price-odd-container" *ngIf="post.selectionEvent?.obEvent">
+    <div class="bet-text">
+      <span>{{ post.template?.betPromptHeader }}</span>
+    </div>
+
+    <button *ngIf="(post.selectionEvent.isNA); else priceOddsButton"
+            [disabled]="true"
+            class="btn-bet btn-bet-na"
+            data-crlat="betButton">
+      <span>N/A</span>
+    </button>
+    <ng-template #priceOddsButton>
+      <price-odds-button [event]="post.selectionEvent.obEvent"
+                         [market]="post.selectionEvent.obEvent.markets[0]"
+                         [outcome]="post.selectionEvent.obEvent.markets[0].outcomes[0]"
+                         [cssClass]="priceButtonClass + ' surface-bet-btn'"
+                         [gtmModuleTitle]="gtmModuleBrandName">
+      </price-odds-button>
+    </ng-template>
+  </div>
+</div>

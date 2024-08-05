@@ -1,0 +1,6 @@
+<div class="sk-container" [ngClass]="{'sk-loading': !isLoaded && !isResponseError}">
+  <loading-screen [displayed]="!isLoaded && !isResponseError" [templateType]="'GENERIC'"></loading-screen>
+  <coupons-list *ngIf="isLoaded && couponsList?.length" [couponsList]="couponsList" data-crlat="couponsListContainer"></coupons-list>
+  <request-error *ngIf="isLoaded && isResponseError" [reloadPage]="'COUPONS'" [loadFailed]="isResponseError"></request-error>
+  <no-events *ngIf="isLoaded && !isResponseError && !couponsList.length" [message]="'sb.noCouponsFound'"></no-events>
+</div>

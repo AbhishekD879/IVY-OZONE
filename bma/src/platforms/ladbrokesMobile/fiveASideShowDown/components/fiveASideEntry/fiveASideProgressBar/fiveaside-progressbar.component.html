@@ -1,0 +1,8 @@
+<div class="progress-bar" *ngIf="origin==='details'"
+  [ngClass]="{'progress-bar-details':origin==='details'}">
+  <div class="progress" [@myInsertRemoveTrigger] [style.width.%]="progress"></div>
+</div>
+<div class="progress-bar" *ngIf="origin==='summary'"
+  [ngClass]="{'progress-bar':origin==='summary'}">
+  <div class="progress" [style.width.%]="progress"></div>
+</div>

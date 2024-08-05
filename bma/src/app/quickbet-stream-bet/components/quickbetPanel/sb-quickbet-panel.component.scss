@@ -1,0 +1,363 @@
+//Global styles
+@import 'global.variables.scss';
+
+$qb-content-side-padding: 15px;
+$footZindex: 1002;
+$btn-up-bg: $color-pink;
+$btn-down-bg: $color-tealish;
+
+@mixin bet-animation($animation-name) {
+  animation-duration: 2s;
+  animation-name: $animation-name;
+  animation-iteration-count: 1;
+  animation-fill-mode: backwards;
+
+  -webkit-animation-duration: 2s;
+  -webkit-animation-name: $animation-name;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-fill-mode: backwards;
+}
+
+.sb-quickbet-panel {
+  left:28px;
+  .show-iframe {
+    background: $color-white;
+  }
+
+  .transparent-iframe {
+    background: transparent;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  width: 100%;
+  font-family: $base-font-family;
+  position: fixed;
+  z-index: $footZindex + 2;
+  bottom: 0;
+  opacity: 0;
+  @include transform(translateY(100vh));
+  @include transition(transform, .3s, ease-in-out);
+  overflow: hidden;
+
+  &.quickbet-slide-up {
+    opacity: 1;
+    @include transform(translateY(0));
+  }
+
+  .selection-undisplayed-error {
+    padding: 13px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.4);
+    width: 200px;
+    font-size: 11px;
+  }
+
+  /* Quickbet header */
+  .quickbet-header {
+    @include display-flex();
+    @include justify-content(center);
+    position: relative; // will have to add it dynamically from html to display the 'x' content quickly.
+    padding: 13px 0;
+    background: $brand-color-main;
+    height: 45px;
+    width: 100%;
+
+    .qb-header-title {
+      text-transform: capitalize;
+      margin: 0;
+      color: $color-white;
+      font-size: 16px;
+      min-width: 64px;
+      text-align: center;
+      width: auto;
+      line-height: 17.6px;
+    }
+
+    .qb-header-close-btn {
+      border: none;
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      padding: 10px;
+
+      svg {
+        height: 12px;
+        width: 12px;
+        fill: $color-white;
+      }
+    }
+
+    .qb-header-5-a-side-logo {
+      height: 21px;
+      width: 18px;
+      margin-right: 10px;
+    }
+  }
+
+  .betslip-deposit .item-inner > .row:last-child > div {
+    visibility: hidden;
+  }
+
+  .betslip-deposit .item-inner > .row.pay-fields label:before {
+    content: none;
+  }
+
+  .custom-select {
+    margin: 0;
+    display: inline-block;
+    overflow: visible;
+
+    .odds-select {
+      &.crossed {
+        text-decoration: line-through;
+      }
+    }
+    svg {
+      width: 11px;
+      height: 7px;
+      right: 7px;
+      top: 6px;
+      margin-top: 0;
+    }
+  }
+
+  .overlay-qb-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-right: 2px;
+    // margin-bottom: 5px;
+  }
+
+}
+
+.overlay-flex {
+  display: flex;
+  bottom: 35px;
+}
+
+.overlay-qb-selection-info {
+  position: relative;
+  width: 210px;
+  min-height: 82px;
+  height: auto;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
+  padding: 6px 12px 6px 12px;
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  // top: 2px;
+
+  .overlay-outcome-name {
+    font-weight: 700;
+    font-size: 13px;
+    line-height: normal;
+    color: #FFFFFF;
+    // display: -webkit-box;
+    // -webkit-box-orient: vertical;
+    // -webkit-line-clamp: 2;
+    // overflow: hidden;
+    // text-overflow: ellipsis;
+    white-space: normal;
+  }
+
+  .market-name {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: normal;
+    color: #FFFFFF;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .snb-suspended {
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 900;
+  }
+
+  .overlay-odds-value {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+    height: 14px;
+    letter-spacing: -0.004575px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+
+    /* live bet update */
+    &.bet-up:not([disabled]) {
+      @include bet-animation(up-button);
+    }
+
+    &.bet-down:not([disabled]) {
+      @include bet-animation(down-button);
+    }
+
+  }
+
+  .qb-receipt-data {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    .qb-stake,
+    .qb-returns {
+      display: flex;
+
+      .stake-text {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 14px;
+        margin-right: 2px;
+        color: #FFFFFF;
+      }
+
+      .stake-value {
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 14px;
+        letter-spacing: -0.004575px;
+        text-transform: uppercase;
+        color: #FFFFFF;
+      }
+
+      .free-bet-label {
+        height: 15px;
+        vertical-align: text-bottom;
+      }
+    }
+  }
+}
+
+/* Quickbet controls */
+.sb-quickbet-controls {
+  @include display-flex();
+  min-height: 45px;
+  height: 45px;
+  position: relative;
+
+  .sb-qb-close {
+    width: 16px;
+    height: 16px;
+    fill: $color-white;
+  }
+
+  .qb-left-cta-btn,
+  .qb-right-cta-btn {
+    display: block;
+    border: none;
+    width: 50%;
+    font-weight: bold;
+    font-size: 13px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .qb-left-cta-btn {
+    background: $color-yellow;
+    color: $color-gray-dark;
+  }
+
+  .qb-del-cta-btn {
+    background: $color-red;
+    color: $color-white;
+    width: 56px;
+    height: 40px;
+    margin-right: 2px;
+    border-radius: 2px;
+  }
+
+  .qb-right-cta-btn {
+    background: $color-green;
+    color: $color-white;
+    transition: .3s all;
+    width: 144px;
+    height: 40px;
+    border-radius: 2px;
+    padding: 0px 6px;
+    &:disabled {
+      background: $color-green-light;
+      color: $color-green-disabled;
+      opacity: 1;
+    }
+  }
+}
+
+// fix to not overlap with Iphone X bottom software button.
+@supports (height: constant(safe-area-inset-bottom)) {
+  .sb-quickbet-controls {
+    --safe-area-inset-bottom: constant(safe-area-inset-bottom);
+    height: calc(45px + var(--safe-area-inset-bottom));
+    padding-bottom: var(--safe-area-inset-bottom);
+  }
+}
+
+@supports (height: env(safe-area-inset-bottom)) {
+  .sb-quickbet-controls {
+    --safe-area-inset-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+.quickbet-opened {
+  overflow: hidden;
+}
+
+.hide-section {
+  visibility: hidden;
+}
+
+.closure-message-container {
+  color: $color-gray-darkest;
+  font-size: 12px;
+  padding: 14px 12px 12px;
+  box-shadow: 0 2px 2px 0 rgba(162, 162, 162, 0.26), 0 0 2px 0 rgba(162, 162, 162, 0.26);
+  background-color: $color-white;
+  margin-bottom: 3px;
+  line-height: 15px;
+  font-family: $base-font-family;
+}
+
+@keyframes up-button {
+  from {
+    color: $color-gray-dark;
+  }
+
+  to {
+    color: $btn-up-bg;
+  }
+}
+
+@keyframes down-button {
+  from {
+    color: $color-gray-dark;
+  }
+
+  to {
+    color: $btn-down-bg;
+  }
+}
+
+@-webkit-keyframes up-button {
+  from {
+    color: $color-gray-dark;
+  }
+
+  to {
+    color: $btn-up-bg;
+  }
+}
+
+@-webkit-keyframes down-button {
+  from {
+    color: $color-gray-dark;
+  }
+
+  to {
+    color: $btn-down-bg;
+  }
+}

@@ -1,0 +1,4 @@
+<loading-screen [displayed]="state.loading && !state.error"
+                [isUsedFromWidget]="isUsedFromWidget"
+                [templateType]="skeletonType"></loading-screen>
+<ng-content *ngIf="state.error && !state.loading"></ng-content>

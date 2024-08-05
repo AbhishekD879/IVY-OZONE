@@ -1,0 +1,6 @@
+<div class="empty-betslip-container">
+    <span class="title" [textContent]="errorTitle"></span>
+    <span class="msg" [textContent]="errorMessage"></span>
+    <a *ngIf="buttonEnable" [routerLink]="goBettingURL" class="button btn-secondary btn-lg"
+        [textContent]="goToBettingLabel" (click)="sendGtmData(goToBettingLabel)"></a>
+</div>

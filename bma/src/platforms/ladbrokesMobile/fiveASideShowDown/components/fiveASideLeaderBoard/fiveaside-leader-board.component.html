@@ -1,0 +1,7 @@
+<div class="leader-board-div" *ngIf="leaderBoard">
+    <ng-container [ngSwitch]="leaderBoard.type">
+        <fiveaside-pre-leader-board [leaderboardData]="leaderBoard" *ngSwitchCase="'pre'"></fiveaside-pre-leader-board>
+        <fiveaside-live-leader-board [leaderboardData]="leaderBoard" *ngSwitchCase="'live'"></fiveaside-live-leader-board>
+        <fiveaside-post-leader-board [leaderboardData]="leaderBoard" *ngSwitchCase="'post'"></fiveaside-post-leader-board>
+    </ng-container>
+</div>

@@ -1,0 +1,38 @@
+.custom-table {
+  th {
+    text-transform: capitalize;
+  }
+
+  .number-cell {
+    text-align: center;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .svg-icon {
+    display: flex;
+    padding: 5px;
+    min-width: 50px;
+
+    &::ng-deep svg {
+      display: block;
+      max-width: 100%;
+      max-height: 50px;
+    }
+  }
+}
+
+.drag-handler {
+  cursor: move;
+
+  i {
+    font-size: 15px;
+  }
+}
+
+.savBtn{
+  background: none;
+  border:none;}
+
+
+  

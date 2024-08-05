@@ -1,0 +1,270 @@
+<breadcrumbs *ngIf="splashPage" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="splashPage">
+  <div class="header">
+    <div class="row">
+      <div class="col-md-10">
+        <h2 class="waves-effect waves-block has-activity-badge">
+          Splash Page: {{splashPage.title}}
+          <create-updated-at-by [collection]="splashPage"></create-updated-at-by>
+        </h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="card" *ngIf="splashPage">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Title
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Title" [(ngModel)]="splashPage.title" [value]="splashPage.title"
+                 required trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Strap Line
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Title" [(ngModel)]="splashPage.strapLine" [value]="splashPage.strapLine"
+                 trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          CTA 1 (Play now for free)
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="CTA 1 (Play now for free)" [(ngModel)]="splashPage.playForFreeCTAText"
+                 [value]="splashPage.playForFreeCTAText" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          CTA 2 (See your selections)
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="CTA 2 (See your selections)" [(ngModel)]="splashPage.seeYourSelectionsCTAText"
+                 [value]="splashPage.seeYourSelectionsCTAText" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          CTA 3 (See previous games)
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="CTA 3 (See previous games)" [(ngModel)]="splashPage.seePreviousSelectionsCTAText"
+                 [value]="splashPage.seePreviousSelectionsCTAText" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          CTA 4 (Login to view)
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="CTA 4 (Login to view)" [(ngModel)]="splashPage.loginToViewCTAText"
+                 [value]="splashPage.loginToViewCTAText" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Show Previous Games Button
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-checkbox color="primary"
+                      [checked]="splashPage.showPreviousGamesButton"
+                      (change)="splashPage.showPreviousGamesButton = !splashPage.showPreviousGamesButton">
+          Show Previous Games Button
+        </mat-checkbox>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Paragraph Text 1
+        </span>
+      </div>
+      <div class="col-md-10">
+        <tinymce-editor #paragraphText1
+                        [pageName]="'paragraph-text-1'"
+                        [pageItemId]="'paragraph-text-1'"
+                        (outputEditorData)="updateText($event, 1)"
+                        [initialEditorContent]="splashPage.paragraphText1">
+        </tinymce-editor>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Paragraph Text 2
+        </span>
+      </div>
+      <div class="col-md-10">
+        <tinymce-editor #paragraphText2
+                        [pageName]="'paragraph-text-2'"
+                        [pageItemId]="'paragraph-text-2'"
+                        (outputEditorData)="updateText($event, 2)"
+                        [initialEditorContent]="splashPage.paragraphText2">
+        </tinymce-editor>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Paragraph Text 3
+        </span>
+      </div>
+      <div class="col-md-10">
+        <tinymce-editor #paragraphText3
+                        [pageName]="'paragraph-text-3'"
+                        [pageItemId]="'paragraph-text-3'"
+                        (outputEditorData)="updateText($event, 3)"
+                        [initialEditorContent]="splashPage.paragraphText3">
+        </tinymce-editor>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Background SVG
+        </span>
+      </div>
+      <div class="col-md-5">
+        <mat-form-field class="full-width">
+          <input matInput placeholder=""
+                 [(ngModel)]="backgroundFileName"
+                 [value]="backgroundFileName" disabled>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <div style="display:none;"><input id="upload-background"
+                                          (change)="prepareToUploadFile($event, 'backgroundSvgFile')" type="file"
+                                          value="upload"/>
+        </div>
+        <button type="button" (click)="handleUploadImageClick($event, 'backgroundSvgFile')"
+                class="main-image-btn btn bg-teal waves-effect">
+          {{getButtonName(backgroundFileName)}}
+        </button>
+        <button type="button" (click)="removeImage($event, 'backgroundSvgFile')"
+                class="main-image-btn btn bg-red waves-effect">Remove File
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Logo SVG
+        </span>
+      </div>
+      <div class="col-md-5">
+        <mat-form-field class="full-width">
+          <input matInput placeholder=""
+                 [(ngModel)]="logoFileName"
+                 [value]="logoFileName" disabled>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <div style="display:none;"><input id="upload-logo" (change)="prepareToUploadFile($event, 'logoSvgFile')"
+                                          type="file" value="upload"/>
+        </div>
+        <button type="button" (click)="handleUploadImageClick($event, 'logoSvgFile')"
+                class="main-image-btn btn bg-teal waves-effect">
+          {{getButtonName(logoFileName)}}
+        </button>
+        <button type="button" (click)="removeImage($event, 'logoSvgFile')"
+                class="main-image-btn btn bg-red waves-effect">Remove File
+        </button>
+      </div>
+
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Upload Footer SVG
+        </span>
+      </div>
+      <div class="col-md-5">
+        <mat-form-field class="full-width">
+          <input matInput placeholder=""
+                 [(ngModel)]="footerFileName"
+                 [value]="footerFileName" disabled>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <div style="display:none;"><input id="upload-footer" (change)="prepareToUploadFile($event, 'footerSvgFile')"
+                                          type="file" value="upload"/>
+        </div>
+        <button type="button" (click)="handleUploadImageClick($event, 'footerSvgFile')"
+                class="main-image-btn btn bg-teal waves-effect">
+          {{getButtonName(footerFileName)}}
+        </button>
+        <button type="button" (click)="removeImage($event, 'footerSvgFile')"
+                class="main-image-btn btn bg-red waves-effect">Remove File
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Footer Text
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Footer text" [(ngModel)]="splashPage.footerText"
+                 [value]="splashPage.footerText" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="splashPage"
+  [validateHandler]="isValidModel"
+  [fieldOrItemName]="'title'"
+  [collection]="splashPage"
+  (actionsEmitter)="actionsHandler($event);">
+</action-buttons>

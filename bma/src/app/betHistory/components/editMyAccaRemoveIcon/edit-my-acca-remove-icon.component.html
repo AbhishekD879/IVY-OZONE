@@ -1,0 +1,8 @@
+<ng-container *ngIf="isShown()">
+  <span *ngIf="!leg.removing" class="remove" [class.inactive]="removingDisabled()" (click)="removeLeg($event)"
+        data-crlat="removeIcon">
+    <svg><use xlink:href="#close-icon"></use></svg>
+  </span>
+  <span *ngIf="leg.removing" class="undo" [class.inactive]="isUndoDisabled()"
+    (click)="undoRemoveLeg($event)" [i18n]="'ema.undoLegRemove'" data-crlat="undoButton"></span>
+</ng-container>

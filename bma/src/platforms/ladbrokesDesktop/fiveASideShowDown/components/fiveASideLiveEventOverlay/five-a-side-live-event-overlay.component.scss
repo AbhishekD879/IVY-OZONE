@@ -1,0 +1,314 @@
+@import 'global.variables.scss';
+
+$rectangle-svg: '/assets/images/rectangle.svg';
+$top-arrow-svg: '/assets/images/top-arrow-inv.svg';
+$top-right-arrow-svg: '/assets/images/top-right-arrow.svg';
+$right-arrow-svg: '/assets/images/right-arrow.svg';
+$highlight-blue: #007aff;
+$shadow-black: #000000cc;
+$button-color: #e1e1e1;
+$highlight-shadow: inset 0 0 6px 3px #007aff, 0 0 8px 1px #007affcc, -137px -254px 48px 2000px #000100cc;
+
+
+@mixin cards-overlay-content() {
+  overflow: hidden;
+  max-height: 100%;
+  height: auto;
+}
+
+::ng-deep .five-a-side-live-event-overlay {
+  @include cards-overlay-content();
+
+  body {
+    @include cards-overlay-content();
+  }
+}
+
+
+.navigation-button {
+  margin: 0 auto;
+  display: block;
+  background-color: $button-color;
+  height: 44px;
+  width: 133px;
+  color: $color-black;
+  font-size: 15px;
+  font-weight: bold;
+  border: 0;
+
+  &.finish {
+    margin-top: 50px;
+  }
+
+  &.entry-expand {
+    margin-top: 30px;
+  }
+}
+
+.overlay-context {
+  text-align: center;
+  margin: 0 auto;
+  height: 100%;
+  width: 305px;
+  color: $color-white;
+  z-index: 2;
+  position: relative;
+  @include display-flex();
+  @include align-items(center);
+
+  .overlay-header {
+    font-weight: bold;
+    font-size: $font-size-lgr;
+    font-family: $base-font-family;
+    color: $color-yellow-extra;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+  }
+
+  .overlay-content {
+    font-family: $alt-font-family;
+    font-size: 15px;
+    line-height: 21px;
+    letter-spacing: 0.19px;
+  }
+}
+
+.step-tutorial-content {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 700px;
+
+  &.step-2 {
+    position: relative;
+    top: 136px;
+  }
+
+  &.step-3 {
+    top: 200px;
+  }
+
+  &.step-4 {
+    position: relative;
+    top: 40px;
+  }
+
+  &.step-5 {
+    position: relative;
+    top: 250px;
+  }
+}
+
+.top-arrow {
+  margin: 0 auto;
+  height: 58px;
+  position: relative;
+}
+
+.top-right-arrow-icon {
+  height: 53px;
+  margin-left: 138px;
+}
+
+.top-right-inv-icon {
+  height: 58px;
+  margin-left: 0px;
+}
+
+.top-right-arrow-entry {
+  height: 58px;
+  margin-left: 0px;
+}
+
+.right-arrow-icon {
+  height: 70px;
+  margin-left: -53px;
+}
+
+.right-arrow {
+  margin: 0 auto;
+  height: 58px;
+  position: relative;
+  margin-left: 35%;
+}
+
+.up-arrow {
+  margin: 0 auto;
+  height: 58px;
+  position: relative;
+  transform: rotate(180deg);
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+
+
+#progressbar-arrow {
+  top: 50px;
+}
+
+#progressbar-single-arrow {
+  transform: rotate(103deg);
+}
+
+#my-entry-team-arrow {
+  top: 120px;
+}
+
+#arrow-entry-expand {
+  top: 80px;
+}
+
+#fiveaside-live-tutorial {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.88);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1018;
+  overflow: scroll;
+  clip: rect(auto, auto, auto, auto);
+
+  @media (min-width: $desktopPoint) {
+    position: absolute;
+  }
+
+  &.active {
+    display: block;
+  }
+
+  .header-content {
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    z-index: 2;
+
+    .close-content {
+      cursor: pointer;
+      padding: 15px;
+      text-align: right;
+
+      .close-icon {
+        height: 15px;
+        width: 15px;
+      }
+    }
+  }
+
+  >.centered {
+    margin: 0 auto;
+    padding: 0 15px;
+
+    >.welcome-cards {
+      @include display-flex();
+      flex-direction: column;
+      height: calc(100vh - 50px);
+
+      >.welcome-card {
+        flex: 1 auto;
+        box-sizing: border-box;
+        margin: 1px;
+        margin-bottom: 55px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        .my-entry-your-team-content {
+          margin: 0 auto;
+          width: 98%;
+          height: 100%;
+          object-fit: contain;
+          top: 100px;
+          position: absolute;
+          box-shadow: $highlight-shadow;
+          -webkit-transition: height 0.5s ease-in, top 0.5s ease-in;
+          transition: height 0.5s ease-in, top 0.5s ease-in;
+          -webkit-transition-duration: 0.5s;
+          transition-duration: 0.5s;
+          -webkit-transition-delay: 0.5s;
+          transition-delay: 0.5s;
+          -webkit-animation-name: showdown-box-shadow-animation;
+          animation-name: showdown-box-shadow-animation;
+          -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+          -webkit-animation-timing-function: ease-in;
+          animation-timing-function: ease-in;
+        }
+
+        @-webkit-keyframes showdown-box-shadow-animation {
+          0% {
+            box-shadow: rgb(0 0 0) -137px -254px 48px 700px;
+          }
+
+          98% {
+            box-shadow: rgb(0 0 0) -137px -254px 48px 700px;
+          }
+        }
+
+        @keyframes showdown-box-shadow-animation {
+          0% {
+            box-shadow: rgb(0 0 0) -137px -254px 48px 700px;
+          }
+
+          98% {
+            box-shadow: rgb(0 0 0) -137px -254px 48px 700px;
+          }
+        }
+
+        .entry-progressbar-content {
+          margin: 0 auto;
+          width: 98%;
+          height: 100%;
+          object-fit: contain;
+          top: 100px;
+          position: absolute;
+          box-shadow: $highlight-shadow;
+          -webkit-transition: height 0.5s ease-in, top 0.5s ease-in;
+          transition: height 0.5s ease-in, top 0.5s ease-in;
+          -webkit-transition-duration: 0.5s;
+          transition-duration: 0.5s;
+          -webkit-transition-delay: 0.5s;
+          transition-delay: 0.5s;
+          -webkit-animation-name: showdown-box-shadow-animation;
+          animation-name: showdown-box-shadow-animation;
+          -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+          -webkit-animation-timing-function: ease-in;
+          animation-timing-function: ease-in;
+        }
+
+        .leaderboard-content {
+          margin: 0 auto;
+          width: 98%;
+          height: 100%;
+          object-fit: contain;
+          top: 100px;
+          // left: 20px;
+          // right: 10px;
+          position: absolute;
+          box-shadow: $highlight-shadow;
+          -webkit-transition: height 0.5s ease-in, top 0.5s ease-in;
+          transition: height 0.5s ease-in, top 0.5s ease-in;
+          -webkit-transition-duration: 0.5s;
+          transition-duration: 0.5s;
+          -webkit-transition-delay: 0.5s;
+          transition-delay: 0.5s;
+          -webkit-animation-name: showdown-box-shadow-animation;
+          animation-name: showdown-box-shadow-animation;
+          -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+          -webkit-animation-timing-function: ease-in;
+          animation-timing-function: ease-in;
+        }
+
+        #entry-top-progress-info {
+          position: relative;
+          bottom: 100px;
+        }
+      }
+    }
+  }
+}

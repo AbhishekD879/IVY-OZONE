@@ -1,0 +1,24 @@
+<!doctype html>
+<html class="no-js" ng-app="invictusApp">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body style="  background-color: #fff;">
+  <textarea rows="30"></textarea>
+
+  <script src="../../../jquery/jquery-1.10.2.js"></script>
+  <script src="../../tinymce.min.js"></script>
+  <script src="../link/plugin.min.js"></script>
+  <script src="bma.plugin.js"></script>
+  <script>
+    tinymce.init({
+      selector    : 'textarea',
+      plugins     : 'BMA, preview, link',
+      menubar     : false,
+      skin        : 'keystone',
+      content_css : ['content.css'],
+      toolbar     : 'bold italic | alignleft aligncenter alignright | bullist numlist | outdent indent | autolink link | addCollapsePanel makeButton images | preview'
+    });
+  </script>
+</body>

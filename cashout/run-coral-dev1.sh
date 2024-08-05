@@ -1,0 +1,5 @@
+#!/bin/bash
+export token_encryption_key=CM2Tu/UCEmQKWAowdHlwZS5nb29nbGVhcGlzLmNvbS9nb29nbGUuY3J5cHRvLnRpbmsuQWVzR2NtS2V5EiIaIA8XFqZkAN8gODInDooL1MENIy+n5Dy79eHTDyw0RlF8GAEQARjNk7v1AiAB
+export bpp_url=https://bpp-dev1.coralsports.dev.cloud.ladbrokescoral.com
+
+./gradlew bootRun

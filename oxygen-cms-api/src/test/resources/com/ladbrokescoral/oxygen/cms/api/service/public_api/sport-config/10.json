@@ -1,0 +1,116 @@
+{
+  "config": {
+    "title": "Cricket",
+    "name": "cricket",
+    "path": "cricket",
+    "tier": 2,
+    "categoryType": "gaming",
+    "isOutrightSport": false,
+    "isMultiTemplateSport": true,
+    "oddsCardHeaderType": "oneTwoType",
+    "request": {
+      "categoryId": "10",
+      "siteChannels": "M",
+      "marketsCount": true,
+      "isActive": false,
+      "dispSortName": [
+        "MR",
+        "HH",
+        "MH",
+        "WH"
+      ],
+      "dispSortNameIncludeOnly": [
+        "MR",
+        "HH",
+        "MH",
+        "WH"
+      ],
+      "marketTemplateMarketNameIntersects": "|Match Betting|,|Match Betting Head/Head|,|Handicap Match Result|"
+    },
+    "tabs": {
+      "live": {},
+      "coupons": {
+        "date": "today",
+        "isActive": true
+      },
+      "today": {
+        "isNotStarted": true
+      },
+      "tomorrow": {},
+      "future": {},
+      "outrights": {
+        "marketsCount": false,
+        "isActive": true
+      }
+    }
+  },
+  "tabs": [
+    {
+      "id": "tab-coupons",
+      "name": "coupons",
+      "label": "Coupons",
+      "url": "/sport/cricket/coupons",
+      "hidden": true,
+      "sortOrder": 4,
+      "marketsNames": [],
+      "trendingTabs"  : []
+
+    },
+    {
+      "id": "tab-matches",
+      "name": "matches",
+      "label": "Matches",
+      "url": "/sport/cricket/matches",
+      "hidden": false,
+      "sortOrder": 1,
+      "subTabs": [
+        {
+          "id": "tab-today",
+          "name": "today",
+          "label": "Today",
+          "url": "/sport/cricket/matches/today",
+          "hidden": false
+        },
+        {
+          "id": "tab-tomorrow",
+          "name": "tomorrow",
+          "label": "Tomorrow",
+          "url": "/sport/cricket/matches/tomorrow",
+          "hidden": false
+        },
+        {
+          "id": "tab-future",
+          "name": "future",
+          "label": "Future",
+          "url": "/sport/cricket/matches/future",
+          "hidden": false
+        }
+      ],
+      "marketsNames": [],
+      "trendingTabs"  : []
+
+    },
+    {
+      "id": "tab-competitions",
+      "name": "competitions",
+      "label": "Competitions",
+      "url": "/sport/cricket/competitions",
+      "hidden": false,
+      "sortOrder": 2,
+      "marketsNames": [],
+      "trendingTabs"  : []
+
+    },
+    {
+      "id": "tab-outrights",
+      "name": "outrights",
+      "label": "Outrights",
+      "url": "/sport/cricket/outrights",
+      "hidden": false,
+      "sortOrder": 3,
+      "marketsNames": [],
+      "trendingTabs"  : []
+
+    }
+  ]
+}

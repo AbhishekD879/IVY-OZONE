@@ -1,0 +1,99 @@
+- name: "Read {{ instance_type.value.nodes_type }} specific tags {{ base_tags }}"
+  set_fact:
+    base_instance_tags: "{{ base_tags | combine(instance_type.value.tags_template) }}"
+
+- name: "Build tags for {{ instance_type.value.nodes_type }}"
+  set_fact:
+    tags_to_override:
+      ClusterNodeType: "{{ instance_type.value.nodes_type }}"
+      Name: "{{ instance_type.key }}"
+      Team: "crlat"
+      ClusterName: "{{ cluster_name }}"
+
+
+- name: "Update default tags for {{ instance_type.value.nodes_type }}"
+  set_fact:
+    ec2_instance_tags: "{{ base_instance_tags | combine(tags_to_override) }}"
+
+- name: "Parse configuration and set HW params for {{ instance_type.value.nodes_type }}"
+  set_fact:
+    override_ec2_hw_params: "{{ instance_type.value.ec2_hw_params }}"
+
+- name: "Combine defaults with overrides HW params for {{ instance_type.value.nodes_type }}"
+  set_fact:
+    ec2_hw_final: "{{ ec2_hw_defautls | combine(override_ec2_hw_params) }}"
+
+- name: "Build final configuration for {{ instance_type.value.nodes_type }}"
+  set_fact:
+    ec2_config:
+      key_name: "{{ ec2_hw_final.key_name }}"
+      group: "{{ ec2_hw_final.security_group }}"
+      instance_type: "{{ ec2_hw_final.instance_type }}"
+      image: "{{ os_images[ec2_hw_final.image_name] }}"
+      wait: yes
+      region: "{{ ec2_hw_final.region }}"
+      vpc_subnet_id: "{{ subnets[ec2_hw_final.subnet_name] }}"
+      assign_public_ip: "{{ ec2_hw_final.assign_public_ip }}"
+      volumes:
+        - device_name: /dev/sda1
+          volume_size: "{{ ec2_hw_final.volume_size }}"
+      instance_tags: "{{ ec2_instance_tags }}"
+      exact_count: "{{ instance_type.value.num_nodes }}"
+      count_tag:
+        ClusterNodeType: "{{ ec2_instance_tags.ClusterNodeType }}"
+        ClusterName: "{{ ec2_instance_tags.ClusterName }}"
+
+- name: "Print params for {{ instance_type.value.nodes_type }}"
+  debug:
+    msg: "{{ ec2_config }}"
+
+- name: "Launch {{ instance_type.value.num_nodes }} instances for {{ ec2_instance_tags.ClusterNodeType }}"
+  ec2:
+    key_name: "{{ ec2_hw_final.key_name }}"
+    group: "{{ ec2_hw_final.security_group }}"
+    instance_type: "{{ ec2_hw_final.instance_type }}"
+    image: "{{ os_images[ec2_hw_final.image_name] }}"
+    wait: yes
+    region: "{{ ec2_hw_final.region }}"
+    vpc_subnet_id: "{{ subnets[ec2_hw_final.subnet_name] }}"
+    assign_public_ip: "{{ ec2_hw_final.assign_public_ip }}"
+    volumes:
+      - device_name: /dev/sda1
+        volume_size: "{{ ec2_hw_final.volume_size }}"
+    instance_tags: "{{ ec2_instance_tags }}"
+    exact_count: "{{ instance_type.value.num_nodes }}"
+    count_tag:
+      ClusterNodeType: "{{ ec2_instance_tags.ClusterNodeType }}"
+      ClusterName: "{{ ec2_instance_tags.ClusterName }}"
+  register: ec2
+
+- name: Update Name tag with index
+  ec2_tag:
+    region: "{{ region }}"
+    resource: "{{ec2_instance.1.id}}"
+    state: present
+    tags:
+      Name: "{{ ec2_instance.1.tags.Name }}-{{ '%03d'|format(ec2_instance.0|int) }}.{{ cluster_name }}"
+  with_indexed_items: "{{ ec2.instances }}"
+  loop_control:
+    loop_var: ec2_instance
+  when: instance_type.value.num_nodes > 1
+
+- name: "Update Name tag with {{ cluster_name }} subdomain"
+  ec2_tag:
+    region: "{{ region }}"
+    resource: "{{ec2_cluster_instance.id}}"
+    state: present
+    tags:
+      Name: "{{ ec2_cluster_instance.tags.Name }}.{{ cluster_name }}"
+  with_items: "{{ ec2.instances }}"
+  loop_control:
+    loop_var: ec2_cluster_instance
+  when: instance_type.value.num_nodes == 1
+
+- name: Add new instance to host group
+  add_host:
+    hostname: "{{ item.private_ip }}"
+    groupname: launched
+  with_items: "{{ ec2.instances }}"
+  when: action == "create"

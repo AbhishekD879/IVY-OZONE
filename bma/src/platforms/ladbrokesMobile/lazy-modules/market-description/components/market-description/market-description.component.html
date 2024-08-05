@@ -1,0 +1,17 @@
+<div class="market-description row row-no-gutter" [ngClass]="{'icon-wrapper': !marketData?.isNew}" 
+*ngIf="showDescription() || showBIRDescription()">
+  <div class="badge-wrapper" *ngIf="marketData?.isNew">
+    <svg class="new-badge">
+      <use xlink:href="#icn-new"></use>
+    </svg>
+  </div>
+  <div class="description-icon" *ngIf="!marketData.isNew">
+    <svg class="description-info-icon">
+      <use xlink:href="#i-icn-1"></use>
+    </svg>
+  </div>
+  <div class="description" [ngClass]="{'has-no-icon': !marketData?.isNew}">
+    <span class="description-value" [textContent]="marketData.description"  *ngIf="showDescription()"></span>
+    <span class="description-value" [textContent]="marketData.birDescription" *ngIf="showBIRDescription()"></span>
+  </div>
+</div>

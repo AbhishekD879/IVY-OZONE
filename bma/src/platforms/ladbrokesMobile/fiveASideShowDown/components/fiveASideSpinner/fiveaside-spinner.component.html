@@ -1,0 +1,9 @@
+<div class="spinner-section" [style.margin-top.px]="marginTop || '0'">
+    <div class="fiveasie-spinner">
+        <div class="fiveaside-icon">
+        </div>
+    </div>
+    <p class="fiveaside-loading-text" *ngIf="isLeaderBoard">
+        <span [i18n]="'fs.leaderboard'"></span> <br><span [i18n]="'fs.loading'"></span>
+    </p>
+</div>

@@ -1,0 +1,68 @@
+<div class="sk-container" [ngClass]="{'sk-loading': state.loading}" >
+  <outlet-status [skeletonType]="'GENERIC_FULL'" [state]="state">
+    <request-error (reloadFn)="reloadComponent()"></request-error>
+  </outlet-status>
+  <div *ngIf="!state.loading && !state.error" class="tab-content promotion-container" data-crlat="tabContent"
+    [class.grouped]="groupedPromotions">
+    <!-- Display as list -->
+    <ng-container *ngIf="validPromotions">
+      <ng-container *ngTemplateOutlet="listTpl; context: { items: validPromotions }"></ng-container>
+      <div *ngIf="!validPromotions.length" class="item-inner text-center text-bold"
+        [i18n]="'promotions.noPromotionsFound'" data-crlat="noPromotion">
+      </div>
+    </ng-container>
+
+    <!-- Display as groups with lists -->
+    <ng-container *ngIf="groupedPromotions">
+      <ng-container *ngFor="let group of groupedPromotions.promotionsBySection; trackBy: trackGroupBy">
+        <div class="promotion-group" *ngIf="group.availablePromotions?.length">
+          <div class="promotion-group-header">
+            <span *ngIf="group.unassigned" [i18n]="'promotions.unassignedGroup'"></span>
+            <span *ngIf="!group.unassigned" [textContent]="group.name"></span>
+          </div>
+          <ng-container *ngTemplateOutlet="listTpl; context: { items: group.availablePromotions }"></ng-container>
+          <div *ngIf="!group.availablePromotions.length" class="item-inner text-center text-bold"
+               [i18n]="'promotions.noPromotionsFound'" data-crlat="noPromotion">
+          </div>
+        </div>
+      </ng-container>
+      <div *ngIf="!availableGroupedPromotions" class="item-inner text-center text-bold"
+        [i18n]="'promotions.noPromotionsFound'" data-crlat="noPromotion">
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- List template -->
+  <ng-template #listTpl let-items="items">
+    <section class="promotion-item" *ngFor="let promotion of items; trackBy: trackPromotionBy" data-crlat="promotion">
+    <img *ngIf="promotion.uriMedium && !promotion.showsitecoreBanner" [attr.src]="promotion.uriMedium" data-crlat="uriMedium"/>
+     <div *ngIf ="promotion.showsitecoreBanner">
+      <a class="lc-offer__link"
+      [href]="promotionsService.isEmptyPromotionValue(promotion.sitecoreBanner.bannerLink,'','href')"
+      [target]="promotionsService.isEmptyPromotionValue(promotion.sitecoreBanner.bannerLink,'','target')">
+    <img *ngIf="promotion.sitecoreBanner.backgroundImage" class="bg-image lc-offer__image" [attr.src]="promotion.sitecoreBanner.backgroundImage.src"
+    [alt]="promotion.sitecoreBanner.backgroundImage.alt"/>
+      <div class="offer-text">
+          <img *ngIf="promotion.sitecoreBanner.foregroundImage" [attr.src]="promotion.sitecoreBanner.foregroundImage.src" [alt]="promotion.sitecoreBanner.foregroundImage.alt"/>
+          <div *ngIf="promotion.sitecoreBanner.introductoryText" class="offer-introductorytext" [textContent] = "promotion.sitecoreBanner.introductoryText"></div>
+          <div *ngIf="promotion.sitecoreBanner.title" class="offer-title" [textContent] = "promotion.sitecoreBanner.title"></div>
+          <div *ngIf="promotion.sitecoreBanner.subTitle" class="offer-subtitle" [textContent] = "promotion.sitecoreBanner.subTitle"></div>
+      </div>
+      <a *ngIf="promotion.sitecoreBanner.keyTermsAndConditions"
+        class="lc-offer__terms"
+        [href]="promotionsService.isEmptyPromotionValue(promotion.sitecoreBanner.bannerLink,promotion.sitecoreBanner.termsAndConditionsLink,'href')"
+        [target]="promotionsService.isEmptyPromotionValue(promotion.sitecoreBanner.bannerLink,promotion.sitecoreBanner.termsAndConditionsLink,'target')">
+        <div class="lc-offer__text" [innerHTML]="promotion.sitecoreBanner.keyTermsAndConditions"></div>
+      </a>
+      </a>
+  </div>
+
+      <span [innerHTML]="promotion.title" class="promotion-title" data-crlat="promotion.title"></span>
+      <div class="promotion-content" data-crlat="promotion.content">
+        <p class="clamp-lines" [innerHTML]="promotion.shortDescription" data-crlat="shortDescription"></p>
+      <!-- RSS -->  <a class="flat-btn btn-coral" [routerLink]="setTargetUriforRss(promotion)" [i18n]="'promotions.footerMore'" (click)="sendGTM(promotion, $event)"
+            data-crlat="moreInfo"></a>
+      </div>
+    </section>
+  </ng-template>
+</div>

@@ -1,0 +1,26 @@
+<mat-form-field class="chip-list full-width">
+  <mat-chip-list #chipList
+                 [disabled]="disabled"
+                 [selectable]="false">
+    <mat-chip *ngFor="let value of values; let valueIndex = index;"
+              [removable]="true"
+              [selectable]="false"
+              (removed)="removeItem(valueIndex)">
+      {{value}}
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+    <input #valuesInput
+           placeholder="Enter values"
+           [matAutocomplete]="autocomplete"
+           [matChipInputFor]="chipList"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           (matChipInputTokenEnd)="addItem($event.value)">
+  </mat-chip-list>
+  <mat-autocomplete #autocomplete="matAutocomplete"
+                    [class]="templateName"
+                    [panelWidth]="'0px'"
+                    (optionSelected)="addItem($event.option.viewValue)">
+    <mat-option *ngFor="let option of optionsList" [value]="option">{{option}}</mat-option>
+  </mat-autocomplete>
+  <mat-hint class="col-red" *ngIf="errorMessage">{{errorMessage}}</mat-hint>
+</mat-form-field>

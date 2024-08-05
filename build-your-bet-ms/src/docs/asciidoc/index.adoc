@@ -1,0 +1,175 @@
+= Build Your Bet Facade Documentation
+Volodymyr Masliy;
+:doctype: book
+:page-layout: docs
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+
+Build Your Bet facade integrates Banach and DigitalSports Apis.
+
+
+== Leagues
+.Examples:
+include::{snippets}/leagues/curl-request.adoc[]
+.Response body:
+include::{snippets}/leagues/response-body.adoc[]
+
+== Leagues-Upcoming
+Returns leagues grouped by today or/and future events presence.
+"today" will contain leagues that have events starting until user's midnight
+"upcoming" will contain leagues that have events starting after user's midnight
+and ending after number of "days - 1" after that.
+
+.Examples:
+include::{snippets}/leagues-upcoming/curl-request.adoc[]
+Request above will return leagues that have events today and the for next day
+
+.Request parameters:
+include::{snippets}/leagues-upcoming/request-parameters.adoc[]
+
+.Response body:
+include::{snippets}/leagues-upcoming/response-body.adoc[]
+
+.Response Fields:
+include::{snippets}/leagues-upcoming/response-fields.adoc[]
+
+== Events
+.Examples:
+Get events for all leagues:
+include::{snippets}/events/curl-request.adoc[]
+Get events for particular leagues:
+include::{snippets}/eventsByLeague/curl-request.adoc[]
+
+.Request parameters:
+include::{snippets}/eventsByLeague/request-parameters.adoc[]
+
+.Response body:
+include::{snippets}/events/response-body.adoc[]
+
+.Response Fields:
+include::{snippets}/events/response-fields.adoc[]
+
+== Single Event
+.Examples:
+Get event by id (OpenBet event id):
+include::{snippets}/event/curl-request.adoc[]
+
+.Request parameters
+include::{snippets}/event/path-parameters.adoc[]
+
+.Response body:
+include::{snippets}/event/response-body.adoc[]
+
+.Response Fields:
+include::{snippets}/event/response-fields.adoc[]
+
+== Markets
+.Examples:
+include::{snippets}/markets/curl-request.adoc[]
+
+.Request parameters:
+include::{snippets}/markets/request-parameters.adoc[]
+
+.Response body:
+include::{snippets}/markets/response-body.adoc[]
+
+.Response Fields:
+include::{snippets}/markets/response-fields.adoc[]
+
+== Markets Grouped
+.Examples:
+include::{snippets}/marketsGrouped/curl-request.adoc[]
+
+.Request parameters:
+include::{snippets}/marketsGrouped/request-parameters.adoc[]
+
+.Response body:
+include::{snippets}/marketsGrouped/response-body.adoc[]
+
+.Response Fields:
+include::{snippets}/marketsGrouped/response-fields.adoc[]
+
+== Markets Grouped (v2)
+Grouped by *groupName*, uses /markets internally.
+Markets with empty *groupName* will be grouped under "NO_GROUP"
+
+.Examples:
+include::{snippets}/marketsGroupedV2/curl-request.adoc[]
+
+.Request parameters:
+include::{snippets}/marketsGroupedV2/request-parameters.adoc[]
+
+.Response body:
+include::{snippets}/marketsGroupedV2/response-body.adoc[]
+
+.Response Fields:
+include::{snippets}/marketsGroupedV2/response-fields.adoc[]
+
+== Price
+.Examples:
+include::{snippets}/price/curl-request.adoc[]
+
+.Request body:
+include::{snippets}/price/request-body.adoc[]
+
+.Request fields:
+include::{snippets}/price/request-fields.adoc[]
+
+.Response body:
+include::{snippets}/price/response-body.adoc[]
+
+.Response fields:
+include::{snippets}/price/response-fields.adoc[]
+
+== Selections
+.Examples:
+include::{snippets}/selections/curl-request.adoc[]
+
+.Request parameters:
+include::{snippets}/selections/request-parameters.adoc[]
+
+.Response body:
+include::{snippets}/selections/response-body.adoc[]
+
+.Response fields:
+include::{snippets}/selections/response-fields.adoc[]
+
+== Players
+.Examples:
+include::{snippets}/players/curl-request.adoc[]
+
+.Request parameters:
+include::{snippets}/players/request-parameters.adoc[]
+
+.Response body:
+include::{snippets}/players/response-body.adoc[]
+
+.Response fields:
+include::{snippets}/players/response-fields.adoc[]
+
+== Player Statistic
+.Examples:
+include::{snippets}/playerStatistics/curl-request.adoc[]
+
+.Request parameters:
+include::{snippets}/playerStatistics/request-parameters.adoc[]
+
+.Response body:
+include::{snippets}/playerStatistics/response-body.adoc[]
+
+.Response fields:
+include::{snippets}/playerStatistics/response-fields.adoc[]
+
+== Statistic Value Range
+.Examples:
+include::{snippets}/statisticValueRange/curl-request.adoc[]
+
+.Request parameters:
+include::{snippets}/statisticValueRange/request-parameters.adoc[]
+
+.Response body:
+include::{snippets}/statisticValueRange/response-body.adoc[]
+
+.Response fields:
+include::{snippets}/statisticValueRange/response-fields.adoc[]

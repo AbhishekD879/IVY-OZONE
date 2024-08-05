@@ -1,0 +1,161 @@
+@import 'global.variables.scss';
+
+:host {
+  font-size: 12px;
+}
+
+.r-p-verdict__info {
+  padding: 12px 15px;
+  margin: 0;
+  font-family: $base-font-family;
+  font-size: 12px;
+  color: $color-gray-darkest;
+  font-weight: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+}
+
+.header-section {
+  display: inline-block;
+  width: 100%;
+  height: 40px;
+  font-family: $base-font-family;
+  background: $color-gray-alabaster;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 13px 12px 13px 12px;
+  margin: 0;
+  font-size: $font-size;
+  color: $color-blue-dark-var;
+  border: none !important;
+}
+
+section {
+  & > div {
+    display: flex;
+    @include flex();
+    @include justify-content(space-between);
+    @include align-items(center);
+    padding: 0px 12px 0px 12px;
+    height: 39px;
+  }
+}
+
+.r-p-verdict__tips-section {
+  color: $color-gray-dark;
+  padding-bottom: 10px;
+  div {
+    border-bottom: 1px solid #9E9E9E;
+    @include justify-content(start);
+    @include align-items(center);
+    height: auto;
+  }
+  div:first-of-type {
+    margin-top: 0px;
+  }
+  div:last-of-type {
+    margin-bottom: 10px;
+    border: none !important;
+  }
+  .tip_name {
+    display: inline-block;
+    width: 35%;
+    padding: 10px 0px;
+    color: $color-gray-racing-post;
+    font-size: $font-size;
+    font-family: $base-font-family;
+    @include flex();
+    flex: 2;
+    @include align-items(center);
+    &:first-of-type{
+      flex: 1;
+    }
+  }
+  .tip_value {
+    display: inline-block;
+    width: 45%;
+    font-weight: bold;
+    color: $color-black;
+    font-family: $lato-font-family;
+    padding: 10px 0px;
+  }
+  .item-odd-button {
+    width: 20%;
+    padding-right: 5px;
+    padding-bottom: 12px;
+    padding-top: 12px;
+  }
+  .header-section{
+    font-family: Lato,Arial,Helvetica Neue,Helvetica,sans-serif;
+    font-size: $font-size;
+  }
+}
+
+.r-p-verdict__rating-section {
+  color: $color-gray-darkest;
+  div {
+    height: 40px;
+  }
+  div:first-of-type {
+    margin-top: 0px;
+  }
+  div:last-of-type {
+    margin-bottom: 10px;
+    border: none !important;
+  }
+  .item-name{
+    line-height: 26px;
+    font-size: $font-size;
+    font-family: $base-font-family;
+    color: $color-black;
+  }
+  .header-section{
+    font-family: Lato,Arial,Helvetica Neue,Helvetica,sans-serif;
+  }
+}
+
+
+.r-p-verdict__most-tipped {
+  color: $color-gray-darkest;
+ 
+  div:last-of-type {
+    margin-bottom: 10px;
+    border-bottom: none;
+  }
+  div {
+    border-bottom: 1px solid $lGrayLight;
+    height: 60px;
+  span {
+    line-height: 26px;
+    font-family: $alt-font-family;
+  }
+  .horse_name {
+    width: 35%;
+    color: $color-black;
+  }
+  .number_of_tips {
+    font-weight: bold;
+    width: 20%;
+    font-family: $base-font-family;
+    letter-spacing: -0.34px;
+    text-align: right;
+    font-size: $font-size-lg;
+    color: $color-black;
+  }
+  .tipster_names {
+    width: 40%;
+    line-height: 14px;
+    @include align-items(center);
+    font-family: $lato-font-family;
+    color: $color-black;
+  }
+ }
+}
+
+img {
+  display: block;
+  width: calc(100% - 30px);
+  margin: 0 auto 15px;
+  border: 1px solid $lGrayLight;
+}

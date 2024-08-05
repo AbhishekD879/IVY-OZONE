@@ -1,0 +1,73 @@
+@import 'global.variables.scss';
+
+#next-races{
+    display: inline;
+    font-size: 13px;
+    font-family: 'Helvetica';
+    font-weight: normal;
+    color: $lGray !important;
+}
+#normal {
+    font-size: 14px;
+    font-family: 'Helvetica';
+    font-weight: normal;
+    color: $lGray !important;
+}
+.goingCode {
+    margin: 0 0 0 5px;
+}
+#race-going {
+    display: inline;
+    margin: 0 0 0 5px;
+}
+a{
+    text-decoration: none !important;
+    svg{
+        width: 7px;
+        height: 12px;
+    }
+}
+.next-races-panel {
+    .row-panel {
+        .odds-card {
+            padding: 0px 10px;
+        }
+    }
+}
+.nextRaceDetails {
+    font-size: 14px !important;
+    color: $lGray !important;
+}
+.odds-names {
+    .odds-names-list {
+        font-family: Helvetica;
+        font-size: 14px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: -0.01px;
+        color: $lGray;
+    }
+}
+.nextraces {
+    font-size: 13px;
+    color: #252835;
+}
+header{
+    background-color: $lGrayLight;
+    width: auto;
+    height: 36px;
+    box-shadow: 0 -1px 0 0 #dddde4, 0 1px 0 0 #dddde4;
+    color: $color-black;
+    align-items: center;
+    padding: 0px 0px 0px 12px !important;
+    margin: 10px 0px 0px 0;
+}
+
+@media screen and (min-width: $desktopPoint) {
+    .next-races-panel {
+        // width: 293px;
+        margin: 0px 0px 0px;
+    }
+}

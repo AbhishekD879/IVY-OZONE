@@ -1,0 +1,23 @@
+<modal #fanzoneOptinEmailDialog>
+  <ng-template #modalHeader>
+    <div class="optinEmail-Popup-title" [textContent]="fanzoneOptinCmsData.fanzoneEmailPopupTitle"></div>
+  </ng-template>
+  <ng-template #modalBody>
+    <div class="body">
+      <div class="optinEmail-Popup-text" [textContent]="fanzoneOptinCmsData.fanzoneEmailPopupDescription"></div>
+      <div class="optin-email-buttons">
+        <button class="remind-later" [textContent]="fanzoneOptinCmsData.fanzoneEmailPopupRemindMeLater"
+        (click)="checkDialogButtonClick('rml')"></button>
+        <button class="optin-email-button" (click)="checkDialogButtonClick('optin')"
+          [textContent]="fanzoneOptinCmsData.fanzoneEmailPopupOptIn"></button>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #modalFooter>
+    <div class="line-break"></div>
+    <div class="dont-show-me-button">
+      <button class="dont-show-me" [textContent]="fanzoneOptinCmsData.fanzoneEmailPopupDontShowThisAgain"
+      (click)="checkDialogButtonClick('dsme')"></button>
+    </div>
+  </ng-template>
+</modal>

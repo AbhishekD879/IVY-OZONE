@@ -1,0 +1,57 @@
+<div class="sb-qb-selection-container">
+  <div class="qb-on-overlay" [ngClass]="{'hide-keyboard': (!showKeyboard || selection.disabled)}">
+    <sb-digit-keyboard
+      [componentId]="'quickbet-panel'"
+      [currency]="selection.currency"
+      [hideKeyboardFlag]="false"><!--remove later-->
+    </sb-digit-keyboard>
+  </div>
+
+  <sb-bet-summary [selection]="selection" 
+                  [jump]="'jump'" 
+                  [maxPayOutValue]="selection.maxPayout"
+                  [freebetsList]="freebetsList"
+                  [selectedFreeBet]="selectedFreeBet"
+                  [freebetsConfig]="freebetsConfig"
+                  [isBoostEnabled]="isBoostEnabled"
+                  [isSelectionBoosted]="selection.isBoostActive"
+                  [canBoostSelection]="canBoostSelection"
+                  [betPackList]="betPackList"
+                  (fbChange)="onFreebetChange($event)"
+                  (stakeClick)="onStakeElemClick()"
+                  (showMaxPayOutMessage)="addItem($event)" 
+                  [eventName]="eventName"
+                  [categoryName]="categoryName"></sb-bet-summary>
+
+  <div class="sb-quickbet-controls" [ngClass]="{'qb-controls-with-freebet': showFreeBet()}">
+    <button *ngIf="isStreamAndBet"
+            class="qb-del-cta-btn"
+            (click)="closeFnHandler()"
+            [disabled]="isLogAndQuickBetPending">
+            <svg class="sb-qb-close">
+              <use xlink:href="#close-icon"></use>
+            </svg>
+    </button>
+    <button *ngIf="!isMakeQuickDeposit()"
+            class="qb-right-cta-btn"
+            [ngClass]="{'qb-with-freebet': showFreeBet()}"
+            [disabled]="disablePlaceBet || isLogAndQuickBetPending || serviceClosureService.userServiceClosureOrPlayBreak || isMakeQuickDeposit()"
+            (click)="placeBetFnHandler()"
+            data-crlat="placeBetButton">
+      <spinner *ngIf="showPendingSpinner()"></spinner>
+      <span *ngIf="!showPendingSpinner() && isUserLoggedIn"
+            [i18n]="getPlaceBetText"></span>
+            <span *ngIf="showPendingSpinner() && isUserLoggedIn && !selection.isStarted" [i18n]="getPlaceBetText"></span>
+            <span *ngIf="showPendingSpinner() && isUserLoggedIn && selection.isStarted && countDownTimer">{{ countDownTimer.value }}</span>
+    </button>
+    <button *ngIf="isMakeQuickDeposit()"
+            class="qb-right-cta-btn qb-quick-deposit-button"
+            [ngClass]="{'qb-with-freebet': showFreeBet()}"
+            disabled
+            (click)="openQuickDepositFnHandler()"
+            data-crlat="quickDepositButton">
+      <spinner *ngIf="showSpinnerOnQuickDeposit()" data-crlat="spinner.loader"></spinner>
+      <span [i18n]="'quickbet.buttons.makeQuickDeposit'"></span>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="container">
+    <accordion [accordionTitle]="market.name"
+               [isChevronToLeft]="true"
+               [headerClass]="'forced-chevron-up-and-styles'"
+               [card]="true"
+               [isExpanded]="i <= openMarketTabs"
+               *ngFor="let market of eventEntity.markets; trackBy: trackByIndex; let i = index">
+      <right-side>
+        <cashout-label *ngIf="market.cashoutAvail === 'Y'"></cashout-label>
+      </right-side>
+      <!-- Each Way terms -->
+      <accordion-body>
+          <div class="terms-before-market" *ngIf="market.isEachWayAvailable && showTerms && market.isEachWayAvailable" data-crlat="terms">
+            <lazy-component *ngIf="market?.templateMarketName === 'Outright'"
+            moduleUri="@lazy-modules-module/extraPlaceSignposting/extra-place-signposting.module#ExtraPlaceSignpostingModule"
+            [inputs]="{marketData: market,origin:'edp'}" 
+            entryComponent="ExtraPlaceSignpostingComponent">
+          </lazy-component>
+            <div class="term-value" [textContent]="market.terms" data-crlat="eachWayContainer"></div>
+          </div>
+          <div *ngIf="!isFeaturedMarkets">
+          <div class="odds-card" data-crlat="oddsCard" *ngFor="let outcomeEntity of market.outcomes | slice:0:market.isAllShown? market.outcomes.length : 6;  trackBy: trackByIndex">
+            <div class="odds-content" data-crlat="oddsContent">
+              <div class="odds-left" data-crlat="oddsLeft">
+                <div class="odds-names odds-names-wrap" data-crlat="oddsNames" [textContent]="outcomeEntity.name"></div>
+              </div>
+              <div class="odds-right" data-crlat="oddsRight">
+                <price-odds-button [event]="eventEntity"
+                                   [market]="market"
+                                   [outcome]="outcomeEntity">
+                </price-odds-button>
+              </div>
+            </div>
+          </div>
+        <show-all-button *ngIf="market.outcomes.length > 6" (click)="market.isAllShown=!market.isAllShown" [allShown]="market.isAllShown">
+        </show-all-button>
+        </div>
+        <div *ngIf="isFeaturedMarkets">
+          <div class="odds-card" data-crlat="oddsCard" *ngFor="let outcomeEntity of market.outcomes;  trackBy: trackByIndex">
+            <div class="odds-content" data-crlat="oddsContent">
+              <div class="odds-left" data-crlat="oddsLeft">
+                <div class="odds-names odds-names-wrap" data-crlat="oddsNames" [textContent]="outcomeEntity.name"></div>
+              </div>
+              <div class="odds-right" data-crlat="oddsRight">
+                <price-odds-button [event]="eventEntity" [market]="market" [outcome]="outcomeEntity">
+                </price-odds-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </accordion-body>
+    </accordion>
+  </div>

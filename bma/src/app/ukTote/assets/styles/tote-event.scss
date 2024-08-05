@@ -1,0 +1,98 @@
+@import 'global.variables.scss';
+
+.uk-tote-event {
+  .pool-header {
+    height: 35px;
+    width: 100%;
+    padding: 12px 10px;
+    background-color: $color-gray-light;
+    font-size: 10px;
+    color: $color-gray-dark;
+    @include display-flex();
+    @include justify-content(space-between);
+    .pool-size-value {
+      font-weight: bold;
+    }
+    .what-is {
+      text-decoration: underline;
+    }
+    .pool-size-label {
+      margin-right: 3px;
+    }
+    .gp-cls {
+      font-size: 10px;
+      color: $lGray;
+      font-family: $alt-font-family;
+      width: 30px;
+      margin-right: 47px;
+      text-align: center;
+      height: 27px;
+    }
+  
+  }
+
+  .leg-switchers-wrapper {
+    border-top: 1px solid $color-gray;
+  }
+
+  .pool-headers {
+    height: 35px;
+    background-color: $color-gray-light;
+    margin-bottom: 0;
+    font-family: $base-font-family;
+    @include display-flex();
+    @include justify-content(flex-end);
+    @include align-items();
+    border-top: 1px solid $color-gray;
+    border-bottom: 1px solid $color-gray;
+
+    .pool-sub-header {
+      display: inline-block;
+      width: 100%;
+      padding-left: 10px;
+      font-size: $font-size-sm;
+      text-align: left;
+      font-weight: bold;
+      color: $color-gray-dark;
+    }
+
+    li {
+      width: 42px;
+      list-style: none;
+      display: inline-block;
+      font-size: $font-size-sm;
+      text-transform: uppercase;
+      color: $color-gray-dark;
+      text-align: center;
+      @media screen and (min-width: 450px) {
+        width: 60px;
+      }
+    }
+    .gp-cls {
+      color: $lGray;
+      font-family: $alt-font-family;
+      text-transform: capitalize;
+      font-size: 10px;
+      width: 45px;
+      height: 23px;
+      margin-right: 1px;
+      text-align: center;
+    }
+    .gp-cls.pool-size-gp {
+      margin-right: 0px;
+    }
+    .pool-leg-gp {
+      margin-right: 66px;
+    }
+    .gp-is-mobile {
+      margin-right: 46px;
+    }
+  }
+  .page-inner-container {
+    .toggle-icon {
+      > span {
+        display: none;
+      }
+    }
+  }
+}

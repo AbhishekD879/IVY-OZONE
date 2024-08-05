@@ -1,0 +1,253 @@
+# InPlay
+###
+# Step-1
+GET https://ss-tst2.coral.co.uk/openbet-ssviewer/Drilldown/2.26/Class?
+        simpleFilter=class.categoryId:intersects:46,48,154,110,50,51,52,97,53,54,10,99,55,12,13,59,16,18,19,1,2,3,5,6,7,8,9,61,20,65,21,22,23,24,25,26,28,29,72,30,31,32,34,79,35,36,37,38,103,147,104,149,105,80,108,82,42,87&simpleFilter=class.siteChannels:contains:M&
+        simpleFilter=class.hasLiveNowEvent&
+        existsFilter=class:simpleFilter:event.siteChannels:contains:M&
+        existsFilter=class:simpleFilter:event.drilldownTagNames:intersects:EVFLAG_BL&
+        existsFilter=class:simpleFilter:event.isLiveNowEvent&
+        translationLang=en
+Accept: application/json
+Content-Type: application/json
+
+# Response: [{97, "Football England"}, {106, "Football Greece"}, {223, "Horse Racing - Live"}, {266, "Tennis"}, {16291, "Football Auto Test"}]
+
+
+###
+# Step-2
+GET https://ss-tst2.coral.co.uk/openbet-ssviewer/Drilldown/2.26/EventToOutcomeForClass/223?
+        simpleFilter=event.siteChannels:contains:M&
+        simpleFilter=market.siteChannels:contains:M&
+        simpleFilter=outcome.siteChannels:contains:M&
+        simpleFilter=event.drilldownTagNames:intersects:EVFLAG_BL&
+        simpleFilter=market.isMarketBetInRun&
+        simpleFilter=event.isStarted&
+        simpleFilter=event.isLiveNowEvent&
+        simpleFilter=event.suspendAtTime:greaterThan:2018-01-02T17:38:18.229&
+        limitTo=market.displayOrder:isLowest&
+        existsFilter=market:simpleFilter:outcome.outcomeMeaningMajorCode:in:HH,MR&
+        existsFilter=event:simpleFilter:market.isMarketBetInRun&
+        existsFilter=event:simpleFilter:market.isResulted:isFalse&
+        existsFilter=event:simpleFilter:market.isDisplayed&
+        translationLang=en
+Accept: application/json
+Content-Type: application/json
+
+###
+# Step-3
+GET https://ss-tst2.coral.co.uk/openbet-ssviewer/Drilldown/2.26/EventToMarketForClass/223?
+        count=event:market&
+        simpleFilter=event.siteChannels:contains:M&
+        simpleFilter=market.siteChannels:contains:M&
+        simpleFilter=event.drilldownTagNames:intersects:EVFLAG_BL&
+        simpleFilter=market.isMarketBetInRun&
+        simpleFilter=event.isStarted&
+        simpleFilter=event.isLiveNowEvent&
+        translationLang=en
+Accept: application/json
+Content-Type: application/json
+
+###
+# Step-4
+GET https://ss-tst2.coral.co.uk/openbet-ssviewer/Drilldown/2.26/EventToOutcomeForClass/97,106,16291?
+        simpleFilter=event.siteChannels:contains:M&
+        simpleFilter=market.siteChannels:contains:M&
+        simpleFilter=outcome.siteChannels:contains:M&
+        simpleFilter=event.drilldownTagNames:intersects:EVFLAG_BL&
+        simpleFilter=market.isMarketBetInRun&
+        simpleFilter=event.isStarted&
+        simpleFilter=event.isLiveNowEvent&
+        simpleFilter=event.suspendAtTime:greaterThan:2018-01-02T23:38:18.445&
+        simpleFilter=market.templateMarketName:in:|Match%20Betting|,|Both Teams to Score|,|Over/Under%20Total%20Goals|,|Draw%20No%20Bet|,|To%20Win%20Not%20to%20Nil|,|First-Half%20Result|,|Next%20Team%20to%20Score|,|To%20Qualify|,|Extra-Time%20Result|&
+        existsFilter=event:simpleFilter:market.isMarketBetInRun&
+        existsFilter=event:simpleFilter:market.isResulted:isFalse&
+        existsFilter=event:simpleFilter:market.isDisplayed&
+        prune=event&
+        translationLang=en
+Accept: application/json
+Content-Type: application/json
+
+###
+
+GET https://ss-tst2.coral.co.uk/openbet-ssviewer/Drilldown/2.26/EventToOutcomeForClass/97,106,16291?
+        simpleFilter=event.siteChannels:contains:M&
+        simpleFilter=market.siteChannels:contains:M&
+        simpleFilter=outcome.siteChannels:contains:M&
+        simpleFilter=event.drilldownTagNames:intersects:EVFLAG_BL&
+        simpleFilter=market.isMarketBetInRun&simpleFilter=event.isStarted&
+        simpleFilter=event.isLiveNowEvent&
+        simpleFilter=event.suspendAtTime:greaterThan:2018-01-02T20:26:09.147&
+        simpleFilter=market.templateMarketName:in:|Match Betting|,|Both Teams to Score|,|Over/Under Total Goals|,|Draw No Bet|,|Match Result and Both Teams To Score|,|First-Half Result|,|Next Team to Score|,|To Qualify|,|Extra-Time Result|&
+        existsFilter=event:simpleFilter:market.isMarketBetInRun&
+        existsFilter=event:simpleFilter:market.isResulted:isFalse&
+        existsFilter=event:simpleFilter:market.isDisplayed&
+        prune=event&
+        translationLang=en
+
+
+###
+# Step-5
+GET https://ss-tst2.coral.co.uk/openbet-ssviewer/Drilldown/2.26/EventToMarketForClass/97,106,16291?
+        count=event:market&
+        simpleFilter=event.siteChannels:contains:M&
+        simpleFilter=market.siteChannels:contains:M&
+        simpleFilter=event.drilldownTagNames:intersects:EVFLAG_BL&
+        simpleFilter=market.isMarketBetInRun&
+        simpleFilter=event.isStarted&
+        simpleFilter=event.isLiveNowEvent&
+        translationLang=en
+Accept: application/json
+Content-Type: application/json
+
+###
+# Step-6
+GET https://ss-tst2.coral.co.uk/openbet-ssviewer/Drilldown/2.26/EventToOutcomeForClass/266?
+        simpleFilter=event.siteChannels:contains:M&
+        simpleFilter=market.siteChannels:contains:M&
+        simpleFilter=outcome.siteChannels:contains:M&
+        simpleFilter=event.drilldownTagNames:intersects:EVFLAG_BL&
+        simpleFilter=market.isMarketBetInRun&
+        simpleFilter=event.isStarted&
+        simpleFilter=event.isLiveNowEvent&
+        simpleFilter=event.suspendAtTime:greaterThan:2018-01-02T17:38:18.673&
+        limitTo=market.displayOrder:isLowest&
+        existsFilter=market:simpleFilter:outcome.outcomeMeaningMajorCode:in:HH,MR&
+        existsFilter=event:simpleFilter:market.isMarketBetInRun&
+        existsFilter=event:simpleFilter:market.isResulted:isFalse&
+        existsFilter=event:simpleFilter:market.isDisplayed&
+        translationLang=en
+Accept: application/json
+Content-Type: application/json
+
+###
+# Step-7
+GET https://ss-tst2.coral.co.uk/openbet-ssviewer/Drilldown/2.26/EventToMarketForClass/266?
+        count=event:market&
+        simpleFilter=event.siteChannels:contains:M&
+        simpleFilter=market.siteChannels:contains:M&
+        simpleFilter=event.drilldownTagNames:intersects:EVFLAG_BL&
+        simpleFilter=market.isMarketBetInRun&
+        simpleFilter=event.isStarted&
+        simpleFilter=event.isLiveNowEvent&
+        translationLang=en
+Accept: application/json
+Content-Type: application/json
+
+# Upcoming
+
+###
+# Step-8
+GET https://ss-tst2.coral.co.uk/openbet-ssviewer/Drilldown/2.26/Class?
+        simpleFilter=class.categoryId:intersects:46,48,154,110,50,51,52,97,53,54,10,99,55,12,13,59,16,18,19,1,2,3,5,6,7,8,9,61,20,65,21,22,23,24,25,26,28,29,72,30,31,32,34,79,35,36,37,38,103,147,104,149,105,80,108,82,42,87&
+        simpleFilter=class.siteChannels:contains:M&
+        simpleFilter=class.hasNext24HourEvent&
+        existsFilter=class:simpleFilter:event.siteChannels:contains:M&
+        existsFilter=class:simpleFilter:event.drilldownTagNames:intersects:EVFLAG_BL&
+        existsFilter=class:simpleFilter:event.isNext24HourEvent&
+        translationLang=en
+Accept: application/json
+Content-Type: application/json
+
+###
+# Step-9
+GET https://ss-tst2.coral.co.uk/openbet-ssviewer/Drilldown/2.26/EventToOutcomeForClass/223?
+        simpleFilter=event.siteChannels:contains:M&
+        simpleFilter=market.siteChannels:contains:M&
+        simpleFilter=outcome.siteChannels:contains:M&
+        simpleFilter=event.drilldownTagNames:intersects:EVFLAG_BL&
+        simpleFilter=market.isMarketBetInRun&
+        simpleFilter=event.isStarted:isFalse&
+        simpleFilter=event.isNext24HourEvent&
+        simpleFilter=event.suspendAtTime:greaterThan:2018-01-02T17:38:19.016&
+        limitTo=market.displayOrder:isLowest&
+        existsFilter=market:simpleFilter:outcome.outcomeMeaningMajorCode:in:HH,MR&
+        existsFilter=event:simpleFilter:market.isMarketBetInRun&
+        existsFilter=event:simpleFilter:market.isResulted:isFalse&
+        existsFilter=event:simpleFilter:market.isDisplayed&
+        translationLang=en
+Accept: application/json
+Content-Type: application/json
+
+###
+# Step-10
+GET https://ss-tst2.coral.co.uk/openbet-ssviewer/Drilldown/2.26/EventToMarketForClass/223?
+        count=event:market&
+        simpleFilter=event.siteChannels:contains:M&
+        simpleFilter=market.siteChannels:contains:M&
+        simpleFilter=event.drilldownTagNames:intersects:EVFLAG_BL&
+        simpleFilter=event.isStarted:isFalse&
+        simpleFilter=event.isNext24HourEvent&
+        translationLang=en
+Accept: application/json
+Content-Type: application/json
+
+###
+# Step-11
+GET https://ss-tst2.coral.co.uk/openbet-ssviewer/Drilldown/2.26/EventToOutcomeForClass/266?
+        simpleFilter=event.siteChannels:contains:M&
+        simpleFilter=market.siteChannels:contains:M&
+        simpleFilter=outcome.siteChannels:contains:M&
+        simpleFilter=event.drilldownTagNames:intersects:EVFLAG_BL&
+        simpleFilter=market.isMarketBetInRun&
+        simpleFilter=event.isStarted:isFalse&
+        simpleFilter=event.isNext24HourEvent&
+        simpleFilter=event.suspendAtTime:greaterThan:2018-01-02T17:38:19.240&
+        limitTo=market.displayOrder:isLowest&
+        existsFilter=market:simpleFilter:outcome.outcomeMeaningMajorCode:in:HH,MR&
+        existsFilter=event:simpleFilter:market.isMarketBetInRun&
+        existsFilter=event:simpleFilter:market.isResulted:isFalse&
+        existsFilter=event:simpleFilter:market.isDisplayed&
+        translationLang=en
+Accept: application/json
+Content-Type: application/json
+
+###
+# Step-12
+GET https://ss-tst2.coral.co.uk/openbet-ssviewer/Drilldown/2.26/EventToMarketForClass/266?
+        count=event:market&
+        simpleFilter=event.siteChannels:contains:M&
+        simpleFilter=market.siteChannels:contains:M&
+        simpleFilter=event.drilldownTagNames:intersects:EVFLAG_BL&
+        simpleFilter=event.isStarted:isFalse&
+        simpleFilter=event.isNext24HourEvent&
+        translationLang=en
+Accept: application/json
+Content-Type: application/json
+
+###
+GET https://ss-tst2.coral.co.uk/openbet-ssviewer/Drilldown/2.26/EventToOutcomeForClass/97,106,16291?
+        simpleFilter=event.siteChannels:contains:M&
+        simpleFilter=market.siteChannels:contains:M&
+        simpleFilter=outcome.siteChannels:contains:M&
+        simpleFilter=event.drilldownTagNames:intersects:EVFLAG_BL&
+        simpleFilter=market.isMarketBetInRun&
+        simpleFilter=event.isStarted&
+        simpleFilter=event.isLiveNowEvent&
+        simpleFilter=event.suspendAtTime:greaterThan:2018-01-02T17:25:29.580&
+        simpleFilter=market.templateMarketName:in:%7CMatch%2520Betting%7C,%7CBoth%2520Teams%2520to%2520Score%7C,%7COver/Under%2520Total%2520Goals%7C,%7CDraw%2520No%2520Bet%7C,%7CTo%2520Win%2520Not%2520to%2520Nil%7C,%7CFirst-Half%2520Result%7C,%7CNext%2520Team%2520to%2520Score%7C,%7CTo%2520Qualify%7C,%7CExtra-Time%2520Result%7C&
+        existsFilter=event:simpleFilter:market.isMarketBetInRun&
+        existsFilter=event:simpleFilter:market.isResulted:isFalse&
+        existsFilter=event:simpleFilter:market.isDisplayed&
+        prune=event&
+        translationLang=en
+
+###
+
+/**
+GET https://ss-tst2.coral.co.uk/openbet-ssviewer/Drilldown/2.26/EventToOutcomeForClass/97,106,16291?
+        simpleFilter=event.siteChannels:contains:M&
+        simpleFilter=market.siteChannels:contains:M&
+        simpleFilter=outcome.siteChannels:contains:M&
+        simpleFilter=event.drilldownTagNames:intersects:EVFLAG_BL&
+        simpleFilter=market.isMarketBetInRun&
+        simpleFilter=event.isStarted&
+        simpleFilter=event.isLiveNowEvent&
+        simpleFilter=event.suspendAtTime:greaterThan:2018-01-02T17:38:18.444&
+        simpleFilter=market.templateMarketName:in:|Match%20Betting|,|Both%20Teams%20to%20Score|,|Over/Under%20Total%20Goals|,|Draw%20No%20Bet|,|To%20Win%20Not%20to%20Nil|,|First-Half%20Result|,|Next%20Team%20to%20Score|,|To%20Qualify|,|Extra-Time%20Result|&
+        existsFilter=event:simpleFilter:market.isMarketBetInRun&
+        existsFilter=event:simpleFilter:market.isResulted:isFalse&
+        existsFilter=event:simpleFilter:market.isDisplayed&
+        prune=event&
+        translationLang=en
+*/

@@ -1,0 +1,47 @@
+<section class="prize-pool-container" *ngIf="prizePoolData && (prizePoolData | keyvalue)?.length">
+  <p class="prize-pool-header" *ngIf="prizePoolData.cash">
+    <span [i18n]="'fs.header.start'"></span>
+    <span [textContent]="currencySymbol"></span>
+    <span [textContent]="prizePoolData.cash | number"></span>
+    <span [i18n]="'fs.header.end'"></span>
+  </p>
+  <ul *ngIf="prizePoolData.prizeMap">
+    <li class="prize-pool-record" *ngFor="let prizeMapRec of prizePoolData.prizeMap |  keyvalue: returnOne">
+      <div class="prize-position">
+        <span [textContent]="prizeMapRec.key.replace('_','') | callBack : addOrdinalSuffix : this"></span>
+      </div>
+      <div class="prize-value" *ngIf="prizeMapRec.value">
+        <section *ngFor="let prizeDetails of prizeMapRec.value; let index = index">
+          <span class="seperator" *ngIf="index > 0">&#43;</span>
+          <span class="prize-num" *ngIf="!prizeDetails.text && prizeDetails.value" [textContent]="currencySymbol+prizeDetails.value"></span>
+          <svg viewBox="0 0 36 15" class="signposting-logo" [ngClass]="{'mrl-0':  prizeDetails?.text }"
+           *ngIf="prizeDetails && prizeDetails.type.toLowerCase()=== TICKET && !(prizeDetails.signPosting &&
+            (prizeDetails.signPosting | keyvalue)?.length &&
+            prizeDetails.signPosting.filename)">
+            <use xlink:href="#ticket"></use>
+          </svg>
+          <svg viewBox="0 0 18 15" class="signposting-logo" [ngClass]="{'mrl-0':  prizeDetails?.text }"
+           *ngIf="prizeDetails && prizeDetails.type.toLowerCase()=== FREEBET && !(prizeDetails.signPosting &&
+            (prizeDetails.signPosting | keyvalue)?.length &&
+            prizeDetails.signPosting.filename)">
+            <use xlink:href="#freebet"></use>
+          </svg>
+          <img class="signposting-logo" [ngClass]="{'mrl-0':  prizeDetails?.text }" 
+          *ngIf="prizeDetails.signPosting &&
+                (prizeDetails.signPosting | keyvalue)?.length &&
+                prizeDetails.signPosting.filename
+              " [attr.src]="signPostingLogoUrl + prizeDetails.signPosting.filename" />
+          <span class="prize-type" *ngIf="
+                !prizeDetails.text && prizeDetails.value && 
+                prizeDetails.type.toLowerCase() && prizeTypeDesc[prizeDetails.type.toLowerCase()]
+              " [textContent]="prizeTypeDesc[prizeDetails.type.toLowerCase()]"></span>
+          <span class="prize-text" *ngIf="prizeDetails.text" [ngClass]="{'mrl-3': ( prizeDetails?.signPosting?.filename 
+          || (  prizeDetails?.type.toLowerCase()=== FREEBET && !prizeDetails?.signPosting?.filename )
+          || (  prizeDetails?.type.toLowerCase()=== TICKET && !prizeDetails?.signPosting?.filename )  ) }">
+            <strong [textContent]="prizeDetails.text"></strong>
+          </span>
+        </section>
+      </div>
+    </li>
+  </ul>
+</section>

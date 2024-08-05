@@ -1,0 +1,27 @@
+<div class="featured-eam-module" *ngIf="slides?.length">
+    <div class="ng-carousel"
+       [ngCarousel]
+       [ngCarouselName]="aem._id"
+       [ngCarouselWatch]="slides.length"
+       [ngCarouselFluid]="true"
+       [ngCarouselLoop]="false"
+       [ngCarouselMoveThresholdPercentage]="aem.timePerSlide"
+       (activeSlideIndex)="handleActiveSlide($event)">
+       <slidecontainer class="carousel-slides"
+                       [ngClass]="{ 'carousel-no-scroll': slides.length === 1 }">
+          <ng-container *ngFor="let slide of slides; trackBy: trackBySlide">
+              <slide class="slide">
+                <a class="aem-slide" [href]="slide.appUrl" (click)="handleClick($event, slide)">
+                  <img [attr.src]="slide.imgUrl" [alt]="slide.offerTitle">
+                </a>
+
+              </slide>
+          </ng-container>
+       </slidecontainer>
+    </div>
+    <a *ngIf="termsAndConditions.showTC"
+       class="terms"
+       [href]="termsAndConditions.href"
+       [innerHTML]="termsAndConditions.text">
+    </a>
+</div>

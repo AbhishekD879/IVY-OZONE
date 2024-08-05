@@ -1,0 +1,2 @@
+<span *ngIf="!eventQuickSwitch" [i18n]="message" data-crlat="noEventsFound"></span>
+<span *ngIf="eventQuickSwitch" class="no-events" [ngClass]="{'no-events-coral-desktop': isCoral}"><span [i18n]="'app.noEventsToShow'" class="no-events-message" data-crlat="noEventsFound"></span></span>

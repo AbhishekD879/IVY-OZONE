@@ -1,0 +1,155 @@
+<div class="error-message" *ngIf="freeRideErrorFlag">{{this.promotion.freeRideConfig.errorMessage}}</div>
+<div class="sk-container" [ngClass]="{'sk-loading': state.loading}" >
+  <loading-screen [displayed]="state.loading && !state.error" [templateType]="'GENERIC_FULL'"></loading-screen>
+  <ng-container *ngIf="!state.loading && !state.error">
+    <div class="promotion-container tab-content" data-crlat="tabContent">
+      <div *ngIf="validPromotion; else noPromoBlock" class="container">
+        <accordion [isExpanded]="isExpanded[0]"
+                   [render]="true"
+                   [pcTextBlock]="true"
+                   (function)="changeAccordionState(0, $event)"
+                   data-crlat="promotion.content">
+          <left-side>
+            <span class="left-title-text" [i18n]="validPromotion.title" data-crlat="headerTitle.leftMessage"></span>
+          </left-side>
+          <accordion-body>
+            <div class="text-center promotion-sitecorebanner">
+              <img *ngIf="validPromotion.uriMedium && !validPromotion.showsitecoreBanner" [attr.src]="validPromotion.uriMedium"
+                class="max-width" data-crlat="uriMedium">
+            <div *ngIf="validPromotion.showsitecoreBanner" class="max-width">
+              <a class="lc-offer__link"
+                [href]="promotionsService.isEmptyPromotionValue(validPromotion.sitecoreBanner.bannerLink,'','href')"
+                [target]="promotionsService.isEmptyPromotionValue(validPromotion.sitecoreBanner.bannerLink,'','target')">
+                <img *ngIf="validPromotion.sitecoreBanner.backgroundImage" class="bg-image lc-offer__image"
+                  [attr.src]="validPromotion.sitecoreBanner.backgroundImage.src"
+                  [alt]="validPromotion.sitecoreBanner.backgroundImage.alt" />
+
+                <div class="offer-text">
+                  <img *ngIf="validPromotion.sitecoreBanner.foregroundImage"
+                    [attr.src]="validPromotion.sitecoreBanner.foregroundImage.src"
+                    [alt]="validPromotion.sitecoreBanner.foregroundImage.alt" />
+                  <div *ngIf="validPromotion.sitecoreBanner.introductoryText" class="offer-introductorytext" [ngClass]="{'white-font': BRAND === 'ladbrokes'}"
+                  
+                    [textContent]="validPromotion.sitecoreBanner.introductoryText"></div>
+                  <div *ngIf="validPromotion.sitecoreBanner.title" class="offer-title"  [ngClass]="{'white-font': BRAND === 'ladbrokes'}"
+                    [textContent]="validPromotion.sitecoreBanner.title"></div>
+                  <div *ngIf="validPromotion.sitecoreBanner.subTitle" class="offer-subtitle"  [ngClass]="{'white-font': BRAND === 'ladbrokes'}"
+                    [textContent]="validPromotion.sitecoreBanner.subTitle"></div>
+                </div>
+                <a *ngIf="validPromotion.sitecoreBanner.keyTermsAndConditions" class="lc-offer__terms"
+                  [href]="promotionsService.isEmptyPromotionValue(validPromotion.sitecoreBanner.bannerLink,validPromotion.sitecoreBanner.termsAndConditionsLink,'href')"
+                  [target]="promotionsService.isEmptyPromotionValue(validPromotion.sitecoreBanner.bannerLink,validPromotion.sitecoreBanner.termsAndConditionsLink,'target')">
+                  <div class="lc-offer__text"
+                    [innerHTML]="validPromotion.sitecoreBanner.keyTermsAndConditions">
+                  </div>
+                </a>
+              </a>
+            </div>
+          </div>
+  
+          <div *ngIf="!!validPromotion.navigationGroupId && navGroupItem.length > 0" class="nav-groups" [attr.id]="'promo-nav-group'" data-crlat="promoDescription">
+            <div scrollable scrollonce class="nav-group-items scroll-container">
+              <ul class="scroll-inner" [ngClass]="{'lads': BRAND == 'ladbrokes'}">
+                <li *ngFor="let navGroup of navGroupItem">
+                  <a class="switch-btn" 
+                  [ngClass]="getLbClassName(navGroup)"
+                  [attr.title]="navGroup.name"
+                  [href]="navGroup.url"
+                  (click)="clickNavItem(navGroup, $event)">
+                  <span [textContent]="navGroup.name"></span>
+                </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+<!--Promosandbox leaderboard leaderboard component for coral Mobile-->
+<lazy-component *ngIf="!device.isDesktop && BRAND === 'bma' && isLeaderBoard && leaderBoardConfigId && lbConfigData" 
+moduleUri="@lazy-modules-module/promoLeaderboard/promo-leaderboard.module#PromoLeaderboardModule" 
+entryComponent="LeaderboardDetailsComponent" [inputs]="{leaderboardConfigId:leaderBoardConfigId,userStatus:userService.status,
+  lbConfigData: lbConfigData, promotionId: promotion.id }">
+</lazy-component> 
+
+<!--Promosandbox leaderboard leaderboard component for coral Desktop-->
+<lazy-component *ngIf="device.isDesktop && BRAND === 'bma' && isLeaderBoard && leaderBoardConfigId && lbConfigData" 
+moduleUri="@lazy-modules-module/promoLeaderboard/promo-leaderboard.module#PromoLeaderboardModule" 
+entryComponent="LeaderboardDetailsCoralDesktopComponent" [inputs]="{leaderboardConfigId:leaderBoardConfigId,userStatus:userService.status,
+  lbConfigData: lbConfigData, promotionId: promotion.id }">
+</lazy-component>
+
+<!--Promosandbox leaderboard leaderboard component for ladbrokes Mobile-->
+<lazy-component *ngIf="!device.isDesktop && BRAND === 'ladbrokes' && isLeaderBoard && leaderBoardConfigId && lbConfigData" 
+moduleUri="@lazy-modules-module/promoLeaderboard/promo-leaderboard.module#PromoLeaderboardModule" 
+entryComponent="LeaderboardDetailsLadbrokesMobileComponent" [inputs]="{leaderboardConfigId:leaderBoardConfigId,userStatus:userService.status,
+  lbConfigData: lbConfigData, promotionId: promotion.id }">
+</lazy-component> 
+
+<!--Promosandbox leaderboard leaderboard component for ladbrokes Desktop-->
+<lazy-component *ngIf="device.isDesktop && BRAND === 'ladbrokes' && isLeaderBoard && leaderBoardConfigId && lbConfigData" 
+moduleUri="@lazy-modules-module/promoLeaderboard/promo-leaderboard.module#PromoLeaderboardModule" 
+entryComponent="LeaderboardDetailsLadbrokesDesktopComponent" [inputs]="{leaderboardConfigId:leaderBoardConfigId,userStatus:userService.status,
+  lbConfigData: lbConfigData, promotionId: promotion.id }">
+</lazy-component>
+
+
+<!-- Description TEST -->
+<ng-container *ngIf="isLeaderBoard && !leaderBoardConfigId">
+<div class="short-description" [ngClass]="{'lads-descr': !isCoral, 'coral-btn': isCoral}" [attr.id]="'descriptionTxt'" >
+  <div [innerHtml]="descriptionTxt" [attr.id]="'descriptionTxt'"></div>
+</div>
+
+</ng-container> 
+          <div *ngIf="!!validPromotion.description" [ngClass]="{'lads-descr': !isCoral, 'coral-btn': isCoral}" class="short-description" [attr.id]="'promo-descr'" data-crlat="promoDescription">
+            <ng-container *ngFor="let odd of promoDescriptionContentArr">
+              <ng-container *ngIf="!odd.isSelectionIdAvailable; else priceOdds">
+                <div [outerHTML]="odd.htmlCont" [attr.contenteditable]="false"> </div>
+              </ng-container>
+              <ng-template #priceOdds>
+                <div id="dynamic-button" *ngIf="odd.eventInfo">
+                  <price-odds-button class='price-odds-promo'[event]="odd.eventInfo.event" [outcome]="odd.eventInfo.outcome" [market]="odd.eventInfo.market" 
+                  [isShowHistoricPrices]="isRacingEvent(odd.eventInfo.event)" [isRacing]="isRacingEvent(odd.eventInfo.event)"></price-odds-button>
+                </div>
+                <hr> 
+              </ng-template>
+            </ng-container>
+          </div>
+          
+          <button *ngIf="validPromotion?.freeRideConfig?.isFreeRidePromo && userService.status"  class="btn btn-style1 freeRide-btn" [ngClass]="{'btn-lads': !isCoral}" (click)="checkFreeRide()">{{validPromotion?.freeRideConfig?.ctaPostLoginTitle}}</button>
+          <button *ngIf="validPromotion?.freeRideConfig?.isFreeRidePromo && !userService.status"  class="btn btn-style1 freeRide-btn" (click)="openLoginDialog()">{{validPromotion?.freeRideConfig?.ctaPreLoginTitle}}</button>
+          
+          <div *ngIf="!!validPromotion?.betPack?.congratsMsg" [ngClass]="{'lads-descr': !isCoral, 'coral-btn': isCoral}" class="short-description" [attr.id]="'promo-descr'" data-crlat="promoDescription">
+            <div [innerHtml]="validPromotion.safeCongratsMsg" [attr.id]="'terms-and-cond'" data-crlat="promoDetails"></div>
+          </div>
+          </accordion-body>
+        </accordion>
+        <accordion [isExpanded]="isExpanded[1]"
+                   [render]="true"
+                   [pcTextBlock]="true"
+                   (function)="changeAccordionState(1, $event)"
+                   *ngIf="!!validPromotion.htmlMarkup"
+                   data-crlat="tac">
+          <left-side>
+            <span class="left-title-text" [i18n]="'promotions.termsAndConditionsLabel'" data-crlat="headerTitle.leftMessage"></span>
+          </left-side>
+          <accordion-body>
+            <div [innerHtml]="validPromotion.safeHtmlMarkup" [attr.id]="'terms-and-cond'" data-crlat="promoDetails"></div>
+          </accordion-body>
+        </accordion>
+      </div>
+      <ng-template #noPromoBlock>
+        <div class="item-inner text-center">
+          <strong [i18n]="'promotions.noPromo'" data-crlat="noPromotion"></strong>
+        </div>
+      </ng-template>
+    </div>
+  </ng-container>
+</div>
+<!-- Free Ride -->
+<lazy-component *ngIf="userService.status && bonusSuppressionService.checkIfYellowFlagDisabled('freeRide') && freeRideFlag && !device.isDesktop" moduleUri="@lazy-modules-module/freeRide/freeRide.module#FreeRideModule" entryComponent="LadsSecondarySplashPageComponent"
+[outputs]="['closeFlag']" (event)="closeDialogClick($event)">
+</lazy-component>
+<!-- Free Ride -->
+<lazy-component *ngIf="userService.status && bonusSuppressionService.checkIfYellowFlagDisabled('freeRide') && freeRideFlag && device.isDesktop" moduleUri="@lazy-modules-module/freeRide/freeRide.module#FreeRideModule" entryComponent="LadsDeskSecondarySplashPageComponent"
+[outputs]="['closeFlag']" (event)="closeDialogClick($event)">
+</lazy-component>
+
+

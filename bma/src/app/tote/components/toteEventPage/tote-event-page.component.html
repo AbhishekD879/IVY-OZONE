@@ -1,0 +1,339 @@
+<!--- Page Content -->
+<ng-container *ngIf="!state.loading && !state.error">
+  <top-bar [title]="'tt.toteTitle'"
+           [iconSvg]="icon.svg"
+           [iconId]="icon.svgId"
+           (titleFunc)="goToDefaultPage()"></top-bar>
+  <div class="container">
+  <div class="tab-content racing-content" data-crlat="tabContent">
+      <!--- Event Top Container -->
+      <div class="top-event-panel" data-crlat="eventTopContainer">
+        <!-- Meeting Navigator -->
+        <custom-select>
+          <select id="toteEventSelector"
+                  class="form-control"
+                  [(ngModel)]="selectedTypeName"
+                  (change)="selectEvent($event.target.value)"
+                  data-crlat="meetingNavigator">
+            <option *ngFor="let value of getOrderedMeetingNames()"
+                    [ngValue]="value"
+                    [selected]="selectedTypeName === value" [textContent]="value"></option>
+          </select>
+        </custom-select>
+        <!-- Event ribbon -->
+        <div class="tabs-panel" *ngIf="eventTabs && eventTabs.length" data-crlat="panel.tabs">
+          <div class="scroll-container" scrollable>
+            <ul class="scroll-inner" data-crlat="eventTimePanel.tabs">
+              <li *ngFor="let event of eventTabs; trackBy: trackByEvent"
+                  [ngClass]="{'active': eventActiveTab === event.id, 'no-background': event.isFinished}"
+                  data-crlat="raceGrid.event">
+                <a class="tab"
+                  [ngClass]="{'race-resulted': event.isResulted}"
+                  [routerLink]="genEventDetailsUrl(event)"
+                  [click-link]
+                  data-crlat="tab">
+                  <span class="race-time" [textContent]="event.label" data-crlat="raceGrid.raceTime"
+                        [ngClass]="{'text-bold': isLpAvailable(event)}"></span>
+                  <svg class="race-icon" *ngIf="event.isResulted">
+                    <use xlink:href="#result-post"></use>
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- Event details page -->
+        <div class="tote-event card" *ngIf="eventData.defaultPoolType">
+          <div class="title-container" data-crlat="eventNameContainer">
+            <span class="event-title" [textContent]="eventData.localTime + ' ' + eventData.name" data-crlat="eventName"></span>
+            <span class="distance-info" *ngIf="eventData.showDistance">
+              <span [i18n]="'sb.distance'" data-crlat="label.eventDistance"></span>
+              <span data-crlat="eventDistance" [textContent]="eventData?.racingFormEvent?.distance | callBack : filterDistance : this"></span>
+            </span>
+          </div>
+
+          <!-- Media Type Buttons -->
+          <div class="group-buttons media-buttons v2-media-buttons" *ngIf="eventData.liveStreamAvailable">
+            <div class="group-btn" data-crlat="buttonGroup">
+              <div class="group-col">
+                <a class="btn toggled"
+                  [ngClass]="{'active' : isStreamPlaying}"
+                  (click)="playStream($event)"
+                  data-crlat="buttonPlayStream">
+                  <svg class="btn-icon video-stream-icon">
+                    <use xlink:href="#icon-watch-live"></use>
+                  </svg>
+                  <span [i18n]="'tt.videoStream'"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Media Area -->
+          <div class="media-area"
+              [hidden]="!isStreamPlaying"
+              [ngClass]="{'media-area-space': filter !== 'hideStream'}">
+            <!-- Video Stream lazy component -->
+            <lazy-component *ngIf="isStreamPlaying"
+                            moduleUri="@lazy-modules-module/eventVideoStream/event-video-stream.module#LazyEventVideoStreamModule"
+                            [inputs]="{eventEntity: eventData, preloadStream: true, autoPlay: true}">
+            </lazy-component>
+          </div>
+
+          <!-- Post summary -->
+          <div class="post-container" *ngIf="eventData.racingFormEvent?.overview">
+            <div class="post-header clearfix">
+              <a class="post-btn"
+                [i18n]="'sb.showForm'"
+                (click)="toggleSummary()"
+              >
+                Show Summary
+              </a>
+              <svg class="r-post-logo" data-crlat="racingPost.logo">
+                <use xlink:href="#r-post"></use>
+              </svg>
+            </div>
+            <div class="post-text ng-hide"
+                [hidden]="!summary"
+                *ngIf="eventData.racingFormEvent?.overview"
+                [textContent]="eventData.racingFormEvent?.overview">
+            </div>
+          </div>
+
+          <!-- Bet types switcher -->
+          <switchers *ngIf="viewByBetFilters"
+                    [filter]="betFilter"
+                    [switchers]="switchers">
+          </switchers>
+
+          <!--- Market Container -->
+          <section *ngFor="let marketEntity of getOrderedMarkets(); let mIndex = index; trackBy: trackByMarket"
+                  class="page-container page-inner-container"
+                  data-crlat="marketOutcomes">
+            <article *ngIf="marketEntity.outcomes"
+                    class="container-content">
+
+              <div *ngIf="totePoolsDescriptions" class="tote-bets-description odds-card" [textContent]="totePoolsDescriptions[betFilter]" data-crlat="pool.betDescription"></div>
+              <pool-size [pools]="eventData.pools"
+                        [currencyCalculator]="currencyCalculator"
+                        *ngIf="currencyCalculator"
+                        [poolType]="betFilter">
+              </pool-size>
+              <span class="guide-description" [i18n]="'tt.poolGuideLegend'" data-crlat="guideDescription"></span>
+              <div class="inner-container">
+                <div *ngFor="let outcomeEntity of getOrderedOutcomes(marketEntity.outcomes); let oIndex = index; trackBy: trackByOutcome"
+                    data-crlat="raceCard.outcome">
+                  <div class="odds-card race-card tote-card" data-crlat="raceCard.odds">
+                    <div class="odds-content">
+                      <div class="odds-left" (click)="onExpand(expandedSummary, mIndex, oIndex);">
+                        <div class="toggle-icon"
+                          *ngIf="outcomeEntity.racingFormOutcome"
+                          [ngClass]="{'active' : expandedSummary[mIndex] && expandedSummary[mIndex][oIndex]}"
+                          data-crlat="toggleIcon">
+
+                          <!-- Plus/Minus-icon -->
+                          <div class="plus-minus-icon" [ngClass]="{
+                            'icon-plus': !expandedSummary[mIndex] || !expandedSummary[mIndex][oIndex],
+                            'icon-minus': expandedSummary[mIndex] && expandedSummary[mIndex][oIndex]}"
+                            data-crlat="minusIcon">
+                          </div>
+                        </div>
+                        <div class="odds-side" *ngIf="(isNumberNeeded(eventData, outcomeEntity))">
+                          <strong [textContent]="outcomeEntity.runnerNumber" data-crlat="runnerNumber"></strong><br/>
+                          <div class="label-text" *ngIf="outcomeEntity.racingFormOutcome?.draw">
+                            (<span [textContent]="outcomeEntity.racingFormOutcome.draw" data-crlat="outcomeDraw"></span>)
+                          </div>
+                        </div>
+
+                        <!-- silk icon -->
+                        <div class="silk-img has-img"
+                            *ngIf="!outcomeEntity.racingFormOutcome?.imgError && isValidSilkName(outcomeEntity.racingFormOutcome)"
+                            data-crlat="imageSilk">
+                          <img (error)="outcomeEntity.racingFormOutcome.imgError = true"
+                              [attr.src]="images + '/' + outcomeEntity.racingFormOutcome.silkName"
+                              [attr.alt]="outcomeEntity.racingFormOutcome.silkName"
+                              width="27"
+                              height="34"/>
+                        </div>
+
+                        <!-- Jockey and Trainer names, Horse Number, Horse Name, Draw Number -->
+                        <div class="odds-names odds-names-wrap odds-names-list" [ngClass]="{'odds-disabled' : outcomeEntity.nonRunner}"
+                            data-crlat="horseInfoContainer">
+                          <strong [textContent]="outcomeEntity?.name | callBack : removeLineSymbol : this" data-crlat="horseName"></strong>
+                          <span class="odds-normal">
+                          <span *ngIf="outcomeEntity.racingFormOutcome?.jockey" [textContent]="outcomeEntity.racingFormOutcome.jockey"
+                                data-crlat="jockeyName"></span>
+                          <span *ngIf="(outcomeEntity.racingFormOutcome?.jockey && outcomeEntity.racingFormOutcome?.trainer)">/</span>
+                          <span *ngIf="outcomeEntity.racingFormOutcome?.trainer"
+                                [textContent]="outcomeEntity.racingFormOutcome.trainer"
+                                data-crlat="trainerName"></span>
+                        </span>
+                          <span class="odds-small" *ngIf="outcomeEntity.racingFormOutcome"
+                                data-crlat="racingForm">
+                            Form: {{ outcomeEntity.racingFormOutcome?.formGuide || '-' }}
+                          </span>
+                        </div>
+                      </div>
+                      <div class="odds-right">
+                        <wn-pool-stakes *ngIf="betFilter === 'WN' && poolBetsAvailable"
+                          (checkFn)="changeValue($event)"
+                          (displayError)="displayStakeErrors($event)"
+                          [poolStakes]="poolStakes"
+                          [fieldControls]="fieldControls"
+                          [currencySymbol]="currencySymbol"
+                          [currencyCode]="currencyCode"
+                          [currencyCalculator]="currencyCalculator"
+                          [outcomeId]="outcomeEntity.id"
+                          [stopBetting]="getStopBettingValue(outcomeEntity)"
+                          [stakeError]="outcomeEntity.error && outcomeEntity.error.msg">
+                        </wn-pool-stakes>
+                        <pl-pool-stakes *ngIf="betFilter === 'PL' && poolBetsAvailable"
+                          (checkFn)="changeValue($event)"
+                          (displayError)="displayStakeErrors($event)"
+                          [poolStakes]="poolStakes"
+                          [fieldControls]="fieldControls"
+                          [currencySymbol]="currencySymbol"
+                          [currencyCode]="currencyCode"
+                          [currencyCalculator]="currencyCalculator"
+                          [outcomeId]="outcomeEntity.id"
+                          [stopBetting]="getStopBettingValue(outcomeEntity)"
+                          [stakeError]="outcomeEntity.error && outcomeEntity.error.msg">
+                        </pl-pool-stakes>
+                        <sh-pool-stakes *ngIf="betFilter === 'SH' && poolBetsAvailable"
+                          (checkFn)="changeValue($event)"
+                          (displayError)="displayStakeErrors($event)"
+                          [poolStakes]="poolStakes"
+                          [fieldControls]="fieldControls"
+                          [currencySymbol]="currencySymbol"
+                          [currencyCode]="currencyCode"
+                          [currencyCalculator]="currencyCalculator"
+                          [outcomeId]="outcomeEntity.id"
+                          [stopBetting]="getStopBettingValue(outcomeEntity)"
+                          [stakeError]="outcomeEntity.error && outcomeEntity.error.msg">
+                        </sh-pool-stakes>
+                        <ex-pool-places *ngIf="betFilter === 'EX'"
+                                        (checkFn)="changeValue($event)"
+                                        [stopBetting]="getStopBettingValue(outcomeEntity)"
+                                        [outcomeId]="outcomeEntity.id"
+                                        [map]="checkboxMap"
+                                        [selectedPlaces]="selectedPlaces">
+                        </ex-pool-places>
+                        <tr-pool-places *ngIf="betFilter === 'TR'"
+                                        (checkFn)="changeValue($event)"
+                                        [stopBetting]="getStopBettingValue(outcomeEntity)"
+                                        [outcomeId]="outcomeEntity.id"
+                                        [map]="checkboxMap"
+                                        [selectedPlaces]="selectedPlaces">
+                        </tr-pool-places>
+                      </div>
+                    </div>
+                    <div class="guide-container" *ngIf="findGuideValue(outcomeEntity.runnerNumber, betFilter)">
+                      <span class="label" [i18n]="'tt.guide'" data-crlat="label.guide"></span>
+                      <span class="value" [textContent]="findGuideValue(outcomeEntity.runnerNumber, betFilter)"
+                            data-crlat="guide"></span>
+                    </div>
+                  </div>
+
+                  <!-- Details of that runner -->
+                  <post-spotlight [outcome]="outcomeEntity"
+                                  class="row-panel"
+                                  *ngIf="outcomeEntity.racingFormOutcome &&  expandedSummary[mIndex] && expandedSummary[mIndex][oIndex]">
+                  </post-spotlight>
+
+                  <!-- Outcome error msg -->
+                  <ng-info-panel *ngIf="outcomeEntity.error && outcomeEntity.error.msg" class="container"
+                                [message]="outcomeEntity.error.msg"
+                                [type]="outcomeEntity.error.type"
+                                [withArrowTop]="true"
+                                [noHide]="true"
+                                [noScroll]="betsReceiptData && betsReceiptData.successBets && betsReceiptData.successBets.length"
+                                data-crlat="pool.outcomeError"></ng-info-panel>
+
+                </div>
+
+                <div class="pool-bet-contanter" *ngIf="poolBetsAvailable" data-crlat="pool.betContainer">
+                  <!-- Service error msg -->
+                  <ng-info-panel class="container" *ngIf="eventData.serviceError && eventData.serviceError.msg"
+                                [type]="eventData.serviceError.type" [message]="eventData.serviceError.msg"
+                                [noBgColor]="true"></ng-info-panel>
+                  <!-- Stake -->
+                  <pool-stake *ngIf="betFilter === 'EX'"
+                              (checkFn)="stakeValue($event)"
+                              [fieldControls]="fieldControls"
+                              [currencySymbol]="currencySymbol"
+                              [stopBetting]="isSuspended()"
+                              [poolStakes]="poolStakes"
+                              (displayError)="displayStakeErrors($event)">
+                  </pool-stake>
+                  <pool-stake *ngIf="betFilter === 'TR'"
+                              (checkFn)="stakeValue($event)"
+                              [fieldControls]="fieldControls"
+                              [currencySymbol]="currencySymbol"
+                              [stopBetting]="isSuspended()"
+                              [poolStakes]="poolStakes"
+                              (displayError)="displayStakeErrors($event)">
+                  </pool-stake>
+
+                  <div class="total-stake"
+                      [ngClass]="{ 'stake-range-error' : isTotalStakeError() }"
+                      data-crlat="totalStakeContainer">
+                    <span class="stake-label" [i18n]="'tt.totalStake'" data-crlat="label.totalStake"></span>
+                    <strong [textContent]="(totalStake() || '0.00' | currency:currencySymbol:'code')" data-crlat="totalStake"></strong>
+
+                    <div class="estimated-total-container" *ngIf="totalStake() && currencyCalculator">
+                      <span class="stake-label" [i18n]="'tt.totalStake'" data-crlat="label.convertedTotalStake"></span>
+                      <span class="value" [textContent]="convertedTotalStake()" data-crlat="convertedTotalStake"></span>
+                    </div>
+
+                    <div *ngIf="isTotalStakeError()"
+                        [textContent]="totalStakeErrorMsg"
+                        data-crlat="pool.totalStakeError"></div>
+                  </div>
+
+                  <div class="bet-slip-container">
+                    <div class="clear-btn-wrap">
+                      <a href="#" (click)="clearBets($event)" data-crlat="clearBetsButton">
+                        <span [i18n]="'tt.clearBetSlip'" data-crlat="label.clearBetsButton"></span>
+                      </a>
+                    </div>
+                    <button class="btn btn-style1" (click)="placeBets()" [disabled]="betNowDisabled()" data-crlat="placeBetsButton">
+                      <span [ngClass]="{'btn-spinner': placeBetsPending }" data-crlat="spinner.loader"></span>
+                      <span [i18n]="'tt.betNow'" data-crlat="label.placeBetsButton"></span>
+                    </button>
+                  </div>
+                </div>
+                <!-- Event related error msg(event started or event suspended) -->
+                <ng-info-panel *ngIf="isSuspended()"
+                              class="container event-error"
+                              [type]="getGeneralError().type"
+                              [message]="getGeneralError().msg"
+                              [noHide]="true"
+                              [noScroll]="true"
+                              [withArrowTop]="true"
+                              data-crlat="pool.eventError"></ng-info-panel>
+
+              </div>
+            </article>
+          </section>
+          <!-- Bet Receipt -->
+          <section class="page-container page-inner-container"
+                  *ngIf="poolBetsAvailable && betsReceiptData && betsReceiptData.successBets
+                  && betsReceiptData.successBets.length"
+                  data-crlat="pool.betReceiptData">
+            <article class="container-content" data-crlat="betReceiptContent">
+              <bet-receipt
+                [betsReceiptData]="betsReceiptData"
+                [poolCurrencySymbol]="currencySymbol"
+                (betReceiptContinue)="onBetReceiptContinue()"
+                (scrollToBetReceipt)="scrollToBetReceipt()"
+              >
+              </bet-receipt>
+            </article>
+          </section>
+        </div>
+        <!-- No unavailable pools msg -->
+        <no-events *ngIf="!eventData.defaultPoolType" [message]="'tt.unavailablePools'"></no-events>
+      </div>
+    </div>
+  </div>
+</ng-container>

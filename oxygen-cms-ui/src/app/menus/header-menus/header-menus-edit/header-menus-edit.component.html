@@ -1,0 +1,97 @@
+<breadcrumbs *ngIf="headerMenu" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="headerMenu">
+  <div class="header">
+    <h2 class="has-activity-badge">Header Menu:
+      <span class="font-italic">{{headerMenu.linkTitle}}</span>
+      <create-updated-at-by [collection]="headerMenu"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="headerMenu.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="headerMenu">
+  <form [formGroup]="form" novalidate>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-checkbox color="primary" formControlName="disabled"
+                        (change)="headerMenu.disabled=!headerMenu.disabled"> Active</mat-checkbox>
+        </div>
+        <div class="col-md-6">
+          <mat-checkbox color="primary"
+                        (change)="headerMenu.inApp=!headerMenu.inApp" formControlName="inApp"> In App</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+              Link Title
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Link Title" [(ngModel)]="headerMenu.linkTitle" formControlName="linkTitle" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Target Uri
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Target Uri" [(ngModel)]="headerMenu.targetUri" formControlName="targetUri" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Level
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Level" (selectionChange)="onLevelChanged($event)" formControlName="level">
+              <mat-option *ngFor="let level of menuLevels" [value]="level">
+                {{ level | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row" *ngIf="headerMenu.level === '2'">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Parent
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Parent"
+              (selectionChange)="onParentChanged($event)"
+              formControlName="parent">
+              <mat-option *ngFor="let menu of headerMenues" [value]="menu.id">
+                {{ menu.linkTitle | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-1" *ngIf="headerMenu.parent">
+          <a class="mat-label" [routerLink]="getParentLink()">View</a>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="headerMenu"
+  [form]="form"
+  [fieldOrItemName]="'linkTitle'"
+  [collection]="headerMenu"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

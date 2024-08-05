@@ -1,0 +1,322 @@
+<breadcrumbs *ngIf="form" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+
+<div class="card" *ngIf="form">
+  <div class="header">
+    <h2 class="has-activity-badge">
+      <span [innerText]="pageTitle"></span>
+      <span class="font-italic">{{surfaceBet.title}}</span>
+      <create-updated-at-by [collection]="surfaceBet" [class.invisible]="!surfaceBetId"></create-updated-at-by>
+    </h2>
+  </div>
+</div>
+
+<div class="card" *ngIf="error">
+  <div class="alert alert-danger m-b-0" [innerText]="error">
+  </div>
+</div>
+
+<div class="card" *ngIf="form">
+  <form [formGroup]="form">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-3">
+          <mat-checkbox color="primary"
+                        [checked]="!surfaceBet.disabled"
+                        (change)="toggleActiveStatus()">
+            Enabled
+          </mat-checkbox>
+        </div>
+        <div class="col-md-3">
+          <mat-checkbox color="primary"
+                        formControlName="highlightsTabOn"
+                        [(ngModel)]="surfaceBet.highlightsTabOn">Display on Highlights tab
+          </mat-checkbox>
+        </div>
+
+        <div class="col-md-3">
+          <mat-checkbox color="primary"
+                        formControlName="edpOn" 
+                        [(ngModel)]="surfaceBet.edpOn">Display on EDP
+          </mat-checkbox>
+        </div>
+        <div class="col-md-3">
+          <mat-checkbox color="primary"
+                        formControlName="displayOnDesktop"
+                        (change)="onDisplayOnDesktopCheck()"
+                        [(ngModel)]="surfaceBet.displayOnDesktop">Display in Desktop
+          </mat-checkbox>
+        </div>
+        <div class="col-md-12 info-msg">
+          <span>*On every 'Display in Desktop' check, by default 'Display on Highlights tab' checkbox will be checked.</span>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="surfaceBetConstants.TITLE"></span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput type="text" required aria-label="Title" placeholder="Title" [(ngModel)]="surfaceBet.title"
+              formControlName="title" [matAutocomplete]="auto">
+            <div [ngClass]="isDropDownVisible ? 'showDropDown' : 'hideDropDown'"
+              class="mat-select-arrow-wrapper dropDown" (click)="toggleDropDown()">
+              <div class="mat-select-arrow"></div>
+            </div>
+            <mat-autocomplete #auto="matAutocomplete" (opened)="handleOpen($event)" (closed)="handleClosed($event)">
+              <ng-container *ngIf="filteredSurfaceBetTitle | async as data">
+                <mat-option *ngIf="data.length === 0" value="None"> None</mat-option>
+              </ng-container>
+
+              <mat-option *ngFor="let sbTitle of filteredSurfaceBetTitle | async" [value]="sbTitle.title">
+
+                <span>{{sbTitle.title }}</span>
+                <span class="material-icons close" (click)="deleteTitle($event,sbTitle.id )">clear</span>
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="surfaceBetConstants.EVENT_IDS"></span>
+        </div>
+        <div class="col-md-6">
+          <number-list-input [(ngModel)]="surfaceBet.eventIDs" 
+                             formControlName="eventIDs" 
+                             [placeholder]="'Event IDs'">
+          </number-list-input>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="surfaceBetConstants.SHOW_ON_SPORTS"></span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Show on Sports" [(ngModel)]="surfaceBet.categoryIDs" multiple
+                        formControlName="categoryIDs">
+              <mat-option *ngFor="let sport of sportCategories; trackBy: trackSportById" [value]="sport.categoryId">
+                {{ sport.imageTitle }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="surfaceBetConstants.SHOW_ON_EVENT_HUB"></span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Show on EventHub" (selectionChange)="setReferences()" [(ngModel)]="mappedEventHubs" multiple 
+                        formControlName="mappedEventHubs">
+              <mat-option *ngFor="let eventHub of allEventHubs; trackBy: trackSportById" [value]="eventHub.indexNumber">
+                {{ eventHub.title }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="surfaceBetConstants.CONTENT_HEADER"></span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput [(ngModel)]="surfaceBet.contentHeader" placeholder="Content Header" formControlName="contentHeader" trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="surfaceBetConstants.CONTENT"></span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput [(ngModel)]="surfaceBet.content" placeholder="Content" formControlName="content" trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="surfaceBetConstants.WAS_PRICE"></span>
+        </div>
+        <div class="col-md-6 text-nowrap">
+          <mat-form-field class="price-input">
+            <input matInput [(ngModel)]="surfaceBet.price.priceNum" formControlName="priceNum" appNumberOnly
+                   (input)="setPrice(surfaceBet.price)">
+          </mat-form-field>
+          <span class="text-muted">/</span>
+          <mat-form-field class="price-input">
+            <input matInput [(ngModel)]="surfaceBet.price.priceDen" formControlName="priceDen" appNumberOnly
+                   (input)="setPrice(surfaceBet.price)">
+          </mat-form-field>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="surfaceBetConstants.SELECTION_ID"></span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput [(ngModel)]="surfaceBet.selectionId" placeholder="Selection ID"
+                   formControlName="selectionId" 
+                   (input)="validateSelection()" 
+                   appNumberOnly="true">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-8">
+          <date-range 
+           [isSetDateButtons]="true" 
+           [startDate]="surfaceBet.displayFrom" 
+           [endDate]="surfaceBet.displayTo"
+           [startPlaceholder]="'Display from'" 
+           [endPlaceholder]="'Display to'" 
+           [placeholderColumn]="true"
+           (onDateUpdate)="handleDateUpdate($event)">
+          </date-range>
+        </div>
+      </div>
+
+      <div class="row">
+        <ng-container *ngIf="isIMActive; else cmsUpload">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="surfaceBetConstants.SVG_ICON"></span>
+          </div>
+          <div class="col-md-6">
+            <svg-icon-select-input 
+              [formFieldsModels]="surfaceBet" 
+              [externalForm]="form">
+            </svg-icon-select-input>
+          </div>
+        </ng-container>
+        <ng-template #cmsUpload>
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="surfaceBetConstants.ICON"></span>
+          </div>
+          <div class="col-md-5">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="surfaceBetConstants.FILE_NAME"
+                     [value]="surfaceBet.svgFilename ? surfaceBet.svgFilename.filename : imageToUpload.name" 
+                     disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <div class="d-none"><input #iconUploadInput formControlName="icon" (change)="handleImageChange($event)"
+                                        type="file" value="upload"/>
+            </div>
+            <button type="button" (click)="uploadIconHandler()" class="main-image-btn btn bg-teal waves-effect"
+                    [innerText]="uploadButtonText">
+            </button>
+            <button type="button" (click)="removeIconHandler()"
+                    *ngIf="surfaceBet.svgFilename && surfaceBet.svgFilename.filename || imageToUpload.name"
+                    class="main-image-btn btn bg-red waves-effect" [textContent]="surfaceBetConstants.REMOVE_FILE">
+            </button>
+          </div>
+        </ng-template>
+      </div>
+      <!--For Svg Background Image Upload-->
+      <div class="row">
+        <ng-container>
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="surfaceBetConstants.SVG_BACKGROUND"></span>
+          </div>
+          <div class="col-md-6">
+            <common-svg-input-select 
+             [type]="'svgBgId'" 
+             [path]="'svgBgImgPath'" 
+             [formFieldsModels]="surfaceBet"
+             [externalForm]="form">
+            </common-svg-input-select>
+          </div>
+        </ng-container>
+
+        <ng-template #cmsUpload>
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="surfaceBetConstants.SVG_BACKGROUND"></span>
+          </div>
+          <div class="col-md-5">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="File Name"
+                     [value]="surfaceBet.svgFilename ? surfaceBet.svgFilename.filename : imageToUpload.name" 
+                     disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <div class="d-none"><input #iconUploadInput formControlName="icon" (change)="handleImageChange($event)"
+                                       type="file" value="upload"/>
+            </div>
+            <button type="button" (click)="uploadIconHandler()" class="main-image-btn btn bg-teal waves-effect"
+                    [innerText]="uploadButtonText">
+            </button>
+            <button type="button" (click)="removeIconHandler()"
+                    *ngIf="enableRemoveIconBtn()"
+                    class="main-image-btn btn bg-red waves-effect" [textContent]="surfaceBetConstants.REMOVE_FILE">
+            </button>
+          </div>
+        </ng-template>
+      </div>
+      <div class="row" *ngIf="isHomePage">
+        <div class="col-md-10">
+          <cms-universal-segmented [segmentsDataObj]='segmentsList' [isRevert]="isRevert" (isFormValid)="isSegmentFormValid($event)"
+            (segmentsModifiedData)="modifiedSegmentsHandler($event)">
+          </cms-universal-segmented>
+        </div>
+      </div>
+      <div class="row" *ngIf="isFanzoneSportCategory">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Fanzone Inclusion
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Fanzone Inclusion Segments" required [(ngModel)]="surfaceBet.fanzoneInclusions"
+              formControlName="fanzoneInclusions" #select multiple>
+              <div class="select-all">
+                <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}" (change)="toggleAllSelection()">
+                  Select All</mat-checkbox>
+              </div>
+              <mat-option id="optionClick" [ngClass]="{ 'fanzone-inactive-item': !segment.active }"
+                *ngFor="let segment of fanzoneInclusionList| sortBy:'name'" [value]="segment.teamId" (click)="optionClick()">
+                {{ segment.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      </div>
+      </form>
+      </div>
+
+<action-buttons 
+#actionButtons 
+  *ngIf="form && surfaceBetId" 
+  [validateHandler]="validationHandler"
+  fieldOrItemName="title" 
+  [collection]="surfaceBet" 
+  (actionsEmitter)="actionsHandler($event);"
+  ></action-buttons>
+
+<div class="card" *ngIf="form && !surfaceBetId">
+  <div class="body">
+    <div class="row">
+      <div class="col-4 col-md-7 p-b-0 m-b-0">
+        <button mat-button [disabled]="!validationHandler()" type="button" class="btn bg-teal waves-effect float-left"
+          (click)="save();">
+          <mat-icon>save</mat-icon>
+          <span [textContent]="surfaceBetConstants.CREATE"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

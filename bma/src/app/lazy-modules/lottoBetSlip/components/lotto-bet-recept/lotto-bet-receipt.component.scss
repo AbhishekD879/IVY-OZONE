@@ -1,0 +1,180 @@
+@import '../../../../../app/lazy-modules/lottoBetSlip/components/lotto-betslip.component.scss';
+
+.selections-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+  padding-right: 12px;
+  color: #41494e
+}
+
+.br-stake:after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -8px;
+  right: -9px;
+  background:#e5e5e5;
+  width: 15px;
+  height: 14px;
+  border-radius: 20px;
+}
+
+.br-stake:before {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -8px;
+  background:#e5e5e5;
+  width : 15px;
+  height: 14px;
+  border-radius: 20px;
+  left: -9px;
+}
+
+.show-hide-accordion {
+  height: unset;
+  font-size: 12px;
+  font-weight: bold;
+  font-style: normal;
+  letter-spacing: -0.01px;
+  color: #084d8d;
+   svg{ 
+      fill:#084d8d;
+   }
+}
+
+.dot-line {
+  border-top: 2px dotted #efeff3;
+  background-color: #f9fafe;
+  font-size: 13px;
+ }
+
+.lotto-num-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 900;
+  padding-right: 12px;
+}
+
+.lotto-num-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.br-lotto-mul-stake {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  .total-lable{
+    font-size: 13px;
+    font-weight: bold;
+    color: #41494e;
+  }
+  .est-Returns-Amt{
+    font-weight: normal;
+    font-size: 13px;
+  }
+}
+
+.br-lotto-content {
+  width: 100%;
+  background: #ffffff;
+  max-height: 100%;
+  position: relative;
+  padding: 12px;
+  line-height: 15px;
+}
+
+.br-lotto-wrapper {
+  padding: 5px 4px 0;
+
+  @media (min-width: $tabletPoint) {
+    padding: 5px 0 0;
+  }
+}
+.lotto-bet-receipt:first-child {
+ margin-top:-2px;
+}
+.lotto-bet-receipt:last-child {
+  padding-bottom:12px;
+}
+.bs-receipt-container{
+  border: 0;
+  margin: 0;
+}
+.lotto-details-layout {
+  &.summary-details {
+    flex-direction: column;
+
+    .lotto-summary {
+      padding: 12px 0 0 0;
+
+      .lotto-heading {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.lotto-heading {
+  p {
+    margin: 0px;
+  }
+
+  .receiptId {
+    margin-top: 0px;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    color: rgba(65, 73, 78, 0.65);
+  }
+}
+
+.bs-win-alerts-info {
+  margin-bottom: 3px;
+}
+
+.show-hide-accordion {
+  span {
+    font-size: 12px;
+    font-weight: normal;
+    letter-spacing: -0.01px;
+  }
+}
+
+.lotto-top-padng {
+  padding-top: 6px;
+}
+
+.win-alerts-info-icon {
+  width: 14px;
+  height: 14px;
+  position: relative;
+  top: 2px;
+  right: 2px;
+}
+
+.bs-win-alerts-info {
+  margin: 0 0 6px;
+  font-size: 11px;
+  font-weight: bold;
+}
+.lotto-text-format {
+  padding-top: 3px;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  color: #41494e;
+}
+.lotto-padding {
+  padding: 9px 11px 11px;
+}

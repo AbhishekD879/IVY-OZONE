@@ -1,0 +1,291 @@
+@import 'global.variables.scss';
+
+@keyframes moveBottomToTop {
+    from {
+        top: 500px;
+    }
+
+    to {
+        top: 0;
+    }
+}
+
+:host {
+    ::ng-deep .modal-dialog {
+        animation: moveBottomToTop .8s ease-in-out 1;
+        width    : 90%;
+
+        .modal-content {
+            .modal-header {
+                min-height: 0;
+                padding   : 0;
+            }
+
+            .modal-body {
+                background-image: linear-gradient($color-red-light, $color-red-dark);
+                padding         : 5%;
+                height          : 90vh;
+                max-height      : 90vh;
+                overflow        : hidden;
+                color           : $color-white;
+
+                .closePopup {
+                    display: block;
+                    top    : 3%;
+
+                    svg {
+                        width : 12px;
+                        height: 12px;
+                    }
+                }
+
+                .imgMainContainer {
+                    height    : 30vh;
+                    margin-top: 0px;
+                }
+
+                .imgContainer {
+                    width : 240px;
+                    height: 40px;
+                }
+
+                .subHeading {
+                    height     : 32px;
+                    margin     : 12px 28px 15px;
+                    font-size  : 11px;
+                    line-height: 1.45;
+                    text-align : center;
+                    color      : $color-white-disable-btn;
+                }
+
+                .soundDiv {
+                    height: 55px;
+                    width : 64vw;
+                    margin: 30px 31px 20px 31px;
+                }
+
+                .horizontalLine {
+                    margin: 5px;
+                    border: solid 0.1px $color-white-disable-btn;
+                }
+
+                .soundText {
+                    display    : inline-block;
+                    width      : 18vw;
+                    margin     : 16px 12px 15px 0;
+                    font-size  : 10px;
+                    text-align : right;
+                    color      : $color-white-disable-btn;
+                    line-height: 1.45px;
+                }
+
+                .controlSwitch {
+                    width : 11vw;
+                    height: 35px;
+                }
+
+                .switch {
+                    position: relative;
+                    display : inline-block;
+                    width   : 60px;
+                    height  : 30px;
+                    left    : 47vw;
+                    margin  : 5px;
+                    bottom  : 37px;
+                }
+
+                .switch input {
+                    opacity: 0;
+                    width  : 0;
+                    height : 0;
+                }
+
+                .slider {
+                    position          : absolute;
+                    cursor            : pointer;
+                    top               : 0;
+                    left              : 0;
+                    right             : 0;
+                    bottom            : 0;
+                    background-color  : $color-grey-slide;
+                    -webkit-transition: .4s;
+                    transition        : .4s;
+                }
+
+                .slider:before {
+                    position          : absolute;
+                    content           : "";
+                    height            : 25px;
+                    width             : 25px;
+                    left              : 5px;
+                    bottom            : 2.5px;
+                    background-color  : $color-white;
+                    -webkit-transition: .4s;
+                    transition        : .4s;
+                }
+
+                input:checked+.slider {
+                    background-color: $color-green-slide;
+                }
+
+                input:focus+.slider {
+                    box-shadow: 0 0 1px $color-green-slide;
+                }
+
+                input:checked+.slider:before {
+                    -webkit-transform: translateX(26px);
+                    -ms-transform    : translateX(26px);
+                    transform        : translateX(26px);
+                }
+
+                .slider.round {
+                    border-radius: 34px;
+                }
+
+                .slider.round:before {
+                    border-radius: 50%;
+                }
+
+                .freeRideButton {
+                    width           : 170px;
+                    height          : 44px;
+                    border          : none;
+                    background-color: $color-white;
+                    color           : $lGray;
+                    font-weight     : bolder;
+                    font-size       : 15px;
+                }
+                .tnCLink{
+                    color           : $color-white;
+                    text-decoration: underline;
+                }
+                .tnCText{
+                    height     : 32px;
+                    margin     : 12px 0px 15px;
+                    font-size  : 10px;
+                    line-height: 1.45;
+                    text-align : center;
+                    color      : $color-white-disable-btn; 
+                }
+            }
+        }
+    }
+}
+ @media screen and  (max-width:599px){
+    :host {
+        ::ng-deep .modal-dialog {
+    .modal-content {
+        .modal-body {
+            height          : 86vh;
+            max-height      : 86vh;
+        }
+    }
+            
+}}}
+ 
+@media screen and (min-width: 600px) and (max-width:1360px){
+    :host {
+        ::ng-deep .modal-dialog {
+    .modal-content {
+        .modal-body {
+            height          : 76vh;
+            max-height      : 76vh;
+        }
+    }
+            
+}}}
+
+
+
+@media screen and (min-width: 1366px){
+    :host {
+        ::ng-deep .modal-dialog {.modal-content {
+        .modal-body {
+            height          : 73vh;
+            max-height      : 73vh;
+        }
+    }          
+}}}
+@media screen and (min-width: 600px) {
+    :host {
+        ::ng-deep .modal-dialog {
+            width: 20%;
+
+            .modal-content {
+                .modal-body {
+                    background-image: linear-gradient($color-red-light, $color-red-dark);
+                    padding         : 5%;
+                    color           : $color-white;
+
+                    .closePopup {
+                        svg {
+                            width : 8px;
+                            height: 8px;
+                        }
+                    }
+
+                    .imgMainContainer {
+                        height    : 19vh;
+                        margin-top: 0px;
+                    }
+
+                    .imgContainer {
+                        width: 98%
+                        // width : 227px;
+                        // height: 40px;
+                    }
+
+                    .soundDiv {
+                        height: 70px;
+                        width : 18vw;
+                        margin: 10px 0;
+                    }
+
+                    .soundText {
+                        display    : inline-block;
+                        width      : 6vw;
+                        margin     : 16px 12px 15px -10px;
+                        font-size  : 10px;
+                        text-align : right;
+                        color      : $color-white-disable-btn;
+                        line-height: 1.45px;
+                    }
+
+                    .controlSwitch {
+                        width : unset;
+                        height: 35px;
+                    }
+
+                    .switch {
+                        position: relative;
+                        display : inline-block;
+                        width   : 60px;
+                        height  : 30px;
+                        left    : 35%;
+                        margin  : 5px;
+                        bottom  : 15%;
+                    }
+
+                    .freeRideButton {
+                        width           : 90px;
+                        height          : 34px;
+                        border          : none;
+                        background-color: $color-white;
+                        color           : $lGray;
+                        font-weight     : bolder;
+                        font-size       : 15px;
+                    }
+                    .tnCText{
+                        height     : 32px;
+                        margin     : 12px 0px 15px;
+                        font-size  : 10px;
+                        line-height: 1.45;
+                        text-align : center;
+                        color      : $color-white-disable-btn; 
+                    }
+                }
+            }
+        }
+    }
+}
+

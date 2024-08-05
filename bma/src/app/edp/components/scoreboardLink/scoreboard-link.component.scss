@@ -1,0 +1,30 @@
+@import 'global.variables.scss';
+
+.stats-link {
+  background-color: $color-gray-light;
+  margin-top: 2px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+
+  .link {
+    display: inline-block;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: $color-blue-more-light;
+    font-size: 11px;
+
+    .stats-link-icon {
+      width: 13px;
+      max-height: 13px;
+      margin-right: 5px;
+      vertical-align: middle;
+      fill: $color-blue-more-light;
+    }
+
+    .stats-link-label {
+      vertical-align: middle;
+    }
+  }
+}

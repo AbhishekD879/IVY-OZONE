@@ -1,0 +1,49 @@
+<div *ngIf="topGames" class="card">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Top Games Page
+      <small *ngIf="topGames.length">Total Top Games Amount: {{topGames.length}}</small>
+      <small *ngIf="!topGames.length">No Top Games Found</small>
+    </h2>
+  </div>
+</div>
+
+<div class="card">
+  <div class="body">
+    <!-- search and download button.-->
+    <div *ngIf="topGames" class="row clearfix">
+      <div class="col-md-3">
+        <button (click)="createTopGame()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create Top Game</span>
+        </button>
+      </div>
+      <div class="col-md-3">
+        <download-cvs [cvsData]="topGames" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Top Game" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="topGames">
+      <cms-data-table
+        [customTableData]="topGames"
+        [customTableColumns]="dataTableColumns"
+        [actions]="['remove', 'edit']"
+        [filterString]="searchField"
+        [filterProperties]="searchableProperties"
+        [reorder]="true"
+        (onElementsOrder)="reorderHandler($event)"
+        (onRemoveTableElement)="removeHandler($event)">
+      </cms-data-table>
+    </div>
+    <div *ngIf="error">
+      Request Error
+    </div>
+  </div>
+</div>

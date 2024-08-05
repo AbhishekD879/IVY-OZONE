@@ -1,0 +1,46 @@
+@import './../../../assets/styles/general.scss';
+@import '../../../../../../app/questionEngine/components/resultsPage/upsell/upsell.component.scss';
+
+.qe-upsell-container {
+  overflow-x: hidden;
+  padding: 15px 15px 20px;
+  .qe-upsell-header {
+    &-infobar {
+      border: none;
+      margin-left: -20px;
+      div {
+        padding: 2px 10px;
+      }
+    }
+    &-filled {
+      background: $color-black;
+      color: $color-bright-yellow;
+      will-change: transform;
+      transform: skew(-20deg);
+      span {
+        padding-left: 5px;
+        transform: skew(20deg);
+      }
+    }
+    &-normal {
+      background: $color-bright-yellow;
+      color: $color-black;
+      will-change: transform;
+      transform: skew(-20deg);
+      span {
+        transform: skew(20deg);
+      }
+    }
+    &-filled, &-normal {
+      span {
+        display: inline-block;
+      }
+    }
+  }
+  .qe-upsell-title {
+    color: $brand-color-main;
+  }
+  button.qe-upsell-cta {
+    margin-top: 25px;
+  }
+}

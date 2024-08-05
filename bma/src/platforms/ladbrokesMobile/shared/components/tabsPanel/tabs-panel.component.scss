@@ -1,0 +1,90 @@
+@import 'global.variables.scss';
+
+.tabs-panel {
+  .scroll-container {
+    .scroll-inner {
+      border-bottom: none;
+      box-shadow: none;
+      @include display-flex();
+      li {
+        @include flex(1);
+        @include justify-content();
+
+        &:hover {
+          background: $IGreyLightDark
+        }
+        .tab {
+          font-family: $base-font-family;
+          font-size: 12px;
+          color: $lBlack-light;
+          font-weight: 400;
+          height: 34px;
+          margin-top: 3px;
+          text-transform: uppercase;
+        }
+
+        &.active {
+          background: none;
+          border-bottom: 3px solid $red;
+          color: $lGray;
+          box-shadow: none;
+
+          .tab {
+            color: $lGray;
+            font-weight: bold;
+          }
+
+          &:after {
+            border: none;
+          }
+        }
+      }
+      .badge-new {
+        background: $red;
+        color: $color-white;
+        will-change: transform;
+        transform: skewX(-20deg);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        span {
+          transform: skewX(20deg);
+        }
+        width: 20px;
+        height: 11px;
+        font-size: 7px;
+        position: absolute;
+        top: 2px;
+        left: auto;
+        right: 2px;
+      }
+    }
+  }
+}
+
+:host-context(.rules-tabs) {
+  .tabs-panel {
+    background-color: $color-blue-charcoal;
+    .scroll-container {
+      background-color: $color-blue-charcoal;
+      .scroll-inner {
+        li {
+          .tab {
+            color: $lGrayLighter;
+            text-transform: none;
+          }
+  
+          &.active {
+            border-bottom: 3px solid $color-blue-selected;
+            color: $lGrayLighter;
+  
+            .tab {
+              color: $lGrayLighter;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

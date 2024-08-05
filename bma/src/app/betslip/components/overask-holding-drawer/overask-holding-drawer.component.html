@@ -1,0 +1,17 @@
+<drawer class="active"
+        [show]="true"
+        [lockBodyScroll]="false"
+        [relativeToParent]="relativeToParent"
+        [hideHeader]="true"
+>
+  <div class="overask-holding-page" data-crlat="oPage" body>
+    <div class="title row" data-crlat="oTitleRow">{{ title }}</div>
+    <div class="spinner row" data-crlat="oSpinnerRow">
+      <svg width="32px" height="32px" class="betnow-spinner">
+        <use xlink:href="#icn_spinner_overask"></use>
+      </svg>
+    </div>
+    <p class="row message" data-crlat="oTopMessage">{{ topMessage }}</p>
+    <p class="row message" data-crlat="oBottomMessage">{{ bottomMessage }}</p>
+  </div>
+</drawer>

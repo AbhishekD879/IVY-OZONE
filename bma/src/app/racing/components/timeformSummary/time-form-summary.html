@@ -1,0 +1,36 @@
+<div class="timeform-summary">
+  <div class="timeform-header">
+    <svg class="timeform-logo" data-crlat="timeform.logo">
+      <use xlink:href="#timeform-logo"></use>
+    </svg>
+    <div class="timeform-prediction" *ngIf="winnerPrediction" data-crlat="timeformPrediction">
+      <span data-crlat="label"><b>TF</b>Pick&nbsp;</span>
+      <span class="text-bold" data-crlat="value">{{ winnerPrediction }}</span>
+    </div>
+  </div>
+  <div class="timeform-content">
+    <span data-crlat="timeform.text">{{ details.text }}&nbsp;</span>
+    <span *ngIf="details.expandable"
+          [textContent]="details.expandedText"
+      (click)="toggleSummary()" data-crlat="timeform.showSummary"></span>
+  </div>
+  <div class="timeform-positions" *ngIf="details.expanded && summary.positions.length" data-crlat="timeformPositions">
+    <div class="greyhound-details" *ngFor="let greyhound of summary.positions; trackBy:trackByIndex" data-crlat="position.greyhound">
+      <div class="position-logo" [ngClass]="setPositionClass(greyhound.positionPrediction)">
+        <svg data-crlat="position.logo">
+          <use xlink:href="#greyhound-icon"></use>
+        </svg>
+      </div>
+      <div class="greyhound-name">
+        <span class="text-bold" data-crlat="greyhoundName">{{ greyhound.greyHoundFullName }}</span><br/>
+        <span [i18n]="'racing.trainer'" data-crlat="greyhoundTrainer.label"></span><b data-crlat="greyhoundTrainer">{{ greyhound.trainer }}</b>
+      </div>
+      <div class="greyhound-rating" data-crlat="greyhoundRating">
+        <b [i18n]="'racing.rating'" data-crlat="label"></b>
+        <svg *ngFor="let star of greyhound.stars; trackBy:trackByIndex" data-crlat="value">
+          <use xlink:href="#star"></use>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>

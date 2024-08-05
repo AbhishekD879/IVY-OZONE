@@ -1,0 +1,45 @@
+<div data-crlat="tabContent">
+  <div *ngIf="!dataReady && !wsError.reconnectFailed" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+
+  <div *ngIf="appReady" data-crlat="tab.showInPlayModule">
+
+    <!-- switcher for single sport -->
+    <switchers *ngIf="singleSport && dataReady && !wsError.reconnectFailed"
+               [filter]="filter"
+               [switchers]="switchers"
+               [detectGTMLocation]="'sublocation'">
+    </switchers>
+
+    <single-sport-section
+      *ngIf="data && singleSport && dataReady && !wsError.reconnectFailed"
+      [filter]="filter"
+      [inner]="false"
+      [resetDropdown]= "resetDropdown"
+      [expandedLeaguesCount]="expandedLeaguesCount"
+      [eventsBySports]="data"
+      (reloadData)="onDataReload($event)"
+      data-crlat="accordionsList">
+    </single-sport-section>
+
+    <multiple-sports-sections *ngIf="data && !singleSport && dataReady && !wsError.reconnectFailed"
+                     [showExpanded]="showExpanded"
+                     [expandedSportsCount]="expandedSportsCount"
+                     [expandedLeaguesCount]="expandedLeaguesCount"
+                     [eventsByGroups]="data"
+                     [viewByFilters]="viewByFilters"
+                     [ssError]="ssError"
+                     data-crlat="accordionsList">
+    </multiple-sports-sections>
+
+    <!-- Shown for single sport -->
+    <no-events *ngIf="showNoEventsSection(viewByFilters[0])" [message]="'inplay.noLiveEventsFound'" data-crlat="label.noLiveEvents"></no-events>
+    <no-events *ngIf="showNoEventsSection(viewByFilters[1])" [message]="'inplay.noUpcomingEventsFound'" data-crlat="label.noUpcomingEvents"></no-events>
+
+    <!-- Shown error field for single sport -->
+    <request-error *ngIf="(ssError && singleSport) || wsError.reconnectFailed"
+                   [loadFailed]="((ssError && singleSport) || wsError.reconnectFailed)"
+                   (reloadFn)="reloadComponent()"
+                   data-crlat="errorField">
+    </request-error>
+  </div>
+</div>

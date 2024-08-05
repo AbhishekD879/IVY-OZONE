@@ -1,0 +1,125 @@
+@import '../../../../assets/styles/global.variables.scss';
+
+.table-widget {
+  .no-events {
+    pointer-events: none;
+    svg {
+      display: none;
+    }
+  }
+  .table-menu {
+    border-bottom: 1px solid $color-gray;
+    border-top: 1px solid $color-gray;
+    position: relative;
+    text-align: center;
+    padding: 0 5px;
+    height: 32px;
+    background: $light-blue;
+    font: bold 12px/30px $base-font-family;
+    color: $color-white;
+    @include display-flex();
+    @include justify-content(center);
+
+    .table-name {
+      margin: 0 13px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .page-arr {
+      width: 4px;
+    }
+    svg {
+      width: 4px;
+      height: 8px;
+      fill: $color-white;
+      &:hover {
+        cursor: pointer;
+        @include transform(scale(1.4, 1.4));
+      }
+    }
+  }
+
+  ::ng-deep .tabs-panel {
+    box-shadow: none;
+    margin: 0;
+    .action-arrow {
+      top: 0;
+      padding-top: 0;
+    }
+    .scroll-container .scroll-inner {
+      max-width: 300px;
+      margin: 0;
+      border-bottom: 1px solid $color-gray;
+      li.active {
+        background: $color-white;
+        &:after {
+          content: none;
+        }
+        .tab {
+          color: $color-gray-dark;
+          border-bottom: 3px solid $brand-color-secondary;
+        }
+      }
+      .tab {
+        padding: 9px 15px;
+        min-width: 75px;
+        font-size: 10px;
+        &:hover {
+          background: none;
+          color: $color-gray-dark;
+        }
+      }
+    }
+  }
+
+  .table-panel-widget {
+    table-layout: fixed;
+    width: 100%;
+
+    col {
+      width: 30px;
+      &:nth-child(2) {
+        width: auto;
+      }
+    }
+
+    th {
+      color: $color-gray-dark;
+      font: normal 10px $base-font-family;
+      padding: 4px;
+      border-bottom: 1px solid $color-gray;
+    }
+
+    td {
+      border-bottom: 1px solid $color-gray;
+      padding: 6px;
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+      &:first-child {
+        border-right: 1px solid $color-gray;
+      }
+      &:nth-child(2) {
+        text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      &:nth-child(odd) {
+        background: $color-gray-light;
+      }
+
+    }
+  }
+
+  .show-all-button {
+    height: 35px;
+    background: $color-gray-light;
+    font-size: 11px;
+    color: $color-gray-dark;
+    margin: 0 auto;
+  }
+
+}

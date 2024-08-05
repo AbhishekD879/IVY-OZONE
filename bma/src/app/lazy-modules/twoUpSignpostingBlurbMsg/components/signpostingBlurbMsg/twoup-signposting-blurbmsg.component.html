@@ -1,0 +1,10 @@
+<div class="blurb-market-description icon-wrapper row row-no-gutter" *ngIf="twoUpMarketPromotionData && twoUpMarketPromotionData.blurbMessage && twoUpMarketPromotionData.templateMarketName === marketName">
+    <div class="description-icon">
+      <svg class="description-info-icon">
+        <use xlink:href="#i-icn-1"></use>
+      </svg>
+    </div>
+    <div class="description">
+      <span class="description-value" [textContent]="twoUpMarketPromotionData.blurbMessage"></span>
+    </div>
+  </div>

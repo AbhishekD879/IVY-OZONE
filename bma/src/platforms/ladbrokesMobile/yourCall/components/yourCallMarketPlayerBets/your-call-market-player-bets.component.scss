@@ -1,0 +1,27 @@
+@import 'global.variables.scss';
+
+.player-bets-form {
+  label {
+    font-size: 12px;
+  }
+  .player-bets-step-list {
+    ::ng-deep  .custom-select {
+      margin: 0;
+      .select-arrow {
+        margin-top: 2px;
+      }
+    }
+    .player-bets-step {
+      font-size: 12px;
+      custom-select {
+        margin-top: 0;
+        .player-bets-select {
+          margin-top: 8px;
+          font-weight: normal;
+          color: $lBlack-medium;
+          font-family: $alt-font-family;
+        }
+      }
+    }
+  }
+}

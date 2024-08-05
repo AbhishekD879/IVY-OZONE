@@ -1,0 +1,29 @@
+#$ gradle bootBuildImage && docker-compose up | tee boot.log
+
+version: '3.8'
+
+services:
+
+  redis:
+    container_name: aggregation_redis
+    image: redis
+    ports:
+     - "6379:6379"
+    # volumes:
+    #  - $PWD/redis-data:/var/lib/redis
+    #  - $PWD/redis.conf:/usr/local/etc/redis/redis.conf
+    # environment:
+    #  - REDIS_REPLICATION_MODE=master
+
+  aggregation:
+    container_name: aggregation
+    # build: .
+    image: aggregation-microservice:latest
+    depends_on:
+      - redis
+    ports:
+      - "8080:8080"
+    environment:
+      spring.redis.host: redis
+      logging.level.root: info
+      spring.profiles.active: LOCAL

@@ -1,0 +1,71 @@
+@import 'global.variables.scss';
+
+.dropdown {
+  color: $lGray;
+  font-size: 15px;
+  position: relative;
+
+  .dropdown-selected {
+    display: flex;
+    align-items: center;
+  }
+
+  &-arrow {
+    margin-left: 5px;
+
+    svg {
+      display: block;
+      width: 10px;
+      height: 6px;
+    }
+  }
+
+  &.secondary {
+    font-size: 12px;
+
+    .dropdown-selected {
+      color: $color-gray-disabled;
+
+      .odds-value {
+        text-decoration: line-through;
+      }
+
+      &.disabled {
+        opacity: 0.5;
+      }
+    }
+
+    .dropdown-arrow svg {
+      width: 7px;
+    }
+  }
+}
+
+.dropdown-list {
+  font-size: 13px;
+  position: absolute;
+  background: $color-white;
+  box-shadow: 0 0 4px rgba( 162, 162, 162, 0.45);
+  min-width: 100px;
+  z-index: 2;
+  border-radius: 2px;
+  overflow: hidden;
+  display: none;
+  right: 0;
+  top: 0;
+
+  &-open {
+    display: block;
+  }
+
+  &-item {
+    @include justify-content(center);
+    @include align-items(center);
+    height: 39px;
+    display: flex;
+
+    &-selected {
+      background: $lGrayLight;
+    }
+  }
+}

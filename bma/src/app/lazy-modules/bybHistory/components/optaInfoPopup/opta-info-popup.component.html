@@ -1,0 +1,13 @@
+<modal #optaInfoPopup class="opta-info-popup dialog-body styled-one-box" data-uat="popUpWindow">
+  <ng-template #modalHeader>
+    <span class="dialog-title" [i18n]="'byb.statsTracking'" data-uat="popUpTitle"></span>
+  </ng-template>
+  <ng-template #modalBody>
+    <div data-uat="popUpText" class="dialog-content">
+      <static-block [service]="'opta-disclaimer-popup'"></static-block>
+    </div>
+    <div class="right-side">
+      <button class="btn btn-style2" [i18n]="'sb.ok'" (click)="closeDialog()"></button>
+    </div>
+  </ng-template>
+</modal>

@@ -1,0 +1,36 @@
+<accordion class="dis-event" [accordionTitle]="moduleConfig.name"
+ [isExpanded]="true" *ngIf="individualModuleData" [headerClass]="'secondary-header'">
+  <accordion-body>
+      <div class="container-inner-content group-individual-container">
+        <section class="group-individual">
+          <table class="group-individual-table">
+            <tr class="caption-row">
+              <th title="position">pos</th>
+              <th class="county-cell" title=""></th>
+              <th title="plays">p</th>
+              <th title="win">w</th>
+              <th title="draw">d</th>
+              <th title="loss">l</th>
+              <th title="goal difference">gd</th>
+              <th title="points">pts</th>
+            </tr>
+            <tr *ngFor="let team of individualModuleData.teams; let i = index; trackBy: trackByTeams">
+              <td class="position-cell" [ngClass]="getQualifiedClass(i)">{{ i + 1 }}</td>
+              <td class="country-cell">
+                <svg class="flag-icon">
+                  <use [attr.xlink:href]="team.svgId"></use>
+                </svg>
+                <span>{{ team.name }}</span>
+              </td>
+              <td>{{ team.matchesTotal }}</td>
+              <td>{{ team.winTotal }}</td>
+              <td>{{ team.drawTotal }}</td>
+              <td>{{ team.lossTotal }}</td>
+              <td>{{ team.goalDiffTotal }}</td>
+              <td>{{ team.totalPoints }}</td>
+            </tr>
+          </table>
+        </section>
+      </div>
+  </accordion-body>
+</accordion>

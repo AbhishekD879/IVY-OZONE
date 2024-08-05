@@ -1,0 +1,25 @@
+<div class="scroll-container betpack-tabs-container" *ngIf="filtersCount > 0" scrollable>
+  <div class="scroll-inner betpack-container">
+    <ng-container *ngFor="let tab of tabs; index as i; trackBy: trackByIndex">
+      <div class="tab-wrapper" *ngIf="tab.isVisible" [ngClass]="{'active': index === 0 || tab.filterActive === true }"
+        (click)="onTabSelect(tab)">
+        <p class="tab" [textContent]="tab.filterNameFrCurr"></p>
+      </div>
+    </ng-container>
+  </div>
+</div>
+<ng-container *ngIf="tabs.length>0 &&activeFilter?.isLinkedFilter" >
+  <div class="d-flex p-1 py-2 bg-white">
+    <div class='px-1 msgContainer align-items-center'>
+    <svg class="my-auto mx-2"  height='9px' width="9px" class="svgIcon">
+      <use xlink:href="#i-icn-1" stroke-width='0.5'></use>
+    </svg>
+    </div> 
+    <div class="msgColor text-start">
+      <p class="m-0 filerMsg">
+     {{activeFilter.linkedFilterWarningText}}
+      </p>
+    </div>
+
+  </div>
+  </ng-container>

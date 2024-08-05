@@ -1,0 +1,95 @@
+spring.data.mongodb.uri: ${MONGODB:mongodb://10.100.1.247/bma}
+
+akamai:
+  # should be true to enable purge
+  scheduled:
+    enabled: true
+  workers:
+    count: 5
+
+fastpurge:
+  cp_code: 919414
+
+aws:
+  s3:
+    bucket-name: "cms-api-content-dev2"
+    brand.configs:
+      bma:
+        enabled: true
+        region: ${aws.s3.region}
+        bucket: ${aws.s3.bucket-name}
+        purgeUrl: https://bet-tst1.coral.co.uk
+      ladbrokes:
+        enabled: true
+        region: ${aws.s3.region}
+        bucket: ${aws.s3.bucket-name}
+        purgeUrl: https://sports-red-tst2.ladbrokes.com
+
+homeModule:
+  removeExpired:
+    cron: 0 0/5 * 1/1 * ?
+dashboard:
+  removeExpired:
+    cron: 0 0/5 * 1/1 * ?
+
+jwt:
+  expiration: 43200 # 60 * 60 * 12 = 43200 = 12 hr
+
+siteserver:
+  base:
+    url: https://ss-tst2.coral.co.uk/
+
+stats:
+  center:
+    url: https://statscenter-dev1.coralsports.dev.cloud.ladbrokescoral.com/
+
+api:
+  buildyourbet:
+    ladbrokes:
+      url: https://buildyourbet-dev0.ladbrokesoxygen.dev.cloud.ladbrokescoral.com/ #no dev1 for ladbrokes atm
+    bma:
+      url: https://buildyourbet-dev1.coralsports.dev.cloud.ladbrokescoral.com/
+  bppMaintenance:
+    ladbrokes:
+      url: https://bpp-dev1.ladbrokesoxygen.dev.cloud.ladbrokescoral.com/Proxy/maintenance
+      secret: export MAINTENANCE_KEY=VALUE
+    bma:
+      url: https://bpp-dev1.coralsports.dev.cloud.ladbrokescoral.com/Proxy/maintenance
+      secret: export MAINTENANCE_KEY=VALUE
+
+masterlock:
+  aws:
+    dynamo:
+      url: https://dynamodb.eu-west-2.amazonaws.com
+      lock-table-name: CR-MSLOCKTABLE-DEV
+
+aem:
+  banners:
+    produce: true
+
+logging:
+  level:
+    com.ladbrokescoral: DEBUG
+
+nextRaces:
+  timePeriodMinutes : 60
+
+specialpages:
+  specialpageConfig:
+    ladbrokes:
+      url: https://bpp-dev2.ladbrokesoxygen.dev.cloud.ladbrokescoral.com/Proxy/specialpage
+      secret: export MAINTENANCE_KEY=VALUE
+    bma:
+      url: https://bpp-dev2.coralsports.dev.cloud.ladbrokescoral.com/Proxy/specialpage
+      secret: export MAINTENANCE_KEY=VALUE
+
+magicurl:
+  longurl: https://mustang2-excalibur.ladbrokes.com/5-a-side/leaderboard/
+
+# always last few seconds should be sync with featured.cron.expression
+last.view.seconds: 5
+
+cfcache:
+  tags:
+    bma: CSP-dev2-coral
+    ladbrokes : CSP-dev2-ladbrokes

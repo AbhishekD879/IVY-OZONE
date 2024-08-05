@@ -1,0 +1,51 @@
+<modal #freeBetDialog data-uat="popUpWindow" id="free-bet-dialog" class="vn-smart-banner-margin-top" data-crlat="d.freeBet">
+  <ng-template #modalHeader>
+    <span [i18n]="'bma.freeBetsDesc'" data-crlat="dTitle" class="text-uppercase" data-uat="popUpTitle"></span>
+    <a data-uat="popUpCloseButton"
+       data-crlat="closeButton"
+       class="btn-close"
+       (click)="closeDialog()">
+      <svg>
+        <use xlink:href="#close-icon"></use>
+      </svg>
+    </a>
+  </ng-template>
+  <ng-template #modalBody>
+    <table class="table-panel">
+      <colgroup>
+        <col width="50%">
+        <col width="40%">
+        <col width="10%">
+      </colgroup>
+      <thead>
+      <tr>
+        <th [i18n]="'bma.freeBetsTotal'" colspan="2"></th>
+        <th>
+          <strong data-crlat="freeBetsSum"
+                  class="text-center">
+            {{ params.freeBetsSum }}
+          </strong>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of params.freeBetsData; trackBy: trackByIndex;" data-crlat="freebetsDialogItem">
+        <td> 
+          <span data-crlat="freebetOfferName">{{ item.freebetOfferName }}</span>
+          <span data-crlat="freebetTokenDisplayText">{{ item.freebetTokenDisplayText }}</span>
+        </td>
+        <td>
+          <span [i18n]="'bma.expires'"></span>
+          <span data-crlat="freebetTokenExpiryDate">{{ item.freebetTokenExpiryDate }}</span>
+        </td>
+        <td>
+          <b data-crlat="freebetTokenValue">{{params.currencySymbol+item.freebetTokenValue }}</b>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </ng-template>
+  <ng-template #modalFooter>
+    <button data-uat="popUpButton" class="btn btn-style2" (click)="closeDialog()" [i18n]="'bma.okThanks'"></button>
+  </ng-template>
+</modal>

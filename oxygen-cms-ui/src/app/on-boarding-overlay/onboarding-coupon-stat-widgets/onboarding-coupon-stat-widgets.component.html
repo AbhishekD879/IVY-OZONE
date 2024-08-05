@@ -1,0 +1,59 @@
+<div class="card" *ngIf="couponStatWidget">
+    <div class="header">
+      <h2 class="has-activity-badge">
+        <span [textContent]="ONBOARDING_STAT.onBoarding"></span>
+        <create-updated-at-by *ngIf="couponStatWidget" [collection]="couponStatWidget"></create-updated-at-by>
+      </h2>
+    </div>
+    <div class="body">
+      <div class="row">
+      <div class="col-sm-2">
+      <mat-checkbox color="primary" 
+      [checked]="couponStatWidget.isEnable"
+                      (change)="couponStatWidget.isEnable = !couponStatWidget.isEnable">
+        Enable Onboarding
+      </mat-checkbox>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="card" *ngIf="couponStatWidget">
+    <div class="body">
+      <div class="row">
+         <div class="col-sm-2">
+          <span class="mat-label">Use Uploaded image
+          </span>
+        </div> 
+        <div class="col-md-9">
+          <cms-upload 
+            [filename]="{filename: couponStatWidget.imageUrl}" 
+            (onImageUpload)="uploadCouponWidgetStat($event)"
+            (onImageRemove)="remove()"
+            [withoutLabel]="true">
+          </cms-upload>
+          <small>*The above uploaded image supports PNG, JPEG, SVG format.</small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-2">
+          <span class="mat-label" >CTA Button Label
+          </span>
+        </div>
+        <div class="col-sm-5">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Enter text here" type="text" pl [(ngModel)]="couponStatWidget.buttonText"
+              trim="blur">
+              <mat-hint class="col-red" *ngIf="!couponStatWidget.buttonText || couponStatWidget.buttonText.length > 12">*The CTA button Label Should be filled with max
+                of 12 characters</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <action-buttons #actionButtons *ngIf="couponStatWidget"  [collection]="couponStatWidget"
+    (actionsEmitter)="actionsHandler($event);" [fieldOrItemName]="fieldOrItemName" [showRemoveButton]="false"
+    [validateHandler]="verifyOnboarding">
+  </action-buttons>
+

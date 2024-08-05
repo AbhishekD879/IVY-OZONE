@@ -1,0 +1,16 @@
+:host ::ng-deep {
+  mat-form-field {
+    .mat-chip-list {
+      .mat-hint {
+        margin-left: 4px;
+        margin-right: 4px;
+      }
+      .mat-chip-input {
+        height: 32px;
+      }
+    }
+    &:not(.mat-form-field-should-float) .mat-form-field-label {
+      top: 2em;
+    }
+  }
+}

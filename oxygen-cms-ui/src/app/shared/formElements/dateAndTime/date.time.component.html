@@ -1,0 +1,52 @@
+<div class="row clearfix">
+  <div class="col-md-3" *ngIf="placeholderColumn">
+    <span class="mat-label">{{placeholder}}</span>
+  </div>
+  <div class="col-md-{{placeholderColumn ? '4' : '5'}}">
+    <mat-form-field class="date-input">
+      <input matInput
+             [max]="max"
+             [min]="min"
+             [matDatepicker]="dpds"
+             [(ngModel)]="chosenDate"
+             [value]="chosenDate.value"
+             (dateChange)="reCalculateDate()"
+             placeholder="{{(placeholder || defaultPlaceholder)}}"
+             [ngClass]="{'col-red': validationError}" disabled
+             required="required">
+      <mat-datepicker-toggle matSuffix [for]="dpds" [disabled]="disableFlag"></mat-datepicker-toggle>
+      <mat-datepicker #dpds [disabled]="disableFlag" startView="month"></mat-datepicker>
+      <mat-hint class="col-red" *ngIf="validationError">{{validationError}}</mat-hint>
+      <mat-hint *ngIf="!validationError" align="end">Date format MM/DD/YYYY</mat-hint>
+    </mat-form-field>
+  </div>
+  <div class="col-md-{{placeholderColumn ? '2' : '3'}} time-column">
+    <mat-form-field class="time-input">
+      <input matInput [(ngModel)]="chosenTime.hh"
+             (input)="validateTime($event)"
+             type="number"
+             min="0" max="23"
+             placeholder="HH" value="" [disabled]="disableFlag">
+    </mat-form-field>
+    <mat-form-field class="time-input">
+      <input matInput [(ngModel)]="chosenTime.mm"
+             (input)="validateTime($event)"
+             type="number"
+             min="0" max="59"
+             placeholder="MM" value="" [disabled]="disableFlag">
+    </mat-form-field>
+    <mat-form-field class="time-input" *ngIf="isSecondsEnabled">
+      <input matInput [(ngModel)]="chosenTime.ss"
+             (input)="validateTime($event)"
+             type="number"
+             min="0" max="59"
+             placeholder="SS" validate [disabled]="disableFlag">
+    </mat-form-field>
+  </div>
+  <div *ngIf="isSetDateButtons" class="col-md-1">
+    <button (click)="setDate('today')" class="btn btn-sm bg-teal set-date-btn" [disabled]="disabled">Today</button>
+  </div>
+  <div *ngIf="isSetDateButtons" class="col-md-1">
+    <button (click)="setDate('tomorrow')" class="btn btn-sm bg-teal set-date-btn" [disabled]="disabled">Tomorrow</button>
+  </div>
+</div>

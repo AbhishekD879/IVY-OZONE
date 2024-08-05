@@ -1,0 +1,9 @@
+FROM python:3
+RUN echo INSTALLING
+
+ADD proxy_mocker /root/mock/proxy_mocker
+WORKDIR /root/mock/proxy_mocker
+VOLUME /root/mock/proxy_mocker/cert_storage
+
+RUN pip3 install -e .
+CMD ["/usr/local/bin/python", "{{ script_to_execute }}"]

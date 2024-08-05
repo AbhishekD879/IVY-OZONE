@@ -1,0 +1,201 @@
+@import "global.variables.scss";
+@import '../../mixins/fiveaside-contest-selection-mixin.scss';
+
+@mixin text-size($fontsize) {
+  font-size: $fontsize;
+}
+.divider {
+  height: 1px;
+  background-color: #efefef;
+}
+.divider-up {
+  margin: 8px 0 10px 4px;
+}
+.divider-down {
+  margin: 20px 0 10px 4px;
+}
+.contest-selection {
+    height:0px;
+    @include transition(height, 1s, ease-in-out);
+    opacity: 0;
+    @include transition(opacity, 1s, ease-in-out);
+    &.contestselwrapper-slide-up {
+      opacity: 1;
+      height: auto;
+    }
+  .header-container {
+    .primary-header {
+      margin: 0 8px 0 0;
+      @include header-mixin(179px, 18px, $alt-font-family, $font-size-bit-lgr, 700, $color-blue-charcoal);
+    }
+    .secondary-header {
+      margin: 1px 0 0 8px;
+      @include header-mixin(109px, 17px, $alt-font-family, $font-size-bit-lgr, 700, $color-blue-charcoal);
+    }
+
+    .tooltipCls {
+      position: relative;
+      display: inline-block;
+      margin: 2px 6px 2px 0;
+      padding-left: 3px;
+      top: 3px;
+      svg {
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+      }
+      .tooltipMsg {
+        visibility: hidden;
+        color: $color-white;
+        position: absolute;
+        z-index: 1;
+        bottom: 22px;
+        width: 268px;
+        margin: 0 0 3px;
+        background-color: $lGray;
+        left: 0;
+        .tooltip-container {
+          overflow: auto;
+          padding: 12px;
+          &::-webkit-scrollbar {
+            display: none;
+          }
+          ::ng-deep {
+            p{
+              margin: 0;
+              margin: 1.6px 0 0 7px;
+              font-family: $alt-font-family;
+              font-size: 13px;
+              color: $color-white;
+            }
+          }
+        }
+        &::after {
+          content: "";
+          position: absolute;
+          top: 100%;
+          margin-left: 6px;
+          border: 5px solid rgba(0, 0, 0, 0);
+          border-top-color: $lGray;
+        }
+      }
+      &:hover {
+        .tooltipMsg {
+          visibility: visible;
+        }
+      }
+    }
+  }
+
+  #contest-carousel {
+    .ng-carousel {
+      ::ng-deep {
+        overflow: hidden;
+        @media #{$mqDesktop} {
+          overflow: visible;
+        }
+        $slide-width: 175px;
+        .carousel-slides {
+          overflow: visible;
+          width: $slide-width;
+          @media #{$mqMobile} {
+            padding: 10px 0px;
+          }
+        }
+        .slide {
+          width: 142px;
+          height: 44px;
+          margin: 0 8px 0 0;
+          border-radius: 4px;
+          text-align: center;
+          background-color: $color-white;
+
+          .activeContest {
+            background-color: $blue;
+            color: $color-white;
+          }
+        }
+      }
+    }
+    .swiper-container {
+      padding-top : 44px;
+      margin: 5px 0px;
+      @media #{$mqMobile} {
+        padding: 30px 0;
+      }
+    }
+    .action-arrow {
+      display: none;
+      @media #{$mqDesktop} {
+        display: flex;
+      }
+    }
+    .contest-card {
+      height: 100%;
+      padding: 6px 8px;
+      border-radius: 4px;
+      box-shadow: 0 2px 5px 0 $color-less-overlay-background;
+      background-color: $color-white;
+      position: relative;
+      .contest-title {
+        display: inline-block;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 0 12px;
+      }
+
+      .contest-details {
+        display: flex;
+        justify-content: center;
+      }
+
+      .contest-title-font {
+        @include contest-font-mixin($alt-font-family, $font-size, 700, $color-blue-charcoal);
+      }
+
+      .contest-title-font-active {
+        @include contest-font-mixin($alt-font-family, $font-size, 700, $color-white);
+      }
+
+      .contest-subtitle-font {
+        @include contest-font-mixin($alt-font-family, $font-size-sm, 400, $lBlack-light);
+      }
+
+      .contest-subtitle-font-active {
+        @include contest-font-mixin($alt-font-family, $font-size-sm, 400, $color-white);
+      }
+
+      .contest-subtitle {
+        margin: 0 2px 0px 0px;
+        padding: 2px 0px;
+      }
+
+      .bet-type-amount {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 5px;
+      }
+
+      .bet-type-amount-text {
+        height: 15px;
+        margin: 0 2px;
+        padding: 0px 2px 0px 2px;
+        border-radius: 2px;
+        background-color: $IGraySemiMediumLightB;
+        color: $color-white;
+      }
+      .icon-size {
+        width: 14px;
+        height: 11px;
+        margin-right: 4px;
+      }
+
+      .first-prize-icontext-active {
+        @include contest-font-mixin($alt-font-family, $font-size-sm, bold, $lGray);
+        font-stretch: condensed;
+      }
+    }
+  }
+}

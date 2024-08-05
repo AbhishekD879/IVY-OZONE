@@ -1,0 +1,12 @@
+<div class="sk-container" [ngClass]="{'sk-loading': state.loading}" >
+  <outlet-status [state]="state">
+    <request-error (reloadFn)="reloadComponent()"></request-error>
+  </outlet-status>
+  <ng-container *ngIf="!state.loading && !state.error">
+    <div *ngIf="isFeaturedTabShown" data-crlat="tabContent" class="heuristic-container">
+      <featured-module data-crlat="tab.showFeaturedContent"
+                        [hubIndex]="hubIndex">
+      </featured-module>
+    </div>
+  </ng-container>
+</div>

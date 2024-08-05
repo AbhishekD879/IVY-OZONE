@@ -1,0 +1,24 @@
+.header-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 400;
+    color: #111;
+}
+
+small {
+    display: block;
+    font-size: 12px;
+    margin-top: 5px;
+    color: #999;
+    line-height: 15px;
+}
+.mat-label{
+    text-transform: capitalize;
+}
+//for rich text editor to show textarea with some height
+::ng-deep .tinymce-layout  .mce-edit-area iframe {
+    height: 20% !important;
+}
+.image-btn{
+margin-right:10px;
+}

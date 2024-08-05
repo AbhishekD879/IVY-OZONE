@@ -1,0 +1,20 @@
+<div>
+  <ul class="selections" [ngStyle]="{
+    'height.px': this.expanded ? (this.poolBet.selectedOutcomes.length * this.LIST_ITEM_HEIGHT) : 0,
+    'max-height.px': (this.MAX_ITEMS_TO_SHOW * this.LIST_ITEM_HEIGHT) + this.ADDITIONAL_BOTTOM_OFFSET
+  }">
+    <li *ngFor="let outcome of poolBet.selectedOutcomes; trackBy: trackBySelectedOutcome">
+      <div class="dash-item">
+        <div class="selection">
+          <span class="label">{{ poolBet.getOutcomeLinkedLeg(outcome).name }}</span>
+          <span class="value">{{ getSelectionName(outcome) }}</span>
+        </div>
+        <div class="action remove" (click)="deselectOutcome(outcome)">
+          <svg>
+            <use xlink:href="#icn_remove"></use>
+          </svg>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

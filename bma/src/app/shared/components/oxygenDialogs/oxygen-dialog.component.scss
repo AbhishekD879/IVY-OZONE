@@ -1,0 +1,283 @@
+@import 'global.variables.scss';
+
+$animation-time: .22s;
+$ico-close-size: 24px;
+$ico-close-pos: 16px;
+$dialog-font-size: 14px;
+$dialog-buttons-font-size: 12px;
+
+/* fix to not overlap with Iphone X bottom software button. */
+@supports (height: constant(safe-area-inset-top)) {
+  .modal {
+    --safe-area-inset-bottom: constant(safe-area-inset-bottom);
+    min-height: 100%;
+    height: calc(100% + var(--safe-area-inset-bottom));
+  }
+}
+@supports (height: env(safe-area-inset-top)) {
+  .modal {
+    --safe-area-inset-bottom: env(safe-area-inset-bottom);
+    min-height: 100%;
+    height: calc(100% + var(--safe-area-inset-bottom));
+  }
+}
+
+.modal {
+  z-index: $ngdialog-zindex !important;
+  .dialog-top-priority & { z-index: $ngdialog-zindex + 2 !important; }
+
+  background-color: rgba(0, 0, 0, .4) !important;
+  height: 100%;
+  overflow: auto;
+
+  /*  Fix IE 11 issue with blinking/flickering ng-dialog overlays */
+  -ms-transform: translateZ(0px);
+  transform: translateZ(0px);
+  @include align-items(flex-start !important);
+  @include justify-content(flex-start !important);
+
+  .solid-overlay & {
+    background-color: $brand-color-dark !important;
+  }
+
+  &.fade {
+
+  /*  Override bootstrap .fade class */
+  transition: none;
+
+    &.in {
+      @include animation(ngdialog-fadein 0.5s);
+    }
+
+    &.out {
+      @include animation(ngdialog-fadeout 0.5s);
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.modal-dialog {
+  border-radius: 3px;
+  margin: auto;
+  position: relative;
+  width: $modal-dialog-width;
+
+  button.close {
+    display: none;
+  }
+}
+
+.modal-content {
+  border-radius: $popup-content-border-radius;
+  box-shadow: 0 0 3px rgba(0, 0, 0, .4);
+  overflow: hidden;
+  background: $color-gray;
+}
+
+.modal-header {
+  background: $popup-header-bg;
+  color: $popup-header-color;
+  box-shadow: $popup-header-box-shadow;
+  display: flex;
+  align-items: center;
+  padding: $popup-header-padding;
+  margin-bottom: $popup-header-margin-bottom;
+  position: relative;
+  min-height: $popup-header-min-height;
+  font-family: $base-font-family;
+  font-weight: bold;
+  font-size: $popup-header-font-size;
+  line-height: $line-height-normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: $popup-header-text-transform;
+  @include user-select();
+}
+
+.modal .modal-body {
+  background: $color-white;
+  overflow: hidden;
+  padding: $popup-padding;
+  color: $font-color-main;
+  font-size: $dialog-font-size;
+  max-height: 100%;
+  .modal-body-content{
+    overflow: hidden;
+  }
+
+  .watch-free-logo {
+    height: 50px;
+    padding: 5px 0 10px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .text-center {
+    font-size: 14px;
+  }
+
+  .half-width-button {
+    width: 100px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .text-section {
+    font-size: 14px;
+    line-height: 20px;
+
+    .popup-footer-text {
+      font-size: 14px;
+    }
+  }
+
+  .btn {
+    height: $modal-dialog-btn-list-height;
+    border-radius: initial;
+    font-size: $dialog-buttons-font-size;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-transform: uppercase;
+    text-shadow: none;
+    box-shadow: none;
+
+    &:hover {
+      box-shadow: none;
+    }
+
+    &.btn-style1 {
+      &:hover {
+        background: $color-green-light-leaf;
+      }
+      &:active {
+        background: $color-green-dark-leaf;
+      }
+      &[disabled]{
+        opacity: 1;
+        background: $color-green-light;
+        color: $color-green-dark;
+      }
+    }
+
+    &.btn-style2 {
+      background: $color-yellow !important;
+      color: $font-color-dark;
+
+      &:hover{
+        background: $color-yellow-alt2 !important;
+        color: $color-black;
+      }
+      &:active{
+        background: $color-orange-peel !important;
+        color: $color-black;
+      }
+      &.btn-ok-text {
+        &:hover{
+          color: $color-black;;
+         }
+      }
+      &.btn-ok-text {
+        &:hover{
+          color: $color-black;;
+         }
+      }
+    }
+
+    &.btn-style3:hover {
+      background: $color-orange-dark;
+    }
+
+    &.btn-style4 {
+      background: $color-white;
+      color: $modal-dialog-btn-style4-color;
+      box-shadow: none;
+      &:hover {
+        text-decoration: underline;
+        color: $modal-dialog-btn-style4-color;
+      }
+      &:active {
+        text-decoration: none;
+        color: darken($modal-dialog-btn-style4-color, 25%);
+      }
+    }
+  }
+
+  .btn-list {
+    margin-top: 16px;
+    text-align: $modal-dialog-btn-list-align;
+    font-family: $base-font-family;
+
+    .btn {
+      + .btn {
+        margin-left: 4px;
+      }
+
+      /* overrides non-symmetric padding from buttons.scss (review required) */
+      &.btn-style2 {
+        padding-left: 10px;
+        min-width: 100px;
+      }
+
+      &.okButton {
+        overflow: hidden;
+        padding-right: 5px;
+        padding-left: 5px;
+      }
+    }
+  }
+}
+
+.simpleDialog {
+
+  .modal-header {
+    display: none;
+  }
+
+  .modal-body {
+    padding: 20px;
+  }
+}
+
+body {
+  &.ios-modal-open {
+    position: fixed;
+    left: 0;
+    right: 0;
+  }
+  &.modal-open {
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    min-height: 100%;
+  }
+
+  /* fix to not overlap with Iphone X bottom software button. */
+  @supports (height: constant(safe-area-inset-top)) {
+    &.modal-open, &.ios-modal-open {
+      position: absolute;
+      --safe-area-inset-bottom: constant(safe-area-inset-bottom);
+      height: calc(100% + var(--safe-area-inset-bottom));
+    }
+  }
+  @supports (height: env(safe-area-inset-top)) {
+    &.modal-open, &.ios-modal-open {
+      position: absolute;
+      --safe-area-inset-bottom: env(safe-area-inset-bottom);
+      height: calc(100% + var(--safe-area-inset-bottom));
+    }
+  }
+}
+
+.links {
+  padding: 8px 31px 8px 10px;
+  a {
+    color: $color-blue-dark;
+    text-transform: uppercase;
+    font-family: $lato-font-family;
+    font-weight: 700;
+    font-size: $font-size;
+  }
+}

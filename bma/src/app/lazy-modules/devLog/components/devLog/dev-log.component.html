@@ -1,0 +1,26 @@
+<ng-container *ngIf="isOpened && isNotProduction">
+  <div id="dev-log" *ngIf="data">
+    <div class="env-change-container" *ngIf="environment.IS_DYNAMIC">
+      <div class="col">
+        <span>Environment</span>
+      </div>
+      <div class="col">
+        <select name="currentEnvironment"
+                (change)="setNewEnvironment($event.target.value)"
+                data-crlat="playerBets.selectPlayerSelect">
+          <option *ngFor="let item of environmentsList[environment.brand]; trackBy: trackByName" [value]="item.name" [selected]="item.name === currentEnvironment">{{ item.name }}</option>
+        </select>
+      </div>
+    </div>
+    <div id="dev-log-close" (click)="closeConsole()">X</div>
+    <div>APP VERSION: <span [textContent]="data.appVersion"></span></div>
+    <div>
+      <a [href]="data.environment.CMS_LINK" target="_blank">CMS link: <span [textContent]="data.environment.CMS_LINK"></span></a>
+    </div>
+    <div [textContent]="data.modules | json"></div>
+    <div [textContent]="data.sports | json"></div>
+    <pre class="git-log" [textContent]="data.git | json"></pre>
+    <pre class="environment-log" [textContent]="data.environment | json"></pre>
+  </div>
+</ng-container>
+

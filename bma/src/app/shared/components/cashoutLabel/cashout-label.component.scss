@@ -1,0 +1,59 @@
+@import '../../../../assets/styles/global.variables.scss';
+
+.cashout-label-wrapper {
+  background: $color-blue-lightest;
+  text-transform: none;
+
+  .cashout-label-text {
+    color: $brand-color-main;
+  }
+
+  &.big-icon {
+    @include flex-direction(column);
+    .cashout-label {
+      width: 17px;
+      height: 17px;
+      margin: 0 0 3px;
+    }
+
+    .cashout-label-text {
+      font-size: 7px;
+      line-height: 5px;
+    }
+  }
+
+  &.middle-icon {
+    @include flex-direction(row);
+    .cashout-label {
+      width: 17px;
+      height: 17px;
+      margin: 0;
+    }
+    .cashout-label-text {
+      display: none;
+    }
+  }
+
+  &.small-icon {
+    @include flex-direction(row);
+    .cashout-label {
+      width: 11.3px;
+      height: 11.3px;
+    }
+    .cashout-label-text {
+      height: 16px;
+      line-height: 16px;
+      text-transform: uppercase;
+      font-size: 8px;
+      margin-left: 3px;
+      font-weight: 900;
+    }
+  }
+
+  &.mini-icon {
+    @extend .small-icon;
+    .cashout-label-text {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,42 @@
+<div class="container merge" id="entry-details">
+  <div class="marginall entry-details">
+    <div class="row">
+      <svg class="position">
+        <use xlink:href="#fiveaside-watermark-logo"></use>
+      </svg>
+      <div class="col-md-1 col-xs-1"></div>
+      <div *ngIf="data" class="col-md-10 col-xs-11 outcomelist" id="legs-list-overlay">
+        <div *ngFor="let sel of data" class="byb-outcome">
+          <div class="outcome-title-container">
+            <fiveaside-crest-image *ngIf="teamColors && teamColors?.length && sel.homeAway" [hasBorder]=false [hasBorderDetails]=true
+            [hasTeamImage]="hasTeamImage" [widthHeight]="'17'" [hasOverflow]=true
+            [team]="sel.homeAway === 'home'?teamColors[0]:teamColors[1]">
+          </fiveaside-crest-image>
+            <div class="outcome-title" [ngClass]="{'add-margin': (teamColors && teamColors?.length && sel.homeAway)}" [textContent]="sel.title"></div>
+          </div>
+          <svg class="outcome-status-indicator" *ngIf="sel.progressPct === 100 || sel.status === selectionStatus.WON">
+            <use xlink:href="#bet-status-won"></use>
+          </svg>
+          <svg class="outcome-status-indicator" *ngIf="sel.status === selectionStatus.LOST">
+            <use xlink:href="#bet-status-lose"></use>
+          </svg>
+          <svg class="outcome-status-indicator" *ngIf=" eventStatus === 'post' &&  sel.progressPct !== 100 ">
+            <use xlink:href="#bet-status-lose"></use>
+          </svg>
+          <div class="bet-progress">
+            <fiveaside-progressbar [min]=0 [max]=100 [value]="sel.progressPct" [origin]="origin">
+            </fiveaside-progressbar>
+            <div class="progress-desc" [ngClass]="{'progress-desc':sel.isSetteled ,'counter-desc':!sel.isSetteled}">
+              <fiveaside-animated-score [digit]="sel.optaStatValue" [duration]="1000"></fiveaside-animated-score>
+              <div class="d-inline" [textContent]="sel.legprogressdetails"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+    <div class="cta-enry" (click)="jumpToEntry()" *ngIf="!isLeaderboard && eventStatus === 'live'">
+      <div class="cta-text" [i18n]="'fs.entryinfo.jumptoentry'"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div *ngIf="hasCashouts"
+    class="partial-cashout-history-container">
+  <expand-panel [heading]="'bs.cashHistory'"
+                data-crlat="panel.cashOutHistory">
+    <table class="table-panel" data-crlat="tablePanel">
+      <thead>
+        <tr>
+          <th [i18n]="'bs.stakeUsed'" data-crlat="labelStakeUsed"></th>
+          <th [i18n]="'bs.cashOutAmount'" data-crlat="labelCashOutAmount"></th>
+          <th [i18n]="'bs.dataTime'" data-crlat="labelDataTime"></th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let term of partialHistory; trackBy: trackByBetTermsChange;" data-crlat="cashoutType">
+        <td [textContent]="term.stakeUsed | currency:currencySymbol:'code'"  data-crlat="stakeUsed"></td>
+        <td [textContent]="term.cashoutValue | currency:currencySymbol:'code'" data-crlat="cashoutValue"></td>
+        <td [textContent]="getDate(term.cashoutDate) | date:'dd.MM.yyyy, h:mm a'"
+            data-crlat="cashoutDate">
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <ul class="items-list" data-crlat="itemsList">
+      <li data-crlat="remainingStake">
+        <strong [i18n]="'bs.RemainingStake'" data-crlat="label"></strong>
+        <span [textContent]="remainingStake | currency:currencySymbol:'code'" data-crlat="value"></span>
+      </li>
+      <li data-crlat="totalCashOut">
+        <strong [i18n]="'bs.totalCashOut'" data-crlat="label"></strong>
+        <span [textContent]="totalCashedOut | currency:currencySymbol:'code'" data-crlat="value"></span>
+      </li>
+      <li data-crlat="totalCashOutStake">
+        <strong [i18n]="'bs.totalCashOutStake'" data-crlat="label"></strong>
+        <span [textContent]="totalCashOutStake | currency:currencySymbol:'code'" data-crlat="value"></span>
+      </li>
+    </ul>
+  </expand-panel>
+</div>

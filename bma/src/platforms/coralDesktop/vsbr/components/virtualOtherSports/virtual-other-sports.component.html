@@ -1,0 +1,43 @@
+<header class="other-sports-header" data-crlat="virtualSectionHeaderName">
+  Other Sports
+</header>
+
+<ng-container>
+  <div [ngClass]="{'no-margin': true}" id="banner-section"
+    data-crlat="sectionBanner">
+    <div id="aem-placeholder" class="lc-carousel lc-carousel-virtuals" [ngClass]="'lc-carousel--'+brand"
+      [style.visibility]="true">
+      <div class="swiper-container ng-carousel" *ngIf="otherSportImages?.length" [ngCarousel]
+        [ngCarouselName]="carouselName" [ngCenterMode]="true"
+        [ngCarouselLoop]="false" [ngCarouselWatch]="otherSportImages.length" [ngCarouselFluid]="true"
+        [ngCarouselMoveThresholdPercentage]="5" [ngDisableCarouselDragOnCenterMode]="true">
+        <slidecontainer class="carousel-slides">
+          <slide class="slide" *ngFor="let offer of otherSportImages; let ind = index;">
+            <div class="lc-offer" [ngClass]="offer.brand ? 'lc-offer--' + offer.brand : ''" data-crlat="virtualSportWrapper">
+              <a class="lc-offer__link" (click)="actionHandler($event, otherSportImages[ind])">
+                <img class="bg-image lc-offer__image" 
+                [attr.src]="otherSportImages[ind]?.imgURL"
+                [attr.href]="otherSportImages[ind].redirectionURL" 
+                (click)="goToVirtualSports(offer)"
+                  [alt]="otherSportImages[ind]?.altText" />
+                  <span *ngIf="updateEventsData(offer.title)" class="ws-updates" [textContent]="updateEventsData(offer.title)"></span>
+                  <div *ngIf="offer.title" class="sport-name" [textContent]="offer.title" data-crlat="virtualSportName"> </div>
+                  <div *ngIf="offer.signposting" class="signposting-header" data-crlat="virtualSportSignPost">
+                    <div class="signposting-title" [textContent]="offer.signposting"></div>
+                    <div class="header-background"></div>
+                  </div>
+              </a>
+            </div>
+          </slide>
+        </slidecontainer>
+      </div>
+
+      <ng-container *ngIf="otherSportImages?.length > 3">
+        <div class="lc-carousel__prev arrow-chevron"  *ngIf='showPrev'
+          (click)="prevSlide()"></div>
+        <div class="lc-carousel__next arrow-chevron" *ngIf='showNext()'
+          (click)="nextSlide()"></div>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>

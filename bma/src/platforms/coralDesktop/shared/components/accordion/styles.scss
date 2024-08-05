@@ -1,0 +1,172 @@
+@import 'global.variables.scss';
+
+//----------------------------------------------------------------------
+// Accordion
+//
+//default content accordion styles
+accordion, accordion accordion {
+  padding: 0;
+}
+
+.big-comp .accordion .container-content .accordion-header {
+  background: $color-gray-light !important;
+  color: $lightGrey !important;
+  &:hover {
+    background: $lightWhite !important;
+  }
+  &:active {
+    background: $IGreyLightDark !important;
+  }
+  .chevron:before, .chevron:after {
+    background: $lightGrey;
+  }
+}
+
+.accordion {
+  overflow: hidden;
+  margin: 0 0 $componets-edge-gap;
+
+  .accordion {
+    margin: 0;
+  }
+
+  .container-content {
+    background: $color-white;
+    overflow: hidden;
+  }
+
+  & > .accordion-header {
+    background: $color-gray-light;
+    color: $color-gray-dark;
+    cursor: pointer;
+    padding: 10px;
+    height: $accordion-header-height;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    transition: background .4s;
+    @include display-flex();
+    @include align-items();
+    @include user-select();
+    &:hover {
+      background: $IGreyLightDark;
+    }
+    &.secondary-header {
+      background: $brand-color-dark;
+      color: $color-white !important;
+      .chevron:before, .chevron:after {
+        background: $color-white;
+      }
+      &:hover {
+        background: $brand-color-secondary !important;
+      }
+    }
+    &.inner-header {
+      background: $color-gray-light;
+    }
+    &.secondary-header, &.inner-header {
+      color: $lightGrey;
+      &:hover {
+        background-color: $lightWhite;
+      }
+      &:active {
+        background-color: $IGreyLightDark;
+      }
+      .left-title-text {
+        color: $color-white;
+      }
+
+
+      svg {
+        fill: $color-white;
+      }
+    }
+    .accordion-left-side,
+    left-side, let-side > [ng-if] {
+      @include display-flex();
+      @include align-items();
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    .accordion-right-side,
+    right-side, right-side > [ng-if] {
+      @include display-flex();
+      @include align-items();
+      @include flex-grow(1);
+      @include justify-content(flex-end);
+    }
+  }
+
+  section.accordion {
+    &.page-inner-container {
+      margin-bottom: 0;
+      border-bottom: 1px solid $color-gray;
+
+      &.is-expanded {
+        border-bottom: 0;
+      }
+    }
+  }
+}
+
+.accordion-header {
+  .accordion-title, .left-title-text {
+    font: bold 12px/1.2 $base-font-family;
+    text-transform: uppercase;
+    margin: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: flex;
+    font-size: 12px;
+    margin-block-end: 0px;
+    margin-block-start: 0px;
+    margin-top: 0px;
+    background-size: auto;
+    align-items: center;
+    height: 40px;
+    line-height: 19.5px;
+    
+    &.has-margin {
+      margin-right: 5px;
+    }
+  }
+}
+
+.secondary-header {
+  .accordion-title, .left-title-text {
+    text-transform: capitalize;
+  }
+}
+
+.tennis-competitions {
+  margin-bottom: 10px;
+  accordion {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .accordion {
+    margin: 0;
+  }
+}
+.outer-rectangle {
+  .accordion {
+    .accordion-header {
+      height: 80px;
+      border-top: 1px solid $color-gray;
+      background-color: $color-white;
+    }
+  }
+}
+.byb-showcard-market {
+  .accordion {
+    .accordion-header {
+      cursor: auto;
+      .accordion-right-side {
+        margin: 0 1% 0 0;
+      }
+      .chevron {
+        display: none;
+      }
+    }
+  }
+}

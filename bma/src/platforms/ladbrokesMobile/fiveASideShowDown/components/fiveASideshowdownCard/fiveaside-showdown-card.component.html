@@ -1,0 +1,128 @@
+<div id="showdown-card-main" class="showdown-card" (click)="gotoLeaderboard(contestData.id)" *ngIf="contestData">
+  <div class="showdown-card-header">
+    <div class="contest-title d-flex">
+      <img *ngIf="contestData?.icon?.filename" class="prize-icon"
+        [attr.src]="SPONSOR_LOGO_BASE_PATH + contestData.icon.filename">
+      <div class="ml-1">
+        <div class="ml-2 mr-1 contest-info" [textContent]="contestData.name"></div>&nbsp;
+        <svg *ngIf='eventIsLive && !isMatchFTorResulted' class="live-label">
+          <use xlink:href="#showdown-card-live"></use>
+        </svg>
+        <div class="match-label" *ngIf='isMatchFullTime || isMatchFTorResulted'>
+          <div class="label-content" [i18n]="'fs.card.ft'"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-header-entry-content text-right">
+      <div class="card-left-entry-text" *ngIf='!isMatchFTorResulted'>
+        <!-- Yet to win -->
+        <div id="card-entry-info" *ngIf="contestDetails?.entryStake">
+          <span class="mr-1" [textContent]="contestDetails?.entryStake"></span>
+          <ng-container *ngIf="ticketEntry">
+            <span class="card-grey-text" [i18n]="'fs.card.or'"></span>
+            <span class="ticket-widget">
+              <svg class="ticket-entry">
+                <use xlink:href="#ticket"></use>
+              </svg>
+            </span>
+          </ng-container>
+          <div *ngIf="ticketEntry || contestDetails?.entryStake" class="card-grey-text" [i18n]="'fs.card.entry'"></div>
+        </div>
+        <div *ngIf="contestDetails?.totalPrizes" class="ml-1 mr-1 line-separator"></div>
+        <div id="card-total-prizes" *ngIf="contestDetails?.totalPrizes">
+          <div class="amount-text" [textContent]="contestDetails?.totalPrizes"></div>
+          <div class="card-grey-text" [i18n]="'fs.card.inPrizes'"></div>
+        </div>
+      </div>
+      <div class="card-left-entry-text" *ngIf='userPrizeInfoAvailable'>
+        <div>
+          <!-- You won -->
+          <div class="card-grey-text" [i18n]="'fs.card.youWon'"></div>
+          <span class="amount-text you-won" [i18n]="'fs.card.amountText'"></span>
+          <span>
+            <img [src]="voucherLogo" class="prize-ticket-img">
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hr-line-separator"></div>
+  <!-- '19:45' -->
+    <ng-container
+      *ngIf="event?.dateTime && (!event?.clock?.enabled || isExtraTimePeriod) && isMatchFTorResulted && (categoryName === LAST_7_DAYS); else kickOffTpl">
+      <span class="content-center-flex historic-match-date" id="last-7-days" [textContent]="event.dateTime"></span>
+    </ng-container>
+    <ng-template #kickOffTpl>
+      <ng-container
+        *ngIf="event?.dateTime && !event?.clock?.enabled && !isMatchPeriodStatus && event?.clock?.matchTime !== 'FT' && !event?.started; else timeTpl">
+        <span class="content-center-flex historic-match-date" [i18n]="'fs.card.kickOffIn'"
+          [i18nArgs]="[event?.dateTime]"></span>
+      </ng-container>
+    </ng-template>
+    <ng-template #timeTpl>
+      <ng-container
+        *ngIf="event?.dateTime && !event?.clock?.enabled && !isMatchPeriodStatus && event?.clock?.matchTime !== 'FT' && eventIsLive">
+        <span class="content-center-flex historic-match-date" [textContent]="event?.dateTime"></span>
+      </ng-container> 
+    </ng-template>
+
+      <ng-container *ngIf="event?.clock && !isExtraTimePeriod; else ETTpl">
+        <span id="match-timer-period-clock" class="content-center-flex card-match-timer">
+          <live-clock *ngIf="event?.clock" [event]="event"></live-clock>
+        </span>
+      </ng-container>
+      <ng-template #ETTpl>
+        <ng-container>
+          <span id="match-timer-period-et" *ngIf="isExtraTimePeriod && !isMatchFTorResulted"
+            class="content-center-flex card-match-timer" [textContent]="'ET'"></span>
+        </ng-container>
+      </ng-template>
+      <span id="match-timer-period" class="content-center-flex card-match-timer" 
+      *ngIf="(isMatchPeriodStatus && event?.clock?.matchTime !== 'PENS' && !isExtraTimePeriod) || (categoryName !== LAST_7_DAYS && (event?.clock?.matchTime === 'FT' || event?.clock?.matchTime === 'PENS'))"
+      [textContent]="event?.clock?.matchTime"></span>
+
+  <div class="row team-score-section col-xs-10">
+    <div class="col-xs-5 d-flex align-items-center p-0">
+      <div class="m-2 team-name ml-auto" [textContent]="homeTeam"></div>
+      <fiveaside-crest-image *ngIf="teamColors.length > 0; else emptyFlag" class="m-2" [hasTeamImage]="hasTeamImage" 
+        [hasBorder]="true" [hasOverflow]="true" [widthHeight]="'27'" [team]="teamColors[0]">
+      </fiveaside-crest-image>
+      <ng-template #emptyFlag >
+        <div class="m-2 team-image-icon"></div>
+      </ng-template>
+    </div>
+    <div class="ml-2 mr-2 team-content-center">
+      <fiveaside-showdown-live-scores *ngIf="isScoresAvailable && !isMatchFTorResulted; else blankDisplay"
+        [animatingComponentId]="componentId" [homeScore]="homeScore"
+        [awayScore]="awayScore" [event]="event" [isMatchFullTime]="isMatchFT">
+      </fiveaside-showdown-live-scores>
+      <ng-template #blankDisplay class="team-name">
+        <span [ngClass]="{'show-down-score': !isMatchFTorResulted}"
+          [textContent]="(homeScore === undefined || homeScore === null || homeScore === '' ? '' : homeScore) + ' - ' + (awayScore === undefined || awayScore === null || awayScore === '' ? '' : awayScore)">
+        </span>
+      </ng-template>
+    </div>
+    <div class="col-xs-5 d-flex align-items-center p-0">
+      <fiveaside-crest-image *ngIf="teamColors.length > 1; else emptyFlag" class="m-2" [hasTeamImage]="hasTeamImage"
+        [hasBorder]="true" [hasOverflow]="true" [widthHeight]="'27'" [team]="teamColors[1]">
+      </fiveaside-crest-image>
+      <ng-template #emptyFlag >
+        <div class="m-2 team-image-icon"></div>
+      </ng-template>
+      <div class="m-2 team-name mr-auto" [textContent]="awayTeam"></div>
+    </div>
+  </div>
+  <div class="mt-2 text-center" *ngIf="contestData?.sponsorLogo?.filename || contestData?.sponsorText">
+    <span class="sponsored-text" *ngIf="contestData?.sponsorText" [textContent]="contestData.sponsorText"></span>
+    <span> <img *ngIf="contestData?.sponsorLogo?.filename"
+        [attr.src]="SPONSOR_LOGO_BASE_PATH + contestData.sponsorLogo.filename" width="58" />
+    </span>
+  </div>
+  <div *ngIf="!isMatchFTorResulted">
+    <div class="dashed-line-separator"></div>
+    <div class="content-center-flex">
+      <fiveaside-sign-posting [signPostingsInfo]="signPostingsInfo" [contestDetails]="contestDetails">
+      </fiveaside-sign-posting>
+    </div>
+  </div>
+</div>

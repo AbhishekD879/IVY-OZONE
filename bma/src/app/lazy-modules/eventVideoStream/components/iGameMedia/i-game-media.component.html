@@ -1,0 +1,19 @@
+<div class="i-game-media clearfix" *ngIf="streamShown">
+  <div class="video-frame" *ngIf="streamUrl">
+    <iframe [attr.width]="iFrameDimensions.width"
+            [attr.height]="iFrameDimensions.height"
+            scrolling="no"
+            frameBorder="0"
+            [attr.src]="streamUrl"
+            allowfullscreen>
+    </iframe>
+  </div>
+  <div class="error-message" *ngIf="streamError && isDesktop"
+       [ngClass]="{'desktop-error-message': isDesktop}"
+       data-crlat="videoStreamErrorMessage">
+    <svg class="horseracing-info-icon">
+      <use xlink:href="#info-icon"></use>
+    </svg>
+    <span [i18n]="streamErrorKey"></span>
+  </div>
+</div>

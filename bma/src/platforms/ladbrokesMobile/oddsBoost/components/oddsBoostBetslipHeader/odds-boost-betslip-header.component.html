@@ -1,0 +1,18 @@
+<div class="header-container" *ngIf="isAvailable" data-crlat="oddsBoostBetslipHeader">
+  <div class="left">
+    <div class="primary-header" [i18n]="'oddsboost.betslipHeader.title'" data-crlat="oddsBoostText"></div>
+    <div class="secondary-header">
+      <span [i18n]="'oddsboost.betslipHeader.subtitle'" data-crlat="tapToBoostText"></span>
+      <span class="info-mark">
+        <svg (click)="showInfoDialog()" data-crlat="infoButton">
+          <use xlink:href="#icn_info-icon-bg"></use>
+        </svg>
+      </span>
+    </div>
+  </div>
+
+  <div class="right">
+    <odds-boost-button [enabled]="active" [reboost]="reboost" (click)="onBoostClick()" data-crlat="oddsBoostButton"
+      [disabled]="boostDisabled"></odds-boost-button>
+  </div>
+</div>

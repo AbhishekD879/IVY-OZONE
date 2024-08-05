@@ -1,0 +1,16 @@
+.header-panel {
+  width: 100%;
+  background: $brand-color-dark;
+  color: $color-white;
+  padding: 10px;
+  height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  font: bold 12px/1.2 $base-font-family;
+  white-space: nowrap;
+  @include display-flex();
+  @include align-items();
+  @include user-select();
+}
+

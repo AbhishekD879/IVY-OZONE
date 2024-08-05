@@ -1,0 +1,6 @@
+@Library(value='jenkins-pipeline-lib-onprem@LCGD-530', changelog=false)
+def service = lcgCommonFunctions.getConstantsParameters("services.serviceLcgUatBmaUiTest")
+arguments = [
+        service: service
+]
+lcgJobCrlatUITesting(arguments)

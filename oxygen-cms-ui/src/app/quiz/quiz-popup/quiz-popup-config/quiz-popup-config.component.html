@@ -1,0 +1,158 @@
+<div class="card" *ngIf="quizPopup">
+  <div class="header">
+    <h2 class="has-activity-badge">Quiz Popup
+      <create-updated-at-by [collection]="quizPopup"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="!quizPopup.enabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="quizPopup">
+  <div class="body">
+    <div class="row">
+
+      <div class="col-2">
+        <span>
+          Active
+        </span>
+      </div>
+      <div class="col-2">
+        <mat-checkbox color="primary"
+                      [checked]="quizPopup.enabled"
+                      (change)="quizPopup.enabled = !quizPopup.enabled">
+        </mat-checkbox>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Page Urls
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input
+            matInput placeholder="Page Urls (separated by comma)"
+            [(ngModel)]="quizPopup.pageUrls"
+            [value]="quizPopup.pageUrls"
+            trim="blur" required>
+        </mat-form-field>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="card">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Popup Title
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input
+            matInput placeholder="Title to be displayed in the popup"
+            [(ngModel)]="quizPopup.popupTitle"
+            [value]="quizPopup.popupTitle"
+            trim="blur"
+            type="text">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Popup Text
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input
+            matInput placeholder="Text to be displayed in the popup"
+            [(ngModel)]="quizPopup.popupText"
+            [value]="quizPopup.popupText"
+            trim="blur"
+            type="text">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+           Related Quiz
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <mat-select [(value)]="quizPopup.quizId" (selectionChange)="setQuizId($event)" placeholder="Select Related Quiz" required>
+            <mat-option *ngFor="let quiz of quizzes" [value]="quiz.id">{{quiz.title}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">'Take a quiz' text</span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input
+            matInput placeholder="type CTA text here"
+            [(ngModel)]="quizPopup.yesText"
+            [value]="quizPopup.yesText"
+            trim="blur"
+            type="text">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">'Remind me later' text</span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input
+            matInput placeholder="type CTA text here"
+            [(ngModel)]="quizPopup.remindLaterText"
+            [value]="quizPopup.remindLaterText"
+            trim="blur"
+            type="text">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">'Don't show me again' text</span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input
+            matInput placeholder="type CTA text here"
+            [(ngModel)]="quizPopup.dontShowAgainText"
+            [value]="quizPopup.dontShowAgainText"
+            trim="blur"
+            type="text">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons
+    #actionButtons
+    *ngIf="quizPopup"
+    [fieldOrItemName]="'Quiz Popup'"
+    [collection]="quizPopup"
+    (actionsEmitter)="actionsHandler($event);"
+    [showRemoveButton]="false"
+    [validateHandler]="verifyQuizPopupData">
+</action-buttons>

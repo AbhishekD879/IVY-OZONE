@@ -1,0 +1,26 @@
+.segments {
+    ::ng-deep.mat-chip.mat-standard-chip:focus::after {
+        opacity: 0;
+    }
+    
+    mat-form-field {
+        width: inherit;
+    }
+
+    .clear {
+        margin-right: 20px;
+    }
+
+    mat-icon:nth-last-child(1) {
+        cursor: pointer;
+        right: 50px;
+    }
+}
+
+.segment-card div h3 {
+    display: grid;
+}
+
+.segment-card div h3 small {
+    font-size: 50%;
+}

@@ -1,0 +1,250 @@
+@import 'global.variables.scss';
+
+.overlay-content {    
+    padding: 0px 4px;
+}
+
+::ng-deep {
+
+  #desktop-switcher {
+    .switchers {
+      .switch-btn-text {
+        text-transform: uppercase !important;
+      }
+    }
+  }
+
+  .desktop-list {
+    &.active {
+      background: $lGray !important;
+      right: 0px !important;
+      max-width: 351px !important;
+      .coupons-wrap {
+        background: $lGray !important;
+        margin: 0px !important;
+      }
+      &.coral {
+        background: $bch-blue !important;
+        .overlay-content {
+          background: $bch-blue !important;
+        }
+        .switchers {
+          .switch-btn-text:host {
+          text-transform: uppercase !important;
+          }
+        }
+        racing-panel {
+          .scroll-panel {
+            li:last-child > a{
+              &.tab::before {
+                display: none !important
+              }
+            }
+          }
+        }
+      }
+
+      .overlay-content {
+        padding: 0px;
+      }
+
+      .overlay {
+        background: none;
+      }
+
+      .switchers {
+        background: $lGray;
+        color: $color-white;
+        padding: 4px 6px;
+        box-shadow: none !important;
+        .switch-btn {
+          font-size: 12px !important;
+        }
+
+        a {
+          &.switch-btn {
+            &.overlay {
+              background: $lGrayMediumLight;
+              color: $switcher-grey-lighter !important;
+              border-bottom: none !important;
+              font-family: 'Roboto Condensed' !important;
+              &.active {
+                color: $color-white !important;
+                border-bottom: 3px solid $red !important;
+                &:after{
+                  background: $red !important;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      accordion {
+        margin-bottom: 0px !important;
+      }
+
+      svg.chevron-svg {
+        &.chevron-down,
+        &.chevron-up {
+          visibility: visible;
+          fill: $color-white;
+        }
+      }
+
+      .horserace {
+        &.race-grid {
+          background: $lGrayMediumLight !important;
+          margin-top: 0px;
+          li, a, .tab:hover {
+            background: none !important;
+          }
+          .rg-header {
+            color: $color-white !important;
+            background: $lGrayMediumLight !important;
+            padding: 0px 0px 16px !important;
+            .rg-stream-icon {
+              width: 41px !important;
+              height: 15px !important;
+              margin: 0 0 0 4px !important;
+              fill: $color-white !important;
+            }
+          }
+
+          .rg-title {
+            color: $color-white !important;
+            font-size: 13px !important;
+            font-weight: 400 !important;
+          }
+
+          .rg-section {
+            background-color: $lGrayMediumLight !important;
+            padding: 16px 16px 0px !important;
+            &:not(:last-child) .tabs-panel {
+              border-bottom: 1px solid $color-white-light-grey-byb !important;
+            }
+          }
+          .rg-footer {
+              min-height: 0px !important;
+              background-color: none !important;
+            }
+          .tabs-panel {
+            background-color: $lGrayMediumLight !important;
+            &.tabs-bottom {
+              .scroll-container {
+                .tote-indicator-container{
+                  .tote-indicator{
+                    padding: 5px 12px !important;
+                  }
+                }
+              }
+            }
+            .scroll-container {
+              .scroll-inner {
+                li {
+                  margin-bottom: 6px;
+                  min-width: auto !important;
+                  &:first-child {
+                    margin-left: -12px;
+                  }
+                  .tote-indicator {
+                    background: $color-gray-darkest !important;
+                    &.tab{
+                      font-family: 'Roboto Condensed' !important;
+                      font-weight: 700 !important;
+                      font-size: 10px !important;
+                      margin-right: 0px !important;
+                    }
+                  }
+
+                  .tab {
+                    color: $color-white !important;
+                    font-family: 'Roboto Condensed' !important;
+                    font-size: 14px !important;
+                    .race-time {
+                      color: white !important;
+                      
+                    }
+                  }
+                  &:after {
+                    height: 16px !important;
+                    background-color: $color-white !important;
+                  }
+                }
+              }
+              .tote-indicator-container {
+                &:before {
+                  display: none !important;
+                }
+              }
+            }
+            .early-price-sign-post {
+              color: white !important;
+              padding: 0px !important;
+              position: relative;
+              top: -22px;
+              height: 2px !important;
+             }
+
+             .remove-border {
+              border-bottom: none;
+             }
+          }
+
+        }
+        &.desktop-race-grid {
+          .prom-icons-wrap {
+            padding-top: 12px !important;
+          }
+        }
+      }
+      .event-card-label-wrapper {
+        &.bog-promotion {
+          width: 21px !important;
+          height: 15px !important;
+          .event-card-label {
+            &.bog-text{
+              width: 14px !important;
+            }
+          }
+        }
+      }
+      .middle-icon {
+        width: 17px !important;
+        height: 17px !important;
+        margin-right: 2px !important;
+      }
+
+      .accordion-header {
+        background: $lGray !important;
+        color: $color-white;
+        border-bottom: 0.5px solid $header-border-grey-dark;
+        border-top: 0.5px solid $header-border-grey-dark;
+      }
+
+      .chevron-svg {
+        .chevron-up {
+          visibility: visible;
+          fill: $color-white;
+        }
+        .chevron-down {
+          visibility: visible;
+          fill: $color-white;
+        }
+      }
+      racing-status {
+        span {
+          &.resulted {
+            color: $color-white !important;
+          }
+        }
+        .race-off {
+          color: $color-white !important;
+        }
+        .racing-icon {
+          margin-right: 1px;
+        }
+      }
+    }
+  }
+  }

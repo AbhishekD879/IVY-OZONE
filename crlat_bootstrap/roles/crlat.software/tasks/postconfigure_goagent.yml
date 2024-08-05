@@ -1,0 +1,124 @@
+- name: Ensure go-agent service is not running
+  service:
+    name: go-agent
+    state: stopped
+
+- name: Grant sudo permissions to go user
+  lineinfile:
+    path: /etc/sudoers.d/95-cloud-init-go-user
+    create: yes
+    regexp: '^go.*'
+    line: 'go ALL=(ALL) NOPASSWD:ALL'
+    state: present
+
+- name: Ensure "docker" group present
+  group:
+    name: docker
+    state: present
+
+- name: add go user to docker group
+  user:
+    name: go
+    groups: docker
+
+- name: Create ~/.ssh directory
+  file:
+    path: /var/go/.ssh
+    owner: go
+    group: go
+    mode: 0700
+    state: directory
+
+- name: Add id_rsa
+  copy:
+    src: coral-dev.pem
+    dest: /var/go/.ssh/id_rsa
+    owner: go
+    group: go
+    mode: 0600
+
+- name: Add id_rsa.pub
+  copy:
+    src: coral-dev.pub
+    dest: /var/go/.ssh/id_rsa.pub
+    owner: go
+    group: go
+    mode: 0600
+
+- name: Add crlat.pem
+  copy:
+    src: crlat.pem
+    dest: /var/go/.ssh/crlat.pem
+    owner: go
+    group: go
+    mode: 0600
+
+- name: add bitbucket.org to known hosts
+  shell: ssh -o StrictHostKeyChecking=no git@bitbucket.org
+  become_user: go
+
+- name: Configure go-cd server url
+  lineinfile:
+    path: /etc/default/go-agent
+    create: yes
+    regexp: '^GO_SERVER_URL.*'
+    line: "GO_SERVER_URL=https://{{ gocd_server }}:8154/go"
+    state: present
+
+- name: read "GoAgentEnv" tag and set variable
+  set_fact:
+    go_agent_env: "{{ ec2_tag_GoAgentEnv }}"
+  when: ec2_tag_GoAgentEnv is defined
+
+- name: read "GoAgentResources" tag and set variable
+  set_fact:
+    go_agent_resources: "{{ ec2_tag_GoAgentResources }}"
+  when: ec2_tag_GoAgentResources is defined
+
+- name: read "Name" tag and set variable
+  set_fact:
+    go_agent_hostname: "{{ ec2_tag_Name }}"
+  when: ec2_tag_Name is defined
+
+- name: Configure go-cd agent key
+  lineinfile:
+    path: /var/lib/go-agent/config/autoregister.properties
+    create: yes
+    regexp: '^agent\.auto\.register\.key.*'
+    line: 'agent.auto.register.key=8ad34d5b9f3a4b7fa26c5b7c9f40c6ad'
+    state: present
+
+- name: Configure go-cd agent resources
+  lineinfile:
+    path: /var/lib/go-agent/config/autoregister.properties
+    create: yes
+    regexp: '^agent\.auto\.register\.resources.*'
+    line: "agent.auto.register.resources={{ go_agent_resources }}"
+    state: present
+
+- name: Configure go-cd agent environments
+  lineinfile:
+    path: /var/lib/go-agent/config/autoregister.properties
+    create: yes
+    regexp: '^agent\.auto\.register\.environments.*'
+    line: "agent.auto.register.environments={{ go_agent_env }}"
+    state: present
+
+- name: Configure go-cd agent hostname
+  lineinfile:
+    path: /var/lib/go-agent/config/autoregister.properties
+    create: yes
+    regexp: '^agent\.auto\.register\.hostname.*'
+    line: "agent.auto.register.hostname={{ go_agent_hostname }}"
+    state: present
+
+- name: correct java version selected
+  alternatives:
+    name: java
+    path: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+
+- name: Ensure go-agent service is running
+  service:
+    name: go-agent
+    state: started
+    enabled: yes

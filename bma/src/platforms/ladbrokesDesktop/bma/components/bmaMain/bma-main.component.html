@@ -1,0 +1,47 @@
+<oxygen-dialog></oxygen-dialog>
+
+<div id="page-wrapper">
+  <!--- Header -->
+  <header-section></header-section>
+  <!--- Page Content -->
+  <div id="page-content" data-crlat="pageContent">
+    <!--- Left Column -->
+    <aside id="left-column">
+      <left-menu data-crlat="leftColumn"></left-menu>
+    </aside>
+    <!--- Content -->
+    <div id="content" data-uat="pageContent">
+      <router-outlet></router-outlet>
+      <lazy-component 
+        moduleUri="@lazy-modules/seoStaticBlock/seo-static-block.module#SeoStaticBlockModule">
+      </lazy-component>
+    </div>
+
+    <!--- Right Column -->
+    <lazy-component *ngIf="showRC" moduleUri="@rightColumnModule/right-column.module#RightColumnModule" id="right-column"
+      data-crlat="rightColumn">
+    </lazy-component>
+
+    <back-to-top></back-to-top>
+  </div>
+
+  <!-- SVG ICONS -->
+  <svg-list id="iconsSprite_cmsInitial" *ngIf="initialIcons" [list]="initialIcons" [keepFill]="true"></svg-list>
+  <svg-list id="iconsSprite_cmsAdditional" *ngIf="additionalIcons" [list]="additionalIcons" [keepFill]="true"></svg-list>
+
+  <live-serv-iframe><!-- LiveServ integration iframe --></live-serv-iframe>
+</div>
+
+<!-- Fanzone coming back overlay -->
+<lazy-component *ngIf="user.status && fanzoneCbData && fanzoneCbData.length" moduleUri="@lazy-modules-module/fanzone/fanzone-shared.module#FanzoneSharedModule"
+  entryComponent="FanzoneCbOverlayComponent" [inputs]="{fanzoneCbData: fanzoneCbData}">
+</lazy-component>
+
+<!-- Quiz dialog component -->
+<lazy-component moduleUri="@lazy-modules-module/quiz/quiz-dialog.module#QuizDialogModule"
+                [inputs]="{user: user}">
+</lazy-component>
+
+<oxygen-notification></oxygen-notification>
+
+<promotion-footer></promotion-footer>

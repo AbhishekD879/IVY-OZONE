@@ -1,0 +1,50 @@
+<div id="offers-widget" *ngIf="offersData && offersData.length" data-crlat="widgetOffers">
+  <accordion [accordionTitle]="offer.name"
+             [isExpanded]="true"
+             *ngFor="let offer of offersData; index as i; trackBy: trackByOffersData">
+    <accordion-body>
+        <div [ngCarousel]
+             [ngCarouselName]="'offers-carousel-' + i" class="offers-carousel"
+             [ngCarouselTimer]="DURATION"
+             [ngCarouselWatch]="offer.offers"
+             [ngCarouselLoop]="true"
+             (isCarouselInit)="onCarouselInit($event, i)">
+            <slidecontainer class="carousel-slides"
+                            [ngClass]="{'carousel-no-scroll': offer.offers.length === 1}"
+                            (click)="sendGTM(offer, i)"
+                            data-crlat="slidecontainer">
+                <slide class="slide"
+                       *ngFor="let slide of offer.offers; trackBy: trackByOffers"
+                       data-crlat="offerSlide">
+                    <a (click)="redirect(slide.targetUri)"
+                       [ngClass]="{'img-not-found': !slide.image}"
+                       class="slide-link"
+                       [attr.target]="slide.relUri ? '_blank' : ''"
+                       [click-link]
+                       data-crlat="offerLink">
+                      <!-- ng-error migrated to (error) -->
+                      <img [attr.src]="slide.image"
+                           [attr.alt]="slide.targetUri"
+                           [disable-dragging]
+                           (error)="slide.image = false"
+                           data-crlat="offerImage"
+                           *ngIf="slide.image" width="290" height="180"/>
+                        <span *ngIf="!slide.image" data-crlat="noImage">Image Not Found</span>
+                    </a>
+                </slide>
+            </slidecontainer>
+            <ul class="slide-dots"
+                *ngIf="offer.offers.length > 1 && isCarouselInited[i]"
+                data-crlat="slideDots">
+                <li *ngFor="let slide of offer.offers; index as j; trackBy: trackBySlide"
+                    [ngClass]="{'slide-active': setActiveSlide(j, i)}"
+                    data-crlat="slideDotContainer">
+                    <button type="button"
+                            (click)="gotToSlide(j, i)"
+                            data-crlat="dotBtn"></button>
+                </li>
+            </ul>
+        </div>
+    </accordion-body>
+  </accordion>
+</div>

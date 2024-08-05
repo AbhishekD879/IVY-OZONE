@@ -1,0 +1,285 @@
+<breadcrumbs *ngIf="form" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+
+<div class="card" *ngIf="form">
+  <div class="header">
+    <h2 class="has-activity-badge">
+      <span [innerText]="pageTitle"></span>
+      <span class="font-italic">{{highlightCarousel.title}}</span>
+      <create-updated-at-by [collection]="highlightCarousel" [class.invisible]="!carouselId"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="highlightCarousel.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="dateRangeError || eventError">
+  <div class="alert alert-danger m-b-0" [innerHTML]="dateRangeError || eventError">
+  </div>
+</div>
+
+<div class="card" *ngIf="form">
+  <form [formGroup]="form" novalidate>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-checkbox color="primary"
+                        [checked]="!highlightCarousel.disabled"
+                        (change)="toggleActiveStatus()">
+            Active
+          </mat-checkbox>
+        </div>
+        <div class="col-md-6">
+          <mat-checkbox color="primary"
+                        formControlName="displayOnDesktop"
+                        [checked]="highlightCarousel.displayOnDesktop"
+                        (change)="onDisplayOnDesktopCheck()">
+            Display on Desktop
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+              Title
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput [(ngModel)]="highlightCarousel.title" placeholder="Title" formControlName="title" required
+                   trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+              Set Events By
+          </span>
+        </div>
+        <div class="col-md-6 padding-top-12">
+          <mat-radio-group [(ngModel)]="selectByTypeId" formControlName="selectByTypeId"
+                           (change)="changeEventSelection(selectByTypeId)">
+            <mat-radio-button [value]="true">
+            {{ isFanzoneSportCategory ? 'Type IDs' : 'Type ID' }}
+            </mat-radio-button>
+            <mat-radio-button [value]="false">
+              Event IDs
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+      <div class="row" *ngIf="selectByTypeId">
+        <div class="col-md-2">
+          <span class="mat-label">
+            {{ isFanzoneSportCategory ? 'Type IDs' : 'Type ID' }}
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width" *ngIf="!isFanzoneSportCategory">
+            <input matInput [(ngModel)]="highlightCarousel.typeId" placeholder="Type ID" formControlName="typeId" required appNumberOnly (input)="setEventError(null)">
+          </mat-form-field>
+          <number-list-input *ngIf="isFanzoneSportCategory" [(ngModel)]="highlightCarousel.typeIds" placeholder="Type IDs"
+            formControlName="typeIds" [required]="true" (input)="setEventError(null)">
+          </number-list-input>
+        </div>
+      </div>
+      <div class="row" *ngIf="!selectByTypeId">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Event IDs
+          </span>
+        </div>
+        <div class="col-md-6">
+          <number-list-input [(ngModel)]="highlightCarousel.events"
+                             formControlName="events"
+                             (input)="setEventError(null)"
+                             [required]="true"
+                             [placeholder]="'Event IDs'">
+          </number-list-input>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Select Market
+          </span>
+        </div>
+        <div class="col-md-4">
+          <cms-simple-select-list
+            [options]='directiveNames'
+            [selected]="highlightCarousel.displayMarketType"
+            (onDataChange)="onChangeDirectiveName($event)">
+          </cms-simple-select-list>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Market Type
+          </span>
+        </div>
+        <div class="col-md-4">
+          <cms-simple-select-list
+            [options]='directiveNames'
+            [selected]="highlightCarousel.displayMarketType"
+            (onDataChange)="onChangeDirectiveName($event)">
+          </cms-simple-select-list>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <date-range
+            [isSetDateButtons]="true"
+            [startDate]="highlightCarousel.displayFrom"
+            [endDate]="highlightCarousel.displayTo"
+            [startPlaceholder]="'Display from'"
+            [endPlaceholder]="'Display to'"
+            [placeholderColumn]="true"
+            (onDateUpdate)="handleDateUpdate($event)">
+          </date-range>
+        </div>
+      </div>
+      <div class="row">
+        <ng-container *ngIf="isIMActive; else cmsUpload">
+          <div class="col-md-2">
+            <span class="mat-label">SVG Icon</span>
+          </div>
+          <div class="col-md-6">
+            <svg-icon-select-input
+              [formFieldsModels]="highlightCarousel"
+            ></svg-icon-select-input>
+          </div>
+        </ng-container>
+        <ng-template #cmsUpload>
+          <div class="col-md-2">
+            <span class="mat-label">
+              Icon
+            </span>
+          </div>
+          <div class="col-md-5">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="File Name"
+                     [value]="highlightCarousel.svgFilename ? highlightCarousel.svgFilename.filename : imageToUpload.name"
+                     disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <div class="d-none"><input #iconUploadInput formControlName="icon" (change)="handleImageChange($event)"
+                                       type="file" value="upload"/>
+            </div>
+            <button type="button" (click)="uploadIconHandler($event)" class="main-image-btn btn bg-teal waves-effect"
+                    [innerText]="uploadButtonText">
+            </button>
+            <button type="button" (click)="removeIconHandler($event)"
+                    *ngIf="highlightCarousel.svgFilename && highlightCarousel.svgFilename.filename || imageToUpload.name"
+                    class="main-image-btn btn bg-red waves-effect">
+              Remove File
+            </button>
+          </div>
+        </ng-template>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            No. of Events
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput [(ngModel)]="highlightCarousel.limit" placeholder="No. of Events" formControlName="limit"
+                   appNumberOnly>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Display In-Play
+          </span>
+        </div>
+        <div class="col-md-6 padding-top-12">
+          <mat-checkbox color="primary"
+                        formControlName="inPlay"
+                        [checked]="highlightCarousel.inPlay"
+                        (change)="highlightCarousel.inPlay = !highlightCarousel.inPlay">Display In-Play
+          </mat-checkbox>
+        </div>
+        <div class="col-md-10" *ngIf="isHomePage">
+          <cms-universal-segmented [segmentsDataObj]='segmentsList' [isRevert]="isRevert" (isFormValid)="isSegmentFormValid($event)"
+            (segmentsModifiedData)="modifiedSegmentsHandler($event)"></cms-universal-segmented>
+        </div>
+        </div>
+
+        <div class="row"  *ngIf="isFanzoneSportCategory">
+          <div class="col-md-2">
+            <span class="mat-label">
+              Fanzone Inclusion 21st Team:
+            </span>
+          </div>
+          <div class="col-md-6 padding-top-12">
+             <mat-checkbox color="primary"                   
+                          [checked]="fanzoneInclusions21st"
+                          [disabled]="highlightCarousel.fanzoneInclusions.length > 0  && highlightCarousel.fanzoneInclusions.indexOf('FZ001') == -1"
+                          [required]="!(highlightCarousel.fanzoneInclusions.length > 0  && highlightCarousel.fanzoneInclusions.indexOf('FZ001') == -1)"
+                          (change)="onselect21stTeam()">Fanzone Inclusion 21st Team
+            </mat-checkbox>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="isFanzoneSportCategory">
+          <div class="col-md-2">
+            <span class="mat-label">
+              Fanzone Inclusion
+            </span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <mat-select [disabled]="fanzoneInclusions21st || isFZ21stSelected" placeholder="Fanzone Inclusion Segments" [(ngModel)]="highlightCarousel.fanzoneInclusions"
+                formControlName="fanzoneInclusions" #select multiple [required]="!fanzoneInclusions21st" >
+                <div class="select-all">
+                  <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}" (change)="toggleAllSelection()">
+                    Select All</mat-checkbox>
+                </div>
+                <mat-option id="optionClick" [ngClass]="{ 'fanzone-inactive-item': !segment.active }"
+                  *ngFor="let segment of fanzoneInclusionList" [value]="segment.teamId" (click)="optionClick()">
+                  {{ segment.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <mat-error *ngIf="carouselId && isFZ21stSelected && !fanzoneInclusions21st ">
+          Selection can not be changed from 21st Team to another.Please create a new Highlight Carousel.
+        </mat-error>
+        
+        <mat-error *ngIf="isFanzoneSportCategory && !isFZ21stSelected && !fanzoneInclusions21st && (!(highlightCarousel.fanzoneInclusions.length > 0  && highlightCarousel.fanzoneInclusions.indexOf('FZ001') == -1))">
+          Please Select a value from either Fanzone Inclusion 21st Team or Fanzone Inclusion
+        </mat-error>
+
+      </div>
+  </form>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="form && carouselId"
+  [validateHandler]="validationHandler"
+  fieldOrItemName="title"
+  [collection]="highlightCarousel"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>
+
+<div class="card" *ngIf="form && !carouselId">
+  <div class="body">
+    <div class="row">
+      <div class="col-4 col-md-7 p-b-0 m-b-0">
+        <button mat-button [disabled]="!validationHandler()" type="button" class="btn bg-teal waves-effect float-left"
+                (click)="save();">
+          <mat-icon>save</mat-icon>
+          <span>Create</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

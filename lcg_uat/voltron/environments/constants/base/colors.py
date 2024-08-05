@@ -1,0 +1,31 @@
+
+class Colors(object):
+    """
+    For saving colors in one place
+    """
+    OVERASK_MODIFIED_PRICE_COLOR = 'rgba(255, 205, 0, 1)'
+    YOUR_CALL_DEFAULT_TEXT_COLOR = 'rgba(10, 191, 161, 1)'  # TODO VOL-2514
+    COMPLIANCE_INFO_FONT_COLOR_GREY = 'rgba(65, 73, 78, 1)'
+    COMPLIANCE_INFO_FONT_COLOR_GREY_DESKTOP = 'rgba(65, 73, 78, 0.6)'
+    MARKET_SWITCHER_HIGHLIGHTED_COLOR = 'rgba(30, 70, 108, 1)'
+    HANDICAP_COLOR = 'rgba(77, 162, 249, 1)'
+    SHOW_INFO_COLOR = 'rgba(8, 77, 141, 1)'
+    RACE_OFF_COLOR = 'rgba(245, 107, 35, 1)'
+    LAST_RUN_TABLE_TEXT_COLOR = 'rgba(0, 0, 0, 1)'
+    DEPOSIT_BUTTON_COLOR = 'rgba(120, 190, 32, 1)'
+    BLACK_COLOR = 'rgba(65, 73, 78, 1)'
+    GREY_COLOR = 'rgba(65, 73, 78, 0.6)'
+    SELECTED_BET_BUTTON_COLOR = 'rgba(120, 178, 0, 1)'
+    PLACE_BET_BUTTON = 'rgba(120, 190, 32, 1)'
+    TIMELINE_NEW_POST_NOTIFICATION = 'rgba(255, 205, 0, 1)'
+    TIMELINE_BACKGROUND_COLOR = 'rgba(6, 41, 74, 1)'
+    POST_BACKGROUND_COLOR = 'rgba(255, 255, 255, 1)'
+    QE_ANSWER_BACKGROUND_COLOR = 'rgba(0, 0, 0, 0)'
+    BET_TRACKER_TITLE_COLOR = 'rgba(255, 255, 255, 1)'
+    BET_TRACKER_OPEN_TAB_COLOR = 'rgba(37, 40, 53, 1)'
+    BET_TRACKER_SETTLE_TAB_COLOR = 'rgba(119, 119, 119, 1)'
+    BET_TRACKER_INPUT_FIELD_BG_COLOR = 'rgba(255, 255, 255, 1)'
+    BET_TRACKER_INPUT_FIELD_BORDER = '1px solid rgb(231, 231, 231)'
+    BET_TRACKER_TRACK_BG_COLOR = 'rgba(139, 189, 35, 1)'
+    BET_TRACKER_INFO_ICON_BG_COLOR = 'rgba(0, 0, 0, 0)'
+    BET_SCORE_BG_COLOR = 'rgb(219, 219, 219)'

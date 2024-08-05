@@ -1,0 +1,385 @@
+<breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<form #luckyDipForm="ngForm">
+  <div class="card">
+    <div class="header">
+      <h2 class="waves-effect waves-block">
+        Lucky Dip Configuration
+      </h2>
+    </div>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-2 mb-0">
+          <mat-checkbox color="primary" [checked]="luckyDip.status" (change)="luckyDip.status = !luckyDip.status">
+            <span [textContent]="LUCKYDIP_CONST.status"></span>
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Lucky Dip Configuration Level
+          </span>
+        </div>
+        <div class="col-md-5">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Lucky Dip Configuration Level" name="luckyDipConfigLevel"
+              [(ngModel)]="luckyDip.luckyDipConfigLevel" required>
+              <mat-option value="Sports Category ID" default selected>Sports Category ID</mat-option>
+              <mat-option value="Type ID">Type ID</mat-option>
+              <mat-option value="Event ID">Event ID</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row" *ngIf="isSport()">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Sport ID
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput #animationImgPath placeholder="Sport ID"
+              [(ngModel)]="luckyDip.luckyDipConfigLevelId" [value]="luckyDip.luckyDipConfigLevelId"
+              name="luckyDipConfigLevelId" type="number" required>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row" *ngIf="isType()">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Type ID
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput #animationImgPath placeholder="Type ID"
+              [(ngModel)]="luckyDip.luckyDipConfigLevelId" [value]="luckyDip.luckyDipConfigLevelId"
+              name="luckyDipConfigLevelId" type="number" required>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row" *ngIf="isEvent()">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Event ID
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput #animationImgPath placeholder="Event ID"
+              [(ngModel)]="luckyDip.luckyDipConfigLevelId" [value]="luckyDip.luckyDipConfigLevelId"
+              name="luckyDipConfigLevelId" type="number" required>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Lucky Dip Description
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput #animationImgPath placeholder="Lucky Dip Description" [(ngModel)]="luckyDip.description"
+              [value]="luckyDip.description" name="description" required>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Lucky Dip Info*
+          </span>
+        </div>
+        <div class="col-md-10">
+          <tinymce-editor #title [pageName]="'luckyDip'" [pageItemId]="luckyDip.id"
+            (outputEditorData)="updateLuckyDip($event, 'luckyDipFieldsConfig.title')"
+            [initialEditorContent]="luckyDip.luckyDipFieldsConfig.title || ''">
+          </tinymce-editor>
+          <div>
+            <mat-hint class="col-red" *ngIf="luckyDip.luckyDipFieldsConfig.title === ''">
+              This field is required*</mat-hint>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Lucky Dip Welcome Message* <b>(Bold and Italics available but DO NOT USE other rich text formats)</b>
+          </span>
+        </div>
+        <div class="col-md-10">
+          <tinymce-editor #welcomeMessage [pageName]="'luckyDip'" [pageItemId]="luckyDip.id"
+            (outputEditorData)="updateLuckyDip($event, 'luckyDipFieldsConfig.welcomeMessage')"
+            [initialEditorContent]="luckyDip.luckyDipFieldsConfig.welcomeMessage || ''">
+          </tinymce-editor>
+          <div>
+            <mat-hint class="col-red" *ngIf="luckyDip.luckyDipFieldsConfig.welcomeMessage === ''">
+              This field is required*</mat-hint>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Lucky Dip bet placement title
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput #betPlacementTitle placeholder="Lucky Dip bet placement title"
+              [(ngModel)]="luckyDip.luckyDipFieldsConfig.betPlacementTitle"
+              [value]="luckyDip.luckyDipFieldsConfig.betPlacementTitle" name="betPlacementTitle" maxlength="30"
+              required>
+            <mat-hint align="end">{{betPlacementTitle.value?.length || 0}}/30</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Lucky Dip Bet placement step1
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput #betPlacementStep1 placeholder="Lucky Dip Bet placement step1"
+              [(ngModel)]="luckyDip.luckyDipFieldsConfig.betPlacementStep1"
+              [value]="luckyDip.luckyDipFieldsConfig.betPlacementStep1" name="betPlacementStep1" maxlength="30"
+              required>
+            <mat-hint align="end">{{betPlacementStep1.value?.length || 0}}/30</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Lucky Dip Bet placement step2
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput #betPlacementStep2 placeholder="Lucky Dip Bet placement step2"
+              [(ngModel)]="luckyDip.luckyDipFieldsConfig.betPlacementStep2"
+              [value]="luckyDip.luckyDipFieldsConfig.betPlacementStep2" name="betPlacementStep2" maxlength="30"
+              required>
+            <mat-hint align="end">{{betPlacementStep2.value?.length || 0}}/30</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Lucky Dip Bet placement step3
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput #betPlacementStep3 placeholder="Lucky Dip Bet placement step3"
+              [(ngModel)]="luckyDip.luckyDipFieldsConfig.betPlacementStep3"
+              [value]="luckyDip.luckyDipFieldsConfig.betPlacementStep3" name="betPlacementStep3" maxLength="30"
+              required>
+            <mat-hint align="end">{{betPlacementStep3.value?.length || 0}}/30</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Cash out and Terms & Conditions URL* <b>(Bold, Italics and Hyperlink available but DO NOT USE other rich text formats)</b>
+          </span>
+        </div>
+        <div class="col-md-10">
+          <tinymce-editor #termsAndConditionsURL [pageName]="'luckyDip'" [pageItemId]="luckyDip.id"
+            (outputEditorData)="updateLuckyDip($event, 'luckyDipFieldsConfig.termsAndConditionsURL')"
+            [initialEditorContent]="luckyDip.luckyDipFieldsConfig.termsAndConditionsURL || ''">
+          </tinymce-editor>
+          <div>
+            <mat-hint class="col-red" *ngIf="luckyDip.luckyDipFieldsConfig.termsAndConditionsURL === ''">
+              This field is required*</mat-hint>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Player Card Description
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput #playerCardDesc placeholder="Player Card Description"
+              [(ngModel)]="luckyDip.luckyDipFieldsConfig.playerCardDesc"
+              [value]="luckyDip.luckyDipFieldsConfig.playerCardDesc" name="playerCardDesc" maxlength="30" required>
+            <mat-hint align="end">{{playerCardDesc.value?.length || 0}}/30</mat-hint>
+          </mat-form-field>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Potential Returns Description
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput #potentialReturnsDesc placeholder="Potential Returns Description"
+              [(ngModel)]="luckyDip.luckyDipFieldsConfig.potentialReturnsDesc"
+              [value]="luckyDip.luckyDipFieldsConfig.potentialReturnsDesc" name="potentialReturnsDesc" maxlength="30"
+              required>
+            <mat-hint align="end">{{potentialReturnsDesc.value?.length || 0}}/30</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            PLACE BET CTA Button
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput #placebetCTAButton placeholder="PLACE BET CTA Button"
+              [(ngModel)]="luckyDip.luckyDipFieldsConfig.placebetCTAButton"
+              [value]="luckyDip.luckyDipFieldsConfig.placebetCTAButton" name="placebetCTAButton" maxlength="20"
+              required>
+            <mat-hint align="end">{{placebetCTAButton.value?.length || 0}}/20</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            BACK CTA Button
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput #backCTAButton placeholder="BACK CTA Button"
+              [(ngModel)]="luckyDip.luckyDipFieldsConfig.backCTAButton"
+              [value]="luckyDip.luckyDipFieldsConfig.backCTAButton" name="backCTAButton" maxlength="20" required>
+            <mat-hint align="end">{{backCTAButton.value?.length || 0}}/20</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            GOT IT CTA Button
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput #gotItCTAButton placeholder="GOT IT CTA Button"
+              [(ngModel)]="luckyDip.luckyDipFieldsConfig.gotItCTAButton"
+              [value]="luckyDip.luckyDipFieldsConfig.gotItCTAButton" name="gotItCTAButton" maxlength="20" required>
+            <mat-hint align="end">{{gotItCTAButton.value?.length || 0}}/20</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Deposit and Place Bet Button
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput #depositButton placeholder="Deposit and Place Bet Button"
+              [(ngModel)]="luckyDip.luckyDipFieldsConfig.depositButton"
+              [value]="luckyDip.luckyDipFieldsConfig.depositButton" name="depositButton" maxlength="25" required>
+            <mat-hint align="end">{{depositButton.value?.length || 0}}/25</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Lucky Dip background Banner/Animation
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput #animationImgPath placeholder="Lucky Dip background Banner/Animation"
+              [(ngModel)]="luckyDip.luckyDipBannerConfig.animationImgPath"
+              [value]="luckyDip.luckyDipBannerConfig.animationImgPath" name="animationImgPath" required>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Lucky Dip Banner
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput #bannerImgPath placeholder="Lucky Dip Banner"
+              [(ngModel)]="luckyDip.luckyDipBannerConfig.bannerImgPath"
+              [value]="luckyDip.luckyDipBannerConfig.bannerImgPath" name="bannerImgPath" required>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Lucky Dip Overlay Banner
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput #overBannerImgPath placeholder="Lucky Dip Overlay Banner"
+              [(ngModel)]="luckyDip.luckyDipBannerConfig.overlayBannerImgPath"
+              [value]="luckyDip.luckyDipBannerConfig.overlayBannerImgPath" name="overlayBannerImgPath" required>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Box and Player Animation Card
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput #playerPageBoxImgPath placeholder="Box and Player Animation Card"
+              [(ngModel)]="luckyDip.playerPageBoxImgPath" [value]="luckyDip.playerPageBoxImgPath"
+              name="playerPageBoxImgPath" required>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="row --m-t-10">
+        <div class="col-md-3 m-b-0">
+          <button [disabled]="!disableSave()" mat-button type="button" class="btn bg-teal waves-effect float-left"
+            (click)="saveChanges()">
+            <mat-icon>save</mat-icon>
+            <span>Create Lucky Dip</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

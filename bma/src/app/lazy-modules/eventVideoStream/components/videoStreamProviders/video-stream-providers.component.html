@@ -1,0 +1,66 @@
+<!-- Mobile video stream -->
+<switchers data-crlat="switchers" *ngIf="showSwitcher" class="replay"
+[filter]="filter" [switchers]="racingVideoTypes">
+</switchers>
+<div *ngIf="!isDesktop && !isReplayVideo" class="eventVideoStream clearfix">
+  <div class="video-frame clearfix content">
+    <!-- Delay msg -->
+    <div class="stream-msg-wrapper" *ngIf="showPlayer && streamingUrl && !isMyBets">
+      <span class="stream-msg" [i18n]="'sb.delay'" data-crlat="streamMsg"></span>
+    </div>
+    <div *ngIf="deviceService?.isIos" [ngClass]="{ 'video_overlays': isVideoBlock }"></div>
+    <video playsinline webkit-playsinline controls controlsList="nodownload noplaybackrate" disablePictureInPicture *ngIf="isMyBets"
+           [autoplay]="true"
+           [muted]="true"
+           [attr.id]="eventEntity.id"
+           [attr.src]="streamingUrl"
+           [poster]="isWrapper && deviceService.isAndroid ? '_' : ''"
+           [ngClass]="{ 'hidden': !(streamingUrl && showPlayer) }"
+           [ngStyle]="{ 'height.px': frameHeight, 'width.px': frameWidth }">
+    </video>
+    <video autoplay playsinline webkit-playsinline controls controlsList="nodownload noplaybackrate" disablePictureInPicture *ngIf="!isMyBets" 
+           [attr.id]="eventEntity.id"
+           [attr.src]="streamingUrl"
+           [ngClass]="{ 'hidden':getVideoClass() }"
+           [ngStyle]="{ 'height.px': frameHeight, 'width.px': frameWidth }">
+    </video>
+  </div>
+</div>
+
+<!-- Desktop stream player -->
+<div class="desktop-video-container replaycontainer" *ngIf="isDesktop">
+  <div class="spinner-loader spinner-dark" *ngIf="!errorMessage && !showVideoPlayer" data-crlat="spinner.loader"></div>
+  <div class="video-container" *ngIf="!errorMessage"
+       [ngClass]="{ 'video-load': !errorMessage && !showVideoPlayer }">
+    <video
+      [attr.width]="frameWidth"
+      [attr.height]="frameHeight"
+      id="{{streamUniqueId}}"
+      class="video-js vjs-big-play-centered"
+      controls>
+    </video>
+  </div>
+  <div *ngIf="errorMessage && errorMessage.length > 0" class="error-message" data-crlat="videoStreamErrorMessage">
+    <svg class="horseracing-info-icon">
+      <use xlink:href="#info-icon"></use>
+    </svg>
+    <span [textContent]="errorMessage"></span>
+  </div>
+  <!-- Delay msg -->
+  <div *ngIf="!errorMessage && !showVideoPlayer" class="stream-text" [i18n]="'sb.delay'"></div>
+</div>
+<div class="eventVideoStream clearfix" *ngIf="isReplayVideo && isMobile">
+  <div class="video-frame clearfix content">
+    <div class="stream-msg-wrapper" *ngIf="!errorMessage && !showVideoPlayer && !isMyBets && isMobile">
+      <span class="stream-msg" [i18n]="'sb.delay'" data-crlat="streamMsg"></span>
+    </div>
+    <div class="video-container" *ngIf="!errorMessage" [ngClass]="{ 'video-load': !errorMessage && !showVideoPlayer }">
+      <video [attr.width]="frameWidth" [attr.height]="frameHeight" id="{{streamUniqueId}}" playsinline webkit-playsinline 
+      controls  muted autoplay
+        class="video-js vjs-big-play-centered hidden" [ngClass]="{ 'hidden':isMobile  }"
+        [ngStyle]="{ 'height.px': frameHeight, 'width.px': frameWidth }" >
+      </video>
+      
+    </div>
+  </div>
+</div>

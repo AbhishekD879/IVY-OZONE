@@ -1,0 +1,441 @@
+@import 'global.variables.scss';
+
+::ng-deep .betpack-Info-dailog {
+  .modal-dialog {
+    width: 550px;
+
+    @media #{$mqMobile} {
+      position: sticky;
+      margin-bottom: 0px;
+      width: 100%;
+    }
+
+    @media #{$mqTablet} {
+      position: sticky;
+      margin-bottom: 0px;
+      width: 100%;
+    }
+  }
+
+  .modal {
+    @media #{$mqDesktop} {
+      background-color: rgba(8, 77, 141, 0.9) !important;
+    }
+  }
+ 
+  @media #{$mqTablet} {
+    width: 100%;
+    margin: auto 0px 0px 0px;
+  }
+
+  .modal-content {
+    .modal-header {
+      background-color: $color-blue;
+      color: $color-white;
+      margin-bottom: 0px;
+
+
+      @media #{$mqMobile} {
+        text-align: center;
+        display: block;
+      }
+
+      @media #{$mqTablet} {
+        text-align: center;
+        display: block;
+      }
+
+    }
+
+    svg {
+      fill: $color-white;
+    }
+
+    .modal-body {
+      padding: 0px;
+    }
+  }
+}
+
+::ng-deep .hide-info{
+  .modal{
+    display: none;
+
+  }
+}
+.betpack-content-page {
+  width: 50%;
+  background-color: $color-white;
+  border-radius: 10px;
+  min-width: 380px;
+  margin: 5px;
+}
+
+.betpack-container {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.betpack-content {
+  background-color: $color-bpmp-card-content;
+  height: 45px;
+  @include display-flex();
+  align-items: center;
+  border-radius: 10px;
+}
+
+.betpack-cost {
+  font-size: 13px;
+  color: $color-white;
+  text-align: center;
+  background-color: $madison;
+  margin: 10px;
+  padding: 3px;
+}
+
+.betpack-amount {
+  font-size: 13px;
+  margin-top: -10px;
+  margin-left: -10px;
+  color: $color-white;
+  position: absolute;
+  text-align: center;
+}
+
+.betpack-title {
+  text-align: left;
+  width: 100%;
+  height: auto;
+  font-size: 13px;
+  overflow: hidden;
+  white-space: normal;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.betpack-name {
+  color: $color-black;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.betpack-freebet {
+  width: 130px;
+  height: 40px;
+  margin-bottom: -7px;
+  align-items: center;
+}
+
+.buy-euro {
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  color: $madison;
+}
+
+.buy-euro-text {
+  margin: 0px -3px 1px 2px;
+  font-size: 8px;
+  text-align: center;
+  align-items: center;
+  line-height: 9px;
+  color: $madison;
+  font-weight: bold;
+}
+
+.circles {
+  @include display-flex();
+  padding-top: 13px;
+}
+
+.circle-with-text {
+  background-color: $color-yellow;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  text-align: center;
+  margin: 4px 10px;
+  font-size: 11px;
+  padding: 5px;
+  height: 50px;
+  width: 50px;
+  color: $color-blue;
+  line-height: 8px;
+  font-weight: 900;
+}
+
+.euro {
+  padding: 0px 3px 4px 0px;
+  margin: 6px 2px 3px 1px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.euro-text {
+  margin: -12px 3px 6px 2px;
+  font-size: 8px;
+  text-align: center;
+  align-items: center;
+  line-height: 9px;
+}
+
+.betpack-more-info {
+  min-height: auto;
+  max-height: 200px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.betpack-token-place {
+  margin: 0 10px;
+}
+
+.betpack-token {
+  margin: 6px 1px;
+  width: 100%;
+  display: inline-flex;
+}
+
+.betpack-tokens {
+  margin: 10px 10px 0px 10px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.betpack-tokenName {
+  margin: 0px 4px 0px 2px;
+  font-size: 13px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.betpack-useName {
+  width: 20%;
+  text-align: right;
+  padding-top: 3px;
+  margin-right: 5px;
+  font-size: 12px;
+  color: $color-blue;
+}
+
+.sportTag-container {
+   @include display-flex();
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid $color-bpmp-card-token;
+  margin: 0 8px;
+  height: 36px;
+}
+
+.betpack-sportTag {
+  white-space: normal;
+  display: flex;
+  overflow: hidden;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 20px;
+  margin-right: 10%;
+}
+
+.slider-betpack-sportTag {
+  white-space: normal;
+}
+
+.betpack-sportTag-place {
+  border: 1.5px solid $madison;
+  margin: 2px;
+  border-radius: 5px;
+  color: $madison;
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 6px;
+  padding: 4px;
+  display: inline-flex;
+  text-transform: uppercase;  
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 99%;
+  .tokenText {
+      padding: 0px 1px;
+    }
+}
+
+.betpack-buttons {
+  @include display-flex();
+  // background-color: rgba(224, 226, 235, 0.3);
+}
+.betpack-space {
+  background-color: rgba(224, 226, 235, 0.3);
+}
+.betpack-linked {
+  font-size: 13px;
+  padding: 9px 9px 0px 10px
+}
+.betpack-moreInfo {
+  display: inline-block;
+  @include flex-grow(1);
+  margin: 4px 4px 4px 0;
+  height: 34px;
+  background-color: $madison;
+  color: $color-white;
+  border: none;
+  width: 50%;
+  &:hover{
+    background: $denim-blue;
+    color: $color-white;
+    border: 1px solid $color-white;
+  }
+  &:active{
+    background: $color-white;
+    color: $color-gray-dark;
+  }
+}
+
+.betpack-buyNow {
+  display: inline-block;
+  @include flex-grow(1);
+  margin: 4px 0 4px 4px;
+  height: 34px;
+  background-color: $color-green-3;
+  color: $color-white;
+  border: none;
+  text-transform: uppercase;
+  width: 50%;
+  &:hover{
+    background-color: $color-green-light-leaf;
+    color: $color-white;
+  }
+  &:active{
+    background-color: $color-green-dark-leaf;
+    color: $color-white;
+  }
+}
+
+.buy-button-bottom {
+  margin: 2px 0px 0px 0px;
+
+  @media #{$mqMobile} {
+    margin: 2px 0px 10px 0px;
+  }
+
+  @media #{$mqTablet} {
+    margin: 2px 0px 10px 0px;
+  }
+}
+
+.betpack-desc {
+  margin: 5px 10px;
+  line-height: 15px;
+  font-size: 13px;
+}
+
+.full-width-review {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  width: 47%;
+  height: 34px;
+  background-color: $color-yellow !important;
+  color: $madison !important;
+  border: none;
+  text-transform: uppercase;
+  @media #{$mqDesktop} {
+    &:hover{
+      background-color: $color-yellow-alt2 !important;
+    }
+  }
+  &:active{
+    background-color: $color-orange-peel !important;
+    color: $color-white !important;
+  }
+}
+
+.hide-btn {
+  display: none;
+}
+
+
+.signPost-check-popUp {
+  display: flex;
+  margin: 7px;
+  padding: 4px;
+  text-transform: capitalize;
+  color: $madison;
+  font-family: $base-font-family;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 8px;
+  white-space: nowrap;
+}
+
+.display-off {
+  display: none;
+}
+
+.display-receipt {
+  display: none;
+
+  @media #{$mqMobile} {
+    display: block
+  }
+}
+
+.receipt-header-container {
+  background-color: $brand-color-dark;
+  padding: 15px 8px;
+  color: $color-white;
+  font-size: 14px;
+  line-height: 14px;
+  max-height: 42px;
+
+  .receipt-time {
+    font-size: 12px;
+    line-height: 12px;
+    color: $color-yellow;
+  }
+
+  .check-icon {
+    height: 12px;
+    width: 15px;
+    margin-right: 5px;
+  }
+
+  .receipt-header {
+    margin: 0px;
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: normal;
+  }
+
+  .space-between {
+    @include justify-content(space-between);
+  }
+
+  .left-side {
+    @include display-flex();
+  }
+}
+
+.link {
+  font-weight: bold;
+}
+
+.icons-area {
+  height: 8px;
+  width: 14px;
+  text-align: center;
+  margin-top: -1px;
+}
+
+.nextArrowSvg {
+  height: 12px;
+  width: 8px;
+  fill: #fff;
+  margin-bottom: -4px;
+}

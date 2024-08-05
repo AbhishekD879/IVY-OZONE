@@ -1,0 +1,13 @@
+<modal #connectionLostDialog class="connection-lost-popup dialog-top-priority" data-crlat="d.connectionLost">
+  <ng-template #modalHeader>
+    <span [i18n]="'app.internetError'" data-crlat="dTitle" data-uat="popUpTitle"></span>
+    <a data-uat="popUpCloseButton" class="btn-close" (click)="closeDialog()">
+      <svg>
+        <use xlink:href="#close-icon"></use>
+      </svg>
+    </a>
+  </ng-template>
+  <ng-template #modalBody>
+    <div [i18n]="'app.connectionLostMessage'" class="text-center" data-crlat="connectionLostMessage"></div>
+  </ng-template>
+</modal>

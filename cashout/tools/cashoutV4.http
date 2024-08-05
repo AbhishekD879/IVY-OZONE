@@ -1,0 +1,54 @@
+POST https://obcashout-tst2.gib1.egalacoral.com/cashout_service/getcashoutoffer
+
+
+{
+    "cashoutOfferRequests": [{
+        "cashoutOfferReqRef": "1",
+        "bet": {
+            "stakeAmount": "2.0",
+            "betType": "SGL",
+            "legs": [{
+                "legNo": "1",
+                "parts": [{
+                    "partNo": "1",
+                    "type": "2.0",
+                    "ladder": "STABLE",
+                    "result": "-",
+                    "strikePrice": {
+                        "num": "3",
+                        "den": "1"
+                    },
+                    "spotPrice": {
+                        "num": "4",
+                        "den": "1"
+                    }
+                }]
+            }]
+        }
+    }]
+}
+###
+
+GET ss-aka-ori-stg2.coral.co.uk/cashout_service/getcashoutoffer
+
+###
+
+GET localhost:8080/topics
+
+###
+
+GET localhost:8080/sse
+
+###
+
+GET localhost:8080/event-bet-details?eventId=8865502
+token: e1aec80b7ff87a3e5fa7a9de052334694d2a1dd4ac92c61610777b5d3c065a03
+username: Lyuban
+
+###
+
+GET localhost:8080/bet-details
+token: c01ad20a4d0fb564b0c154eaa0455379b96cec360107b25c3df2aa8d14f74d69
+username: Lyuban
+
+###

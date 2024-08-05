@@ -1,0 +1,17 @@
+@import "global.variables.scss";
+
+.event-markets-container {
+  accordion {
+    accordion-body {
+      .terms-before-market {
+        padding: 11px 12px;
+        background: $color-white;
+        border-bottom: 0;
+        border-top: 1px solid $color-gray;
+        .term-value {
+          text-transform: none;
+        }
+      }
+    }
+  }
+}

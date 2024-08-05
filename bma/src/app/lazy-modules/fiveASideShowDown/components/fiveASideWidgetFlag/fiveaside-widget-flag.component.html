@@ -1,0 +1,11 @@
+<div class="crest-image">
+    <div class="team-image" [style.width.px]="widthHeight"
+        [style.height.px]="widthHeight"
+        [style.background]="(!(hasTeamImage && team?.teamsImage && team.teamsImage.filename && team.fiveASideToggle) && backgroundColor)"
+        >
+     <ng-container *ngIf="(hasTeamImage && team?.teamsImage && team.teamsImage.filename && team.fiveASideToggle)">
+       <img class="player-image" [style.width.px]="widthHeight" [style.height.px]="widthHeight"
+         [attr.src]="TEAMSIMAGEPATH + team.teamsImage.filename"/>
+     </ng-container>
+   </div>
+</div>

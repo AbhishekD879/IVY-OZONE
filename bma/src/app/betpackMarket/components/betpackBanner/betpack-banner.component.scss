@@ -1,0 +1,67 @@
+@import 'global.variables.scss';
+
+.bpmp-banner-entry {
+  position: relative;
+  height: 80px;
+  margin: 8px 0px;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  font-family: $base-font-family;
+  display: flex;
+  cursor: pointer;
+  .bpmp_detail {
+    position: absolute;
+    display: inline-block;
+    gap: $font-size-sm;
+    width: 100%;
+    color: $color-white;
+  }
+
+  .bpmp_welcome_text {
+    width: 75vw;
+    font-size: $font-size-base;
+    font-weight: 100;
+    margin-left: 13%;
+    margin-top: 1%;
+    ::ng-deep {
+      p {
+        margin: 0 0 3px !important;
+      }
+
+      ul {
+        margin: 0 !important;
+      }
+      @media (max-width: 500px) {
+        margin-top: 2%;
+        margin-left: 15%;
+      }
+    }
+  }
+
+  .tnCLink {
+    color: $color-yellow;
+    text-decoration: none;
+    font-size: $font-size;
+    margin-left: 13%;
+    @media (max-width: 500px) {
+      margin-left: 15%;
+    }
+  }
+
+  .disableImg {
+    display: block;
+    height: auto;
+    width: 100%;
+    @media (min-width: 450px) {
+    object-fit: cover;
+    }
+  }
+
+  .btn-close {
+    margin: 0px;    
+    top:15px !important;
+    svg {
+      fill: $color-white;
+    }
+  }
+}

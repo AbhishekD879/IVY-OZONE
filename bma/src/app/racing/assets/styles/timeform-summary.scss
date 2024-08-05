@@ -1,0 +1,130 @@
+@import 'global.variables.scss';
+
+$timeform-line-height: 15px;
+$spacing: 3px;
+
+.timeform-summary {
+  background-color: $color-white;
+  color: $color-gray-dark;
+  font-family: $base-font-family;
+  padding: 0 10px 15px;
+}
+
+.timeform-header {
+  @include display-flex();
+  @include justify-content(space-between);
+  line-height: $timeform-line-height;
+
+  .timeform-logo {
+    fill: $color-gray-dark;
+    height: $timeform-line-height;
+    width: 70px;
+  }
+
+  .timeform-prediction {
+    span:first-child {
+      font-size: 9px;
+    }
+
+    span:last-child {
+      color: $color-orange-light;
+      font-size: $font-size-sm;
+      margin-left: $spacing;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.timeform-content {
+  font-size: $font-size-md;
+  line-height: $line-height-sm;
+  margin-top: 10px;
+
+  span:not(:first-child) {
+    text-decoration: underline;
+  }
+}
+
+.timeform-positions {
+  margin-top: 15px;
+
+  .greyhound-details {
+    @include display-flex();
+    background-color: $color-gray-light;
+    height: 40px;
+
+    &:not(:last-child) {
+      margin-bottom: 1px;
+    }
+
+    .position-logo {
+      @include display-flex();
+      @include align-items(center);
+      @include justify-content(center);
+      width: 35px;
+
+      &.position-1 {
+        background-color: $color-orange-light;
+      }
+
+      &.position-2 {
+        background-color: lighten($color-gray-dark, 50%);
+      }
+
+      &.position-3 {
+        background-color: $color-bronze;
+      }
+
+      svg {
+        fill: $color-gray-dark;
+        height: 25px;
+        width: 26px;
+      }
+    }
+
+    .greyhound-name {
+      color: $color-gray-dark;
+      font-size: $font-size-md;
+      overflow: hidden;
+      padding: 5px 9px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      span:first-child {
+        color: $color-gray-dark;
+        font-size: $font-size;
+      }
+
+      b {
+        margin-left: $spacing;
+      }
+    }
+
+    .greyhound-rating {
+      background-color: $color-gray-light;
+      margin-left: auto;
+      padding: 0 10px;
+      width: 90px;
+
+      b {
+        color: $color-gray-dark;
+        font-size: 7px;
+        display: block;
+        line-height: $font-size-xs;
+        margin-top: 6px;
+        text-transform: uppercase;
+      }
+
+      svg {
+        fill: $color-gray-dark;
+        height: 10px;
+        margin-top: 5px;
+        width: 10px;
+
+        &:not(:last-child) {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+}

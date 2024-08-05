@@ -1,0 +1,15 @@
+---
+web_root_cert_common_name: "{{ private_domain }}"
+web_root_cert_expire_days: 3650
+web_root_cert_subj: /C=UA/ST=Lviv/L=Lviv/O=Symphony/OU=AutomationCoral/CN={{ web_root_cert_common_name }}
+
+domains:
+  - coral.co.uk
+  - symphony-solutions.eu
+  - crlat.net
+  - racemodlr.com
+  - digitalsportstech.com
+device_common_name: "*.{{device_cert_filename}}"
+device_expire_days: 3650
+device_subj: /C=UA/ST=Lviv/L=Lviv/O=Symphony/OU=AutomationCoral/CN={{device_common_name}}
+cert_not_found: yes

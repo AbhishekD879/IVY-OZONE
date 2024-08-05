@@ -1,0 +1,56 @@
+// base build v1.0
+
+// Limitations of the plugins DSL
+// https://docs.gradle.org/5.2.1/userguide/plugins.html#plugins_dsl_limitations
+
+plugins {
+  id 'java-library'
+  id 'jacoco'
+
+  id 'idea'
+  id 'eclipse'
+
+  id 'com.coral.tools' version '2.0-SNAPSHOT'
+}
+
+group 'com.egalacoral.spark'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+def nexusRepo = System.getenv("NEXUS_HOST") ?: 'https://nexus-vie.coral.co.uk/repository/maven-public/'
+def nexusUser = System.getenv("NEXUS_USER") ?: project.properties.nexusUser
+def nexusPass = System.getenv("NEXUS_PASS") ?: project.properties.nexusPass
+
+repositories {
+  maven {
+    credentials {
+      username = nexusUser
+      password = nexusPass
+    }
+    url nexusRepo
+  }
+  jcenter()
+}
+
+dependencies {
+
+  // Project dependencies
+  api 'com.egalacoral.spark:siteserver-api:1.9'
+
+  // Web
+  api 'com.squareup.retrofit2:converter-jackson:2.9.0'
+  api 'com.github.ben-manes.caffeine:caffeine:2.8.5'
+
+  // Logging
+  api 'com.newrelic.agent.java:newrelic-api:5.14.0'
+  api 'org.slf4j:slf4j-api:1.7.30'
+
+  // Testing
+  testImplementation 'junit:junit:4.13'
+  testImplementation 'org.mockito:mockito-core:3.5.2'
+  testImplementation 'org.slf4j:slf4j-simple:1.7.30'
+  testImplementation 'org.mock-server:mockserver-netty:5.11.1'
+}
+
+jacocoTestReport.reports.xml.enabled = true

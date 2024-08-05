@@ -1,0 +1,76 @@
+<section *ngFor="let couponEvents of couponEventsWithGoalScorers; let goalScorerEventsIndex = index;"
+         class="goalscorer-coupon"
+         data-crlat="league">
+  <div class="league">
+    <div class="league-name" [textContent]="couponEvents.typeName"></div>
+  </div>
+  <article>
+  <ng-container *ngFor="let eventEntity of couponEvents.events; let couponEventsIndex = index;">
+    <accordion [accordionTitle]="eventEntity.name"
+               [isExpanded]="isExpandedEvent(goalScorerEventsIndex, couponEventsIndex, eventEntity.id)"
+               [class]="'coupon-event-' + eventEntity.id"
+               [inner]="false"
+               data-crlat="event">
+      <right-side>
+        <a class="event-header-link" [routerLink]="getEventUrl(eventEntity)" (click)="trackGoToEDP(eventEntity.name)">
+          <span [i18n]="'sb.seeAll'" data-crlat="goToEvent"></span>
+          <svg>
+            <use xlink:href="#up-arrow"></use>
+          </svg>
+        </a>
+      </right-side>
+      <accordion-body>
+        <div class="container-inner-content" data-crlat="containerInnerContent">
+          <div class="odds-card-header" data-crlat="eventOddsHeader">
+            <div class="odds-left">
+              <span class="event-header-time" data-crlat="dateTitle" [innerHtml]="getHeaderTime(eventEntity)"></span>
+            </div>
+            <div class="odds-right">
+              <span class="odds-header-col" *ngFor="let title of eventEntity.goalScorersHeader"
+                    data-crlat="headTitles">{{ title }}</span>
+            </div>
+          </div>
+          <div class="odds-card"
+               (click)="goToEvent(eventEntity)"
+               [dataEventid]="eventEntity.id"
+               *ngFor="let goalScorer of eventEntity.goalScorers | slice:0:eventEntity.goalScorersToShow"
+               data-crlat="oddsCard.sportTemplate">
+            <div class="odds-content" data-crlat="oddsContent">
+              <div class="odds-left" data-crlat="oddsLeft">
+                <div class="odds-names odds-names-list"
+                     data-crlat="oddsNames">
+                  <span class="odds-normal" data-crlat="playerName">{{ goalScorer.name }}</span>
+                  <span class="odds-small" data-crlat="teamName">{{ goalScorer.teamName }}</span>
+                </div>
+              </div>
+              <div class="odds-right" data-crlat="oddsRight">
+                <div class="odds-btn-content" data-crlat="oddsBtnContent" (click)="$event.stopPropagation()"
+                     *ngIf="goalScorer.selections.length">
+                  <div class="odds-btn-wrapper"
+                       *ngFor="let selection of goalScorer.selections"
+                       data-crlat="oddsBtnWrapper">
+                    <price-odds-button [event]="eventEntity"
+                                       data-crlat="oddsCard.event"
+                                       [market]="eventEntity.markets[selection.marketIndex]"
+                                       [outcome]="selection"
+                                       [cssClass]="'custom-coupon'"
+                                       [gtmModuleTitle]="couponEvents.typeName">
+                    </price-odds-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <show-all-button
+            *ngIf="eventEntity.goalScorers.length > goalScorersLimit"
+            [showMoreMode]="true"
+            (click)="showMoreClick(eventEntity)"
+            [customStylesClass]="customStylesClass"
+            [allShown]="eventEntity.goalScorersShowAll">
+          </show-all-button>
+        </div>
+      </accordion-body>
+    </accordion>
+  </ng-container>
+  </article>
+</section>

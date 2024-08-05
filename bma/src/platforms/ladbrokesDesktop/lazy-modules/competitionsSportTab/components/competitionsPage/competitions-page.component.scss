@@ -1,0 +1,20 @@
+@import "global.variables.scss";
+
+:host ::ng-deep {
+  .competition-filters .competition-match-wrapper {
+    .no-filtered-events {
+      margin-top: 6px;
+      padding-top: 5px;
+    }
+
+    .market-selector .dropdown {
+      top: -95px !important;
+    }
+  }
+}
+
+filter-buttons {
+  display: block;
+  margin: 1px 1px;
+  box-shadow: $global-box-shadow;
+}

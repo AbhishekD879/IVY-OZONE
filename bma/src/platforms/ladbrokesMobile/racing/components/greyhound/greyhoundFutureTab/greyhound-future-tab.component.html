@@ -1,0 +1,43 @@
+<accordion class="top-accordion" *ngIf="filter === 'by-time'"
+           [isExpanded]="isExpanded" (function)="toggleByMeetingAccordion(0, 'Events')">
+  <left-side>
+    <span [i18n]="'sb.events'" data-crlat="headerTitle.leftMessage"></span>
+  </left-side>
+  <accordion-body>
+    <list-card *ngFor="let eventEntity of orderedEvents; trackBy: trackById;"
+               [item]="eventEntity"
+               [link]="formEdpUrl(eventEntity)"
+               [date]="getRaceTimeView(eventEntity)"
+               [attr.data-eventid]="eventEntity.id"
+               [eventId]="eventEntity.id"
+               [filter]="filter"
+               [isEventOverlay]="isEventOverlay"
+               (overlayContent)="overlayContentHandler($event, eventEntity)">
+      <promotion-icon [type]="'event'"
+                      [display]="eventEntity.drilldownTagNames"
+                      data-crlat="promotionIcons"></promotion-icon>
+    </list-card>
+  </accordion-body>
+</accordion>
+
+<ng-container *ngIf="filter === 'by-meeting' && loadAccordion">
+  <accordion class="top-accordion" [accordionTitle]="classesTypeName.name"
+             *ngFor="let classesTypeName of filteredTypeNames; trackBy: trackById; let index = index;"
+             [isExpanded]="classesTypeName.isExpanded" (function)="toggleByMeetingAccordion(index, classesTypeName.name)">
+    <accordion-body>
+      <list-card *ngFor="let eventEntity of orderedEventsByTypeNames[index]; trackBy: trackById;"
+                 [item]="eventEntity"
+                 [link]="formEdpUrl(eventEntity)"
+                 [date]="getRaceTimeView(eventEntity)"
+                 [attr.data-eventid]="eventEntity.id"
+                 [eventId]="eventEntity.id"
+                 [filter]="filter"
+                 [isEventOverlay]="isEventOverlay"
+                 (overlayContent)="overlayContentHandler($event, eventEntity)">
+        <promotion-icon [type]="'event'"
+                        [display]="eventEntity.drilldownTagNames"
+                        data-crlat="promotionIcons"></promotion-icon>
+      </list-card>
+    </accordion-body>
+  </accordion>
+</ng-container>

@@ -1,0 +1,10 @@
+cms:
+    brand: bma
+promosandbox:
+    distributed:
+        prefix: HLV1
+    topic:
+        promo-config:
+            concurrency: 1
+            groupId: PROMO_CONFIG
+            name: ${promosandbox.distributed.prefix}_promo-config-cr

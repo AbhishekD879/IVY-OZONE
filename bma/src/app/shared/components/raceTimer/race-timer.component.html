@@ -1,0 +1,10 @@
+<div class="race-timer race-div">
+  <div class="countdown" *ngIf="displayCountdown && isCountdown()" data-crlat="raceCountdown">
+    <span class="label lads-text" [ngClass]="{'textCapitalize': brand === 'ladbrokes'}" [i18n]="'racing.startsIn'" data-crlat="label"></span>
+    <span class="value" data-crlat="value">{{ raceCountdown }}</span>
+  </div>
+  <div class="time" *ngIf="displayTime && isTime()">
+    <span class="label" [i18n]="'racing.startsAt'"></span>
+    <span class="value">{{ raceStartTime }}</span>
+  </div>
+</div>

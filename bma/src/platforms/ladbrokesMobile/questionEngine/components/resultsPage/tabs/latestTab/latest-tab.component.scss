@@ -1,0 +1,27 @@
+@import '../../../../assets/styles/general.scss';
+@import '../../../../../../../app/questionEngine/components/resultsPage/tabs/latestTab/latest-tab.component.scss';
+
+.tab-content-latest {
+  .qe-summary-title {
+    font-weight: bold;
+  }
+  .qe-summary-list {
+    .qe-summary-item {
+      background-color: rgba(0,0,0,0.1);
+      font-size: $font-size-tablet;
+
+      &-index {
+        background-color: $color-gray-silver;
+        text-align: center;
+        color: $red4;
+      }
+      &-question {
+        line-height: 10px;
+      }
+      &-answer {
+        line-height: 13px;
+        font-size: $font-size-tablet;
+      }
+    }
+  }
+}

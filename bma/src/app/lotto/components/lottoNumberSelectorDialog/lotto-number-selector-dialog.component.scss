@@ -1,0 +1,74 @@
+@import 'global.variables.scss';
+
+.lotto-content {
+  margin: -15px;
+  .group-buttons{
+    padding: 0;
+  }
+  .luckydip{
+    padding: 0px 10px 0;
+    .btn {
+      color: $color-black-grey;
+      &:hover {
+        background-color: $color-gray-light;
+        color: $color-black-grey;
+      }
+      &:active {
+        background-color: $color-gray-light;
+        color: $color-black-grey;
+      }
+    }
+  }
+}
+
+:host {
+  ::ng-deep .modal {
+    padding-top: 5px;
+    overflow: auto;
+
+    .modal-header {
+      font-size: 13px;
+    }
+    .modal-dialog {
+      max-width: 460px;
+      width: 95%;
+    }
+  }
+}
+:host ::ng-deep .modal-dialog .modal-content .modal-body{
+
+  .col-xs-6{
+    button{
+      width: unset;
+      height: 40px;
+      border-radius: 2px;
+      font-style: normal;
+      line-height: normal;
+      text-transform: unset;
+      font-size: 13px;
+      background: $color-maingreen;
+    }
+    .btn-style4 {
+      background-color: #e0e2eb; 
+      color:$color-gray-darkest;
+    }
+  }
+}
+
+.alert-msg {
+  position: relative;
+  padding: 0.25rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+.alert-text {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.lotto-alert{
+  font-size: 14px;
+}

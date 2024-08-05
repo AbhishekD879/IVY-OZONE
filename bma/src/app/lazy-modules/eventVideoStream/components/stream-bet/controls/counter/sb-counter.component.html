@@ -1,0 +1,18 @@
+
+<div class="team-container">
+  <div class="pm-team-name" [textContent]="teamName"></div>
+
+  <div class="plus-minus-frame">
+    <button class="btn-plus-minus" [disabled]="disableMinus" (click)="scoreChange(-1)">
+      <svg>
+        <use xlink:href="#snb-minus"></use>
+      </svg>
+    </button>
+    <span class="pm-points">{{selectedValue}}</span>
+    <button class="btn-plus-minus" [disabled]="disablePlus" (click)="scoreChange(1)">
+      <svg>
+        <use xlink:href="#snb-add"></use>
+      </svg>
+    </button>
+  </div>
+</div>

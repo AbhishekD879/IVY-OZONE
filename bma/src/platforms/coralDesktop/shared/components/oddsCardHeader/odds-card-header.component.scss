@@ -1,0 +1,116 @@
+@import 'global.variables.scss';
+@import '../../../../app/shared/components/oddsCardHeader/odds-card-header.component.scss';
+// ------ODDS-CARD-HEADER------------
+.odds-card-header {
+  @include display-flex();
+  @include align-items();
+  padding: 0 12px 0 10px;
+  height: 27px;
+  min-height: inherit;
+  background: #F9FAFE;
+  border-style: solid;
+  border-width: 1px 0;
+  border-color: #E0E2EB;
+  color: #41494E;
+  margin: 0;
+  font: 10px/19px $base-font-family;
+  position: relative;
+  z-index: 1;
+  text-transform: uppercase;
+  font-size: 10px;
+
+  &.odds-card-pad {
+    padding-right: 55px;
+
+    &.odds-card-pad-fav {
+      padding-right: 10px;
+    }
+  }
+
+  .odds-header-title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  @media (max-width: $odds-button-small-size) {
+    .odds-header-col {
+      min-width: $price-odd-btn-max-width-1599;
+    }
+  }
+  @media (min-width: $odds-button-big-size) {
+    .odds-header-col {
+      min-width: $price-odd-btn-min-width-1600;
+    }
+  }
+
+  .odds-header-col {
+    padding: 0;
+    margin: 0 0 0 10px;
+    width: 50px;
+    text-align: center;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &:after, &:before {
+    display: none;
+  }
+
+  .odds-header-score {
+    margin-right: 5px;
+  }
+}
+
+.favourites-wrapper .odds-card-header {
+  &.odds-card-pad {
+    padding: 0 10px 0;
+  }
+
+  .odds-header-col {
+    min-width: 45px;
+    max-width: 45px;
+    margin: 0 5px 0 0;
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+}
+
+//------OVERRIDDEN-STYLES
+.inplay-widget-odds-card-header {
+  .odds-card-header {
+    background-color: #FFFFFF;
+    padding: 0;
+    height: 15px;
+    margin: 1px 0;
+    border: none;
+
+    &.odds-card-pad {
+      padding-right: 0;
+    }
+
+    .odds-right {
+      @include justify-content();
+      padding: 0;
+    }
+
+    .odds-header-col {
+      @include flex();
+      min-width: auto;
+      font-size: 9px;
+      line-height: 15px;
+      height: 15px;
+      color: #41494E;
+      background-color: #F9FAFE;
+      margin: 0 1px 0 0;
+
+      &:last-child {
+        margin: 0;
+      }
+    }
+  }
+}

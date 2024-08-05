@@ -1,0 +1,53 @@
+@import 'global.variables.scss';
+
+.next-races {
+  .container-content {
+    margin-top: -$page-container-header-bottom-margin;
+  }
+
+  .race-card-carousel .race-card.odds-card {
+    .silk-img {
+      .next-races-horseracing & {
+        width: $race-silk-horseracing-width;
+        min-width: $race-silk-horseracing-width;
+        height: $race-silk-horseracing-height;
+
+        &.has-img div {
+          background-position-x: -10px !important;
+        }
+      }
+    }
+
+    race-silk {
+      margin: 0 10px 0 0;
+    }
+
+    .odds-names {
+      .next-races-horseracing & {
+        .odds-noraml {
+          font-size: $font-size;
+        }
+
+        .odds-small {
+          font-size: $font-size-md;
+        }
+      }
+
+      .next-races-greyhound & {
+        .odds-normal {
+          font-size: $font-size-md;
+          font-weight: bold;
+        }
+
+        .odds-small {
+          font-size: $font-size-md;
+        }
+      }
+    }
+  }
+}
+.widget-column {
+  @media screen and (min-width: $md-point) {
+    min-width: 40%;
+  }
+}

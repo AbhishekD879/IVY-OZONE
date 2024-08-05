@@ -1,0 +1,112 @@
+<div class="cashout-stake-and-returns" [ngClass]="{ 'longTxt-stake-returns-wrap': !deviceService.isDesktop}">
+  <div>
+    <div class="select-market-header unit-stake-row" *ngIf="legType === 'E'">
+      <div class="single-left" data-crlat="unit_stake">
+      <span class="stake-label"
+            [i18n]="'bethistory.stake'"
+            data-crlat="label">
+      </span>
+      <span class="stake-label stake-value"
+            [textContent]="stakePerLine | currency:currencySymbol:'code'"
+            data-crlat="value">
+      </span>
+    </div>
+  </div>
+  <div class="select-market-header" [ngClass]="{'shareBtnLayout': !deviceService.isDesktop, 'disp-block': (tokenValue > 0 && settled === 'Y' && !deviceService.isDesktop), 'flexWrap': (tokenValue > 0 && settled !== 'Y' && !deviceService.isDesktop)}">
+    <div [ngClass]="{'single-left': settled !== 'Y', 'preWrapLayout' : legType === 'E' && !deviceService.isDesktop}" class="single-left single-left-inline"
+         data-crlat="stake">
+      <span *ngIf="legType !== 'E'"
+            class="stake-label"
+            [i18n]="isEdit && !initialReturns  ? 'bethistory.newStakePerLine' : 'bethistory.stakePerLine'"
+            data-crlat="label">
+      </span>
+      <span *ngIf="legType === 'E'"
+            class="stake-label"
+            [i18n]="isEdit ? 'bethistory.newTotalStake' : 'bethistory.totalStake'"
+            data-crlat="label">
+      </span>
+      <span class="stake-label stake-value"
+            *ngIf="stakeValue>0"
+            [textContent]="stakeValue | currency:currencySymbol:'code'"
+            data-crlat="value"
+            data-uat="totalStake">
+      </span>
+      <span *ngIf="stakeValue > 0 && tokenValue > 0" class="stake-label stake-value">&nbsp;+&nbsp;</span>
+      <span class="free-bet-label"><free-bet-label *ngIf="tokenValue > 0" 
+            [freeBetLabelText]="tokenType"
+            [selected]="tokenValue"></free-bet-label></span>
+    </div>
+
+    <div class="single-right-flex" [ngClass]="{'single-right' : deviceService.isDesktop && settled !== 'Y', 'paddingTop': !deviceService.isDesktop && tokenValue > 0 }"
+         *ngIf="estimatedReturns"
+         data-crlat="estimatedReturns">
+      <span *ngIf="!deviceService.isDesktop && !((tokenValue > 0) && !(isEdit && !initialReturns))"
+         [i18n]="'bethistory.delimiter'"
+         class="delimiter">
+      </span>
+      <span class="tooltip-max-payout" *ngIf="maxPayOutErrorService.maxPayFlag && isBetType() && settled !=='Y'">
+            <svg class="maxPayOut-info-icon" [tooltip]="'maxPayOutTitle'" [showTooltip]="isMaxPayedOut"
+                  [toolTipArgs]="maxPayOutErrorService.toolTipArgs" [createElementTag]='true' [gtmInfo]="'my bets'"
+                  (click)="togglemaxPayedOut()">
+                  <use xlink:href="#icn-info"></use>
+            </svg>
+
+      </span>
+      <span [testContent]="isEdit"></span>
+      <span [testContent]="estimatedReturns"></span>
+      <span *ngIf="settled !== 'Y'" class="stake-label"
+            [i18n]="isEdit && !initialReturns ? 'bethistory.newTotalReturn' : isDesktop ? 'bethistory.potentialReturns' : 'bethistory.totalReturn'"
+            data-crlat="label">
+      </span>
+      <span *ngIf="deviceService.isDesktop && settled === 'Y'"
+            [i18n]="'bethistory.delimiter'"
+            class="delimiter">
+      </span>
+      <span *ngIf="settled === 'Y'"
+            class="stake-label"
+            [i18n]="'bethistory.returns'"
+            data-crlat="label">
+      </span>
+      <span *ngIf="!livePriceWinnings && !hasFreeBet" class="stake-label stake-value estimated-returns" [ngClass]="{'left-alight' : deviceService.isDesktop}"
+            [textContent]="estimatedReturnsValue"
+            data-crlat="value"
+            data-uat="totalEstReturns">
+      </span>
+      <span *ngIf="livePriceWinnings && hasFreeBet" class="stake-label stake-value estimated-returns" [ngClass]="{'left-alight' : deviceService.isDesktop}"
+            [textContent]="estimatedReturnsValue"
+            data-crlat="value"
+            data-uat="totalEstReturns">
+      </span>
+      <span *ngIf="!livePriceWinnings && hasFreeBet" 
+            class="stake-label stake-value estimated-returns" [ngClass]="{'left-alight' : deviceService.isDesktop}"
+            [textContent]="estimatedReturnsValue"
+            data-crlat="value"
+            data-uat="totalEstReturns">
+      </span>
+      <span *ngIf="livePriceWinnings && !hasFreeBet" class="stake-label stake-value estimated-returns" [ngClass]="{'left-alight' : deviceService.isDesktop}"
+            [textContent]="winnings[0].value | currency:currencySymbol:'code'">
+      </span>
+      <span class="tool-max-payout"
+      [ngClass] = "{'tool-max-payout_andriod': deviceService.isAndroid && deviceService.isWrapper,
+      'tool-max-payout-IOS': deviceService.isIos && deviceService.isWrapper}"
+      *ngIf="maxPayOutErrorService.maxPayFlag && isBetType() && settled ==='Y'">
+            <svg class="maxPayOut-info-icon" [tooltip]="'maxPayOutTitle'" [showTooltip]="isMaxPayedOut" 
+            (arrowToggle)="callToggleEvent($event)"
+                  [toolTipArgs]="maxPayOutErrorService.toolTipArgs" [createElementTag]='true' [gtmInfo]="'my bets'" (click)="togglemaxPayedOut()">
+                  <use xlink:href="#icn-info"></use>
+            </svg>
+            <span *ngIf="arrowToggleFlag && maxPayOutErrorService.maxPayFlag && isBetType()" class = "tooltip-arrow" [ngClass] = "{'tooltip-arrow-android': deviceService.isAndroid && deviceService.isWrapper}"></span>
+      </span>
+    </div>
+  </div>
+</div>
+<div  *ngIf="!deviceService.isDesktop" [ngClass]="{ 'width-20': !deviceService.isDesktop }">
+      <lazy-component
+      moduleUri="@lazy-modules-module/bet-share-image-card/bet-share-image-card.module#BetShareImageCardModule"
+      [inputs]="{bet: bet, bets: bets, sportType: sportType, currencySymbol: currencySymbol}"
+      entryComponent="BetShareImageCardComponent">
+  </lazy-component>
+</div>
+</div>
+
+

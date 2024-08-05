@@ -1,0 +1,40 @@
+<div class="sk-container" [ngClass]="{'sk-loading': isNotAllModulesLoaded && !state.error}">
+  <outlet-status [state]="state">
+    <request-error (reloadFn)="reloadPage()"></request-error>
+  </outlet-status>
+
+  <div *ngIf="!state.error" class="heuristic-container">
+    <div [hidden]="isNotAllModulesLoaded">
+      <!--- Featured Modules -->
+      <lazy-component moduleUri="@featuredModule/featured.module#FeaturedModule"
+                      [inputs]="{sportId: sportId,
+                                sportName: sportName,
+                                shouldDisplayLoader: false,
+                                isGolfMatchesTab: isGolfMatchesTab}"
+                      [outputs]="['isLoadedEvent', 'featuredEventsCount']"
+                      (event)="updateLoadStatus(0, $event)"
+                      data-crlat="tab.showFeaturedContent">
+      </lazy-component>
+      <!-- Time | League Filters -->
+      <lazy-component *ngIf="isSportEventFiltersEnabled && competitionFilters.length && displayFilters"
+                      data-crlat="competitionFilters"
+                      moduleUri="@lazy-modules-module/competitionFilters/competitionFilters.module#CompetitionFiltersModule"
+                      [inputs]="{filters: competitionFilters, sportId: sportId, paddingTop: true}"
+                      [outputs]="['filterChange']"
+                      (event)="handleCompetitionFilterOutput($event)"
+      ></lazy-component>
+
+      <sport-matches-tab #SportMatchesTab *ngIf="isFeaturedLoaded"
+                        [sport]="sport"
+                        [featuredEventsCount]="featuredEventsCount"
+                        [timeFilter]="timeFilter"
+                        [leagueFilter]="leagueFilter"
+                        [isSportEventFiltersEnabled]="isSportEventFiltersEnabled"
+                        [targetTab]="targetTab"
+                        (isLoadedEvent)="updateLoadStatus(1, $event)"
+                        (displayFilters)="updateFiltersDisplay($event)"
+                        data-crlat="accordionsList">
+      </sport-matches-tab>
+    </div>
+  </div>
+</div>

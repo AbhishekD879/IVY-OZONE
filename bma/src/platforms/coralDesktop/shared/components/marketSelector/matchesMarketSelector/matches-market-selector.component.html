@@ -1,0 +1,8 @@
+<drop-down-menu *ngIf="selectOptions && selectOptions.length && selectOptions[0].title"
+                class="market-selector"
+                [selectedItem]="marketFilter"
+                [menuList]="selectOptions"
+                [selectionKey]="'templateMarketName'"
+                (clickFunction)="filterMarkets($event)"
+                [dropDownCss]= "dropDownCss">
+</drop-down-menu>

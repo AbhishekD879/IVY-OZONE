@@ -1,0 +1,170 @@
+buildscript {
+  ext {
+    springBootVersion = "2.2.0.RELEASE"
+  }
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2")
+  }
+}
+
+plugins {
+  id "java"
+  id "jacoco"
+  id "application"
+
+  id "eclipse"
+  id "idea"
+
+  id "io.spring.dependency-management" version "1.0.7.RELEASE"
+  id "org.springframework.boot" version "2.7.1"
+
+  id "com.coral.tools" version "3.0-SNAPSHOT"
+}
+
+group = "com.ladbrokescoral.oxygen"
+version = "1.0.0-SNAPSHOT"
+//sourceCompatibility = 1.8
+
+mainClassName = "com.ladbrokescoral.oxygen.questionengine.Application"
+
+def nexusMavenRepo = "https://nexus-vie.coral.co.uk/repository/maven-public"
+
+if (System.getenv("NEXUS_USER") != null && System.getenv("NEXUS_PASS") != null) {
+  ext.nexusUser = System.getenv("NEXUS_USER")
+  ext.nexusPass = System.getenv("NEXUS_PASS")
+}
+
+repositories {
+  mavenCentral()
+  maven {
+    credentials {
+      username = "${nexusUser}"
+      password = "${nexusPass}"
+    }
+    url nexusMavenRepo
+  }
+}
+ext {
+  springCloudVersion = "2021.0.3"
+  springDataVersion = "Lovelace-SR5"
+}
+
+configurations {
+  developmentOnly
+  runtimeClasspath {
+    extendsFrom developmentOnly
+  }
+}
+
+dependencies {
+
+  implementation 'com.egalacoral.spark:siteserver-api:release-155.1.0-jdk-17'
+
+  // FIXME: need for siteserver. version conflicts by okhttp. resolve it.
+  implementation 'com.squareup.okhttp3:okhttp:3.14.9'
+  implementation 'com.squareup.okhttp3:logging-interceptor:3.14.9'
+  implementation 'org.json:json:20171018'
+  implementation("org.springframework.boot:spring-boot-starter-actuator")
+  implementation("com.newrelic.agent.java:newrelic-api:latest.release")
+  implementation("org.springframework.boot:spring-boot-starter-undertow")
+  implementation("org.springframework.boot:spring-boot-starter-web") {
+    exclude module: "spring-boot-starter-tomcat"
+  }
+  implementation("org.springframework.boot:spring-boot-starter-cache")
+  implementation("org.springframework.boot:spring-boot-starter-aop")
+  implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+
+
+  implementation 'org.springframework.data:spring-data-commons:2.7.1'
+  implementation 'org.apache.logging.log4j:log4j-api:2.17.2'
+  implementation 'org.apache.logging.log4j:log4j-to-slf4j:2.17.2'
+
+  implementation 'com.amazonaws:aws-java-sdk-dynamodb:1.12.159'
+  implementation group: 'io.github.boostchicken', name: 'spring-data-dynamodb', version: '5.2.1'
+
+
+  implementation 'io.springfox:springfox-swagger2:3.0.0'
+  implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+
+
+  developmentOnly("org.springframework.boot:spring-boot-devtools")
+  implementation("com.github.ben-manes.caffeine:caffeine:2.6.2")
+  implementation("javax.validation:validation-api:2.0.1.Final")
+  implementation("org.hibernate.validator:hibernate-validator:6.0.13.Final")
+  implementation("org.bouncycastle:bcprov-jdk15on:1.55")
+  implementation("commons-io:commons-io:2.6")
+  implementation("org.apache.commons:commons-lang3:3.12.0")
+  implementation("org.apache.commons:commons-text:1.8")
+  implementation("org.apache.commons:commons-collections4:4.4")
+  implementation("org.springframework.retry:spring-retry:1.2.4.RELEASE")
+  implementation("com.github.vladimir-bukhtoyarov:bucket4j-core:4.3.0")
+  implementation("org.modelmapper:modelmapper:3.0.0")
+  implementation('com.squareup.okhttp3:okhttp:4.9.1')
+  implementation("io.vavr:vavr:0.10.2")
+  implementation("com.google.apis:google-api-services-bigquery:v2-rev459-1.25.0")
+
+  implementation 'com.netflix.feign:feign-okhttp:8.18.0'
+// Cms-PushMechanism
+  implementation 'com.egalacoral.spark:cms-integrator-library:0.0.6-SNAPSHOT'
+  implementation 'org.springframework.kafka:spring-kafka'
+
+
+// Testing
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testImplementation group: 'org.junit.vintage', name: 'junit-vintage-engine', version: '5.9.0'
+  testImplementation 'junit:junit:4.13.1'
+  testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.1.1'
+
+
+  testImplementation "io.rest-assured:rest-assured:3.3.0"
+  testImplementation("org.assertj:assertj-core:3.13.2")
+  testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
+  testImplementation("uk.co.jemos.podam:podam:7.2.3.RELEASE")
+  testImplementation("org.awaitility:awaitility:3.1.6")
+
+  testImplementation 'com.github.gmazzo:okhttp-mock:1.3.1'
+
+}
+
+dependencyManagement {
+  imports {
+    mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    mavenBom "org.springframework.data:spring-data-releasetrain:${springDataVersion}"
+  }
+}
+
+wrapper {
+  distributionType = Wrapper.DistributionType.ALL
+  version = "5.6.2"
+}
+
+ext["hamcrest.version"] = "2.1"
+ext["wiremock.version"] = "2.25.0"
+
+spotless {
+
+  // google java format vefification, skip it for now
+  enforceCheck = false
+
+}
+
+test {
+  systemProperty 'spring.profiles.active', 'UNIT'
+  useJUnitPlatform()
+}
+
+jacocoTestReport.reports.xml.enabled = true
+
+sonarqube {
+  properties {
+    property 'sonar.coverage.exclusions', "**/service/AbstractCacheDataSource.java,**/service/AbstractDataSource.java,**/configuration/CacheConfiguration.java,**/configuration/QuestionEngineConfig.java,**/configuration/CmsPushConfiguration.java,**/util/QuizzesUtil.java,**/configuration/*.java"
+  }
+}
+
+jar{
+  enabled = false
+}

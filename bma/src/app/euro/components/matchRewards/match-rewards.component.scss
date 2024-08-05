@@ -1,0 +1,145 @@
+@import 'global.variables.scss';
+@import './../matchRewardsMain/euro-mixin.scss';
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @include body-mixin(50px, 20px, 20px, 10px, $color-blue);
+}
+
+hr {
+  color: $color-white;
+  margin: 0
+}
+
+@keyframes yellow-line {
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 80%;
+  }
+}
+
+@keyframes bet-collect-anime {
+  0% {
+    transform: scale(0.1);
+  }
+
+  25% {
+    transform: scale(1.2);
+  }
+
+  50% {
+    transform: scale(0.5);
+  }
+
+  75% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.grid-container {
+  @include body-mixin(0px, 0px, 0px, 0px, $color-blue);
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  .grid-item {
+    text-align: center;
+    padding: 10px 0px;
+
+    @media (max-width: 700px) {
+      .euro-logo {
+        height: 60px;
+        width: 100%;
+      }
+    }
+ 
+    @media (min-width: 700px) and (max-width: 1024px) {
+      .euro-logo {
+        height: 80px;
+        width: 100%;
+      }
+    }
+
+    .caption {
+      @include height-width-mixin(10px, 100%);
+      font-size: $font-size;
+      @include relative-positioning-mixin(relative, 0, 0, 0, 0);
+      color: white;
+    }
+
+    .yellow-line {
+      @include relative-positioning-mixin(relative, 0px, 0, 0, 0);
+      display: block;
+      height: 4px;
+      width: 80%;
+      margin-top: 10px;
+      margin-left: 10%;
+      animation-name: yellow-line;
+      animation-duration: 1.5s;
+    }
+
+    @media (min-width: 700px) and (max-width: 1024px) {
+      .yellow-line {
+        height: 8px;
+      }
+    }
+
+    .bet-collected {
+      animation-name: bet-collect-anime;
+      animation-delay: 0.5s;
+      animation-duration: 1.5s;
+    }
+
+    .arrow-up {
+      position: relative;
+      top: 15px;
+      @include height-width-mixin(0px, 0px);
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 5px solid $color-blue-dark;
+      margin: 0px auto;
+    }
+
+    .current-badge-arrow {
+      top: 10px;
+    }
+  }
+
+  .tip {
+    background: $color-white;
+    width: 95%;
+    border-radius: 5px;
+    @include relative-positioning-mixin(relative, 0, 0, 0, 0);
+    color: $color-snow;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .box {
+    @include display-flex();
+    grid-column-start: 1;
+    grid-column-end: 4;
+    background-color: $color-blue-dark;
+  }
+
+  .text {
+    margin: auto;
+    padding-top: 7px;
+    padding-bottom: 10px;
+
+    p {
+      line-height: 15px;
+      margin: 5px;
+    }
+  }
+}

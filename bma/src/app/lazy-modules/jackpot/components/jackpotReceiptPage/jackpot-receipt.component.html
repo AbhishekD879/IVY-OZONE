@@ -1,0 +1,42 @@
+<top-bar [title]="'sb.footballJackpotReceipt'"></top-bar>
+
+<accordion [accordionTitle]="'(' + totalLines + ')'"
+           [pcTextBlock]="true"
+           [isExpanded]="true"
+           class="jackpot-receipt">
+ <left-side>
+    <span class="left-title-text" [i18n]="'sb.jackpotLines'"  data-crlat="headerTitle.leftMessage"></span>
+ </left-side>
+  <accordion-body>
+      <div class="row details-info" data-crlat="detailsInfo">
+        <div class="col-xs-4">
+          <strong [i18n]="'sb.footballJackpot'" data-crlat="sb.footballJackpot"></strong>
+          <strong [textContent]="receiptData.length" data-crlat="receiptLines"></strong>
+          <br/>
+          <span class="label-text" [i18n]="'sb.betReceiptNo'" data-crlat="labelNoBetReceipt"></span>
+          <span class="label-text" [textContent]="betReceiptNumber" data-crlat="labelReceiptNumber"></span>
+        </div>
+        <div class="col-xs-8 text-right">
+          <span [i18n]="'sb.totalStake'" data-crlat="label.totalStake"></span>
+          <strong [textContent]="setCurrency(totalStake)" data-crlat="totalStake"></strong><br/>
+          <span [i18n]="'sb.betLines'" data-crlat="label.betLines"></span>
+          <strong [textContent]="totalLines" data-crlat="totalLines"></strong><br/>
+        </div>
+      </div>
+      <div class="row bordered-row">
+        <strong class="col-xs-8" [i18n]="'sb.game'" data-crlat="sb.game"></strong>
+        <strong class="col-xs-4 text-center" [i18n]="'sb.jackpotSelection'" data-crlat="sb.jackpotSelection"></strong>
+      </div>
+      <div class="row bordered-row" *ngFor="let eventEntity of receiptData" data-crlat="eventEntity">
+        <div class="col-xs-8" [textContent]="eventEntity.name" data-crlat="eventEntity.name"></div>
+        <div class="col-xs-4 text-result">
+          <strong *ngFor="let outcomeEntity of eventEntity.markets[0].outcomes"
+                  [textContent]="outcomeEntity.outcomeMeaningMinorCode"
+                  data-crlat="receiptData.eventEntity"></strong>
+        </div>
+      </div>
+      <div class="row">
+        <button [i18n]="'sb.done'" class="btn btn-style1 full-width" (click)="goToPage()" data-crlat="buttonDone"></button>
+      </div>
+  </accordion-body>
+</accordion>

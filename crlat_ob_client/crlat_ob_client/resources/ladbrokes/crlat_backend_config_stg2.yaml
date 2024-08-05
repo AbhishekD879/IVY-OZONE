@@ -1,0 +1,1480 @@
+stg2:
+  siteserve:
+      general_info:
+        hostname: https://obbackoffice-stg.internal.ladbrokes.com
+        timeout: 15
+  feeds:
+      hostname: https://obfeeds-stg.internal.ladbrokes.com/feeds/ats
+  admin:
+      hostname: https://obbackoffice-stg.internal.ladbrokes.com/admin
+  ti:
+    general_info:
+      hostname: https://obbackoffice-stg.internal.ladbrokes.com/ti
+    football:
+      category_id: 16
+      fanzone_hostname: https://obfeeds-stg.internal.ladbrokes.com/feeds/ats
+      fanzone_external_id:
+        arsenal: "42"
+        aston_villa: "40"
+        brentford: "50"
+        brighton_and_hove_albion: "30"
+        burnley: "6"
+        chelsea: "38"
+        crystal_palace: "7"
+        everton: "48"
+        leeds_united: "34"
+        leicester_city: "31"
+        liverpool: "44"
+        manchester_city: "17"
+        manchester_united: "35"
+        newcastle_united: "39"
+        norwich_city: "263"
+        southampton: "45"
+        tottenham_hotspur: "33"
+        watford: "24"
+        west_ham_united: "37"
+        wolverhampton_wanderers: "3"
+      default_market_name: '|Match Betting|'
+      autotest_class:
+        class_id: 30071
+
+        autotest_premier_league:
+          type_id:  85467
+          market_template_id: 3001720
+          market_name: '|Match Betting|'
+          outright_market_template_id: 3001721
+          outright_market_name: '|Outright|'
+          markets:
+            default:
+              '|Default|': 3001722
+            2up_market :
+              '|2Up&Win Early Payout|' : 3307212
+            handicap_match_result:
+              '|Handicap Match Result _placeholder_|': 3001723
+            handicap_first_half:
+              '|Handicap First Half _placeholder_|': 3001724
+            handicap_second_half:
+              '|Handicap Second Half _placeholder_|': 3001725
+            correct_score:
+              '|Correct Score|': 3001726
+            both_teams_to_score:
+              '|Both Teams To Score|': 3001727
+            match_result_and_both_teams_to_score:
+              '|Match Result & Both Teams To Score|': 3001728
+            over_under_total_goals:
+              '|Over/Under Total Goals|': 3001729
+            total_goals:
+              '|Total Goals|': 3001730
+            to_qualify:
+              '|To Qualify|': 3001731
+            to_win_to_nil:
+              '|To Win To Nil|': 3001732
+            to_win_not_to_nil:
+              '|To Win Not To Nil|': 3001733
+            first_half_result:
+              '|First-Half Result|': 3001734
+            draw_no_bet:
+              '|Draw No Bet|': 3001735
+            next_team_to_score:
+              '|Next Team To Score|': 3001736
+            extra_time_result:
+              '|Extra-Time Result|': 3001737
+            first_goalscorer:
+              '|First Goalscorer|': 3001738
+            first_goal_scorecast:
+              '|First Goal Scorecast|': 3001739
+            anytime_goalscorer:
+              '|Anytime Goalscorer|': 3001740
+            score_goal_in_both_halves:
+              '|Score Goal in Both Halves|': 3001741
+            goalscorer_2_or_more:
+              '|Goalscorer - 2 Or More|': 3001742
+            last_goalscorer:
+              '|Last Goalscorer|': 3001743
+            last_goal_scorecast:
+              '|Last Goal Scorecast|': 3001744
+            hat_trick:
+              '|Hat trick|': 3001745
+            your_call:
+              '|YourCallSpecials Market|': 3001746
+            penalty_shoot_out_winner:
+              '|Penalty Shoot-Out Winner|': 3001747
+            double_chance:
+              '|Double Chance|': 3001748
+            half_time_double_chance:
+              '|Half-Time Double Chance|': 3001749
+            second_half_double_chance:
+              '|Second-Half Double Chance|': 3001750
+            over_under_first_half:
+              '|Over/Under First Half|': 3001751
+            over_under_second_half:
+              '|Over/Under Second Half|': 3001752
+            match_result_and_over_under_2_5_goals:
+              '|Match Result and Over/Under 2.5 Goals|': 3237585
+            match_result_and_over_under_3_5_goals:
+              '|Match Result and Over/Under 3.5 Goals|': 3237586
+            match_result_and_over_under_4_5_goals:
+              '|Match Result and Over/Under 4.5 Goals|': 3237587
+            match_result_and_over_under_5_5_goals:
+              '|Match Result and Over/Under 5.5 Goals|': 3237588
+            match_result_and_over_under_6_5_goals:
+              '|Match Result and Over/Under 6.5 Goals|': 3237589
+            match_result_and_over_under_7_5_goals:
+              '|Match Result and Over/Under 7.5 Goals|': 3237590
+            match_result_and_over_under_8_5_goals:
+              '|Match Result and Over/Under 8.5 Goals|': 3237591
+            match_result_and_over_under_9_5_goals:
+              '|Match Result and Over/Under 9.5 Goals|': 3237592
+            match_result_and_over_under_10_5_goals:
+              '|Match Result and Over/Under 10.5 Goals|': 3237593
+            both_team_to_score_and_over_under_2_5_goals:
+              '|Both Teams to Score and Over/Under 2.5 Goals|': 3237594
+            both_team_to_score_and_over_under_3_5_goals:
+              '|Both Teams to Score and Over/Under 3.5 Goals|': 3237595
+            both_team_to_score_and_over_under_4_5_goals:
+              '|Both Teams to Score and Over/Under 4.5 Goals|': 3237596
+            both_team_to_score_and_over_under_5_5_goals:
+              '|Both Teams to Score and Over/Under 5.5 Goals|': 3237597
+            both_team_to_score_and_over_under_6_5_goals:
+              '|Both Teams to Score and Over/Under 6.5 Goals|': 3237598
+            both_team_to_score_and_over_under_7_5_goals:
+              '|Both Teams to Score and Over/Under 7.5 Goals|': 3237599
+            both_team_to_score_and_over_under_8_5_goals:
+              '|Both Teams to Score and Over/Under 8.5 Goals|': 3237600
+            both_team_to_score_and_over_under_9_5_goals:
+              '|Both Teams to Score and Over/Under 9.5 Goals|': 3237601
+            both_team_to_score_and_over_under_10_5_goals:
+              '|Both Teams to Score and Over/Under 10.5 Goals|': 3237602
+
+        special_autotest_league:
+          type_id: 115033
+          market_template_id: 3262160
+          market_name: '|Match Betting|'
+          markets:
+            both_teams_to_score:
+              '|Both Teams To Score|': 3306771
+            to_qualify:
+              '|To Qualify|': 3262162
+            draw_no_bet:
+              '|Draw No Bet|': 3306772
+            match_result_and_over_under_2_5_goals:
+              '|Match Result and Over/Under 2.5 Goals|': 3306773
+            match_result_and_over_under_3_5_goals:
+              '|Match Result and Over/Under 3.5 Goals|': 3306774
+            match_result_and_over_under_4_5_goals:
+              '|Match Result and Over/Under 4.5 Goals|': 3306775
+            match_result_and_over_under_5_5_goals:
+              '|Match Result and Over/Under 5.5 Goals|': 3306776
+            match_result_and_over_under_6_5_goals:
+              '|Match Result and Over/Under 6.5 Goals|': 3306777
+            match_result_and_over_under_7_5_goals:
+              '|Match Result and Over/Under 7.5 Goals|': 3306778
+            match_result_and_over_under_8_5_goals:
+              '|Match Result and Over/Under 8.5 Goals|': 3306779
+            match_result_and_over_under_9_5_goals:
+              '|Match Result and Over/Under 9.5 Goals|': 3306780
+            match_result_and_over_under_10_5_goals:
+              '|Match Result and Over/Under 10.5 Goals|': 3306781
+            both_team_to_score_and_over_under_2_5_goals:
+              '|Both Teams to Score and Over/Under 2.5 Goals|': 3306782
+            both_team_to_score_and_over_under_3_5_goals:
+              '|Both Teams to Score and Over/Under 3.5 Goals|': 3306783
+            both_team_to_score_and_over_under_4_5_goals:
+              '|Both Teams to Score and Over/Under 4.5 Goals|': 3306784
+            both_team_to_score_and_over_under_5_5_goals:
+              '|Both Teams to Score and Over/Under 5.5 Goals|': 3306785
+            both_team_to_score_and_over_under_6_5_goals:
+              '|Both Teams to Score and Over/Under 6.5 Goals|': 3306786
+            both_team_to_score_and_over_under_7_5_goals:
+              '|Both Teams to Score and Over/Under 7.5 Goals|': 3306787
+            both_team_to_score_and_over_under_8_5_goals:
+              '|Both Teams to Score and Over/Under 8.5 Goals|': 3306788
+            both_team_to_score_and_over_under_9_5_goals:
+              '|Both Teams to Score and Over/Under 9.5 Goals|': 3306789
+            both_team_to_score_and_over_under_10_5_goals:
+              '|Both Teams to Score and Over/Under 10.5 Goals|': 3306790
+
+        autotest_league2:
+          type_id: 115807
+          market_name: '|Match Betting|'
+          market_template_id: 3306791
+          markets:
+            over_under_total_goals:
+              '|Over/Under Total Goals|': 3306795
+            total_goals:
+              '|Total Goals|': 3306799
+            next_team_to_score:
+              '|Next Team To Score|': 3306801
+            extra_time_result:
+              '|Extra-Time Result|': 3306802
+            both_teams_to_score:
+              '|Both Teams To Score|': 3306803
+            to_win_not_to_nil:
+              '|To Win Not To Nil|': 3306804
+            draw_no_bet:
+              '|Draw No Bet|': 3306806
+            first_half_result:
+              '|First-Half Result|': 3306807
+            to_qualify:
+              '|To Qualify|': 3306809
+            first_goalscorer:
+              '|First Goalscorer|': 3306812
+            anytime_goalscorer:
+              '|Anytime Goalscorer|': 3306815
+            goalscorer_2_or_more:
+              '|Goalscorer - 2 Or More|': 3306817
+            hat_trick:
+              '|Hat trick|': 3306819
+            last_goalscorer:
+              '|Last Goalscorer|': null
+            penalty_shoot_out_winner:
+              '|Penalty Shoot-Out Winner|': 3306822
+            match_result_and_over_under_2_5_goals:
+              '|Match Result and Over/Under 2.5 Goals|': 3306824
+            match_result_and_over_under_3_5_goals:
+              '|Match Result and Over/Under 3.5 Goals|': 3306825
+            match_result_and_over_under_4_5_goals:
+              '|Match Result and Over/Under 4.5 Goals|': 3306826
+            match_result_and_over_under_5_5_goals:
+              '|Match Result and Over/Under 5.5 Goals|': 3306828
+            match_result_and_over_under_6_5_goals:
+              '|Match Result and Over/Under 6.5 Goals|': 3306830
+            match_result_and_over_under_7_5_goals:
+              '|Match Result and Over/Under 7.5 Goals|': 3306833
+            match_result_and_over_under_8_5_goals:
+              '|Match Result and Over/Under 8.5 Goals|': 3306835
+            match_result_and_over_under_9_5_goals:
+              '|Match Result and Over/Under 9.5 Goals|': 3306838
+            match_result_and_over_under_10_5_goals:
+              '|Match Result and Over/Under 10.5 Goals|': 3306840
+            both_team_to_score_and_over_under_2_5_goals:
+              '|Both Teams to Score and Over/Under 2.5 Goals|': 3306842
+            both_team_to_score_and_over_under_3_5_goals:
+              '|Both Teams to Score and Over/Under 3.5 Goals|': 3306843
+            both_team_to_score_and_over_under_4_5_goals:
+              '|Both Teams to Score and Over/Under 4.5 Goals|': 3306844
+            both_team_to_score_and_over_under_5_5_goals:
+              '|Both Teams to Score and Over/Under 5.5 Goals|': 3306846
+            both_team_to_score_and_over_under_6_5_goals:
+              '|Both Teams to Score and Over/Under 6.5 Goals|': 3306848
+            both_team_to_score_and_over_under_7_5_goals:
+              '|Both Teams to Score and Over/Under 7.5 Goals|': 3306849
+            both_team_to_score_and_over_under_8_5_goals:
+              '|Both Teams to Score and Over/Under 8.5 Goals|': 3306850
+            both_team_to_score_and_over_under_9_5_goals:
+              '|Both Teams to Score and Over/Under 9.5 Goals|': 3306851
+            both_team_to_score_and_over_under_10_5_goals:
+              '|Both Teams to Score and Over/Under 10.5 Goals|': 3306852
+
+      specials:
+        class_id: 67
+        enhanced_multiples:
+          type_id: 115809
+          market_template_id: 3306847
+          market_name: '|Match Betting|'
+
+      spain:
+        class_id: 166
+        spanish_la_liga:
+          type_id: 971
+          market_template_id: 100192
+          market_name: '|Match Betting|'
+          outright_market_template_id: 100194
+          outright_market_name: '|Outright|'
+          markets:
+            over_under_total_goals:
+              '|Over/Under Total Goals|': 100204
+            total_goals:
+              '|Total Goals|': 100205
+            next_team_to_score:
+              '|Next Team To Score|': 794070
+            extra_time_result:
+              '|Extra-Time Result|': 716829
+            both_teams_to_score:
+              '|Both Teams To Score|': 100171
+            to_win_not_to_nil:
+              '|To Win Not To Nil|': 100132
+            draw_no_bet:
+              '|Draw No Bet|': 100175
+            first_half_result:
+              '|First-Half Result|': 100186
+            to_qualify:
+              '|To Qualify|': 100202
+            penalty_shoot_out_winner:
+              '|Penalty Shoot-Out Winner|': 2374316
+            match_result_and_over_under_2_5_goals:
+              '|Match Result and Over/Under 2.5 Goals|': 453423
+            match_result_and_over_under_3_5_goals:
+              '|Match Result and Over/Under 3.5 Goals|': 454293
+            match_result_and_over_under_4_5_goals:
+              '|Match Result and Over/Under 4.5 Goals|': 3169909
+            match_result_and_over_under_5_5_goals:
+              '|Match Result and Over/Under 5.5 Goals|': 3170354
+            match_result_and_over_under_6_5_goals:
+              '|Match Result and Over/Under 6.5 Goals|': 3237610
+            match_result_and_over_under_7_5_goals:
+              '|Match Result and Over/Under 7.5 Goals|': 3237611
+            match_result_and_over_under_8_5_goals:
+              '|Match Result and Over/Under 8.5 Goals|': 3237612
+            match_result_and_over_under_9_5_goals:
+              '|Match Result and Over/Under 9.5 Goals|': 3237613
+            match_result_and_over_under_10_5_goals:
+              '|Match Result and Over/Under 10.5 Goals|': 3237614
+            both_team_to_score_and_over_under_2_5_goals:
+              '|Both Teams to Score and Over/Under 2.5 Goals|': 455163
+            both_team_to_score_and_over_under_3_5_goals:
+              '|Both Teams to Score and Over/Under 3.5 Goals|': 456033
+            both_team_to_score_and_over_under_4_5_goals:
+              '|Both Teams to Score and Over/Under 4.5 Goals|': 3237603
+            both_team_to_score_and_over_under_5_5_goals:
+              '|Both Teams to Score and Over/Under 5.5 Goals|': 3237604
+            both_team_to_score_and_over_under_6_5_goals:
+              '|Both Teams to Score and Over/Under 6.5 Goals|': 3237605
+            both_team_to_score_and_over_under_7_5_goals:
+              '|Both Teams to Score and Over/Under 7.5 Goals|': 3237606
+            both_team_to_score_and_over_under_8_5_goals:
+              '|Both Teams to Score and Over/Under 8.5 Goals|': 3237607
+            both_team_to_score_and_over_under_9_5_goals:
+              '|Both Teams to Score and Over/Under 9.5 Goals|': 3237608
+            both_team_to_score_and_over_under_10_5_goals:
+              '|Both Teams to Score and Over/Under 10.5 Goals|': 3237609
+
+      england:
+        class_id: 97
+        championship:
+          type_id: 435
+          market_template_id: 36408
+          market_name: '|Match Betting|'
+          markets:
+            over_under_total_goals:
+              '|Over/Under Total Goals|': 36420
+            total_goals:
+              '|Total Goals|': 36421
+            next_team_to_score:
+              '|Next Team To Score|': 782536
+            extra_time_result:
+              '|Extra-Time Result|': 716253
+            both_teams_to_score:
+              '|Both Teams To Score|': 36387
+            to_win_not_to_nil:
+              '|To Win Not To Nil|': 36348
+            draw_no_bet:
+              '|Draw No Bet|': 36391
+            first_half_result:
+              '|First-Half Result|': 36402
+            to_qualify:
+              '|To Qualify|': 36418
+            match_result_and_over_under_2_5_goals:
+              '|Match Result and Over/Under 2.5 Goals|': 452876
+            match_result_and_over_under_3_5_goals:
+              '|Match Result and Over/Under 3.5 Goals|': 453746
+            match_result_and_over_under_4_5_goals:
+              '|Match Result and Over/Under 4.5 Goals|': 3169576
+            match_result_and_over_under_5_5_goals:
+              '|Match Result and Over/Under 5.5 Goals|': 3170021
+            match_result_and_over_under_6_5_goals:
+              '|Match Result and Over/Under 6.5 Goals|': 3306813
+            match_result_and_over_under_7_5_goals:
+              '|Match Result and Over/Under 7.5 Goals|': 3306814
+            match_result_and_over_under_8_5_goals:
+              '|Match Result and Over/Under 8.5 Goals|': 3306816
+            match_result_and_over_under_9_5_goals:
+              '|Match Result and Over/Under 9.5 Goals|': 3306818
+            match_result_and_over_under_10_5_goals:
+              '|Match Result and Over/Under 10.5 Goals|': 3306820
+            both_team_to_score_and_over_under_2_5_goals:
+              '|Both Teams to Score and Over/Under 2.5 Goals|': 454616
+            both_team_to_score_and_over_under_3_5_goals:
+              '|Both Teams to Score and Over/Under 3.5 Goals|': 455486
+            both_team_to_score_and_over_under_4_5_goals:
+              '|Both Teams to Score and Over/Under 4.5 Goals|': 3306823
+            both_team_to_score_and_over_under_5_5_goals:
+              '|Both Teams to Score and Over/Under 5.5 Goals|': 3306827
+            both_team_to_score_and_over_under_6_5_goals:
+              '|Both Teams to Score and Over/Under 6.5 Goals|': 3306829
+            both_team_to_score_and_over_under_7_5_goals:
+              '|Both Teams to Score and Over/Under 7.5 Goals|': 3306831
+            both_team_to_score_and_over_under_8_5_goals:
+              '|Both Teams to Score and Over/Under 8.5 Goals|': 3306832
+            both_team_to_score_and_over_under_9_5_goals:
+              '|Both Teams to Score and Over/Under 9.5 Goals|': 3306834
+            both_team_to_score_and_over_under_10_5_goals:
+              '|Both Teams to Score and Over/Under 10.5 Goals|': 3306837
+
+        premier_league:
+          type_id: 442
+          market_template_id: 37241
+          market_name: '|Match Betting|'
+          outright_market_template_id: 37243
+          outright_market_name: '|Outright|'
+          markets:
+            over_under_total_goals:
+              '|Over/Under Total Goals|': 37253
+            total_goals:
+              '|Total Goals|': 37254
+            next_team_to_score:
+              '|Next Team To Score|': 504426
+            extra_time_result:
+              '|Extra-Time Result|': 716266
+            both_teams_to_score:
+              '|Both Teams To Score|': 37220
+            to_win_not_to_nil:
+              '|To Win Not To Nil|': 37181
+            draw_no_bet:
+              '|Draw No Bet|': 37224
+            first_half_result:
+              '|First-Half Result|': 37235
+            to_qualify:
+              '|To Qualify|': 37251
+            penalty_shoot_out_winner:
+              '|Penalty Shoot-Out Winner|': 2168479
+            match_result_and_over_under_2_5_goals:
+              '|Match Result and Over/Under 2.5 Goals|': 452883
+            match_result_and_over_under_3_5_goals:
+              '|Match Result and Over/Under 3.5 Goals|': 453753
+            match_result_and_over_under_4_5_goals:
+              '|Match Result and Over/Under 4.5 Goals|': 3237615
+            match_result_and_over_under_5_5_goals:
+              '|Match Result and Over/Under 5.5 Goals|': 3237616
+            match_result_and_over_under_6_5_goals:
+              '|Match Result and Over/Under 6.5 Goals|': 3237617
+            match_result_and_over_under_7_5_goals:
+              '|Match Result and Over/Under 7.5 Goals|': 3237618
+            match_result_and_over_under_8_5_goals:
+              '|Match Result and Over/Under 8.5 Goals|': 3237619
+            match_result_and_over_under_9_5_goals:
+              '|Match Result and Over/Under 9.5 Goals|': 3237620
+            match_result_and_over_under_10_5_goals:
+              '|Match Result and Over/Under 10.5 Goals|': 3237621
+            both_team_to_score_and_over_under_2_5_goals:
+              '|Both Teams to Score and Over/Under 2.5 Goals|': 454623
+            both_team_to_score_and_over_under_3_5_goals:
+              '|Both Teams to Score and Over/Under 3.5 Goals|': 455493
+            both_team_to_score_and_over_under_4_5_goals:
+              '|Both Teams to Score and Over/Under 4.5 Goals|': 3237622
+            both_team_to_score_and_over_under_5_5_goals:
+              '|Both Teams to Score and Over/Under 5.5 Goals|': 3237623
+            both_team_to_score_and_over_under_6_5_goals:
+              '|Both Teams to Score and Over/Under 6.5 Goals|': 3237624
+            both_team_to_score_and_over_under_7_5_goals:
+              '|Both Teams to Score and Over/Under 7.5 Goals|': 3237625
+            both_team_to_score_and_over_under_8_5_goals:
+              '|Both Teams to Score and Over/Under 8.5 Goals|': 3237626
+            both_team_to_score_and_over_under_9_5_goals:
+              '|Both Teams to Score and Over/Under 9.5 Goals|': 3237627
+            both_team_to_score_and_over_under_10_5_goals:
+              '|Both Teams to Score and Over/Under 10.5 Goals|': 3237628
+
+      italy_serie_a:
+        class_id: 120
+        serie_a:
+          type_id: 734
+          market_template_id: 71989
+          market_name: '|Match Betting|'
+          markets:
+            over_under_total_goals:
+              '|Over/Under Total Goals|': 72001
+            total_goals:
+              '|Total Goals|': 72002
+            next_team_to_score:
+              '|Next Team To Score|': 789741
+            extra_time_result:
+              '|Extra-Time Result|': 716584
+            both_teams_to_score:
+              '|Both Teams To Score|': 71968
+            to_win_not_to_nil:
+              '|To Win Not To Nil|': 71929
+            draw_no_bet:
+              '|Draw No Bet|': 71972
+            first_half_result:
+              '|First-Half Result|': 71983
+            to_qualify:
+              '|To Qualify|': 71999
+            penalty_shoot_out_winner:
+              '|Penalty Shoot-Out Winner|': 2326723
+            match_result_and_over_under_2_5_goals:
+              '|Match Result and Over/Under 2.5 Goals|': 453179
+            match_result_and_over_under_3_5_goals:
+              '|Match Result and Over/Under 3.5 Goals|': 454049
+            match_result_and_over_under_4_5_goals:
+              '|Match Result and Over/Under 4.5 Goals|': 3169734
+            match_result_and_over_under_5_5_goals:
+              '|Match Result and Over/Under 5.5 Goals|': 3170179
+            match_result_and_over_under_6_5_goals:
+              '|Match Result and Over/Under 6.5 Goals|': 3237629
+            match_result_and_over_under_7_5_goals:
+              '|Match Result and Over/Under 7.5 Goals|': 3237630
+            match_result_and_over_under_8_5_goals:
+              '|Match Result and Over/Under 8.5 Goals|': 3237631
+            match_result_and_over_under_9_5_goals:
+              '|Match Result and Over/Under 9.5 Goals|': 3237632
+            match_result_and_over_under_10_5_goals:
+              '|Match Result and Over/Under 10.5 Goals|': 3237633
+            both_team_to_score_and_over_under_2_5_goals:
+              '|Both Teams to Score and Over/Under 2.5 Goals|': 454919
+            both_team_to_score_and_over_under_3_5_goals:
+              '|Both Teams to Score and Over/Under 3.5 Goals|': 455789
+            both_team_to_score_and_over_under_4_5_goals:
+              '|Both Teams to Score and Over/Under 4.5 Goals|': 3237634
+            both_team_to_score_and_over_under_5_5_goals:
+              '|Both Teams to Score and Over/Under 5.5 Goals|': 3237635
+            both_team_to_score_and_over_under_6_5_goals:
+              '|Both Teams to Score and Over/Under 6.5 Goals|': 3237636
+            both_team_to_score_and_over_under_7_5_goals:
+              '|Both Teams to Score and Over/Under 7.5 Goals|': 3237637
+            both_team_to_score_and_over_under_8_5_goals:
+              '|Both Teams to Score and Over/Under 8.5 Goals|': 3237638
+            both_team_to_score_and_over_under_9_5_goals:
+              '|Both Teams to Score and Over/Under 9.5 Goals|': 3237639
+            both_team_to_score_and_over_under_10_5_goals:
+              '|Both Teams to Score and Over/Under 10.5 Goals|': 3237640
+
+      uefa_club_champions:
+        class_id: 26511
+        uefa_champions_league:
+          type_id: 17311
+          market_template_id: 800308
+          market_name: '|Match Betting|'
+          markets:
+            over_under_total_goals:
+              '|Over/Under Total Goals|': 800320
+            total_goals:
+              '|Total Goals|': 800321
+            next_team_to_score:
+              '|Next Team To Score|': 800346
+            extra_time_result:
+              '|Extra-Time Result|': 716886
+            both_teams_to_score:
+              '|Both Teams To Score|': 800287
+            to_win_not_to_nil:
+              '|To Win Not To Nil|': 800256
+            draw_no_bet:
+              '|Draw No Bet|': 800291
+            first_half_result:
+              '|First-Half Result|': 800302
+            to_qualify:
+              '|To Qualify|': 800318
+            penalty_shoot_out_winner:
+              '|Penalty Shoot-Out Winner|': 2392094
+            match_result_and_over_under_2_5_goals:
+              '|Match Result and Over/Under 2.5 Goals|': 800341
+            match_result_and_over_under_3_5_goals:
+              '|Match Result and Over/Under 3.5 Goals|': 800342
+            match_result_and_over_under_4_5_goals:
+              '|Match Result and Over/Under 4.5 Goals|': 3237641
+            match_result_and_over_under_5_5_goals:
+              '|Match Result and Over/Under 5.5 Goals|': 3237642
+            match_result_and_over_under_6_5_goals:
+              '|Match Result and Over/Under 6.5 Goals|': 3237643
+            match_result_and_over_under_7_5_goals:
+              '|Match Result and Over/Under 7.5 Goals|': 3237644
+            match_result_and_over_under_8_5_goals:
+              '|Match Result and Over/Under 8.5 Goals|': 3237645
+            match_result_and_over_under_9_5_goals:
+              '|Match Result and Over/Under 9.5 Goals|': 3237646
+            match_result_and_over_under_10_5_goals:
+              '|Match Result and Over/Under 10.5 Goals|': 3237647
+            both_team_to_score_and_over_under_2_5_goals:
+              '|Both Teams to Score and Over/Under 2.5 Goals|': 800343
+            both_team_to_score_and_over_under_3_5_goals:
+              '|Both Teams to Score and Over/Under 3.5 Goals|': 800344
+            both_team_to_score_and_over_under_4_5_goals:
+              '|Both Teams to Score and Over/Under 4.5 Goals|': 3237648
+            both_team_to_score_and_over_under_5_5_goals:
+              '|Both Teams to Score and Over/Under 5.5 Goals|': 3237649
+            both_team_to_score_and_over_under_6_5_goals:
+              '|Both Teams to Score and Over/Under 6.5 Goals|': 3237650
+            both_team_to_score_and_over_under_7_5_goals:
+              '|Both Teams to Score and Over/Under 7.5 Goals|': 3237651
+            both_team_to_score_and_over_under_8_5_goals:
+              '|Both Teams to Score and Over/Under 8.5 Goals|': 3237652
+            both_team_to_score_and_over_under_9_5_goals:
+              '|Both Teams to Score and Over/Under 9.5 Goals|': 3237653
+            both_team_to_score_and_over_under_10_5_goals:
+              '|Both Teams to Score and Over/Under 10.5 Goals|': 3237654
+
+      coupons:
+        Football Auto Test Coupon: 1430 # coupon for autotest premier league events
+        Football Auto Test Coupon No Cashout: 1431 # coupon for autotest premier league events with no cashout
+        Auto Hiding Test Coupon: 1432 # coupon for autotest premier league events for auto hiding tests
+        Euro Elite Coupon: 1433  # coupons for la liga events
+        Televised Matches: 1434  # coupon for diff leagues events, e.g.: EPL
+        UK Coupon: 1435  # coupons for EPL events, England Championship events
+        Goalscorer Coupon: 1436 # coupons for events with goalscorer markets
+
+      your_call_markets: ['Featured', 'Odds On', 'Events - 5/2', '5/2 - 10/1', '11/1 - 40/1', '50/1 +']
+
+    tennis:
+      category_id: 34
+      default_market_name: '|Match Betting|'
+      tennis_autotest:
+        class_id: 26522
+        autotest_trophy:
+          type_id: 17424
+          market_template_id: 720445
+          market_name: '|Match Betting|'
+          outright_market_template_id: 3306855
+          outright_market_name: '|Outright|'
+          markets:
+            current_game_1st_point:
+              '|Current Game 1st Point|': 720446
+            set_1_game_1_deuce:
+              '|Set| |1| |Game| |1| |Deuce|': 720447
+
+      tennis_all_tennis:
+        class_id: 266
+        davis_cup:
+          type_id: 60215
+          market_template_id: 1205533
+          market_name: '|Match Betting|'
+
+        european_open:
+          type_id: 60116
+          market_template_id: 1198702
+          market_name: '|Match Betting|'
+
+        nice_open:
+          type_id: 1659
+          market_template_id: 132109
+          market_name: '|Match Betting|'
+
+      specials:
+        class_id: 36080
+        enhanced_multiples:
+          type_id: 115811
+          market_template_id: 3306856
+          market_name: '|Enhanced Multiples|'
+
+      coupons:
+        Tennis Auto Test Coupon: 1429
+
+    baseball:
+      category_id: 5
+      baseball_autotest:
+        class_id: 26523
+        autotest_league:
+          type_id: 17425
+          market_template_id: 720448
+          market_name: '|Money Line|'
+          markets:
+            run_line:
+              '|Run Line|': 3306744
+            total_runs:
+              '|Total Runs|': 3306745
+
+        autotest_handicap:
+          type_id: 115798
+          market_template_id: 3306746
+          market_name: '|Run Line|'
+          markets:
+            run_line_2:
+              '|Run Line 2|': 3306747
+            run_line_3:
+              '|Run Line 3|': 3306748
+            total_runs:
+              '|Total Runs|': 3306749
+            total_runs_1:
+              '|Total Runs 1|': 3306750
+
+      us_baseball:
+        class_id: 12
+        mlb:
+          type_id: 33
+          market_template_id: 1098
+          market_name: '|Money Line|'
+
+      german_baseball:
+        class_id: 10
+        bundesliga_nord:
+          type_id: 28
+          market_template_id: 753
+          market_name: '|Money Line|'
+
+      international_baseball:
+        class_id: 11
+        world:
+          type_id: 30
+          market_template_id: 891
+          market_name: '|Money Line|'
+
+    motor_bikes:
+      category_id: 23
+      motor_bikes_all_motor_bikes:
+        class_id: 246
+        british_125cc_gp:
+          type_id: 97409
+          market_template_id: 3306758
+          market_name: '|Standard|'
+          outright_market_template_id: 3306760
+          outright_market_name: '|Outright|'
+          markets:
+            match_betting:
+              '|Match Betting|': 3306765
+
+        world_superbikesbrno_gp:
+          type_id: 1444
+          outright_market_template_id: 517133
+          outright_market_name: '|Outright|'
+          markets:
+            match_betting:
+              '|Match Betting|': 517261
+
+        world_superbikes_championship:
+          type_id: 1440
+          outright_market_template_id: 517134
+          outright_market_name: '|Outright|'
+          markets:
+            match_betting:
+              '|Match Betting|': 517262
+
+        world_superbikes_philip_island:
+          type_id: 1442
+          outright_market_template_id: 517136
+          outright_market_name: '|Outright|'
+          markets:
+            match_betting:
+              '|Match Betting|': 517264
+
+    formula_1:
+      category_id: 24
+      formula_1_all_f1:
+        class_id: 247
+        world_championship:
+          type_id: 1464
+          market_template_id: 513108
+          market_name: '|Standard|'
+          outright_market_template_id: 513084
+          outright_market_name: '|Outright|'
+
+        british_grand_prix:
+          type_id: 97405
+          outright_market_template_id: 3171067
+          outright_market_name: '|Outright|'
+
+        indian_grand_prix:
+          type_id: 97406
+          outright_market_template_id: 3306742
+          outright_market_name: '|Outright|'
+
+        european_grand_prix:
+          type_id: 97407
+          outright_market_template_id: 3171068
+          outright_market_name: '|Outright|'
+
+        united_states_grand_prix:
+          type_id: 97408
+          outright_market_template_id: 3171069
+          outright_market_name: '|Outright|'
+
+    american_football:
+      category_id: 1
+      default_market_name: '|Money Line|'
+      american_football_autotest:
+        class_id: 26524
+        autotest_league:
+          type_id: 17426
+          market_template_id: 720449
+          market_name: '|Money Line|'
+          outright_id: 3171066
+          outright_name: '|Outright|'
+          markets:
+            handicap_2_way:
+              '|Handicap 2-way|': 2122764
+            total_points:
+              '|Total Points|': 2122916
+            60_minute_betting:
+              '|60 Minute Betting|': 3306751
+
+      american_football_autotest_handicap:
+        type_id: 115799
+        market_template_id: 3306752
+        market_name: '|Handicap 2-way|'
+        markets:
+          handicap_2_way_2:
+            '|Handicap 2-way 2|': 3306752
+          handicap_2_way_3:
+            '|Handicap 2-way 3|': 3306752
+          total_points:
+            '|Total Points|': 3306753
+          total_points_1:
+            '|Total Points1|': 3306753
+
+      american_football_usa:
+        class_id: 2
+        nfl:
+          type_id: 4
+          market_template_id: 302
+          market_name: '|Money Line|'
+
+        ncaa_bowls:
+          type_id: 16188
+          market_template_id: 287512
+          market_name: '|Money Line|'
+
+      american_football_canada:
+        class_id: 1
+        cfl:
+          type_id: 1
+          market_template_id: 65
+          market_name: '|Money Line|'
+
+    basketball:
+      category_id: 6
+      basketball_autotest:
+        class_id: 26525
+        autotest_league:
+          type_id: 17427
+          market_template_id: 720450
+          market_name: '|Money Line|'
+        basketball_autotest_total_points:
+          type_id: 115818
+          market_template_id: 3306891
+          market_name: '|Total Points|'
+          markets:
+            'home_team_total_points':
+              '|Home team total points|': 3306893
+            'away_team_total_points':
+              '|Away team total points|': 3306892
+            'quarter_total_points':
+              '|Quarter Total Points|': 3306894
+            'handicap_2_way':
+              '|Handicap 2-way|': 3306895
+            'half_total_points':
+              '|Half Total Points|': 3306896
+
+      basketball_austria:
+        class_id: 14
+        abl:
+          type_id: 38
+          market_template_id: 1422
+          market_name: '|Money Line|'
+
+      basketball_croatia:
+        class_id: 20
+        croatia_cup:
+          type_id: 49
+          market_template_id: 2071
+          market_name: '|Money Line|'
+
+      basketball_usa:
+        class_id: 51
+        enhanced_multiples:
+          type_id: 115794
+          market_template_id: 3306854
+          market_name: '|Enhanced Multiples|'
+          markets:
+            Handicap:
+              '|Handicap|': 3306722
+        nba:
+          type_id: 136
+          market_template_id: 7204
+          market_name: '|Money Line|'
+          markets:
+            handicap_2_way:
+              '|Handicap-2-way|': 7198
+
+
+    volleyball:
+      category_id: 36
+      volleyball_austria:
+        class_id: 269
+        avl:
+          type_id: 1715
+          market_template_id: 134093
+          market_name: '|Match Betting|'
+          markets:
+            match_betting:
+              '|Match betting|': 134093
+            match_set_handicap:
+              '|Match Set Handicap|': 3306897
+            total_match_points:
+              '|Total Match Points|': 134099
+
+
+        avl_set_handicap:
+          type_id: 115795
+          market_template_id: 3306730
+          market_name: '|Match Set Handicap|'
+          markets:
+            match_betting:
+              '|Match betting|': 3306898
+
+
+    beach_volleyball:
+      category_id: 52
+      beach_volleyball_austria:
+        class_id: 26527
+        austrian_cup_womans:
+          type_id: 19596
+          market_template_id: 723258
+          market_name: '|Money Line|'
+
+    esports:
+      category_id: 139
+      esport_autotest:
+        class_id: 36079
+        autotest_league:
+          type_id: 115806
+          market_name: '|Match Result (2 way)|'
+          market_template_id: 3306770
+
+    darts:
+      category_id: 13
+      darts_autotest:
+        class_id: 63
+        championship_league:
+          type_id: 184
+          market_template_id: 370295
+          market_name: '|Match Betting|'
+          markets:
+            match_handicap:
+              '|Match Handicap|': 370308
+            match_handicap_1:
+              '|Match Handicap 1|': 370308
+            match_handicap_2:
+              '|Match Handicap 2|': 370308
+            total_180s_over_under:
+              '|Total 180s Over/Under|': 370438
+            total_180s_over_under_1:
+              '|Total 180s Over/Under 1|': 370438
+            most_180s:
+              '|Most 180s|': 370412
+
+        darts_autotest_ww:
+          type_id: 114137
+          market_template_id: 1568015
+          market_name: '|Match Betting Head/Head|'
+
+        darts_autotest_handicap:
+          type_id: 114148
+          market_template_id: 1568036
+          market_name: '|Match Handicap|'
+          markets:
+            match_handicap_1:
+              '|Match Handicap 1|': 1568036
+            match_handicap_2:
+              '|Match Handicap 2|': 1568036
+            total_180s_over_under:
+              '|Total 180s Over/Under 1|': 1568037
+            total_180s_over_under_1:
+              '|Total 180s Over/Under 2|': 1568037
+
+    boxing:
+      category_id: 9
+      boxing_all_boxing:
+        class_id: 56
+        autotest_boxing:
+          type_id: 115805
+          market_template_id: 3306769
+          market_name: '|Fight Betting|'
+
+    snooker:
+      category_id: 32
+      snooker_all_snooker:
+        class_id: 261
+        world_championship:
+          type_id: 16223
+          market_template_id: 288043
+          market_name: '|Match Betting|'
+          markets:
+            match_handicap:
+              '|Match Handicap|': 288079
+            total_frames_over_under:
+              '|Total Frames Over/Under|': 288092
+
+    hockey:
+      category_id: 54
+      hockey_all_hockey:
+        class_id: 314
+        super_league:
+          type_id: 2101
+          name_pattern: 'World Cup'
+          market_template_id: 287157
+          market_name: '|Match Betting|'
+          outright_market_template_id: 515397
+          outright_market_name: '|Outright|'
+          markets:
+            handicap_2_way:
+            '|Handicap 2-way|': 515402
+        mens_olympics:
+          type_id: 17240
+          name_pattern: "Men's Olympics"
+          market_template_id: 640869
+          market_name: '|Match Betting|'
+          outright_market_template_id: 640870
+          outright_market_name: '|Outright|'
+          markets:
+            handicap_2_way:
+            '|Handicap 2-way|': 640874
+        olympics_specials:
+          type_id: 17242
+          name_pattern: 'Olympics Specials'
+          market_template_id: 640883
+          market_name: '|Match Betting|'
+          markets:
+            handicap_2_way:
+            '|Handicap 2-way|': 640888
+        womens_olympics:
+          type_id: 17241
+          name_pattern: "Women's Olympics"
+          market_template_id: 640876
+          market_name: '|Match Betting|'
+          markets:
+            handicap_2_way:
+            '|Handicap 2-way|': 640881
+
+
+    ice_hockey:
+      category_id: 22
+      ice_hockey_usa:
+        class_id: 245
+        ahl:
+          type_id: 1390
+          market_template_id: 457672
+          market_name: '|Money Line|'
+          markets:
+            total_goals_2_way:
+              '|Total Goals 2-way|': 122067
+            puck_line:
+              '|Puck Line|': 457732
+            sixty_minutes_betting:
+              '|60 Minutes Betting|': 457852
+        icehockey_autotest_handicap:
+          type_id: 115808
+          market_template_id: 3306793
+          market_name: '|Puck Line|'
+          markets:
+            puck_line_2:
+              '|Puck Line 2|': 3306794
+            puck_line_3:
+              '|Puck Line 3|': 3306796
+            total_goals_2_way:
+              '|Total Goals 2-way|': 3306798
+            total_goals_2_way_2:
+              '|Total Goals 2-way 2|': 3306800
+
+    handball:
+      category_id: 20
+      handball_croatia:
+        class_id: 203
+        dukat_premijer_liga:
+          type_id: 1273
+          market_template_id: 117027
+          market_name: '|Match Betting|'
+
+    rugby_union:
+      category_id: 31
+      rugby_union_all_rugby_union:
+        class_id: 259
+        world_cup:
+          type_id: 1518
+          market_template_id: 128065
+          market_name: '|Match Betting|'
+          markets:
+            handicap_2_way:
+              '|Handicap 2-way|': 517957
+            total_match_points:
+              '|Total Match Points|': 128088
+
+        rugby_autotest_handicap:
+          type_id: 115800
+          market_template_id: 3306792
+          market_name: '|Handicap 2-way|'
+          markets:
+            handicap_2_way_2:
+              '|Handicap 2-way 2|': 3306836
+            handicap_2_way_3:
+              '|Handicap 2-way 3|': 3306839
+            total_match_points:
+              '|Total Match Points|': 3306797
+            total_match_points_1:
+              '|Total Match Points1|': 3306841
+
+    rugby_league:
+      category_id: 30
+      rugby_league_all_rugby_league:
+        class_id: 256
+        super_league:
+          type_id: 1485
+          market_template_id: 125953
+          market_name: '|Match Betting|'
+          markets:
+            handicap_2_way:
+              '|Handicap 2-way|': 517796
+            total_match_points:
+              '|Total Match Points|': 125976
+
+        rugby_autotest_handicap:
+          type_id: 115803
+          market_template_id: 3306805
+          market_name: '|Handicap 2-way|'
+          markets:
+            handicap_2_way_2:
+              '|Handicap 2-way 2|': 3306810
+            handicap_2_way_3:
+              '|Handicap 2-way 3|': 3306811
+            total_match_points:
+              '|Total Match Points|': 3306766
+            total_match_points_1:
+              '|Total Match Points1|': 3306808
+
+    gaelic_football:
+      category_id: 53
+      gaelic_football_all_gaelic_football:
+        class_id: 313
+        club_football:
+          type_id: 115804
+          market_template_id: 3306845
+          market_name: '|Match Betting|'
+
+    horse_racing:
+      category_id: 21
+      class_ids: 223,227,226
+      default_market_name: '|Win or Each Way|'
+      horse_racing_live:
+        class_id: 223
+        autotest_uk:
+          type_id: 115032
+          name_pattern: 'Autotest - UK'
+          market_name: '|Win or Each Way|'
+          market_template_id: 3262131
+          markets:
+            win_only:
+              '|Win Only|': 3262129
+            betting_without:
+              '|Betting Without|': 3262132
+            to_finish_second:
+              '|To Finish Second|': 3262155
+            to_finish_third:
+              '|To Finish Third|': 3262156
+            to_finish_fourth:
+              '|To Finish Fourth|': 3262157
+            top_2_finish:
+              '|Top 2 Finish|': 3262148
+            top_3_finish:
+              '|Top 3 Finish|': 3262149
+            top_4_finish:
+              '|Top 4 Finish|': 3262150
+            place_insurance_2:
+              '|Place Insurance 2|': 3262153
+            place_insurance_3:
+              '|Place Insurance 3|': 3262154
+            place_insurance_4:
+              '|Place Insurance 4|': 3262151
+            insurance_2_places:
+              '|Insurance 2 Places|': 3262139
+            insurance_3_places:
+              '|Insurance 3 Places|': 3262140
+            insurance_4_places:
+              '|Insurance 4 Places|': 3262141
+
+        autotest_international:
+          type_id: 115812
+          name_pattern: 'Autotest - International'
+          market_name: '|Win or Each Way|'
+          market_template_id: 3306860
+          markets:
+            win_or_each_way:
+              '|Win or Each Way|': 3306860
+            win_only:
+              '|Win Only|': 3306861
+            betting_without:
+              '|Betting Without|': 3306862
+            to_finish_second:
+              '|To Finish Second|': 3306863
+            to_finish_third:
+              '|To Finish Third|': 3306864
+            to_finish_fourth:
+              '|To Finish Fourth|': 3306865
+            top_2_finish:
+              '|Top 2 Finish|': 3306866
+            top_3_finish:
+              '|Top 3 Finish|': 3306867
+            top_4_finish:
+              '|Top 4 Finish|': 3306868
+            place_insurance_2:
+              '|Place Insurance 2|': 3306869
+            place_insurance_3:
+              '|Place Insurance 3|': 3306870
+            place_insurance_4:
+              '|Place Insurance 4|': 3306871
+
+        autotest_virtual:
+          type_id: 115814
+          name_pattern: 'Autotest - Virtual'
+          market_name: '|Win or Each Way|'
+          market_template_id: 3306873
+          markets:
+            win_or_each_way:
+              '|Win or Each Way|': 3306873
+            win_only:
+              '|Win Only|': 3306874
+            betting_without:
+              '|Betting Without|': 3306875
+            to_finish_second:
+              '|To Finish Second|': 3306876
+            to_finish_third:
+              '|To Finish Third|': 3306877
+            to_finish_fourth:
+              '|To Finish Fourth|': 3306878
+            top_2_finish:
+              '|Top 2 Finish|': 3306879
+            top_3_finish:
+              '|Top 3 Finish|': 3306881
+            top_4_finish:
+              '|Top 4 Finish|': 3306882
+            place_insurance_2:
+              '|Place Insurance 2|': 3306883
+            place_insurance_3:
+              '|Place Insurance 3|': 3306884
+            place_insurance_4:
+            '|Place Insurance 4|': 3306885
+
+        autotest_ireland:
+          type_id: 115813
+          name_pattern: 'Autotest - Ireland'
+          market_name: '|Win or Each Way|'
+          market_template_id: 3306872
+
+      daily_racing_specials:
+        class_id: 227
+        winning_distances:
+          type_id: 2436
+          name_pattern: 'Winning Distance Autotest'
+          market_name: '|Meeting Winning Distances|'
+          market_template_id: 206585
+
+        price_bomb:
+          type_id: 16303
+          name_pattern: 'Price Bomb Autotest'
+          market_name: '|Price Bomb|'
+          market_template_id: 357117
+
+        enhanced_multiples:
+          type_id: 16301
+          type_name: '|Enhanced Multiples|'
+          name_pattern: 'Enhanced Multiples Autotest'
+          market_name: '|Enhanced Multiples|'
+          market_template_id: 357115
+
+        mobile_exclusive:
+          type_id: 16323
+          name_pattern: 'Mobile Exclusive Autotest'
+          market_name: '|Mobile Exclusive|'
+          market_template_id: 368728
+
+        your_call_specials:
+          type_id: 115816
+          name_pattern: 'Autotest'
+          market_name: '|Your Call Specials|'
+          market_template_id: 3306886
+
+      horse_racing_specials:
+        class_id: 226
+        racing_specials:
+          type_id: 2509
+          name_pattern: 'Autotest'
+          market_name: '|Racing Specials|'
+          market_template_id: 208121
+
+    greyhound_racing:
+      category_id: 19
+      class_ids: 199,198,201,200
+      greyhounds_live:
+        class_id: 198
+        autotest:
+          type_id: 115796
+          name_pattern: 'Autotest'
+          market_template_id: 3306731
+          market_name: '|Win or Each Way|'
+          markets:
+            win_or_each_way:
+              '|Win or Each Way|': 3306731
+            win_only:
+              '|Win Only|': 3306732
+            betting_without:
+              '|Betting Without|': 3306733
+            to_finish_second:
+              '|To Finish Second|': 3306734
+            to_finish_third:
+              '|To Finish Third|': 3306735
+            top_2_finish:
+              '|Top 2 Finish|': 3306736
+            top_3_finish:
+              '|Top 3 Finish|': 3306737
+            insurance_2_places:
+              '|Insurance 2 Places|': 3306738
+            insurance_3_places:
+              '|Insurance 3 Places|': 3306739
+            antepost:
+              '|Antepost|': 3306740
+
+      greyhound_racing_specials:
+        class_id: 201
+        racing_specials:
+          type_id: 2427
+          name_pattern: 'Autotest'
+          market_name: '|Trap Challenges|'
+          market_template_id: 3306741
+
+        autotest_virtual:
+          type_id: 115815
+          name_pattern: '|Autotest - Virtual|'
+          market_name: '|Win or Each Way|'
+          market_template_id: 3306880
+          markets:
+            win_or_each_way:
+              '|Win or Each Way|': 3306880
+
+    badminton:
+      category_id: 51
+      badminton_autotest:
+        class_id: 36005
+        autotest_league:
+          type_id: 114035
+          market_template_id: 3243515
+          market_name: '|Match Winner|'
+
+    cricket:
+      category_id: 10
+      cricket_all_cricket:
+        class_id: 58
+        cricket_autotest:
+          type_id: 85471
+          market_template_id: 3002217
+          market_name: '|Match Betting|'
+          markets:
+            total_sixes:
+              '|Total Sixes|': 3306754
+            next_over_runs:
+              '|Next Over Runs (Main)|': 3306755
+            team_runs:
+              '|Team Runs (Main)|': 3306756
+            runs_at_fall_of_next_wicket:
+              '|Runs At Fall Of Next Wicket|': 3306757
+
+        cricket_autotest_total_sixes:
+          type_id: 115801
+          market_template_id: 3306759
+          market_name: '|Total Sixes|'
+          markets:
+            total_sixes_2:
+              '|Total Sixes 2|': 3306762
+            total_sixes_3:
+              '|Total Sixes 3|': 3306763
+
+        cricket_autotest_ww:
+          type_id: 115802
+          market_template_id: 3306764
+          market_name: '|Match Betting Head/Head|'
+
+    golf:
+      category_id: 18
+      golf_all_golf:
+        class_id: 195
+        allianz_championship:
+          type_id: 1088
+          market_template_id: 111738
+          market_name: '|3 Ball Betting|'
+          markets:
+            lucky_dip:
+              '|Random Golfer,Random Golfer Assigned,125/1|': 3306628
+            2_ball_betting:
+              '|2 Ball Betting|': 423997
+
+    tote:
+      category_id: 152
+      horse_intl_thoroughbred_pools:
+        class_id: 26512
+
+    your_call:
+      category_id: 179
+      your_call_class:
+        class_id: 36042
+        your_call_specials:
+          type_id: 115581
+          market_template_id: 3306767
+          market_name: 'Index Market'
+          your_call_specials_market_template_id: 3286763
+          your_call_specials_market_name: '|YourCallSpecials|'
+
+    virtuals:
+      category_id: 39
+      class_ids: 287,289,285,286,288,290,890,291
+      virtual_football:
+        class_id: 287
+      pt_virtual_football:
+        class_id: 36000
+      virtual_tennis:
+        class_id: 291
+      virtual_speedway:
+        class_id: 289
+      virtual_horseracing:
+        class_id: 285
+      pt_virtual_horseracing:
+        class_id: 36002
+      virtual_greyhounds:
+        class_id: 286
+      pt_virtual_greyhounds:
+        class_id: 36003
+      virtual_motorsport:
+        class_id: 288
+      virtual_cycling:
+        class_id: 290
+      virtual_grand_national:
+        class_id: 890
+      pt_virtual_basketball:
+        class_id: 35083
+      virtual_boxing:
+        class_id: 26683
+
+  ob:
+    freebets:
+      general_offer:
+        offer_id: 11713
+        name: 'General Automation Freebet offer'
+      event:
+        redemption_value: 651
+        name: Auto Test event lev
+      market:
+        redemption_value: null
+        name: null
+      any:
+        redemption_value: 247
+        name: autotF
+    freeride:
+      general_offer:
+        offer_id: 14733
+        name: 'General Automation Freeride offer'
+      any:
+        redemption_value: 668
+        name: Auto Test event
+    acca_offers:
+      Autotest League2 offer:
+        id: null
+        trigger_type: settle lose
+        bet_type: TBL
+        reward: Sportsbook Token
+        redemption_value: null
+        redemption_name: Auto ACCA
+      Autotest Premier League Offer:
+        id: null
+        trigger_type: settle lose
+        bet_type: ACC4
+        reward: Sportsbook Token
+        redemption_value: null
+        redemption_name: Auto ACCA 2
+    odds_boost_offer:
+      general_offer:
+        offer_id: 11696
+        name: 'automation_offer'
+      any:
+        redemption_value: 1
+        name: Any
+    odds_boost_offer_non_adhoc:
+      general_offer:
+        offer_id: 11712
+        name: 'for_at_testing_non_adhoc'
+      any:
+        redemption_value: 1
+        name: Any

@@ -1,0 +1,60 @@
+@import 'global.variables.scss';
+
+.tote-pot-pool-bet {
+  font-family: $base-font-family;
+  padding: 0;
+  &.suspended {
+    .selection-names, .pot-pool-bet-item{
+      opacity: 0.4;
+    }
+    .leg-status-container {
+      bottom: 0;
+      top: 0;
+    }
+  }
+  .pot-pool-bet-header {
+    font-size: $bh-header-font-size;
+    font-weight: bold;
+    color: $color-gray-dark;
+    padding-bottom: 9px;
+
+    .tote-leg-status {
+      bottom: 10px
+    }
+  }
+
+  .pool-block {
+    padding-left: 10px;
+    padding-right: 10px;
+    &:first-child {
+      padding-top: 15px;
+    }
+    &:last-child {
+      padding-bottom: 15px;
+    }
+  }
+  .pot-pool-bet-item {
+    border-top: 1px solid $color-gray;
+    padding-top: 16px;
+    padding-bottom: 15px;
+    .pot-pool-bet-item-header {
+      font-size: $bs-default-font-size;
+      padding-bottom: 5px;
+      color: $color-gray-dark;
+    }
+    .pot-pool-bet-outcomes-list {
+      font-size: $bs-title-font-size;
+      font-weight: bold;
+      color: $color-gray-dark;
+    }
+  }
+}
+.sports-icon {
+  padding-top: 0px;
+}
+.lotto-icon {
+  margin-top: -60px;
+}
+bs-stake-header {
+  z-index: 1;
+}

@@ -1,0 +1,41 @@
+@import 'global.variables.scss';
+
+.bf-results {
+  color: $color-gray-dark;
+  font-family: $base-font-family;
+
+  .bf-results-number {
+    padding: 15px;
+    font-size: 12px;
+    font-weight: bold;
+    color: lighten($color-gray-dark, 50%);
+    background: $color-white;
+  }
+
+  .bf-results-container {
+    .race-card {
+      .odds-content .odds-side {
+        min-width: 15px;
+      }
+    }
+  }
+}
+
+.bf-results-header {
+  color: $color-white;
+  font-size: 9px;
+
+  .bf-results-filter {
+    text-transform: uppercase;
+    cursor: pointer;
+
+    &.active {
+      text-decoration: underline;
+    }
+  }
+}
+
+.silk-img.bet-finder-silk div {
+  width: 100%;
+  height: 100%;
+}

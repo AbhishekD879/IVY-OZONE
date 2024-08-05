@@ -1,0 +1,14 @@
+.group-widget.container-inner-content {
+  background: transparent;
+  .scroll-container {
+    background: $page-bg; /* "fix" for ms edge (desktop) */
+  }
+  .groups.scroll-inner {
+    @include inline-flex();
+    @include flex-direction(row);
+    padding: 0;
+    .group-card {
+      border-right: 5px solid $color-gray;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+<ng-container *ngIf="!state.loading && !state.error">
+  <custom-select *ngIf="seasons.length">
+    <select class="form-control"
+            [(ngModel)]="selectedSeason"
+            (change)="goToStanding(selectedSeason)"
+            data-crlat="seasons">
+      <option *ngFor="let season of seasons"
+              [ngValue]="season"
+              [selected]="selectedSeason.id === season.id" [textContent]="season.name"></option>
+    </select>
+  </custom-select>
+  <no-events *ngIf="!seasons.length" [message]="'stats.noResultsAvailable'" data-crlat="statsNoResultsAvailable"></no-events>
+  <router-outlet></router-outlet>
+</ng-container>
+
+<outlet-status [state]="state">
+  <request-error (reloadFn)="reloadComponent()"></request-error>
+</outlet-status>

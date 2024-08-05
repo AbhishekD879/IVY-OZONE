@@ -1,0 +1,70 @@
+{
+  "cashoutOfferRequests": [
+    {
+      "cashoutOfferReqRef": "1",
+      "bet": {
+        "stakeAmount": "4",
+        "betType": "TBL",
+        "legs": [
+          {
+            "legNo": "1",
+            "parts": [
+              {
+                "partNo": "1",
+                "type": "2.0",
+                "ladder": "STABLE",
+                "result": "W",
+                "strikePrice": {
+                  "num": "1",
+                  "den": "4"
+                },
+                "spotPrice": {
+                  "num": "1",
+                  "den": "4"
+                }
+              }
+            ]
+          },
+          {
+            "legNo": "2",
+            "parts": [
+              {
+                "partNo": "1",
+                "type": "2.0",
+                "ladder": "STABLE",
+                "result": "-",
+                "strikePrice": {
+                  "num": "3",
+                  "den": "10"
+                },
+                "spotPrice": {
+                  "num": "3",
+                  "den": "10"
+                }
+              }
+            ]
+          },
+          {
+            "legNo": "3",
+            "parts": [
+              {
+                "partNo": "1",
+                "type": "2.0",
+                "ladder": "VOLATILE",
+                "result": "V",
+                "strikePrice": {
+                  "num": "1",
+                  "den": "18"
+                },
+                "spotPrice": {
+                  "num": "1",
+                  "den": "20"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+<div class="sk-container" [ngClass]="{'sk-loading': state.loading}">
+  <outlet-status [state]="state">
+    <request-error (reloadFn)="reloadComponent()"></request-error>
+  </outlet-status>
+  <ng-container *ngIf="!state.loading && !state.error">
+    <!--- Page Header -->
+    <top-bar [title]="'bma.freeBetTitle'" data-crlat="topBar"></top-bar>
+
+    <div class="item-inner total-info-block" data-crlat="freebetBalance">
+      <span class="free-bet-available">
+        <span [i18n]="'bma.freeBetsAvailable'"></span>
+        (<span [textContent]="freebets.length"></span>)
+      </span>
+      <span class="free-bet-total text-right">
+        <b [i18n]="'bma.totalBalance'"></b>
+        <b [textContent]="totalFreeBets" data-crlat="totalBalance"></b>
+      </span>
+    </div>
+    <free-bet-empty *ngIf="!freebets.length"></free-bet-empty>
+    <div class="free-bet-group__container" *ngFor="let betGroup of freebetsGroup | keyvalue">
+      <div *ngIf="!!(betGroup.value)" class="free-bet-group__header">
+        <span [textContent]="validOn + betGroup.key.toUpperCase() + ' (' +betGroup.value.length +')'"
+          data-crlat="fbGroupTitle"></span>
+        <button class="free-bet-item__go-betting" [i18n]="'bma.goBetting'" (click)="navigateToEvent(betGroup.value[0])"
+          data-crlat="fbLink">
+        </button>
+      </div>
+      <ul data-crlat="myFreebets" class="free-bets-panel" (click)="stopOuterAction($event)">
+        <ng-container *ngFor="let freebet of betGroup.value; trackBy: trackByTokenId;">
+          <li class="free-bet-item" data-crlat="fbItem">
+            <ng-container>
+              <free-bet-label 
+              [freeBetLabelText]="freebet.freeBetType"
+              [selected]="freebet.freebetTokenValue"
+              ></free-bet-label>
+              <div class="free-bet-item__expiration">
+                <span [textContent]="userService.currencySymbol + freebet.freebetTokenValue + ' ' +getLabelText(freebet.freeBetType)"
+                  data-crlat="amount"></span>
+                <span [textContent]="' - ' + validOn + betGroup.key" data-crlat="validOn"></span>
+              </div>
+              <div class="free-bet-item__bet-type">
+                <span *ngIf="freebet.tokenPossibleBet" [textContent]="freebet.freebetOfferName"
+                  data-crlat="freebetName"></span>
+                <span [textContent]="' - '"></span>
+                <span [i18n]="'bma.useBy'"></span>
+                <span [textContent]="freebet.freebetTokenExpiryDate.replace(' ', 'T') |  date: 'dd/MM/yyyy HH:mm:ss'"
+                  data-crlat="usedBy"></span>
+              </div>
+            </ng-container>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+    <static-block [cmsContent]="freebetsHelperText" data-crlat="helperText"></static-block>
+  </ng-container>
+</div>

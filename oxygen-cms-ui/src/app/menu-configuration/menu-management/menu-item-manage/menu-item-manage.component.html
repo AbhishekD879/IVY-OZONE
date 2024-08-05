@@ -1,0 +1,85 @@
+<breadcrumbs *ngIf="menuSubTree?.id!='root'" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+
+<div class="card" *ngIf="menuSubTree? menuSubTree['sub-menus']:null">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Menu Configuration Page
+      <small *ngIf="!(menuSubTree? menuSubTree['sub-menus'].length:null)">No Sub-Menus</small>
+    </h2>
+  </div>
+</div>
+
+<div class="card" *ngIf="menuSubTree? menuSubTree['sub-menus']:null">
+  <div class="body">
+    <form [formGroup]="form" *ngIf="menuSubTree.id!='root'">
+      <div mat-dialog-content>
+        <div class="row clearfix">
+          <div class="col-md-12">
+            <mat-form-field class="full-width">
+              <input [(ngModel)]="menuItemEditable.label" matInput type="text" placeholder="Item Label"
+                     formControlName="label" required trim="blur">
+            </mat-form-field>
+            <mat-form-field class="full-width">
+              <input [(ngModel)]="menuItemEditable.path" matInput type="text" placeholder="Path"
+                     formControlName="path" required trim="blur">
+            </mat-form-field>
+            <mat-form-field class="full-width">
+              <input [(ngModel)]="menuItemEditable.displayOrder" matInput type="number" placeholder="Display Order"
+                     formControlName="displayOrder" trim="blur">
+            </mat-form-field>
+            <mat-form-field class="full-width">
+              <input [(ngModel)]="menuItemEditable.icon" matInput type="text" placeholder="Icon"
+                     formControlName="icon" trim="blur">
+            </mat-form-field>
+            <mat-checkbox class="full-width" [checked]="menuItemEditable.active"
+                          (change)="menuItemEditable.active = !menuItemEditable.active" formControlName="active">
+              Active
+            </mat-checkbox>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="row clearfix">
+      <div class="col-md-3">
+        <button (click)="createMenuItem()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create Menu Item</span>
+        </button>
+      </div>
+      <div class="col-md-6 offset-md-3 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Menu" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <!-- subMenus-->
+    <div *ngIf="menuSubTree? menuSubTree['sub-menus'].length:null">
+      <cms-data-table
+        [customTableData]="menuSubTree? menuSubTree['sub-menus']:null"
+        [customTableColumns]="dataTableColumns"
+        [reorder]="false"
+        [actions]="[]"
+        [filterString]="searchField"
+        [filterProperties]="filterProperties"
+        (onRemoveTableElement)="removeCompetition($event)">
+      </cms-data-table>
+    </div>
+
+    <action-buttons
+      *ngIf="menuSubTree.id!='root'"
+      #actionButtons
+      [validateHandler]="isValidForm"
+      [fieldOrItemName]="'label'"
+      [collection]="menuItemEditable"
+      (actionsEmitter)="actionsHandler($event);"
+    ></action-buttons>
+
+    <div>
+      <div *ngIf="!(menuSubTree? menuSubTree['sub-menus'].length:null)">No Sub-Menus</div>
+    </div>
+  </div>
+</div>

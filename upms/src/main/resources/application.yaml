@@ -1,0 +1,172 @@
+
+spring:
+  profiles:
+    active: LOCAL
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'  #only health, info in higher environments
+      base-path: /
+      cors:
+        allowed-origins: ${app.allowedOrigins}
+        allowed-headers: '*'
+        allowed-methods: '*'
+  endpoint:
+    health:
+      show-details: always
+
+bpp:
+  url: http://bpp.internal.tst.coral.co.uk
+  api:
+    path: /Proxy
+    url: ${bpp.url}${bpp.api.path}
+
+  light:
+    retry-number: '0'
+    connect-timeout: '2000'
+    read-timeout: '1000'
+    pool-size: '2000'
+    threads: '50'
+    keep-alive: 'false'
+    pool-timeout: '30000'
+    retry-timeout: '0'
+    write-timeout: '1000'
+
+upms:
+  mongodb:
+    mongoUser: preferenceUser
+    authSource: admin
+    dbHosts: localhost:27017
+    dbName: preferences
+    algorithm: DES
+    passwordFile: mongodb/coral/nonprod/preferenceUser.bin
+    passwordKeyfile: profilekey.pem
+    index:
+      collection-names:
+      index-names:
+
+cache:
+  ttl: '120'
+  size: '100000'
+
+app:
+  allowedOrigins: '*'
+
+mongodb:
+  uri: mongodb://localhost:27017/preferences
+
+logging:
+  level:
+    root: INFO
+    org:
+      springframework:
+        data:
+          mongodb: DEBUG
+
+
+#DF kafka
+df:
+  kafka:
+    admin:
+      properties:
+        bootstrap:
+          servers: ${df.kafka.bootstrap-servers}
+    consumer:
+      ssl:
+        key-store-type: JKS
+        key-store-password: changeit
+        trust-store-password: changeit
+        trust-store-type: JKS
+        key-password: changeit
+        key-store-location: classpath:ssl/dev/oxygen.keystore.jks
+        trust-store-location: classpath:ssl/dev/oxygen.truststore.jks
+      group-id: df-umps-${spring.profiles.active}
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      bootstrap-servers: ${df.kafka.bootstrap-servers}
+      auto-commit-interval: 1s
+      security:
+        protocol: SSL
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      auto-offset-reset: latest
+    bootstrap-servers: df-app-kafka-test.ladbrokescoral.com:9092
+    listenersConcurrency: '1'
+    properties:
+      security:
+        protocol: SSL
+  fanzone-player-preferences: df-fanzone-player-preferences
+
+rtms:
+  kafka:
+    producer:
+      ssl:
+        key-store-location: classpath:ssl/dev/upms.keystore.jks
+        trust-store-password: password123
+        key-password: password123
+        trust-store-type: JKS
+        trust-store-location: classpath:ssl/dev/upms.truststore.jks
+        key-store-type: JKS
+        key-store-password: password123
+        security:
+          protocol: SSL
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      compression-type: gzip
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      bootstrap-servers: ${rtms.kafka.bootstrap-servers}
+    bootstrap-servers: 10.1.215.116:9093,10.1.215.117:9093,10.1.215.118:9093
+    admin:
+      properties:
+        bootstrap:
+          servers: ${rtms.kafka.bootstrap-servers}
+    properties:
+      security:
+        protocol: SSL
+    rtms-publisher: lcg.upms.rtms.destination
+
+upms_kafka:
+  enabled: false
+
+ssl:
+  certificates:
+    resource: file:/opt/upms/ssl
+
+userStable.favHorsesLimit : 100
+
+time.zone: GMT
+upms.cron.expression: 0 0 */8 * * *
+
+#site server configs
+siteserver:
+  base.url: https://ss-stg.ladbrokes.com/
+  api:
+    version: 2.81
+  logging:
+    level: NONE
+  connection:
+    timeout: 10
+  read:
+    timeout: 10
+  retries:
+    number: 2
+
+user-stable:
+  horseRacing:
+    classId:
+      uk_ie: 223
+
+user-stable-cache:
+  enabled : true
+  caches:
+    - cacheName: UK-IE
+      ttl: 3600
+      timeUnit: SECONDS
+
+slave.wait.time.sec: 4
+master.lease.time.sec: 1
+masterlock:
+  lease-duration: 15
+  heartbeat-period: 3
+  aws:
+    region: eu-west-2
+    dynamo.url: https://dynamodb.eu-west-2.amazonaws.com

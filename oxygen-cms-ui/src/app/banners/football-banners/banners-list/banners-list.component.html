@@ -1,0 +1,45 @@
+<div class="card" *ngIf="!isLoading">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Football 3D Banners Page
+      <small *ngIf="banners.length">Total Active Banners: {{bannersAmount.active}}, Inactive Banners: {{bannersAmount.inactive}}</small>
+      <small *ngIf="!banners.length">No Football 3D Banners Found</small>
+    </h2>
+  </div>
+</div>
+
+<div class="card" >
+  <div class="body">
+    <div class="row clearfix">
+      <div class="col-md-3">
+          <button (click)="createFootballBanner();" mat-button type="button" class="btn bg-teal waves-effect float-left">
+            <mat-icon>add_box</mat-icon>
+            <span>Create Football 3d Banner</span>
+          </button>
+      </div>
+      <div class="col-md-3">
+        <download-cvs [cvsData]="banners" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0" *ngIf="banners.length" >
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Banner" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="banners.length">
+      <cms-data-table
+        [customTableData]="banners"
+        [customTableColumns]="dataTableColumns"
+        [reorder]="true"
+        [actions]="['remove','edit']"
+        [filterString]="searchField"
+        [filterProperties]="searchableProperties"
+        (onElementsOrder)="reorderHandler($event)"
+        (onRemoveTableElement)="removeFootballBanner($event)">
+      </cms-data-table>
+    </div>
+  </div>
+</div>

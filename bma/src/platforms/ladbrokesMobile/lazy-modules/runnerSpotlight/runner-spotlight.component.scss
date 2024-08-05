@@ -1,0 +1,51 @@
+@import 'global.variables.scss';
+
+
+.course-distance {
+  margin-right: 5px;
+  padding: 0 5px;
+  letter-spacing: 1px;
+  color: $color-green-racing;
+  border: 1px solid $color-green-racing;
+  border-radius: 2px;
+  height:15px;
+  line-height: 14px;
+  font-family: $base-font-family;
+  font-size: $font-size ;
+  background: none;
+}
+
+.runner-spotlight{
+  color: $color-gray-darkest;
+  .runner-details {
+    div{
+      line-height: 22px;
+    }
+    .value{
+      &.rpr-value{
+        width: 22px;
+        height: 22px;
+        font-family: $alt-font-family;
+        font-size: $font-size-md;
+      }
+    }
+  }
+}
+
+.runner-details{
+  justify-content: space-between;
+  div{
+    &:last-of-type{
+      margin: 0;
+    }
+    &.runner-details-right {
+      min-width:50px;
+      @include align-items(baseline);
+    }
+    &.runner-details-left {
+      @include flex-wrap(wrap);
+    }
+  }
+}
+
+

@@ -1,0 +1,81 @@
+@import 'global.variables.scss';
+@import '../../../../assets/styles/modules/jump-vibrate-animation.scss';
+
+:host {
+  .free-bet-label {
+    height: 16px;
+    @include inline-flex();
+
+    &.margin {
+      margin-top: 8px;
+    }
+    .plus {
+      @include display-flex();
+      align-items: center;
+    }
+
+    .free-bet-label-content {
+      @include inline-flex();
+
+      &.sb-fb {
+        background: $color-yellow;
+        border-radius: 2px;
+        height: 15px;
+      }
+
+      .free-bet-icon {
+        @include display-flex();
+        
+        background: $color-yellow;
+        border-radius: 2px 0px 0px 2px;
+        svg {
+          @include align-items();
+          margin: 1px 2px 1px 3px;
+          display: block;
+          padding-top: 1px;
+          width: 12px;
+          height: 13px;
+        }
+        .sb-fb-icon {
+          width: 11px;
+          height: 11px;
+        }
+      }
+      .free-bet-text {
+        background: $color-white-light;
+        border-radius: 0px 2px 2px 0px;
+        border: 1px solid $color-yellow;
+
+        .free-bet-value {
+          font-family: $base-font-family;
+          font-size: $font-size-sm;
+          color: $color-blue;
+          font-weight: 900;
+          height: 12px;
+          line-height: 13px;
+          letter-spacing: -0.04px;
+          text-transform: uppercase;
+          margin: 1px 4px;
+        }
+        .free-bet-value.snb-fb-margin {
+          margin: 0;
+          display: flex;
+          align-items: center;
+        }
+      }
+      .free-bet-text.sb-fb-background {
+        background: $color-yellow;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border: none;
+        min-width: 16px;
+        padding-right: 3px;
+      }
+    }
+    
+  }
+  .fanzone-bet-label{
+    line-height: 6px;
+  }
+}

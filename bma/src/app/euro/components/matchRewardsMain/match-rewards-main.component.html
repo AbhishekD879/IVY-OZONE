@@ -1,0 +1,30 @@
+<loading-screen [displayed]="state.loading && !state.error" [templateType]="'GENERIC_FULL'"></loading-screen>
+<top-bar *ngIf="!state.loading" [title]="EURO_MESSAGES.TITLE"></top-bar>
+<div *ngIf="!state.loading && !state.error" class="outer-container">
+    <div class='container'>
+    </div>
+    <div class='container-works'>
+        <div class="howItWorksHeader" (click)="openPopUp()">
+            <div class="text-area" [innerText]="EURO_MESSAGES.HOW_IT_WORKS">
+            </div>
+            <div class="icons-area">
+                <svg class="nextArrowSvg">
+                    <use xlink:href="#next-arrow"></use>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <match-rewards [totalNoOfBadges]="totalNoOfBadges" [statusrenderIndex]="statusrenderIndex"
+        [freeBetPositionSequence]="euroRespData.freeBetPositionSequence" [tokenAmount]="euroRespData.tokenAmount"
+        [placedBetToday]="euroRespData.placedBetToday" [currentBadge]="currentBadge"
+        (freebetSuccessMsg)="showConfetti($event)">
+    </match-rewards>
+    <hr />
+    <hr />
+    <terms-and-cond [termsAndConditions]="euroRespData.termsAndConditions" [fullTermsURI]="euroRespData.fullTermsURI">
+    </terms-and-cond>
+</div>
+<div *ngIf="state.error" class='error-messages' [innerText]="errorMessage"> </div>
+<div *ngIf="freeBetDay" class="confetti-anime">
+    <img src="/assets/images/confetti.gif" alt="confetti-anime">
+</div>

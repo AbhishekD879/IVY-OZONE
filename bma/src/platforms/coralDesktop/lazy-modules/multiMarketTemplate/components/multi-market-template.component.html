@@ -1,0 +1,222 @@
+<div class="odds-card desktop-sport-card multi-market-cd"
+         (click)="goToSeo()"
+         [ngClass]=" {'coupon-odds-card-sport-desktop':isFootballCoupon && event.isShowStatsEnabled }"
+         *ngIf="diffMarketList.length !== multiMarketList.length"
+         [attr.data-eventid]="event.id"
+         data-crlat="oddsCard.sportTemplate">
+        <div class="odds-content-left {{event?.isBCH ? 'svg-flags' : ''}}">
+          <div *ngIf="event?.isBCH">
+          <span class="svg-flags-icon">
+                   <svg class="flag-icon" *ngIf="event?.participants?.HOME?.svgId">
+                      <use [attr.xlink:href]="event.participants.HOME.svgId"></use>
+                   </svg>
+                 </span>
+                   <span class=" svg-flags-icon">
+                    <svg class="flag-icon"  *ngIf="event?.participants?.AWAY?.svgId">
+                      <use [attr.xlink:href]="event.participants.AWAY.svgId"></use>
+                   </svg>
+                  </span>
+                  </div>
+          <favourites-add-button
+            data-crlat="addFavouritesButton"
+            class="odds-side odd-fav-icon-bch"
+            *ngIf="isFootball"
+            [event]="event"
+            [sportName]="'football'">
+          </favourites-add-button>
+        </div>
+        <div class="odds-content-right">
+          <div class="odds-content" data-crlat="oddsContent">
+            <div class="odds-left" data-crlat="oddsLeft">
+              <div class="odds-info-container">
+                <!-- One name template -->
+                <div class="odds-names"
+                     *ngIf="event.outcomeStatus || !eventSecondName"
+                     data-crlat="oddsNames">
+                  <span [textContent]="eventName" data-crlat="singleEventName"></span>
+                </div>
+                <!-- Two teams template -->
+                <div class="sport-card-names odds-names-list" *ngIf="!event.outcomeStatus && eventSecondName && !showThreeOdds"
+                     data-crlat="oddsNames">
+                  <div class="odds-names-opponent-name eventFirstName {{event?.isBCH ? 'odds-bch-opponent' : ''}}" [textContent]="eventFirstName" data-crlat="EventFirstName"> </div>
+                  <!-- <span class="odds-names-versus-separator"
+                      [i18n]="'sbdesktop.versus'" *ngIf="!event?.isBCH"></span> -->
+                  <div class="odds-names-opponent-name odds-second-opponent eventSecondName {{event?.isBCH ? 'odds-bch-opponent' : ''}}"
+                        [textContent]="eventSecondName"
+                        data-crlat="EventSecondName"></div>
+                </div>
+                <!-- Three teams template -->
+                <div class="sport-card-names odds-names-list" *ngIf="!event.outcomeStatus && showThreeOdds"
+                     data-crlat="oddsNames">
+                  <div class="odds-names-opponent-name eventFirstName-threeOdds" [textContent]="eventFirstName" data-crlat="EventFirstName"> </div>
+                  <!-- <span class="odds-names-versus-separator"
+                        [i18n]="'sbdesktop.versus'"></span> -->
+                  <div class="odds-names-opponent-name odds-second-opponent eventSecondName-threeOdds"
+                        [textContent]="eventSecondName"
+                        data-crlat="EventSecondName"></div>
+                  <!-- <span class="odds-names-versus-separator"
+                        [i18n]="'sbdesktop.versus'"></span> -->
+                  <div class="odds-names-opponent-name odds-second-opponent eventThirdName-threeOdds"
+                        [textContent]="eventThirdName || 'Tie'"
+                        data-crlat="EventThirdName"></div>
+                </div>
+              </div>
+            </div>
+            <div class="odds-right" data-crlat="oddsRight">
+              <odds-card-score *ngIf="oddsScoresData"
+                           [score]="oddsScoresData"
+                           [boxScore]="boxScore"
+                           [showServingTeam]="showServe"
+                           [servingTeams]="servingTeams"
+                           [isHeaderShown]="isInternalHeaderShown"
+                           [scoreHeaders]="scoreHeaders"
+                           [scoreClass]=true
+                           [platform]="'scoreMultiMarketCoral'"
+                           [class.long-boost]="showMarketsCount && isPromotion && !isHomeDrawAwayType"
+                           [emptyScore] = "!event.outcomeStatus && showThreeOdds">
+          </odds-card-score>
+              <!-- Sport Odds Buttons -->
+              <div class="odds-btn-content" data-crlat="oddsBtnContent" (click)="$event.stopPropagation()">
+                
+                    <div class="row">
+                        <ng-container *ngFor="let marketName of multiMarketList;">
+                            <ng-container *ngIf="diffMarketList.indexOf(marketName) === -1; else emptyOutComesList">
+                                <ng-container *ngFor="let market of event.markets;">
+                                    <ng-container *ngIf="(marketName === market.templateMarketName || marketName === market.name) && isSportCard(market) && !market.hidden">
+                                        <div class="sport-card-btn-wrapper" data-crlat="oddsBtnWrapper">
+                                            <ng-container
+                                                *ngFor="let outcomeEntity of market.outcomes; trackBy: trackByOutcomes; index as i">
+                                                <price-odds-button data-crlat="event"
+                                                *ngIf="outcomeEntity"
+                                                [event]="event"
+                                                [market]="market"
+                                                [overUnderTag]="setOverUnderTag(market.templateMarketName, outcomeEntity.name)"
+                                                [outcome]="outcomeEntity"
+                                                [handicapVal]="setSignsForHandicap(outcomeEntity.prices[0]?.handicapValueDec)"
+                                                [gtmModuleTitle]="gtmModuleTitle">
+                                                </price-odds-button>
+                                                
+                                            </ng-container>
+                                            <div *ngIf="(market.outcomes.length === 1) && eventSecondName && !showThreeOdds" class="emptyNA">
+                                              <ng-container *ngTemplateOutlet="naButton"></ng-container>
+                                            </div>
+                                            <div *ngIf="(market.outcomes.length === 2) && showThreeOdds" class="emptyNA">
+                                              <ng-container *ngTemplateOutlet="naButton"></ng-container>
+                                            </div>
+                                            <ng-container *ngIf="(market.outcomes.length === 0)">
+                                              <ng-container *ngIf="!event.outcomeStatus && eventSecondName && !showThreeOdds">
+                                                  <ng-container *ngFor="let two of twoEvents">
+                                                      <ng-container *ngTemplateOutlet="naButton"></ng-container>
+                                                  </ng-container>
+                                                  </ng-container>
+                                                  <ng-container *ngIf="!event.outcomeStatus && showThreeOdds">
+                                                      <ng-container *ngFor="let three of threeEvents">
+                                                          <ng-container *ngTemplateOutlet="naButton"></ng-container>
+                                                      </ng-container>
+                                                      </ng-container>
+                                          </ng-container>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </ng-container>
+                            <ng-template #emptyOutComesList>
+                                <div class="sport-card-btn-wrapper emptyNA" data-crlat="oddsBtnWrapper">
+                                    <ng-container *ngIf="event.outcomeStatus || !eventSecondName">
+                                      <ng-container *ngTemplateOutlet="naButton"></ng-container>
+                                        </ng-container>
+                                    <ng-container *ngIf="!event.outcomeStatus && eventSecondName && !showThreeOdds">
+                                    <ng-container *ngFor="let two of twoEvents">
+                                      <ng-container *ngTemplateOutlet="naButton"></ng-container>
+                                    </ng-container>
+                                    </ng-container>
+                                    <ng-container *ngIf="!event.outcomeStatus && showThreeOdds">
+                                        <ng-container *ngFor="let three of threeEvents">
+                                          <ng-container *ngTemplateOutlet="naButton"></ng-container>
+                                        </ng-container>
+                                        </ng-container>
+                                    
+                                </div>
+    
+                            </ng-template>
+                        </ng-container>
+                    </div>
+              </div>
+              <div class="odds-more-link-container" *ngIf="!widget">
+                <a *ngIf="showMarketsCount"
+                   (click)="sendToGTM()"
+                   [linkHref]
+                   [link]="goToEvent(true)"
+                   class="odds-more-link"
+                   data-crlat="marketsCount">
+                  <span class="odds-more-markets-count" [textContent]="buildMarketsCountString()"></span>
+                  <span class="odds-more-markets-text" [i18n]="'sbdesktop.markets'"></span>
+                </a>
+              </div>
+              <div class="odds-btn-wrapper-no-markets" *ngIf="!isOddsSports"  (click)="$event.stopPropagation()">
+                <price-odds-button [event]="event"
+                                   [market]="market"
+                                   [outcome]="market.outcomes[0]"
+                                   [gtmModuleTitle]="gtmModuleTitle">
+                </price-odds-button>
+              </div>
+            </div>
+          </div>
+          <div class="odds-footer">
+            <div class="odds-left" data-crlat="oddsLeft" *ngIf="!isLive && !widget">
+              <span [textContent]="eventTime" data-crlat="oddsCardLabel"></span>
+              <div class="odds-stream-container" *ngIf="isStream">
+                <div class="odds-devider">|</div>
+                <span [i18n]="'sb.watchLive'"></span>
+                <svg class="odds-icon-stream" data-crlat="oddsIconStream">
+                  <use xlink:href="#stream"></use>
+                </svg>
+              </div>
+            </div>
+            <div class="odds-left" data-crlat="oddsLeft" *ngIf="isLive && !widget">
+              <div *ngIf="isLabelShown">
+                <span [textContent]="oddsLabel"
+                      data-crlat="oddsCardLabel"
+                      class="odds-card-label">
+                </span>
+              </div>
+              <div *ngIf="isClockAllowed()">
+                <live-clock class="odds-live-clock" [event]="event"
+                            data-crlat="liveClock"></live-clock>
+              </div>
+              <svg class="odds-live" data-crlat="liveLabel" *ngIf="isEventStartedOrLive">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#live-label"></use>
+              </svg>
+              <div class="odds-stream-container" *ngIf="isStream">
+                <div class="odds-devider">|</div>
+                <span *ngIf="!isActiveLiveStream" [i18n]="'app.watchLive'"></span>
+                <span *ngIf="isActiveLiveStream" [i18n]="'sbdesktop.watchingNow'"></span>
+      
+                <!-- Stream icon -->
+                <svg *ngIf="!isLiveStreamTab" class="odds-icon-stream" data-crlat="oddsIconStream">
+                  <use xlink:href="#stream"></use>
+                </svg>
+              </div>
+            </div>
+            <div class="odds-right-multi" data-crlat="oddsRight">
+              <promotion-icon
+                [type]="'event'"
+                [display]="event.drilldownTagNames"
+                [typeId]="event.typeId"
+                [eventId]="event.id"
+                [mode]="'sm'"
+                data-crlat="promotionIcons">
+              </promotion-icon>
+              <!-- <div class="was-price" *ngIf="market.isSmartBoosts && wasPrice">
+                <span [i18n]="'sb.wasPrice'"></span>
+                <strike [textContent]="wasPrice"></strike>
+              </div> -->
+            </div>
+          </div>
+        </div>
+    </div>
+    <ng-template #naButton>
+      <button id="bet-na" class="btn-bet applyOpacity" data-crlat="betButton">
+        <span class="odds-price" [innerHTML]="'N/A'" data-crlat="oddsPrice">
+        </span>
+      </button>
+  </ng-template>

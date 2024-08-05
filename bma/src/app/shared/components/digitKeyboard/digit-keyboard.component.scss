@@ -1,0 +1,218 @@
+@import 'global.variables.scss';
+@import '../../../../assets/styles/modules/jump-vibrate-animation.scss';
+
+:host(.betslip-keyboard) {
+  .dk-key {
+    font-family: $alt-font-family;
+  }
+}
+
+.dk-keyboard {
+  background-color: white;
+  width: 100%;
+  z-index: 9999;
+  overflow: hidden;
+
+  &.dk-keyboard-shown {
+    display: inline-block;
+  }
+  &.isTotePool {
+    display: inline-block;
+    padding: 4px 10px 10px 10px;
+  }
+
+  &.keyboard-slide-up {
+    opacity: 0;
+    height: 0;
+    padding: 0;
+    display: flex;
+    @include transition(height, 0.3s, cubic-bezier(0.39, 0.58, 0.57, 1));
+    border: none;
+  }
+
+  &.keyboard-slide-up.dk-keyboard-shown {
+    opacity: 1;
+    height: 170px;
+    padding: 0 13px 16px 13px;
+    @include transition(height, 0.4s);
+    border: none;
+  }
+
+  .dk-column {
+    background-color: white;
+    border-top: 1px solid $color-gray;
+    border-bottom: 1px solid $color-gray;
+    border-left: 1px solid $color-gray;
+  }
+
+  .dk-column:first-child {
+    border-left: 1px solid $color-gray;
+  }
+
+  .dk-column:last-child {
+    border-right: 1px solid $color-gray;
+  }
+}
+
+.dk-column {
+  width: 25%;
+  flex: 1;
+  float: left;
+  text-align: center;
+}
+
+.dk-column:not(:last-child) .dk-key {
+  border-right: 1px solid $dk-border-color;
+}
+
+.dk-key {
+  background: $color-white;
+  width: 100%;
+  height: 38px;
+  text-align: center;
+  line-height: 38px;
+  font-size: $dk-font-size;
+  color: $dk-button-color;
+  @include display-flex();
+  @include justify-content(center);
+  @include align-items(center);
+
+
+  svg {
+    pointer-events: none;
+  }
+}
+
+.dk-key + .dk-key,
+.dk-quick-deposit .dk-key + .dk-quick-stakek .dk-key{
+  border-top: 1px solid $dk-border-color;
+}
+
+.dk-key.dk-enter {
+  height: 76px;
+  line-height: 76px;
+}
+
+.dk-key.dk-large {
+  height: 114px;
+  line-height: 114px;
+}
+
+.dk-key.dk-free-bet-coral {
+  background: $color-yellow;
+}
+
+.dk-key.dk-free-bet-sel-coral{
+  background: $color-gray-light;
+  border: 1px solid $color-yellow !important;
+}
+
+.dk-key.dk-free-bet-lads {
+  background: $color-yellow-alt;
+}
+
+.dk-key.dk-free-bet-sel-lads{
+  background: $lGrayLight;
+  border: 1px solid $color-yellow-alt !important;
+}
+
+.dk-key.disabled {
+  opacity: 0.5;
+}
+
+.dk-key.enter {
+  svg {
+    height: 21px;
+    width: 20px;
+  }
+}
+
+.dk-key.delete {
+  svg {
+    height: 21px;
+    width: 33px;
+  }
+}
+.dk-margin{
+  margin-top: 8px;
+}
+
+.dk-active-input {
+  border: 1px solid $lGray !important;
+}
+
+.dk-quick-deposit {
+  margin-top: 6px;
+
+  .dk-key {
+    background-color: $lGray;
+    color: $color-white;
+    font-size: 13px;
+    height: 40px;
+    line-height: 40px;
+    border-top: none;
+  }
+
+  .dk-column + .dk-column .dk-key {
+    border-left: 2px solid $color-gray-light;
+  }
+}
+
+.dk-quick-stake {
+  display: flex;
+
+  .dk-key {
+    background-color: $lGray;
+    color: $color-white;
+    font-size: 13px;
+    height: 40px;
+    font-weight: 700;
+    line-height: 40px;
+    border-top: none;
+  }
+
+  .dk-column + .dk-column .dk-key {
+    border-left: 2px solid $color-gray-light;
+  }
+}
+
+.dk-quick-stake-totepool-lads {
+  display: flex;
+  margin-top: -5px;
+  padding: 16px 10px 0px 10px;
+
+  .dk-key {
+    background-color: $lGray;
+    color: $color-white;
+    font-size: 13px;
+    height: 40px;
+    font-weight: 700;
+    line-height: 40px;
+    border-top: none;
+  }
+
+  .dk-column + .dk-column .dk-key {
+    border-left: 2px solid $color-gray-light;
+  }
+}
+
+.dk-quick-stake-totepool-bma {
+  display: flex;
+  margin-top: -16px;
+  padding: 0px 10px 10px 10px;
+
+
+  .dk-key {
+    background-color: $lGray;
+    color: $color-white;
+    font-size: 13px;
+    height: 40px;
+    font-weight: 700;
+    line-height: 40px;
+    border-top: none;
+  }
+
+  .dk-column + .dk-column .dk-key {
+    border-left: 2px solid $color-gray-light;
+  }
+}

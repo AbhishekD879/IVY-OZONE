@@ -1,0 +1,82 @@
+{
+  "config" : {
+    "title" : "Speedway",
+    "name" : "speedway",
+    "path" : "speedway",
+    "tier" : 2,
+    "categoryType" : "gaming",
+    "isOutrightSport" : true,
+    "isMultiTemplateSport" : false,
+    "oddsCardHeaderType" : "",
+    "request" : {
+      "categoryId" : "25",
+      "siteChannels" : "M",
+      "marketsCount" : false,
+      "isActive" : true
+    },
+    "tabs" : {
+      "live" : { },
+      "coupons" : {
+        "date" : "today",
+        "isActive" : true
+      },
+      "today" : {
+        "isNotStarted" : true
+      },
+      "tomorrow" : { },
+      "future" : { },
+      "outrights" : {
+        "isActive" : true,
+        "marketsCount" : false
+      }
+    }
+  },
+  "tabs" : [ {
+    "id" : "tab-matches",
+    "name" : "matches",
+    "label" : "Events",
+    "url" : "/sport/speedway/matches",
+    "hidden" : true,
+    "sortOrder" : 1.0,
+    "subTabs" : [ {
+      "id" : "tab-today",
+      "name" : "today",
+      "label" : "Today",
+      "url" : "/sport/speedway/matches/today",
+      "hidden" : false
+    }, {
+      "id" : "tab-tomorrow",
+      "name" : "tomorrow",
+      "label" : "Tomorrow",
+      "url" : "/sport/speedway/matches/tomorrow",
+      "hidden" : false
+    }, {
+      "id" : "tab-future",
+      "name" : "future",
+      "label" : "Future",
+      "url" : "/sport/speedway/matches/future",
+      "hidden" : false
+    } ]
+  }, {
+    "id" : "tab-competitions",
+    "name" : "competitions",
+    "label" : "Competitions",
+    "url" : "/sport/speedway/competitions",
+    "hidden" : true,
+    "sortOrder" : 2.0
+  }, {
+    "id" : "tab-outrights",
+    "name" : "outrights",
+    "label" : "Outrights",
+    "url" : "/sport/speedway/outrights",
+    "hidden" : true,
+    "sortOrder" : 3.0
+  }, {
+    "id" : "tab-coupons",
+    "name" : "coupons",
+    "label" : "Coupons",
+    "url" : "/sport/speedway/coupons",
+    "hidden" : true,
+    "sortOrder" : 4.0
+  } ]
+}

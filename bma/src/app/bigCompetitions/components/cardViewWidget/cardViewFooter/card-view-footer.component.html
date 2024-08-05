@@ -1,0 +1,10 @@
+<ng-container *ngFor="let outcome of groupedOutcomes; trackBy: trackByIndex; let i = index;">
+  <price-odds-button [event]="event"
+                     *ngIf="outcome && shouldShowOddButton(i)"
+                     [market]="market"
+                     [outcome]="outcome"
+                     [head]="outcome?.name.toUpperCase()"
+                     [gtmModuleTitle]="gtmModuleTitle">
+  </price-odds-button>
+  <div *ngIf="!outcome || !shouldShowOddButton(i)" class="empty-odds-button-space"></div>
+</ng-container>

@@ -1,0 +1,91 @@
+<!--coral-->
+
+<div  class ="lotto-bet-receipt"*ngFor="let receipt of lottobetslipData; index as lottoIndex;">
+  <div class="br-lotto-wrapper">
+    <div class=" br-lotto-content br-stake">
+      <div class="lotto-details-layout">
+        <div class="lotto-heading" data-uat="selectionName">
+          <span>{{receipt.details.name}}</span>
+          <div class="receiptId lotto-top-padng">Bet ID: {{receipt.receipt}}</div>
+        </div>
+        <div *ngIf="showToggleSwitch">
+          <div class="bs-win-alerts-info">
+            <svg class="win-alerts-info-icon" data-crlat="infoButton" [tooltip]="true" [showTooltip]="false">
+              <use xlink:href="#win-alert-icon"></use>
+            </svg>
+            <span [i18n]="'bs.winAlerts'"></span>
+          </div>
+          <toggle-switch [initialState]="winAlertsEnabled" data-crlat="allowQuickBetSwitc"
+            [componentId]="setToggleSwitchId(receipt)"
+            [disabled]="!nativeBridge.pushNotificationsEnabled"
+            (switcherControl)="toggleWinAlerts(receipt, $event)"
+            (clickIfDisabled)="nativeBridge.showNotificationSettings()">
+          </toggle-switch>
+        </div>
+      </div>
+
+      <div class="lotto-num-layout">
+        <div class="selections-layout"
+          *ngFor="let number of getSelectionNumbers(receipt.leg); index as i; trackBy: numbersTrackBy">
+          <span class="lotto-top-padng">{{ number }}</span>
+        </div>
+      </div>
+
+      <div class="lotto-details-layout summary-details">
+          <div class="sports-icon">
+            <svg class="sports-icon-position">
+              <use [attr.xlink:href]="'#'+sportIconSvgId"></use>
+            </svg>
+          </div>   
+        <div class="lotto-top-padng " >{{receipt.details.draws.length}}{{receipt.details.draws.length > 1 ? ' Draws' : ' Draw'}} </div>
+        <div class="show-hide-accordion lotto-top-padng " (click)=" onExpandSummary(lottoIndex)">
+          <span [textContent]="receipt?.expanded?'Hide Summary':'Show Summary'"></span>
+          <svg *ngIf="receipt?.expanded">
+            <use xlink:href="#up-arrow"></use>
+          </svg>
+          <svg *ngIf="!receipt?.expanded">
+            <use xlink:href="#down-arrow"></use>
+          </svg>
+        </div>
+        <div class="lotto-summary" *ngIf="receipt?.expanded">
+          <span class="lotto-heading">{{receipt.details.draws[0].description}} </span>
+          <div class = "lotto-text-format" *ngFor="let draw of receipt.details.draws; trackBy: trackByDrawId;">
+            <span class="lotto-desc" data-uat="selectionName" [dateTimeFmt]="draw.drawAtTime">
+            </span>
+          </div>
+
+          <span class="lotto-details-layout lotto-text-format">
+            <span class="total-lable" [i18n]="'bs.totalStake'"></span>
+            <span class="est-Returns-Amt">
+              <span>{{currencySymbol}}</span><span>{{receipt.stake.amount * receipt.details.draws.length * receipt.lines.number | numberNormalizer}}</span>
+            </span>
+          </span>
+
+          <span class="lotto-details-layout lotto-text-format">
+            <span [i18n]="'bs.estimatedReturns'" data-crlat="estReturn.label"></span>
+            <span class="est-Returns-Amt">
+              <span>{{currencySymbol}}</span><span>{{receipt.potentialPayout * receipt.details.draws.length | numberNormalizer}}</span>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lotto-details-layout lotto-padding dot-line">
+      <div class="br-lotto-mul-stake">
+        <span class="lotto-details-layout">
+          <span class="total-lable" [i18n]="'sb.totalStake'"></span>
+          <span class="est-Returns-Amt">
+            <span>&nbsp;{{currencySymbol}}</span><span>{{receipt.stake.amount * receipt.details.draws.length *  receipt.lines.number | numberNormalizer}}</span>
+          </span>
+        </span>
+        <span class="lotto-info lotto-text-format">
+          <span class="total-lable" [i18n]="'bs.estimatedResults'"></span>
+          <span class="est-Returns-Amt ">
+            <span>&nbsp;{{currencySymbol}}</span><span>{{receipt.potentialPayout * receipt.details.draws.length| numberNormalizer}}</span>
+          </span>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

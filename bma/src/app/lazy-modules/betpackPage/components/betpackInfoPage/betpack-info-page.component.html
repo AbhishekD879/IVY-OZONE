@@ -1,0 +1,110 @@
+<modal #betpackInfoDialog [ngClass]="params.data?'betpack-Info-dailog':'hide-info'">
+  <ng-template #modalHeader *ngIf="params.data">
+    <div>
+      <span [textContent]="header"></span>
+      <a class="btn-close visible white" (click)="closeThisDialog();sendGMTWhileClose()">
+        <svg>
+          <use xlink:href="#close-icon"></use>
+        </svg>
+      </a>
+    </div>
+  </ng-template>
+
+  <ng-template #modalBody>
+    <ng-container *ngIf="params?.data?.bp">
+      <div *ngIf="depositWarn || kycEnable || suspendedBanner">
+        <ng-info-panel class="container" [quickDepositPanel]="true" [align]="'center'" [message]="errorMsg"
+          [type]="'error'" [noHide]="true" [noScroll]="true"></ng-info-panel>
+      </div>
+
+      <div class="receipt-header-container item-inner row-panel" *ngIf="reviewFlag" data-crlat="receiptHeader">
+        <div class="row row-no-gutter row-middle space-between">
+          <div class="left-side">
+            <svg class="check-icon">
+              <use xlink:href="#tick"></use>
+            </svg>
+            <span class="receipt-header" [textContent]="errorMsg"></span>
+          </div>
+          <div class="right-side">
+            <time class="receipt-time" [textContent]="betTime"></time>
+          </div>
+        </div>
+      </div>
+
+      <div class="betpack-content">
+        <div class="betpack-cost" [textContent]="bp.betPackPurchaseAmount">
+        </div>
+        <div class="betpack-title betpack-name" [title]="bp.betPackTitle" [textContent]="bp.betPackTitle"></div>
+        <div *ngIf="bp.betPackSpecialCheckbox && !reviewPage" class="circles">
+          <div class="circle-with-text">
+            <div class="euro" [textContent]="bp.betPackFreeBetsAmount">
+            </div>
+            <br>
+            <div class="euro-text">IN BET TOKENS</div>
+          </div>
+        </div>
+
+        <div *ngIf="!bp.betPackSpecialCheckbox && !reviewPage" class="betpack-freebet">
+          <div class="buy-euro">{{bp.betPackFreeBetsAmount}}
+          </div>
+          <div class="buy-euro-text">IN BET TOKENS</div>
+        </div>
+      </div>
+
+      <div class="betpack-more-info ">
+        <div class="betpack-tokens  betpack-Info-dailog-content" [textContent]="bp.betPackFrontDisplayDescription"></div>
+        <div class="betpack-token-place">
+          <div class="betpack-token" *ngFor="let betPackTokenList of bp?.betPackTokenList">
+            <div class="betpack-tokenName" [title]="betPackTokenList.tokenTitle"
+              [ngStyle]="{'width': reviewFlag ? '80%' : '90%' }" [textContent]="betPackTokenList.tokenTitle"></div>
+            <div *ngIf="reviewFlag" class="betpack-useName">
+              <a class="link" target="_blank"><span [textContent]="betpackLabels.useByLabel"
+                  (click)="useNow(this.gtmInfo[5],betPackTokenList.deepLinkUrl)">
+                </span></a>
+            </div>
+          </div>
+
+        </div>
+        <div *ngIf="(params?.data?.clicked && !params?.data?.isBuyInfoClicked && !reviewFlag)" class="betpack-desc betpack-info-desc"
+          [ngClass]="{'hide-btn' : params?.data?.isBuyInfoClicked}" [innerHTML]="moreInfoText"></div>
+      </div>
+
+      <div class="sportTag-container">
+        <div class="betpack-sportTag">
+          <div class="betpack-sportTag-place d-block overflowTokens" *ngFor="let betPacSportList of bp?.sportsTag" [title]='betPacSportList' >
+            <span class="tokenText" *ngFor="let tokenContent of betPacSportList.trim().split(' ')" [textContent]="tokenContent"></span>
+        </div>
+        </div>
+
+        <div *ngIf="params.data.signPostingMsg && !reviewFlag" class="signPostingMsg-popUp">
+          <span class="signPost-check-popUp" [ngStyle]="signPostingBkg(signPostingMsg)" *ngIf="!isExpiresIn"
+            [title]="params.data.signPostingToolTip" [title]="params.data.signPostingToolTip">
+            <span *ngIf="bp.signPostingMsg === betpackLabels.comingSoon" class="icons-area">
+              <svg class="nextArrowSvg">
+                <use [attr.xlink:href]="'#' + betpackLabels.comingSoonSvg"></use>
+              </svg>
+            </span>
+            <span [textContent]="params.data.signPostingMsg| uppercase"></span>
+          </span>
+            <betpack-expiresin-timer class="mt-1 mb-2" *ngIf="isExpiresIn" [signPost]= "bp.signPostingMsg" [timer]="params.data.bp.expiresIntimer" [utc]="true" [displayTime]="false" [displayCountdown]="true" (EmitTimer)="ontimerEmits($event)" ></betpack-expiresin-timer>
+        </div>
+      </div>
+<div class="betpack-space">
+  <div *ngIf="bp.isLinkedBetPack && !reviewPage && !disableBuyBtn && !isBPPurchased && bp.signPostingMsg !== betpackLabels.comingSoon" class="betpack-linked" [textContent]="bp.linkedBetPackWarningText"></div>
+  <div class="betpack-buttons" [ngStyle]="{'padding': params?.data?.isBuyInfoClicked ? '2px 0px 0px 0px' : '9px' }">
+    <button class="betpack-moreInfo" *ngIf="!params?.data?.isBuyInfoClicked||params?.data?.clicked"
+      (click)="moreInfoClickEvent($event)" [textContent]="moreInfoBtn"></button>
+    <button *ngIf="!reviewPage&&!disableBuyBtn" class="betpack-buyNow" [ngClass]="{
+            'full-width-review': reviewFlag, 'buy-button-bottom': params?.data?.isBuyInfoClicked}"
+      (click)="buyNowClickEvent($event)" [disabled]="isPending || checkStatus(signPostingMsg)">{{buyNowBtn}}
+      <spinner *ngIf="isPending"></spinner>
+    </button>
+  </div>
+</div>
+
+    </ng-container>
+    <div class="display-off">
+      <footer-section *ngIf="!params.data?.isBuyInfoClicked"></footer-section>
+    </div>
+  </ng-template>
+</modal>

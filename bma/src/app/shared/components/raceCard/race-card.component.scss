@@ -1,0 +1,286 @@
+@import 'global.variables.scss';
+
+.race-card-carousel {
+  .carousel-slides {
+    width: 273px;
+  }
+  .slide {
+    padding-right: 8px;
+  }
+  .slide-all-events{
+    max-height: none;
+  }
+
+  &.carousel-one-slide {
+    .slide {
+      padding-right: 0;
+    }
+  }
+
+  .race-sub-header {
+    padding: 0 10px;
+    padding-top: 8px;
+    background: $color-white;
+    font-size: $font-size-md;
+    min-height: 40px;
+    @include display-flex();
+    @include align-items();
+
+    .icons-area {
+      @include display-flex();
+      @include align-items();
+      @include flex-grow(1);
+      @include justify-content(flex-end);
+
+      promotion-icon::ng-deep {
+        svg + span {
+          display: none;
+        }
+      }
+    }
+
+    .text-area {
+      &.sub-header {
+        display: block;
+      }
+    }
+
+    .race-icon-stream {
+      width: 11px;
+      height: 11px;
+      margin-left: 5px;
+    }
+
+    .watch-label {
+      text-transform: uppercase;
+      margin-left: 5px;
+      font-size: 9px;
+    }
+  }
+
+  ::ng-deep {
+    .row-panel {
+      padding: 0 5px;
+    }
+
+    .race-timer {
+      display: inline-block;
+      text-align: right;
+      .label {
+        font-size: $font-size-sm;
+      }
+      .value {
+        font-size: $font-size-md;
+        color: $color-yellow;
+      }
+      .countdown {
+        line-height: 12px;
+      }
+    }
+  }
+  .odds-card {
+    padding: 10px 2px;
+    &:first-child {
+      border-top: none;
+    }
+  }
+
+  .odds-normal {
+    font-size: 10px;
+  }
+
+  .promotion-icons-wrapper {
+    margin: -2px 0 5px;
+  }
+
+  .odds-names {
+    line-height: 15px;
+
+    .odds-small {
+      font-size:  $font-size-md;
+    }
+  }
+
+  .virtual-silk {
+    margin-right: 8px;
+  }
+
+  // Races Header
+  .race-header {
+    position: relative;
+    background: $brand-color-dark;
+    color: $color-white;
+    font-size: 12px;
+    font-weight: normal;
+    padding: 0 10px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    min-height: 45px;
+    border-radius: 3px 3px 0 0;
+    @include align-items();
+
+    .race-going {
+      font-size: $font-size-md;
+      line-height: normal;
+    }
+
+    .race-distance {
+      font-size: $font-size-md;
+      margin-right: 8px;
+      line-height: normal;
+    }
+
+    .virtual-title {
+      text-transform: uppercase;
+      color: $color-blue-principal;
+      margin: 10px;
+      margin-left: 0px;
+      background: $color-yellow;
+      border-radius: 2px;
+      position: relative;
+      margin-top: -2px;
+      text-shadow: 0px 0 #888888;
+      font-size: $font-size-pre-xs;
+      padding: 0px 3px 0px 3px;
+    }
+
+    .gap-signpost {
+      margin-right: 10px;
+    }
+
+    .event-terms {
+      font-size: 10px;
+      padding-right: 5px;
+    }
+
+    .next-link-area {
+      text-align: right;
+    }
+
+    .text-area {
+      white-space: normal;
+      line-height: 0;
+
+      strong {
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        line-height: 1.2;
+      }
+    }
+
+    .icons-area {
+      @include display-flex();
+      @include align-items(center);
+      @include justify-content(flex-end);
+    }
+  }
+
+  .odds-side {
+    .runner-number {
+      font-size: $font-size;
+      display: inline-block;
+      min-width: 20px;
+    }
+    .label-text {
+      margin-top: 0;
+      font-size: $font-size-pre-xs;
+      color: $color-gray-dark;
+    }
+  }
+
+  .race-header-cashout-icon {
+    margin: 0;
+  }
+  .race-card {
+    box-shadow: none;
+  }
+
+  // Races Next Link
+  .race-next-link {
+    color: $color-white;
+    font-size: $font-size-md;
+    text-transform: uppercase;
+    text-decoration: none;
+    left: 0;
+    bottom: 0;
+    position: relative;
+    text-align: right;
+    width: 100%;
+    border-radius: 0 0 3px 3px;
+    font-weight: bold;
+    @include display-flex();
+    @include align-items();
+    @include justify-content(flex-end);
+
+    &:hover {
+      text-decoration: underline;
+    }
+    &:active {
+      text-decoration: underline;
+    }
+
+    svg {
+      margin-left: 5px;
+      height: 8px;
+      width: 5px;
+      min-width: 5px;
+      fill: $color-white;
+    }
+  }
+
+  gh-silk, race-silk {
+    margin: 0 10px 0 0;
+  }
+}
+.quickNav {
+  display: flex;
+  box-shadow: 0px 2px 4px rgb(0 0 0 / 15%), 0px -1px 2px rgb(0 0 0 / 5%);
+  height: 48px;
+  padding: 5px;
+  font-family: "Roboto Condensed";
+  margin: 11px 3px;
+  font-size: 14px;
+  max-width: 100%;
+
+  .rightDivRaceOff {
+    flex: 2;
+    display: flex;
+    flex-flow: column;
+    gap: 6px;
+    max-width: 80%;
+  }
+}
+
+.icons-area-see-all {
+  max-width: 20%;
+  .race-next-link-see {
+    
+    color: $color-white;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: bold;
+    @include display-flex();
+    @include align-items();
+
+    span {
+      font-size: $font-size-sm;
+      color: $color-blue-alt;
+    }
+
+    svg {
+      margin-left: 5px;
+      height: 8px;
+      width: 5px;
+      fill: $color-blue-alt;
+    }
+  }
+
+  @include display-flex();
+  @include align-items();
+  @include flex-grow(1);
+  @include flex(1);
+  @include justify-content(end);
+}

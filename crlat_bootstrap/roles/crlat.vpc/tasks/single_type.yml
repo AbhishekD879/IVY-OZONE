@@ -1,0 +1,9 @@
+- name: Execute Actions
+  debug:
+    msg: "Item {{machine_item.value}}"
+#  with_items: "{{machine_item.actions}}"
+#  loop_control:
+#    loop_var: machine_item
+
+#  debug:
+#    msg: "Item {{machine_item}}"

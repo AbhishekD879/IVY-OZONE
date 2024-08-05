@@ -1,0 +1,34 @@
+<div *ngIf="isReady">
+  <breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+  <form [formGroup]="form">
+    <div class="card">
+      <div class="header">
+        <h2 [textContent]="NEWSIGNPOSTING_CONST.newSignPostingDetails"></h2>
+      </div>
+
+      <div class="body">
+        <div class="row">
+          <div class="col-md-2 mb-0">
+            <mat-checkbox color="primary" formControlName="active" [checked]="fanzoneNewSignposting.active"
+              (change)="fanzoneNewSignposting.active = !fanzoneNewSignposting.active">
+              <span [textContent]="NEWSIGNPOSTING_CONST.active"></span>
+            </mat-checkbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 m-b-0 m-t-20">
+            <date-range [isSetDateButtons]="true" [startDate]="fanzoneNewSignposting.startDate"
+              [endDate]="fanzoneNewSignposting.endDate" [startPlaceholder]="NEWSIGNPOSTING_CONST.startDate"
+              [endPlaceholder]="NEWSIGNPOSTING_CONST.endDate" [placeholderColumn]="true"
+              (onDateUpdate)="handleDateUpdate($event)">
+            </date-range>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <action-buttons #actionButtons [validateHandler]="validationHandler" [fieldOrItemName]="'New Sign Posting Details'"
+    [collection]="fanzoneNewSignposting" [showRemoveButton]="false" (actionsEmitter)="actionsHandler($event);">
+  </action-buttons>
+</div>

@@ -1,0 +1,292 @@
+<breadcrumbs *ngIf="template" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+
+<div class="card" *ngIf="template">
+  <div class="header">
+    <h2 class="waves-effect waves-block has-activity-badge">
+      Template
+      : {{template.name}}
+      <span class="template-subtype-label template-subtype-label--spotlight" *ngIf="template.isSpotlightTemplate">spotlight</span>
+      <span class="template-subtype-label template-subtype-label--verdict" *ngIf="template.isVerdictTemplate">verdict</span>
+      <create-updated-at-by [collection]="template"></create-updated-at-by>
+    </h2>
+  </div>
+</div>
+
+<div class="card" *ngIf="template">
+  <div class="body">
+
+    <div class="row">
+      <div class="col-md-2">
+      <span class="mat-label">
+        Name
+      </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !template.name}">
+          <input matInput placeholder="Name" [(ngModel)]="template.name" [value]="template.name" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!template.name">Name should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+      <span class="mat-label">
+        Header Text
+      </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Header Text" [(ngModel)]="template.headerText" [value]="template.headerText">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+      <span class="mat-label">
+        Yellow Header Text
+      </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Yellow Header Text" [(ngModel)]="template.yellowHeaderText" [value]="template.yellowHeaderText">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+      <span class="mat-label">
+        Icon
+      </span>
+      </div>
+      <div class="col-md-3 template-icon">
+        <div>
+          <mat-form-field>
+          <mat-select placeholder="Select Icon"
+                      [(value)]="template.postIconSvgId"
+                      (selectionChange)="setPostIconSvg($event.value);">
+            <mat-select-trigger>
+              <span class="left icon-preview" *ngIf="activePostIconImage">
+                <svg-list #currentIcon
+                  [list]="activePostIconImage.svg"></svg-list>
+                <svg class="mat-icon image-preview">
+                  <use [attr.xlink:href]="'#'+activePostIconImage.svgId"></use>
+                </svg>
+              </span>
+              <span> {{ template.postIconSvgId }}</span>
+            </mat-select-trigger>
+            <mat-option *ngFor="let image of images" [value]="image.svgId">
+              <span class="left icon-preview" *ngIf="image.svg">
+                <svg-list [list]="image.svg"></svg-list>
+                <svg class="mat-icon image-preview">
+                  <use [attr.xlink:href]="'#'+image.svgId"></use>
+                </svg>
+              </span>
+              <span> {{ image.svgId }}</span>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        </div>
+        <div class="header-icon-remove">
+          <button *ngIf="activePostIconImage" class="btn btn-danger"
+                  (click)="removePostIconImage()">
+            <i class="material-icons">clear</i>
+          </button>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+      <span class="mat-label">
+        Header Icon
+      </span>
+      </div>
+      <div class="col-md-3 template-icon">
+        <div>
+          <mat-form-field>
+            <mat-select placeholder="Select Header Icon"
+                        [(value)]="template.headerIconSvgId"
+                        (selectionChange)="setHeaderIconSvg($event.value);">
+              <mat-select-trigger>
+              <span class="left icon-preview" *ngIf="activeHeaderIconImage">
+                <svg-list #currentHeaderIcon
+                          [list]="activeHeaderIconImage.svg"></svg-list>
+                <svg class="mat-icon image-preview">
+                  <use [attr.xlink:href]="'#'+activeHeaderIconImage.svgId"></use>
+                </svg>
+              </span>
+                <span> {{ template.headerIconSvgId }}</span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let image of images" [value]="image.svgId">
+              <span class="left icon-preview" *ngIf="image.svg">
+                <svg-list [list]="image.svg"></svg-list>
+                <svg class="mat-icon image-preview">
+                  <use [attr.xlink:href]="'#'+image.svgId"></use>
+                </svg>
+              </span>
+                <span> {{ image.svgId }}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="header-icon-remove">
+          <button *ngIf="activeHeaderIconImage" class="btn btn-danger"
+                  (click)="removeHeaderIconImage()">
+            <i class="material-icons">clear</i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+      <span class="mat-label">
+        Subheader Text
+      </span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Subheader Text" [(ngModel)]="template.subHeader" [value]="template.subHeader">
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-checkbox color="primary"
+                      [checked]="template.isYellowSubHeaderBackground"
+                      (change)="template.isYellowSubHeaderBackground = !template.isYellowSubHeaderBackground">
+          Yellow subheader background
+        </mat-checkbox>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+      <span class="mat-label">
+        Event ID
+      </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Event ID" [(ngModel)]="template.eventId" [value]="template.eventId">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+      <span class="mat-label">
+        Selection ID
+      </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Selection ID" [(ngModel)]="template.selectionId" [value]="template.selectionId">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <cms-upload
+          [label]="'Top Right Corner Image'"
+          [filename]="template.topRightCornerImage"
+          (onImageUpload)="uploadTrcImageHandler($event)"
+          (onImageRemove)="removeTrcImageHandler()">
+        </cms-upload>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+      <span class="mat-label">
+        Bet Prompt Header
+      </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Bet Prompt Header" [(ngModel)]="template.betPromptHeader" [value]="template.betPromptHeader">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+      <span class="mat-label">
+        Post Href
+      </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Post Href" [(ngModel)]="template.postHref" [value]="template.postHref">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3" *ngIf="isBrandLads">
+        <mat-checkbox color="primary"
+                      [checked]="template.showLeftSideRedLine"
+                      (change)="template.showLeftSideRedLine = !template.showLeftSideRedLine">
+          {{showLeftSideLineTextName}}
+        </mat-checkbox>
+      </div>
+      <div class="col-md-3" *ngIf="!isBrandLads">
+        <mat-checkbox color="primary"
+                      [checked]="template.showLeftSideBlueLine"
+                      (change)="template.showLeftSideBlueLine = !template.showLeftSideBlueLine">
+          {{showLeftSideLineTextName}}
+        </mat-checkbox>
+      </div>
+      <div class="col-md-2">
+        <mat-checkbox color="primary"
+                      [checked]="template.showTimestamp"
+                      (change)="template.showTimestamp = !template.showTimestamp">
+          Show Timestamp
+        </mat-checkbox>
+      </div>
+      <div class="col-md-3">
+        <mat-checkbox color="primary"
+                      [checked]="template.showRedirectArrow"
+                      (change)="template.showRedirectArrow = !template.showRedirectArrow">
+          Show Redirect Arrow
+        </mat-checkbox>
+      </div>
+
+      <div class="col-md-4">
+        <mat-checkbox color="primary"
+                      [checked]="template.showRacingPostLogoInHeader"
+                      (change)="template.showRacingPostLogoInHeader = !template.showRacingPostLogoInHeader">
+          Show Racing Post Logo In Header
+        </mat-checkbox>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="(!template.isSpotlightTemplate) && (!template.isVerdictTemplate)">
+      <div class="col-md-2">
+        <span class="mat-label">
+         Text
+        </span>
+      </div>
+      <div class="col-md-8">
+        <tinymce-editor
+          #text
+          [pageName]="'template'"
+          [pageItemId]="template.id"
+          (outputEditorData)="updateText($event)"
+          [initialEditorContent]="template.text || ''"></tinymce-editor>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<action-buttons
+  #actionButtons
+  *ngIf="template"
+  [form]="form"
+  [fieldOrItemName]="'name'"
+  [collection]="template"
+  [validateHandler]="isModelValid"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

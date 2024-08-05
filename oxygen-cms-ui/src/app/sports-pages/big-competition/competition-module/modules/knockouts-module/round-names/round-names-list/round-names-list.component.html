@@ -1,0 +1,33 @@
+<div *ngIf="roundNames">
+  <div class="row clearfix">
+    <div class="col-md-3">
+      <button (click)="createRoundName();" mat-button type="button" class="btn bg-teal waves-effect float-left">
+        <mat-icon>add_box</mat-icon>
+        <span>Add Round</span>
+      </button>
+    </div>
+    <div class="col-md-3" *ngIf="roundNames.length">
+      <download-cvs [cvsData]="roundNames" [cvsDataTable]="dataTableColumns"></download-cvs>
+    </div>
+    <div class="col-md-6 m-b-0" *ngIf="roundNames.length">
+      <div class="input-with-icon m-b-0">
+        <i class="material-icons">search</i>
+        <mat-form-field>
+          <input matInput placeholder="Search For Rounds" [(ngModel)]="searchField" [value]="searchField">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="roundNames.length">
+    <cms-data-table
+      [customTableData]="roundNames"
+      [customTableColumns]="dataTableColumns"
+      [filterString]="searchField"
+      [filterProperties]="filterProperties"
+      [actions]="['remove', 'edit']"
+      (onRemoveTableElement)="removeRoundName($event)">
+    </cms-data-table>
+  </div>
+  <div *ngIf="!roundNames.length">Rounds Details List is Empty</div>
+</div>

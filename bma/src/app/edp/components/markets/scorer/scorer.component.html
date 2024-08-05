@@ -1,0 +1,91 @@
+<accordion [isExpanded]="isExpanded"
+           [headerClass]="'secondary-header'"
+           [isChevronToLeft]="true"
+           [memoryId]="memoryId"
+           (function)="isExpanded=!isExpanded"
+           [memoryLocation]="memoryLocation"
+           [accordionTitle]="marketsGroup.name"
+           >
+  <right-side>
+    <cashout-label *ngIf="!marketsGroup?.drilldownTagNames && marketsGroup?.cashoutAvail === 'Y'"></cashout-label>
+    <!-- Promotional signposting -->
+    <promotion-icon *ngIf="marketsGroup.drilldownTagNames"
+                    [type]="'market'"
+                    [mode]="'big'"
+                    [cashoutAvailable]="marketsGroup.cashoutAvail === 'Y'"
+                    [accordionTitle]="marketsGroup.name"
+                    [sport]="'sport'"
+                    [display]="marketsGroup.name">
+    </promotion-icon>
+  </right-side>
+  <accordion-body *ngIf="isExpanded">
+    <div class="container-inner-content">
+      <div class="odds-card-header  odds-card-player">
+        <div class="odds-left">
+            <span class="odds-header-title odds-title" [textContent]="'PLAYERS'"></span>
+        </div>
+        <div class="odds-right">
+            <span class="odds-header-col" *ngFor="let header of marketsGroup.header" [textContent]="header.name"></span>
+        </div>
+    </div>
+    <div *ngFor="let outcome of selectedOutcomes(allPlayers);">
+        <div class="odds-card player-odds" *ngIf="outcome.name !='No Goalscorer'">
+          <div class="odds-content">
+            <div class="odds-left odds-left-scorer">
+              <strong class="odds-name" [textContent]="outcome.name"></strong>
+              <strong class="odds-name" *ngIf="outcome.teamName">({{outcome.teamName}})</strong>
+            </div>
+            <div class="odds-right">
+              <price-odds-button *ngIf="!marketsGroup.header" [event]="eventEntity" [market]="outcome" [outcome]="outcome"></price-odds-button>
+              <div class="odds-btn-content" *ngIf="marketsGroup.header">
+                <ng-container *ngFor="let price of getMarketOutcomes(outcome.outcomes); trackBy: trackById;">
+                  <div class="odds-btn-wrapper">
+                    <price-odds-button
+                      *ngIf="!price.fakeOutcome"
+                      [event]="eventEntity"
+                      [market]="price"
+                      [outcome]="price">
+                    </price-odds-button>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        
+      </div>
+      <div class="container-inner-content">
+      <div  *ngIf="marketsGroup.noGoalscorer">
+        <div *ngFor="let outcome of selectedNoGoalOutcomes(allPlayers);">
+         <div class="odds-card player-odds" *ngIf="outcome.name ==='No Goalscorer'">
+           <div class="odds-content">
+             <div class="odds-left odds-left-scorer">
+               <strong class="odds-name" [textContent]="outcome.name"></strong>
+               <strong class="odds-name" *ngIf="outcome.teamName">({{outcome.teamName}})</strong>
+             </div>
+             <div class="odds-right">
+               <price-odds-button *ngIf="!marketsGroup.header" [event]="eventEntity" [market]="outcome" [outcome]="outcome"></price-odds-button>
+               <div class="odds-btn-content" *ngIf="marketsGroup.header">
+                 <ng-container *ngFor="let price of getMarketOutcomes(outcome.outcomes); trackBy: trackById;">
+                   <div class="odds-btn-wrapper">
+                     <price-odds-button
+                       *ngIf="!price.fakeOutcome"
+                       [event]="eventEntity"
+                       [market]="price"
+                       [outcome]="price">
+                     </price-odds-button>
+                   </div>
+                 </ng-container>
+               </div>
+             </div>
+           </div>
+         </div>
+         </div>
+       </div>
+       </div>
+    <show-all-button *ngIf="allPlayers.length > 5" (click)="toggleShow()" [allShown]="isAllShow">
+    </show-all-button>
+  </accordion-body>
+</accordion>

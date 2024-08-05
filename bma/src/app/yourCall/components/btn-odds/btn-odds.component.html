@@ -1,0 +1,8 @@
+<button class="btn-odds" [ngClass]="template" [disabled]="!isActive">
+  <div class="odds-label">
+    <span *ngIf="isLoading" class="spinner-loader small-loader"></span>
+    <span class="value" *ngIf="!isLoading" [textContent]="price || emptyPriceLabel" data-crlat="value"></span>
+    <span class="your-call-odds" [i18n]="'yourCall.odds'"></span>
+  </div>
+  <div class="place-bet-label" [i18n]="'yourCall.' + template"></div>
+</button>

@@ -1,0 +1,113 @@
+@import 'global.variables.scss';
+
+$gradient-btn-color-from: #363a4d;
+$gradient-btn-color-to: #1e212c;
+
+:host {
+  display: inline-block;
+}
+
+.btn.btn-style1 {
+  height: 36px;
+  width: 111px;
+  font-size: 15px;
+  font-family: $base-font-family;
+  padding: 8px 10px;
+  background-image: linear-gradient(to bottom, $gradient-btn-color-from, $gradient-btn-color-to);
+  background: $color-lightest-grey;
+  box-shadow: none;
+  border-radius: 2px;
+  @media #{$mqTabletAndDesktop} {
+  &:hover {
+    background: $color-gray-medium;
+  }
+  }
+  &:active {
+    background: $lBlack-medium;
+  }
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active {
+    background-image: linear-gradient(to bottom, $gradient-btn-color-from, $gradient-btn-color-to);
+  }
+}
+
+.boost-indicator {
+  position: relative;
+  display: inline-block;
+  width: 22px;
+  height: 16px;
+  font-size: 0;
+  vertical-align: middle;
+  opacity: 1;
+  .boost-arrow {
+    position: absolute;
+    animation-duration: 0.85s;
+    display: none;
+    &.active {
+      width: 60%;
+      top: 38%;
+      left: 32%;
+      transform-origin: 32% 64%;
+      @include transform(rotate(20deg));
+    }
+    &.inactive {
+      width: 55%;
+      top: 38%;
+      left: 9%;
+      transform-origin: 75% 65%;
+      @include transform(rotate(-22deg));
+    }
+  }
+  &.enabled {
+    .boost-arrow.inactive {
+      display: none;
+    }
+    .boost-arrow.active {
+      display: block;
+    }
+    &.animated .boost-arrow.active {
+      animation-name: animate-boost-active-arrow;
+    }
+  }
+  &.disabled {
+    .boost-arrow.active {
+      display: none;
+    }
+    .boost-arrow.inactive {
+      display: block;
+    }
+    &.animated .boost-arrow.inactive {
+      animation-name: animate-boost-inactive-arrow;
+    }
+  }
+}
+
+.boost-text {
+  vertical-align: middle;
+  margin-left: 10px;
+  display: inline-block;
+  min-width: 62px;
+  text-align: left;
+  letter-spacing: -0.36px;
+}
+
+@keyframes animate-boost-active-arrow {
+  0%, 20% {
+    @include transform(rotate(-121deg));
+  }
+  80% {
+    @include transform(rotate(33deg));
+  }
+  100% {
+    @include transform(rotate(20deg));
+  }
+}
+
+@keyframes animate-boost-inactive-arrow {
+  0% {
+    @include transform(rotate(120deg));
+  }
+  100% {
+    @include transform(rotate(-22deg));
+  }
+}

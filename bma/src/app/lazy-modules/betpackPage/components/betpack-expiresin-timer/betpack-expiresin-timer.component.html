@@ -1,0 +1,6 @@
+<div class="race-timer">
+  <div class="countdown" *ngIf="displayCountdown && isCountdown()" data-crlat="raceCountdown">
+    <span class="label" [ngClass]="{'textCapitalize': brand === 'ladbrokes','betpackReview_label': betpackReview,'label': !betpackReview}" data-crlat="label" [textContent]="signPost"></span>
+    <span class="value" [ngClass]="{'betpackReview_value': betpackReview,'value': !betpackReview}"data-crlat="value">{{ raceCountdown }}</span>
+  </div>
+</div>

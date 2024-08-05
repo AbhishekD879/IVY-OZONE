@@ -1,0 +1,89 @@
+<html>
+<script src="https://cdn.jsdelivr.net/npm/socket.io-client@2/dist/socket.io.js"></script>
+
+<body>
+<script>
+    var loggingElement;
+    var displayedPosts = [];
+    var lastPost;
+    var socket;
+
+    window.addEventListener('load', function (e) {
+        loggingElement = document.getElementById('logging');
+
+        socket = io('wss://timeline-api-dev0.coralsports.dev.cloud.ladbrokescoral.com', {
+            transports: ['websocket']
+        });
+        socket.on('connect', function () {
+
+        });
+        socket.on('disconnect', function () {
+
+        });
+        socket.on('POST_PAGE', function (data) {
+            lastPost = data.page[data.page.length - 1];
+
+            data.page.forEach(post => {
+                displayedPosts.push(post);
+                append(post);
+            });
+        });
+        socket.on('POST', function (post) {
+            displayedPosts.unshift(post);
+
+            prepend(post);
+        });
+        socket.on('POST_CHANGED', function (actionMessage) {
+            displayedPosts[index(actionMessage)] = actionMessage.data;
+
+            redraw();
+        });
+        socket.on('POST_REMOVED', function (actionMessage) {
+            delete displayedPosts[index(actionMessage)];
+
+            redraw();
+        });
+    });
+
+    function loadMore() {
+        socket.emit('LOAD_POST_PAGE', {from: {id: 123, timestamp: 1234567}});
+    }
+
+    function append(post) {
+        let postParagraph = document.createElement('p');
+
+        postParagraph.textContent = `\n${JSON.stringify(post)}\n`;
+        loggingElement.appendChild(postParagraph);
+    }
+
+    function prepend(post) {
+        let postParagraph = document.createElement('p');
+
+        postParagraph.textContent = `\n${JSON.stringify(post)}\n`;
+        loggingElement.insertAdjacentElement('afterbegin', postParagraph);
+    }
+
+    function redraw() {
+        console.log(displayedPosts);
+
+        loggingElement.innerHTML = '';
+
+        displayedPosts.forEach(append);
+    }
+
+    function index(actionMessage) {
+        return displayedPosts.findIndex(post => post.id === actionMessage.affectedMessageId);
+    }
+</script>
+
+
+<div id="console-container">
+    <h3>Received messages:</h3>
+    <div id="logging"></div>
+
+    <button onclick="loadMore()">
+        LOAD MORE
+    </button>
+</div>
+</body>
+</html>

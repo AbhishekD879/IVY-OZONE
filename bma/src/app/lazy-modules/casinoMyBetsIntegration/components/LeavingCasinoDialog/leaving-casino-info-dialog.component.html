@@ -1,0 +1,25 @@
+<div *ngIf="!!showLeavingCasinoDialog" id="casino-mybets-overlay"
+     [overscrollFix]="'always'" [ngClass]="isBrandLadbrokes ? 'ladbrokes-overlay-background' : 'coral-overlay-background'">
+  <div class="conf-box-dialog" [ngClass]="isBrandLadbrokes ? 'ladbrokes-body-color' : 'coral-body-color'">
+    <div class="conf-box-header">
+      <span [i18n]="'eznavconfbox.headerConfBox'" [ngClass]="isBrandLadbrokes ? 'ladbrokes-header' : 'coral-header'">
+      </span>
+    </div>
+    <div class="conf-box-body">
+      <div class="qn-text" [ngClass]="isBrandLadbrokes ? 'ladbrokes-qn-text' : 'coral-qn-text'" 
+      [i18n]="'eznavconfbox.bodyQnText'"></div>
+      <div class="btn-list">
+        <a class="thanks ladbrokes-body-color" 
+        [i18n]="'eznavconfbox.noThanksBtnText'" (click)="popupClickHandler($event, 'no thanks')"></a>
+        <button class="ladbrokes-body-color" [i18n]="'eznavconfbox.yesLetsGoBtnText'" 
+        (click)="popupClickHandler($event, 'yes lets go')"></button>
+      </div>
+      <div class="show-toggle">
+        <label>
+          <input type="checkbox" [checked]="dontShowPopupAgain" (change)="dontShowPopupAgain = !dontShowPopupAgain">
+          <span [i18n]="'eznavconfbox.checkBoxText'"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

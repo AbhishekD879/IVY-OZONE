@@ -1,0 +1,84 @@
+<div class="token-card">
+    <form [formGroup]="form" novalidate>
+        <div class="row">
+            <div class="col-md-3 mg-btm">
+                <span class="mat-label">
+                    Free Bet Token ID:
+                </span>
+            </div>
+            <div class="col-md-5">
+                <mat-form-field class="full-width">
+                    <input matInput formControlName="tokenId" (change)="tokenDuplicateCheck($event.target.value)"
+                        required trim="blur" maxlength="20" name="tokenId">
+                    <mat-hint class="redcolor" *ngIf="isTokenDuplicated">Token ID should not be duplicated</mat-hint>
+                    <mat-error *ngIf="form.controls.tokenId.hasError('pattern')"
+                        [textContent]="'Enter only integer value'"></mat-error>
+                    <mat-error
+                        *ngIf="form.controls.tokenId.invalid && !form.controls.tokenId.hasError('pattern') && (form.controls.tokenId.dirty || form.controls.tokenId.touched)">
+                        Enter Free Bet Token ID </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-2 text-length">{{getControlValue('tokenId') || 0}} /20</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mg-btm">
+                <span class="mat-label">
+                    Free Bet Token Display Text:
+                </span>
+            </div>
+            <div class="col-md-5">
+                <mat-form-field class="full-width">
+                    <input matInput formControlName="tokenTitle" required trim="blur" maxlength="50" name="tokenTitle">
+                    <mat-error
+                        *ngIf="form.controls.tokenTitle.invalid && (form.controls.tokenTitle.dirty || form.controls.tokenTitle.touched)">
+                        Enter Free Bet Token Display Text </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-2 text-length">{{getControlValue('tokenTitle') || 0}} /50</div>
+            <div class="text-warning d-flex align-items-center warning-message">
+                <mat-icon class="mr-3">info</mat-icon>
+                <span> The text should be started with an alphabet </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mg-btm">
+                <span class="mat-label">
+                    Free Bet Token value:
+                </span>
+            </div>
+            <div class="col-md-5">
+                <mat-form-field class="full-width">
+                    <input matInput formControlName="tokenValue" required trim="blur" name="tokenValue" maxlength="8">
+                    <mat-hint class="redcolor" *ngIf="form.controls.tokenValue.hasError('pattern')">Please enter valid numeric value
+                    </mat-hint>
+                    <mat-error 
+                        *ngIf="form.controls.tokenValue.invalid && !form.controls.tokenValue.hasError('pattern') && (form.controls.tokenValue.dirty || form.controls.tokenValue.touched)">
+                        Enter Free Bet Token value</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-2 text-length">{{getControlValue('tokenValue') || 0}} /8</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mg-btm">
+                <span class="mat-label">
+                    Deep Link:
+                </span>
+            </div>
+            <div class="col-md-5">
+                <mat-form-field class="full-width">
+                    <input matInput formControlName="deepLinkUrl" required trim="blur" name="deepLinkUrl">
+                    <mat-error
+                        *ngIf="form.controls.deepLinkUrl.invalid && (form.controls.deepLinkUrl.dirty || form.controls.deepLinkUrl.touched)">
+                        Enter Deep Link Url</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div mat-dialog-actions>
+            <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+            <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="isDisable()" (click)="getTemplate();"
+                [mat-dialog-close]="token"> Save</button>
+        </div>
+
+    </form>
+</div>

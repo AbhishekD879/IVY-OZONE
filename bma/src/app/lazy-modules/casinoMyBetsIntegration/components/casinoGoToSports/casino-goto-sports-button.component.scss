@@ -1,0 +1,35 @@
+@import 'global.variables.scss';
+
+.no-bets-msg-container {
+    display: block;
+    background: $color-white;
+    padding: 18px;
+    text-align: center;
+  
+    .no-bets-msg {
+      font-size: $font-size-lg;
+      font-family: $no-bets-button-font;
+      font-weight: bold;
+    }
+}
+button {
+    background-color: $color-yellow;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: $base-font-family;
+    height: 35px;
+    width: 169px;
+    border: 0px;
+    margin-top: 20px;
+    
+}
+
+.go-to-sports-button {
+    margin-left: calc(50% - 85px);
+    margin-bottom: 47px;
+}
+
+.no-bets-button {
+    margin-left: 0px;
+    margin-bottom: 0px;
+}

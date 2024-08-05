@@ -1,0 +1,6 @@
+<div class="bog-block"
+     *ngIf="isBogEnabled"
+     [ngClass]="{ 'bog-bg': bogLabelStyle}" data-crlat="bogIcon">
+  <svg class="bog-icon"><use xlink:href="#bog-text"></use></svg>
+  <span class="bog-label" [i18n]="'app.bogLabel'"></span>
+</div>

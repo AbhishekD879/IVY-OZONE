@@ -1,0 +1,73 @@
+@import 'global.variables.scss';
+
+.expand-panel {
+  margin: 5px 0;
+  color: $color-black;
+  font-size: 12px;
+
+  .items-list {
+    color: $color-gray-darkest;
+    padding: 0;
+    margin: 5px 0 0;
+    li {
+      font-family: $alt-font-family;
+      span {
+        font-weight: normal;
+      }
+    }
+  }
+
+  .expand-panel-heading {
+    font-weight: bold;
+    padding: 7px 30px 7px 7px;
+    background: $color-gray-light;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid rgba(0,0,0,.1);
+
+    &.active {
+      border-bottom: none;
+    }
+    svg {
+      height: 15px;
+      width: 15px;
+      right: 8px;
+      margin: -4px 0 0;
+      position: absolute;
+      top: 38%;
+      text-shadow: 0 1px 1px rgba(0,0,0,.6);
+      fill: $color-gray;
+    }
+  }
+
+  .expand-panel-body {
+    color: $color-gray-darkest;
+    padding: 12px;
+    background: $color-gray-light;
+    border: 1px solid rgba(0,0,0,.1);
+    border-top: none;
+    .table-panel {
+      width: 100%;
+      background: $color-white;
+      td, th {
+        border: 1px solid $lGrayDark;
+        padding: 10px;
+        text-align: left;
+        font-size: 11px;
+      }
+      td {
+        font-size: 12px;
+        font-family: $alt-font-family;
+        &:first-child {
+          min-width: 85px;
+        }
+      }
+      th {
+        color: $color-gray-darkest;
+        background: none;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+    }
+  }
+}

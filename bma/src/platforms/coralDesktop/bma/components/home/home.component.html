@@ -1,0 +1,42 @@
+<ng-container *ngIf="!state.loading && !state.error" data-crlat="accordionsList">
+
+  <div class="banner-block" data-crlat="bannerBlock">
+    <!--- Banners Section-->
+    <lazy-component
+       moduleUri="@lazy-modules-module/banners/banners.module#BannersModule"
+       [inputs]='{ page: bannerHome}'></lazy-component>
+  </div>
+  <!--- Enhanced multiples section -->
+  <enhanced-multiples-carousel [isHomePage]="true" data-crlat="tab.showEnhancedMultiples"></enhanced-multiples-carousel>
+  <!--- private-markets section -->
+  <private-markets data-crlat="tab.showPrivateMarkets"></private-markets>
+
+  <ng-container *ngFor="let module of moduleOrder">
+    <!--- in-play-live-stream section -->
+      <inplay-live-stream *ngIf="module[0]==='inPlay'"></inplay-live-stream>
+    <!--- Next 4 race module -->
+   <ng-container *ngIf="module[0]==='nextRace'">
+      <lazy-component moduleUri="@lazy-modules-module/nextRaces/next-races.module#NextRacesModule"
+      [inputs]="{fluid: true, moduleAllLink: true, moduleType: 'horseracing',
+      hostContext: 'featured-races', trackGaDesktop: true, showLoader: true, compName: 'home'}" 
+      entryComponent="NextRacesModuleComponent" data-crlat="tab.showNextRacesModuleDesktop">
+    </lazy-component>
+    </ng-container>
+
+    <lazy-component *ngIf="showRibbon() && module[0]==='yourCall'" moduleUri="@yourCallModule/your-call.module#YourCallModule"
+      entryComponent="DesktopBybHomeComponent" data-crlat="tab.showBYBModule">
+    </lazy-component>
+  
+    <!--- Featured Modules -->
+    <lazy-component *ngIf="module[0]==='featured'" moduleUri="@featuredModule/featured.module#FeaturedModule"
+                      data-crlat="tab.showFeaturedContent">
+    </lazy-component>
+  </ng-container>
+ <lazy-component moduleUri="@lazy-modules-module/quickLinks/quick-links.module#QuickLinksModule"
+ [inputs]="{applyCss: true}" entryComponent="QuickLinksComponent">
+  </lazy-component>
+</ng-container>
+
+<outlet-status [state]="state">
+  <request-error (reloadFn)="reloadComponent()"></request-error>
+</outlet-status>

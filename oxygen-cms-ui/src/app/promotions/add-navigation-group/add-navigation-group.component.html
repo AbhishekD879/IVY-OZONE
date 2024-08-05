@@ -1,0 +1,41 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>Create New Navigation Group</h1>
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Navigation Group Title*
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            [(ngModel)]="newNavigationGroup.title"
+            maxlength="50"
+            [value]="newNavigationGroup.title"
+            trim="blur" required>
+        </mat-form-field>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-2">
+        <mat-checkbox color="primary"
+                      [checked]="newNavigationGroup.status"
+                      (change)="newNavigationGroup.status = !newNavigationGroup.status">
+        </mat-checkbox>
+      </div>
+      <div class="col-2">
+        <span>
+          Active
+        </span>
+      </div>
+    </div>
+
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button class="btn btn-sm bg-red m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+    <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="!isValidNavigationGroup()" (click)="getNewNavigationGroup();" [mat-dialog-close]="newNavigationGroup">Create</button>
+  </div>
+</div>

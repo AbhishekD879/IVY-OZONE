@@ -1,0 +1,72 @@
+ErrorResponse:
+  title: Error Response from microservice
+  type: object
+  properties:
+    code:
+      type: string
+    message:
+      type: string
+
+NotificationType:
+  title: Types of notifications what support microservice
+  type: string
+  enum:
+    - kick_off
+    - periods
+    - goals
+    - cards
+
+SubscriptionRequest:
+  type: object
+  properties:
+    eventId:
+      type: number
+    token:
+      type: string
+    platform:
+      type: string
+      enum:
+        - android
+        - ios
+        - helium_android
+        - helium_ios
+
+SubscriptionCreateRequest:
+  type: object
+  properties:
+    eventId:
+      type: number
+    token:
+      type: string
+    platform:
+      type: string
+      enum:
+        - android
+        - ios
+        - helium_android
+        - helium_ios
+    types:
+      type: array
+      items:
+        $ref: '#/NotificationType'
+
+SubscriptionCreateResponse:
+  type: object
+  properties:
+    eventId:
+      type: number
+    token:
+      type: string
+    sportUri:
+      type: string
+    platform:
+      type: string
+      enum:
+        - android
+        - ios
+        - helium_android
+        - helium_ios
+    types:
+      type: array
+      items:
+        $ref: '#/NotificationType'

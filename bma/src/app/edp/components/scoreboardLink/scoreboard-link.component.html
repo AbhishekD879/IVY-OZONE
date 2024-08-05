@@ -1,0 +1,8 @@
+<div class="stats-link" *ngIf="market.marketOptaLink">
+  <a class="link" (click)="showStats(market)">
+    <svg class="stats-link-icon">
+      <use xlink:href="#stats-icon"></use>
+    </svg>
+    <span class="stats-link-label" [textContent]="market.marketOptaLink.linkName.toUpperCase()"></span>
+  </a>
+</div>

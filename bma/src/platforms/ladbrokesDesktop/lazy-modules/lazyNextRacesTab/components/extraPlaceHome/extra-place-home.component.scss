@@ -1,0 +1,26 @@
+@import 'global.variables.scss';
+
+.extra-place-section {
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.15), 0 -1px 2px 0 rgba(0,0,0,.05);
+
+  .extra-place-item-body {
+    min-height: 46px;
+    padding: 8px 10px;
+  }
+  .odds {
+    margin-top: 5px;
+    font-family: $alt-font-family;
+    font-size: 11px;
+    color: $color-gray-darkest;
+
+    .meeting-name {
+      font-size: 11px;
+    }
+  }
+
+  .next-arrow {
+    height: 11px;
+    color: $lBlack-light;
+  }
+
+}

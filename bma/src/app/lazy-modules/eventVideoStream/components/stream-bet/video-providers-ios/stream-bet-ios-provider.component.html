@@ -1,0 +1,37 @@
+
+<div class="desktop-video-container">
+  <div class="stream-msg-wrapper hide-element" *ngIf="!errorMessage && showVideoPlayer && !isMyBets && isPlayerVisible">
+    <span class="stream-msg stream-text" [i18n]="'sb.delay'"></span>
+  </div>
+  <div class="video-container" *ngIf="!errorMessage"
+       [ngClass]="{ 'video-load': !errorMessage && !showVideoPlayer }">
+      <video [attr.width]="frameWidth" [attr.height]="frameHeight"
+        [ngStyle]="{ 'height.px': frameHeight, 'width.px': frameWidth }" id="tutorial" playsinline="playsinline"
+        webkit-playsinline="webkit-playsinline" class="video-js vjs-big-play-centered  hide-tutorial">
+      </video>
+      <video playsinline="playsinline" webkit-playsinline = "webkit-playsinline"      
+        id="{{streamUniqueId}}"
+        [attr.width]="frameWidth"
+        [attr.height]="frameHeight"
+        class="video-js vjs-big-play-centered hide-element"
+        [ngStyle]="{ 'height.px': frameHeight, 'width.px': frameWidth }"
+        controls>
+      </video>
+    <div *ngIf="!errorMessage && !playingTutorialVideo && !isLandscapeMode() && !isFullScreen" class="toaster hide-element" id="toaster">
+      <svg>
+        <use [attr.href]="'#Snb_Mobile_rotate'"></use>
+      </svg>
+      <div class="toaster-msg" [ngClass]="isCoral ? 'toaster-msg-coral': 'toaster-msg-lads'">
+        {{isWrapper ? streamBetCmsConfig.toasterMsgNative : streamBetCmsConfig.toasterMsgWeb }}
+      </div>
+  </div>
+  </div>
+  <ng-container *ngIf="isFullScreen && showSnBOverlay && isLandscapeMode()">
+    <stream-bet-overlay-provider-racing *ngIf="eventEntity?.categoryId === HORSE_RACING_CATEGORY_ID; else loadSportsOverlay"
+    [eventEntity]="eventEntity" (sbOverlayLoaded)="appendOverlayElement()" [isHR]="true"></stream-bet-overlay-provider-racing>
+  <ng-template #loadSportsOverlay>
+    <stream-bet-overlay-provider (sbOverlayLoaded)="appendOverlayElement()"></stream-bet-overlay-provider>
+  </ng-template>
+  </ng-container>
+</div>
+<div id='overlay-edp'></div>

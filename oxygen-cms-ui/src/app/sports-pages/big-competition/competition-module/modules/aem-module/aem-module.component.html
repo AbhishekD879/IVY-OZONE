@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-md-2">
+    <span class="mat-label">AEM Page Value</span>
+  </div>
+  <div class="col-md-10">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Please enter a corresponding AEM Page tag for this module"
+             type="text" [(ngModel)]="module.aemPageName" [value]="module.aemPageName" required>
+      <mat-hint class="col-red" *ngIf="!module.aemPageName">Page Name should be entered</mat-hint>
+    </mat-form-field>
+  </div>
+</div>

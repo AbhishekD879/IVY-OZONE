@@ -1,0 +1,128 @@
+{
+  "betChannel": "M",
+  "betslipDateTime": "2019-01-21T10:16:42.000+0000",
+  "customerID": "5986779",
+  "username": "ameet10",
+  "isSettled": true,
+  "settleMethod": "S",
+  "bets": {
+    "bet": [
+      {
+        "betKey": "603115399",
+        "betType": "L15",
+        "stake": 0.75,
+        "leg": [
+          {
+            "legNo": "0",
+            "part": [
+              {
+                "betPrice": {
+                  "priceType": "LP",
+                  "num": 4,
+                  "den": 1,
+                  "isEarlyPrice": true,
+                  "decimalPrice": 5.0
+                },
+                "rawHandicapValue": "0",
+                "selectionKey": 930536404,
+                "marketKey": 289460243,
+                "eventKey": 12259687,
+                "handicapValue": "0",
+                "winPlace": "WIN",
+                "isInRunning": false
+              }
+            ],
+            "legSort": "--"
+          },
+          {
+            "legNo": "0",
+            "part": [
+              {
+                "betPrice": {
+                  "priceType": "LP",
+                  "num": 6,
+                  "den": 1,
+                  "isEarlyPrice": true,
+                  "decimalPrice": 7.0
+                },
+                "rawHandicapValue": "0",
+                "selectionKey": 930536434,
+                "marketKey": 289460247,
+                "eventKey": 12259688,
+                "handicapValue": "0",
+                "winPlace": "WIN",
+                "isInRunning": false
+              }
+            ],
+            "legSort": "--"
+          },
+          {
+            "legNo": "0",
+            "part": [
+              {
+                "betPrice": {
+                  "priceType": "LP",
+                  "num": 9,
+                  "den": 2,
+                  "isEarlyPrice": true,
+                  "decimalPrice": 5.5
+                },
+                "rawHandicapValue": "0",
+                "selectionKey": 930536446,
+                "marketKey": 289460253,
+                "eventKey": 12259689,
+                "handicapValue": "0",
+                "winPlace": "WIN",
+                "isInRunning": false
+              }
+            ],
+            "legSort": "--"
+          },
+          {
+            "legNo": "0",
+            "part": [
+              {
+                "betPrice": {
+                  "priceType": "LP",
+                  "num": 6,
+                  "den": 1,
+                  "isEarlyPrice": true,
+                  "decimalPrice": 7.0
+                },
+                "rawHandicapValue": "0",
+                "selectionKey": 930536462,
+                "marketKey": 289460254,
+                "eventKey": 12259690,
+                "handicapValue": "0",
+                "winPlace": "WIN",
+                "isInRunning": false
+              }
+            ],
+            "legSort": "--"
+          }
+        ],
+        "freebetAmount": 0.0,
+        "betReceipt": "O/5986779/0005954",
+        "createDateTime": "2019-02-19T12:38:49.000+0000",
+        "winningAmount": 1.95,
+        "refundAmount": 0.0,
+        "stakePerLine": 0.05,
+        "fundedAmount": 0.75,
+        "currencyCode": "GBP",
+        "pending": false,
+        "poolbet": false
+      }
+    ],
+    "numLines": 15,
+    "numVoidLines": 0,
+    "numWinLines": 3,
+    "numLoseLines": 12
+  },
+  "meta": {
+    "messageType": "Settlement",
+    "source": "OB-kafka"
+  },
+  "settlementStatus": "FullSettled",
+  "cancelled": false,
+  "paid": true
+}

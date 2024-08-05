@@ -1,0 +1,34 @@
+<div class="questions-info" >
+    <ul class="info-list">
+      <li [ngClass]="isDesktop?'info-list__item':'info-list-item'">
+        <img  [ngClass]="isDesktop?'info-list__kit':'info-list-kit'"
+             *ngIf="qeData.defaultQuestionsDetails.homeTeamSvgFilePath"
+             [src]="qeData.defaultQuestionsDetails.homeTeamSvgFilePath">
+        <span [ngClass]="isDesktop?'info-list__title':'info-list-title'"
+            *ngIf="qeData.defaultQuestionsDetails.homeTeamName"
+            [textContent]="qeData.defaultQuestionsDetails.homeTeamName"
+        >
+      </span>
+      </li>
+      <li [ngClass]="isDesktop?'info-list__item':'info-list-item'">
+        <p class="info-list-date"
+           *ngIf="qeData.defaultQuestionsDetails.middleHeader"
+           [textContent]="qeData.defaultQuestionsDetails.middleHeader"
+        >
+        </p>
+        <img [ngClass]="isDesktop?'info-list__logo scalable-image':'info-list-logo'"
+             *ngIf="qeData.defaultQuestionsDetails.channelSvgFilePath"
+             [src]="qeData.defaultQuestionsDetails.channelSvgFilePath">
+      </li>
+      <li [ngClass]="isDesktop?'info-list__item':'info-list-item'">
+        <img [ngClass]="isDesktop?'info-list__kit':'info-list-kit'"
+             *ngIf="qeData.defaultQuestionsDetails.awayTeamSvgFilePath"
+             [src]="qeData.defaultQuestionsDetails.awayTeamSvgFilePath">
+        <span [ngClass]="isDesktop?'info-list__title':'info-list-title'"
+            *ngIf="qeData.defaultQuestionsDetails.awayTeamName"
+            [textContent]="qeData.defaultQuestionsDetails.awayTeamName"
+        >
+      </span>
+      </li>
+    </ul>
+  </div>

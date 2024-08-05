@@ -1,0 +1,37 @@
+<modal #sessionLogoutDialog class="session-logout-dialog" data-crlat="d.sessionLogout">
+  <ng-template #modalHeader>
+    <span [i18n]="'bma.loggedOut'" data-crlat="dTitle" data-uat="popUpTitle"></span>
+    <a data-uat="popUpCloseButton" class="btn-close" (click)="closeDialog()">
+      <svg>
+        <use xlink:href="#close-icon"></use>
+      </svg>
+    </a>
+  </ng-template>
+  <ng-template #modalBody class="container-content text-section">
+    <p class="text-center logged-tittle" data-crlat="dialog.errorTitle">{{ errorMsg }}</p>
+    <p class="text-center"
+      *ngIf="commonError"
+      [i18n]="'app.errorPopupMessage'"
+      data-crlat="dialog.errorMessage"></p>
+    <div class="group-buttons popup-buttons">
+      <div class="group-btn no-hidden" data-crlat="buttonGroup">
+        <div class="group-col group-default">
+          <a class="btn full-width btn-style3 logoutBtn"
+            [i18n]="'bma.cancel'"
+            (click)="closeDialog()"
+            data-crlat="dialog.cancel"></a>
+        </div>
+        <div class="group-col group-default group-default-center">
+          <a class="btn full-width btn-style1 logoutBtn"
+            [i18n]="'bma.signIn'" (click)="openLoginDialog()"
+            data-crlat="dialog.login"></a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center logged-tittle">
+      <p>
+        <a [routerLink]="'/contact-us'" class="contact-us" [i18n]="'app.errorPopupLink'" data-crlat="dialog.link" (click)="closeDialog()"></a>
+      </p>
+    </div>
+  </ng-template>
+</modal>

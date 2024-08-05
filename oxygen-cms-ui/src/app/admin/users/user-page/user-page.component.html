@@ -1,0 +1,88 @@
+<section class="user-page card" *ngIf="!isLoading">
+  <div class="header">
+      <h2 *ngIf="user.name" class="has-activity-badge">User: <span class="font-italic">{{user.name.first}} {{user.name.last}}</span></h2>
+      <h2 *ngIf="!user.name" class="has-activity-badge">User: <span class="font-italic">{{user.email}}</span></h2>
+      <create-updated-at-by [collection]="user"></create-updated-at-by>
+  </div>
+</section>
+
+<div class="card" *ngIf="!isLoading">
+  <div class="body">
+    <div *ngIf="alert" class="alert alert-success">
+      Your changes have been saved.
+    </div>
+    <form *ngIf="user" #updateUserForm="ngForm" (ngSubmit)="updateUser()">
+      <div class="row">
+        <div class="col-6">
+          <mat-form-field class="full-width">
+            <input matInput [(ngModel)]="user.name.first" #first="ngModel" placeholder="First name" name="first" required trim="blur">
+          </mat-form-field>
+          <mat-error *ngIf="first.invalid && (first.dirty || first.touched)">
+            This field is <strong>required</strong>
+          </mat-error>
+        </div>
+        <div class="col-6">
+          <mat-form-field class="full-width">
+            <input matInput [(ngModel)]="user.name.last" #last="ngModel" placeholder="Last name" name="last" required trim="blur">
+          </mat-form-field>
+          <mat-error *ngIf="last.invalid && (last.dirty || last.touched)">
+            This field is <strong>required</strong>
+          </mat-error>
+        </div>
+        <div class="col-12">
+          <mat-form-field class="full-width">
+            <input matInput type="email" [(ngModel)]="user.email" #email="ngModel" email placeholder="Email" name="email" required trim="blur">
+          </mat-form-field>
+          <mat-error *ngIf="email.errors?.required && (email.dirty || email.touched)">
+            This field is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="email.errors?.email && (email.dirty || email.touched)">
+            Email not valid.
+          </mat-error>
+        </div>
+        <div class="col-6">
+          <mat-form-field class="full-width">
+            <input matInput (change)="onPasswordChange()" type="password" [(ngModel)]="user.password" minlength="5" #password="ngModel" name="password" placeholder="Password" required trim="blur">
+          </mat-form-field>
+          <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
+            This field is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="password.invalid && password.errors.minlength && (password.dirty || password.touched)">
+              This field min length is 5 <strong>required</strong>
+          </mat-error>
+        </div>
+        <div class="col-6">
+          <mat-form-field class="full-width">
+            <input matInput type="password" [(ngModel)]="user.confirmPassword" #confirm="ngModel" name="confirm" placeholder="Confirm Password" validateEqual="password" required trim="blur">
+          </mat-form-field>
+          <mat-error *ngIf="password.value !== confirm.value && (confirm.touched)">
+            Passwords must match
+          </mat-error>
+        </div>
+        <div class="col-6">
+          <mat-checkbox color="primary"
+                      [checked]="user.status === 'ACTIVE'"
+                      (change)="user.status = user.status === 'ACTIVE' ? 'LOCKED' : 'ACTIVE'">
+                      Can access
+          </mat-checkbox>
+        </div>
+        <div class="col-6">
+          <mat-checkbox color="primary"
+                        [checked]="user.isAdmin"
+                        (change)="user.isAdmin = !user.isAdmin">
+            System Administrator
+          </mat-checkbox>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="!isLoading"
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'email'"
+  [collection]="user"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

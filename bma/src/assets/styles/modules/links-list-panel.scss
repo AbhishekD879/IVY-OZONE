@@ -1,0 +1,85 @@
+@import 'global.variables.scss';
+
+$list-item-margin    : 0 10px;
+$list-item-padding   : 8px 5px 8px 0;
+$list-item-next-arrow: 0;
+
+.links-list-panel {
+  margin: 0 0 2px;
+  padding: 0;
+  list-style: none;
+  background: $color-white;
+
+  .list-item {
+    .big-icon {
+      position: absolute;
+      right: 18px;
+      top: 0;
+      margin: 0;
+    }
+
+    &:last-child {
+      border-bottom: none;
+
+      .list-item-link {
+        border-bottom: none;
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+      background: $color-gray-light;
+
+      .list-item-link {
+        cursor: pointer;
+        background: $color-gray-light;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .list-item-link {
+    @include display-flex();
+    @include flex-flow();
+    @include align-items();
+    position: relative;
+    text-shadow: 0 1px 0 $color-white;
+    background: $color-white;
+    min-height: 37px;
+    padding: $list-item-padding;
+    margin: $list-item-margin;
+    border-bottom: 1px solid $list-item-border-clr;
+    font: bold 11px $base-font-family;
+    color: $color-gray-dark;
+
+    svg.item-icon {
+      display: inline-block;
+      vertical-align: top;
+      margin: -2px 10px 0 0;
+      width: 17px;
+      height: 17px;
+      min-width: 17px;
+      fill: $color-black;
+    }
+
+    svg.item-next-arrow {
+      position: absolute;
+      top: 50%;
+      margin-top: -4px;
+      right: $list-item-next-arrow;
+      height: 7px;
+      width: 4px;
+      fill: $color-gray-dark;
+    }
+
+    .item-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &.disabled {
+      pointer-events: none;
+      opacity: .5;
+    }
+  }
+}

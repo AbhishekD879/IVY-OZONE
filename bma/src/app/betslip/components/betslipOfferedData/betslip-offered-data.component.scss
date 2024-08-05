@@ -1,0 +1,91 @@
+@import 'global.variables.scss';
+
+.bs-stake-each-way {
+  color: $color-gray-dark;
+  margin-top: 10px;
+  opacity: 0.75;
+  padding-right: 20px;
+  position: relative;
+
+  .bs-stake-check {
+    content: '';
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    width: 12px;
+    height: 6px;
+    border-left: 2px solid;
+    border-bottom: 2px solid;
+    will-change: transform;
+    transform: skewX(0) rotate(-45deg);
+  }
+
+  &.bs-stake-no-padding {
+    padding-right: 0;
+  }
+}
+
+.stake-est-return {
+  margin-top: 10px;
+}
+
+.stake-odds {
+  display: inline-block;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.bs-stake-body {
+  .bs-stake-number,
+  .stake-odd-number {
+    border-radius: 2px;
+    color: $color-blue-dark;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: normal;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+}
+
+.stake-offered .bs-stake-number,
+.price-offered .stake-odd-number {
+  background-color: $color-yellow;
+  font-weight: normal;
+  min-width: 25px;
+  padding: 0 5px;
+}
+
+.stake-odd-number-prev {
+  color: $color-gray-dark;
+  font-size: 11px;
+  font-weight: normal;
+  text-decoration: line-through;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.stake-offered.price-offered {
+  .stake-odds {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-right: 0;
+    .stake-odd-number {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      padding-right: 0;
+    }
+  }
+
+  .bs-stake-number {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding-left: 4px;
+  }
+}
+
+

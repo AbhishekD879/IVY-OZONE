@@ -1,0 +1,188 @@
+@import 'global.variables.scss';
+
+$mobileMenuHeight: 60px;
+$carouselMenuHeight: 90px;
+
+  .sticky-carousel {
+    position: -webkit-sticky;
+    position: sticky;
+    top: $app-header-height;
+    display: block;
+    z-index: 5;
+    will-change: top;
+    @include transition(top, .2s, ease-in-out);
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+
+    .menu-hide {
+      pointer-events: none;
+      top: $app-header-height - $carouselMenuHeight;
+      @media (max-width: $mobilePoint) {
+        top: $app-header-height - $mobileMenuHeight;
+      }
+    }
+  }
+
+  .lotto-carousel{ // lotto coral-mobile
+    .carousel-menu{
+      .scroll-container{
+        .scroll-inner{
+          width: 33%;
+          li {
+            width: -webkit-fill-available;
+            .submenu-list-title{
+               font-weight: bold;
+               text-transform: uppercase;
+               font-size: 10px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .carousel-lotto{  //lotto coral desktop 
+    .carousel-menu{
+      .scroll-container{
+        .scroll-inner{
+          width: 100%;
+          li {
+            width: 33.3%;
+            .menu-item{
+              .submenu-list-icon {
+                fill: $color-white;
+                height: 34px;
+                width: 35px;
+                margin-bottom: 10px;
+             }
+           }
+         }
+        }
+      }
+    }
+  }
+
+
+.carousel-menu {
+  height: $carouselMenuHeight;
+  padding: 0;
+  background: $body-bg;
+  position: relative;
+  color: $color-white;
+
+  @media (max-width: $mobilePoint) {
+    height: $mobileMenuHeight;
+  }
+
+  .scroll-container {
+    position: relative;
+    background: $brand-color-dark;
+    width: 100%;
+    @include transform(translate3d(0, 0, 0));
+
+    .scroll-inner {
+      padding: 0;
+
+      li {
+        width: $carouselMenuHeight;
+        height: $carouselMenuHeight;
+        text-align: center;
+
+        &.inplay-carousel{
+          &:hover {
+            opacity: 0.5;
+            text-decoration: none;
+          }
+        }
+        &.sport-carousel-menu{
+          &:hover {
+            opacity: 0.5;
+            text-decoration: none;
+          }
+        }
+
+        &.active {
+          pointer-events: none;
+        }
+
+        @media (max-width: $mobilePoint) {
+          width: $mobileMenuHeight;
+          height: $mobileMenuHeight;
+        }
+
+        &.active .menu-item {
+          border-bottom: 2px solid $color-red;
+        }
+
+        .menu-item {
+          display: inline-block;
+          padding-top: 17.5px;
+          color: inherit;
+          position: relative;
+          text-decoration: none;
+          height: 100%;
+          width: 100%;
+
+          @media (max-width: $mobilePoint) {
+            padding-top: 11.5px;
+          }
+
+          .count-label {
+            text-align: center;
+            width: 16px;
+            height: 16px;
+            color: $color-gray-dark;
+            border-radius: 30px;
+            background: $color-yellow;
+            font: 8px/15px $base-font-family;
+            position: absolute;
+            right: 23px;
+            top: 15px;
+            overflow: hidden;
+            border: 1px solid $brand-color-dark;
+
+            @media (max-width: $mobilePoint) {
+              right: 10px;
+              top: 10px;
+            }
+          }
+
+          .submenu-list-icon {
+            fill: $color-white;
+            height: 31px;
+            width: 31px;
+            margin-bottom: 7px;
+
+            @media (max-width: $mobilePoint) {
+              width: 25px;
+              height: 25px;
+              margin-bottom: 2px;
+            }
+          }
+
+          .submenu-list-svg {
+            display: none;
+          }
+
+          .submenu-list-title {
+            display: block;
+            margin: 0 auto;
+            max-width: 75px;
+            font-family: $base-font-family;
+            font-weight: bold;
+            font-size: 10px;
+            line-height: 10px;
+            white-space: pre-wrap;
+            text-align: center;
+            text-transform: uppercase;
+
+            @media (max-width: $mobilePoint) {
+              font-size: 8px;
+              line-height: 8px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

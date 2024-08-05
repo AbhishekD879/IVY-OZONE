@@ -1,0 +1,34 @@
+<breadcrumbs *ngIf="module" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="module">
+  <div class="header">
+    <h2 class="has-activity-badge">Title:
+      <span class="font-italic">{{module.title}}</span>
+      <create-updated-at-by [collection]="module"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="module.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="module">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-12 m-b-0">
+        <mat-checkbox color="primary"
+                      [checked]="!module.disabled"
+                      (change)="module.disabled = !module.disabled">Active
+        </mat-checkbox>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-next-event-carousel-list *ngIf="module" [sportId]="module.sportId"></app-next-event-carousel-list>
+
+<action-buttons
+  #actionButtons
+  *ngIf="module"
+  [fieldOrItemName]="'title'"
+  [collection]="module"
+  [showRemoveButton]="false"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

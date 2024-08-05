@@ -1,0 +1,23 @@
+@import "../../../../../app/betslip/components/declinedBet/declined-bet.component.scss";
+
+.bs-declined-stake-content {
+  .stake-message {
+    color: $red;
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .stake-info {
+    color: $color-gray-dark;
+  }
+
+  .stake-title {
+    font-size: 12px;
+    margin-bottom: 2px;
+  }
+
+  .stake-event-name,
+  .stake-type {
+    color: inherit;
+  }
+}

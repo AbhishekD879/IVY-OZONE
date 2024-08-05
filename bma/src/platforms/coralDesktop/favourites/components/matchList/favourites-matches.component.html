@@ -1,0 +1,40 @@
+<request-error *ngIf="state.error || !isUserLoggedIn"
+              [loadFailed]="state.error"
+              [loginNeed]="!isUserLoggedIn"
+              [errorMsg]="introductoryText"
+              (reloadFn)="reloadComponent()"></request-error>
+<div *ngIf="!state.error" data-crlat="tabContent" class="favourites-wrapper">
+  <top-bar *ngIf="displayPageHeader" [title]="'sb.favouriteMatches'" [path]="'favourites'" data-crlat="topBar"></top-bar>
+
+  <div *ngIf="applyingParams" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+
+  <div class="container-content" *ngIf="!applyingParams" data-crlat="accordionsList">
+    <div class="container-inner-content" data-crlat="favourites.group" *ngIf="filteredMatches?.length && isUserLoggedIn">
+      <odds-card-header *ngIf="showHeader"
+                        [events]="matches"
+                        data-crlat="eventOddsHeader">
+      </odds-card-header>
+
+      <ng-container *ngFor="let match of filteredMatches; trackBy: trackById">
+        <odds-card-component *ngIf="isFavourite([match])"
+                             [event]="match"
+                             [widget]="true"
+                             [selectedMarket]="match.markets[0].name"
+                             [gtmModuleTitle]="'favourites'"
+                             data-crlat="favourites.groupItem">
+        </odds-card-component>
+      </ng-container>
+    </div>
+
+    <div class="item-inner text-center"
+         *ngIf="isNoMatchesTextShown"
+         data-crlat="widgetLoggedText"
+         [i18n]="'sbdesktop.noFavouriteMatches'">
+    </div>
+    <show-all-button
+      *ngIf="isShowAllButtonShown"
+      (click)="toggleShowAllButton()"
+      [allShown]="isShowAll">
+    </show-all-button>
+	</div>
+</div>

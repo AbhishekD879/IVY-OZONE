@@ -1,0 +1,10 @@
+cms:
+    brand: ladbrokes
+promosandbox:
+    distributed:
+        prefix: TST0
+    topic:
+        promo-config:
+            concurrency: 1
+            groupId: PROMO_CONFIG
+            name: ${promosandbox.distributed.prefix}_promo-config

@@ -1,0 +1,253 @@
+@use "sass:math";
+.sport-ribbon-menu {
+
+  .layer {
+    background-color: rgba(22,88,156,0.7);
+    text-align: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .sport-name {
+    color: $color-yellow;
+    font-style: italic;
+    font-size: 18px;
+    font-weight: bolder;
+    position: relative;
+    top: 40%;
+    text-transform: uppercase;
+    z-index: 1;
+  }
+
+  .sport-item {
+    background: url('../images/allSports.jpg') center no-repeat;
+    height: 65px;
+    display: block;
+    position: relative;
+    margin: 10px;
+    &:after {
+      content: '';
+      left: 0;
+      position: absolute;
+      bottom: 0;
+    }
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  @mixin image-sprite-bg($sprite) {
+    $sprite-image: nth($sprite, 9);
+    $sprite-image-bare: str-slice($sprite-image,1, -1);/* ~`"#{$sprite-image}".slice(1, -1)`; */
+    $sprite-offset-x: nth($sprite, 3);
+    $sprite-offset-y: nth($sprite, 4);
+    background-image: url($sprite-image-bare);
+    background-position: ceil(math.div($sprite-offset-x, 2)) ceil(math.div($sprite-offset-y, 2));
+    background-size: ceil(math.div($spritesheet-width, 2)) ceil(math.div($spritesheet-height, 2));
+    height: ceil(math.div(nth($sprite, 6), 2));
+    width: ceil(math.div(nth($sprite, 5), 2));
+    background-repeat: no-repeat;
+ }
+
+  .archery {
+    background-position: 0 -2015px;
+    &:after {
+      @include image-sprite-bg($archery);
+    }
+  }
+  .athletics {
+    background-position: 0 -1950px;
+    &:after {
+      @include image-sprite-bg($athletics);
+    }
+  }
+
+  .badminton {
+    background-position: 0 -1885px;
+    &:after {
+      @include image-sprite-bg($badminton);
+    }
+  }
+  .basketball {
+    background-position: 0 -1820px;
+    &:after {
+      @include image-sprite-bg($basketball);
+    }
+  }
+  .beach_volleyball {
+    background-position: 0 -1755px;
+    &:after {
+      @include image-sprite-bg($beachvolleyball);
+    }
+  }
+  .boxing {
+    background-position: 0 -1690px;
+    &:after {
+      @include image-sprite-bg($boxing);
+    }
+  }
+  .canoeing {
+    background-position: 0 -1625px;
+    &:after {
+      @include image-sprite-bg($canoeing);
+    }
+  }
+  .cycling {
+    background-position: 0 -1560px;
+    &:after {
+      @include image-sprite-bg($cycling);
+    }
+  }
+  .diving {
+    background-position: 0 -1495px;
+    &:after {
+      @include image-sprite-bg($diving);
+    }
+  }
+  .equestrian {
+    background-position: 0 -1430px;
+    &:after {
+      @include image-sprite-bg($equestrian);
+    }
+  }
+  .fencing {
+    background-position: 0 0;
+    &:after {
+      @include image-sprite-bg($fencing);
+    }
+  }
+  .football {
+    background-position: 0 -1365px;
+    &:after {
+      @include image-sprite-bg($football);
+    }
+  }
+  .golf {
+    background-position: 0 -1300px;
+    &:after {
+      @include image-sprite-bg($golf);
+    }
+  }
+  .gymnastics {
+    background-position: 0 -1235px;
+    &:after {
+      @include image-sprite-bg($gymnastics);
+    }
+  }
+  .handball {
+    background-position: 0 -1170px;
+    &:after {
+      @include image-sprite-bg($handball);
+    }
+  }
+  .hockey {
+    background-position: 0 -1105px;
+    &:after {
+      @include image-sprite-bg($hockey);
+    }
+  }
+  .judo {
+    background-position: 0 -1040px;
+    &:after {
+      @include image-sprite-bg($judo);
+    }
+  }
+  .modern_pentathlon, .modern_pentathlo {
+    background-position: 0 -975px;
+    &:after {
+      @include image-sprite-bg($pentathlon);
+    }
+  }
+  .olympics {
+    background-position: 0 -2080px;
+    &:after {
+      @include image-sprite-bg($olimpicsspesial);
+    }
+  }
+  .rowing {
+    background-position: 0 -910px;
+    &:after {
+      @include image-sprite-bg($rowing);
+    }
+  }
+  .rugby_union {
+    background-position: 0 -845px;
+    &:after {
+      @include image-sprite-bg($rugbyunion);
+    }
+  }
+  .sailing {
+    background-position: 0 -780px;
+    &:after {
+      @include image-sprite-bg($sailing);
+    }
+  }
+  .shooting {
+    background-position: 0 -715px;
+    &:after {
+      @include image-sprite-bg($shooting);
+    }
+  }
+  .swimming {
+    background-position: 0 -650px;
+    &:after {
+      @include image-sprite-bg($swimming);
+    }
+  }
+  .syn_swimming {
+    background-position: 0 -585px;
+    &:after {
+      @include image-sprite-bg($synswimming);
+    }
+  }
+  .table_tennis {
+    background-position: 0 -520px;
+    &:after {
+      @include image-sprite-bg($tabletennis);
+    }
+  }
+  .taekwondo {
+    background-position: 0 -455px;
+    &:after {
+      @include image-sprite-bg($taekwondo);
+    }
+  }
+  .tennis {
+    background-position: 0 -390px;
+    &:after {
+      @include image-sprite-bg($tennis);
+    }
+  }
+  .triathlon {
+    background-position: 0 -325px;
+    &:after {
+      @include image-sprite-bg($triathlon);
+    }
+  }
+  .volleyball {
+    background-position: 0 -260px;
+    &:after {
+      @include image-sprite-bg($volleyball);
+    }
+  }
+  .water_polo{
+    background-position: 0 -195px;
+    &:after {
+      @include image-sprite-bg($waterpolo);
+    }
+  }
+  .weightlifting {
+    background-position: 0 -130px;
+    &:after {
+      @include image-sprite-bg($weightlifting);
+    }
+  }
+  .wrestling {
+    background-position: 0 -65px;
+    &:after {
+      @include image-sprite-bg($wrestling);
+    }
+  }
+}
+
+

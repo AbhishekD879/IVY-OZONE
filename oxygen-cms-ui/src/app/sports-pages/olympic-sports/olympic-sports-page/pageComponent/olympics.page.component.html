@@ -1,0 +1,50 @@
+<div class="card" *ngIf="!isLoading">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Olympics Page
+      <small>Amount of in App Sports: {{sports.inApp}}, Amount of in Inplay Sports: {{sports.inPlay}}, Amount of in Outright Sports: {{sports.outright}}</small>
+    </h2>
+  </div>
+</div>
+<div class="card" *ngIf="!isLoading">
+  <div class="body">
+    <!-- search and download button.-->
+    <div *ngIf="olympicsPagesData" class="row clearfix">
+      <div class="col-md-3">
+        <button (click)="addNewOlympicsPage()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create Olympics Page</span>
+        </button>
+      </div>
+      <div class="col-md-3">
+        <download-cvs [cvsData]="olympicsPagesData" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Sport" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <!-- main content, olympics pages list-->
+    <div *ngIf="olympicsPagesData">
+      <cms-data-table
+        [customTableData]="olympicsPagesData"
+        [customTableColumns]="dataTableColumns"
+        [filterString]="searchField"
+        [filterProperties]="filterProperties"
+        [actions]="['remove', 'edit']"
+        [reorder]="true"
+        (onElementsOrder)="reorderHandler($event)"
+        (onRemoveTableElement)="handleRemoveOlympicsPage($event)">
+      </cms-data-table>
+    </div>
+
+    <div *ngIf="getDataError">
+      Request Error
+    </div>
+  </div>
+</div>

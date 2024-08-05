@@ -1,0 +1,72 @@
+// Global styles
+@import 'global.variables.scss';
+@import '../../../../../app/edp/components/sportEventMain/sport-event-main.component.scss';
+
+.play-close-stream {
+  .live-stream-btn {
+    padding: 4px 0;
+    min-height: 20px;
+    min-width: 52px;
+    text-align: center;
+    background: $color-yellow-extra;
+    border-radius: 1px;
+    border: 1px solid $color-yellow-extra;
+    color: $lGray;
+    text-transform: uppercase;
+    font-size: $font-size-sm;
+    font-weight: bold;
+    line-height: 1;
+    &:hover{
+      opacity: 0.85;
+      color: $lGray;
+    }
+    &:active{
+      background-color: $color-orange-light2;
+      opacity: 1;
+      color: $lGray;
+    }
+
+    &.active {
+      background: transparent;
+      color: $color-yellow-extra;
+    }
+
+    .odds-icon-stream {
+      width: 7px;
+      height: 8px;
+      vertical-align: middle;
+      margin-right: 4px;
+    }
+  }
+}
+
+.notification-icon-wrapper {
+  margin-left: 12px;
+
+  svg {
+    display: block;
+    width: 27px;
+    height: 21px;
+  }
+}
+
+:host ::ng-deep .snb-sticky {
+  top: 98px;
+}
+.sub-top-bar {
+  display: inline-flex;
+  width: 100%;
+  padding: 9px 10px;
+  align-items: center;
+  background: #1D1F29;
+  border-top: 2px solid white;
+  border-bottom: 1px solid white;
+}
+.changeMatch {
+  display: block;
+  position: relative;
+  flex: 1 1 auto;
+}
+.change-match-lads-mobile {
+  display: flex;
+}

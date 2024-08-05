@@ -1,0 +1,53 @@
+@import '../../assets/styles/general.scss';
+@import '../../../../../app/questionEngine/components/resultsPage/results-page.component.scss';
+
+.result-page-wrapper {
+  .qe-endpage {
+    &-title {
+      overflow: hidden;
+    }
+    &-container {
+      button.qe-endpage-cta {
+        height: 42px;
+        border-radius: 21px;
+        font-size: $font-size-bit-lgr;
+        line-height: $line-height-xs;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.tabs-switcher-container {
+  .tab-item {
+    text-transform: uppercase;
+    border-top: 1px solid $tabSwitcherBorder;
+    border-bottom: 1px solid $tabSwitcherBorder;
+    font-size: $font-size-tablet;
+  }
+  .tab-item--active {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.25);
+  }
+  &:last-child {
+    border-left: 1px solid $tabSwitcherBorder;
+  }
+}
+
+.notificator {
+  background: $color-black;
+}
+
+.qe-dashed-baseline {
+  border-bottom: none;
+}
+
+:host ::ng-deep {
+  .qe-footer {
+    padding-top: 29px;
+    border-top: 1px solid rgba(0, 0, 0, 0.25);
+    .qe-footer-list-link {
+      padding: 13px;
+      font-family: $alt-font-family;
+    }
+  }
+}

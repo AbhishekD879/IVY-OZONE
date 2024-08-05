@@ -1,0 +1,60 @@
+<div *ngIf="navigationPoints" class="card">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Super Button Page
+      <small *ngIf="navigationPoints.length">Total Super Buttons Amount: {{navigationPoints.length}}</small>
+      <small *ngIf="!navigationPoints.length">No Super Buttons Found</small>
+    </h2>
+  </div>
+</div>
+
+<div *ngIf="navigationPoints" class="card">
+  <div class="body">
+    <!-- search and download button.-->
+    <div class="row clearfix">
+      <div class="col-md-2 m-b-0 white-space-nowrap ">
+        <button (click)="createNavigationPoint()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create Super Button</span>
+        </button>
+      </div>
+      <div class="segment-dropdown" class="col-md-4  m-b-0">
+        <cms-segment-dropdown [activeSegment]='selectedSegment'
+                              (selectedSegment)="segmentHandler($event)">
+        </cms-segment-dropdown>
+      </div>
+      <div *ngIf="navigationPoints.length" class="col-md-2  m-b-0">
+        <download-cvs [cvsData]="navigationPoints" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div class="col-md-4 m-b-0 super-button-search">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Super Button" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="navigationPoints.length && segmentChanged">
+      <div *ngIf="orderMessage" class="order-message">
+        {{ orderMessage }}
+      </div>
+      <cms-segment-data-table
+        [customTableData]="navigationPoints"
+        [selectedSegment]="selectedSegment"  
+        [reorder]="true"
+        (onElementsOrder)="reorderHandler($event)"
+        [customTableColumns]="dataTableColumns"
+        [actions]="['remove', 'edit']"
+        [filterString]="searchField"
+        [filterProperties]="searchableProperties"
+        (onRemoveTableElement)="removeHandler($event)">
+      </cms-segment-data-table>
+    </div>
+
+    <div>
+      <div *ngIf="!navigationPoints.length">No Super Buttons Found</div>
+    </div>
+  </div>
+</div>

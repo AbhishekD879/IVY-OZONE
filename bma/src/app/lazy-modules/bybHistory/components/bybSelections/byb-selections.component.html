@@ -1,0 +1,50 @@
+<!------added voidedBet condition to show Void text for voided bet-->
+<div *ngIf="voidedBet && isFiveASideBet && betSettled && !wonBet && !lostBet" class="byb-void">
+  <div class="void" [i18n]="'byb.voidtext'"></div>
+</div>
+<div *ngFor="let sel of selections; trackBy: trackBySelectionId" 
+[ngClass]="(betSettled && voidedBet && isFiveASideBet) ? 'byb-outcome' : 'byb-outcome-unsettled-bet'" data-crlat="bybOutcome">
+  <div class="outcome-title-container">
+    <div data-crlat="outcomeTitle" *ngIf="!isFiveASideBet"  class="outcome-title" [textContent]="sel.title"></div>
+    <div *ngIf="betSettled && voidedBet && isFiveASideBet"
+    [ngClass]= "sel.isVoided ? 'outcome-title' : 'fade-title'"  [textContent]="sel.title"></div>
+    <div *ngIf="!betSettled && isFiveASideBet" class="outcome-title" [textContent]="sel.title"></div>
+    <div *ngIf="betSettled && isFiveASideBet && (wonBet || lostBet)"  class="outcome-title" [textContent]="sel.title"></div>
+    <div class="tooltip-container" *ngIf="sel.status !== 'prePlay2h' && !sel.status && sel.showBetStatusIndicator === false && !voidBet">
+      <span class="info-tooltip" (click)="toggleTooltip($event, sel)">
+        <svg>
+          <use xlink:href="#info-icon-bg"></use>
+        </svg>
+      </span>
+      <span *ngIf="sel.showTooltip" class="tooltip-arrow"></span>
+      <span class="stats-tooltip"
+            [align-tooltip]
+            [infoIconXPosition]="infoTooltipIconXPosition"
+            [isUsedFromWidget]="isUsedFromWidget"
+            *ngIf="sel.showTooltip"
+            [i18n]="'byb.statsUnavailable'"></span>
+    </div>
+  </div>
+  <div class="outcome-title-lineup" *ngIf="isFiveASideBet">
+    <div *ngIf="sel.isVoided && !wonBet && !lostBet " class="line-up" [i18n]="'byb.notInStartingLineUp'"></div>
+  </div>
+  <div *ngIf="sel.desc && !isFiveASideBet || sel.desc && (isFiveASideBet && !voidedBet)" class="outcome-desc" data-crlat="outcomeDesc" [textContent]="sel.desc"></div>
+  <!---comenting this as of now we dont need any outline and bullets--->
+  
+   <div class="outcome-line" 
+   *ngIf="((isFiveASideBet && !voidedBet) || ( voidedBet && !isFiveASideBet) || ( wonBet || lostBet)|| (!isFiveASideBet || (!voidedBet && isFiveASideBet)))"
+  ></div>
+  <div *ngIf="!sel.showBetStatusIndicator && (!isFiveASideBet || (!voidedBet && isFiveASideBet))" class="outcome-bullet" ></div>
+  <div *ngIf="sel.showBetStatusIndicator && sel.showBetStatusIndicator && voidBet && betBuilder" class="outcome-bullet" ></div>
+  <div *ngIf="sel.stats === 'prePlay2h'" class="outcome-bullet" ></div>
+  <bet-status-indicator class="outcome-status-indicator"
+                        *ngIf="betTrackingEnabled && sel.showBetStatusIndicator && !voidBet && sel.stats !== 'prePlay2h'"
+                        [status]="sel.status"
+                        [isBetSettled]="betSettled"></bet-status-indicator>
+
+  <!-- Progress bar and stats description -->
+  <div class="bet-progress" *ngIf="betTrackingEnabled && sel.progress">
+    <byb-progress-bar *ngIf="!betSettled && !(isFiveASideBet && sel.isCleanSheetMarket) " [min]="0" [max]="sel.progress.target" [value]="sel.progress.current"></byb-progress-bar>
+    <div class="progress-desc"  *ngIf="!voidedBet && !(isFiveASideBet && sel.isCleanSheetMarket)" [textContent]="sel.progress.desc"></div>
+  </div>
+</div>

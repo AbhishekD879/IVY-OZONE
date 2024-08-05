@@ -1,0 +1,58 @@
+<!-- events -->
+<ng-container *ngIf="!state.loading && !state.error">
+  <div class="competition-type-events" [class.competition-filters]="competitionFilters.length">
+    <!--- Subheader -->
+    <top-bar [title]="typeName" *ngIf="!isOnHomePage && typeName">
+      <top-bar-body>
+        <competition-selector *ngIf="isTierOne" [sportId]="sportId" class="competition-selector"></competition-selector>
+      </top-bar-body>
+    </top-bar>
+    <breadcrumbs [competitionName]="typeName" *ngIf="typeName"></breadcrumbs>
+
+    <div class="page-inner" data-crlat="accordionsList">
+      <div class="page-segment" data-crlat="tabContent">
+        <!-- Competition tabs(Matches, Outrights) -->
+        <filter-buttons [items]="switchers" [position]="switcherPosition"></filter-buttons>
+
+        <!-- Time Filters -->
+        <lazy-component *ngIf="isSportEventFiltersEnabled && competitionFilters.length && switcherPosition === 0 && displayFilters"
+                        data-crlat="competitionFilters"
+                        moduleUri="@lazy-modules-module/competitionFilters/competitionFilters.module#CompetitionFiltersModule"
+                        [inputs]="{filters: competitionFilters, isCompetitionsPage: true, sportId: sportId, paddingTop: true}"
+                        [outputs]="['filterChange']"
+                        (event)="handleCompetitionFilterOutput($event)"
+        ></lazy-component>
+
+        <!--Outrights section-->
+        <competitions-outrights-tab [outrights]="outrights" [isLoaded]="isLoaded" *ngIf="switcherPosition === 1">
+        </competitions-outrights-tab>
+
+        <competitions-matches-tab class="tab-content competition-match-wrapper"
+          *ngIf="switcherPosition === 0"
+          [sport]="sport"
+          [eventsByCategory]="eventsByCategory"
+          [eventsByCategoryCopy]="eventsByCategoryCopy"
+          [isLoaded]="isLoaded"
+          [sportId]="sportId"
+          [competitionPage]="true"
+          [inner]="true"
+          data-crlat="accordionsList"
+          [targetTab]="targetTab">
+        </competitions-matches-tab>
+
+      </div>
+      <!--- Widget Side -->
+      <widgets class="widget-column" *ngIf="isFootball()" [sportConfig]="competitionConfig" [sportDetailPage]="'competitionsPage'"
+        [params]="widgetParams">
+      </widgets>
+    </div>
+  </div>
+</ng-container>
+
+<outlet-status [state]="state">
+  <request-error (reloadFn)="reloadComponent()"></request-error>
+</outlet-status>
+
+<lazy-component moduleUri="@lazy-modules-module/quickLinks/quick-links.module#QuickLinksModule"
+[inputs]="{applyCss: true}" entryComponent="QuickLinksComponent">
+  </lazy-component>

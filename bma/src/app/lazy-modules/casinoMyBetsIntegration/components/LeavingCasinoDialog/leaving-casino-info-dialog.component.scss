@@ -1,0 +1,115 @@
+@import 'global.variables.scss';
+$terms-color: #7b7b7b;
+
+.conf-box-dialog {
+  width: 280px;
+  .conf-box-header {
+    display: block;
+    margin-bottom: 0;
+    background: white;
+    padding: 12px 0 12px 12px;
+    height: 40px;
+    span {
+      font-family: $base-font-family;
+      font-weight: bold;
+      display: block;
+      text-transform: none;
+      text-align: left;
+    }
+  }
+  .conf-box-body {
+    padding: 20px 12px 12px 12px;
+    background: white;
+    .qn-text {
+      text-align: left;
+    }
+    .btn-list {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: row;
+      button {
+        background-color: $color-yellow-alt;
+        font-weight: bold;
+        height: 35px;
+        width: 119px;
+        border: 0px;
+      }
+    }
+  }
+}
+
+#casino-mybets-overlay {
+  @include display-flex();
+  @include justify-content(center);
+  @include align-items(center);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2009;
+  overflow: scroll;
+  color: $color-white;
+}
+
+.thanks {
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: bold;
+  height: 35px;
+  width: 119px;
+  margin-right: 1px;
+  line-height: 35px;
+  text-align: center;
+}
+
+.show-toggle {
+  @include display-flex();
+  @include align-items(center);
+  @include justify-content(center);
+  padding-top: 12px;
+  input[type="checkbox"] {
+    width: 12px;
+    height: 12px;
+    margin-right: 12px;
+  }
+  span{
+    font-family: $base-font-family;
+    font-size: 12px;
+    font-weight: bold;
+  }
+}
+
+.coral-overlay-background {
+  background: rgba(9, 56, 99, 0.9);
+}
+
+.ladbrokes-overlay-background {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.coral-header {
+  font-size: 13px;
+}
+
+.ladbrokes-header {
+  font-size: 15px;
+}
+
+.coral-qn-text {
+  color: rgb(65,73,78);
+  font-size: 14px;
+}
+
+.ladbrokes-qn-text {
+  color: rgb(119, 119, 119);
+  font-size: 13px;
+}
+
+.coral-body-color {
+  color: $color-blue;
+}
+
+.ladbrokes-body-color {
+  color: rgb(37,40,53);
+}

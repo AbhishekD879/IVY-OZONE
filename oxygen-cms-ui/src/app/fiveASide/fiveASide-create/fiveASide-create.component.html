@@ -1,0 +1,131 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>New 5 A Side Formation</h1>
+  <form [formGroup]="form" novalidate>
+    <div mat-dialog-content>
+      <div class="row">
+        <div class="col-md-12 p-b-20">
+          <mat-form-field class="full-width">
+            <input matInput
+                   [(ngModel)]="fiveASideFormation.title"
+                   placeholder="Title"
+                   formControlName="title"
+                   required trim="blur">
+          </mat-form-field>
+        </div>
+        <div class="col-md-12 p-b-20">
+          <mat-form-field class="full-width">
+            <mat-select required placeholder="Actual formation" formControlName="actualFormation">
+              <mat-option *ngFor="let actualFormation of formations" [value]="actualFormation">
+                {{ actualFormation | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input matInput
+                   [(ngModel)]="fiveASideFormation.position1"
+                   placeholder="Position 1"
+                   formControlName="position1"
+                   trim="blur">
+          </mat-form-field>
+        </div>
+        <div class="col-md-12 p-b-20">
+          <mat-form-field class="full-width">
+            <mat-select required placeholder="Stat 1" formControlName="stat1">
+              <mat-option *ngFor="let stat1 of marketTemplateNames" [value]="stat1">
+                {{ stat1 | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input matInput
+                   [(ngModel)]="fiveASideFormation.position2"
+                   placeholder="Position 2"
+                   formControlName="position2"
+                   trim="blur">
+          </mat-form-field>
+        </div>
+        <div class="col-md-12 p-b-20">
+          <mat-form-field class="full-width">
+            <mat-select required placeholder="Stat 2" formControlName="stat2">
+              <mat-option *ngFor="let stat2 of marketTemplateNames" [value]="stat2">
+                {{ stat2 | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input matInput
+                   [(ngModel)]="fiveASideFormation.position3"
+                   placeholder="Position 3"
+                   formControlName="position3"
+                   trim="blur">
+          </mat-form-field>
+        </div>
+        <div class="col-md-12 p-b-20">
+          <mat-form-field class="full-width">
+            <mat-select required placeholder="Stat 3" formControlName="stat3">
+              <mat-option *ngFor="let stat3 of marketTemplateNames" [value]="stat3">
+                {{ stat3 | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input matInput
+                   [(ngModel)]="fiveASideFormation.position4"
+                   placeholder="Position 4"
+                   formControlName="position4"
+                   trim="blur">
+          </mat-form-field>
+        </div>
+        <div class="col-md-12 p-b-20">
+          <mat-form-field class="full-width">
+            <mat-select required placeholder="Stat 4" formControlName="stat4">
+              <mat-option *ngFor="let stat4 of marketTemplateNames" [value]="stat4">
+                {{ stat4 | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input matInput
+                   [(ngModel)]="fiveASideFormation.position5"
+                   placeholder="Position 5"
+                   formControlName="position5"
+                   trim="blur">
+          </mat-form-field>
+        </div>
+        <div class="col-md-12 p-b-20">
+          <mat-form-field class="full-width">
+            <mat-select required placeholder="Stat 5" formControlName="stat5">
+              <mat-option *ngFor="let stat5 of marketTemplateNames" [value]="stat5">
+                {{ stat5 | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+      <button mat-button class="btn btn-sm bg-teal float-right"
+              [disabled]="!is5ASideFormationsValid()"
+              (click)="get5ASideFormations();"
+              [mat-dialog-close]="fiveASideFormation">Save
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,6 @@
+<div *ngIf="isLoaded" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+<ng-container *ngIf="splashConfig && isUsed$">
+    <div class="launch-banner-mob" (click)="openPopUp()">
+        <img [src]="launchImg" alt="launch-banner-d">
+    </div>
+</ng-container>

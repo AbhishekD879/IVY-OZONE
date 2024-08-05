@@ -1,0 +1,26 @@
+<div *ngFor="let market of event.markets">
+  <div class="odds-card sticky-virtual-scroll-item"
+       (click)="goToEvent(false, $event)"
+       *ngFor="let outcome of filterOutcomes(market.outcomes); trackBy:trackById">
+
+    <div class="odds-content" data-crlat="oddsContent">
+      <div class="odds-left" data-crlat="oddsLeft">
+        <div class="odds-names odds-names-wrap"
+             data-crlat="oddsNames"
+             [textContent]="nameOfEvent(outcome)"></div>
+      </div>
+      <div class="odds-right" data-crlat="oddsRight">
+        <price-odds-button [event]="event"
+                           [market]="market"
+                           [outcome]="outcome"
+                           [gtmModuleTitle]="gtmModuleTitle">
+        </price-odds-button>
+      </div>
+    </div>
+    <div class="odds-footer" data-crlat="oddsFooter" *ngIf="startTime">
+      <div class="odds-left" data-crlat="oddsLeft">
+        <span [textContent]="eventTime" data-crlat="eventDay"></span>
+      </div>
+    </div>
+  </div>
+</div>

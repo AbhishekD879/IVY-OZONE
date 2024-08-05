@@ -1,0 +1,8 @@
+<div class="toggle-switch">
+  <input type="checkbox"
+         [attr.id]="componentId"
+         [checked]="initialState"
+         [disabled]="disabled"
+         #switcher (change)="onChange($event, switcher.checked)">
+  <label [attr.for]="componentId" data-crlat="toggleSwitch" (click)="onClick($event)"></label>
+</div>

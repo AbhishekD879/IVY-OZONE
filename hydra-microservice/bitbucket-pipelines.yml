@@ -1,0 +1,31 @@
+image: java:8
+
+clone:
+  depth: full
+
+pipelines:
+
+  default:
+    - step:
+        name: sonarqube (test, build)
+        caches:
+          - gradle
+          - sonarcloud
+        script:
+          - ./gradlew test build sonarqube
+
+  pull-requests:
+    '**':
+      - step:
+          caches:
+            - gradle
+            - sonarcloud
+          script:
+            - ./gradlew test build sonarqube
+                -Dsonar.pullrequest.key=$BITBUCKET_PR_ID
+                -Dsonar.pullrequest.base=$BITBUCKET_PR_DESTINATION_BRANCH
+                -Dsonar.pullrequest.branch=$BITBUCKET_BRANCH
+
+definitions:
+  caches:
+    sonarcloud: ~/.sonar/cache

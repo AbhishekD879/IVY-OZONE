@@ -1,0 +1,203 @@
+@import 'global.variables.scss';
+.quick-switch {
+  font-family: $base-font-family;
+  position: fixed;
+  top: 0;
+  left: -9999px;
+  z-index: 1001;
+
+  .overlay {
+    transition: opacity .25s .05s linear;
+    background: $popup-overlay-color;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 0;
+    &-mobile {
+      top: 0;
+    }
+    &-coral-desktop {
+      top: 151px;
+    }
+    &-lads-desktop {
+      top: 147px;
+    }
+  }
+  .close-panel {
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+  .quick-switch-holder {
+    position: absolute;
+    z-index: 1000;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: $color-gray;    
+    will-change: transform;
+    transform: translate3d(0, 100%, 0);
+    &-mobile {
+      width: 100%;
+      position: fixed;
+      height: 100%;
+      bottom: 0px;
+      height: 53.8%;
+    }
+    &-desktop {
+      height: 56.3%;
+    }
+  }
+  &.active {
+    transition: all .3s ease-in-out;
+
+    .overlay {
+      transition: opacity .2s linear;
+      opacity: 1;
+    }
+    .quick-switch-holder {
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  .quick-switch-frame {
+    overflow: auto;
+    height: 100%;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0px);
+    &-mobile {
+      min-height: 250px;
+      max-height: calc(100% - 36px);
+      padding-bottom: $quick-switch-bottom-padding;
+    };
+
+    @media #{$mqMobile} {
+      @supports (padding-bottom: constant(safe-area-inset-bottom)) {
+        &-mobile {
+          --safe-area-inset-bottom: constant(safe-area-inset-bottom);
+          padding-bottom: calc(var(--safe-area-inset-bottom) +  $quick-switch-bottom-padding);
+         &-ios-coral{
+          padding-bottom: calc(var(--safe-area-inset-bottom) +  $quick-switch-bottom-padding - 17px);
+         }
+        }
+      }
+  
+      @supports (padding-bottom: env(safe-area-inset-bottom)) {
+        &-mobile {
+          --safe-area-inset-bottom: env(safe-area-inset-bottom);
+          padding-bottom: calc(var(--safe-area-inset-bottom) +  $quick-switch-bottom-padding);
+          &-ios-coral{
+            padding-bottom: calc(var(--safe-area-inset-bottom) +  $quick-switch-bottom-padding - 17px);
+           }
+        }
+      }
+    }
+    &-coral {
+      max-height: calc(100% - 40px);
+      ::ng-deep {
+      competitions-matches-tab {
+        display: block;
+          .quick-switch-holder {
+            margin: -5px 0px 0px 0px;
+            .odds-card-header {
+              .odds-header-title {
+                font-weight: 700;
+              }
+              .odds-right {
+                font-weight: 700;
+              }
+            }
+          }
+        }
+      }
+    }
+    &-lads {
+      max-height: calc(100% - 36px);
+      ::ng-deep {
+      competitions-matches-tab {
+        display: block;
+          .quick-switch-holder {
+            margin: 5px 0px 0px 0px;
+            .odds-card-header {
+              .odds-header-title {
+                text-transform: uppercase;
+                font-weight: 700;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .quick-switch-title {
+    background: $quick-switch-bg-color;
+    height: 40px;
+    position: relative;
+    padding: 7px 20px;
+    font-size: 16px;
+    text-align: center;
+    strong {
+      color: $color-white;
+      height: $matchesheight-quickswitch;
+    }
+    .close-menu {
+      svg {
+        fill: $color-white;
+        width: 15px;
+        height: 15px;
+      }
+    }
+  }
+  .quick-switch-title-lads {
+    background: $lGrayLight;
+    height: 36px;
+    position: relative;
+    padding: 7px 10px 10px 10px;
+    font-size: 16px;
+    strong {
+      color: $lGray;
+      height: 15px;
+    }
+    .close-menu {
+      svg {
+        fill: $lBlack-medium;
+        width: 12px;
+        height: 12px;
+      }
+    }
+  }
+  .quick-switch-title, .quick-switch-title-lads{
+    strong {
+        font-family: $base-font-family;
+        font-size: $fontsize-matches;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: -0.006px;
+        text-transform: uppercase;
+        height: $matchesheight-quickswitch;
+        display: inline-block;
+    }
+    .close-menu {
+      position: absolute;
+      top: 50%;
+      right: 8px;
+      will-change: transform;
+      transform: translateY(-50%);
+      padding: 5px;
+      background: none;
+      border: 0;
+      line-height: 0;
+    }
+  }
+}
+
+::ng-deep .quick-switch-scroll-overlay {
+  /* disable scrolling on mobile devices */
+  overflow: hidden;
+  body {
+      /* disable scrolling on mobile devices */
+      overflow: hidden;
+  }
+}

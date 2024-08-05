@@ -1,0 +1,10 @@
+<button class="btn btn-boosted1" [disabled]="disabled" [ngClass]="boostedVal ? 'boosted-bg' : ''" data-crlat="oddsBoostButton">
+  <span class="boost-indicator" data-crlat="boostIndicator">
+    <svg>
+      <use *ngIf="!boostedVal" xlink:href="#boost-icon"></use>
+      <use *ngIf="boostedVal" xlink:href="#odds-boost-icon-dark"></use>
+    </svg>
+  </span>
+  <span class="boost-text" [ngClass]="{'boosted': boostedVal}" [i18n]="oddsBoostLabel">
+  </span>
+</button>

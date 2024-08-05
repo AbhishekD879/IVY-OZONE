@@ -1,0 +1,793 @@
+<div class="card">
+  <div class="header">
+    <h2 class="has-activity-badge">
+      <span [textContent]="FIRST_BET.onBoardingTitle"></span>
+      <create-updated-at-by *ngIf="onBoardingFirstBet" [collection]="onBoardingFirstBet"></create-updated-at-by>
+    </h2>
+  </div>
+  <div class="body" *ngIf="onBoardingFirstBet">
+    <div class="row">
+      <div class="col-sm-5">
+        <mat-checkbox color="primary" [(ngModel)]="onBoardingFirstBet.isEnable">
+          Enable Tutorial
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Months
+        </span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width">
+          <input matInput #inputLimit placeholder="Enter months here" type="number" name="months" pl trim="blur"
+            maxlength="2" min="0" max="99" [(ngModel)]="onBoardingFirstBet.months">
+        </mat-form-field>
+        <mat-hint class="col-red" *ngIf="onBoardingFirstBet?.months?.length > 2">
+          Can enter upto two digits only.
+        </mat-hint>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Banner Icon Upload*
+        </span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Main Image" [(ngModel)]="onBoardingFirstBet.fileName" [value]="onBoardingFirstBet.fileName" disabled>
+          <mat-hint class="col-red" *ngIf="!onBoardingFirstBet?.fileName">Banner Icon should not be empty.</mat-hint>
+        </mat-form-field>
+        <small>Note* The above uploaded image supports PNG, JPEG, JPG, SVG formats.</small>
+      </div>
+      <div class="col-md-4">
+          <div style="display:none;"><input #bannerIconUpload (change)="prepareToUploadFile($event)" type="file"
+              value="upload" /></div>
+          <button type="button" (click)="handleUploadImageClick()"
+            class="image-btn btn bg-teal waves-effect">{{getButtonName(onBoardingFirstBet.fileName)}}</button>
+          <button type="button" (click)="removeBannerIcon()"
+            class="image-btn btn bg-red waves-effect">Remove File</button>
+      </div>
+  </div>
+  </div>
+</div>
+
+
+<div class="card" *ngIf="onBoardingFirstBet">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Module Name
+        </span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter module name here" type="text" pl trim="blur"
+            [(ngModel)]="onBoardingFirstBet.moduleName">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Module Description
+        </span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter module description here" type="text" pl trim="blur"
+            [(ngModel)]="onBoardingFirstBet.moduleDiscription">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-10 m-b-0 m-t-20">
+        <date-range *ngIf="removeDate" [isSetDateButtons]="true" [startDate]="onBoardingFirstBet.displayFrom" [isSetEndDateBtnEnable]="isSetEndDateBtnEnable"
+          [endDate]="onBoardingFirstBet.displayTo" [startPlaceholder]="'Module Start Date*'"
+          [endPlaceholder]="'Module End Date*'" [placeholderColumn]="true" (onEndDateUpdate)="onEndDateUpdate($event)" (onDateUpdate)="handleDateUpdate($event)"
+          [checkEndDateEnable]="checkEndDateEnable" [isEndDateEnable]="checkEndDateEnable">
+        </date-range>
+        <date-range *ngIf="!removeDate" [isSetDateButtons]="true" [startDate]="onBoardingFirstBet.displayFrom" [isSetEndDateBtnEnable]="isSetEndDateBtnEnable"
+          [endDate]="onBoardingFirstBet.displayTo" [startPlaceholder]="'Module Start Date*'"
+          [endPlaceholder]="'Module End Date*'" [placeholderColumn]="true"  (onEndDateUpdate)="onEndDateUpdate($event)" (onDateUpdate)="handleDateUpdate($event)"
+          [checkEndDateEnable]="checkEndDateEnable" [isEndDateEnable]="checkEndDateEnable">
+        </date-range>
+        <mat-hint class="col-red" *ngIf="endDateValid() && !onBoardingFirstBet.expiryDateEnabled">
+          End date should be greater than start date
+        </mat-hint>
+        <div class="row">
+          <div class="col-sm-5">
+            <mat-checkbox color="primary" (change)="isExpiryDateChecked()"
+              [(ngModel)]="onBoardingFirstBet.expiryDateEnabled" [value]="onBoardingFirstBet.expiryDateEnabled">
+              No Expiry Date Enabler
+            </mat-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <form *ngIf="onBoardingFirstBet" [formGroup]="firstBetform">
+    <div class="card" *ngIf="onBoardingFirstBet">
+      <div class="header">
+        <h2 [textContent]="FIRST_BET.entryPointTitle"></h2>
+      </div>
+      <div class="body">
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">Banner Title*
+            </span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Enter banner title here" formControlName="homePageTitle" type="text" pl
+                trim="blur" required [(ngModel)]="onBoardingFirstBet.homePage.title">
+            </mat-form-field>
+            <mat-hint class="col-red" *ngIf="firstBetform.get('homePageTitle').value?.length === 0">
+              This field is <strong>required</strong>
+            </mat-hint>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">
+              Banner Description*
+            </span>
+          </div>
+          <div class="col-md-8">
+            <tinymce-editor class="tinymce-layout" [minEditorStyles]=true
+              [pageName]="'onBoardingFirstBet'" [pageItemId]="onBoardingFirstBet.id"
+              (outputEditorData)="updateFirstbetDescription($event, 'homePage.description' , 'homePageDesc')"
+              [initialEditorContent]="firstBetform.controls['homePageDesc'].value || ''"></tinymce-editor>
+            <mat-hint class="col-red" *ngIf="firstBetform.controls['homePageDesc'].value.length ===0">
+              This field is <strong>required</strong></mat-hint>
+            <mat-hint class="col-red"
+              *ngIf="(firstBetform.get('homePageDesc').invalid && firstBetform.get('homePageDesc').errors.splitTagsAndCheckLength)">
+             This Property Should not exceed {{charLimit}} characters</mat-hint>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label"> Start button text*
+            </span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Enter button text here" type="text" pl trim="blur"
+                formControlName="homePageBtn" [(ngModel)]="onBoardingFirstBet.homePage.button">
+            </mat-form-field>
+            <mat-hint class="col-red" *ngIf="firstBetform.get('homePageBtn').value?.length === 0">
+              This field is <strong>required</strong>
+            </mat-hint>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" *ngIf="onBoardingFirstBet">
+      <div class="header">
+        <h2>Don't need help</h2>
+      </div>
+      <div class="body">
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">Banner Title*
+            </span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Enter banner title here" type="text" pl trim="blur"
+                formControlName="confirmBannerBtnTitle" [(ngModel)]="onBoardingFirstBet.button.title">
+            </mat-form-field>
+            <mat-hint class="col-red" *ngIf="firstBetform.get('confirmBannerBtnTitle').value?.length === 0">
+              This field is <strong>required</strong>
+            </mat-hint>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">
+              Banner Description*
+            </span>
+          </div>
+          <div class="col-md-8">
+            <tinymce-editor class="tinymce-layout" [minEditorStyles]=true [pageName]="'onBoardingFirstBet'"
+              [pageItemId]="onBoardingFirstBet.id"
+              (outputEditorData)="updateFirstbetDescription($event, 'button.description','confirmBannerBtnDesc')"
+              [initialEditorContent]="firstBetform.controls['confirmBannerBtnDesc'].value || ''"></tinymce-editor>
+            <mat-hint class="col-red" *ngIf="firstBetform.controls['confirmBannerBtnDesc'].value.length ===0">
+              This field is <strong>required</strong></mat-hint>
+            <mat-hint class="col-red"
+              *ngIf="(firstBetform.get('confirmBannerBtnDesc').invalid && firstBetform.get('confirmBannerBtnDesc').errors.splitTagsAndCheckLength)">
+              This Property Should not exceed {{charLimit}} characters</mat-hint>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label"> Undo button text*
+            </span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Enter button text here" type="text" pl trim="blur"
+                formControlName="confirmBannerleftButtonDesc" [(ngModel)]="onBoardingFirstBet.button.leftButtonDesc">
+            </mat-form-field>
+            <mat-hint class="col-red" *ngIf="firstBetform.get('confirmBannerleftButtonDesc').value?.length === 0">
+              This field is <strong>required</strong>
+            </mat-hint>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label"> Got it button text*
+            </span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Enter button text here" type="text" pl trim="blur"
+                formControlName="confirmBannerRightButtonDesc" [(ngModel)]="onBoardingFirstBet.button.rightButtonDesc">
+            </mat-form-field>
+            <mat-hint class="col-red" *ngIf="firstBetform.get('confirmBannerRightButtonDesc').value?.length === 0">
+              This field is <strong>required</strong>
+            </mat-hint>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" *ngIf="onBoardingFirstBet">
+      <div class="header">
+        <h2 [textContent]="FIRST_BET.firstStep"></h2>
+      </div>
+      <div class="body">
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">Banner title*
+            </span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Enter banner title here" type="text" pl trim="blur"
+                formControlName="pickYourBetTitle" [(ngModel)]="onBoardingFirstBet.pickYourBet.title">
+            </mat-form-field>
+            <mat-hint class="col-red" *ngIf="firstBetform.get('pickYourBetTitle').value?.length === 0">
+              This field is <strong>required</strong>
+            </mat-hint>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">
+              Banner text*
+            </span>
+          </div>
+          <div class="col-md-8">
+            <tinymce-editor class="tinymce-layout" [minEditorStyles]=true [pageName]="'onBoardingFirstBet'"
+              [pageItemId]="onBoardingFirstBet.id"
+              (outputEditorData)="updateFirstbetDescription($event, 'pickYourBet.description' ,'pickYourBetDesc')"
+              [initialEditorContent]="firstBetform.controls['pickYourBetDesc'].value || ''"></tinymce-editor>
+            <!-- <div *ngIf="(firstBetform.get('pickYourBetDesc').invalid && firstBetform.get('pickYourBetDesc').errors)"> -->
+            <mat-hint class="col-red" *ngIf="firstBetform.controls['pickYourBetDesc'].value.length ===0">
+              This field is <strong>required</strong></mat-hint>
+            <mat-hint class="col-red"
+              *ngIf="(firstBetform.get('pickYourBetDesc').invalid && firstBetform.get('pickYourBetDesc').errors.splitTagsAndCheckLength)">
+              This Property Should not exceed {{charLimit}} characters</mat-hint>
+            <!-- </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" *ngIf="onBoardingFirstBet">
+      <div class="header">
+        <h2 [textContent]="FIRST_BET.secondStep">Step 2</h2>
+      </div>
+      <div class="header">
+        <h2>Quick Bet</h2>
+      </div>
+      <div class="body" formGroupName="placeYourBetFormGroup">
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">Banner title*
+            </span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Enter banner title here" type="text" pl trim="blur"
+                formControlName="placeYourBetDefaultTitle"
+                [(ngModel)]="onBoardingFirstBet.placeYourBet.defaultContent.title">
+            </mat-form-field>
+            <mat-hint class="col-red"
+              *ngIf="firstBetform.get(['placeYourBetFormGroup','placeYourBetDefaultTitle']).value?.length === 0">
+              This field is <strong>required</strong>
+            </mat-hint>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">Banner text*
+            </span>
+          </div>
+          <div class="col-md-8">
+            <tinymce-editor class="tinymce-layout" [minEditorStyles]=true [pageName]="'onBoardingFirstBet'"
+              [pageItemId]="onBoardingFirstBet.id" 
+              (outputEditorData)="updateFirstbetDescription($event, 'placeYourBet.defaultContent.description','placeYourBetDefaultDesc','placeYourBetFormGroup')"
+              [initialEditorContent]="firstBetform.get(['placeYourBetFormGroup','placeYourBetDefaultDesc']).value || ''">
+            </tinymce-editor>
+            <mat-hint class="col-red"
+              *ngIf="firstBetform.get(['placeYourBetFormGroup','placeYourBetDefaultDesc']).value.length ===0">
+              This field is <strong>required</strong></mat-hint>
+            <mat-hint class="col-red"
+              *ngIf="(firstBetform.get(['placeYourBetFormGroup','placeYourBetDefaultDesc']).invalid && firstBetform.get(['placeYourBetFormGroup','placeYourBetDefaultDesc']).errors.splitTagsAndCheckLength)">
+              This Property Should not exceed {{charLimit}} characters</mat-hint>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">Boost Banner title*
+            </span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Enter banner title here" type="text" pl trim="blur"
+                formControlName="placeYourBetBoostTitle" [(ngModel)]="onBoardingFirstBet.placeYourBet.boost.title">
+            </mat-form-field>
+            <mat-hint class="col-red"
+              *ngIf="firstBetform.get(['placeYourBetFormGroup','placeYourBetBoostTitle']).value?.length === 0">
+              This field is <strong>required</strong>
+            </mat-hint>
+          </div>
+        </div>
+        <div class="row" *ngIf="onBoardingFirstBet.placeYourBet.boost">
+          <div class="col-md-2">
+            <span class="mat-label">
+              Boost Banner text*
+            </span>
+          </div>
+          <div class="col-md-8">
+            <tinymce-editor class="tinymce-layout" [minEditorStyles]=true [pageName]="'onBoardingFirstBet'"
+              [pageItemId]="onBoardingFirstBet.id" 
+              (outputEditorData)="updateFirstbetDescription($event, 'placeYourBet.boost.description','placeYourBetBoostDesc','placeYourBetFormGroup')"
+              [initialEditorContent]="firstBetform.get(['placeYourBetFormGroup','placeYourBetBoostDesc']).value || ''">
+            </tinymce-editor>
+
+            <mat-hint class="col-red"
+              *ngIf="firstBetform.get(['placeYourBetFormGroup','placeYourBetBoostDesc']).value.length ===0">
+              This field is <strong>required</strong></mat-hint>
+            <mat-hint class="col-red"
+              *ngIf="(firstBetform.get(['placeYourBetFormGroup','placeYourBetBoostDesc']).invalid  && firstBetform.get(['placeYourBetFormGroup','placeYourBetBoostDesc']).errors.splitTagsAndCheckLength)">
+              This Property Should not exceed {{charLimit}} characters</mat-hint>
+          </div>
+        </div>
+      </div>
+      <div class="header">
+        <h2>Adding more selections to BetSlip</h2>
+      </div>
+      <div class="body">
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">Banner title*
+            </span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Enter banner title here" type="text" pl trim="blur"
+                formControlName="addSelectionTitle" [(ngModel)]="onBoardingFirstBet.addSelection.title">
+            </mat-form-field>
+            <mat-hint class="col-red" *ngIf="firstBetform.get('addSelectionTitle').value?.length === 0">
+              This field is <strong>required</strong>
+            </mat-hint>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">
+              Banner text*
+            </span>
+          </div>
+          <div class="col-md-8">
+            <tinymce-editor class="tinymce-layout" [minEditorStyles]=true [pageName]="'onBoardingFirstBet'"
+              [pageItemId]="onBoardingFirstBet.id"
+              (outputEditorData)="updateFirstbetDescription($event, 'addSelection.description', 'addSelectionDesc')"
+              [initialEditorContent]="firstBetform.controls['addSelectionDesc'].value || ''"></tinymce-editor>
+
+            <mat-hint class="col-red" *ngIf="firstBetform.controls['addSelectionDesc'].value.length ===0">
+              This field is <strong>required</strong></mat-hint>
+            <mat-hint class="col-red"
+              *ngIf="(firstBetform.get('addSelectionDesc').invalid && firstBetform.get('addSelectionDesc').errors.splitTagsAndCheckLength)">
+              This Property Should not exceed {{charLimit}} characters</mat-hint>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card" *ngIf="onBoardingFirstBet">
+      <div class="header">
+        <h2 [textContent]="FIRST_BET.thirdStep"></h2>
+      </div>
+      <div class="header">
+        <h2>Quick Bet/BetSlip - Bet Placed</h2>
+      </div>
+      <div class="body" formGroupName="betPlacedFormGroup">
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">Banner title*
+            </span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Enter banner title here" type="text" pl trim="blur"
+                formControlName="betPlacedDefaultTitle" [(ngModel)]="onBoardingFirstBet.betPlaced.defaultContent.title">
+            </mat-form-field>
+            <mat-hint class="col-red"
+              *ngIf="firstBetform.get(['betPlacedFormGroup','betPlacedDefaultTitle']).value?.length === 0">
+              This field is <strong>required</strong>
+            </mat-hint>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">
+              Banner text*
+            </span>
+          </div>
+          <div class="col-md-8">
+            <tinymce-editor class="tinymce-layout" [minEditorStyles]=true [pageName]="'onBoardingFirstBet'"
+              [pageItemId]="onBoardingFirstBet.id"
+              (outputEditorData)="updateFirstbetDescription($event, 'betPlaced.defaultContent.description', 'betPlacedDefaultDesc','betPlacedFormGroup')"
+              [initialEditorContent]="firstBetform.get(['betPlacedFormGroup','betPlacedDefaultDesc']).value || ''">
+            </tinymce-editor>
+
+            <mat-hint class="col-red"
+              *ngIf="firstBetform.get(['betPlacedFormGroup','betPlacedDefaultDesc']).value.length ===0">
+              This field is <strong>required</strong></mat-hint>
+            <mat-hint class="col-red"
+              *ngIf="(firstBetform.get(['betPlacedFormGroup','betPlacedDefaultDesc']).invalid && firstBetform.get(['betPlacedFormGroup','betPlacedDefaultDesc']).errors.splitTagsAndCheckLength)">
+              This Property Should not exceed {{charLimit}} characters</mat-hint>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">Button text*
+            </span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Enter button text here" type="text" pl trim="blur"
+                formControlName="betPlacedBtnDesc" [(ngModel)]="onBoardingFirstBet.betPlaced.buttonDesc">
+            </mat-form-field>
+            <mat-hint class="col-red"
+              *ngIf="firstBetform.get(['betPlacedFormGroup','betPlacedBtnDesc']).value?.length === 0">
+              This field is <strong>required</strong>
+            </mat-hint>
+          </div>
+        </div>
+
+      </div>
+      <div class="header">
+        <h2>Win Alert</h2>
+      </div>
+      <div class="body" formGroupName="betPlacedFormGroup">
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">Banner title*
+            </span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Enter banner title here" type="text" pl trim="blur"
+                formControlName="betPlacedWinAlertTitle" [(ngModel)]="onBoardingFirstBet.betPlaced.winAlert.title">
+            </mat-form-field>
+            <mat-hint class="col-red"
+              *ngIf="firstBetform.get(['betPlacedFormGroup','betPlacedWinAlertTitle']).value?.length === 0">
+              This field is <strong>required</strong>
+            </mat-hint>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">
+              Banner text*
+            </span>
+          </div>
+          <div class="col-md-8">
+            <tinymce-editor class="tinymce-layout" [minEditorStyles]=true [pageName]="'onBoardingFirstBet'"
+              [pageItemId]="onBoardingFirstBet.id"
+              (outputEditorData)="updateFirstbetDescription($event, 'betPlaced.winAlert.description', 'betPlacedWinAlertDesc','betPlacedFormGroup')"
+              [initialEditorContent]="firstBetform.get(['betPlacedFormGroup','betPlacedWinAlertDesc']).value || ''">
+            </tinymce-editor>
+            <mat-hint class="col-red"
+              *ngIf="firstBetform.get(['betPlacedFormGroup','betPlacedWinAlertDesc']).value.length ===0">
+              This field is <strong>required</strong></mat-hint>
+            <mat-hint class="col-red"
+              *ngIf="(firstBetform.get(['betPlacedFormGroup','betPlacedWinAlertDesc']).invalid && firstBetform.get(['betPlacedFormGroup','betPlacedWinAlertDesc']).errors.splitTagsAndCheckLength)">
+              This Property Should not exceed {{charLimit}} characters</mat-hint>
+          </div>
+        </div>
+
+      </div>
+      <div class="header">
+        <h2>Enter your stake on BetSlip</h2>
+      </div>
+      <div class="body" formGroupName="betSlipFormGroup">
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">Banner title*
+            </span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Enter banner title here" type="text" pl trim="blur"
+                formControlName="betSlipDefaultTitle" [(ngModel)]="onBoardingFirstBet.betSlip.defaultContent.title">
+            </mat-form-field>
+            <mat-hint class="col-red"
+              *ngIf="firstBetform.get(['betSlipFormGroup','betSlipDefaultTitle']).value?.length === 0">
+              This field is <strong>required</strong>
+            </mat-hint>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">
+              Banner text*
+            </span>
+          </div>
+          <div class="col-md-8">
+            <tinymce-editor class="tinymce-layout" [minEditorStyles]=true [pageName]="'onBoardingFirstBet'"
+              [pageItemId]="onBoardingFirstBet.id"
+              (outputEditorData)="updateFirstbetDescription($event, 'betSlip.defaultContent.description','betSlipDefaultDesc','betSlipFormGroup')"
+              [initialEditorContent]="firstBetform.get(['betSlipFormGroup','betSlipDefaultDesc']).value || ''">
+            </tinymce-editor>
+            <mat-hint class="col-red"
+              *ngIf="firstBetform.get(['betSlipFormGroup','betSlipDefaultDesc']).value.length ===0">
+              This field is <strong>required</strong></mat-hint>
+            <mat-hint class="col-red"
+              *ngIf="(firstBetform.get(['betSlipFormGroup','betSlipDefaultDesc']).invalid && firstBetform.get(['betSlipFormGroup','betSlipDefaultDesc']).errors.splitTagsAndCheckLength)">
+              This Property Should not exceed {{charLimit}} characters</mat-hint>
+          </div>
+        </div>
+
+      </div>
+      <div class="header">
+        <h2>BOOST available - BetSlip</h2>
+      </div>
+      <div class="body" formGroupName="betSlipFormGroup">
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">Banner title*
+            </span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Enter banner title here" type="text" pl trim="blur"
+                formControlName="betSlipBoostTitle" [(ngModel)]="onBoardingFirstBet.betSlip.boost.title">
+            </mat-form-field>
+            <mat-hint class="col-red"
+              *ngIf="firstBetform.get(['betSlipFormGroup','betSlipBoostTitle']).value?.length === 0">
+              This field is <strong>required</strong>
+            </mat-hint>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">
+              Boost Banner text*
+            </span>
+          </div>
+          <div class="col-md-8">
+            <tinymce-editor class="tinymce-layout" [minEditorStyles]=true [pageName]="'onBoardingFirstBet'"
+              [pageItemId]="onBoardingFirstBet.id"
+              (outputEditorData)="updateFirstbetDescription($event, 'betSlip.boost.description', 'betSlipBoostDesc','betSlipFormGroup')"
+              [initialEditorContent]="firstBetform.get(['betSlipFormGroup','betSlipBoostDesc']).value || ''">
+            </tinymce-editor>
+            <mat-hint class="col-red"
+              *ngIf="firstBetform.get(['betSlipFormGroup','betSlipBoostDesc']).value.length ===0">
+              This field is <strong>required</strong></mat-hint>
+            <mat-hint class="col-red"
+              *ngIf="(firstBetform.get(['betSlipFormGroup','betSlipBoostDesc']).invalid  && firstBetform.get(['betSlipFormGroup','betSlipBoostDesc']).errors.splitTagsAndCheckLength)">
+              This Property Should not exceed {{charLimit}} characters</mat-hint>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" *ngIf="onBoardingFirstBet">
+      <div class="header">
+        <h2 [textContent]="FIRST_BET.fourthStep"></h2>
+      </div>
+      <div class="body" formGroupName="betDetailsFormGroup">
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">Banner title*
+            </span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Enter banner title here" type="text" pl trim="blur"
+                [(ngModel)]="onBoardingFirstBet.betDetails.defaultContent.title"
+                formControlName="betDetailsDefaultTitle">
+            </mat-form-field>
+            <mat-hint class="col-red"
+              *ngIf="firstBetform.get(['betDetailsFormGroup','betDetailsDefaultTitle']).value?.length === 0">
+              This field is <strong>required</strong>
+            </mat-hint>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">
+              Banner text*
+            </span>
+          </div>
+          <div class="col-md-8">
+            <tinymce-editor class="tinymce-layout" [minEditorStyles]=true [pageName]="'onBoardingFirstBet'"
+              [pageItemId]="onBoardingFirstBet.id"
+              (outputEditorData)="updateFirstbetDescription($event, 'betDetails.defaultContent.description','betDetailsDefaultDesc','betDetailsFormGroup')"
+              [initialEditorContent]="firstBetform.get(['betDetailsFormGroup','betDetailsDefaultDesc']).value || ''">
+            </tinymce-editor>
+            <mat-hint class="col-red"
+              *ngIf="firstBetform.get(['betDetailsFormGroup','betDetailsDefaultDesc']).value.length ===0">
+              This field is <strong>required</strong></mat-hint>
+            <mat-hint class="col-red"
+              *ngIf="(firstBetform.get(['betDetailsFormGroup','betDetailsCashOutDesc']).invalid && firstBetform.get(['betDetailsFormGroup','betDetailsCashOutDesc']).errors.splitTagsAndCheckLength)">
+              This Property Should not exceed {{charLimit}} characters</mat-hint>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">Banner title*
+            </span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Enter banner title here" type="text" pl trim="blur"
+                [(ngModel)]="onBoardingFirstBet.betDetails.cashOut.title" formControlName="betDetailsCashOutTitle">
+            </mat-form-field>
+            <mat-hint class="col-red"
+              *ngIf="firstBetform.get(['betDetailsFormGroup','betDetailsCashOutTitle']).value?.length === 0">
+              This field is <strong>required</strong>
+            </mat-hint>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">
+              Cashout Banner text*
+            </span>
+          </div>
+          <div class="col-md-8">
+            <tinymce-editor class="tinymce-layout" [minEditorStyles]=true [pageName]="'onBoardingFirstBet'"
+              [pageItemId]="onBoardingFirstBet.id"
+              (outputEditorData)="updateFirstbetDescription($event, 'betDetails.cashOut.description','betDetailsCashOutDesc','betDetailsFormGroup')"
+              [initialEditorContent]="firstBetform.get(['betDetailsFormGroup','betDetailsCashOutDesc']).value || ''">
+            </tinymce-editor>
+            <mat-hint class="col-red"
+              *ngIf="firstBetform.get(['betDetailsFormGroup','betDetailsCashOutDesc']).value.length ===0">
+              This field is <strong>required</strong></mat-hint>
+            <mat-hint class="col-red"
+              *ngIf="(firstBetform.get(['betDetailsFormGroup','betDetailsCashOutDesc']).invalid && firstBetform.get(['betDetailsFormGroup','betDetailsCashOutDesc']).errors.splitTagsAndCheckLength)">
+              This Property Should not exceed {{charLimit}} characters</mat-hint>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card" *ngIf="onBoardingFirstBet" formGroupName="myBetsFormGroup">
+      <div class="header">
+        <h2 [textContent]="FIRST_BET.fifthStep"></h2>
+      </div>
+      <div class="body">
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">Banner title*
+            </span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Enter banner title here" type="text" pl trim="blur"
+                [(ngModel)]="onBoardingFirstBet.myBets.defaultContent.title" formControlName="myBetsDefaultTitle">
+            </mat-form-field>
+            <mat-hint class="col-red"
+              *ngIf="firstBetform.get(['myBetsFormGroup','myBetsDefaultTitle']).value?.length === 0">
+              This field is <strong>required</strong>
+            </mat-hint>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">
+              Banner text*
+            </span>
+          </div>
+          <div class="col-md-8">
+            <tinymce-editor class="tinymce-layout" [minEditorStyles]=true [pageName]="'onBoardingFirstBet'"
+              [pageItemId]="onBoardingFirstBet.id"
+              (outputEditorData)="updateFirstbetDescription($event, 'myBets.defaultContent.description','myBetsDefaultDesc','myBetsFormGroup')"
+              [initialEditorContent]="firstBetform.get(['myBetsFormGroup','myBetsDefaultDesc']).value || ''">
+            </tinymce-editor>
+            <mat-hint class="col-red"
+              *ngIf="firstBetform.get(['myBetsFormGroup','myBetsDefaultDesc']).value.length ===0">
+              This field is <strong>required</strong></mat-hint>
+            <mat-hint class="col-red"
+              *ngIf="(firstBetform.get(['myBetsFormGroup','myBetsDefaultDesc']).invalid && firstBetform.get(['myBetsFormGroup','myBetsCashOutDesc']).errors.splitTagsAndCheckLength)">
+              This Property Should not exceed {{charLimit}} characters</mat-hint>
+          </div>
+        </div>
+
+      </div>
+      <div class="header">
+        <h2>Cashout your Bets</h2>
+      </div>
+      <div class="body">
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">CashOut Banner title*
+            </span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Enter banner title here" type="text" pl trim="blur"
+                [(ngModel)]="onBoardingFirstBet.myBets.cashOut.title" formControlName="myBetsCashOutTitle">
+            </mat-form-field>
+            <mat-hint class="col-red"
+              *ngIf="firstBetform.get(['myBetsFormGroup','myBetsCashOutTitle']).value?.length === 0">
+              This field is <strong>required</strong>
+            </mat-hint>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">
+              Cashout Banner text*
+            </span>
+          </div>
+          <div class="col-md-8">
+            <tinymce-editor class="tinymce-layout" [minEditorStyles]=true [pageName]="'onBoardingFirstBet'"
+              [pageItemId]="onBoardingFirstBet.id"
+              (outputEditorData)="updateFirstbetDescription($event, 'myBets.cashOut.description', 'myBetsCashOutDesc','myBetsFormGroup')"
+              [initialEditorContent]="firstBetform.get(['myBetsFormGroup','myBetsCashOutDesc']).value || ''">
+            </tinymce-editor>
+            <mat-hint class="col-red"
+              *ngIf="firstBetform.get(['myBetsFormGroup','myBetsCashOutDesc']).value.length ===0">
+              This field is <strong>required</strong></mat-hint>
+
+            <mat-hint class="col-red"
+              *ngIf="(firstBetform.get(['myBetsFormGroup','myBetsCashOutDesc']).invalid && firstBetform.get(['myBetsFormGroup','myBetsCashOutDesc']).errors.splitTagsAndCheckLength)">
+              This Property Should not exceed {{charLimit}} characters</mat-hint>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label"> Thanks button text*
+            </span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Enter button text here" type="text" pl trim="blur"
+                [(ngModel)]="onBoardingFirstBet.myBets.buttonDesc" formControlName="myBetsBtnDesc">
+            </mat-form-field>
+            <mat-hint class="col-red" *ngIf="firstBetform.get(['myBetsFormGroup','myBetsBtnDesc']).value?.length === 0">
+              This field is <strong>required</strong>
+            </mat-hint>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
+<action-buttons #actionButtons [collection]="onBoardingFirstBet" (actionsEmitter)="actionsHandler($event);"
+  [fieldOrItemName]="'First Bet Placement'" [showRemoveButton]="false" [validateHandler]="verifyOnboardingFirstBet">
+</action-buttons>

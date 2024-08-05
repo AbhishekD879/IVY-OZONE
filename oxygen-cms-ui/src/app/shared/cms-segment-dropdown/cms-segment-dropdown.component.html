@@ -1,0 +1,23 @@
+<ng-container>
+    <div class="row segment">
+        <div class="col-md-3 m-b-0 mat-label">
+            Segment:
+        </div>
+        <div class="col-md-9 m-b-0 segment-dropdown">
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Filter by segment</mat-label>
+                <input type="text" placeholder="Search by segment" [(ngModel)]="selectedValue"
+                    aria-label="Filter by segment" matInput
+                    (input)="onSearch($event.target.value)" [matAutocomplete]="auto" 
+                    [disabled]="disabled"/>
+                    <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                <mat-autocomplete #auto="matAutocomplete" class="segment-panel" [panelWidth]="auto" 
+                    (optionSelected)="segmentChange()">
+                    <mat-option *ngFor="let segment of segmentsFilteredList" [value]="segment">
+                        {{segment}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+    </div>
+</ng-container>

@@ -1,0 +1,27 @@
+---
+- name: Create PublicProxy EC2 node
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    key_name: crlat-public
+    instance_type: t2.nano
+    security_group: pub-proxy
+    subnet_name: public
+    volume_size: 8
+    action: create
+    node_type: SingleNode
+    assign_public_ip: yes
+    tags:
+      Team: Automation
+      NodeType: "{{ node_type }}"
+      Name: public-proxy
+      ClusterName: PublicServices
+      ClusterNodeType: PublicProxy
+      s3mounts: crlat-storage
+      dockers: NginxPubProxy
+    num_nodes: 1
+  tasks:
+  - name: crlat.vpc
+    include_role:
+      name: crlat.vpc

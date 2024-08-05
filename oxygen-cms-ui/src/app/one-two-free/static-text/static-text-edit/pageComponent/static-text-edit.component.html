@@ -1,0 +1,153 @@
+<breadcrumbs *ngIf="staticTextOtf" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="staticTextOtf">
+  <div class="header">
+    <h2 class="waves-effect waves-block has-activity-badge">
+      One-Two-Free Static Text: {{staticTextOtf.pageName}}
+      <create-updated-at-by [collection]="staticTextOtf"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="!staticTextOtf.enabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="staticTextOtf">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-checkbox color="primary"
+                      [checked]="staticTextOtf.enabled"
+                      (change)="staticTextOtf.enabled = !staticTextOtf.enabled">
+          Active
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Title
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Title" [(ngModel)]="staticTextOtf.title" [value]="staticTextOtf.title"
+                 trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row" *ngIf="visibilityMapper.ctaMain">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Call to Action text
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Call To Action" [(ngModel)]="staticTextOtf.ctaText1"
+                 [value]="staticTextOtf.ctaText1" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row" *ngIf="visibilityMapper.cta">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Additional Call to Action text
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Additional Call To Action" [(ngModel)]="staticTextOtf.ctaText2"
+                 [value]="staticTextOtf.ctaText2" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Page Text
+        </span>
+      </div>
+      <div class="col-md-10">
+        <tinymce-editor
+          #staticTextPageText1
+          [pageName]="'static-text.page-text-1'"
+          [pageItemId]="'static-text.page-text-1'"
+          (outputEditorData)="updateText($event, 1)"
+          [initialEditorContent]="staticTextOtf.pageText1">
+        </tinymce-editor>
+      </div>
+    </div>
+    <div class="row" *ngIf="visibilityMapper.addTextOne">
+      <div class="col-md-2">
+        <span class="mat-label">
+          {{labelMapper.addTextOne}}
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width">
+             <textarea matInput placeholder="{{labelMapper.addTextOne}}"
+                       matTextareaAutosize
+                       matAutosizeMinRows="2"
+                       matAutosizeMaxRows="5"
+                       [(ngModel)]="staticTextOtf.pageText2"
+                       [value]="staticTextOtf.pageText2"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row" *ngIf="visibilityMapper.addTextTwo">
+      <div class="col-md-2">
+        <span class="mat-label">
+          {{labelMapper.addTextTwo}}
+        </span>
+      </div>
+      <div class="col-md-10">
+        <tinymce-editor
+          #staticTextPageText3
+          [pageName]="'static-text.page-text-3'"
+          [pageItemId]="'static-text.page-text-3'"
+          (outputEditorData)="updateText($event, 3)"
+          [initialEditorContent]="staticTextOtf.pageText3">
+        </tinymce-editor>
+      </div>
+    </div>
+    <div class="row" *ngIf="visibilityMapper.addTextThree">
+      <div class="col-md-2">
+        <span class="mat-label">
+          {{labelMapper.addTextThree}}
+        </span>
+      </div>
+      <div class="col-md-10">
+        <tinymce-editor
+          #staticTextPageText4
+          [pageName]="'static-text.page-text-4'"
+          [pageItemId]="'static-text.page-text-4'"
+          (outputEditorData)="updateText($event, 4)"
+          [initialEditorContent]="staticTextOtf.pageText4">
+        </tinymce-editor>
+      </div>
+    </div>
+    <div class="row" *ngIf="visibilityMapper.addTextFour">
+      <div class="col-md-2">
+        <span class="mat-label">
+          {{labelMapper.addTextFour}}
+        </span>
+      </div>
+      <div class="col-md-10">
+        <tinymce-editor
+          #staticTextPageText5
+          [pageName]="'static-text.page-text-5'"
+          [pageItemId]="'static-text.page-text-5'"
+          (outputEditorData)="updateText($event, 5)"
+          [initialEditorContent]="staticTextOtf.pageText5">
+        </tinymce-editor>
+      </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="staticTextOtf"
+  [validateHandler]="isValidModel"
+  [fieldOrItemName]="'pageName'"
+  [collection]="staticTextOtf"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

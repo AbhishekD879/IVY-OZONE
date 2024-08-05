@@ -1,0 +1,24 @@
+crlat_selenium:
+  image: crlat_selenium
+  environment:
+    AGENT_KEY: 8ad34d5b9f3a4b7fa26c5b7c9f40c6ad
+    AGENT_RESOURCES: voltron,node
+    MASTSER_AGENT_ENVIRONMENT: $GO_ENVIRONMENT_NAME
+    GO_SERVER: 52.209.107.151
+    MASTERHOST: $MYHOST
+    HEIGHT: 800
+    WIDTH: 480
+#  ports:
+#    - "5900-5950:5900-5950"
+#    https_proxy: http://172.23.78.19:3128
+#    http_proxy: http://172.23.78.19:3128
+  extra_hosts:
+    service.maxymiser.net: 127.0.0.1
+    mob-push.coral.co.uk: 127.0.0.1
+    at_mac_mini: 172.23.78.17
+    at_ub_tv: 172.23.78.18
+    at_ub_host: 172.23.78.19
+    invictus.coral.co.uk: 52.16.3.251
+    spark-br-tst.symphony-solutions.eu: 10.0.1.239
+  shm_size: 1024M
+  privileged: true

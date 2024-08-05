@@ -1,0 +1,128 @@
+/* *********************************************************************************************************************
+
+  OBJECTS:
+  So called “cosmetic free design patterns” such as a grid system
+
+********************************************************************************************************************* */
+
+// Base styles for the page
+// =============================================================================
+.page-inner {
+  background: $lGray-bg;
+}
+
+.page-segment {
+  padding: 1px;
+}
+
+.page-inner.page-inner-top-margin {
+  margin-top: 10px;
+}
+
+#page-wrapper {
+  min-width: $st-point;
+  margin: 0 auto;
+  max-width: 1600px;
+}
+
+.error-page-container {
+  width: 100%;
+}
+
+#page-content {
+  background: $lGray-bg;
+  padding-top: 10px;
+  width: 100%;
+  overflow: hidden;
+  min-height: initial;
+  @include display-flex();
+}
+
+#right-column {
+  @include flex(0,0,$right-column-width);
+  max-width: $right-column-width;
+
+  @media screen and (min-width: $lg-point) {
+    @include flex(0,0,$right-column-width-lg);
+    max-width: $right-column-width-lg;
+  }
+
+  @media screen and (max-width: 766px) {
+    display: block;
+  }
+
+  @media #{$mqLandscapeAndDesktop} {
+    padding-left: 0;
+    width: $right-column-width-lg;
+  }
+}
+
+// Styles for the page container
+// =============================================================================
+/* temporary added as we don't have story for this */
+.page-container.page-inner-container {
+  .container-content {
+    margin: 0;
+    border-radius: 0;
+  }
+}
+
+/* applied to the competition-type-events page for aligning of market selectors */
+.competition-match-wrapper {
+  position: relative;
+  .container-inner-content {
+    box-shadow: $global-box-shadow;
+    margin: 0 1px 10px 1px;
+  }
+}
+.container-inner-content {
+  margin: 0;
+  border-radius: 0;
+
+  &.spinner-loader {
+    margin: 10px auto;
+  }
+}
+.spinner-loader.small-loader {
+  padding-top: 15px;
+}
+
+.custom-input-container {
+  input {
+    overflow: hidden;
+
+    &:focus {
+      box-shadow: none;
+      outline: transparent 0;
+    }
+  }
+}
+
+/* market selectors */
+.custom-select {
+  &.market-selector {
+    select {
+      padding: 0 20px 0 50px;
+      line-height: 34px;
+    }
+  }
+}
+.bs-content {
+  .stakes-wrapper {
+    margin: 0;
+    padding: 0;
+  }
+  .accordion {
+    margin: 0;
+  }
+  .multiples-header ~ .stakes-wrapper {
+    padding: 0;
+  }
+  .bs-buttons-wrapper {
+    background-color: $lGray-bg;
+  }
+}
+
+#footer .time-panel {
+  line-height: 11px;
+}

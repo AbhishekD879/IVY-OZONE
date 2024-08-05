@@ -1,0 +1,7 @@
+<div class="eventVideoStream clearfix" *ngIf="streamingUrl">
+  <iframe [attr.src]="streamingUrl"
+          [attr.width]="frameWidth"
+          [attr.height]="frameHeight"
+          (load)="onIframeLoad()">
+  </iframe>
+</div>

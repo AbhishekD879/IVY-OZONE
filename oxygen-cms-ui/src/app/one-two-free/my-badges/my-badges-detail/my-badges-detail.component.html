@@ -1,0 +1,188 @@
+<div class="card">
+    <div class="header">
+        <div class="row">
+            <div class="col-md-10">
+                <h2 class="waves-effect waves-block">
+                    My Badges
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="card">
+    <div class="body">
+        <form #myBadgesForm="ngForm">
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="'My Badges Label*'">
+                    </span>
+                </div>
+                <div class="col-md-9">
+                    <mat-form-field class="full-width"
+                        [ngClass]="{'mat-form-field-invalid':myBadges?.label?.length > 50}">
+                        <input matInput type="text" name="badgeLabel" #badgeLabel=ngModel placeholder="My Badges Label"
+                            [(ngModel)]="myBadges.label" required>
+                    </mat-form-field>
+                    <ng-container *ngIf="badgeLabel.errors">
+                        <mat-error *ngIf="badgeLabel.errors.required && badgeLabel.touched">This fiels is required*
+                        </mat-error>
+
+                    </ng-container>
+                    <mat-hint class="col-red" *ngIf="myBadges?.label?.length > 50">Label can be max 50 characters long
+                    </mat-hint>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="'Rules Display*'">
+                    </span>
+                </div>
+                <div class="col-md-9" *ngIf="dataLoaded">
+                    <tinymce-editor #rulesDisplay [pageName]="'myBadges'" [pageItemId]="myBadges.id" 
+                        (outputEditorData)="updateRules($event)" [initialEditorContent]="myBadges.rulesDisplay || ''">
+                    </tinymce-editor>
+                    <input #rulesDisplay type="text"
+                    hidden name="rulesDisplay"
+                    [(ngModel)]="myBadges.rulesDisplay">
+                    <mat-hint class="col-red" *ngIf="myBadges?.rulesDisplay?.length == 0">This Field is Required*
+                    </mat-hint>
+                    <mat-hint class="col-red" *ngIf="myBadges?.rulesDisplay?.length > 250">
+                        Rules can be max 250 characters long
+                    </mat-hint>
+
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <span [textContent]="'Display Last Updated Date & Time'">
+                    </span>
+                </div>
+                <div class="col-md-9">
+                    <mat-checkbox color="primary" [checked]="myBadges.lastUpdatedFlag"
+                        (change)="myBadges.lastUpdatedFlag = !myBadges.lastUpdatedFlag">
+                    </mat-checkbox>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-3">
+                    <span [textContent]="'Display View Button'">
+                    </span>
+                </div>
+                <div class="col-md-9 ">
+                    <mat-checkbox class="--m-t-14" color="primary" [checked]="myBadges.viewButton"
+                        (change)="myBadges.viewButton = !myBadges.viewButton">
+                    </mat-checkbox>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="'View Button Text*'">
+                    </span>
+                </div>
+                <div class="col-md-9">
+                    <mat-form-field class="full-width"
+                        [ngClass]="{'mat-form-field-invalid':myBadges?.viewButtonLabel?.length > 50}">
+                        <input matInput type="text" name="viewButtonLabel  " #viewButtonLabel=ngModel
+                            placeholder="View Button Text" [(ngModel)]="myBadges.viewButtonLabel" required>
+                    </mat-form-field>
+                    <ng-container *ngIf="viewButtonLabel.errors">
+                        <mat-error *ngIf="viewButtonLabel.errors.required && viewButtonLabel.touched">This fiels is
+                            required*
+                        </mat-error>
+                    </ng-container>
+                    <mat-hint class="col-red" *ngIf="myBadges?.viewButtonLabel?.length > 50">Label can be max 50
+                        characters long
+                    </mat-hint>
+                </div>
+            </div>
+
+            
+            <div class="row">
+                <div class="col-md-3">
+                    <span [textContent]="'Display Badges'">
+                    </span>
+                </div>
+                <div class="col-md-9 ">
+                    <mat-checkbox class="--m-t-14" color="primary" [checked]="myBadges.viewBadges"
+                        (change)="myBadges.viewBadges = !myBadges.viewBadges">
+                    </mat-checkbox>
+                </div>
+            </div>
+
+
+            <div class="row">
+            <div class="col-md-9">
+                <h4>Euro Cup Preparation:</h4>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span [textContent]="'Active'">
+                    </span>
+                </div>
+                <div class="col-md-9 ">
+                    <mat-checkbox class="--m-t-14" color="primary" [checked]="myBadges.viewLbrUrl"
+                        (change)="myBadges.viewLbrUrl = !myBadges.viewLbrUrl">
+                    </mat-checkbox>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="'View Leaderboard Redirection CTA*'">
+                    </span>
+                </div>
+                <div class="col-md-9">
+                    <mat-form-field class="full-width"
+                        [ngClass]="{'mat-form-field-invalid':myBadges?.lbrRedirectionLabel?.length > 50}">
+                        <input matInput type="text" name="lbrRedirectionLabel" #lbrRedirectionLabel=ngModel placeholder="View Leaderboard Redirection CTA"
+                            [(ngModel)]="myBadges.lbrRedirectionLabel" required>
+							<mat-hint align="end">{{myBadges.lbrRedirectionLabel?.length || 0}}/50</mat-hint>
+                    </mat-form-field>
+                    <ng-container *ngIf="lbrRedirectionLabel.errors">
+                        <mat-error *ngIf="lbrRedirectionLabel.errors.required && lbrRedirectionLabel.touched">This fiels is required*
+                        </mat-error>
+                    </ng-container>
+                    <mat-hint class="col-red" *ngIf="myBadges?.lbrRedirectionLabel?.length > 50">Label can be max 50 characters long
+                    </mat-hint>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="'View Leaderboard Redirection URL*'">
+                    </span>
+                </div>
+                <div class="col-md-9">
+                    <mat-form-field class="full-width">
+                        <input matInput type="text" name="lbrRedirectionUrl" #lbrRedirectionUrl=ngModel placeholder="View Leaderboard Redirection URL"
+                            [(ngModel)]="myBadges.lbrRedirectionUrl" required>
+                    </mat-form-field>
+                    <ng-container *ngIf="lbrRedirectionUrl.errors">
+                        <mat-error *ngIf="lbrRedirectionUrl.errors.required && lbrRedirectionUrl.touched">This fiels is required*
+                        </mat-error>
+                    </ng-container>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!-- Button Card Section -->
+
+<div class="card">
+    <div class="body">
+        <action-buttons *ngIf="isLoadBadges()" #actionButtons [validateHandler]="isValidModel"
+            [fieldOrItemName]="'Badge Details'" [collection]="myBadges" [showRemoveButton]="false"
+            (actionsEmitter)="actionsHandler($event);"></action-buttons>
+    </div>
+</div>

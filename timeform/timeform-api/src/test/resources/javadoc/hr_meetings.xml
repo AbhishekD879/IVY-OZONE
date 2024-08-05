@@ -1,0 +1,166 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Summary</th>
+            <th>Value</th>
+            <th>Returns</th>
+            <th>Remarks</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>meetingDate</strong><br />Standard</td>
+            <td>
+                The date of the meeting and part of the primary key
+            </td>
+            <td>Not Null</td>
+            <td>Date</td>
+            <td>Meeting Date In The Format yyy-mm-dd</td>
+        </tr>
+        <tr>
+            <td><strong>courseId</strong><br />Standard</td>
+            <td>
+                The ID of the course of the meeting and is part of the primary key
+            </td>
+            <td>Above 0</td>
+            <td>Integer</td>
+            <td>Part of the primary key (PK)</td>
+        </tr>
+        <tr>
+            <td><strong>meetingStatus</strong><br />Standard</td>
+            <td>
+                The status of the meeting
+            </td>
+            <td>&quot;&quot; If no status is availble, title case if it is</td>
+            <td>String</td>
+            <td>&quot;&quot; - no status available, an example: Abandoned</td>
+        </tr>
+        <tr>
+            <td><strong>inspectionTime</strong><br />Standard</td>
+            <td>
+                The time that any inspection is due to take place
+            </td>
+            <td>1900-01-01 00:00:00.000 if no inspection is to take place, valid date time if it is</td>
+            <td>Date Time</td>
+            <td>1900-01-01 00:00:00.000 - no inspection, an example 2015-06-01 10:30:27.234</td>
+        </tr>
+        <tr>
+            <td><strong>meetingGoing</strong><br />Standard</td>
+            <td>
+                The official going report for the meeting
+            </td>
+            <td>&quot;&quot; if no report is availble, Title Case if it is</td>
+            <td>String</td>
+            <td>&quot;&quot; - no report, </td>
+        </tr>
+        <tr>
+            <td><strong>meetingDate</strong><br />Standard</td>
+            <td>
+                The date of the meeting and part of the primary key
+            </td>
+            <td>Not Null</td>
+            <td>Date</td>
+            <td>Meeting Date In The Format yyyy-mm-dd</td>
+        </tr>
+        <tr>
+            <td><strong>courseId</strong><br />Standard</td>
+            <td>
+                The ID of the course of the meeting and is part of the primary key
+            </td>
+            <td>Above 0</td>
+            <td>Integer</td>
+            <td>Part of the primary key (PK)</td>
+        </tr>
+        <tr>
+            <td><strong>courseName</strong><br />Standard</td>
+            <td>
+                The full name of the course that of the meeting
+            </td>
+            <td>Upper case</td>
+            <td>String</td>
+            <td>An example: HAYDOCK PARK</td>
+        </tr>
+        <tr>
+            <td><strong>meetingSurfaceName</strong><br />Standard</td>
+            <td>
+                The type of surface that is raced on at the meeting
+            </td>
+            <td>Title case</td>
+            <td>String</td>
+            <td>Values are All Weather, Turf or Both</td>
+        </tr>
+        <tr>
+            <td><strong>meetingSurfaceChar</strong><br />Standard</td>
+            <td>
+                The one character representation of the type of surface that is raced on at the meeting
+            </td>
+            <td>One char</td>
+            <td>String(1)</td>
+            <td>Values are A - All Weather, T - Turf, B - Both</td>
+        </tr>
+        <tr>
+            <td><strong>meetingStatus</strong><br />Standard</td>
+            <td>
+                The status of the meeting
+            </td>
+            <td>&quot;&quot; If no status is available, title case if it is</td>
+            <td>String</td>
+            <td>&quot;&quot; - no status available, an example: Abandoned</td>
+        </tr>
+        <tr>
+            <td><strong>meetingRaceType</strong><br />Standard</td>
+            <td>
+                The type of racing
+            </td>
+            <td>Title Case</td>
+            <td></td>
+            <td>Values are Flat, Jump, Both</td>
+        </tr>
+        <tr>
+            <td><strong>meetingNumberSuffix</strong><br />Standard</td>
+            <td>
+                The suffix of the meeting number as per the racing calendar
+            </td>
+            <td>&quot;&quot; if no suffix is available, upper case if it is</td>
+            <td>String</td>
+            <td>&quot;&quot; - no suffix, an example: B</td>
+        </tr>
+        <tr>
+            <td><strong>meetingNumber</strong><br />Standard</td>
+            <td>
+                The meeting number as per the racing calendar
+            </td>
+            <td>0 if no number is available, positive integer if it is</td>
+            <td>Integer</td>
+            <td>0 - no meeting number, an example 255</td>
+        </tr>
+        <tr>
+            <td><strong>inspectionTime</strong><br />Standard</td>
+            <td>
+                The time that any inspection is due to take place
+            </td>
+            <td>1900-01-01 00:00:00.000 if no inspection is to take place, valid date time if it is</td>
+            <td>Date Time</td>
+            <td>1900-01-01 00:00:00.000 - no inspection, an example 2015-06-01 10:30:27.234</td>
+        </tr>
+        <tr>
+            <td><strong>meetingGoing</strong><br />Standard</td>
+            <td>
+                The official going report for the meeting
+            </td>
+            <td>&quot;&quot; if no report is available, title case if it is</td>
+            <td>String</td>
+            <td>&quot;&quot; - no report, </td>
+        </tr>
+        <tr>
+            <td><strong>publishFlag</strong><br />Standard</td>
+            <td>
+                Internal Publish Flag
+            </td>
+            <td></td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>

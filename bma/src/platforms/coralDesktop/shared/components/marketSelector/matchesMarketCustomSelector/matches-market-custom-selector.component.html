@@ -1,0 +1,13 @@
+<div *ngIf='selectOptions'>
+  <custom-select class="market-selector">
+    <select [hidden]="selectOptions.length === 0"
+            (change)="filterMarkets($event.target.value)"
+            data-crlat="dropdown">
+      <option *ngFor="let optionData of selectOptions; trackBy: trackById"
+              [value]="[optionData.templateMarketName, optionData.title]"
+              [selected]="optionData.templateMarketName === marketFilter || optionData.title === marketFilter"
+              [textContent]="optionData.title"
+              data-crlat="dropdown.menuItem"></option>
+    </select>
+  </custom-select>
+</div>

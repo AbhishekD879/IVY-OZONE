@@ -1,0 +1,21 @@
+<a class="redirect-link" [routerLink]="[redirectLink]">
+  <div class="single-card">
+    <section class="name-section">
+      <h4 class="name-title" [i18n]="'bigcompetitions.group'"></h4>
+      <span class="name-group" [textContent]="groupData.tableName"></span>
+      <div class="view-label" [i18n]="'bigcompetitions.view'"></div>
+    </section>
+    <section class="team-info-section">
+      <div class="team-row" *ngFor="let team of groupData.teams; let i = index; trackBy: trackByTeam">
+        <span class="team-order" [ngClass]="getQualifiedClass(i)">{{ i + 1 }}</span>
+        <span class="team-name big-team-name">
+          <svg class="flag-icon">
+            <use [attr.xlink:href]="team.svgId"></use>
+          </svg>
+          <span class="shorten-name" [textContent]="team.abbreviation"></span>
+        </span>
+        <span class="team-points" [textContent]="(team.totalPoints + ' pt')"></span>
+      </div>
+    </section>
+  </div>
+</a>

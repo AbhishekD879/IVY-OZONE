@@ -1,0 +1,57 @@
+<div data-crlat="tabContent" class="favourites-wrapper sk-container" [ngClass]="{'sk-loading': applyingParams}">
+  <top-bar *ngIf="displayPageHeader" [title]="'sb.favouriteMatches'" [path]="'favourites'"></top-bar>
+  <request-error *ngIf="state.error || !isUserLoggedIn" 
+                [loadFailed]="state.error"
+                [loginNeed]="!isUserLoggedIn"
+                [errorMsg]="introductoryText"
+                (reloadFn)="reloadComponent()"></request-error>
+  <loading-screen [displayed]="applyingParams" [isUsedFromWidget]="isWidgetColumn"></loading-screen>
+  <div class="container-content" *ngIf="!applyingParams && !state.error" data-crlat="accordionsList">
+    <div class="container-inner-content" data-crlat="favourites.group" *ngIf="matches?.length && isUserLoggedIn">
+      <div class="favourite-buttons" *ngIf="showHeader">
+        <button class="btn btn-style1"
+                (click)="removeAllFavourites()"
+                data-crlat="clearFavouritesButton">
+          <span [i18n]="'favourites.clearFavourites'"></span>
+        </button>
+      </div>
+      <odds-card-header *ngIf="showHeader"
+                        [events]="matches"
+                        [isFavorite]="true"
+                        data-crlat="eventOddsHeader">
+      </odds-card-header>
+
+      <ng-container *ngFor="let match of matches; trackBy: trackById">
+        <odds-card-component *ngIf="isFavourite([match])"
+                             [event]="match"
+                             [selectedMarket]="match.markets[0].name"
+                             [gtmModuleTitle]="'favourites'"
+                             data-crlat="favourites.groupItem">
+        </odds-card-component>
+      </ng-container>
+    </div>
+
+    <div class="item-inner item-btm-pad" *ngIf="isUserLoggedIn" data-crlat="widgetLoggedText">
+      <span *ngIf="!matches.length && !state.error" [i18n]="'favourites.noFavouriteMatches'"></span>&nbsp;
+      <span [i18n]="'favourites.browseFavouriteMatches'"></span>
+    </div>
+
+    <div *ngIf="isUserLoggedIn" class="favourite-buttons">
+      <a class="btn btn-style1"
+         [ngClass]="{ 'left': !widget, 'full-width': widget }"
+         [routerLink]="['/sport', 'football', 'matches']"
+         data-crlat="goToMatchesButton">
+         <span [i18n]="'favourites.goToMatches'"></span>
+      </a>
+
+      <br *ngIf="widget"/>
+
+      <a class="btn btn-style1"
+         [ngClass]="{ 'right': !widget, 'full-width': widget }"
+         [routerLink]="['/sport', 'football', 'live']"
+         data-crlat="goToInPlayMatchesButton">
+         <span [i18n]="'favourites.goToInPlayMatches'"></span>
+      </a>
+    </div>
+	</div>
+</div>

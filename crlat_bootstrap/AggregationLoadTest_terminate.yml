@@ -1,0 +1,14 @@
+---
+- name: Terminate AggregationLoadTest cluster nodes
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    region: eu-west-1
+    execution_id: 1
+    action: terminate
+    tag_ClusterName: aggrmslt
+  tasks:
+  - name: crlat.vpc
+    include_role:
+      name: crlat.vpc

@@ -1,0 +1,42 @@
+@import 'global.variables.scss';
+
+.preference-description {
+  @include setFanzoneSYTText($alt-font-family, 12px, normal, left, normal, normal, normal, normal);
+  margin: 18px 13px;
+  letter-spacing: -0.01px;
+  color: $color-gray-darkest;
+}
+
+.line-divider {
+  height: 1px;
+  width: 75%;
+  margin: 25px auto 38px auto;
+  background-color: $color-glacier-white;
+}
+
+.preference-toggle {
+  margin: 23px 15%;
+  .preference-toggle-name {
+    width: 84px;
+    height: 14px;
+    flex-grow: 0;
+    @include setFanzoneSYTText($alt-font-family, 12px, normal, left, normal, normal, normal, normal);
+    margin: 3px 4px 20px 0;
+    color: $color-gray-darkest;
+  }
+}
+
+.line-divider-fz {
+  margin-bottom: 25px;
+}
+
+.preference-submit-btn {
+  margin: 20px 12px;
+  padding: 13px 0px;
+  width: calc(100% - 24px);
+  box-sizing: border-box;
+  background-color: $btn-bg-green-color;
+  @include setFanzoneSYTText(Roboto, 15px, bold, center, condensed, normal, normal, normal);
+  color: $color-white;
+  border: 0;
+}

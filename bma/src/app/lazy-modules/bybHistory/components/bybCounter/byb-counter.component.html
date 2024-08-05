@@ -1,0 +1,11 @@
+<div class='btn-group-parent'>
+    <div class='btn-group'>
+        <button class='sign-button'  [ngClass]="{'sign-disabled': !buttonState}" (click)="buttonState && rotate(-1)">-</button>
+        <span class='text-btn' [ngClass]="{'initial-disabled': !buttonState}"> {{buttonState ? initial : 0}} </span>
+        <button class='sign-button' [ngClass]="{'sign-disabled': !buttonState}" (click)="buttonState && rotate(1)">+</button>
+    </div>
+    <p class='align'> Increments of {{buttonState ? incrementvalue : 0}} </p>
+    <button class='btn-group btn' *ngIf='checkCurrentStatus()' (click)="buttonState && selectedValue()" [ngClass]="{'btn-active': buttonState && isCoral, 'btn-active-lads': buttonState && !isCoral}"
+        [textContent]="addToSlipText"> 
+    </button>
+</div>  

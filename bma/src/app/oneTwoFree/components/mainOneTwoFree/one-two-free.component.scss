@@ -1,0 +1,135 @@
+@import 'global.variables.scss';
+
+.preview {
+  ::ng-deep {
+    .otf button[class^="closeBtn__"] {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    div[class^="youAreIn__"] button[class^="btnSecondary__"] {
+      margin-left: auto;
+      margin-right: auto;
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 15px;
+    }
+  }
+}
+
+.otf-info-container {
+  @include display-flex();
+  @include justify-content(center);
+  @include align-items(center);
+  background: #f9f9f9;
+  height: 100vh;
+  width: 100%;
+  .loader-container {
+    top: 37vh;
+    height: max-content;
+    width: 270px;
+    margin: 0 auto;
+    .otLoading-text {
+      text-align: center;
+    }
+  }
+  .rotating {
+    margin: auto;
+  }
+  .otfLoadingError-wrapper {
+    text-align: center;
+    font-size: 14px;
+    color: $lBlack-light;
+    .otfLoadingBackButton {
+      padding: 10px 50px;
+      border-radius: 0;
+      margin: 13px auto 0;
+      box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+      background: $color-yellow-alt;
+      color: $lGray;
+      text-transform: initial;
+      font-size: 12px;
+      font-weight: 600;
+    }
+  }
+}
+.iosWarning-wrapper {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.75);
+  a.iosDialogLink {
+    background-color: transparent;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .iosWarningDialog-container {
+    background: white;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    padding: 0 24px 5px;
+    position: absolute;
+    left: 10%;
+    top: 35vh;
+    width: 80%;
+    .iosDialog-header {
+      background: white;
+      color: $lGray;
+      box-shadow: none;
+      margin-bottom: 0;
+      font-size: 15px;
+      font-weight: bold;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      padding: 24px 0 12px;
+    }
+    .iosDialog-body {
+      font-size: 13px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      p {
+        color: $lBlack-light;
+      }
+    }
+    .iosDialogBtn-list {
+      padding: 12px 0;
+      display: flex;
+      justify-content: space-around;
+      a, button {
+        color: $lGray;
+        font-weight: 700;
+        padding: 12px;
+        display: flex;
+        text-align: center;
+        margin: 0 2px;
+        border: 0;
+        background: transparent;
+      }
+      .iosDialogBtn-primary {
+        background: $color-yellow-alt;
+        @include appearance(initial);
+      }
+    }
+  }
+}
+
+@media (min-width: $tabletPoint) {
+  .otf-info-container {
+    height: 0;
+    top: 47vh;
+  }
+}
+@media (min-width: $landscapeTabletPoint) {
+  .otf-info-container {
+    .loader-container {
+      margin-top: -100px;
+    }
+  }
+}

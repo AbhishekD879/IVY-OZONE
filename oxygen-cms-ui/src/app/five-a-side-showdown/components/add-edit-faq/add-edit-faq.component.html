@@ -1,0 +1,56 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadCrumbs"></breadcrumbs>
+<div class="card" *ngIf="faq">
+    <div class="header">
+        <h2 class="waves-effect waves-block" *ngIf="isEdit; else createFAQBlock">
+            <span [textContent]="FAQFORM.faqLabel"></span>
+            <create-updated-at-by [collection]="faq"></create-updated-at-by>
+        </h2>
+        <ng-template #createFAQBlock>
+            <span [textContent]="FAQFORM.faqLabel"></span>
+        </ng-template>
+    </div>
+</div>
+<div class="card" *ngIf="!isLoading">
+    <form [formGroup]="faqForm">
+        <div class="body">
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label" [textContent]="FAQFORM.questionLabel">
+                    </span>
+                </div>
+                <div class="col-md-10">
+                    <tinymce-editor 
+                        [pageName]="'question'"
+                        [pageItemId]="'question'"
+                        (outputEditorData)="updateBlurb($event, 'question')"
+                        [initialEditorContent]="faq.question">
+                    </tinymce-editor>
+                    <input type="text" name="questionText" hidden [value]="faq.question" formControlName="question">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label" [textContent]="FAQFORM.answerLabel">
+                    </span>
+                </div>
+                <div class="col-md-10">
+                    <tinymce-editor 
+                        [pageName]="'answer'"
+                        [pageItemId]="'answer'"
+                        (outputEditorData)="updateBlurb($event, 'answer')"
+                        [initialEditorContent]="faq.answer">
+                    </tinymce-editor>
+                    <input type="text" name="answerText" hidden [value]="faq.answer" formControlName="answer">
+                </div>
+            </div>
+    </div>
+    </form>
+</div>
+<action-buttons
+  #actionButtons
+  *ngIf="faq"
+  [form]="faqForm"
+  [fieldOrItemName]="'question and answer'"
+  [collection]="faq"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

@@ -1,0 +1,5 @@
+<div *ngIf="isBuildYourBetTabShown" data-crlat="tabContent">
+  <ng-content select="old-build-your-bet-tab"></ng-content>
+</div>
+
+<module-disabled *ngIf="!isBuildYourBetTabShown"></module-disabled>

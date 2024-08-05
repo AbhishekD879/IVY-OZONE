@@ -1,0 +1,35 @@
+export interface ISportServiceRequestConfig {
+  categoryId?: string;
+  racingFormOutcome?: any;
+  racingFormEvent?: any;
+  priceHistory?: any;
+  date?: any;
+  modules?: any;
+  siteChannels?: any;
+  isNotStarted?: any;
+  marketsCount?: any;
+  eventSortCode?: any;
+  eventDrilldownTagNamesIntersects?: any;
+  isRacing?: boolean;
+  isResulted?: boolean;
+  resultedMarketName?: string;
+  outrightsSport?: string;
+  typeIds?: string | number[];
+  resultedMarketPriceTypeCodesIntersects?: string;
+  resultedPriceTypeCodeToDisplay?: string;
+  resultedOutcomeResultCodeNotEquals?: string;
+  resultedOutcomesExcludeUnnamedFavourites?: boolean;
+  resultedIncludeUndisplayed?: boolean;
+  groupByFlagCodesSortOrder?: string[];
+  path?: string;
+  typeFlagCodes?: string;
+  externalKeysEvent?: boolean;
+  breadcrumbsNavMenuFlags?: any;
+  dispSortName?: string[];
+  dispSortNameIncludeOnly?: string[];
+  marketTemplateMarketNameIntersects?: string;
+  childCount?: boolean;
+  limitOutcomesCount?: number;
+  limitMarketCount?: number;
+  marketDrilldownTagNamesNotContains?: string;
+}

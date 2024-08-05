@@ -1,0 +1,50 @@
+@import 'global.variables.scss';
+
+:host {
+  margin-top: 11px;
+  display: block;
+
+  > accordion {
+    margin: 0 2px 11px 2px;
+    display: block;
+    box-shadow: $global-box-shadow;
+
+    &.is-expanded.has-carousel.race-card {
+      box-shadow: none;
+      margin: -4px -4px 8px -4px;
+      padding: 4px 4px 0;
+
+      accordion-body {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .see-all-link {
+    font-size: $font-size;
+    color: $blue;
+    cursor: pointer;
+    margin-top: 2px;
+    &:hover {
+      text-decoration: underline;
+    }
+    &:active {
+      text-decoration: underline;
+    }
+  }
+}
+
+.race-card {
+  ::ng-deep {
+    .accordion-header {
+      svg {
+        fill: $blue;
+      }
+
+      .chevron-svg.chevron-up {
+        visibility: visible;
+        transform: rotate(-90deg);
+      }
+    }
+  }
+}

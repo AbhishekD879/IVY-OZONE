@@ -1,0 +1,17 @@
+<div class="acca-insurance-subtitle" *ngIf="isAccaInsurance" data-crlat="accaCont">
+  <div class="bs-stake-subtitle">
+    <span class="acca-insurance-icon" data-crlat="accaInsIcon">
+      <svg class="acca-insurance-svg">
+        <use xlink:href="#acca-insurance"></use>
+      </svg>
+    </span>
+    <span class="bs-stake-type" data-uat="marketName" [i18n]="'bs.accaInsurance'"></span>
+    <i class="bs-stake-info-button" (click)="openAccaInsuranceInfoDialog()" data-crlat="stakeInfoButton">
+      <svg class="info-button">
+        <use xlink:href="#icn_info-icon-bg"></use>
+      </svg>
+    </i>
+  </div>
+</div>
+
+<ng-content *ngIf="!isAccaInsurance"></ng-content>

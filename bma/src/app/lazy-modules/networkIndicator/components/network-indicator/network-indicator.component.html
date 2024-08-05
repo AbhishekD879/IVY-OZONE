@@ -1,0 +1,18 @@
+<div *ngIf="display">
+  <div class="indicator-parent" [class.coral-theme]="isCoral">
+    <svg class="status-icon">
+      <use [attr.xlink:href]="indicatorConfig?.displayIcon"></use>
+    </svg>
+    <div class="network-status-message">
+      {{ config.displayText }}
+    </div>
+    <svg class="info-icon" *ngIf="config.networkSpeed === 'slow'" (click)="onInfoIconClick()">
+      <use xlink:href="#info-icon-white"></use>
+    </svg>
+
+    <svg id="close-svg" class="close-icon" (click)="onClose()">
+      <use xlink:href="#close-icon"></use>
+    </svg>
+  </div>
+  <div class="indicator-bottom-line" [ngStyle]="{'background-color': indicatorConfig?.indicatorColor}"></div>
+</div>

@@ -1,0 +1,146 @@
+<breadcrumbs *ngIf="seoPage" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="seoPage">
+  <div class="header">
+    <h2 class="waves-effect waves-block has-activity-badge">
+      Seo Page: {{seoPage.title}}
+      <create-updated-at-by [collection]="seoPage"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="seoPage.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="seoPage">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox color="primary"
+                      [checked]="!seoPage.disabled"
+                      (change)="seoPage.disabled = !seoPage.disabled">
+          Active
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+      <span class="mat-label">
+        Url
+      </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Url" [(ngModel)]="seoPage.url" [value]="seoPage.url" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+      <span class="mat-label">
+        Title
+      </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !seoPage.title}">
+          <input matInput placeholder="Title" [(ngModel)]="seoPage.title" [value]="seoPage.title" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!seoPage.title">Title should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+      <span class="mat-label">
+        Page Description
+      </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width">
+           <textarea matInput placeholder="Page Description"
+                     matTextareaAutosize
+                     matAutosizeMinRows="5"
+                     matAutosizeMaxRows="5"
+                     [(ngModel)]="seoPage.description"
+                     [value]="seoPage.description"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Static Block Title
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Static Block Title" [(ngModel)]="seoPage.staticBlockTitle">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Page Static Block
+        </span>
+      </div>
+      <div class="col-md-10">
+        <tinymce-editor
+          #htmlMarkup
+          [pageName]="'seo-page'"
+          [pageItemId]="seoPage.id"
+          [initialEditorContent]="seoPage.staticBlock"
+          (outputEditorData)="handleStaticBlockChange($event)">
+        </tinymce-editor>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="seoPage">
+  <div class="header">
+    <h2>Sitemap Configuration</h2>
+  </div>
+  <div class="body">
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label">
+          Sitemap Change Frequency
+        </span>
+      </div>
+      <div class="col-md-5">
+        <mat-form-field class="full-width">
+          <mat-select [value]="seoPage.changefreq"
+                      [(ngModel)]="seoPage.changefreq" required>
+            <mat-option *ngFor="let type of updateFrequencyOptions" [value]="type">
+              {{ type }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <span class="mat-label">
+          Sitemap Priority
+        </span>
+      </div>
+      <div class="col-md-5">
+        <mat-form-field class="full-width">
+          <mat-select [value]="seoPage.priority"
+                      [(ngModel)]="seoPage.priority" required>
+            <mat-option *ngFor="let type of pagePriorityOptions" [value]="type">
+              {{ type }}
+            </mat-option>
+          </mat-select>
+          <mat-hint align="end">The valid range is from 0.0 to 1.0, with 1.0 being the most important.</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="seoPage"
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'title'"
+  [collection]="seoPage"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

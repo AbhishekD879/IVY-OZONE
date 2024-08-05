@@ -1,0 +1,96 @@
+<breadcrumbs *ngIf="season" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="season && !isCreate">
+  <div class="header">
+    <h2 class="waves-effect waves-block has-activity-badge">
+      Season: {{season.seasonName}}
+      <create-updated-at-by [collection]="season"></create-updated-at-by>
+    </h2>
+  </div>
+</div>
+<form *ngIf="season" #seasonForm="ngForm">
+  <div class="card">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="'Season Name*'">
+          </span>
+        </div>
+        <div class="col-md-9">
+          <mat-form-field class="full-width">
+            <input matInput type="text" [(ngModel)]="season.seasonName" name="seasonName" #seasonName="ngModel"
+              placeholder="Season Name" required [readonly]="isActive">
+          </mat-form-field>
+          <ng-container *ngIf="seasonName.errors">
+            <mat-error *ngIf="seasonName.touched && seasonName.errors.required">
+              This field is required*
+            </mat-error>
+          </ng-container>
+          <mat-error *ngIf="season.seasonName?.length>50">
+            Season Name can be max 50 characters long
+          </mat-error>
+        </div>
+      </div>
+
+      <!-- SEASON INFO  -->
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="'Season Info*'">
+          </span>
+        </div>
+        <div class="col-md-9">
+          <mat-form-field class="full-width">
+            <input matInput type="text" name="seasonInfo" [(ngModel)]="season.seasonInfo" #seasonInfo="ngModel"
+              placeholder="Season Info" required [readonly]="isActive">
+          </mat-form-field>
+          <ng-container *ngIf="seasonInfo.errors">
+            <mat-error *ngIf="seasonInfo.touched && seasonInfo.errors.required">This
+              field is required*
+            </mat-error>
+          </ng-container>
+          <mat-error *ngIf="season.seasonInfo?.length> 200">Season Info can be max 200 characters long
+          </mat-error>
+        </div>
+      </div>
+
+      <!-- Dates Section -->
+      <div class="row col-md-8" *ngIf="isDate">
+        <date-range [startDate]="season.displayFrom" [endDate]="season.displayTo" [startPlaceholder]="'Start Date'"
+          [endPlaceholder]="'End Date'" [placeholderColumn]="true" (onDateUpdate)="handleDisplayDateUpdate($event)"
+          [isStartDateEnable]="isActive" [isEndDateEnable]="isActive">
+        </date-range>
+        <mat-hint class="col-red" *ngIf="isCreate?isPastDate():checkDateChanged() && isPastDate()">
+          Seasons cannot be created with Past dates
+        </mat-hint>
+        <mat-hint class="col-red" *ngIf="!isPastDate() && !isEndDateValid()">
+          Seasons End Date must be greater than Start Date
+        </mat-hint>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- Button Card Section -->
+
+<div class="card">
+  <div class="body">
+    <div class="row --m-t-10">
+
+      <div class="col-md-5" *ngIf="isCreate;else updateFlow">
+        <button mat-button type="button" class="btn bg-teal waves-effect" (click)="createEditSeason('create')"
+          [disabled]="!isValidModel(season) || isPastDate() || !isEndDateValid()">
+          <mat-icon>save</mat-icon>
+          <span>Create Season</span>
+        </button>
+      </div>
+    </div>
+
+    <ng-template #updateFlow>
+      <div class="col-md-12">
+        <action-buttons *ngIf="isLoadBadges()" #actionButtons [validateHandler]="isValidModel"
+          [fieldOrItemName]="'seasonName'" [collection]="season" [showRemoveButton]="!isActive"
+          (actionsEmitter)="actionsHandler($event);">
+        </action-buttons>
+      </div>
+    </ng-template>
+  </div>
+</div>

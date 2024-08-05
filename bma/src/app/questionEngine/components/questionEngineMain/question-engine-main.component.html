@@ -1,0 +1,24 @@
+<div class="question-engine">
+  <ng-container *ngIf="errorMessage">
+    <div class="loading-error-wrap">
+      <div class="loading-error-text" [innerHTML]="dataLoadingError"></div>
+      <button class="loading-error-btn main-btn"
+              [back-button]
+              [innerHTML]="dataLoadingErrorBtn">
+      </button>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="qeData && !errorMessage">
+    <div class="qe-bg"
+         [ngStyle]="{'background-image': qeData.baseQuiz.backgroundSvgUrl ? 'url(' + qeData.baseQuiz.backgroundSvgUrl + ')' : 'none'}">
+       <router-outlet></router-outlet>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!qeData && !errorMessage">
+    <div class="qe-spinner-general spinner-wrap">
+      <div class='loading-v3'><div class='dot-flashing' data-crlat="flashing.loader"></div></div>
+    </div>
+  </ng-container>
+</div>

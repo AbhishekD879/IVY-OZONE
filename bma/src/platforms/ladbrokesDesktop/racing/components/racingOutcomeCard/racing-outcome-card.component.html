@@ -1,0 +1,135 @@
+<div *ngIf="isOutcomeCardAvailable" class="racing-outcome-container" [class.greyhound-card]="isGreyhoundEdp">
+  <img *ngIf="!isSilkLoaded" class="visibility-hidden" [src]="spriteUrl" (load)="isSilkLoaded = true">
+  <div class="odds-card race-card new-race-card"
+       (click)="onExpand()"
+       [ngClass]="{'active' : showSummary, 'type-tote': raceType === 'tote'}"
+       data-crlat="raceCard.odds">
+    <div class="odds-content">
+      <div class="odds-left">
+        <div class="odds-side"
+          *ngIf="isNumberNeeded(eventEntity, outcomeEntity) && !outcomeEntity.isFavourite && isNotRacingSpecials && !outcomeEntity.nonRunner">
+          <strong class="runner-number" [textContent]="outcomeEntity.runnerNumber || null" data-crlat="runnerNumber"></strong><br/>
+          <div class="label-text" *ngIf="outcomeEntity.racingFormOutcome?.draw" data-crlat="outcomeDraw">
+            (<span [textContent]="outcomeEntity.racingFormOutcome.draw"></span>)
+          </div>
+        </div>
+        <div class="silk-img" *ngIf="isGenericSilk(eventEntity, outcomeEntity) && !outcomeEntity.isFavourite || getDefaultSilk(eventEntity, outcomeEntity)" data-crlat="imageSilk"></div>
+        <gh-silk *ngIf="isGreyhoundSilk(eventEntity, outcomeEntity) && !isGroupSilkNeeded(outcomeEntity) && isNotRacingSpecials"
+          [event]="eventEntity"
+          [outcome]="outcomeEntity"></gh-silk>
+        <div class="silk-img grouped-silk {{getOutcomeClass(outcomeEntity)}}" *ngIf="isGroupSilkNeeded(outcomeEntity)">
+          <span class="{{getOutcomeClass(outcomeEntity)}}-1"></span>
+          <span class="{{getOutcomeClass(outcomeEntity)}}-2"></span>
+          <span class="{{getOutcomeClass(outcomeEntity)}}-3"></span>
+        </div>
+
+        <div class="silk-img"
+          [ngClass]="(eventEntity.isUKorIRE ? 'with-default': 'inter-silk') + ' '+ (!outcomeEntity.nonRunner && isSilkLoaded ? 'has-img' : '')"
+          *ngIf="outcomeEntity.racingFormOutcome?.silkName" data-crlat="sectionSilkImg">
+          <div *ngIf="!outcomeEntity.nonRunner" [ngStyle]="getSilkStyle(marketEntity, outcomeEntity)" data-crlat="imageSilk">
+          </div>
+        </div>
+        <div class="odds-names odds-names-list desktop-races"
+             [ngClass]="{'odds-disabled' : outcomeEntity.nonRunner, 'has-no-silk' : outcomeEntity.isFavourite, 'tote-triexa-name': (toteTabName == 'UEXA' || toteTabName == 'UTRI')}"
+             data-crlat="horseInfoContainer">
+          <div class="name-container">
+            <span class="odds-names odds-names-wrap"
+                  [class.text-normal]="isGreyhoundEdp && (!isNotRacingSpecials || isAntepostMarket)"
+                  [textContent]="isGreyhoundEdp ? nameWithoutLineSymbol(outcomeEntity.name) : nameWithoutNonRunner(outcomeEntity.name)" data-crlat="horseName"></span>
+
+            <span class="racing-form" [ngClass]="{'tri-cls' : isFlagsDisp(outcomeEntity.racingFormOutcome.isBeatenFavourite, toteTabName), 'inline-block': toteTabName == 'UTRI'}"  *ngIf="(outcomeEntity.racingFormOutcome) && !outcomeEntity.nonRunner">
+              <strong *ngIf="outcomeEntity.racingFormOutcome?.starRating && outcomeEntity.racingFormOutcome?.starRating == 5"
+              class="start-rating" data-crlat="starRating">
+              <svg class="star-icon"
+                  data-crlat="stars">
+                <use xlink:href="#star"></use>
+              </svg><span [textContent]="outcomeEntity.racingFormOutcome.starRating" data-crlat="rating"></span>
+            </strong>
+              <span class="course-distance"
+                      *ngIf="outcomeEntity.racingFormOutcome.isBeatenFavourite"
+                      [textContent]="'BF'">
+                </span>
+                  <span class="course-distance" *ngFor="let courseDistanceWinner of courseDistanceWinners" [textContent]="courseDistanceWinner" data-crlat="courseDistanceWinner">
+                  </span>
+            </span>
+          </div>
+
+          <span class="odds-normal" data-crlat="jockeyAndTrainer"
+            *ngIf="outcomeEntity.racingFormOutcome && !outcomeEntity.nonRunner">
+            <span *ngIf="outcomeEntity.racingFormOutcome.jockey">
+              <span [textContent]="'J: '" class="text-bold"></span>
+              <span [textContent]="raceOutcomeData.formatJockeyWeight(outcomeEntity.racingFormOutcome)"
+                data-crlat="jockeyName"></span>
+            </span>
+            <span *ngIf="raceOutcomeData.isJockeyAndTrainer(outcomeEntity.racingFormOutcome)" data-crlat="jockeyName&trainerName">
+              / </span>
+            <span *ngIf="outcomeEntity.racingFormOutcome.trainer">
+              <span [textContent]="'T: '" class="text-bold"></span>
+              <span [textContent]="outcomeEntity.racingFormOutcome.trainer" data-crlat="trainerName"></span>
+            </span>
+          </span>
+          <span class="non-runner" *ngIf="outcomeEntity.nonRunner" [i18n]="'racing.nonRunner'" data-crlat="nr">
+          </span>
+          <span class="odds-small racing-desk-odds" [ngClass]="{'odd-small-exa' : (toteTabName == 'UEXA' || toteTabName == 'UTRI')}" *ngIf="!outcomeEntity.nonRunner">
+            <span class="racing-form form-guide-color" *ngIf="(outcomeEntity.racingFormOutcome)">
+              <span *ngIf="outcomeEntity.racingFormOutcome" data-crlat="racingForm" class="form-disp">
+                Form: <span class="text-bold form-colon" [textContent]="outcomeEntity.racingFormOutcome?.formGuide || '-'"></span>
+                <span *ngIf="(toteTabName =='UEXA' || toteTabName == 'UTRI') && ((outcomeEntity.racingFormOutcome && !outcomeEntity.isFavourite && !isGreyhoundEdp) ||
+                (outcomeEntity.racingFormOutcome?.overview && !outcomeEntity.isFavourite && isGreyhoundEdp) ||
+                outcomeEntity.timeformData)"
+                      class="toggle-icon tricon"
+                      [ngClass]="{'active' : showSummary, 'toggle-cd-flag': !(outcomeEntity.racingFormOutcome?.isBeatenFavourite) && !(outcomeEntity.racingFormOutcome?.courseDistanceWinner)}"
+                      data-crlat="toggleIcon">
+                  <svg>
+                    <use xlink:href="#down-arrow"></use>
+                  </svg>
+                </span>
+              </span>
+            </span>
+
+            <span class="timeform-odds-small"
+                    *ngIf="outcomeEntity.timeformData?.form">
+              <span [i18n]="'racing.form'" class="timeform-label"></span>
+              <strong [textContent]="outcomeEntity.timeformData.form"></strong>
+            </span>
+
+            <span *ngIf="!(toteTabName =='UEXA' || toteTabName == 'UTRI') && ((outcomeEntity.racingFormOutcome && !outcomeEntity.isFavourite && !isGreyhoundEdp) ||
+            (outcomeEntity.racingFormOutcome?.overview && !outcomeEntity.isFavourite && isGreyhoundEdp) ||
+            outcomeEntity.timeformData)"
+                  class="toggle-icon"
+                  [ngClass]="{'active' : showSummary, 'toggle-cd-flag': !(outcomeEntity.racingFormOutcome.formGuide)}"
+                  data-crlat="toggleIcon">
+              <span *ngIf="showSummary" class="showMoreLess" [textContent]="'Show less'"></span>
+              <span *ngIf="!showSummary" class="showMoreLess" [textContent]="'Show more'"></span>
+              <svg>
+                <use xlink:href="#down-arrow"></use>
+              </svg>
+            </span>
+              
+          </span>
+          <ng-content></ng-content>
+        </div>
+      </div>
+
+      <div class="odds-right">
+        <ng-content></ng-content>
+      </div>
+    </div>
+    <div class="odds-footer" *ngIf="marketEntity.isSmartBoosts && outcomeEntity.wasPrice">
+      <div class="odds-right">
+        <div class="was-price">
+          <span [i18n]="'sb.wasPrice'"></span>
+          <strike [textContent]="outcomeEntity.wasPrice"></strike>
+        </div>
+      </div>
+    </div>
+    <lazy-component *ngIf="outcomeEntity.racingFormOutcome && showSummary && !outcomeEntity.nonRunner"
+      moduleUri="@lazy-modules-module/runnerSpotlight/runner-spotlight.module#RunnerSpotlightModule"
+      [inputs]='{ outcome: outcomeEntity, isGreyhoundEdp: isGreyhoundEdp, isUKorIRE: eventEntity.isUKorIRE }'>
+    </lazy-component>
+    </div>
+
+  <timeform-selection-summary [outcome]="outcomeEntity"
+                              *ngIf="outcomeEntity.timeformData && showSummary">
+  </timeform-selection-summary>
+</div>

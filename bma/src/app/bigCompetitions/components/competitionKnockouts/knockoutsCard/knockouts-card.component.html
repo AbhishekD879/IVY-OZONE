@@ -1,0 +1,130 @@
+<div class="knockouts-card">
+  <div class="knockouts-card-content-wrapper"
+       [ngClass]="{'no-bets': !isOutcomeOnStage, 'no-bets-final': !isOutcomeOnStage && isFinal}">
+    <div class="knockouts-box-header">
+      <span class="match-round" *ngIf="!isFinal" [textContent]="cardEvent.abbreviation"></span>
+      <span class="match-round final-round" *ngIf="isFinal">FINAL</span>
+      <span class="match-date" [textContent]="startTime"></span>
+    </div>
+    <!-- Venue -->
+    <div class="knockouts-venue" [ngClass]="{'final-venue': isFinal, 'result': isResulted}" [textContent]="cardEvent.venue"></div>
+
+    <div class="knockouts-box-content">
+      <!-- HOME -->
+      <div *ngIf="homeWinner && isFinal" class="winner-mark">
+        <svg>
+          <use xlink:href="#check-icon"></use>
+        </svg>
+      </div>
+      <div class="knockouts-team"
+           [ngClass]="{'teams-final': isFinal,
+                       'result': isResulted,
+                       'lost-team': !homeWinner,
+                       'no-team-name': cardEvent.homeTeamRemark}">
+        <div *ngIf="homeWinner && isFinal" class="winner-label">Winner</div>
+        <svg *ngIf="isFlagPresentHome"
+             class="flag"
+             [ngClass]="{'waiting-flag': waitingWinner}">
+          <use [attr.xlink:href]="cardEvent.participants?.HOME?.svgId"></use>
+        </svg>
+        <span class="no-flag-container"
+              [attr.data-label]="winnerHomeFlagLabel"
+              [ngClass]="{'hide-container': !winnerHomeFlagLabel}"
+              *ngIf="!isFlagPresentHome">
+        </span>
+        <span class="team-abbreviation name-home"
+              [ngClass]="{'winner': waitingWinner}"
+              *ngIf="!cardEvent.homeTeamRemark"
+              [textContent]="cardEvent.participants?.HOME?.abbreviation"></span>
+        <span class="team-abbreviation winner"
+              *ngIf="cardEvent.homeTeamRemark"
+              [ngClass]="{'winner-home': isFinal}">
+          <span [textContent]="cardEvent.homeTeamRemark"></span>
+        </span>
+      </div>
+
+      <!-- Team separator -->
+      <div class="team-separator"
+           [ngClass]="{'no-team-name': waitingWinner, 'final-separator': isFinal}"
+           *ngIf="!isResulted">v</div>
+
+      <!-- Full Time separator -->
+      <div *ngIf="isResulted" class="results-table" [ngClass]="{'final-results': isFinal}">
+        <table>
+          <tr class="caption-row">
+            <th title="home-ft" [textContent]="score[0]"></th>
+            <th class="separator" title="goal difference"><span [textContent]="pen ? 'aet' : 'ft'"></span></th>
+            <th title="away-ft" [textContent]="score[1]"></th>
+          </tr>
+          <tr *ngIf="aet || pen">
+            <td class="extra-time" [textContent]="pen ? pen[0] : aet[0]"></td>
+            <td class="label" [textContent]="pen ? 'pens' : 'aet'"></td>
+            <td class="extra-time" [textContent]="pen ? pen[1] : aet[1]"></td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- AWAY -->
+      <div *ngIf="awayWinner && !isFinal" class="winner-mark">
+        <svg>
+          <use xlink:href="#check-icon"></use>
+        </svg>
+      </div>
+      <div class="knockouts-team"
+           [ngClass]="{'teams-final-away': isFinal,
+                        'result': isResulted,
+                        'lost-team': !awayWinner,
+                        'no-team-name': cardEvent.awayTeamRemark}">
+        <div *ngIf="awayWinner && isFinal" class="winner-label">Winner</div>
+        <svg *ngIf="isFlagPresentAway"
+             class="flag"
+             [ngClass]="{'waiting-flag': waitingWinner}">
+          <use [attr.xlink:href]="cardEvent.participants?.AWAY?.svgId"></use>
+        </svg>
+        <span class="no-flag-container"
+              [attr.data-label]="winnerAwayFlagLabel"
+              [ngClass]="{'hide-container': !winnerAwayFlagLabel}"
+              *ngIf="!isFlagPresentAway">
+        </span>
+        <span class="team-abbreviation name-away"
+              [ngClass]="{'winner': waitingWinner}"
+              *ngIf="!cardEvent.awayTeamRemark"
+              [textContent]="cardEvent.participants?.AWAY?.abbreviation"></span>
+        <span class="team-abbreviation winner"
+              *ngIf="cardEvent.awayTeamRemark"
+              [ngClass]="{'winner-away': isFinal}">
+          <span [textContent]="cardEvent.awayTeamRemark"></span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Markets link -->
+    <div class="markets-link"
+         *ngIf="!isResulted"
+         [ngClass]="{'markets-link-hidden': !marketsCount}">
+      <a [routerLink]="[EDPpath]" [textContent]="('+' + marketsCount + ' Markets')"></a>
+    </div>
+    <div class="current-market"
+         *ngIf="!isResulted"
+         [textContent]="cardEvent.obEvent?.markets[0].name">
+    </div>
+  </div>
+
+  <!-- Odds btn -->
+  <div class="empty-odds-btn-container"
+       *ngIf="isOutcomeOnStage && !outcomes.length"></div>
+
+  <div class="knockouts-card-footer">
+    <div class="card-odds-btns-container"
+         *ngIf="(outcomes.length && !waitingWinner)">
+      <div class="card-odds-btn-container"
+           *ngFor="let outcome of outcomes; trackBy: trackById">
+        <price-odds-button [event]="cardEvent.obEvent"
+                           [outcome]="outcome"
+                           [market]="market"
+                           [head]="outcome.name.toUpperCase()">
+        </price-odds-button>
+      </div>
+    </div>
+  </div>
+</div>

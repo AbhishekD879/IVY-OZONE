@@ -1,0 +1,193 @@
+@import 'global.variables.scss';
+
+@mixin font-size-important($size) { // mixin to override inline cms styles that we get in response.
+  font-size: $size !important;
+  * {
+    font-size: $size !important;
+  }
+}
+
+racing-yourcall-specials {
+  .page-container {
+    .container-header {
+      background-color: $brand-color-dark;
+      padding-left: 9px;
+    }
+  }
+  .yc-specials-content {
+    .odds-card {
+      background-color: $color-gray-light;
+      &:nth-child(2n) {
+        background-color: $color-white;
+      }
+      border-bottom: 1px solid $color-gray;
+      margin: 0;
+      border-radius: 0;
+      padding: 15px 10px 15px 10px;
+      .odds-names {
+        &:before {
+          content: '#YourCall ';
+          color: $caribbean-green;
+        }
+      }
+    }
+  }
+
+  width: 100%;
+
+  .yc-footer {
+    background-color: $color-gray-light;
+    height: 30px;
+    padding: 6px 10px;
+    text-align: right;
+    a {
+      text-transform: uppercase;
+      font-family: $base-font-family;
+      font-size: 10px;
+      text-decoration: underline;
+      color: $color-gray-dark;
+      svg {
+        display: none;
+      }
+      .yc-link span {
+        color: $caribbean-green;
+      }
+    }
+  }
+}
+
+racing-tab-yourcall {
+  .yourcall-static-block {
+    display: block;
+
+    .yourcall-static-text {
+      width: 100%;
+      padding: 10px 10px 15px 10px;
+      font-family: $base-font-family;
+      color: $color-gray-dark;
+      .btn {
+        margin-top: 15px;
+      }
+      ul {
+         list-style-type: none;
+         padding: 0;
+         margin: 0;
+        li:nth-child(1) {
+          margin: 0 0 5px 0;
+          @include font-size-important(13px);
+        }
+        li:nth-child(2) {
+          @include font-size-important(11px);
+        }
+      }
+      .btn {
+        height: 40px;
+        border-radius: 2px;
+        background-color: $caribbean-green;
+        box-shadow: none;
+        text-shadow: none;
+        font-size: 12px;
+        font-weight: 700;
+        text-decoration: none;
+        padding: 13px 0 12px 0;
+        color: $color-white;
+      }
+    }
+  }
+  .switchers {
+    padding: 5px 10px;
+  }
+}
+
+@media screen and (min-width: 970px) {
+  racing-tab-yourcall {
+    .yourcall-static-block {
+      .yourcall-static-text {
+        word-break: normal;
+        padding: 20px 15px 20px 15px;
+        color: $color-gray-dark;
+        @include display-flex();
+        @include align-content(space-between);
+        ul {
+          margin-right: 20px;
+          display: inline-block;
+          @include flex(0, 1, auto);
+          li:nth-child(1) {
+            @include font-size-important(16px);
+          }
+          li:nth-child(2) {
+            @include font-size-important(13px);
+          }
+        }
+        p {
+          width: 120px;
+          display: inline-block;
+          @include flex(0, 0, 120px);
+          vertical-align: top;
+          .btn {
+            margin-top: 0;
+          }
+        }
+      }
+    }
+  }
+
+  racing-yourcall-specials {
+    .yc-footer {
+      height: 35px;
+      padding: 11px 10px;
+      a {
+        text-decoration: none;
+        font-size: 11px;
+        font-weight: 700;
+        .yc-link {
+          padding-right: 5px;
+        }
+        svg {
+          display: inherit;
+          width: 4px;
+          height: 8px;
+          color: lighten($color-gray-dark, 50%);
+        }
+      }
+    }
+  }
+  racing-yourcall-specials .yc-specials-content .odds-card {
+    font-size: 14px;
+    background-color: $color-white;
+    padding: 15px 10px 12px 15px;
+    .odds-content {
+      .odds-right {
+        padding-left: 15px;
+      }
+      .odds-names {
+        line-height: 1.4;
+      }
+    }
+  }
+}
+
+@media #{$mqDesktopLarge} {
+  racing-tab-yourcall {
+    .yourcall-static-block {
+      .yourcall-static-text {
+        p {
+          width: 300px;
+          @include flex(0, 0, 300px);
+        }
+      }
+    }
+  }
+
+  .widget-column {
+    racing-yourcall-specials .yc-specials-content {
+      .odds-content {
+        .odds-right {
+          .btn-bet {
+            min-width: 50px;
+          }
+        }
+      }
+    }
+  }
+}

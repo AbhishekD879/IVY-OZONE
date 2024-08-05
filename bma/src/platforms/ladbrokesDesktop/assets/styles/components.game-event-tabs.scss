@@ -1,0 +1,194 @@
+@import 'global.variables.scss';
+
+$videoSize1: 500px;
+$videoSize2: 640px;
+
+.my-bets-stream {
+  .desktop-video-container, .desktop-error-message {
+    background: $color-gray;
+    .horseracing-info-icon {
+      width: 13px;
+      height: 13px;
+      top: 0;
+      margin-right: 3px;
+      fill: $color-gray-dark;
+      position: relative;
+    }
+  }
+}
+.desktop-video-container.replaycontainer{
+  background: #efeff3;
+  color: #2b2b2b;
+  min-height: 100px;
+  margin: 0 auto 10px;
+  overflow: hidden;
+  .error-message{
+    text-align: center;
+    margin-top: 40px;
+  }
+
+}
+
+.watch-live-widget, .in-play-live-stream {
+  width: 100%;
+  margin: 0 auto;
+
+  .desktop-video-err-container {
+    min-height: 100px;
+    background: $lGrayLight;
+    color: $color-gray-darkest;
+    @include display-flex();
+    @include justify-content(center);
+    margin-bottom: 10px;
+    .error-message {
+      margin: 0 auto 10px;
+      padding: 10px;
+      @include display-flex();
+      @include align-items(center);
+    }
+    .my-bets-error {
+      margin-top: 40px;
+      text-align: center;
+    }
+  }
+
+  .live-column, .my-bets-stream {
+    .desktop-video-container {
+      background: $lGrayLight;
+      color: $color-gray-darkest;
+      min-height: 100px;
+      margin: 0 auto 10px;
+      overflow: hidden;
+      &.replaycontainer{
+        margin: 0 auto 0px;
+      }
+      .error-message {
+        text-align: center;
+        margin-top: 40px;
+      }
+    }
+  }
+
+  video#rtmpe-hls, video#rtmpe-hls-bet {
+    display: none;
+  }
+
+  .video-container {
+    &.video-load {
+      height: auto;
+      overflow: hidden;
+      .video-js {
+        height: 1px; /* fix to make stream autoplay after login */
+      }
+    }
+  }
+
+  .video-js {
+    background: none;
+
+    &.vjs-error {
+      padding: 8px 0 0 0;
+    }
+
+    .vjs-progress-control {
+      display: none !important;
+    }
+
+    .vjs-live-control {
+      @include display-flex(true);
+    }
+
+    .vjs-error-display.vjs-modal-dialog {
+      overflow: initial;
+      position: absolute;
+      line-height: 100px;
+      text-align: center;
+      width: 100%;
+      background: none;
+    }
+  }
+
+  &.watch-tennis-live, .watch-live {
+    max-width: $videoSize2;
+    margin: 0 auto 10px;
+  }
+
+  &.watch-tennis-live, &.watch-football-live {
+    .match-live {
+      margin: 0 auto 10px;
+    }
+  }
+
+  &.watch-football-live {
+    max-width: $videoSize1;
+
+    .live-switcher, .watch-live {
+      max-width: $videoSize1;
+      .video-js:not(.vjs-fullscreen) {
+        max-width: $videoSize1 !important;
+      }
+    }
+  }
+
+  .stream-text {
+    font-size: 10px;
+    padding: 2px 5px;
+    text-align: center;
+  }
+
+  .eventVideoStream .error-message,
+  .i-game-media .error-message,
+  .video-js .vjs-error-display.vjs-modal-dialog .vjs-modal-dialog-content {
+    background: $lGrayLight;
+    text-align: center;
+    color: $color-black;
+  }
+}
+
+.live-switcher {
+  @include display-flex();
+  max-width: $videoSize2;
+  margin: 0 auto 10px;
+
+  .live-switch {
+    font-size: 12px;
+    line-height: 12px;
+    color: $color-white;
+    padding: 15px;
+    width: 50%;
+    margin-left: 5px;
+    background: $denim;
+    text-transform: uppercase;
+    position: relative;
+    text-align: center;
+    border-radius: 4px;
+    transition: all .3s ease;
+    @include flex(1,1,50%);
+
+    &:first-child {
+      margin: 0 5px 0 0;
+    }
+
+    &.active {
+      background: $brand-color-dark;
+      pointer-events: none;
+    }
+
+    .watch-live-ico {
+      width: 12px;
+      height: 12px;
+      fill: $color-white;
+      display: inline-block;
+      margin: 0 10px -2px 0;
+    }
+
+    &:hover {
+      color: $light-blue;
+      text-decoration: none;
+
+      svg {
+        fill: $light-blue;
+      }
+    }
+  }
+}

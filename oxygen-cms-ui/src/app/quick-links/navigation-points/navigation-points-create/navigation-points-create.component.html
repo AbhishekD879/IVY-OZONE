@@ -1,0 +1,76 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>New Super Button</h1>
+  <form [formGroup]="form" *ngIf="navigationPoint" novalidate>
+    <div mat-dialog-content>
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input [(ngModel)]="navigationPoint.title" matInput type="text" placeholder="Title"
+                   formControlName="title" required trim="blur"/>
+            <mat-hint class="col-red" *ngIf="isMaxLengthReached('title')">Title can be max 25 characters long</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input [(ngModel)]="navigationPoint.targetUri" matInput type="text" placeholder="Destination URL"
+                   formControlName="targetUri" required trim="blur">
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input [(ngModel)]="navigationPoint.description" matInput type="text" placeholder="Short Description"
+                   formControlName="description" trim="blur"/>
+            <mat-hint class="col-red" *ngIf="isMaxLengthReached('description')">
+              Description can be max 45 characters long
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Show on Home Tabs" [(ngModel)]="navigationPoint.homeTabs" multiple
+                        formControlName="homeTabs">
+              <mat-option *ngFor="let tab of homeTabs" [value]="tab.url">
+                {{ tab.title }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Show on Sports" [(ngModel)]="navigationPoint.categoryId" multiple
+                        formControlName="sportCategories">
+              <mat-option *ngFor="let sport of sportCategories" [value]="sport.categoryId">
+                {{ sport.imageTitle }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Show on Big Competitions" [(ngModel)]="navigationPoint.competitionId" multiple
+                        formControlName="competitions">
+              <mat-option *ngFor="let competition of bigCompetitions" [value]="competition.id">
+                {{ competition.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <date-range
+            [isSetDateButtons]="true"
+            [startDate]="navigationPoint.validityPeriodStart"
+            [endDate]="navigationPoint.validityPeriodEnd"
+            [startPlaceholder]="'Validity Period Start Date'"
+            [endPlaceholder]="'Validity Period End Date'"
+            (onDateUpdate)="handleDateUpdate($event)">
+          </date-range>
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions >
+      <button (click)="closeDialog()" mat-button class="btn btn-sm bg-cean m-r-20 float-right">Cancel</button>
+      <button [disabled]="form.invalid" mat-button class="btn btn-sm bg-teal float-right"
+              [mat-dialog-close]="navigationPoint">Create</button>
+    </div>
+  </form>
+</div>

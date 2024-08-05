@@ -1,0 +1,15 @@
+<quickbet-panel
+  *ngIf="selectionVisible"
+  [title]="panelTitle"
+  [showCloseIcon]="true"
+  [selection]="selectionData"
+  (placeBetFn)="placeBet()"
+  (closeFn)="addToBetslip($event)"
+  (addToBetslipFn)="addToBetslip()"
+  data-crlat="quickbetPanel"
+  [isLuckyDip]="isLuckyDip"
+  [luckyDipCmsData]="luckyDipCmsData"
+  [luckyDipMarketName]="luckyDipMarketName"
+  [isWSdisabled]="isWSdisabled"
+  [betslipType]="betslipType">
+</quickbet-panel>

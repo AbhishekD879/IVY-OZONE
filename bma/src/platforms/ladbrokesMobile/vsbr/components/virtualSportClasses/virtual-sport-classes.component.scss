@@ -1,0 +1,267 @@
+@import 'global.variables.scss';
+
+$imagesPath: '../../assets/images/';
+
+$classHeaderBgColor: $lGrayLight;
+$classHeaderRightSize: 100px;
+$greyColor: $color-black-soft;
+$lightColor: $color-gray-light;
+$box-shadow-color: rgba(0, 0, 0, 0.15);
+
+.virtual-class-frame {
+  width: 100%;
+  padding-bottom: 59%; /* 4:2 */
+  position: relative;
+  background: $color-black;
+  margin: 0px auto;
+
+  &.d {
+    padding-bottom: 55%;
+  }
+
+}
+
+/* Image Placeholder for no events */
+.no-events {
+  .virtual-class-frame {
+    background: url("#{$imagesPath}noevents-placeholder_soccer.jpg") no-repeat top center;
+    background-size: cover;
+  }
+
+  .virtual-horse-racing {
+    background-image: url("#{$imagesPath}noevents-placeholder_horse.jpg");
+  }
+
+  .virtual-cycling {
+    background-image: url("#{$imagesPath}noevents-placeholder_cycling.jpg");
+  }
+}
+
+.no-requested-event {
+  background-color: $color-red;
+  color: $color-white;
+  padding: 10px;
+  margin-bottom: 4px;
+  font-family: $base-font-family;
+  font-size: $font-size-md;
+}
+
+.virtual-class-header {
+  margin-bottom: 4px;
+  position: relative;
+  height: 36px;
+  padding: 10px 12px 11px;
+  background-color: $classHeaderBgColor;
+  color: $lGray;
+  text-transform: uppercase;
+  line-height: 1;
+  box-shadow: 0 -1px 0 0 $lGrayDark, 0 1px 0 0 $lGrayDark;
+}
+
+.virtual-class-header-name {
+  font-size: $font-size-tablet;
+  font-weight: 700;
+  line-height: 15px;
+  margin-bottom: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.virtual-class-header-right {
+  font-size: $font-size-sm;
+  position: absolute;
+  top: 50%;
+  margin-top: -5px;
+  right: 10px;
+  max-width: $classHeaderRightSize;
+}
+
+.virtual-class-header-time {
+  padding-left: 2px;
+
+  &-live {
+    font-weight: 700;
+  }
+}
+.virtual-class-title{
+  font-family: $alt-font-family;
+  padding: 8px 12px 4px;
+  font-size: $font-size-lg;
+  color: $lGray;
+  background: $color-white;
+}
+.virtual-cards-container {
+  padding-top: 0;
+  box-shadow: 0px 2px 4px 0px $box-shadow-color;
+  margin-bottom: 8px;
+}
+
+/* Terms panel */
+.terms-block {
+  height: 40px;
+  padding: 14px 12px;
+  line-height: 1;
+  font-size: $font-size-md;
+  background: $color-white;
+  border-top: 1px solid $lGrayLight;
+}
+
+.terms-block-content {
+  margin-bottom: 0;
+  font-family: $alt-font-family;
+  color: $color-gray-dark2;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+@media screen and (min-width: 450px) {
+  .virtual-class-container {
+    .odds-card-column {
+      .col-inner {
+        min-height: 96px;
+      }
+    }
+  }
+}
+
+:host ::ng-deep {
+  .vs-video-stream {
+    background: $color-black;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+  }
+
+  .odds-card {
+    box-shadow: none;
+  }
+}
+
+.switchers-container{
+  box-shadow: 0px 0px 4px 0px $box-shadow-color;
+}
+
+.virtual-sport-btn {
+  text-align: center;
+  padding: 4px 12px 2px;
+  .btn-style1 {
+    font-size: $font-size-bit-lgr;
+    line-height: $line-height-sm;
+    box-shadow: none;
+    text-shadow: none;
+    text-transform: uppercase;
+    background: $color-green-alt;
+    &:active {
+      background: $color-green-shine;
+      color: $color-white;
+    }
+  }
+}
+
+.virtual-tab-wrap {
+  border-bottom: 3px solid #efeff3;
+}
+
+@media #{$mqTabletAndDesktop} {
+  .virtual-sport-btn {
+    @include display-flex();
+    margin-top: 16px;
+    padding: 0 0 6px 0;
+    .btn-style1.button-full-width {
+      font-size: $font-size-lgr;
+      width: 266px;
+      height: 44px;
+      margin: auto;
+      background: $color-green-alt;
+      &:hover {
+        background: $color-green-light2 !important;
+        color: $color-white;
+      }
+      &:active {
+        background: $color-green-shine !important;
+        color: $color-white;
+      }
+    }
+  }
+  .terms-block {
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.15);
+  }
+}
+
+@media #{$mqLandscapeAndDesktop} {
+  .virtual-class-frame {margin: 10px auto 0;}
+
+  :host ::ng-deep {
+    .virtual-tab-wrap .tabs-panel .scroll-container .scroll-inner {
+      border-top: none;
+      li .tab {
+        width: 100%;
+      }
+    }
+  }
+  .virtual-tab-wrap {
+    border-bottom: none;
+  }
+}
+
+.virtual-classes-container {
+  position: relative;
+  .container > .heuristic-container {
+    padding: 0;
+  }
+}
+
+.left-title-text {
+  font-family: $alt-font-family;
+  font-size: $font-size-lg;
+  font-weight: normal;
+  text-transform: capitalize;
+}
+
+:host ::ng-deep {
+  .virtual-silk img {
+    max-height: 40px;
+    max-width: 40px;
+    height: 100%;
+    width: 100%;
+  }
+
+  .virtual-classes-container {
+    .tabs-panel {
+      ul.scroll-inner {
+        width: fit-content;
+      }
+      .scroll-container {
+        box-shadow: none;
+      }
+    }
+
+    .fade-out-screen-container {
+      overflow: hidden;
+      .animate-lad {
+        position: relative;
+      }
+    }
+
+    .btm-switchers.no-margin .switchers.no-paddings {
+      margin: 0;
+      .switch-btn {
+        text-transform: uppercase;
+      }
+    }
+  }
+  .virtual-accordion.accordion-header.inner-header  {
+    min-height: 40px;
+    padding: 10px 40px 10px 36px;
+  }
+}
+
+.video-stream-loading {
+  display: block;
+  height: 400px;
+  background-color: black;
+}

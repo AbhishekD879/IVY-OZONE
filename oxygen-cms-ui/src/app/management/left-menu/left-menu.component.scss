@@ -1,0 +1,16 @@
+.sidebar {
+  .menu {
+    .list.mat-nav-list {
+      margin-bottom: 30px;
+    }
+  }
+}
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+a.disabled span {
+  color: #74747457;
+}

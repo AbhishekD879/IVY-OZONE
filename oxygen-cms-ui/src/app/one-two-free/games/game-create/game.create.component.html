@@ -1,0 +1,56 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>Create a Game</h1>
+  <div mat-dialog-content>
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row clearfix">
+          <div class="col-md-12">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Game name" [(ngModel)]="newGame.title" [value]="newGame.title" required
+                trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--  FOR OTF SEASON MYBADGES -->
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row clearfix">
+          <div class="col-md-12">
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Select Season" required [(value)]="selectedSeason"
+                (selectionChange)="onSelectSeason($event)">
+                <mat-option *ngFor="let season of seasons" [value]="season.id">
+                  {{ season.seasonName }}
+                </mat-option>
+
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--  FOR OTF SEASON MYBADGES -->
+
+    <div class="row">
+      <div class="col-md-12">
+        <date-range [startDate]='' [endDate]='' [startPlaceholder]="'Visible from *'" [endPlaceholder]="'Visible to *'"
+          [placeholderColumn]="true" (onDateUpdate)="handleVisibilityDateUpdate($event)">
+        </date-range>
+      </div>
+    </div>
+  </div>
+
+  <div class="body">
+  </div>
+</div>
+<div mat-dialog-actions class="col-12">
+  <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+  <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="!isValidModel()"
+    [mat-dialog-close]="newGame">Create</button>
+</div>

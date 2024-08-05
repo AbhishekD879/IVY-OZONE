@@ -1,0 +1,248 @@
+@import 'global.variables.scss';
+
+$black: $color-black;
+$white: $color-white;
+$borderedTabsIconSize: 25px;
+$tabs-padding     : 5px;
+$tabs-margin      : 0;
+$tabs-margin-bottom: 0px;
+$tabs-base-border-width: 2px;
+$tabs-pointer-height: 4px; // pointer width is 8
+$tabs-btm-padding : 5px;
+$tabs-font-size   : $font-size-md;
+$tabs-font-size-s : $font-size-md;
+$tabs-font-weight : bold;
+$tabs-border-r     : 1px solid $tabs-back-clr;
+$tabs-border-radius: 0;
+
+.tabs-panel {
+  position: relative;
+  background: $tabs-front-clr;
+  margin-top: $tabs-margin;
+  overflow: visible;
+
+  .scroll-container {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.25);
+
+    .scroll-inner {
+      min-width: 100%;
+      border-bottom: 1px solid #dcdcdc;
+      box-shadow: none;
+    }
+  }
+
+  &.tabs-top {
+    border-top: $tabs-padding solid $tabs-active-clr;
+  }
+
+  &.tabs-bottom {
+    box-shadow: none;
+    margin-bottom: $tabs-btm-padding;
+    border-bottom: 1px solid $tabs-shadow-color;
+
+    .scroll-container {
+
+      .scroll-inner {
+        @include inline-flex();
+        @include flex (1, 0);
+        li {
+          border-right: $tabs-border-r;
+
+          .tab {
+            font-size: $tabs-font-size-s;
+            padding: 10px 15px;
+            height: 30px;
+          }
+        }
+      }
+    }
+  }
+
+  .scroll-container {
+    z-index: 5;
+
+    .scroll-inner {
+      padding: 0;
+      margin-bottom: $tabs-margin-bottom;
+
+      li {
+        position: relative;
+        border-radius: $tabs-border-radius;
+
+        .tab {
+          padding: 10px 10px 11px;
+          color: #777;
+          cursor: pointer;
+          display: block;
+          font: $font-size $alt-font-family;
+          text-transform: none;
+          min-height: 34px;
+          overflow: hidden;
+          text-align: center;
+          min-width: 50px;
+
+          &.disabled {
+            opacity: .5;
+            pointer-events: none;
+          }
+
+          &.tab-with-icon {
+            padding: 6px 10px 10px;
+          }
+
+          .tab-icon {
+            width: 20px;
+            height: 13px;
+            fill: $black;
+            display: block;
+            margin: 0 auto 5px;
+          }
+
+          &.time-ribbon {
+            font-weight: 400;
+          }
+
+          &:hover, &:focus {
+            text-decoration: none;
+          }
+        }
+
+        &.active {
+          background: none;
+          box-shadow: none;
+          border-bottom: 3px solid #f01e28;
+
+          .tab-icon {
+            fill: $color-white;
+          }
+
+          &:after {
+            border: none;
+          }
+
+          .tab {
+            color: #252835;
+            font-weight: bold;
+            pointer-events: none;
+          }
+
+          &.no-background {
+            background: transparent;
+            box-shadow: none;
+
+            &:after {
+              content: none;
+            }
+
+            .tab {
+              border-right: $tabs-border-r;
+              color: $color-gray-dark;
+
+              &:after {
+                content: none;
+              }
+            }
+          }
+        }
+      }
+
+      &.flex-tabs {
+        @include display-flex();
+
+        li {
+          @include display-flex();
+          @include flex(1, 4, 100%);
+
+          .tab {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  &.meetings-tabs-panel {
+    .scroll-container {
+      .scroll-inner {
+        background-color: #f5f5f6;
+        li {
+          .tab {
+            position: relative;
+            color: #252835;
+            &:not(:last-child):after{
+              display: block;
+              border-left: 1px solid #ebe8e8;
+              content: "";
+              height: 20px;
+              position: absolute;
+              right: 0;
+              top: 11px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+.bordered-tabs .tabs-panel {
+  background: $top-bar-back-bg;
+
+  &.tabs-panel {
+    padding-bottom: 0;
+
+    .scroll-container .scroll-inner {
+      margin-bottom: 0;
+      border-bottom: none;
+
+      li {
+        @include flex-grow(1);
+
+        &.active {
+          background: transparent;
+          .tab {
+            border-color: $color-red;
+          }
+        }
+
+        .tab {
+          border-bottom: 2px solid transparent;
+          color: $color-white;
+          width: 100%;
+
+          .tab-icon {
+            width: $borderedTabsIconSize;
+            height: $borderedTabsIconSize;
+            fill: $color-white;
+          }
+        }
+      }
+    }
+  }
+}
+
+coupons-details,
+sport-tabs-page,
+sport-matches-page,
+single-sport-section {
+    .market-selector-sticky-margin {
+      margin-top: 46px;
+    }
+}
+
+sport-matches-tab, competitions-future-sport-tab {
+  display: block;
+}
+
+.sticky-market-selector.sticky-on {
+  margin-top: -3px;
+
+  .tabs-panel {
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
+
+    .scroll-inner {
+      background: $color-white;
+    }
+  }
+}

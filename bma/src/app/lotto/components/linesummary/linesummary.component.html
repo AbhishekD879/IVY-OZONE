@@ -1,0 +1,171 @@
+<section class="page-container">
+    <header class="container-header" [ngClass]="{'lads':isBrandLadbrokes}" data-crlat="containerHeader">
+        <div class="segment-title">
+            <strong data-crlat="currentLottoname" [textContent]="currentLottoname"></strong>
+        </div>
+        <a class="help-icon" (click)="openLottoInfoDialog()" data-crlat="infoButton">
+            <svg>
+                <use xlink:href="#info-icon"></use>
+            </svg>
+        </a>
+        <span [textContent]="lotto.nextDraw"></span>&nbsp;
+        <span *ngIf="days !== 0">
+            <span class="days">{{ days }}</span>&nbsp;
+            <span [i18n]="'lotto.days'" *ngIf="days !== 1"></span>
+            <span [i18n]="'lotto.day'" *ngIf="days === 1"></span>&nbsp;
+        </span>
+        <span *ngIf="hours !== 0">
+            <span>{{ hours }}</span>&nbsp;
+            <span [i18n]="'lotto.hours'" *ngIf="hours !== 1"></span>
+            <span [i18n]="'lotto.hour'" *ngIf="hours === 1"></span>&nbsp;
+        </span>
+        <span>
+            <span>{{ minutes }}</span>&nbsp;
+            <span [i18n]="'lotto.minutes'" *ngIf="minutes !== 1"></span>
+            <span [i18n]="'lotto.minute'" *ngIf="minutes === 1"></span>
+        </span>
+    </header>
+
+
+    <div class="maxLines-wrapper-out full-width " *ngIf="maxLineWrapper" data-crlat="maxLines-wrapper">
+        <div class="maxLines-wrapper" [ngClass]="{'lads':isBrandLadbrokes}">
+            <div class="maxLines-content">
+                <span class="text" [ngClass]="{'lads':isBrandLadbrokes}">{{ lotto.maxLinesWrapper }}</span>
+            </div>
+            <a data-uat="popUpCloseButton" class="close-icon" (click)="closeMaxLinesWrapper()">
+                <svg>
+                    <use xlink:href="#close-icon"></use>
+                </svg>
+            </a>
+
+        </div>
+    </div>
+
+    <div id="linesummary" class="container-group" data-crlat="linesummary">
+       <div [ngClass]="{'top-section': isBrandLadbrokes}">
+            <div class="btm-margin" *ngFor="let selectedLine of linesSummary; let indx = index">
+                <div class="line-header group-buttons top-btn-row" [ngClass]="{'lads-line-header': isBrandLadbrokes}">
+                    <div class="group-btn pdng">
+                        <div class="group-col line-counter group-btn-font"><strong>{{ lotto.line }} {{indx + 1}}</strong></div>
+                        <div class="group-col"></div>
+                        <div class="group-col">
+                            <a class="edit-link" class="edit-link group-font-12" [ngClass]="{'lads':isBrandLadbrokes}"
+                                (click)="editLine(indx)">{{lotto.edit}}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="bs-stake-content bs-stake"  data-crlat="bs-stake-content">
+                    <div class="numberline">
+                        <div class="bs-stake-actions">
+                            <div class="bs-stake-delete-button delete-button" (click)="removeLine(indx)">
+                                <svg>
+                                    <use xlink:href="#close-icon"></use>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="bs-stake-info">
+                            <number-selector [numbersData]="selectedLine.numbersData">
+                            </number-selector>
+                        </div>
+                    </div>
+                    <div class="row draw-row booster-panel full-width" *ngIf = "boosterBall">
+                        <div class="col-xs-6">
+                            <div class="check-styled">
+                                <input id="boosterBall_{{indx}}" name="boosterBall_{{indx}}" class="form-control" type="checkbox"
+                                    data-crlat="chkBox" [(ngModel)]="selectedLine.isBonusBall"/> 
+                                    <!-- (change)="changeBonusBall(indx, $event)" -->
+                                <label for="boosterBall_{{indx}}"></label>
+                            </div>
+
+                            <label for="boosterBall_{{indx}}" class="check-title" data-crlat="label">
+                                {{lotto.useBonusBall}}
+                            </label>
+                        </div>
+
+                        <div class="col-xs-6 useFavourites">
+                            <div class="check-styled">
+                                <input id="favourite_{{indx}}" name="linesSummary[{{indx}}].favourite" class="form-control" type="checkbox"
+                                    data-crlat="chkBox" (change)="changeFavourite(indx, $event)" />
+                                <label for="favourite_{{indx}}"></label>
+                            </div>
+                            <label for="favourite_{{indx}}" class="check-title" data-crlat="label">
+                                {{lotto.favourite}}
+                            </label>
+                        </div>
+                        </div>
+                        
+                    <div class="favourites full-width" *ngIf="false">
+                        <div class="favourites-wrapper">
+                            <div class="favourites-content">
+                                <span>{{lotto.favouritesWrapper}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="group-buttons line-margin">
+                <div class="" data-crlat="buttonGroup">
+                    <div class="full-width group-default">
+                        <button (click)="numDialog();" class="btn full-width createNewLine" [disabled]="maxLineWrapper" [ngClass]="{'ladbrokes': isBrandLadbrokes}" data-crlat="luckyButton">
+                            {{lotto.createNewLine}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+       </div>
+       <div [ngClass]="{'lads-border': isBrandLadbrokes}">
+        <div class="group-buttons top-btn-row btm-margin line-header" [ngClass]="{'lads-line-header': isBrandLadbrokes}">
+            <div class="draws-header">
+                <div class="group-btn-font" [ngClass]="{'lads-chooseDraws': isBrandLadbrokes}"><span>{{lotto.chooseDraws}}</span></div>
+                <div>
+                    <a class="edit-link" class="edit-link group-font-12" [ngClass]="{'lads':isBrandLadbrokes}"
+                        (click)="handleSelectAll()">{{ selectAll ? 'UN': ''}}{{lotto.selectAll}}</a>
+                </div>
+            </div>
+
+            <div class="draws-selections">
+                <div *ngFor="let dateKey of sortedDateWiseKeys; let i = index;" class="row" data-crlat="selectDrawRow">
+                    <!-- <p class="draw-date">{{dateWiseDraws[dateKey].drawDate}}</p> -->
+                    <p class="draw-date" [dateTimeFmt]="dateWiseDraws[dateKey].drawDate" [showTime]="true"></p>
+                    <div *ngFor="let draw of dateWiseDraws[dateKey].draws" class="col-xs-6 group-col draw-header">
+                        <button *ngIf="!isBrandLadbrokes" (click)="selectDraw(draw)"
+                            [ngClass]="{'draw-active': draw.checked, 'btn-draw': !draw.checked}" class="btn full-width draw-selection"
+                            data-crlat="luckyButton">{{draw.description}} {{getUTCHoursAndMinutes(draw.drawAtTime)}}
+                        </button>
+
+                        <button *ngIf="isBrandLadbrokes" (click)="selectDraw(draw)"
+                            [ngClass]="{'draw-active-lads': draw.checked, 'btn-draw-lads': !draw.checked}"
+                            class="btn full-width draw-selection lads" data-crlat="luckyButton">{{draw.description}} {{getUTCHoursAndMinutes(draw.drawAtTime)}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="group-buttons line-header howManyWeeks btm-margin"  [ngClass]="{'lads-line-header': isBrandLadbrokes}">
+            <div class="group-btn">
+                <div class="group-col group-btn-font">{{lotto.howManyWeeks}}</div>
+            </div>
+            <div class="row " data-crlat="selectDrawRow">
+                <div *ngFor="let week of weeks; let i = index;" class="col-xs-3 group-col btn-week">
+                    <button *ngIf="!isBrandLadbrokes" (click)="selectWeek(i)"
+                        [ngClass]="week.selected ? 'draw-active' : 'btn-draw'" class="btn full-width week-btn"
+                        data-crlat="luckyButton">{{week.value}}</button>
+
+                    <button *ngIf="isBrandLadbrokes" (click)="selectWeek(i)"
+                        [ngClass]="week.selected ? 'draw-active-lads' : 'btn-draw-lads'" class="btn full-width week-btn-lads"
+                        ata-crlat="luckyButton">{{week.value}}</button>
+                </div>
+            </div>
+        </div>
+        <div class="group-buttons addToBetslip">
+            <div class="group-btn" data-crlat="buttonGroup">
+                <div class="full-width group-default">
+                    <button  [ngClass]="{'ladbrokes': isBrandLadbrokes}" [disabled]="!draws.length || !isWeeksSelected()" 
+                    (click)="addToBetslip();" class="btn btn-style1 full-width addToBetslip">{{lotto.addToBetslip}}</button>
+                </div>
+            </div>
+        </div>
+       </div>
+    </div>
+</section>

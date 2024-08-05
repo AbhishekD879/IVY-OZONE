@@ -1,0 +1,111 @@
+<div class="card" *ngIf="otfIosAppToggle">
+  <div class="header">
+    <div class="row">
+      <div class="col-md-10">
+        <h2 class="waves-effect waves-block">
+          IOS app OFF toggle config
+        </h2>
+      </div>
+      <div class="col-md-2">
+        <mat-checkbox color="primary"
+                      [checked]="otfIosAppToggle.iosAppOff"
+                      (change)="otfIosAppToggle.iosAppOff = !otfIosAppToggle.iosAppOff">
+          IOS APP Off
+        </mat-checkbox>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="otfIosAppToggle">
+  <div class="body">
+    <div class="row" *ngIf="!otfIosAppToggle.createdAt">
+      <div class="col-md-12">
+        <span class="mat-label" style="color: red; font-weight: bold; font-size: 14pt;">
+           IOS App Toggle is not configured yet
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Text*
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !otfIosAppToggle.text }">
+          <input matInput placeholder="Text of modal itself"
+                 [(ngModel)]="otfIosAppToggle.text"
+                 [value]="otfIosAppToggle.text" trim="blur">
+          <mat-hint class="col-red" *ngIf="!otfIosAppToggle.text">Text must not be empty</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          URL to where user should be directed
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Optional"
+                 [(ngModel)]="otfIosAppToggle.url"
+                 [value]="otfIosAppToggle.url" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          URL Text
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="URL text. Should be configured in conjunction with URL"
+                 [(ngModel)]="otfIosAppToggle.urlText"
+                 [value]="otfIosAppToggle.urlText" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Close CTA button text*
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !otfIosAppToggle.closeCtaText }">
+          <input matInput placeholder="Text of the Close CTA button"
+                 [(ngModel)]="otfIosAppToggle.closeCtaText"
+                 [value]="otfIosAppToggle.closeCtaText" trim="blur">
+          <mat-hint class="col-red" *ngIf="!otfIosAppToggle.closeCtaText">Close CTA text must not be empty</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Proceed CTA button text
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Text of the Proceed CTA button. Won't be displayed if URL is empty"
+                 [(ngModel)]="otfIosAppToggle.proceedCtaText"
+                 [value]="otfIosAppToggle.proceedCtaText" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="otfIosAppToggle"
+  [fieldOrItemName]="'IOS App Toogle'"
+  [collection]="otfIosAppToggle"
+  (actionsEmitter)="actionsHandler($event);"
+  [showRemoveButton]="false">
+</action-buttons>

@@ -1,0 +1,65 @@
+# -Dlogging.config=log4j2-filebeat.yml
+
+Configuration:
+
+  name: filebeat
+  status: warn
+
+  properties:
+
+    property:
+
+    - name: log_folder
+      value: ${env:TRENDINGBETS_LOG_PATH:-log}
+    - name: file_name
+      value: trendingbets.log
+    - name: file_pattern
+      value: ${file_name}.date.%d{yyyy-MM-dd-HH-mm}
+    - name: log_file_count
+      value: ${env:LOG_FILE_COUNT:-360}
+    - name: log_file_size
+      value: ${env:LOG_FILE_SIZE:-6GB}
+
+  Appenders:
+
+    RollingFile:
+
+      name: file
+      fileName: ${log_folder}/${file_name}
+      filePattern: ${log_folder}/${file_pattern}
+      filePermissions: rw-r--r--
+
+      JSONLayout:
+        complete: false
+        compact: true
+        eventEol: true
+        properties: true
+        stacktraceAsString: true
+        KeyValuePair:
+        - key: "@timestamp"
+          value: $${date:yyyy-MM-dd'T'HH:mm:ss.SSSXXX}
+        - key: "host.name"
+          value: $${env:HOSTNAME:-none}
+
+      Policies:
+        OnStartupTriggeringPolicy: {}
+        TimeBasedTriggeringPolicy:
+          interval: 1
+          modulate: true
+      DefaultRolloverStrategy:
+        Delete:
+          basePath: ${log_folder}
+          maxDepth: 1
+          IfFileName:
+            glob: ${file_name}.*
+          IfAny:
+            IfAccumulatedFileSize:
+              exceeds: ${log_file_size}
+            IfAccumulatedFileCount:
+              exceeds: ${log_file_count}
+
+  Loggers:
+    Root:
+      level: "${env:TRENDINGBETS_LOG_LEVEL:-info}"
+      AppenderRef:
+        ref: file

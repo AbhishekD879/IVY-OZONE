@@ -1,0 +1,36 @@
+@import 'global.variables.scss';
+
+.user-menu {
+  a {
+    cursor: pointer;
+  }
+  .list-item {
+    .item-icon {
+      width: 20px;
+      height: 20px;
+    }
+    span {
+      color: $color-white;
+      border-radius: 3px;
+      padding: 2px 3px;
+      font-size: 10px;
+      text-shadow: none;
+      text-transform: uppercase;
+      margin-left: 12px;
+      font-weight: bold;
+    }
+    .bronze {
+      background-color: $color-bronze;
+    }
+    .gold {
+      color: lighten($color-gray-dark, 50%);
+      background-color: $color-yellow;
+    }
+    .platinum {
+      background-color: $color-platinum;
+    }
+    .silver {
+      background-color: lighten($color-gray-dark, 50%);
+    }
+  }
+}

@@ -1,0 +1,22 @@
+<div class="quickbet-info-spot">
+  <p class="qb-stake-info" data-crlat="totalStake">
+    <span [i18n]="'quickbet.stakeLabel'" data-crlat="label"></span>
+    <span *ngIf="!selection.freebetValue" [textContent]="getTotalStake()" data-crlat="value"></span>
+    <span class="freebet-stake" data-crlat="combinedStake" *ngIf="selection.freebetValue">
+      <span class="free-bet-label">
+        <free-bet-label 
+          [freeBetLabelText]="selection.freeBetOfferCategory" 
+          [selected]="selection.freebetValue" 
+          [jump]="'jump'"
+          [plusSuffix]="selection.stakeAmount >= 0">
+        </free-bet-label>
+      </span>
+      <span *ngIf="selection.stakeAmount >= 0" [textContent]="getStake()"></span>
+    </span>
+  </p>
+  <p class="qb-return-info">
+    <span *ngIf="isLuckyDip" [i18n]="'quickbet.potentialReturns'" data-crlat="estReturnsLabel"></span>
+    <span *ngIf="!isLuckyDip" [i18n]="'quickbet.estReturns'" data-crlat="estReturnsLabel"></span>
+    <span [textContent]="isCapped()" data-crlat="totalEstReturns"></span>
+  </p>
+</div>

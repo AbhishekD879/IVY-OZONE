@@ -1,0 +1,46 @@
+<div class="card">
+  <div class="header">
+    <h2>Leaderboard Subsection</h2>
+  </div>
+</div>
+
+<div class="card">
+  <div class="body">
+    <div class="row clearfix">
+      <div class="col-md-3">
+        <button mat-button (click)="this.router.navigate(['promotions/createLeaderboard']);" type="button"
+          class="btn bg-teal waves-effect float-left">
+          <mat-icon>add_box</mat-icon>
+          <span>Create New Leaderboard</span>
+        </button>
+      </div>
+      <div class="col-md-3">
+        <download-cvs [cvsData]="leaderboards" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search for Leaderboard" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="!isLoading && (!leaderboards || !leaderboards.length)">
+      <div class="col-md-12">
+        <h3>No Navigation Group Found <span class="font-italic font-underline"></span></h3>
+      </div>
+    </div>
+    <div>
+      <cms-data-table
+        [customTableData]="leaderboards"
+        [customTableColumns]="dataTableColumns"
+        [filterString]="searchField"
+        [filterProperties]="filterProperties"
+        [multyRemove]="false"
+        [actions]="['remove']"
+        (onRemoveTableElement)="removeLeaderboard($event)">
+      </cms-data-table>
+    </div>
+  </div>
+</div>

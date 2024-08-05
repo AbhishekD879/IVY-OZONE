@@ -1,0 +1,49 @@
+@import 'global.variables.scss';
+
+.acca-notification {
+  background: $color-blue-alt;
+  color: $color-white;
+  position: relative;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 7px 15px;
+  margin: 10px 9px;
+  height: 53px;
+  border-radius: 20px;
+  box-shadow: 0 2px 3px 0 rgba(58, 61, 73, 0.29);
+
+  .label-price {
+    z-index: 1;
+    padding-right: 16px;
+    word-break: break-word;
+  }
+
+  &.timeline-shown {
+    margin-bottom: 45px;
+  }
+  &.nw-indicator-shown {
+    margin-bottom: 46px;
+  }
+
+  .bet-return {
+    font-weight: normal;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  svg.next-arrow {
+    position: absolute;
+    top: 33%;
+    margin-top: -5px;
+    right: 15px;
+    height: 10px;
+    width: 6px;
+    fill: $color-white;
+  }
+
+  .selection-name {
+    padding-left: 4px;
+    font-size: 11px;
+    font-weight: normal;
+  }
+}

@@ -1,0 +1,265 @@
+@import 'global.variables.scss';
+$lads-box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+
+@mixin lottoFontStyle($size, $family){
+    font-size: $size;
+    font-family: $family;
+  }
+
+#linesummary {
+    .top-section{
+        margin:12px 0;
+        background: #f9f9f9;
+        box-shadow: $lads-box-shadow;
+    }
+    .top-btn-row{
+        margin-bottom: -3px;
+    }
+    .pdng{
+        padding-bottom: 3px;
+    }
+
+    .group-btn-font {
+        @include lottoFontStyle(14px, $base-font-family);
+    }
+
+    .group-font-12 {
+        font-size: 12px;
+        font-family: $base-font-family;
+    }
+    .line-header {
+        color: #41494e;
+        &.lads-line-header{
+            color: #2b2b2b;
+            .group-btn-font {
+                @include lottoFontStyle(14px, $alt-font-family);
+            }
+            .group-font-12 {
+                @include lottoFontStyle(11px, "Roboto Condensed");
+            }
+            p {
+                @include lottoFontStyle(12px, $alt-font-family);
+            }
+        }
+        .line-counter{
+            color:$lotto-line-header;
+        }
+        font-size: 14px;
+        padding: 12px 12px 0px 12px;
+  
+            .group-btn {
+                .group-col {
+                    padding: 0;
+                }
+            }
+        .edit-link {
+            justify-content: right;
+            display: flex;
+            font-size: 12px;
+            letter-spacing: -0.01px;
+            color:#084d8d;
+            text-decoration: none;
+            &.lads {
+                font-family:'Roboto condensed';
+                font-size: 11px;
+                font-weight: bold;
+                font-stretch: condensed;
+                font-style: normal;
+                line-height: normal;
+                letter-spacing: 0px;
+                text-align: right;
+                color:$color-blue-alt;
+            }
+        }  
+    }
+
+        .bs-stake-content {
+            padding: 12px 12px 12px 24px;
+
+            .bs-stake-info {
+                padding: unset;
+            }
+                .booster-panel {
+                    width: 100%;
+                    padding: 12px 0 0 14px;
+                    @media (min-width: $desktopPoint) {
+                        padding: 12px 0 0 18px;
+                      }
+    
+                    .useFavourites {
+                        visibility: hidden;
+                    }
+                }         
+        }
+    .draw-header {
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
+    .btn-week {
+        margin-top: 10px;
+        button {
+            border-radius: 2px;
+        }
+    }
+     .howManyWeeks {
+         margin-top: 4px;
+         padding: 12px;
+         font-weight: normal;
+
+         &.lads-line-header {
+             .group-btn-font {
+                 @include lottoFontStyle(14px, $alt-font-family);
+                 font-weight: bold
+             }
+         }
+
+         .row {
+             .week-btn {
+                 @include lottoFontStyle(13px, $base-font-family);
+             }
+
+             .week-btn-lads {
+                 @include lottoFontStyle(13px, $alt-font-family);
+             }
+         }
+     }
+    .draws-selections {
+        .draw-date {
+            color: #41494e;
+            display: block;
+            width: 100%;
+            margin: 12px 5px;
+            @include lottoFontStyle(12px, $base-font-family);
+        }
+        .row {
+            &:last-child {
+                padding-bottom: 0px;
+            }
+        }
+        .draw-selection {
+            @include lottoFontStyle(13px, $base-font-family);
+            font-weight: unset;
+            &.lads {
+                @include lottoFontStyle(11px, $alt-font-family);
+                font-weight: unset;
+            }
+
+        }
+    }
+
+    .createNewLine {
+        @include lottoFontStyle(13px, $base-font-family);
+        &.ladbrokes {
+            @include lottoFontStyle(15px, "Roboto Condensed");
+            text-transform: uppercase;
+            
+            background: $color-light-green-leaf;
+            &:hover {
+                background: $color-green-light2;
+            }
+            &:active {
+                background: $color-green-shine;
+            }
+        }
+    } 
+     .addToBetslip {
+        padding: 12px;
+        @include lottoFontStyle(13px, $base-font-family);
+        &.ladbrokes {
+            @include lottoFontStyle(15px, "Roboto Condensed");
+            text-transform: uppercase !important;
+            background: $color-light-green-leaf !important;
+         }
+    }    
+    .line-margin {
+     margin-bottom: 5px;
+     padding: 12px;
+    }
+    .draws-header {
+        display: flex;
+        justify-content: space-between;
+        font-weight: normal;
+        .lads-chooseDraws{
+            font-weight: bold;
+        }
+    }
+}
+.lads-border{
+    box-shadow: $lads-box-shadow;
+}
+
+@media (min-width: $desktopPoint) {
+    .maxLines-wrapper {
+        top: 56px !important;
+        left: 0px;
+
+        .maxLines-content {
+            padding-left: 12.5%;
+            font-weight: bold;
+        }
+    }
+}
+
+.maxLines-wrapper-out {
+    .maxLines-wrapper {
+        position: fixed;
+        top: 97px;
+        z-index: 999;
+        width: 100%;
+        padding: 10px 12px 10px 10px;
+        background-color: $color-yellow;
+        display: flex;
+        align-items: stretch;
+        flex-direction: row;
+        justify-content: space-between;
+        &.lads {
+            padding: 8px 12px 8px 10px;
+            font-family: Helvetica Neue, Helvetica, Arial;
+            background-color:$color-blue-cornflower;
+        }
+
+        .maxLines-content {
+            margin: 0 0 0 5px;
+            font-size: 12px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            color:$color-gray-dark;
+            .text {
+                color:$color-gray-dark;              
+                &.lads {              
+                    color:$color-white;
+                }
+            }
+
+        }
+
+        .close-icon {
+            svg {
+                width: 12px;
+                height: 12px;
+                margin: 9px 0 1px 12px;
+                opacity: 0.85;
+                border-radius: 0.3px;
+                color:$color-gray-dark;
+            }
+
+        }
+    }
+}
+
+    .favourites-wrapper {
+            
+            margin: 12px 0px 0px 12px;
+            border-radius: 2px;
+            background-color:$color-gray-light;
+
+            .favourites-content {
+                padding: 8px;
+                font-size: 12px;
+                color: $color-gray-dark;
+            }
+
+}

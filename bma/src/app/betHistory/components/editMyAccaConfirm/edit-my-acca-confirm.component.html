@@ -1,0 +1,7 @@
+<div class="edit-my-acca-confirm">
+<button class="btn btn-style1" (click)="submit()" [disabled]="isDisabled" data-crlat="confirmButton">
+  <span *ngIf="!timer" [i18n]="hasSuspendedLegs? 'ema.confirmSuspended': 'ema.confirmEdit'"></span>
+  <span *ngIf="loading" class="spinner-loader small-loader"></span>
+  <span *ngIf="timer" [textContent]="timer" class="timer"></span>
+</button>
+</div>

@@ -1,0 +1,167 @@
+<div class="container" data-crlat="accordionsList" [ngClass]="{ 'sk-container': shouldDisplayLoader,
+                       'sk-loading': showLoader}">
+  <loading-screen [displayed]="showLoader"  [longRenderView]="true" [templateType]="'GENERIC'"></loading-screen>
+  <ng-container *ngIf="!showOnlyBigCompetitionData">
+  <lazy-component *ngIf="(router.url | callBack :  showLeaderboardWidget: this) && featuredModuleData?.modules?.length && !showLoader"
+    moduleUri="@lazy-modules-module/fiveASideShowDown/fiveaside-entry-confirmation.module#FiveASideEntryConfirmationModule"
+    [inputs]="{showLeaderboard: true}"
+    entryComponent="FiveasideLeaderBoardWidgetComponent">
+  </lazy-component>
+
+    <!-- Fanzone Banner  -->
+    <lazy-component *ngIf="user.status" moduleUri="@lazy-modules-module/fanzone/fanzone-shared.module#FanzoneSharedModule"
+    entryComponent="FanzoneBannerComponent">
+    </lazy-component>
+    <!-- Fanzone Banner -->
+
+    <!-- Fanzone FanzoneSharedComponent for syc -->
+    <lazy-component moduleUri="@lazy-modules-module/fanzone/fanzone-shared.module#FanzoneSharedModule"
+      entryComponent="FanzoneSharedComponent">
+    </lazy-component>
+    <!-- Fanzone FanzoneSharedComponent for syc -->
+
+    <!--- Free Ride module -->
+    <lazy-component 
+      *ngIf="(router.url | callBack : showFreeRideBanner: this) && user.status && bonusSuppressionService.checkIfYellowFlagDisabled('freeRide') && freeRideHelperService.showFreeRide()" 
+      moduleUri="@lazy-modules-module/freeRide/freeRide.module#FreeRideModule" entryComponent="LadsLaunchBannerComponent"
+      [inputs]="{config:'HOME'}">
+    </lazy-component>
+
+</ng-container>
+  <ng-container *ngFor="let module of featuredModuleData?.modules; index as i; trackBy: trackByModules">
+  <ng-container *ngIf="!showOnlyBigCompetitionData; else bigCompetitionBlock;">
+
+    <lazy-component *ngIf="showRpg(module)"
+                    moduleUri="@lazy-modules-module/rpg/rpg.module#RpgModule"
+                    [inputs]="{rpgModule: module?.data[0], userName: user.username}"
+                    (init)="childComponentLoaded()">
+    </lazy-component>
+    <surface-bets-carousel *ngIf="module['@type'] === 'SurfaceBetModule'"
+                           class="featured-surface-bets-carousel"
+                           [sportName]="sportName" [module]="module"></surface-bets-carousel>
+    <featured-quick-links *ngIf="isSportsQuickLinksEnabled && module['@type'] === 'QuickLinkModule'"
+                          [sportName]="sportName" [quickLinks]="module"></featured-quick-links>
+    <featured-highlight-carousel *ngIf="isHighlightCarouselEnabled && module['@type'] === 'HighlightCarouselModule'"
+                                 [sportName]="sportName" [highlightsCarousel]="module"  [eagerLoadCount]="eagerLoadCount?.HCMobile"></featured-highlight-carousel>
+    <featured-inplay *ngIf="isInplayModuleEnabled && module['@type'] === 'InplayModule' && !isGolfMatchesTab"
+                     [sportName]="sportName"
+                     [module]="module"
+                     [eventsCount]="module.totalEvents">
+    </featured-inplay>
+
+    <featured-aem *ngIf="module['@type'] === 'AEM_BANNERS'" [aem]="module"></featured-aem>
+
+    <ng-container *ngIf="module.isWoEw">
+      <featured-race-card-home class="featured-race-card"
+                      [raceData]="module.data"
+                      [raceIndex]="0"
+                      [showTimer]="true"
+                      [raceNewStyleCard]="true"
+                      [selectionsLimit]="module.maxRows"
+                      [gtmModuleTitle]="'Featured Racing Market'"
+                      [isFeaturedRaceCard]="true"
+                      [hideNonRunners]="true"
+                      [hideFavourite]="true">
+      </featured-race-card-home>
+    </ng-container>
+
+    <ng-container *ngIf="module['@type'] === 'EventsModule' && !module.isWoEw">
+      <accordion *ngIf="isModuleHidden(module)"
+                 [accordionTitle]="module.title"
+                 [card]="!isRace(module).racing"
+                 [isExpanded]="module.showExpanded"
+                 [ngClass]="{'has-carousel': module.dataSelection.selectionType == 'RaceTypeId' && module.showExpanded,
+                             'racing-card': isRace(module).racingCard }"
+                 (function)="manageSocketSubscription(module, $event);updateFeatureModuleView()"
+                 data-crlat="accordion">
+        <right-side *ngIf="badges[module._id]">
+          <span class="pc-badge" [ngClass]="badges[module._id].className" data-crlat="badge.label" *ngIf="badges[module._id]">{{ badges[module._id].label }}</span>
+        </right-side>
+
+        <right-side *ngIf="isRace(module).racingCard">
+          <span (click)="seeAllRaces(module)" [i18n]="'sb.seeAll'">
+          </span>
+          <svg *ngIf="module.showExpanded" class="race-see-all-arrow">
+            <use xlink:href="#next-arrow"></use>
+          </svg>
+        </right-side>
+
+        <accordion-body *ngIf="module.showExpanded">
+          <loading-screen [displayed]="module.showModuleLoader" [skeletonOnlyDisplayed]="module.showModuleLoader"
+          [templateType]="'GENERIC_ACCORDION'" [skeletonOnly]="true" data-crlat="spinner.loader">
+        </loading-screen>
+
+          <!-- Outrights Event Market -->
+          <ng-container *ngIf="module.dataSelection && module.dataSelection.selectionType === 'Market' && module.isOutright">
+            <featured-event-markets class="featured-markets"
+                           [eventEntity]="module.data[0]"
+                           [panelType]="'outright'"
+                           [selectionsLimit]="module.maxRows"
+                           [isFeaturedMarkets]="true">
+            </featured-event-markets>
+          </ng-container>
+
+          <ng-container *ngIf="module.data.length > 0 && !module.isOutright && !module.isWoEw">
+            <odds-card-header
+              [events]="module.data"
+              [moduleId]="module._id"
+              (initialized)="oddsCardHeaderInitialized($event)"
+              *ngIf="isOddsCardHeaderShown(module)">
+            </odds-card-header>
+            <ng-container *ngIf="!isOddsCardHeaderShown(module) || initializedModulesMap[module._id]">
+              <ng-container *ngFor="let event of module.data; trackBy: trackByModuleData">
+                <odds-card-component [featured]="{ isSelection: module.dataSelection.selectionType === 'Selection' }"
+                                     [eventType]="getEventType(event)"
+                                     [gtmModuleTitle]="'featured bet'"
+                                     *ngIf="!isRace(module).racing && event.isDisplayed !== false"
+                                     [event]="event"
+                                     [attr.data-crlat]="'featured.type.oddsCard.' + module.dataSelection.selectionType">
+                </odds-card-component>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+
+          <ng-container *ngIf="isRace(module).racingCard && module.showExpanded && module?.data && module?.data?.length">
+            <lazy-component moduleUri="@lazy-modules-module/raceCard/race-card-content.module#RaceCardContentModule" [inputs]="{
+                                      raceData: module.data,
+                                      raceIndex: i,
+                                      raceMaxSelections: module.maxSelections,
+                                      showTimer: true,
+                                      gtmModuleTitle: 'featured races'
+                                    }" data-crlat="featured.type.raceCard">
+            </lazy-component>
+          </ng-container>
+          <racing-grid *ngIf="isRace(module).racingGrid"
+                       [sportId]="module.dataSelection.selectionId"
+                       [raceGridRaces]="raceGridRaces"
+                       data-crlat="featured.type.racingGrid">
+          </racing-grid>
+
+          <a class="show-more" data-crlat="showMore" *ngIf="module.footerLink?.url"
+             [routerLink]="[module.footerLink.url]"
+             [ngClass]="{'rounded-more' : isRace(module).racing}">
+            <span>{{ getShowMoreText(module) }}</span>
+            <svg>
+              <use xlink:href="#next-arrow"></use>
+            </svg>
+          </a>
+        </accordion-body>
+      </accordion>
+    </ng-container>
+  </ng-container>
+  <ng-template #bigCompetitionBlock>
+    <surface-bets-carousel *ngIf="module['@type'] === 'SurfaceBetModule'"
+    class="featured-surface-bets-carousel"
+    [sportName]="sportName" [module]="module">
+    </surface-bets-carousel>
+    <featured-highlight-carousel *ngIf="isHighlightCarouselEnabled && module['@type'] === 'HighlightCarouselModule'"
+      [sportName]="sportName" [highlightsCarousel]="module"></featured-highlight-carousel>
+  </ng-template>
+  </ng-container>
+
+  <no-events *ngIf="noEventFound && (hubIndex !== undefined || sportId === 0)"></no-events>
+  <request-error *ngIf="sportId === 0 && (ssDown || !isConnectSucceed)"
+                 [loadFailed]="ssDown || !isConnectSucceed"
+                 (reloadFn)="reloadComponent()">
+  </request-error>
+</div>

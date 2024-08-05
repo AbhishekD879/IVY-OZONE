@@ -1,0 +1,22 @@
+@import 'global.variables.scss';
+
+accordion-body {
+  background-color: $color-white;
+}
+show-all-button{
+  ::ng-deep .show-all-button {
+    text-decoration: none;
+    background: $color-white;
+    span {
+      color: $color-blue-alt;
+      &:hover{
+       text-decoration: underline;
+       text-decoration-color: $color-blue-alt;
+     }
+     &:active{
+       text-decoration: none;
+       color: darken($color-blue-alt, 25%);
+     }
+    }
+  }
+}

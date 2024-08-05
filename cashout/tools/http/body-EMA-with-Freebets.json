@@ -1,0 +1,70 @@
+{
+  "editedBetOfferRequests": [
+    {
+      "editedBetOfferReqRef": 675399,
+      "originalBet": {
+        "stakeAmount": 10.00,
+        "tokenValue": 10.00,
+        "betType": "DBL",
+        "legs": [
+          {
+            "legNo": 1,
+            "parts": [
+              {
+                "partNo": 1,
+                "type": "2.0",
+                "ladder": "STABLE",
+                "outcome": 11937882,
+                "result": "-",
+                "strikePrice": {
+                  "num": 8,
+                  "den": 15
+                },
+                "spotPrice": {
+                  "num": 8,
+                  "den": 15
+                }
+              }
+            ]
+          },
+          {
+            "legNo": 2,
+            "parts": [
+              {
+                "partNo": 1,
+                "type": "2.0",
+                "ladder": "STABLE",
+                "outcome": 11937885,
+                "result": "-",
+                "strikePrice": {
+                  "num": 8,
+                  "den": 15
+                },
+                "spotPrice": {
+                  "num": 8,
+                  "den": 15
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "newBet": {
+        "betType": "SGL",
+        "legs": [
+          {
+            "legNo": 1,
+            "parts": [
+              {
+                "partNo": 1,
+                "type": "2.0",
+                "ladder": "STABLE",
+                "outcome": 11937882
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

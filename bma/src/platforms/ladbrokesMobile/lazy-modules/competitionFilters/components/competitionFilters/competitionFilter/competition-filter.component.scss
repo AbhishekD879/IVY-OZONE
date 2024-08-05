@@ -1,0 +1,32 @@
+@import 'global.variables.scss';
+
+.filter-wrapper {
+  min-width: 32px;
+
+  .filter {
+    color: $color-gray-darkest;
+    font-family: $alt-font-family;
+  }
+
+  .filter {
+    @media #{$mqTabletAndDesktop} {
+    &:hover {
+      background-color: $color-blue-alt;
+      color:$color-white;
+    }
+    }
+
+    &:active {
+      background-color: $color-blue-alt-heavy;
+    }
+  }
+
+  &.active {
+    background-color: $color-blue-alt;
+
+    .filter {
+      padding: 8px 10px;
+      border-radius: 21px;
+    }
+  }
+}

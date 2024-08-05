@@ -1,0 +1,220 @@
+<breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<ng-container *ngIf="childSport">
+  <div class="card">
+    <div class="header">
+      <h2 class="waves-effect waves-block has-activity-badge">
+        Virtual Child Sport: {{childSport.title}}
+        <create-updated-at-by [collection]="childSport"></create-updated-at-by>
+      </h2>
+      <header-activity-badge [state]="!childSport.active"></header-activity-badge>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-2">
+          <mat-checkbox color="primary"
+                        [checked]="childSport.active"
+                        (change)="childSport.active = !childSport.active">
+            Active
+          </mat-checkbox>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-2">
+          <span class="mat-label">
+            Title
+          </span>
+        </div>
+        <div class="col-sm-8">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !childSport.title}">
+            <input matInput placeholder="Title of the track" [(ngModel)]="childSport.title" [value]="childSport.title"
+                   required
+                   trim="blur">
+            <mat-hint class="col-red" *ngIf="!childSport.title">Title should be entered</mat-hint>
+            <mat-hint class="col-red" [align]='"end"' *ngIf="initialTitle!==childSport.title">Title was changed! Related silks will be
+              removed if any exists!
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-2">
+      <span class="mat-label">
+        Stream URL
+      </span>
+        </div>
+        <div class="col-sm-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Stream URL" [(ngModel)]="childSport.streamUrl"
+                   [value]="childSport.streamUrl"
+                   trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-2">
+      <span class="mat-label">
+        Class ID
+      </span>
+        </div>
+        <div class="col-sm-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Class ID" [(ngModel)]="childSport.classId"
+                   [value]="childSport.classId"
+                   required
+                   trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-2">
+      <span class="mat-label">
+        Type IDs (For Legends)
+      </span>
+        </div>
+        <div class="col-sm-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Enter comma separated type ids" [(ngModel)]="childSport.typeIds"
+                   [value]="childSport.typeIds"
+                   trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-sm-2">
+          <span class="mat-label">
+            Events number to show
+          </span>
+        </div>
+        <div class="col-sm-8">
+          <mat-form-field class="full-width">
+            <input matInput type="number" placeholder="Events number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" [(ngModel)]="childSport.numberOfEvents"
+                   [value]="childSport.numberOfEvents" required>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-4 offset-sm-2 col-md-3">
+          <mat-checkbox color="primary"
+                        [checked]="childSport.showRunnerImages"
+                        (change)="childSport.showRunnerImages = !childSport.showRunnerImages">
+            Display runner images
+          </mat-checkbox>
+        </div>
+        <div class="col-sm-4 col-md-3">
+          <mat-checkbox color="primary"
+                        [checked]="childSport.showRunnerNumber"
+                        (change)="childSport.showRunnerNumber = !childSport.showRunnerNumber">
+            Display runner number
+          </mat-checkbox>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <h6>
+            Attached Images
+          </h6>
+        </div>
+        <div class="col-md-10">
+          <button
+            (click)="addEventForImages()"
+            type="button"
+            class="btn bg-teal waves-effect">
+            Add Event Images
+          </button>
+        </div>
+      </div>
+
+      <mat-tab-group>
+        <mat-tab label="Default Images">
+          <div class="card images">
+            <div class="body">
+              <div class="row">
+                <div class="col-md-12">
+                  <cms-upload
+                    [label]="cmsUploadImageMsg"
+                    [maxFileSizeKb]="maxFileSizeKb"
+                    [acceptFileTypes]="'.png'"
+                    (onImageValidationViolated)="showImageNotValidAlert($event)"
+                    (onImageUpload)="uploadImageHandler($event)">
+                  </cms-upload>
+                  <div class="row">
+                    <div class="col-md-10 offset-md-2 overriding-warning">
+                      <mat-hint class="">Image overriding may take up to 5 minutes (page reload needed)</mat-hint>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ng-container *ngIf="childSport?.runnerImages?.length > 0">
+                <track-image-list [runnerImages]="childSport.runnerImages"
+                                  (onImageRemoving)="handleImageRemoving({
+                                  filename: $event.filename,
+                                  type: removeImageTypes.singleForChild
+                              })">
+                </track-image-list>
+              </ng-container>
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab *ngFor="let event of _.keys(childSport.eventRunnerImages)">
+          <ng-template mat-tab-label>
+            <span>{{event}}</span>
+            <mat-icon class="event-remove-icon" (click)="removeEventImages($event, event)">delete</mat-icon>
+          </ng-template>
+          <div class="card images">
+            <div class="body">
+              <div class="row">
+                <div class="col-md-12">
+                  <cms-upload
+                    [label]="cmsUploadImageMsg"
+                    [maxFileSizeKb]="maxFileSizeKb"
+                    [acceptFileTypes]="'.png'"
+                    (onImageValidationViolated)="showImageNotValidAlert($event)"
+                    (onImageUpload)="uploadImageHandler($event, event)">
+                  </cms-upload>
+                  <div class="row">
+                    <div class="col-sm-10 offset-sm-2 overriding-warning">
+                      <mat-hint class="">Image overriding may take up to 5 minutes (page reload needed)</mat-hint>
+                    </div>
+                  </div>
+                  <ng-container *ngIf="childSport?.eventRunnerImages[event]?.length > 0">
+                    <track-image-list [runnerImages]="childSport.eventRunnerImages[event]"
+                                      (onImageRemoving)="handleImageRemoving({
+                                  event: event,
+                                  filename: $event.filename,
+                                  type: removeImageTypes.singleForEvent
+                              })">
+                    </track-image-list>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+
+  <div *ngIf="getDataError">
+    Request Error
+  </div>
+</ng-container>
+
+<action-buttons
+  #actionButtons
+  [validateHandler]="checkModelValid"
+  [fieldOrItemName]="'title'"
+  [collection]="childSport"
+  (actionsEmitter)="actionsHandler($event);">
+</action-buttons>

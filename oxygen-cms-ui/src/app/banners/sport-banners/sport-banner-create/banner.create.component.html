@@ -1,0 +1,52 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>Create a new Sport Banner</h1>
+  <div mat-dialog-content>
+    <div class="row clearfix">
+      <div class="col-md-12" [ngClass]="{'mat-form-field-invalid': (!!newBanner.imageTitle && !isNameUniq(newBanner.imageTitle))}">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Title" [(ngModel)]="newBanner.imageTitle" [value]="newBanner.imageTitle" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!!newBanner.imageTitle && !isNameUniq(newBanner.imageTitle)">Name should be unique</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-12">
+        <vip-levels-input [(ngModel)]="newBanner.vipLevelsInput"></vip-levels-input>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <date-range
+          [isSetDateButtons]="true"
+          [startDate]="newBanner.validityPeriodStart"
+          [endDate]="newBanner.validityPeriodEnd"
+          [startPlaceholder]="'Validity Period Start Date'"
+          [endPlaceholder]="'Validity Period End Date'"
+          (onDateUpdate)="handleDateUpdate($event)">
+        </date-range>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 m-t-10">
+        <customer-variants-select
+          [optionsType]="'existing'"
+          [customerType]="newBanner.showToCustomer"
+          (onChange)="onShowToCustomerChange($event)">
+        </customer-variants-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-checkbox color="primary"
+                      [checked]="!newBanner.disabled"
+                      (change)="newBanner.disabled = !newBanner.disabled">
+          Active
+        </mat-checkbox>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+    <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="!isValidModel()" [mat-dialog-close]="newBanner">Create</button>
+  </div>
+</div>

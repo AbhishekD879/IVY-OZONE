@@ -1,0 +1,44 @@
+@import 'global.variables.scss';
+
+.inplay-module-container {
+  margin: 0 0 5px;
+  box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, .05), 0 2px 4px 0 rgba(0, 0, 0, .15);
+  border-radius: 4px 4px 0 0;
+
+  .in-play-header {
+    background: #FFFFFF;
+    border-radius: 4px 4px 0 0;
+    margin-bottom: 0;
+    padding: 10px 12px;
+
+    a {
+      fill: $color-blue-alt;
+    }
+    .see-all-count {
+      color: $color-blue-alt;
+      font-weight: normal;
+    }
+
+    &:hover {
+      text-decoration: none;
+    }
+    .see-all-count:active {
+      text-decoration: underline;
+    }
+    .in-play-label {
+      font-size: 15px;
+      font-family: $alt-font-family;
+      color: $lGray;
+    }
+
+    .next-arrow {
+      width: 5px;
+      height: 9px;
+      margin-left: 4px;
+    }
+  }
+
+  .inplay-group-container {
+    margin-bottom: 0;
+  }
+}

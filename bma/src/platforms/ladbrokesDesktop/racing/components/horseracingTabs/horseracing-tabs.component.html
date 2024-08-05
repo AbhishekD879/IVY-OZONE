@@ -1,0 +1,84 @@
+<div>
+  <div *ngIf="applyingParams" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+
+  <div *ngIf="!applyingParams" class="page-inner" data-crlat="accordionsList">
+    <div class="page-segment">
+
+      <!--- Event by Meeting -->
+      <div class="featured-racing-tab" id="featured-tab" *ngIf="!responseError && display === 'featured'">
+        <build-race-card *ngIf="racing.events && racing.events?.length && featuredLoaded"
+                        (updatedState)="isEnabledCardState = $event"
+                        (updatedLimitState)="isLimitReached = $event"
+                        (clearBuildCardState)="isClearBuildCardState = $event"
+                        [cardIdObj]="cardIdObj">
+        </build-race-card>
+
+        <lazy-component moduleUri="@lazy-modules-module/racingFeatured/racing-featured.module#RacingFeaturedModule"
+                        [inputs]="{
+                          sportId: categoryId,
+                          racing: racing,
+                          sectionTitle: sectionTitle,
+                          sportName: sportName,
+                          eventsOrder: eventsOrder,
+                          filter: filter,
+                          responseError: responseError,
+                          isEnabledCardState: isEnabledCardState,
+                          isLimitReached: isLimitReached,
+                          isClearBuildCardState: isClearBuildCardState
+                        }"
+                        [outputs]="['fetchCardId','featuredLoaded']"
+                        (event)="onFeaturedEvents($event)">
+        </lazy-component>
+      </div>
+
+      <racing-antepost-tab *ngIf="display === 'future'" [defaultAntepostTab]="defaultAntepostTab" [racing]="racing" 
+        [responseError]="responseError" [isFromOverlay]="isFromOverlay"></racing-antepost-tab>
+
+      <racing-specials-tab *ngIf="display === 'specials'"
+                           [racing]="racing"
+                           [eventsOrder]="eventsOrder"
+                           [responseError]="responseError">
+      </racing-specials-tab>
+
+      <!--- Daily Racing Specials HR -->
+      <daily-racing-module *ngIf="display === 'featured' && featuredLoaded"
+                           [eventsBySections]="racing.modules.dailyRacing.eventsBySections"
+                           [collapsedSections]="racing.modules.dailyRacing.collapsedSections"
+                           [sportName]="sportName" data-crlat="raceGrid" [isRacingFeatured]="true" ></daily-racing-module>
+
+      <racing-tab-yourcall *ngIf="display === 'yourcall'" [racing]="racing"></racing-tab-yourcall>
+
+      <request-errorNextRaces *ngIf="responseError" [loadFailed]="responseError"></request-errorNextRaces>
+
+      <ng-container *ngIf="!responseError && targetTab?.interstitialBanners?.bannerEnabled && (!!lastBannerEnabled)">
+        <lazy-component
+          moduleUri="@lazy-modules-module/virtualEntryPointBanner/virtual-entry-point-banner.module#VirtualEntryPointBannerModule"
+          entryComponent="VirtualEntryPointBannerComponent"
+          [inputs]="{targetTab: targetTab,isUnTiedSport:true,sportName : sportName}">
+        </lazy-component>
+      </ng-container>
+    </div>
+
+    <div class="widget-column" *ngIf="!responseError && display === 'featured' && featuredLoaded">
+      <!--- Next 4 race module -->
+     <ng-container *ngIf="nextRacesComponentEnabled">
+        <lazy-component moduleUri="@lazy-modules-module/nextRaces/next-races.module#NextRacesModule"
+        [inputs]="{moduleType: sportModule, fluid: true, trackGaDesktop: true, trackGa: true, compName: 'horseracing'}"
+        entryComponent="LadbrokesNextRacesModuleComponent">
+        </lazy-component>
+    </ng-container>
+
+      <!--- Daily Racing Specials HR -->
+      <daily-racing-module [eventsBySections]="racing.modules.dailyRacing.eventsBySections"
+                           [collapsedSections]="racing.modules.dailyRacing.collapsedSections"
+                           [sportName]="sportName"></daily-racing-module>
+
+      <offers-and-featured-races *ngIf="!responseError && display === 'featured' && isExtraPlaceAvailable"
+                                 [events]="racing.events"
+                                 [sectionTitle]="offersAndFeaturedRacesTitle">
+      </offers-and-featured-races>
+
+      <racing-yourcall-specials *ngIf="racingSpecials.length" [type]="'widget'" [data]="racingSpecials"></racing-yourcall-specials>
+    </div>
+  </div>
+</div>

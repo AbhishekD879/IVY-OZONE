@@ -1,0 +1,24 @@
+<div class="plus-minus-template">
+  <div class="market-name">{{market?.originalMarketName|| market?.name}}</div>
+  <div class="items-container">
+    <ng-container>
+      <sb-counter [teamScores]="teamHPoints" 
+                          [teamName]="teamsObg?.teams?.teamH?.name"
+                          (counterValueEmitter)="handleCounterValueChange($event, 'teamH')"></sb-counter>
+      <div class="divider">__</div>
+      <sb-counter [teamScores]="teamAPoints"
+                          [teamName]="teamsObg?.teams?.teamA?.name"
+                          (counterValueEmitter)="handleCounterValueChange($event, 'teamA')"></sb-counter>
+    </ng-container>
+    <div class="sb-cs-button">
+      <button *ngIf="isButtonDisabled()" [disabled]="true" class="snb-btn-na">
+        <span>N/A</span>
+      </button>
+      <sb-price-odds-button *ngIf="!isButtonDisabled()" [event]="eventEntity"
+        [market]="market" [outcome]="combinedOutcome.outcome"
+        [isStreamAndBet]="true" class=""
+        (selectionClickEmit)="handleSelectionClick($event)">
+      </sb-price-odds-button>
+    </div>
+  </div>
+</div>

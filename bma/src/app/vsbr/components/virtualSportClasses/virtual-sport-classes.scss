@@ -1,0 +1,279 @@
+@import 'global.variables.scss';
+
+$classHeaderBgColor: $color-gray-light;
+$classHeaderRightSize: 100px;
+$greyColor: $color-black-soft;
+$lightColor: $color-gray-light;
+
+.virtual-class-container {
+  .col-bordered {
+    .col-inner {
+      position: relative;
+      min-height: 86px;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 5px;
+      height: auto;
+      overflow: hidden;
+
+      .col-name {
+        padding: 0 0 10px;
+      }
+
+      .btn-bet {
+        min-width: 50px;
+        min-height: 40px;
+        position: static;
+        margin-top: 0;
+        will-change: transform;
+        transform: none;
+      }
+    }
+  }
+}
+
+.virtual-class-frame {
+  width: 100%;
+  padding-bottom: 75%; /* 4:3 */
+  position: relative;
+  background: $color-black;
+
+  &-t {
+    padding-bottom: 33%;
+  }
+  &.d {
+    margin: 5px auto 0;
+    padding-bottom: 55%;
+  }
+}
+
+
+/* Image Placeholder for no events */
+.no-events {
+  .virtual-class-frame {
+    background: url("/assets/images/noevents-placeholder_soccer.jpg") no-repeat top center;
+    background-size: cover;
+  }
+
+  .virtual-horse-racing {
+    background-image: url("/assets/images/noevents-placeholder_horse.jpg");
+  }
+
+  .virtual-cycling {
+    background-image: url("/assets/images/noevents-placeholder_cycling.jpg");
+  }
+}
+
+.no-requested-event {
+  background-color: $color-red;
+  color: $color-white;
+  padding: 10px;
+  margin-bottom: 4px;
+  font-family: $base-font-family;
+  font-size: $font-size-md;
+}
+
+.virtual-class-header {
+  min-height: 35px;
+  background-color: $classHeaderBgColor;
+  color: $color-gray-dark;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 12px $classHeaderRightSize + 10 0 10px;
+  margin-bottom: 4px;
+  position: relative;
+}
+
+.virtual-class-header-name {
+  font-size: $font-size-md;
+  font-weight: 700;
+  margin-bottom: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: unset;
+}
+
+.virtual-class-header-right {
+  font-size: $font-size-sm;
+  position: absolute;
+  top: 50%;
+  margin-top: -5px;
+  right: 10px;
+  max-width: $classHeaderRightSize;
+}
+
+.virtual-class-header-time {
+  padding-left: 2px;
+
+  &-live {
+    font-weight: 700;
+  }
+}
+
+/* Terms panel */
+.terms-block {
+  background: #fff;
+  padding: 12px 10px;
+  border-bottom: 1px solid $color-gray-lighter;
+  min-height: 40px;
+  box-sizing: border-box;
+  @include display-flex();
+  @include align-items(center);
+
+  .terms-block-content {
+    margin: 0;
+    color: $color-gray-dark;
+    font-size: $font-size-md;
+  }
+}
+
+.left-title-text {
+  font-family: $alt-font-family;
+  font-size: $font-size;
+  color: $color-blue-dark;
+  line-height: normal;
+  font-weight: normal;
+}
+
+.virtual-sport-btn {
+  margin-top: 5px;
+  .btn-style1 {
+    background: $color-yellow;
+    min-height: 40px;
+    padding: 8px 1px;
+    box-sizing: border-box;
+    font-size: $font-size;
+    line-height: $line-height-normal;
+    text-transform: uppercase;
+    box-shadow: none;
+    text-shadow: none;
+    border-radius: 0;
+    color: $color-gray-dark;
+  }
+  .btn-style1:hover {
+    background: $color-yellow-alt2;
+    color: $color-gray-dark;
+  }
+
+  .btn-style1:active {
+    background: $color-orange-peel;
+    color: $color-white;
+  }
+}
+
+:host ::ng-deep {
+  .vs-video-stream {
+    background: $color-black;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+  }
+
+  .tabs-panel .scroll-container .scroll-inner {
+    border-top: 2px solid $color-black;
+  }
+  .virtual-silk img {
+    max-height: 40px;
+    max-width: 40px;
+    height: 100%;
+    width: 100%;
+  }
+
+  .virtual-classes-container {
+
+    .tabs-panel ul.scroll-inner {
+      width: fit-content;
+    }
+
+    .fade-out-screen-container {
+      overflow: hidden;
+    }
+
+    .btm-switchers.no-margin .switchers.no-paddings {
+      margin: -3px -4px 4px;
+      .switch-btn {
+        border: none;
+        color: $lBlack-light;
+        font-size: $font-size;
+        &.active {
+          color: $lGray;
+          &:after {
+            bottom: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .virtual-accordion {
+    border-bottom: 1px solid $color-gray;
+    &.accordion-header.inner-header  {
+      min-height: 40px;
+      padding: 10px 40px 10px 36px;
+    }
+  }
+  .forecast-tricast-market.labels-mode {
+    &.execta-pool, &.trifecta-pool {
+      margin-top: 0;
+    }
+  }
+
+}
+
+@media screen and (min-width: 450px) {
+  .virtual-class-container {
+    .odds-card-column {
+      .col-inner {
+        min-height: 96px;
+      }
+    }
+  }
+}
+
+@media #{$mqLandscapeAndDesktop} {
+  :host ::ng-deep {
+    .tabs-panel .scroll-container .scroll-inner {
+      border-top: none;
+    }
+  }
+}
+
+@media #{$mqTabletAndDesktop} {
+  .virtual-sport-btn {
+    .btn-style1.button-full-width {
+      font-size: $font-size-tablet;
+    }
+  }
+
+  :host,::ng-deep {
+   accordion.virtual-cards-container:first-child  {
+      margin-top: -4px;
+      border-top: 1px solid $color-gray;
+    }
+
+    .virtual-accordion.accordion-header {
+      .chevron {
+        visibility: visible;
+        position: absolute;
+        left: 0;
+        margin-left: 12px;
+      }
+
+      .left-title-text {
+        margin-left: 26px;
+      }
+    }
+  }
+}
+
+.video-stream-loading {
+  display: block;
+  height: 400px;
+  background-color: black;
+}

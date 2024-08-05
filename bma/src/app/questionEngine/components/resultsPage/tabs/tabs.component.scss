@@ -1,0 +1,40 @@
+@import 'global.variables.scss';
+
+.tab-content {
+  padding: 20px 0 0;
+  &-latest, &-previous {
+    .no-game-wrapper {
+      padding-top: 15px;
+      padding-bottom: 10px;
+      text-align: center;
+      font-weight: bold;
+      line-height: 27px;
+      color: $color-white;
+    }
+    .no-game {
+      &-title {
+        font-size: 20px;
+        opacity: 0.5;
+        font-stretch: condensed;
+      }
+      &-subtitle {
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+/*
+* STYLES for spinner
+*/
+.qe-spinner.spinner-wrap {
+  .spinner-loader {
+    margin: auto;
+    width: 34px;
+    height: 34px;
+
+    &:before {
+      border-width: 1px;
+    }
+  }
+}

@@ -1,0 +1,45 @@
+<div class="custom-dialog">
+    <h1 mat-dialog-title [textContent]= "CONTESTFORM.createContestLabel"></h1>
+    <form #contestForm="ngForm">
+        <div mat-dialog-content>
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !contest.name }">
+                        <input matInput name="contestName" [placeholder]="CONTESTFORM.nameLabel"
+                            [(ngModel)]="contest.name" [value]="contest.name" required trim="blur" />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-form-field class="full-width" [ngClass]="{'mat-form-field-invalid': !contest.entryStake}">
+                        <input matInput name="contestEntryStake" [placeholder]="CONTESTFORM.entryStakeLabel"
+                            type="text" step='0.01' twoDigitDecimaNumber
+                            min="0.01"  required  [(ngModel)]="contest.entryStake"
+                            [value]="contest.entryStake" />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <date-time-inputs
+                        class="full-width"
+                        [placeholderColumn]="true"
+                        [isSetDateButtons]="false"
+                        [initialDate]="contest.startDate"
+                        [placeholder]="CONTESTFORM.startDateLabel" 
+                        (outputIsoTime)="handleStartDate($event)"
+                        >
+                    </date-time-inputs>
+                </div>
+            </div>
+        </div>
+        <div mat-dialog-actions>
+            <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()" [textContent]= "CONTESTFORM.cancelLabel"></button>
+            <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="!contestForm.valid"
+                (click)="addContest()" [mat-dialog-close]="contest" [textContent]= "CONTESTFORM.saveLabel"></button>
+            <button *ngIf="isClone" mat-button class="btn btn-sm bg-teal float-right" [disabled]="!contestForm.valid"
+                (click)="cloneContest()" [textContent]= "CONTESTFORM.saveAnotherLabel"></button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,22 @@
+<form name="checkboxesForm" class="" data-crlat="exPool.checkboxesForm">
+
+  <!-- Headers -->
+  <div class="checkboxes-headers">
+    <span class="checkboxes-header" [i18n]="'tt.first'"></span>
+    <span class="checkboxes-header" [i18n]="'tt.second'"></span>
+    <span *ngIf="map[outcomeId].length > 2" class="checkboxes-header" [i18n]="'tt.third'"></span>
+  </div>
+
+  <!-- Checkboxes -->
+  <div class="checkboxes-body">
+    <div class="check-styled" *ngFor="let place of map[outcomeId]; let i = index; trackBy: trackByIndex;"
+         [ngClass]="{'disabled': place === 'disabled' || stopBetting}" data-crlat="exPool.placeCheckBox">
+      <input [name]="i + outcomeId"
+             [id]="i + outcomeId"
+             class="form-control"
+             [checked]="place === 'checked'"
+             type="checkbox"/>
+      <label (click)="checkPlace(outcomeId, i)"></label>
+    </div>
+  </div>
+</form>

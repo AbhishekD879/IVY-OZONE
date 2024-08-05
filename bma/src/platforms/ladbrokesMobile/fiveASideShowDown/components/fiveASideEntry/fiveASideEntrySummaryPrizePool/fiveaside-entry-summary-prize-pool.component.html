@@ -1,0 +1,31 @@
+<section class="prize-pool-container" *ngIf="prizePoolData">
+    <ul *ngIf="prizePoolData">
+      <li class="prize-pool-record" *ngFor="let prizeMapRec of prizePoolData |  keyvalue: returnOne; let index = index">
+        <div class="prize-value" *ngIf="prizeMapRec.value">
+          <div class="seperator" *ngIf="index > 0">&#43;</div>
+          <section>
+            <div class="tickets">
+              <span class="prize-num" *ngIf="prizeMapRec.value && prizeMapRec.value.type.toLowerCase() !== TICKET"
+                [textContent]="currencySymbol+fixedDecimals(prizeMapRec.value.value)"></span>
+              <svg viewBox="0 0 36 15" class="signposting-logo signPosting-ticket"
+                    *ngIf="prizeMapRec && prizeMapRec.value.type.toLowerCase()=== TICKET && !(prizeMapRec.value.signPosting &&
+                        (prizeMapRec.value.signPosting | keyvalue)?.length &&
+                        prizeMapRec.value.signPosting.filename)">
+                <use xlink:href="#ticket"></use>
+              </svg>
+              <svg viewBox="0 0 18 15" class="signposting-logo"
+                    *ngIf="prizeMapRec.value && prizeMapRec.value.type.toLowerCase()=== FREEBET && !(prizeMapRec.value.signPosting &&
+                        (prizeMapRec.value.signPosting | keyvalue)?.length &&
+                        prizeMapRec.value.signPosting.filename)">
+                <use xlink:href="#freebet"></use>
+              </svg>
+              <img class="signposting-logo" *ngIf="prizeMapRec.value.signPosting &&
+                            (prizeMapRec.value.signPosting | keyvalue)?.length &&
+                            prizeMapRec.value.signPosting.filename
+                          " [attr.src]="prizeMapRec.value.signPosting.filename | callBack : getSignpostingUrl : this" />
+            </div>
+          </section>
+        </div>
+      </li>
+    </ul>
+  </section>

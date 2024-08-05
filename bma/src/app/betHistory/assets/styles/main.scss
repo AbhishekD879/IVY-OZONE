@@ -1,0 +1,15 @@
+/* Global styles */
+@import "global.variables.scss";
+.vn-bma {
+
+/* Local variables and mixins */
+@import "base.scss";
+
+/* Modules styles */
+@import "./modules/cashout.scss";
+@import "./modules/bet-history.scss";
+@import "./modules/summary-section.scss";
+/* racing styles */
+@import '../../../../app/racing/assets/styles/racing-event.scss';
+@import "./modules/tote-pot-pool-bet.scss";
+}

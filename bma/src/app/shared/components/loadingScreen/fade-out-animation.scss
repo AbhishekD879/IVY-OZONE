@@ -1,0 +1,38 @@
+$fade-out-duration: 0ms; // it will remove the fade out animation by making duration as zero
+$animation-type: ease-in;
+$animation-delay: 0ms; // it will remove the fade out animation by making duration as zero
+$long-render-animation-delay: 0ms; // it will remove the fade out animation by making duration as zero
+$skeleton-z-index: 10;
+
+.fade-out-screen-container {
+  position: relative;
+  z-index: $skeleton-z-index;
+  &.full-page {
+    z-index: $skeleton-z-index + 1;
+  }
+  &.fade-out-compcat {
+    height: 0px;
+  }
+}
+
+.fade-out-screen {
+  visibility: visible;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 6;
+  opacity: 1;
+  &.fade-out-active {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility $animation-delay $fade-out-duration $animation-type, opacity $animation-delay $fade-out-duration $animation-type;
+    // For featured tab render time is longer
+    &.long-render-view {
+      transition: visibility $long-render-animation-delay $fade-out-duration $animation-type, opacity $long-render-animation-delay $fade-out-duration $animation-type;
+    }
+  }
+  &.fade-accord {
+    position: relative;
+  }
+}

@@ -1,0 +1,391 @@
+<no-events *ngIf="!eventEntity" [message]="'sb.noMarketsAvailable'"></no-events>
+
+<div class="racing-event-desktop" [class.greyhound-event]="sportName !== 'horseracing'" *ngIf="eventEntity">
+  <top-bar [title]="eventEntity.name" [event]="eventEntity" [sportName]="sportName"
+    class="racing-top-bar">
+    <date-info>
+      <div class="date-side flex">
+        <div class="event-date-time">
+          <span [textContent]="eventEntity.filteredTime" data-crlat="eventTime"></span>
+        </div>
+      </div>
+    </date-info>
+    <top-bar-body class="top-bar-side" data-crlat="topBarContent">
+      <a [routerLink]="['/bet-finder']" *ngIf="(sportName === 'horseracing')" class="bet-finder-link" data-crlat="betFinderLink">
+        <svg class="bet-finder-icon">
+          <use xlink:href="#bet-finder-icon"></use>
+        </svg>
+        <span class="bet-finder-title" data-crlat="betFinderTitle" [i18n]="'bf.betFinder'"></span>
+      </a>
+    </top-bar-body>
+    <meeting-selector class="meeting-selector">
+      <div class="top-title" [ngClass]="{'active': showMeetings}" data-crlat="racingEventPage.subheader">
+        <div class="coupon-selector" (click)="showMeetingsList()" data-crlat="meetingSelector">
+          <span class="coupon-selector-title">Meetings</span>
+          <svg class="dropdown-down-arrow">
+            <use xlink:href="#down-arrow"></use>
+          </svg>
+        </div>
+      </div>
+      <div *ngIf="showMeetings && racingTypeNames.length" class="coupons-list desktop-list" [ngClass]="{'active': showMeetings, 'antepost-meetings-layout': isFutureMeetingsOverlay}"
+        data-crlat="racingEventPage.subheader">
+        <div class="coupons-wrap">
+          <div [hidden]="!showSpinnerInDropdown" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+          <div class="desktop-list" [hidden]="showSpinnerInDropdown">
+            <quick-navigation [items]="quickNavigationItems" [showMenu]="showMeetings" [sectionTitle]="meetingsTitle" [sportModule]="sportName"
+              (showMeetingsListFn)="showMeetingsList()" [meetingsTitle]="meetingsTitle" [sportName]="sportName" [eventsOrder]="eventsOrder"
+              [eventEntity]="eventEntity">
+            </quick-navigation>
+          </div>
+        </div>
+      </div>
+    </meeting-selector>
+  </top-bar>
+
+  <breadcrumbs [sportEvent]="eventEntity.typeName" [sportName]="sportName"></breadcrumbs>
+
+  <!--- Page Content -->
+  <div class="tab-content racing-content" [hidden]="!eventEntity" data-crlat="tabContent">
+    <div class="container lads-gps" [ngClass]="{'antepost-event' : isMarketAntepost}">
+
+      <!--- Event Top Container -->
+      <div class="top-event-panel" data-crlat="eventTopContainer">
+        <action-arrows>
+          <action-arrows-content>
+            <racing-panel *ngIf="!isRacingSpecialsCondition && (!isMarketAntepost || racingInMeeting.length > 0)"
+                          (clickFunction)="goToEdpUrl($event)"
+                          [events]="racingInMeeting"
+                          [eventId]="eventEntity.id"
+                          [isShowName]="isRibbonEventName"
+                          [ladsTabNav]="true"
+                          class="racing-tabs-panel"></racing-panel>
+          </action-arrows-content>
+        </action-arrows>
+        <div *ngIf="!eventEntity.isResulted && !isMarketAntepost && eventEntity.categoryCode !== 'HORSE_RACING' && !isRacingSpecialsCondition"
+             class="race-details-container" data-crlat="raceDetailsContainer">
+          <div class="left">
+            <div class="event-header" *ngIf="!eventEntity.timeformData">
+              <span class="event-time" [textContent]="eventEntity.localTime" data-crlat="eventTitleTime"></span>
+              <span class="event-title" [textContent]="eventEntity.name" data-crlat="eventTitleName"></span>
+            </div>
+            <div class="race-details-container-l" *ngIf="eventEntity.timeformData">
+              <div class="race-distance" data-crlat="raceDistance">
+                <span class="label" [i18n]="'racing.distance'" data-crlat="label"></span>
+                <span class="value" [textContent]="(eventEntity.timeformData.raceDistance + 'M')" data-crlat="value"></span>
+              </div>
+              <div data-crlat="raceGrade">
+                <span class="label" [i18n]="'racing.raceGrade'" data-crlat="label"></span>
+                <span class="value" [textContent]="eventEntity.timeformData.raceGradeName" data-crlat="value"></span>
+              </div>
+            </div>
+            <div class="race-details-container-l" *ngIf="eventEntity.racingFormEvent">
+              <div class="race-distance" *ngIf="eventEntity.racingFormEvent?.distance" data-crlat="raceDistance">
+                <span [textContent]="eventEntity.racingFormEvent?.distance" data-crlat="value"></span>
+              </div>
+              <div class="race-type" *ngIf="eventEntity.racingFormEvent?.raceType" data-crlat="raceGrade">
+                <span [textContent]="eventEntity.racingFormEvent?.raceType" data-crlat="value"></span>
+              </div>
+            </div>
+          </div>
+          <race-badge *ngIf="eventEntity.raceStage" event="eventEntity"></race-badge>
+          <div *ngIf="isGreyhoundEdp && eventEntity.racingFormEvent?.postPick" class="racing-post-pick-container" data-crlat="racingPostContainer">
+            <racing-post-pick [eventEntity]="eventEntity.racingFormEvent.postPick"></racing-post-pick>
+          </div>
+        </div>
+
+        <div class="page-inner" data-crlat="accordionsList">
+          <div class="page-segment">
+            <ng-container *ngIf="!eventEntity.isResulted">
+            <!--RACING DETAILS-->
+            <div *ngIf="!isMarketAntepost && eventEntity.categoryCode === 'HORSE_RACING'" class="race-details-container" data-crlat="raceDetailsContainer">
+              <div class="left">
+                <div class="event-header">
+                    <span class="event-time" [textContent]="eventEntity.localTime" data-crlat="eventTitleTime"></span>
+                    <span class="event-title" [textContent]="eventEntity.name" data-crlat="eventTitleName"></span>
+                </div>
+                <div class="race-title" [textContent]="eventEntity.racingFormEvent?.title" data-crlat="value"></div>
+                <div class="race-details-container-l">
+                  <div class="race-type" *ngIf="eventEntity.racingFormEvent?.raceType" data-crlat="raceType">
+                    <div class="value" [textContent]="raceType" data-crlat="value"></div>
+                  </div>
+                  <div class="race-distance" *ngIf="eventEntity.racingFormEvent?.distance" data-crlat="raceDistance">
+                    <div class="label" [i18n]="'racing.distance'" data-crlat="label"></div>
+                    <div class="value" data-crlat="value" [textContent]="eventEntity.racingFormEvent.distance"></div>
+                  </div>
+                  <div *ngIf="eventEntity.racingFormEvent?.going" data-crlat="raceGoing">
+                    <div class="label" [i18n]="'racing.going'" data-crlat="label"></div>
+                    <div class="value text-uppercase" [textContent]="going" data-crlat="value"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="race-details-container-r">
+                <race-timer [event]="eventEntity" [utc]="true" [displayTime]=false></race-timer>
+              </div>
+            </div>
+
+            <!-- Media Type Buttons -->
+            <div class="media-area-container" *ngIf="isMediaAvailable">
+
+              <div class="group-buttons media-buttons" [ngClass]="{'live-stream-active' : filter === 'showVideoStream'}">
+                <div class="racing-post-media-btns-container">
+
+                  <div class="media-btns-left">
+                    <!-- WATCH BTN --->
+                    <a *ngIf="eventEntity.liveStreamAvailable"  class="btn watch-btn"
+                       [ngClass]="{'active' : filter === 'showVideoStream', 'disabled' : filter === 'showLiveSim' && !isGreyhoundEdp && eventEntity.isUKorIRE}"
+                       (click)="playStream($event)" data-crlat="buttonPlayStream">
+                      <svg class="btn-icon video-stream-icon">
+                        <use xlink:href="#button-arrow"></use>
+                      </svg>
+                      <ng-container *ngIf="showWatchAndInsights() && eventEntity.rawIsOffCode !== 'Y'; else elseBlock">
+                        <span [i18n]="filter === 'showVideoStream'? 'sb.done' : 'sb.watchInsights'"></span>
+                      </ng-container>
+                      <ng-template #elseBlock>
+                        <span [i18n]="filter === 'showVideoStream'? 'sb.done' : 'sb.watch'"></span>
+                      </ng-template>
+                    </a>
+                    <!-- Live SIM BTN --->
+                    <a *ngIf="sportName !== 'greyhound' && eventEntity.isUKorIRE && !shouldShowCSBIframe && isActiveRangeForQuantumLeap" class="btn livesim-btn"
+                       (click)="playLiveSim($event)" data-crlat="buttonWatchFree">
+                      <span [i18n]="filter === 'showLiveSim' ? 'sb.done': 'sb.liveSIM'"></span>
+                    </a>
+                  </div>
+
+                  <div class="media-btns-right">
+                    <a *ngIf="eventEntity.liveStreamAvailable && isActiveRangeForQuantumLeap" data-crlat="buttonLiveCommentary" class="btn-live-commentary" (click)="openLiveCommentary()">
+                      <svg class="btn-icon live-commentary-icon">
+                        <use xlink:href="#icn-live-commentary-mic"></use>
+                      </svg>
+                      <span [i18n]="'sb.liveCommentary'"></span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="media-area watch-live-widget"
+                   *ngIf="!isMarketAntepost && (showQuantumLeap && filter === 'showLiveSim' || eventEntity.liveStreamAvailable)">
+                <quantum-leap
+                  [streamControl]="streamControl"
+                  [eventEntity]="eventEntity"
+                  [filter]="filter"
+                  [spinner]="spinner"
+                  *ngIf="showQuantumLeap && filter === 'showLiveSim' && isActiveRangeForQuantumLeap"
+                  data-crlat="iframeWatchFree"
+                ></quantum-leap>
+
+                <!-- Video Stream lazy component -->
+                <lazy-component *ngIf="filter === 'showVideoStream'"
+                                moduleUri="@lazy-modules-module/eventVideoStream/event-video-stream.module#LazyEventVideoStreamModule"
+                                [inputs]="{
+                                eventEntity: eventEntity,
+                                autoPlay: true,
+                                preloadStream: preloadStream,
+                                cssClassesForStreams: cssClassesForStreams, streamUniqueId: 'rtmpe-hls'
+                                }"
+                                data-crlat="eventVideoStreamArea">
+                </lazy-component>
+              </div>
+            </div>
+
+          <lazy-component *ngIf="isHR" [inputs]="{ eventId, eventEntity  }" [outputs]="['tabUpdated']" 
+          (event)="handleRacingMybetsUpdates($event)"
+          moduleUri="@lazy-modules-module/racingMyBets/racing-mybets.module#RacingMybetsModule"
+          entryComponent="RacingMyBetsComponent">
+          </lazy-component>
+
+          <div *ngIf="activeUserTab === HR_TABS.MARKETS">
+            <div class="tabs-panel tabs-style1"
+            [ngClass]="{'has-market-description': isDescriptionAvailable}"
+            *ngIf="!isMarketAntepost && !isRacingSpecialsCondition">
+              <action-arrows>
+                <action-arrows-content>
+                  <div #marketsContainer class="scroll-container markets-container" scrollable [ngClass]="{'single-element': eventEntity.sortedMarkets.length === 1}">
+                    <ul class="scroll-inner" [ngClass]="{'flex-tabs': eventEntity.sortedMarkets.length <= allowFlexTabs}"
+                      data-crlat="panel.tabs">
+                      <li *ngFor="let marketEntity of eventEntity.sortedMarkets; trackBy: trackById;"
+                        [ngClass]="{'active': marketEntity.label === selectedMarket}" data-crlat="tabActive">
+                        <span class="tab" (click)="change(marketEntity)" draggable="false" data-crlat="tab.tpTabs">
+                          <span class="race-time" [textContent]="marketEntity.label" data-crlat="tab"></span>
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </action-arrows-content>
+              </action-arrows>
+            </div>
+            <div class="market-tooltip" [ngClass]="{'has-description': isDescriptionAvailable}">
+              <lazy-component *ngIf="secondaryMarketsTooltip && marketContainer"
+                moduleUri="@lazy-modules-module/market-description/market-description.module#MarketDescriptionModule"
+                [inputs]="{ toolTipArgs: toolTipArgs, marketContainer: marketContainer, toolTipTitle: 'secondaryMarketsTitle', sportName: sportName }"
+                entryComponent="MarketTooltipComponent">
+              </lazy-component>
+            </div>
+
+            <lazy-component *ngIf="selectedMarket === forecastLabel"
+                            moduleUri="@lazy-modules-module/forecastTricast/forecastTricast.module#ForecastTricastModule"
+                            [inputs]="{event: eventEntity, marketEntity: forecastTricastMarket, selectedPoolType: forecastLabel,
+                              isMarketDescriptionEnabled: isMarketDescriptionAvailable, delta: delta }" (init)="childComponentLoaded()"></lazy-component>
+
+            <lazy-component *ngIf="selectedMarket === tricastLabel"
+                            moduleUri="@lazy-modules-module/forecastTricast/forecastTricast.module#ForecastTricastModule"
+                            [inputs]="{event: eventEntity, marketEntity: forecastTricastMarket, selectedPoolType: tricastLabel,
+                              isMarketDescriptionEnabled: isMarketDescriptionAvailable, delta: delta }" (init)="childComponentLoaded()"></lazy-component>
+
+            <!-- Totepool tab-->
+              <lazy-component *ngIf="isMarketDescriptionAvailable && selectedMarket=='Totepool' && hasSortedMarketsFromCms&&isToteForecastTricast"
+              moduleUri="@lazy-modules-module/market-description/market-description.module#MarketDescriptionModule"
+              [inputs]="{ eventEntity: eventEntity, selectedMarket: selectedMarket }"
+              entryComponent="MarketDescriptionComponent">
+              </lazy-component>
+              
+              <lazy-component *ngIf="selectedMarket === toteLabel"
+                              moduleUri="@uktote-lazy-load/uk-tote.module#UkToteModule"
+                              data-crlat="UKToteEvent"
+                              [inputs]="{
+                                pools: pools,
+                                event: poolEventEntity,
+                                fixedOddsEvent: eventEntity,
+                                selectedPoolType: selectedMarketType,
+                                isUKorIRE: eventEntity.isUKorIRE
+                              }">
+              </lazy-component>
+
+            <lazy-component *ngIf="isMarketDescriptionAvailable && !isToteForecastTricast && hasSortedMarketsFromCms"
+              moduleUri="@lazy-modules-module/market-description/market-description.module#MarketDescriptionModule"
+              [inputs]="{ eventEntity: eventEntity, selectedMarket: selectedMarket }"
+              entryComponent="MarketDescriptionComponent">
+            </lazy-component>
+              <div class="specials-header" *ngIf="isRacingSpecialsCondition || isMarketAntepost">
+                <div class="specials-title" [textContent]="eventEntity.typeName"></div>
+                <div class="specials-body">
+                  <div class="specials-event-name" [textContent]="eventEntity.name" data-crlat="eventTitle"></div>
+                  <div class="specials-date" [textContent]="racingSpecialsDate" data-crlat="specialsDate"></div>
+                </div>
+              </div>
+
+            <div *ngFor="let marketEntity of eventEntity.markets; trackBy: trackById; let mIndex = index">
+            <accordion [accordionTitle]="displayMarketHeader(marketEntity)" [card]="true" [isExpanded]="!marketEntity.collapseMarket"
+                       [isHeaderHidden]="!displayMarketHeader(marketEntity)" *ngIf="displayMarketPanel(marketEntity) && marketEntity.outcomes
+                        && !isGroupedRaceMarket(marketEntity)"
+              [ngClass]="{'sort-by-enabled': sortOptionsEnabledFn(selectedMarket === ewLabel)}"
+              data-crlat="marketOutcomes">
+              <accordion-body>
+                <!--Future/antepost event header card-->
+
+                <div class="terms-before-market antepost-terms"
+                     *ngIf="isMarketAntepost && (marketEntity.isEachWayAvailable || eventEntity.uiClass
+                     || marketEntity.cashoutAvail === 'Y' || marketEntity.viewType === 'handicaps')"
+                     data-crlat="raceMarketHeader">
+                  <!--Market terms-->
+                  <div class="race-market-terms" [innerHtml]="formatAntepostTerms(marketEntity.terms)" *ngIf="marketEntity.isEachWayAvailable"
+                    data-crlat="eachWayContainer">
+                  </div>
+                  <span class="class-value" [textContent]="eventEntity.uiClass" *ngIf="eventEntity.uiClass" data-crlat="termsClass">
+                  </span>
+
+                  <div class="horse-racing-icons">
+                    <span class="pull-right" >
+                      <cashout-label *ngIf="marketEntity.cashoutAvail === 'Y' || marketEntity.viewType === 'handicaps'"
+                                     [mode]="'md'"></cashout-label>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="terms-before-market row row-no-gutter eprSection" *ngIf="!isMarketAntepost && termsBeforeMarketAvailable[marketEntity.id]"
+                  data-crlat="raceMarketHeader">
+                  <div>
+                  <lazy-component *ngIf="marketEntity.templateMarketName === 'Win or Each Way'"
+                    moduleUri="@lazy-modules-module/extraPlaceSignposting/extra-place-signposting.module#ExtraPlaceSignpostingModule"
+                    [inputs]="{marketData:marketEntity,origin:'edp'}" entryComponent="ExtraPlaceSignpostingComponent">
+                  </lazy-component>
+                  <div class="terms-label d-flex align-self-center" data-crlat="terms">
+                    <div class="term-value" [textContent]="marketEntity?.terms | callBack : formatEventTerms : this" *ngIf="marketEntity.isEachWayAvailable"
+                      data-crlat="eachWayContainer">
+                    </div>
+                    <span class="class-value" [textContent]="eventEntity.uiClass" *ngIf="eventEntity.uiClass" data-crlat="termsClass"></span>
+                  </div>
+                  </div>
+                  <div class="horse-racing-icons">
+                    <!-- Promotional signposting -->
+                    <promotion-icon [type]="'market'"
+                                    [display]="marketEntity.drilldownTagNames"
+                                    [eventDrillDownTags]="eventEntity.drilldownTagNames"
+                                    [marketName]="marketEntity.name"
+                                    [mode]="'md'"
+                                    [cashoutAvailable]="marketEntity.cashoutAvail === 'Y' || marketEntity.viewType === 'handicaps'"
+                                    [isGpAvailable] = "isBOGAvailable(eventEntity, marketEntity.isGpAvailable) && !isGreyhoundEdp"
+                                    data-crlat="promotionIcons"></promotion-icon>
+                  </div>
+                </div>
+
+                <race-cards-controls class="sort-by-container race-cards-controls"
+                                     [sortBy]="sortBy"
+                                     [market]="marketEntity"
+                                     [isInfoHidden]="isInfoHidden"
+                                     [isGreyhoundEdp]="isGreyhoundEdp"
+                                     [sortOptionsEnabled]="sortOptionsEnabledFn(true, marketEntity)"
+                                     (toggleShowOptions)="toggleShowOptions(expandedSummary, mIndex, $event)"
+                                     (toggleShowOptionsGATracking) = "toggleShowOptionsGATracking($event)"
+                                     *ngIf="isNotAntepostOrSpecials && !isSpOnly">
+                </race-cards-controls>
+
+                <!-- Racing Event -->
+                <div class="inner-container">
+                  <div *ngFor="let outcomeEntity of marketEntity.outcomes; trackBy: trackById; let oIndex = index"
+                       data-crlat="outcomeEntity">
+                       <racing-outcome-card
+                                             [eventEntity]="eventEntity"
+                                             [marketEntity]="marketEntity"
+                                             [isGreyhoundEdp]="isGreyhoundEdp"
+                                             [outcomeEntity]="outcomeEntity"
+                                             [showSummary]="expandedSummary[mIndex][oIndex]"
+                                             (expand)="onExpandSection(expandedSummary, mIndex, oIndex);"
+                                             [isNotRacingSpecials]="!isRacingSpecialsCondition">
+                      <price-odds-button (click)="stopPropagation($event)"
+                                         [event]="eventEntity"
+                                         [market]="marketEntity"
+                                         [outcome]="outcomeEntity"
+                                         [cssClass]="'space-to-history-4'"
+                                         [gtmModuleTitle]="'racecard'"
+                                         [nonRunner]="outcomeEntity.nonRunner"
+                                         [isShowHistoricPrices]="isNotAntepostOrSpecials">
+                      </price-odds-button>
+                    </racing-outcome-card>
+                  </div>
+                </div>
+              </accordion-body>
+              <right-side>
+                <cashout-label *ngIf="marketEntity.cashoutAvail === 'Y' && !isRacingSpecialsCondition"></cashout-label>
+              </right-side>
+            </accordion>
+            </div>
+            <!-- Grouped racing markets To Finish, Top Finish, Place Insurance-->
+              <lazy-component *ngIf="isGroupedMarket()" [ngClass]="{'sort-by-enabled': sortOptionsEnabled}" 
+              moduleUri="@lazy-modules-module/raceMarket/race-market.module#RaceMarketModule"
+              [inputs]="{ sortBy: sortBy,isGreyhoundEdp:isGreyhoundEdp,eventEntity:eventEntity,expandedSummary:expandedSummary,sm:selectedMarket, sortOptionsEnabledFn: sortOptionsEnabledFn,sortOptionsEnabled:sortOptionsEnabled,hideSilk:hideSilk}"
+              entryComponent="RaceMarketComponent">
+            </lazy-component>
+          </div>
+            </ng-container>
+            <racing-event-resulted *ngIf="eventEntity.isResulted"
+                                   [eventEntity]="eventEntity" [filter]="filter" [isGreyhoundEdp]="isGreyhoundEdp" [streamControl]="streamControl" >
+            </racing-event-resulted>
+          </div>
+
+          <div class="widget-column" *ngIf="eventEntity.timeformData || (racingPostVerdictData?.verdict && !isGreyhoundEdp)">
+            <!--- Timeform widget -->
+            <timeform-widget *ngIf="eventEntity.timeformData" [timeformData]="eventEntity.timeformData"
+              data-crlat="timeformContainer"></timeform-widget>
+            <!-- racing post widget -->
+            <racing-post-widget [data]="racingPostVerdictData"
+                                [eventEntity]="eventEntity"
+                                [showMap]="true"
+                                data-crlat="racingPostContainer">
+            </racing-post-widget>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

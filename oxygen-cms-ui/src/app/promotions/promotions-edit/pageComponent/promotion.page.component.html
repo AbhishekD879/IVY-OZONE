@@ -1,0 +1,595 @@
+<breadcrumbs *ngIf="promotion" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="promotion">
+  <div class="header">
+    <h2 class="waves-effect waves-block has-activity-badge">
+      Promotion: {{promotion.title}}
+      <create-updated-at-by [collection]="promotion"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="promotion.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="promotion">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox color="primary" [checked]="!promotion.disabled"
+          (change)="promotion.disabled = !promotion.disabled">
+          Active
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Title
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !promotion.title}">
+          <input matInput placeholder="Title" [(ngModel)]="promotion.title" [value]="promotion.title" required
+            trim="blur">
+          <mat-hint class="col-red" *ngIf="!promotion.title">Title should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Promo Key
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Promo Key" [(ngModel)]="promotion.promoKey" [value]="promotion.promoKey">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row" *ngIf="competitions.length">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Show on Competitions
+        </span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width">
+          <mat-select [(value)]="promotion.competitionId" (selectionChange)="setCompetitionId($event)"
+            placeholder="Competition" multiple>
+            <mat-option *ngFor="let competition of competitions" [value]="competition.id">{{competition.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row" *ngIf="promotionNavigation?.length">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Navigation
+        </span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width">
+          <mat-select [(value)]="promotion.navigationGroupId" (selectionChange)="setNavigationId($event)"
+            placeholder="Promotion Navigation">
+            <mat-option value="">None</mat-option>
+            <mat-option *ngFor="let promoNavigation of promotionNavigation" [value]="promoNavigation.id">{{promoNavigation.title}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Short Description
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Short Description" [(ngModel)]="promotion.shortDescription"
+            [value]="promotion.shortDescription">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox class="mat-label" color="primary" [checked]="promotion.useCustomPromotionName"
+          (change)="promotion.useCustomPromotionName = !promotion.useCustomPromotionName">
+          Edit promotion bar
+        </mat-checkbox>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Promotion Bar name" [(ngModel)]="promotion.customPromotionName"
+            [value]="promotion.customPromotionName" [disabled]="!promotion.useCustomPromotionName">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Description
+        </span>
+      </div>
+      <div class="col-md-10">
+        <tinymce-editor #description [pageName]="'promotion'" [pageItemId]="promotion.id"
+          (outputEditorData)="updatePromotion($event, 'description')"
+          [initialEditorContent]="promotion.description || ''"></tinymce-editor>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="promotion?.betPack">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2 mb-0">
+        <mat-checkbox color="primary" [checked]="promotion.betPack.isBetPack"
+          (change)="promotion.betPack.isBetPack = !promotion.betPack.isBetPack;clearBpData()">
+          Mark this Promotion as BetPack Enabler
+        </mat-checkbox>
+      </div>
+    </div>
+    <div *ngIf="promotion.betPack.isBetPack">
+      <div class="text-warning d-flex align-items-center">
+        <mat-icon class="mr-3">info</mat-icon>
+        <span>Make sure you have added a bet pack button in the description box to attach to the below
+          information</span>
+      </div>
+      <div class="pl-0 font-weight-bold header">Confirmation Pop Up</div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Text *
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Body text" [(ngModel)]="promotion.betPack.bodyText"
+              [value]="promotion.betPack.bodyText" required trim="blur" #bodyText='ngModel' maxlength="200">
+            <mat-hint class="col-red" *ngIf="!bodyText.valid">This Property Should be filled</mat-hint>
+            <mat-hint class="col-red" *ngIf="bodyText.length > 200">
+              Text can be max 200 characters long</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Congrats Message *
+          </span>
+        </div>
+        <div class="col-md-10">
+          <tinymce-editor #congrats [pageName]="'promotion'" [pageItemId]="promotion.id"
+            (outputEditorData)="updatePromotion($event, 'betPack.congratsMsg')"
+            [initialEditorContent]="promotion.betPack.congratsMsg || ''"></tinymce-editor>
+            <mat-hint class="col-red font-11" *ngIf="promotion?.betPack?.congratsMsg?.length == 0">This Property Should be filled</mat-hint>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            OB Promotion ID *
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="OB Promotion ID" [(ngModel)]="promotion.betPack.offerId"
+              [value]="promotion.betPack.offerId" required trim="blur" #offerId='ngModel'>
+            <mat-hint class="col-red" *ngIf="!offerId.valid">This Property Should be filled</mat-hint>
+          </mat-form-field>
+          <mat-error *ngIf="offerId.valid && !betPackValidationService.checkIfInteger(promotion.betPack.offerId)"
+            [textContent]="'Enter only integer values'">
+          </mat-error>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Trigger ID *
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Trigger ID" [(ngModel)]="promotion.betPack.triggerIds"
+              [value]="promotion.betPack.triggerIds" required trim="blur" #triggerIds='ngModel'>
+            <mat-hint class="col-red" *ngIf="!triggerIds.valid">This Property Should be filled</mat-hint>
+          </mat-form-field>
+          <mat-error *ngIf="triggerIds.valid && !betPackValidationService.checkIfInteger(promotion.betPack.triggerIds)"
+            [textContent]="'Enter only integer values'">
+          </mat-error>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Value *
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Value" [(ngModel)]="promotion.betPack.betValue"
+              [value]="promotion.betPack.betValue" required trim="blur" #betValue='ngModel'>
+            <mat-hint class="col-red" *ngIf="!betValue.valid">This Property Should be filled</mat-hint>
+          </mat-form-field>
+          <mat-error *ngIf="betValue.valid && !betPackValidationService.checkIfDecimal(promotion.betPack.betValue)"
+          [textContent]="'Enter only integer values'">
+        </mat-error>
+        </div>
+      </div>
+
+      <div class="pl-0 font-weight-bold header">Low Funds</div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Message *
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Low Funds Message" [(ngModel)]="promotion.betPack.lowFundMessage"
+              [value]="promotion.betPack.lowFundMessage" required trim="blur" #lowFundMessage='ngModel' maxlength="200">
+            <mat-hint class="col-red" *ngIf="!lowFundMessage.valid">This Property Should be filled</mat-hint>
+            <mat-hint class="col-red" *ngIf="lowFundMessage.length > 200">
+              Message can be max 200 characters long</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="pl-0 font-weight-bold header">Not Logged In</div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Message *
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Not Logged In Message" [(ngModel)]="promotion.betPack.notLoggedinMessage"
+              [value]="promotion.betPack.notLoggedinMessage" required trim="blur" #notLoggedinMessage='ngModel' maxlength="200">
+            <mat-hint class="col-red" *ngIf="!notLoggedinMessage.valid">This Property Should be filled</mat-hint>
+            <mat-hint class="col-red" *ngIf="notLoggedinMessage.length > 200">
+              Message can be max 200 characters long</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="pl-0 font-weight-bold header">Error Message</div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Message *
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Error Message" [(ngModel)]="promotion.betPack.errorMessage"
+              [value]="promotion.betPack.errorMessage" required trim="blur"  #errorMessage='ngModel'  maxlength="200">
+            <mat-hint class="col-red" *ngIf="!errorMessage.valid">This Property Should be filled</mat-hint>
+            <mat-hint class="col-red" *ngIf="errorMessage.length > 200">
+               Message can be max 200 characters long</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="promotion?.freeRideConfig">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2 mb-0">
+        <mat-checkbox color="primary" [checked]="promotion.freeRideConfig.isFreeRidePromo"
+          (change)="promotion.freeRideConfig.isFreeRidePromo = !promotion.freeRideConfig.isFreeRidePromo;clearFreeRideData()">
+          Mark this Promotion as Free Ride
+        </mat-checkbox>
+      </div>
+    </div>
+    <div *ngIf="promotion.freeRideConfig.isFreeRidePromo">
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Error Message *
+        </span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Error Message" [(ngModel)]="promotion.freeRideConfig.errorMessage"
+            [value]="promotion.freeRideConfig.errorMessage" required trim="blur" #freeErrorMessage='ngModel' maxlength="200">
+          <mat-hint class="col-red" *ngIf="!freeErrorMessage.valid">This Property Should be filled</mat-hint>
+          <mat-hint class="col-red" *ngIf="freeErrorMessage.length > 200">
+            Message can be max 200 characters long</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Pre Login CTA *
+        </span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Pre login Cta" [(ngModel)]="promotion.freeRideConfig.ctaPreLoginTitle"
+            [value]="promotion.freeRideConfig.ctaPreLoginTitle" required trim="blur" #preLoginCta='ngModel'  maxlength="20">
+          <mat-hint class="col-red" *ngIf="!preLoginCta.valid">This Property Should be filled</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Post login CTA *
+        </span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Post login Cta" [(ngModel)]="promotion.freeRideConfig.ctaPostLoginTitle"
+            [value]="promotion.freeRideConfig.ctaPostLoginTitle" required trim="blur" #postLoginCta='ngModel'  maxlength="20">
+          <mat-hint class="col-red" *ngIf="!postLoginCta.valid">This Property Should be filled</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+</div>
+  </div>
+
+</div>
+
+<div class="card" *ngIf="promotion">
+  <div class="header">
+    <h2>Targeted Promos</h2>
+  </div>
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Promotion ID
+        </span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Promotion ID" [(ngModel)]="promotion.promotionId"
+            [value]="promotion.promotionId">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          OB promotion ID
+        </span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="OB promotion ID" [(ngModel)]="promotion.openBetId" [value]="promotion.openBetId">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="promotion">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-3">
+        <mat-radio-button class="mat-label" color="primary"
+          (change)="promotion.useDirectFileUrl = !promotion.useDirectFileUrl" [checked]="!promotion.useDirectFileUrl">
+          Use Uploaded image
+        </mat-radio-button>
+      </div>
+      <div class="col-md-9">
+        <cms-upload [filename]="{filename: promotion.uriMedium}" (onImageUpload)="uploadFile($event)"
+          (onImageRemove)="removeFile()" [label]="'Main Image'" [disabled]="promotion.useDirectFileUrl"
+          [withoutLabel]="true">
+        </cms-upload>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <mat-radio-button class="mat-label" color="primary"
+          (change)="promotion.useDirectFileUrl = !promotion.useDirectFileUrl" [checked]="promotion.useDirectFileUrl">
+          Use image URL
+        </mat-radio-button>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Image URL" [(ngModel)]="promotion.directFileUrl"
+            [value]="promotion.directFileUrl" [disabled]="!promotion.useDirectFileUrl">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="promotion">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-12 m-b-0 m-t-20">
+        <date-range [isSetDateButtons]="true" [startDate]="promotion.validityPeriodStart"
+          [endDate]="promotion.validityPeriodEnd" [startPlaceholder]="'Validity Period Start Date'"
+          [endPlaceholder]="'Validity Period End Date'" [placeholderColumn]="true"
+          (onDateUpdate)="handleDateUpdate($event)">
+        </date-range>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card" *ngIf="promotion">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-5">
+        <mat-checkbox class="mat-label" color="primary" [checked]="promotion.isSignpostingPromotion"
+          (change)="promotion.isSignpostingPromotion = !promotion.isSignpostingPromotion">
+          Is Signposting Promotion
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Event-level flag
+        </span>
+      </div>
+      <div class="col-md-6 {{promotion.isSignpostingPromotion ? '' : 'col-disabled'}}">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Event-level flag" [(ngModel)]="promotion.eventLevelFlag"
+            [value]="promotion.eventLevelFlag" [disabled]="!promotion.isSignpostingPromotion">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Market-level flag
+        </span>
+      </div>
+      <div class="col-md-6 {{promotion.isSignpostingPromotion ? '' : 'col-disabled'}}">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Market-level flag" [(ngModel)]="promotion.marketLevelFlag"
+            [value]="promotion.marketLevelFlag" [disabled]="!promotion.isSignpostingPromotion">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Market name
+        </span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Market Name" [(ngModel)]="promotion.templateMarketName"
+              [value]="promotion.templateMarketName">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Blurb Message
+        </span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Blurb Message" maxlength="200" [(ngModel)]="promotion.blurbMessage"
+            [value]="promotion.blurbMessage">
+        </mat-form-field>
+        <mat-hint class="col-red" *ngIf="promotion.blurbMessage && promotion.blurbMessage.length >= 200">*The Blurb message Should not exceed 200 characters</mat-hint>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Overlay BET NOW button url
+        </span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Overlay BET NOW button url" [(ngModel)]="promotion.overlayBetNowUrl"
+            [value]="promotion.overlayBetNowUrl">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Include VIP Levels
+        </span>
+      </div>
+      <div class="col-md-6">
+        <vip-levels-input [(ngModel)]="promotion.vipLevelsInput"></vip-levels-input>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Opt In Request ID
+        </span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width">
+          <input matInput type="number" type="number" placeholder="Opt In Request ID" [(ngModel)]="promotion.requestId"
+            [value]="promotion.requestId">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Show To Customer
+        </span>
+      </div>
+      <div class="col-md-6">
+        <customer-variants-select [optionsType]="'existing'" [customerType]="promotion.showToCustomer"
+          (onChange)="onShowToCustomerChange($event)">
+        </customer-variants-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Category
+        </span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width">
+          <mat-select [(value)]="promotion.categoryId" (selectionChange)="setCategoryId($event)" placeholder="Category"
+            multiple>
+            <mat-option *ngFor="let category of sportCategories" [value]="category.id">{{category.imageTitle}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          T&C
+        </span>
+      </div>
+      <div class="col-md-10">
+        <tinymce-editor #htmlMarkup [pageName]="'promotion'" [pageItemId]="promotion.id"
+          (outputEditorData)="updatePromotion($event, 'htmlMarkup')"
+          [initialEditorContent]="promotion.htmlMarkup || ''">
+        </tinymce-editor>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card" *ngIf="promotion">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Popup Title
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Popup Title" [(ngModel)]="promotion.popupTitle" [value]="promotion.popupTitle">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Popup Text
+        </span>
+      </div>
+      <div class="col-md-10">
+        <tinymce-editor #promotionText [pageName]="'promotion'" [pageItemId]="promotion.id"
+          (outputEditorData)="updatePromotion($event, 'promotionText')"
+          [initialEditorContent]="promotion.promotionText || ''">
+        </tinymce-editor>
+      </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons #actionButtons *ngIf="promotion" [validateHandler]="isValidForm" [fieldOrItemName]="'title'"
+  [collection]="promotion" (actionsEmitter)="actionsHandler($event);"></action-buttons>

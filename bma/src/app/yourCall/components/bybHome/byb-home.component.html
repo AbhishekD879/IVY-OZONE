@@ -1,0 +1,34 @@
+<div class="byb-home-content heuristic-container sk-container" [ngClass]="{'sk-loading': !loaded}"
+     data-crlat="tab.showBYB">
+  <loading-screen [displayed]="initialPageLoad && !loaded"
+                  [skeletonOnlyDisplayed]="initialPageLoad && !contentReady"
+                  [templateType]="'GENERIC'"></loading-screen>
+  <ng-conainer *ngIf="loaded">
+    <switchers *ngIf="showSwitchers()" [filter]="filter" [switchers]="switchers"></switchers>
+    <loading-screen [displayed]="!initialPageLoad && !contentReady"
+                    [templateType]="'GENERIC'"
+                    [skeletonOnly]="true"></loading-screen>
+    <div class="leagues-list" data-crlat="accordionsList">
+      <ng-container *ngFor="let league of displayData; index as i; trackBy: trackByLeague">
+        <accordion
+          *ngIf="leaguesStatuses[league.obTypeId]"
+          [isExpanded]="league.expaned"
+          [accordionTitle]="getTitle(league)"
+          (function)="trackExpandCollapse(league)"
+          data-crlat="ycAccordion">
+          <accordion-body>
+            <yourcall-byb-league *ngIf="league.expaned"
+                                 [league]="league"
+                                 [filter]="filter"
+                                 (eventsLoaded)="handleEventsLoaded()"></yourcall-byb-league>
+          </accordion-body>
+        </accordion>
+      </ng-container>
+    </div>
+    <div *ngIf="!showSwitchers()" class="no-leagues-available">
+      <h6>
+        <strong data-crlat="noEventsFound" [i18n]="'yourcall.noLeagues'"></strong>
+      </h6>
+    </div>
+  </ng-conainer>
+</div>

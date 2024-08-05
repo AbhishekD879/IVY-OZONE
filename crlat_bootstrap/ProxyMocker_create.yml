@@ -1,0 +1,30 @@
+---
+- name: Create ProxyMocker EC2 nodes
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    key_name: crlat
+    instance_type: t2.micro
+    security_group: crlat
+    image_name: ubuntu_1604_ansible
+    subnet_name: private
+    volume_size: 12
+    action: create
+    node_type: cluster_node
+    assign_public_ip: no
+    tags:
+      team: Automation
+      nodeType: "{{ node_type }}"
+      Name: ProxyMocker
+      DNSrecords: mock4quickbet
+      ClusterName: QuickBetLoadTest
+      ClusterNodeType: ProxyMockerNodes
+      class: TemporaryNode
+      packages: docker
+      dockers: telegraf,ProxyMocker
+    num_nodes: 3
+  tasks:
+  - name: crlat.vpc
+    include_role:
+      name: crlat.vpc

@@ -1,0 +1,273 @@
+@use "sass:math";
+/*
+ * Grid Mixin
+ *----------------------------------------------------------------------
+*/
+
+/* Requires mixin: flexbox-mixin.scss */
+
+$grid-columns: 12;   /* Grid Columns */
+$grid-gutter : 10px; /* Grid Margin */
+$grid-type   : xs;   /* Grid Type */
+
+/*----------------------------------------------------------------------
+ * Row
+ *
+ * Creates a wrapper for a series of columns
+*/
+ @mixin grid-row() {
+  @include display-flex();
+  @include flex-flow(row, wrap);
+  @include flex(0, 1, auto);
+  box-sizing: border-box;
+  margin-left: ceil(math.div($grid-gutter, -2));
+  margin-right: floor(math.div($grid-gutter, -2));
+
+  /*--------------------------------------------------------------------
+  * Add Additional Grid Properties
+  */
+
+  /* Grid Margin */
+  &.row-gutter > [class*='col-'] {
+     padding: ceil(math.div($grid-gutter, 2));
+  }
+
+  /* Grid No Margin */
+  &.row-no-gutter {
+    margin-left: 0;
+    margin-right: 0;
+
+    & > [class*='col-'] {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  /* Grid Equal Column Height */
+  &.row-equal-height > [class*='col-'] {
+    @include display-flex();
+  }
+
+  /* Grid Reversing
+   * _________________________
+   * |       |       |       |
+   * |   C   |   B   |   A   |
+   * |_______|_______|_______|
+  */
+
+  &.row-reverse {
+    @include flex-direction(row-reverse);
+  }
+
+  /* Grid Alignment - Start
+   * _________________________
+   * |       |               |
+   * |   x   |               |
+   * |_______|_______________|
+  */
+
+  &.row-start {
+    @include justify-content(flex-start);
+    text-align: start;
+  }
+
+  /* Grid Alignment - End
+  * _________________________
+  * |               |       |
+  * |               |   x   |
+  * |_______________|_______|
+  */
+
+  &.row-end {
+    @include justify-content(flex-end);
+    text-align: end;
+  }
+
+  /* Grid Alignment - Center
+   * _________________________
+   * |       |       |       |
+   * |       |   x   |       |
+   * |_______|_______|_______|
+  */
+
+  &.row-center {
+    @include justify-content(center);
+    text-align: center;
+  }
+
+  /* Grid Alignment - Top
+   * _________________________
+   * |       |       |       |
+   * |_______|       |_______|
+   *         |_______|
+  */
+
+  &.row-top {
+    @include align-items(flex-start);
+  }
+
+  /* Grid Alignment - Center
+  *         _________
+  *  _______|       |_______
+  * |_______|       |_______|
+  *         |_______|
+  */
+
+  &.row-middle {
+    @include align-items(center);
+  }
+
+  /* Grid Alignment - Bottom
+   *         _________
+   *  _______|       |_______
+   * |       |       |       |
+   * |_______|_______|_______|
+  */
+
+  &.row-bottom {
+    @include align-items(flex-end);
+  }
+
+  /* Grid Distribution - Around
+   * ______________________________
+   * |  ______   ______   ______  |
+   * |  |____|   |____|   |____|  |
+   * |____________________________|
+  */
+
+  &.row-around {
+    @include justify-content(space-around);
+  }
+
+  /* Grid Distribution - Between
+   * ______________________________
+   * |______     ______     ______|
+   * ||____|     |____|     |____||
+   * |____________________________|
+  */
+
+  &.row-between {
+    @include justify-content(space-between);
+  }
+
+  /* Common properties for all breakpoints  */
+  & > [class*='col-'] {
+    box-sizing: border-box;
+    position: relative;
+    min-height: 1px; /* Prevent collapsing   */
+    width: 100%;
+    @include flex(0,0,auto);
+     padding-left: ceil( math.div($grid-gutter, 2));
+     padding-right: floor( math.div($grid-gutter, 2));
+
+    /*--------------------------------------------------------------------
+     * Add Additional Grid Properties
+    */
+
+    &.col-reverse {
+      @include flex-direction(column-reverse);
+    }
+
+    /* Col Ordering - First
+    * ____________________________
+    * |          |       |       |
+    * | B(first) |   A   |   C   |
+    * |__________|_______|_______|
+    */
+
+    .col-first {
+      @include flex-order(-1);
+    }
+
+    /* Col Ordering - Last
+     * ____________________________
+     * |       |       |          |
+     * |   B   |   C   |  A(last) |
+     * |_______|_______|__________|
+    */
+
+    .col-last {
+      @include flex-order(1);
+    }
+  }
+}
+
+/* Row (Support old browser) */
+@mixin grid-row-vertical($type: $grid-type) {
+  &.row-#{$type} {
+    -webkit-box-orient: vertical;
+   }
+}
+
+/*----------------------------------------------------------------------
+ * Columns
+ *
+ * Used only to generate the correct number of grid classes given any value of `$grid-columns`.
+*/
+@mixin make-grid-columns($type: $grid-type, $columns: $grid-columns) {
+  /*----------------------------------------------------------------------
+   * Base Column Style (col-xs, col-sm, col-md)
+   */
+
+   .col-#{$type} {
+    @include flex-grow(1);
+    @include flex-basis(0);
+    max-width: 100%;
+  }
+
+  /* CSS output:
+   *
+   *.col-xs {
+   *  -webkit-box-flex: 1,
+   *  -webkit-flex-grow: 1,
+   *  -ms-flex-positive: 1,
+   *  flex-grow: 1,
+   *  -webkit-flex-basis: 0,
+   *  -ms-flex-preferred-size: 0,
+   *  flex-basis: 0,
+   *  max-width: 100%,
+   *}
+  */
+
+  /*----------------------------------------------------------------------
+   * Index Column Style (col-xs-1...col-xs-12)
+  */
+
+  .col-#{$type} {
+    @for $i from 1 through $columns {
+      &-#{$i} {
+        @include flex-basis(percentage(math.div($i, $columns)));
+        max-width: percentage(math.div($i, $columns));
+        display: block;
+      }
+    }
+
+  }
+  /* CSS output:
+  *
+  *.col-xs-1 {
+  *  -webkit-flex-basis: 8.33333333%,
+  *  -ms-flex-preferred-size: 8.33333333%,
+  *  flex-basis: 8.33333333%,
+  *  max-width: 8.33333333%,
+  //}*/
+
+  /*----------------------------------------------------------------------
+   * Index Column Offset Style (col-xs-1...col-xs-12)
+   */
+
+   .col-offset-#{$type} {
+    @for $i from 1 through $columns {
+      &-#{$i} {
+        margin-left: percentage(math.div($i, $columns));
+      }
+
+  }
+}
+  /* CSS output:
+   *
+   *.col-offset-xs-1 {
+   *  margin-left: 8.33333333%;
+   *}
+  */
+}

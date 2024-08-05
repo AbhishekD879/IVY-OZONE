@@ -1,0 +1,37 @@
+<div *ngIf="outcomes" class="forecast-tricast-market labels-mode"  [ngClass]="[poolCssClass, marketDescriptionClass]" 
+ data-crlat="marketOutcomes">
+  <lazy-component *ngIf="isMarketDescriptionEnabled" moduleUri="@lazy-modules-module/market-description/market-description.module#MarketDescriptionModule"
+    [inputs]="{ eventEntity: event, selectedMarket: selectedPoolType, marketEntity: marketEntity }"
+    entryComponent="MarketDescriptionComponent">
+  </lazy-component>
+  <!--- Market Container -->
+  <div class="forecast-tricast-inner">
+    <div class="terms-block" *ngIf="isVirtual" [textContent]="forTriMsg" [class.top-block]="marketEntity.isEachWayAvailable && !isVirtual"></div>
+    <ng-container *ngFor="let outcomeEntity of outcomes; trackBy: trackByOutcomes; index as i;">
+      <forecast-tricast-race-card data-crlat="outcomeEntity"
+                                  [eventEntity]="event"
+                                  [marketEntity]="marketEntity"
+                                  [outcomeEntity]="outcomeEntity"
+                                  *ngIf="!outcomeEntity.isFavourite">
+
+        <forecast-tricast-checkbox-matrix (click)="$event.stopPropagation();"
+                                          (mapUpdate)="onMapUpdate($event)"
+                                          [map]="checkboxesMap"
+                                          *ngIf="!isSuspended(outcomeEntity)"
+                                          [outcomesMap]="outcomesMap"
+                                          [outcome]="outcomeEntity">
+        </forecast-tricast-checkbox-matrix>
+        <div class="odds-right" *ngIf="isSuspended(outcomeEntity)">
+          <span class="suspended-label">SUSP</span>
+        </div>
+      </forecast-tricast-race-card>
+    </ng-container>
+  </div>
+  <button class="btn-bet add-to-betslip-btn"
+          [ngClass]="{'active': isBetAvailable}"
+          (click)="addToBetslip()"
+          [disabled]="!isBetAvailable"
+          [i18n]="'racing.addToBetslip'"
+          data-crlat="addToBetslipButton">
+  </button>
+</div>

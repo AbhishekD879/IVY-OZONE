@@ -1,0 +1,30 @@
+@import 'global.variables.scss';
+
+.favourites-wrapper {
+
+  .label-text {
+    font-size: 12px;
+    font-family: $base-font-family;
+    font-weight: 400;
+    color: $color-gray-dark;
+    padding-right: 5px;
+    opacity: 0.65;
+  }
+  .fav-icon-svg {
+    width: 16px;
+    height: 16px;
+    stroke: $color-gray-dark;
+    opacity: 0.5;
+
+    &.active {
+      opacity: 1;
+      stroke: $color-yellow;
+      fill: $color-yellow;
+    }
+  }
+
+  .align-center {
+    @include display-flex();
+    @include align-items();
+  }
+}

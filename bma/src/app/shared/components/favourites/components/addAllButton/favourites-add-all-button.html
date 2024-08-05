@@ -1,0 +1,12 @@
+<div class="favourites-wrapper" data-crlat="matchCenter" *ngIf="isAvailable">
+  <div class="align-center">
+    <span class="label-text" [i18n]="'bs.AddAllToFavourites'"></span>
+    <div class="odds-fav-icon pull-right all-favourites"
+         (click)="$event.preventDefault(); applyAction($event)"
+         data-crlat="favouriteIcon">
+      <svg class="fav-icon-svg" [ngClass]="{ 'active': starSelected }">
+        <use xlink:href="#star"></use>
+      </svg>
+    </div>
+  </div>
+</div>

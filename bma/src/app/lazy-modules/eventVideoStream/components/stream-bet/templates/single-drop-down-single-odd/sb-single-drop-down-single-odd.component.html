@@ -1,0 +1,16 @@
+<div class="row-last vo-question Rectangle overlay-box-item">
+    <div class="snb-market-name">{{market?.originalMarketName || market?.name}}</div>
+    <div class="snb-single-dp-single-odd">
+      <div class="snb-drop-down">
+        <stream-bet-template-drop-down [outcomes]="alteredOutComes"
+          (itemEmit)="onValueChange($event)">
+        </stream-bet-template-drop-down>
+      </div>
+      <div class="snb-price-odds-btn sb-cs-button">
+        <sb-price-odds-button [event]="event" [market]="market"
+          [outcome]="outcomeEntity ? outcomeEntity : market?.outcomes[0]" [isStreamAndBet]="true"
+          (selectionClickEmit)="handleSelectionClick(market)" class="one-row-btn">
+        </sb-price-odds-button>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,108 @@
+{
+  "cashoutOfferRequests": [
+    {
+      "cashoutOfferReqRef": "598359676",
+      "bet": {
+        "stakeAmount": "1.00",
+        "tokenValue": "0.00",
+        "betType": "ACC4",
+        "legType": "W",
+        "cashoutProfile":"NO_LOSS",
+        "legs": [
+          {
+            "legNo": "1",
+            "legSort": "--",
+            "parts": [
+              {
+                "partNo": "1",
+                "type": "2.0",
+                "ladder": "STABLE",
+                "categoryId":"16",
+                "isOff":"-",
+                "result": "-",
+                "priceType": "L",
+                "strikePrice": {
+                  "num": "100",
+                  "den": "1"
+                },
+                "spotPrice": {
+                  "num": "100",
+                  "den": "1"
+                }
+              }
+            ]
+          },
+          {
+            "legNo": "2",
+            "legSort": "--",
+            "parts": [
+              {
+                "partNo": "1",
+                "type": "2.0",
+                "ladder": "STABLE",
+                 "categoryId":"16",
+                 "isOff":"Y",
+                "result": "-",
+                "priceType": "L",
+                "strikePrice": {
+                  "num": "11",
+                  "den": "5"
+                },
+                "spotPrice": {
+                  "num": "11",
+                  "den": "5"
+                }
+              }
+            ]
+          },
+          {
+            "legNo": "3",
+            "legSort": "--",
+            "parts": [
+              {
+                "partNo": "1",
+                "type": "2.0",
+                "ladder": "STABLE",
+                "categoryId":"16",
+                 "isOff":"Y",
+                "result": "-",
+                "priceType": "L",
+                "strikePrice": {
+                  "num": "20",
+                  "den": "1"
+                },
+                "spotPrice": {
+                  "num": "20",
+                  "den": "1"
+                }
+              }
+            ]
+          },
+          {
+            "legNo": "4",
+            "legSort": "--",
+            "parts": [
+              {
+                "partNo": "1",
+                "type": "2.0",
+                "ladder": "STABLE",
+                "categoryId":"16",
+                 "isOff":"N",
+                "result": "-",
+                "priceType": "L",
+                "strikePrice": {
+                  "num": "29",
+                  "den": "20"
+                },
+                "spotPrice": {
+                  "num": "6",
+                  "den": "4"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

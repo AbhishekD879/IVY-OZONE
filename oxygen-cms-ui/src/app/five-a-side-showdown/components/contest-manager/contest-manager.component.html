@@ -1,0 +1,51 @@
+<div class="card" *ngIf="!isLoading">
+    <div class="header">
+        <h2 class="waves-effect waves-block" [textContent]= "CONTESTFORM.contestHeadingLabel">
+        </h2>
+    </div>
+</div>
+<div class="card" *ngIf="!isLoading">
+    <div class="contest-manager-section body">
+      <div  class="row clearfix">
+        <div class="col-md-12 m-b-0">
+          <button  mat-button type="button" (click)="createContestModule();" class="btn bg-teal waves-effect float-left">
+            <mat-icon>add_box</mat-icon>
+            <span [textContent]= "CONTESTFORM.createContestLabel"></span>
+          </button>
+        </div>
+        <ng-container *ngIf="contests && contests.length">
+          <div class="col-md-6"><h5 class="mat-label" [textContent]= "CONTESTFORM.contestTableHeaderLabel">
+          </h5>
+        </div>
+          <div class="col-md-6 m-b-0">
+            <div class="input-with-icon m-b-0">
+              <em class="material-icons">search</em>
+              <mat-form-field>
+                <input matInput placeholder="Search For Contest" [(ngModel)]="searchField" [value]="searchField">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <cms-data-table
+              [customTableData]="contests"
+              [customTableColumns]="dataTableColumns"
+              [multyRemove]="true"
+              [filterString]="searchField"
+              [reorder]="true"
+              (onElementsOrder)="reorderHandler($event)"
+              [filterProperties]="filterProperties"
+              [actions]="['remove','edit','clone']"
+              (onCloneTableElement)="cloneContestElement($event)"
+              (onRemoveTableElement)="removeContestElement($event)"
+              (onMultyRemove)="removeHandlerMulty($event)">
+            </cms-data-table>
+          </div>
+        </ng-container>
+      </div>
+      <div class="row clearfix" *ngIf="contests.length === 0">
+        <div class="col-md-12">
+          <h5 [textContent]= "CONTESTFORM.contestTableNoDataLabel"></h5>
+        </div>
+      </div>
+    </div>
+</div>

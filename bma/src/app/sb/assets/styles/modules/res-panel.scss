@@ -1,0 +1,38 @@
+@import 'global.variables.scss';
+
+.res-panel {
+  .res-inner {
+    border-bottom: 1px solid $color-gray;
+    box-shadow: 0 1px 0 $color-white;
+    padding: 15px;
+
+    &:last-child {
+      border: none;
+      box-shadow: none;
+    }
+
+    .res-date {
+      color: lighten($color-gray-dark, 50%);
+      font-size: 11px;
+      text-shadow: 0 1px 0 rgba(255,255,255,.4);
+    }
+
+    .res-title {
+      font-size: 12px;
+      font-weight: normal;
+      margin: 15px 0 5px;
+    }
+
+    ul {
+      margin: 0 0 10px;
+      padding: 0;
+
+      li {
+        font-size: 12px;
+        list-style: none;
+        margin: 0 0 3px;
+      }
+    }
+
+  }
+}

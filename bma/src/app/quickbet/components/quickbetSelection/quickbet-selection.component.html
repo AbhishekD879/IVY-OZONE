@@ -1,0 +1,208 @@
+<div class="quickbet-content" [ngClass]="{'suspended': selection.disabled || isLogAndQuickBetPending}" data-crlat="quickbet.content">
+  <div class="quickbet-sectionwrap">
+    <section class="qb-content-info" [ngClass]="{ 'odd-boost-active': canBoostSelection }"
+             *ngIf="selection.outcomeId">
+             <ng-container *ngIf="!isLuckyDip else templateLuckyDip">
+              <p class="outcome-name" [textContent]="selection?.outcomeName | callBack : filterPlayerName : this" data-crlat="selectionName"></p>
+              <p class="market-name" [textContent]="filterAddScore(selection)" data-uat="marketName"></p>
+            </ng-container>
+            <ng-template #templateLuckyDip>
+              <p class="outcome-name" [textContent]="selection?.marketName?.split(',')[0]"></p>
+              <p class="market-name" [textContent]="luckyDipMarketName" data-uat="marketName"></p>
+            </ng-template>
+      <p class="event-name" [textContent]="selection.eventName" data-uat="eventName"></p>
+              <div *ngIf="extraPlaceName && ( extraPlaceCheck() || isWinorEachWay) " class="extraplacesignpostOffer_coral"  [textContent]="extraPlaceName"></div>
+    </section>   
+    <section class="yc-content-info" data-crlat="section.selections"
+             *ngIf="!selection.outcomeId">
+      <ng-content select="your-call-body-details"></ng-content>
+    </section>
+    <section id="quickBetEW" class="qb-stake-section" data-crlat="section.stake">
+      <div class="qb-odds-stake-wrapper">
+        <div class="odds">
+          <ng-contanier *ngIf="!isLuckyDip else templateLuckyDipOdds">
+          <span *ngIf="selection.hasLP"
+                class="odds-value"
+                [ngClass]="{'crossed': (canBoostSelection && selection.isBoostActive) }"
+                [textContent]="selection.newOddsValue || selection.oldOddsValue" data-crlat="odds"></span>
+          <span *ngIf="selection.hasSP" class="odds-value" [i18n]="'quickbet.isSP'" data-crlat="odds"></span>
+          <label *ngIf="selection.hasSPLP" class="odds-select-label" data-crlat="odds">
+            <lazy-component
+              moduleUri="@freebetsModule/freebets.module#FreebetsModule"
+              [inputs]="{
+                options: selection.oddsSelector,
+                selectedValue: selection.isLP ? 'LP' : 'SP',
+                disabled: selection.disabled,
+                mode: canBoostSelection && selection.isBoostActive ? 'secondary' : 'default'
+              }"
+              [outputs]="['valueChange']"
+              (event)="priceTypeChange($event)"
+              entryComponent="LpSpDropdownComponent">
+            </lazy-component>
+          </label>
+
+          <!-- Boosted price -->
+          <lazy-component *ngIf="canBoostSelection && selection.isBoostActive"
+            moduleUri="@oddsBoostModule/odds-boost.module#OddsBoostModule"
+            entryComponent="OddsBoostPriceComponent"
+            [inputs]="{ oldPrice: boostOldPrice, newPrice: boostNewPrice }"
+            class="quickbet-boosted-price">
+          </lazy-component>
+        </ng-contanier>
+        <ng-template #templateLuckyDipOdds>
+          <span *ngIf="selection?.marketName" class="odds-value" [textContent]="selection?.marketName?.split(',')[2] || selection.oldOddsValue" data-crlat="odds"></span>
+        </ng-template>
+        </div>
+        <div class="stake" data-crlat="stake.amountInputForm">
+          <div>
+            <label [ngClass]="selectionAmountClasses"
+            class="input-stake-label"
+            [attr.data-currency]="selection.currency"
+            [textContent]="selection.stake ? selection.currency : '' ">
+            </label>
+            <input id="stake-input" class="stake-input" placeholder="Stake" [digit-keyboard-input]
+            [selectedFreeBet]="selectedFreeBet" [freebetsList]="freebetsList" (freeBetSelected)="onFreebetChange($event)"
+            [freebetsConfig]="freebetsConfig" [isBoostEnabled]="isBoostEnabled" [fanzoneList]="fanzoneList" [betPackList]="betPackList"
+            [isSelectionBoosted]="this.selection.isBoostActive" [canBoostSelection]="canBoostSelection"
+              [patternRestrict]="stakePattern" [patternToFixed]="true" [componentId]="'quickbet-panel'"
+              [showDecimalPoint]="true" [value]="selection.stake" [(ngModel)]="selection.stake" (ngModelChange)="onStakeChange()"
+              [disabled]="selection.disabled || isLogAndQuickBetPending || showPendingSpinner() || serviceClosureService.userServiceClosureOrPlayBreak" [eventAction]="'quickbet'" data-money-validate="true"
+              data-crlat="value">
+          </div>
+        </div>
+      </div>
+      <div class="each-way" *ngIf="selection.isEachWayAvailable" data-crlat="eachWayForm">
+      <div class="each-way-highlight eachWay-tooltip">
+      <div *ngIf="disableEachWayTooltip" [tooltip]="'eachWay'" [toolTipArgs]="toolTipArgs"
+           [showTooltip]="disableEachWayTooltip"></div>
+        <span class="each-way-label" [i18n]="'quickbet.eachWayLabel'" data-crlat="label.eachWay"></span>
+        <input id="each-way-checkbox"
+               class="each-way-checkbox"
+               type="checkbox"
+               placeholder="0.00"
+               [disabled]="selection.disabled || showPendingSpinner() || serviceClosureService.userServiceClosureOrPlayBreak"
+               (change)="onStakeChange()"
+               [(ngModel)]="selection.isEachWay"
+               data-uat="eachWay"/>
+        <label for="each-way-checkbox"></label>
+      </div>
+      </div>
+    </section>
+  </div>
+  <div class="twoUpMarketContent" *ngIf="selection.categoryId == '16' && selection?.markets?.length">
+    <promotion-icon
+      [type]="'market'"
+      [mode]="'sm'"
+      [display]="selection.marketName"
+      [marketName]="selection.marketName"
+      [sport]="'sport'"
+      data-crlat="promotionIcons"
+      [disablePopUp]=true>
+    </promotion-icon>
+  </div>
+  <div class="promos-boost">
+    <!-- Promo labels -->
+    <promo-labels
+      *ngIf="selection?.markets?.length"
+      [cashoutValue]="selection.markets[0].isCashoutAvailable"
+      [event]="selection"
+      [marketId]="selection.marketId"
+      [mode]="'quickbetslip'"
+      [exclude]="promoLabelsFlagsExcluded">
+    </promo-labels>
+
+    <!-- Boost button -->
+    <div *ngIf="canBoostSelection" class="quickbet-boost-button">
+      <lazy-component 
+          moduleUri="@oddsBoostModule/odds-boost.module#OddsBoostModule"
+          entryComponent="OddsBoostButtonComponent"
+          (click)="onBoostClick()"
+          [inputs]="{ enabled: selection.isBoostActive, reboost: selection.reboost, disabled: placeBetPending.state }">
+      </lazy-component>
+    </div>
+  </div>
+
+  <ng-container *ngIf="selection.isEachWay && selectedFreeBet && !selection.hasSP && selection.isLP && !selection.disabled">
+    <lazy-component moduleUri="@lazy-modules-module/signposting/signposting.module#SignpostingModule"
+      entryComponent="FreebetSignpostingComponent" [inputs]="{ betInfo: selection, signpostingTitle: 'eachway', eventLocation: 'quickbet' }">
+    </lazy-component>
+  </ng-container>
+</div>
+
+<digit-keyboard
+  [componentId]="'quickbet-panel'"
+  [currency]="selection.currency"
+  [hideKeyboardFlag]="false"
+  (keyboardShown)="onKeyboardToggle(false)"
+  (keyboardHidden)="onKeyboardToggle(true)"
+  #qbDigitKeyboard>
+</digit-keyboard>
+
+<quick-stake
+[quickStakeVisible]="quickStakeVisible"
+  [freebetsList]="freebetsList"
+  [selectedFreeBet]="selectedFreeBet"
+  [betPackList]="betPackList"
+  [fanzoneList]="fanzoneList"
+  [disabled]="selection.disabled || placeBetPending.state || isLogAndQuickBetPending || serviceClosureService.userServiceClosureOrPlayBreak"
+  [freebetsConfig]="freebetsConfig"
+  [isBoostEnabled]="isBoostEnabled"
+  [isSelectionBoosted]="this.selection.isBoostActive"
+  [canBoostSelection]="canBoostSelection"
+  (quickStakeSelect)="onQuickStakeSelect($event)"
+  (fbChange)="onFreebetChange($event)"
+  data-crlat="quickStakePanel"
+  [betslipType]="betslipType">
+</quick-stake>
+
+<div class="reboost-info" *ngIf="canBoostSelection && selection.price.isPriceChanged && selection.isBoostActive">
+  <svg class="alert-icon">
+    <use xlink:href="#icn_info"></use>
+  </svg>
+  <span [i18n]="'quickbet.reboostPriceChanged'"></span>
+</div>
+
+<lazy-component *ngIf="maxPayedOut && maxPayFlag"
+  moduleUri="@lazy-modules-module/maxpayOutErrorContainer/maxpayout-error-container.module#MaxpayoutErrorContainerModule"
+  [inputs]="{betType:'quick bet', errorMsg: maxPayMsg}" 
+  entryComponent="MaxpayoutErrorContainerComponent" data-crlat="maxPayout">
+</lazy-component>
+<bet-summary [selection]="selection" [jump]="'jump'" (showMaxPayOutMessage)="addItem($event)" [maxPayOutValue]="selection.maxPayout" data-crlat="betSummary"></bet-summary>
+
+<div class="quickbet-controls">
+  <button *ngIf="!isLuckyDip && addToBetslipFn"
+          class="qb-left-cta-btn"
+          (click)="addToBetslipFnHandler()"
+          [textContent]="leftBtnText"
+          [disabled]="selection.disabled || isLogAndQuickBetPending || showPendingSpinner() || serviceClosureService.userServiceClosureOrPlayBreak"
+          data-crlat="addToBetslipButton">
+  </button>
+  <button *ngIf="isLuckyDip && !addToBetslipFn"
+          class="qb-left-cta-btn"
+          (click)="closeFnHandler()"
+          [disabled]="selection.disabled || isLogAndQuickBetPending"
+          [i18n]="getbackBtnCTAText()"
+          data-crlat="quickbet.back">
+  </button>
+  <button *ngIf="!isMakeQuickDeposit()"
+          class="qb-right-cta-btn"
+          [disabled]="disablePlaceBet || isLogAndQuickBetPending || serviceClosureService.userServiceClosureOrPlayBreak"
+          (click)="placeBetFnHandler()"
+          data-crlat="placeBetButton">
+    <spinner *ngIf="showPendingSpinner()"></spinner>
+    <span *ngIf="!showPendingSpinner() && isUserLoggedIn"
+          [i18n]="getPlaceBetText"></span>
+          <span *ngIf="showPendingSpinner() && isUserLoggedIn && !selection.isStarted" [i18n]="getPlaceBetText"></span>
+          <span *ngIf="showPendingSpinner() && isUserLoggedIn && selection.isStarted && countDownTimer">{{ countDownTimer.value }}</span>
+    <span *ngIf="!showPendingSpinner() && !isUserLoggedIn"
+          [i18n]="'quickbet.buttons.loginPlaceBet'"></span>
+  </button>
+  <button *ngIf="isMakeQuickDeposit()"
+          class="qb-right-cta-btn qb-quick-deposit-button"
+          [disabled]="isSelectionDisabled()"
+          (click)="openQuickDepositFnHandler()"
+          data-crlat="quickDepositButton">
+    <spinner *ngIf="showSpinnerOnQuickDeposit()" data-crlat="spinner.loader"></spinner>
+    <span [i18n]="'quickbet.buttons.makeQuickDeposit'"></span>
+  </button>
+</div>

@@ -1,0 +1,67 @@
+<ng-container *ngIf="!state.loading && !state.error">
+  <!--- Top Bar -->
+  <ng-container *ngIf="isRouteRequestSuccess">
+  <top-bar *ngIf="!isDetailPage"
+           [title]="'sb.' + racingName"
+           [innerContent]="topBarInnerContent"
+           (titleFunc)="goToDefaultPage()">
+    <top-bar-body class="top-bar-side" data-crlat="topBarContent">
+      <a [routerLink]="'/bet-finder'" class="bet-finder-link" *ngIf="racingName === 'horseracing' && isBetFilterLinkAvailable" data-crlat="betFinderLink">
+        <svg class="bet-finder-icon">
+          <use xlink:href="#bet-finder-icon"></use>
+        </svg>
+        <span class="bet-finder-title" data-crlat="betFinderTitle" [i18n]="'bf.betFinder'"></span>
+      </a>
+    </top-bar-body>
+  </top-bar>
+  <breadcrumbs *ngIf="!isDetailPage" [sportName]="racingName" [sportTabs]="sportTabs" [defaultTab]="defaultTab"></breadcrumbs>
+  <div *ngIf="!isDetailPage">
+    <div class="banner-block" data-crlat="bannerBlock">
+      <!--- Banners Section-->
+      <lazy-component 
+         moduleUri="@lazy-modules-module/banners/banners.module#BannersModule"
+         [inputs]='{ page: racingName}' data-crlat="bannersSection">
+      </lazy-component>
+    </div>
+    <!--- Enhanced Section -->
+    <racing-enhanced-multiples *ngIf="isEnhancedMultiplesEnabled && racingName === 'horseracing'" [isRacingFeatured]="true"></racing-enhanced-multiples>
+    <!--- Tabs -->
+    <action-arrows>
+      <action-arrows-content>
+        <switchers
+          [type]="'scrollable'"
+          [switchers]="racingTabs"
+          [activeTab]="activeTab"
+          [noPaddings]="true"
+          [preventReload]="true"
+        ></switchers>
+      </action-arrows-content>
+    </action-arrows>
+
+    <!-- Free Ride -->
+    <lazy-component *ngIf="bonusSuppressionService.checkIfYellowFlagDisabled('freeRide') && freeRideHelperService.showFreeRide() && freeRideHelperService.showFreeRideOnSportPage(categoryId)" moduleUri="@lazy-modules-module/freeRide/freeRide.module#FreeRideModule" entryComponent="LadsDeskLaunchBannerComponent">
+    </lazy-component>
+
+    <!-- Show spinner if sport active tab not resolved yet -->
+    <div *ngIf="!activeTab" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+  </div>
+ </ng-container>
+  <lazy-component *ngIf="isHomeUrl() && !isDetailPage && racingName=='greyhound' && initialTab=='races' && activeTab.id=='tab-races'"
+    moduleUri="@lazy-modules-module/lazyNextRacesTab/lazyNextRacesTab.module#LazyNextRacesTabModule"
+    entryComponent="LadbrokesNextRacesHomeTabComponent"
+    [inputs]="{racingName: racingName}">
+  </lazy-component>
+  <racing-tabs-main-component *ngIf="isHomeUrl() && !isDetailPage && racingName=='greyhound' && initialTab=='today' && activeTab.id=='tab-today'"></racing-tabs-main-component>
+  <router-outlet *ngIf="!isHomeUrl()"></router-outlet>
+
+  
+  <lazy-component moduleUri="@lazy-modules-module/quickLinks/quick-links.module#QuickLinksModule"
+  [inputs]="{applyCss: true}" entryComponent="QuickLinksComponent">
+  </lazy-component>
+
+  
+</ng-container>
+<outlet-status [state]="state">
+  <request-error *ngIf="state.error" [loadFailed]="state.error" (reloadFn)="reloadComponent()"></request-error>
+</outlet-status>
+

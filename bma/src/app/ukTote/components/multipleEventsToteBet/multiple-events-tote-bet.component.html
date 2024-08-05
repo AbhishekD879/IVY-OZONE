@@ -1,0 +1,19 @@
+<loading-screen [displayed]="loading" [templateType]="'GENERIC'"></loading-screen>
+<div *ngIf="!loading && !requestFailed" data-crlat="UKTote.pool" [ngClass]="{'itv7-cls' : poolBet.poolType === 'UPP7'}" >
+  <div class="leg-switchers-wrapper">
+    <switchers
+      [filter]="legFilter"
+      [switchers]="legSwitchers"
+      [type]="'scrollable'">
+    </switchers>
+  </div>
+  <uk-tote-leg
+    [toteLegVal]="chosenPoolLeg"
+    [isUKorIRE]="isUKorIRE"
+    [isPoolBetSuspended]="potBet.isSuspended">
+  </uk-tote-leg>
+</div>
+<request-error *ngIf="requestFailed"
+               [loadFailed]="requestFailed"
+               (reloadFn)="reloadComponent()">
+</request-error>

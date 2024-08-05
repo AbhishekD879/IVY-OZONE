@@ -1,0 +1,46 @@
+
+<div class="card">
+    <div class="header">
+      <h2 class="waves-effect waves-block">
+        Modules Configuration
+      </h2>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="body">
+      <div class="row clearfix">
+        <div class="col-md-3">
+          <button (click)="createBonusSupModule()" type="button" class="btn bg-teal waves-effect float-left">
+            <i class="material-icons">add_box</i>
+            <span>Add Module</span>
+          </button>
+        </div>
+        <div class="col-md-6 offset-md-3 m-b-0">
+          <div class="input-with-icon m-b-0">
+            <i class="material-icons">search</i>
+            <mat-form-field>
+              <input matInput placeholder="Search For Modules" [(ngModel)]="searchField" [value]="searchField">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+  
+      <div  *ngIf="moduleList.length">
+        <cms-data-table
+          [customTableData]="moduleList"
+          [customTableColumns]="moduleListColumns"
+          [reorder]="false"
+          [filterString]="searchField"
+          [filterProperties]="filterProperties"
+          [actions]="['remove']"
+          (onRemoveTableElement)="removeModule($event)">
+        </cms-data-table>
+      </div>
+  
+      <div>
+        <div class="nomodules" *ngIf="!moduleList.length">Modules are not configured</div>
+      </div>
+    </div>
+  </div>
+  

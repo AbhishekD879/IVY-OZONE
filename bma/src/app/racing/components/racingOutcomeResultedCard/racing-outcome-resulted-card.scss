@@ -1,0 +1,74 @@
+@import 'global.variables.scss';
+
+.racing-result-card {
+  &.odds-card {
+    padding: 13px 12px;
+    box-shadow: none;
+    min-height: 50px;
+  }
+
+  .label-void {
+    border-radius: 100%;
+    background: $color-cobalt;
+    font-size: $font-size;
+    font-weight: bold;
+    display: block;
+    height: 21px;
+    width: 21px;
+    line-height: 21px;
+    text-align: center;
+    color: $color-white;
+  }
+
+  .odds-content {
+    .odds-side {
+      text-align: left;
+      font-size: $font-size;
+
+      strong {
+        min-width: 40px;
+        text-transform: uppercase;
+      }
+    }
+
+    .silk-img {
+      width: 40px;
+      height: 29px;
+      margin-right: 9px;
+
+      &.has-img,
+      &.has-img div,
+      &.has-img svg{
+        width: 40px;
+        height: 29px;
+      }
+    }
+    gh-silk {
+      margin: 0 10px 0 0;
+    }
+
+    .odds-right {
+      font-size: $font-size;
+      line-height: normal;
+      max-width: 36px;
+      padding: 0;
+      @include justify-content(center);
+    }
+
+    .odds-names {
+      line-height: normal;
+      font-size: $font-size-tablet;
+      padding-bottom: 0;
+
+      .odds-name-label {
+        font-weight: normal;
+        margin: 0 5px;
+        font-size: $font-size;
+      }
+
+      .odds-normal {
+        font-size: $font-size-md;
+      }
+    }
+  }
+}

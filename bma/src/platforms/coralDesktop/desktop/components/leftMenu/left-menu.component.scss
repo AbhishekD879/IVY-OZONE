@@ -1,0 +1,81 @@
+@import 'global.variables.scss';
+
+.left-column-menu {
+
+  .left-menu-items {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .left-column-title {
+    @include display-flex();
+    @include align-items();
+    color: $color-white;
+    margin: 0px;
+    padding: 10px;
+    font-weight: bold;
+    min-height: 36px;
+    line-height: 13.2px;
+  }
+
+  .left-column-title, .left-menu-item {
+    font-size: 12px;
+  }
+
+  .star {
+    visibility: hidden;
+    font-size: 15px;
+    cursor: pointer;
+    color: $color-white;
+
+    &:before {
+      content: "\2606";
+      visibility: visible;
+    }
+    &:checked:before {
+      content: "\2605";
+      color: $color-yellow;
+    }
+  }
+
+  .cardcheckbox {
+    align-self: center;
+    line-height: 14px;
+    pointer-events: auto;
+  }
+
+  .left-menu-item {
+    @include display-flex();
+    @include align-items();
+
+    padding: 10px;
+    margin: 0 0 1px;
+    color: $menu-items-color;
+    line-height: 12px;
+    width: 100%;
+
+    .left-menu-item-icon {
+      fill: $menu-items-color;
+      width: 16px;
+      min-width: 16px;
+      height: 16px;
+      margin-right: 10px;
+    }
+
+    .left-menu-item-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    &:hover, &.active {
+      text-decoration: none;
+      background: $denim;
+    }
+
+    &.active {
+      pointer-events: none;
+    }
+  }
+}

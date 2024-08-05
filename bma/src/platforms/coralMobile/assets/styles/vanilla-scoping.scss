@@ -1,0 +1,104 @@
+@import 'global.variables.scss';
+
+/* Overrides to be applied when portal/vanilla route is activated */
+.vn-scope {
+  .side-page {
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+
+    & > *:not(#page-content) {
+      display: none;
+    }
+  }
+
+  bma-main {
+    & > *:not(.side-page) {
+      display: none;
+    }
+  }
+
+  .page-wrapper {
+    position: relative;
+    z-index: 2000;
+  }
+  main {
+    @media screen and (max-width: 766px) {
+      min-height: 50vh;
+      background: none;
+    }
+  }
+
+  #content {
+    min-height: 100vh;
+  }
+  #right-column{
+    display: none;
+  }
+}
+
+main {
+  @media screen and (max-width: 766px) {
+    background: #e0e2eb;
+  }
+  @media #{$mqTablet} {
+    background: $page-bg;
+  }
+}
+
+@media screen and (max-width: $landscapeTabletPointLow) and (orientation: landscape) {
+  html:not(.bma-ready) vn-responsive-header {
+    visibility: hidden;
+  }
+}
+/* CLS placeholder Css */
+@mixin placeHolderMixin($intrinsicSize) {
+  contain: size;
+  content-visibility: auto;
+  contain-intrinsic-size: auto $intrinsicSize;
+}
+.cta-center {
+  min-height: 75px;
+  margin: 10px 0px;
+}
+.cta-right {
+  min-height: 60px;
+  margin: 10px 0px;
+}
+.no-cta {
+  min-height: 79.33px;
+  margin: 8px 0px;
+}
+.banner-block-place {
+  @media #{$mqMobile} {
+    @include placeHolderMixin($banner-sk-height);
+  }
+}
+.ribbon-block-place {
+  min-height: 45px;
+}
+.carousel-block {
+  @include placeHolderMixin(60px);
+}
+@supports (-webkit-touch-callout: none) {
+  /* CSS specific to iOS devices */ 
+  .banner-block-place {
+    @media #{$mqMobile} {
+      @include placeHolderMixin($banner-sk-height);
+      min-height: $banner-sk-height;
+    }
+  }
+  .ribbon-block-place {
+      min-height: 45px;
+  }
+  .carousel-block {
+    @include placeHolderMixin(4rem);
+    min-height: 4rem;
+  }
+}
+
+body {
+  .grecaptcha-badge {
+      visibility: hidden;
+  }
+}

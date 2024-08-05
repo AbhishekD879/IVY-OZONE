@@ -1,0 +1,19 @@
+<div>
+    <div class="virtual-class-header-name" data-crlat="virtualSectionHeaderName">{{topSportsTitle}}</div>
+    <div class="carousal-container" [ngStyle]="{'background-image': 'url(' + topSportsBGImage + ')' }" >
+        <div class="image-container">
+            <ng-container *ngFor="let image of topSportsImages">
+                <div *ngIf="image?.imgURL" class="top-sports-wrapper" data-crlat="virtualSportWrapper">
+                    <img class="top-sports-image" [attr.src]="image.imgURL" [attr.alt]="image.altText"
+                        [attr.href]="image.redirectionURL" (click)="goToVirtualSports(image)">
+                    <div class="sportName" *ngIf="image.title" data-crlat="virtualSportName">
+                        <span class="sportName-text" [textContent]="image.title"></span>
+                    </div>
+                    <div class="signpost" *ngIf="image.signposting" data-crlat="virtualSportSignPost">
+                        <span class="signpost-text" [textContent]="image.signposting"></span>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

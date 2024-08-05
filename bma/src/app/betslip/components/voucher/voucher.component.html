@@ -1,0 +1,56 @@
+<top-bar [title]="'bs.voucherForm'" data-crlat="topBar"></top-bar>
+
+<ng-container *ngIf="!state.loading">
+  <accordion [inner]="true"
+             [isExpanded]="sportVoucher"
+             data-crlat="sportVoucher.pageContainer">
+    <left-side>
+      <span class="left-title-text" [i18n]="'bs.voucherFormtitle'" data-crlat="headerTitle.leftMessage"></span>
+    </left-side>
+    <accordion-body>
+      <ng-info-panel [message]="sportVoucherForm.sportMessage.msg" [type]="sportVoucherForm.sportMessage.type"
+                     data-crlat="voucherMessage"></ng-info-panel>
+      <form class="voucher-form"
+            name="voucherForm"
+            (submit)="submitVoucherForm($event)"
+            novalidate
+            data-crlat="voucherForm">
+        <!-- Input field -->
+        <div class="item-inner item-btm-pad">
+          <input class="full-width"
+                 data-crlat="inputVoucherCode"
+                 type="text"
+                 id="voucher-code"
+                 name="voucherCodeNumber"
+                 [value]="sportVoucherForm.value"
+                 [(ngModel)]="sportVoucherForm.value"
+                 required
+                 [placeholder]="voucherPlaceholder"/>
+        </div>
+        <!-- Form buttons -->
+        <div class="group-buttons">
+          <div class="group-btn" data-crlat="buttonGroup">
+            <div class="group-col group-default">
+              <button type="submit"
+                      [disabled]="checkIsDisabled(sportVoucherForm)"
+                      class="btn btn-style1" data-crlat="buttonSubmit">
+                <span [ngClass]="{'btn-spinner': sportVoucherForm.isSent}" data-crlat="spinner.loader"></span>
+                <span [i18n]="'bs.voucherFormsubmitButton'"></span>
+              </button>
+            </div>
+            <div class="group-col group-default">
+              <button (click)="openPromotions($event)"
+                      [i18n]="'bs.voucherFormviewOffers'"
+                      class="btn btn-style2 voucher-form__all-offer"
+                      data-crlat="buttonOpenPromotions">
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </accordion-body>
+  </accordion>
+</ng-container>
+
+<outlet-status [state]="state"></outlet-status>

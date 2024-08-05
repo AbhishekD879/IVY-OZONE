@@ -1,0 +1,35 @@
+<div class="card">
+  <div class="header">
+    <h2 class="waves-effect waves-block" [textContent]="LUCKYDIP_CONST.luckyDipPage"></h2>
+  </div>
+</div>
+<div class="card">
+  <div class="body">
+    <div class="row clearfix">
+      <div class="col-md-3">
+        <button (click)="createLuckyDip()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span [textContent]="LUCKYDIP_CONST.createLuckyDip"></span>
+        </button>
+      </div>
+      <div *ngIf="luckyDip" class="col-md-3">
+      </div>
+      <div *ngIf="luckyDip" class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search for Lucky dips" [(ngModel)]="searchField"
+              [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="luckyDip.length!=0">
+      <cms-data-table class="test" [customTableData]="luckyDip" [customTableColumns]="dataTableColumns"
+        [actions]="['remove','edit','clone']" [filterString]="searchField" [filterProperties]="filterProperties"
+        (onRemoveTableElement)="removeLuckyDip($event)" (onCloneTableElement)="cloneLuckyDip($event)">
+      </cms-data-table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,91 @@
+@import '../../assets/styles/general.scss';
+@import '../../../../../app/questionEngine/components/resultsPage/results-page.component.scss';
+
+$tabSwitcherBorder: rgba(0, 0, 0, 0.15);
+$outerMargin: 16px;
+
+.results-page {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.btn-back {
+  margin-bottom: 10px;
+}
+
+.logo {
+  box-sizing: border-box;
+  margin: 0 auto 45px;
+  max-height: 55px;
+  display: block;
+}
+
+.result-page-wrapper {
+  margin-bottom: 29px;
+  &.qe-dashed-baseline {
+    border-bottom: none;
+  }
+}
+.tabs-switcher-container {
+  display: flex;
+  font-stretch: condensed;
+  .tab-item {
+    justify-content: center;
+    padding: 12px 0;
+    font-size: 15px;
+    text-align: center;
+    width: 100%;
+    border-top: 1px solid $tabSwitcherBorder;
+    border-bottom: 1px solid $tabSwitcherBorder;
+    &--active {
+      border-bottom: 2px solid $color-yellow;
+      font-weight: bold;
+    }
+    &:last-child {
+      border-left: 1px solid $tabSwitcherBorder;
+    }
+  }
+}
+
+.notificator {
+  background-color: $color-black;
+  min-height: 40px;
+  font-size: 11px;
+  transition: opacity 0.3s ease-in-out, max-height 1s linear;
+  opacity: 1;
+  .notificator-content {
+    display: flex;
+    justify-content: center;
+    padding: 12px 0;
+    .notify-icon {
+      height: 15px;
+      width: 15px;
+      border-radius: 100%;
+      margin-right: 10px;
+    }
+  }
+  &--hidden {
+    opacity: 0;
+    max-height: 0;
+  }
+}
+
+.tabs-switcher-container {
+  .tab-item {
+    text-transform: uppercase;
+    border-top: 1px solid $tabSwitcherBorder;
+    border-bottom: 1px solid $tabSwitcherBorder;
+  }
+  .tab-item--active {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.25);
+  }
+  &:last-child {
+    border-left: 1px solid $tabSwitcherBorder;
+  }
+}
+
+:host ::ng-deep {
+  .qe-footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.25);
+  }
+}

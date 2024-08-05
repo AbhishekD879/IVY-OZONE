@@ -1,0 +1,23 @@
+@import 'global.variables.scss';
+
+.bs-declined-stake-content {
+  padding: 15px;
+
+  .stake-message {
+    color: $color-red;
+    font-size: 13px;
+    font-weight: bold;
+  }
+
+  .stake-title {
+    margin-bottom: 5px;
+    color: $color-gray-dark;
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .stake-type,
+  .stake-event-name {
+    color: $color-gray-mid;
+  }
+}

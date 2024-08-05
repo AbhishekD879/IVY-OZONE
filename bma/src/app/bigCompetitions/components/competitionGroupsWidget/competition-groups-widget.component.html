@@ -1,0 +1,21 @@
+<accordion class="dis-event" [accordionTitle]="moduleConfig.name"
+ [isExpanded]="true" [headerClass]="'secondary-header'" *ngIf="groupsData?.data?.length">
+  <accordion-body>
+  <div class="container-inner-content group-widget">
+    <div class="scroll-container" scrollable>
+      <div class="groups scroll-inner">
+        <div
+          class="group-card"
+          *ngFor="let singleGroup of groupsData.data; trackBy: trackByTeams;let index = index"
+        >
+          <competition-group-card *ngIf="groupsData.data.length>1 ? index > 0 : index === 0"
+            [redirectLink]="groupsData.details[singleGroup.competitionId]"
+            [groupData]="singleGroup"
+            [numberQualifiers]="groupsData.numberQualifiers"
+          ></competition-group-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</accordion-body>
+</accordion>

@@ -1,0 +1,22 @@
+<ng-container *ngIf="initialised">
+  <top-bar [title]="'bethistory.tabTitle'"
+           [innerContent]="isLoggedIn"
+           data-crlat="topBarBetslipOpenBets">
+    <top-bar-body class="top-bar-side" data-crlat="topBarContent">
+      <a [routerLink]="'/deposit'"
+         class="link-btn pull-right"
+         [i18n]="'bethistory.deposit'"
+         data-crlat="linkDeposit">
+      </a>
+    </top-bar-body>
+  </top-bar>
+
+  <tabs-panel
+    [tpTabs]="betslipTabs"
+    [tpActiveTab]="activeTab"
+    data-crlat="tabs.betslipTabs"></tabs-panel>
+
+  <div class="heuristic-container top-padding" data-crlat="tabContent">
+    <ng-content select="betslip-tabs-body" class="tab-content"></ng-content>
+  </div>
+</ng-container>

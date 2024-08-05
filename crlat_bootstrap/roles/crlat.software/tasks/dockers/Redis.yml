@@ -1,0 +1,17 @@
+- name: Remove any existing docker Redis
+  docker_container:
+    name: redis
+    state: absent
+
+- name: Create Redis Container
+  docker_container:
+    name: Redis
+    image: redis
+    state: started
+    pull: yes
+    restart_policy: always
+    restart: yes
+    dns_servers:
+      - "{{ dns_server_ip }}"
+    ports:
+    - "6379:6379"

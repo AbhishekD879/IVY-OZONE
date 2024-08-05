@@ -1,0 +1,57 @@
+<div *ngFor="let event of outrights; index as eventIndex; trackBy: trackEvent;">
+   <accordion  [inner]="true" [isChevronToLeft]="true" [isExpanded]="openedItems[eventIndex]">
+    <left-side>
+      <span class="left-title-text" data-crlat="headerTitle.leftMessage">{{ event.name }}</span>
+      <svg *ngIf="isLive(event)" class="live-label co-outrights-label" data-crlat="liveLabel">
+        <use xlink:href="#live-label"></use>
+      </svg>
+    </left-side>
+    <accordion-body *ngFor="let market of event.markets; index as marketIndex; trackBy: trackMarket;">
+      <ng-container
+    *ngIf="isLuckyDipMarketAvailable(event) && event.markets[eventIndex].isLuckyDip else templateOutrightMarket">
+    <accordion 
+      [isChevronToLeft]="true" [isExpanded]="marketIndex <= openMarketTabs"
+      [isLuckyDipMarketAvailable]="isLuckyDipMarketAvailable(event) && event.markets[eventIndex].isLuckyDip"
+      [accordionTitle]="isLuckyDipMarketAvailable(event) && event.markets[eventIndex].isLuckyDip ?  event.markets[eventIndex].templateMarketName : event.name">
+      <accordion-body>
+        <lazy-component [inputs]="{event: event, market: market, outcome: market.outcomes[0], changeStrategy: changeStrategy}"
+          moduleUri="@lazy-modules-module/luckyDip/luckyDip.module#LuckyDipModule"
+          entryComponent="LadsDeskLuckyDipEntryPageComponent">
+        </lazy-component>
+      </accordion-body>
+    </accordion>
+  </ng-container>
+  <ng-template #templateOutrightMarket>
+        <div class="co-container">
+          <div class="co-wrapper">
+            <div class="co-status-header">
+              <div class="co-left-header">
+                <span class="co-name-title">{{ market.name }}</span>
+                <span class="co-each-way" *ngIf="isEachWayTermsAvailable(market)">
+                  {{ genTerms(market) }}
+                </span>
+              </div>
+              <div class="co-right-header">
+                <span class="co-time">
+                  {{ getStartTime(event) }}
+                </span>
+              </div>
+            </div>
+            <div class="co-odds-card-container">
+              <div class="co-odds-card-wrapper"
+                *ngFor="let outcome of market.outcomes; trackBy: trackOutcome; odd as oddOutcome; even as evenOutcome; last as lastOutcome">
+                <div class="co-odds-card"
+                  [ngClass]="{'co-card-odd': oddOutcome, 'co-card-even-last': lastOutcome && evenOutcome}">
+                  <span class="co-outcome-name">{{ outcome.name }}</span>
+                  <price-odds-button [event]="event" [market]="market" [outcome]="outcome">
+                  </price-odds-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      </accordion-body>
+    </accordion>
+</div>
+

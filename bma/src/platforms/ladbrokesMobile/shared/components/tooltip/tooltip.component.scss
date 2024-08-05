@@ -1,0 +1,559 @@
+@import 'global.variables.scss';
+
+.tooltip {
+  width: 185px;
+  background-color: $lGray;
+  color: $color-white;
+  text-align: left;
+  border-radius: 1px;
+  position: absolute;
+  will-change: transform;
+  transform: translateY(10px) translateX(-150px);
+  z-index: 6;
+  margin-top: 8px;
+  padding: 10px;
+  line-height: 1.2;
+  font-size: 13px;
+  font-weight: normal;
+  white-space: normal;
+  font-family: $alt-font-family;
+
+  &:after {
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    top: -15px;
+    right: 35px;
+    border-bottom-color: $lGray;
+    border-width: 8px;
+    margin-left: -10px;
+  }
+
+  &:before {
+    display: none;
+  }
+}
+
+:host-context(.bs-tooltip) {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 0;
+
+  .tooltip {
+    transform: translateX(-50%);
+    will-change: transform;
+    top: 0;
+    left: 50%;
+    width: 200px;
+    font-size: 13px;
+    font-weight: normal;
+    background-color: $lGray;
+    padding: 12px;
+    border-radius: 0;
+
+    &:after {
+      top: -15px;
+      right: 50%;
+      transform: translateX(50%);
+      border-bottom-color: $lGray;
+      border-width: 8px;
+    }
+  }
+}
+
+:host-context(.lineups-icon) {
+  display: block;
+  position: relative;
+
+  .tooltip {
+    transform: translateX(-81%);
+    will-change: transform;
+    width: 268px;
+  }
+}
+
+:host-context(.tooltip-max-payout) {
+  .tooltip {
+    transform: translate(-54%, -168%);
+    will-change: transform;
+    display: flex;
+    margin-top: 12px;
+    font-size: 14px;
+    margin-bottom: 12px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 4px;
+    text-align: center;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 95%;
+      left: 52%;
+      transform: rotate(180deg);
+      will-change: transform;
+      border-width: 10px;
+      border-style: solid;
+    }
+  }
+}
+
+// other devices except Andriod for settled bets
+:host-context(.tool-max-payout) {
+  .tooltip {
+    width: 210px;
+    margin-top: -70px;
+    padding: 7px 6px 7px 5px;
+    text-align: center;
+    transform: translateX(19px);
+    will-change: transform;
+    font-size: 14px;
+    right: -18px;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 98%;
+      left: 80.5%;
+      transform: rotate(180deg);
+      will-change: transform;
+      border-width: 7px;
+      border-style: solid;
+    }
+
+    .tooltip-arrow {
+      color: $lGray;
+    }
+  }
+}
+
+// only for Andriod devices for settled bets
+:host-context(.tool-max-payout_andriod) {
+  .tooltip {
+    width: 210px;
+    margin-top: -75px;
+    text-align: center;
+    padding: 6px 6px 7px 5px;
+    transform: translateX(19px);
+    will-change: transform;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 99%;
+      left: 80%;
+      transform: rotate(180deg);
+      will-change: transform;
+      border-width: 7px;
+      border-style: solid;
+    }
+
+    .tooltip-arrow {
+      color: $color-blue-dark;
+    }
+  }
+}
+
+:host-context(.tooltipBR-max-payout) {
+  .tooltip {
+    transform: translate(-51%, -171%);
+    display: flex;
+    font-size: 14px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 4px;
+    text-align: center;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 99%;
+      left: 49.5%;
+      will-change: transform;
+      transform: rotate(180deg);
+      border-width: 10px;
+      border-style: solid;
+    }
+  }
+}
+
+:host-context(.tooltipQB-max-payout) {
+  .tooltip {
+    transform: translate(-51%, -168%);
+    will-change: transform;
+    display: flex;
+    font-size: 14px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 4px;
+    text-align: center;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 98%;
+      left: 49%;
+      transform: rotate(180deg);
+      will-change: transform;
+      border-width: 10px;
+      border-style: solid;
+
+    }
+  }
+}
+
+:host-context(.tooltipQB-max-payout-android) {
+  .tooltip {
+    transform: translate(-69%, -168%);
+    will-change: transform;
+    display: flex;
+    font-size: 14px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 4px;
+    text-align: center;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 98%;
+      left: 67%;
+      transform: rotate(180deg);
+      will-change: transform;
+      border-width: 10px;
+      border-style: solid;
+
+    }
+  }
+}
+:host-context(.tool-max-payout-IOS) {
+  .tooltip {
+    width: 202px;
+    margin-top: -70px;
+    text-align: center;
+    padding: 6px 6px 7px 5px;
+    transform: translateX(91px);
+    will-change: transform;
+    right: 50px;
+    &:after {
+      content: "";
+      position: absolute;
+      top: 99%;
+      left: 78.5%;
+      transform: rotate(180deg);
+      will-change: transform;
+      border-width: 7px;
+      border-style: solid;
+    }
+    .tooltip-arrow {
+      color: $color-blue-dark;
+    }
+  }
+}
+
+:host-context(.eachWay-tooltip){
+  .tooltip {
+    width: 241px;
+    background-color: #252835;
+    color: $color-white;
+    text-align: left;
+    border-radius: 1px;
+    position: absolute;
+    transform: translateY(-27px) translateX(-153px);
+    z-index: 6;
+    margin-bottom: 8px;
+    padding: 15px 12px 17px;
+    line-height: 16px;
+    font-size: 13px;
+    font-weight: 400;
+    white-space: normal;
+    letter-spacing: -0.00559167px;
+    bottom: 0;
+
+  
+    &:after {
+      content: "";
+      position: absolute;
+      border-bottom-color: #252835;
+      top: 95%;
+      left: 93%;
+      transform: rotate(180deg);
+      border-width: 9px;
+      border-style: solid;
+    }
+    
+    &:before {
+      display: none;
+    }
+  
+    .tooltip-container {
+      #div a {
+        font-family: Lato;
+        font-size: 12px;
+      }
+    }
+  }
+}
+:host-context(.bs-each-way){
+  .tooltip {
+    width: 224px;
+    background-color: #252835;
+    color: $color-white;
+    text-align: left;
+    border-radius: 1px;
+    position: absolute;
+    transform: translateY(-50px) translateX(-130px);
+    z-index: 6;
+    margin-bottom: 8px;
+    padding: 15px 12px 17px;
+    line-height: 14px;
+    font-size: 12px;
+    font-weight: 400;
+    white-space: normal;
+    letter-spacing: -0.00559167px;
+    bottom: 0;
+
+  
+    &:after {
+      content: "";
+      position: absolute;
+      border-bottom-color: #252835;
+      top: 95%;
+      left: 93%;
+      transform: rotate(180deg);
+      border-width: 9px;
+      border-style: solid;
+    }
+    
+    &:before {
+      display: none;
+    }
+  
+    .tooltip-container {
+      #div a {
+        font-family: Lato;
+        font-size: 12px;
+      }
+    }
+  }
+}
+:host-context(.bs-each-way-position){
+
+  .tooltip {
+    width: 224px;
+    background-color: #252835;
+    color: $color-white;
+    text-align: left;
+    border-radius: 1px;
+    position: absolute;
+    transform: translateY(-50px) translateX(-130px);
+    z-index: 6;
+    margin-bottom: 8px;
+    padding: 15px 12px 17px;
+    line-height: 14px;
+    font-size: 12px;
+    font-weight: 400;
+    white-space: normal;
+    letter-spacing: -0.00559167px;
+    bottom: 0;
+
+  
+    &:after {
+      content: "";
+      position: absolute;
+      border-bottom-color: #252835;
+      top: 95%;
+      left: 93%;
+      transform: rotate(180deg);
+      border-width: 9px;
+      border-style: solid;
+    }
+    
+    &:before {
+      display: none;
+    }
+  
+    .tooltip-container {
+      #div a {
+        font-family: Lato;
+        font-size: 12px;
+      }
+    }
+  }
+}
+:host-context(.bs-restrictedHorseMessage-tooltip) { 
+  display: block;
+  position: relative;
+  height: 0;
+  .tooltip {
+    transform: translateX(-91%);
+    will-change: transform;
+    top: 13px;
+    width: 270px;
+    font-size: 13px;
+    font-weight: normal;
+    background-color: #252835;
+    padding: 12px;
+    border-radius: 1px;
+  }
+  .tooltip:after {
+    top: -16px;
+    right: 12%;
+    transform: translateX(55%);
+    will-change: transform;
+    border-bottom-color: #252835;
+    border-width: 10px;
+  }
+}
+
+:host-context(.bs-restrictedHorseMessage-tooltip-desktop) { 
+  .tooltip {
+    transform: translateX(-18%);
+    will-change: transform;
+  }
+  .tooltip:after {
+    right: 85%;
+    will-change: transform;
+  }
+}
+
+:host-context(.bs-restrictedRaceCardMessage-tooltip) { 
+  display: block;
+  position: relative;
+  height: 0;
+  .tooltip {
+    transform: translateX(-96%);
+    will-change: transform;
+    top: 13px;
+    width: 266px;
+    font-size: 13px;
+    font-weight: normal;
+    background-color: #252835;
+    padding: 12px;
+    border-radius: 1px;
+  }
+  .tooltip:after {
+    top: -16px;
+    right: 6%;
+    transform: translateX(55%);
+    will-change: transform;
+    border-bottom-color: #252835;
+    border-width: 10px;
+  }
+}
+
+:host-context(.bs-restrictedRaceCardMessage-tooltip-desktop) { 
+  .tooltip {
+    transform: translateX(-30%);
+    will-change: transform;
+  }
+  .tooltip:after {
+    right: 73%;
+    will-change: transform;
+  }
+}
+
+:host-context(.bs-restrictedHorseMessage-tooltip-mobile) { 
+  display: block;
+  position: relative;
+  height: 0;
+  .tooltip {
+    transform: translateX(-78%);
+    will-change: transform;
+    top: 13px;
+    width: 239px;
+    font-size: 13px;
+    font-weight: normal;
+    background-color: #252835;
+    padding: 12px;
+    border-radius: 1px;
+  }
+  .tooltip:after {
+    top: -16px;
+    right: 25%;
+    transform: translateX(55%);
+    will-change: transform;
+    border-bottom-color: #252835;
+    border-width: 10px;
+  }
+}
+
+:host-context(.bs-restrictedRaceCardMessage-tooltip-mobile) { 
+  display: block;
+  position: relative;
+  height: 0;
+  .tooltip {
+    transform: translateX(-78%);
+    will-change: transform;
+    top: 13px;
+    width: 240px;
+    font-size: 13px;
+    font-weight: normal;
+    background-color: #252835;
+    padding: 12px;
+    border-radius: 1px;
+  }
+  .tooltip:after {
+    top: -16px;
+    right: 25%;
+    transform: translateX(55%);
+    will-change: transform;
+    border-bottom-color: #252835;
+    border-width: 10px;
+  }
+
+  @media only screen and (max-width: 320px) {
+    .tooltip{
+     transform: translateX(-97%);
+     will-change: transform;
+    }
+    .tooltip:after {
+     right: 6%;
+    }
+  }
+}
+:host-context(.multi-market-tooltip-headers){
+  .tooltip {
+    width: 95px;
+    transform: translateY(10px) translateX(-93px);
+    font-size: 10px;
+    padding: 8px;
+  }
+  .tooltip:after {
+    right: 5%;
+  }
+}
+
+:host-context(.bs-fanzone-game-tooltip){
+  .tooltip {
+    width: 236px;
+    text-align: center;
+    border-radius: 4px;
+    transform: none;
+    will-change: unset;
+    margin: 0;
+    padding: 9px 12px 13px;
+    line-height: 17px;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.0009625px;
+
+    &:after {
+      top: 95%;
+      left: 80%;
+      transform: rotate(180deg);
+      border-width: 10px;
+      border-style: solid;
+    }
+  }
+}

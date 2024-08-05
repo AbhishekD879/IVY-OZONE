@@ -1,0 +1,47 @@
+.virtual-Img-container-lad-desk {
+    position: relative;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.pointer
+ {
+  cursor : pointer;
+ }
+
+.virtual-Img-container-lad-desk img {
+    width: 100%;
+    height: auto;
+    min-height: 75px;
+}
+
+.virtual-Img-container-lad-desk .btn {
+    position: absolute;
+    top: 50%;
+    // left: 90%;
+    transform: translate(-28%, -50%);
+    -ms-transform: translate(-28%, -50%);
+    cursor: pointer;
+    height: 35px;
+    width: 100px;
+    text-align: center;
+    right: 0px;
+    color: #FFF;
+    text-align: center;
+    font-family: Roboto Condensed;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 2px;
+    background: #8BBD22;
+    align-items: center;
+    gap: 10px;
+}
+
+.virtual-Img-container-coral-desk .btn:hover {
+    background-color: #a8ce5a;
+}

@@ -1,0 +1,48 @@
+@import 'global.variables.scss';
+
+racing-status:host {
+  font-size: $font-size-sm;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: $color-black;
+  display: block;
+  margin-top: 5px;
+
+  .race-off {
+    color: $red;
+  }
+
+  .live {
+    color: $color-yellow-alt;
+    background: $lGray;
+    font-weight: normal;
+    padding: 1px 5px;
+  }
+
+  .racing-icon {
+    height: 8px;
+    width: 8px;
+    margin-right: 3px;
+  }
+
+  .inplay-icon-container {
+    display: inline-block;
+    margin-right: 5px;
+    position: relative;
+    top: -1px;
+  }
+  .shape {
+    width: 11px;
+    height: 11px;
+    border: solid 1px $color-red;
+    border-radius: 100%;
+    display: flex;
+  }
+  .shape-copy {
+    width: 5px;
+    height: 5px;
+    background-color: $color-red;
+    border-radius: 100%;
+    margin: auto;
+  }
+}

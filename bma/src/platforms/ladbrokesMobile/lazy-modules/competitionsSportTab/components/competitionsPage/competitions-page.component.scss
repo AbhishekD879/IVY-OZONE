@@ -1,0 +1,76 @@
+@import 'global.variables.scss';
+
+$competitions-header-height: 45px;
+
+:host {
+  .competition-type-events {
+    .competitions-header {
+      height: $competitions-header-height;
+      position: -webkit-sticky;
+      position: sticky;
+      top: $app-header-height;
+      z-index: 7;
+      color: $color-white;
+      font-size: $font-size-lg;
+      line-height: $top-bar-height;
+      font-family: $alt-font-family;
+      background: $top-bar-wrap-bg;
+      @include display-flex();
+
+      .competitions-title {
+        padding-left: 16px;
+        line-height: $top-bar-height;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        font-weight: normal;
+      }
+
+      .competitions-selector {
+        display: flex;
+        line-height: $top-bar-height;
+        padding: 0 16px;
+        white-space: nowrap;
+      }
+
+      .competitions-selector-title {
+        font-size: $font-size-md;
+        font-family: $base-font-family;
+        font-weight: normal;
+        color: $color-yellow-light2;
+        text-transform: uppercase;
+      }
+
+      .competitions-selector-arrow {
+        height: 5px;
+        width: 8px;
+        fill: $color-yellow-light2;
+        margin-left: 4px;
+      }
+    }
+
+    .coupons-list {
+      background: $color-gray;
+
+      &.active {
+        position: static;
+        overflow: visible;
+      }
+
+      .coupons-wrap {
+        padding: 5px 0 10px 0;
+        height: auto;
+      }
+    }
+
+    competitions-matches-tab {
+      display: block;
+
+      ::ng-deep {
+        .sticky-market-selector {
+          top: $app-header-height + $competitions-header-height;
+        }
+      }
+    }
+  }
+}

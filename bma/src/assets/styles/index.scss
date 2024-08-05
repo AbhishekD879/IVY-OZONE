@@ -1,0 +1,104 @@
+@import '../../app/shared/components/topBar/top-bar.component.scss';
+@import '../../app/shared/components/priceOddsButton/price-odds-button.component.scss';
+@import '../../app/shared/components/accordion/accordion.component.scss';
+@import '../../app/shared/components/oddsCard/odds-card.component.scss';
+@import '../../app/shared/components/racingGrid/racing-grid.component.scss';
+
+@import '../../app/lazy-modules/banners/bannersSection/styles/banners-section.component.scss';
+@import '../../app/lazy-modules/banners/bannersSection/styles/lc-carousel.scss';
+
+/* Modules styles */
+@import './modules/tabs-panel.scss';
+@import './modules/switchers.scss';
+@import './modules/links-list-panel.scss';
+@import './modules/spinner.scss';
+@import './modules/showAllButton.scss';
+@import './modules/objects.page.scss';
+@import './modules/widget-column.scss';
+@import './modules/user-settings.scss';
+@import './modules/freebets.scss';
+@import './modules/sidebars/sidebar.scss';
+@import './modules/sidebars/sidebar-right-menu.scss';
+@import './modules/my-account.scss';
+@import './modules/race-card.scss';
+@import './modules/favourites/main.scss';
+@import './modules/icons.scss';
+@import './modules/inplay-header-counter.scss';
+@import './modules/odds-boost.scss';
+@import './modules/live-scores.scss';
+accordion.is-expanded {
+    box-shadow: none;
+}
+.bet-finder-link {
+    font-size: 11px;
+    color: $color-white;
+    padding-right: 5px;
+    min-width: 95px;
+    &:hover {
+      text-decoration: underline;
+      color: $color-white;
+    }
+    &:active {
+      text-decoration: none;
+      color: $color-gray-original;
+    }
+  
+    .bet-finder-icon {
+      fill: $color-white;
+      width: 17px;
+      height: 17px;
+      vertical-align: middle;
+      margin-right: 5px;
+      z-index: 1;
+    }
+  
+    .bet-finder-title {
+      text-decoration: none;
+    }
+  }
+
+  .early-price-coral-mobile {
+    .early-price-sign-post {
+      position: relative;
+      top: -7px;
+      height: 14px;
+      z-index: 99;
+      font-size: 9px;
+      line-height: 16px;
+      font-weight: 400;
+      color: #2b2b2b;
+      text-transform: none;
+      font-family: Lato,Arial,Helvetica Neue,Helvetica,sans-serif;
+      letter-spacing: 0.001px;
+      span {
+        width: 85px;
+        height: 11px;
+        display: inline-block;
+        white-space: nowrap;
+      }
+    }
+    .move-left{
+      position: relative ;
+      left: 0px; 
+      margin-top: 9px;
+    } 
+    .early-price-sign-post-coral {
+      padding: 0px 0px 0px 12px;
+      position: relative;
+      top: -11px;
+      height: 19px;
+      margin-bottom: -6px;
+    }
+    .move-left-coral {
+      position: relative ;
+      left: -1px;
+      margin-top: 5px;
+    } 
+     
+  }
+  .fb-item__value {
+    text-transform: lowercase;
+  }
+  
+/* General styles */
+@import './style.scss';

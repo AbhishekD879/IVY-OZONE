@@ -1,0 +1,351 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<form [formGroup]="form" *ngIf="form && betSlipAcca" autocomplete="off">
+    <div class="card p-l-20">
+        <div class="body">
+            <div class="row">
+                <div class="col-md-12">
+                    <h6 [textContent]="BSLABELS.ACCA_INS_SP_AND_MSG"></h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <mat-checkbox class="mat-label" color="primary" [checked]="betSlipAcca.enabled"
+                        (change)="betSlipAcca.enabled = !betSlipAcca.enabled">
+                        <span [textContent]="BSLABELS.ENABLED"></span>
+                    </mat-checkbox>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="body">
+            <div class="header">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6 [textContent]="BSLABELS.ACCA_INSURANCE_ELIGIBILITY_MESSAGE"></h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <mat-checkbox class="mat-label" color="primary" [checked]="betSlipAcca.accInsMsgEnabled"
+                            (change)="betSlipAcca.accInsMsgEnabled = !betSlipAcca.accInsMsgEnabled">
+                            <span [textContent]="BSLABELS.ENABLED"></span>
+                        </mat-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <ng-container *ngIf="isIMActive; else cmsUpload">
+                        <div class="col-md-2">
+                            <span class="mat-label" [textContent]="BSLABELS.ICON"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <svg-icon-select-input [formFieldsModels]="betSlipAcca" [externalForm]="form">
+                            </svg-icon-select-input>
+                        </div>
+                    </ng-container>
+                    <ng-template #cmsUpload>
+                        <div class="col-md-6">
+                            <cms-upload [label]="'SVG File'" [filename]="betSlipAcca.icon"
+                                (onImageUpload)="uploadSvgHandler($event)" (onImageRemove)="removeSvgHandler()">
+                            </cms-upload>
+                        </div>
+                    </ng-template>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label" [textContent]="BSLABELS.AVAILABLE_INSURANCE_COUNT"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Available Insurance Count Indicator"
+                                [(ngModel)]="betSlipAcca.avlblInscCountIndi" formControlName="avlblInscCountIndi"
+                                required trim="blur">
+                            <mat-hint class="col-red" *ngIf="(form.get('avlblInscCountIndi').invalid)">
+                                <div *ngIf="form.get('avlblInscCountIndi').errors.required"
+                                    [textContent]="'Please enter Available insurance count indicator it should contain {value}'">
+                                </div>
+                                <div *ngIf="form.get('avlblInscCountIndi').value.length > 25" [textContent]="'Available insurance count indicator should be filled with max
+                                of 25 characters'"></div>
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label" [textContent]="BSLABELS.OB_ACCA_COUNT"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Selections Count" type="number" min="0" Max="10"
+                                [(ngModel)]="betSlipAcca.obAccaCount" formControlName="obAccaCount" required
+                                trim="blur">
+                            <mat-hint class="col-red" *ngIf="(form.get('obAccaCount').invalid)">
+                                <div *ngIf="form.get('obAccaCount').errors.required"
+                                    [textContent]="'Please enter Selections count'"></div>
+                                <div *ngIf="form.get('obAccaCount').value > 10 " [textContent]="'Selections count should be filled with max
+                            of 10 numbers'"></div>
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label" [textContent]="BSLABELS.BETSLIP_ADDTO_QUALIFY_MESSAGE"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Betslip Add to Qualify Message"
+                                [(ngModel)]="betSlipAcca.bsAddToQualifyMsg" formControlName="bsAddToQualifyMsg" required
+                                trim="blur">
+                            <mat-hint class="col-red" *ngIf="(form.get('bsAddToQualifyMsg').invalid)">
+                                <div *ngIf="form.get('bsAddToQualifyMsg').errors.required"
+                                    [textContent]="'Please enter Betslip add to qualify message it should contain {value} & {icon}'">
+                                </div>
+                                <div *ngIf="form.get('bsAddToQualifyMsg').value.length > 67"
+                                    [textContent]="'Betslip add to qualify message should be filled with max of 67 characters including '+ BSLABELS.VALUE_PLACEHOLDER +' & '+ BSLABELS.ICON_PLACEHOLDER">
+                                </div>
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label" [textContent]="BSLABELS.BETSLIP_QUALIFIED_MESSAGE"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Betslip Qualified Message"
+                                [(ngModel)]="betSlipAcca.bsQualifiedMsg" formControlName="bsQualifiedMsg" required
+                                trim="blur">
+                            <mat-hint class="col-red" *ngIf="(form.get('bsQualifiedMsg').invalid)">
+                                <div *ngIf="form.get('bsQualifiedMsg').errors.required"
+                                    [textContent]="'Please enter Betslip qualified message it should contain {icon}'">
+                                </div>
+                                <div *ngIf="form.get('bsQualifiedMsg').value.length > 67"
+                                    [textContent]="'Betslip qualified message should be filled with max of 67 characters including '+BSLABELS.ICON_PLACEHOLDER">
+                                </div>
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label" [textContent]="BSLABELS.BETSLIP_SIGNPOSTING"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Betslip Signposting" [(ngModel)]="betSlipAcca.betslipSp.bsSp"
+                                formControlName="bsSp" required trim="blur">
+
+                            <mat-hint class="col-red" *ngIf="(form.get('bsSp').invalid)">
+                                <div *ngIf="form.get('bsSp').errors.required"
+                                    [textContent]="'Please enter Betslip signposting it should contain {icon}'"></div>
+                                <div *ngIf="form.get('bsSp').value.length > 21"
+                                    [textContent]="'Betslip signposting should be filled with max of 21 characters including '+BSLABELS.ICON_PLACEHOLDER">
+                                </div>
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2">
+                        <mat-checkbox class="mat-label" color="primary" [checked]="betSlipAcca.betslipSp.progressBar"
+                            (change)="betSlipAcca.betslipSp.progressBar = !betSlipAcca.betslipSp.progressBar">
+                            <span [textContent]="BSLABELS.PROGRESS_BAR"></span>
+                        </mat-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label" [textContent]="BSLABELS.ACCA_BAR_SIGNPOSTING"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Acca Bar Signposting" [(ngModel)]="betSlipAcca.accabarSp.absp"
+                                formControlName="absp" required trim="blur">
+
+                            <mat-hint class="col-red" *ngIf="(form.get('absp').invalid)">
+                                <div *ngIf="form.get('absp').errors.required"
+                                    [textContent]="'Please enter Acca bar signposting it should contain {icon}'"></div>
+                                <div *ngIf="form.get('absp').value.length > 21"
+                                    [textContent]="'Acca bar signposting should be filled with max of 21 characters including '+BSLABELS.ICON_PLACEHOLDER">
+                                </div>
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2">
+                        <mat-checkbox class="mat-label" color="primary" [checked]="betSlipAcca.accabarSp.progressBar"
+                            (change)="betSlipAcca.accabarSp.progressBar = !betSlipAcca.accabarSp.progressBar">
+                            <span [textContent]="BSLABELS.PROGRESS_BAR"></span>
+                        </mat-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label" [textContent]="BSLABELS.BET_RECEIPT_SIGNPOSTING"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Bet Receipt Signposting"
+                                [(ngModel)]="betSlipAcca.betreceiptSp.brsp" formControlName="brsp" required trim="blur">
+
+                            <mat-hint class="col-red" *ngIf="(form.get('brsp').invalid)">
+                                <div *ngIf="form.get('brsp').errors.required"
+                                    [textContent]="'Please enter Bet receipt signposting it should contain {icon}'">
+                                </div>
+                                <div *ngIf="form.get('brsp').value.length > 21"
+                                    [textContent]="'Bet receipt signposting should be filled with max of 21 characters including '+BSLABELS.ICON_PLACEHOLDER">
+                                </div>
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label" [textContent]="BSLABELS.MYBETS_SIGNPOSTING"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="My Bets Signposting" [(ngModel)]="betSlipAcca.mybetsSp.mbsp"
+                                formControlName="mbsp" required trim="blur">
+
+                            <mat-hint class="col-red" *ngIf="(form.get('mbsp').invalid)">
+                                <div *ngIf="form.get('mbsp').errors.required"
+                                    [textContent]="'Please enter My Bets signposting it should contain {icon}'"></div>
+                                <div *ngIf="form.get('mbsp').value.length > 21"
+                                    [textContent]="'My Bets signposting should be filled with max of 21 characters including '+BSLABELS.ICON_PLACEHOLDER">
+                                </div>
+                            </mat-hint>
+
+                        </mat-form-field>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label" [textContent]="BSLABELS.PROFIT_INDICATOR"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Profit Indicator" [(ngModel)]="betSlipAcca.profitIndi"
+                                formControlName="profitIndi" required trim="blur">
+
+                            <mat-hint class="col-red" *ngIf="(form.get('profitIndi').invalid)">
+                                <div *ngIf="form.get('profitIndi').errors.required"
+                                    [textContent]="'Please enter Profit indicator'"></div>
+                                <div *ngIf="form.get('profitIndi').value.length > 67"
+                                    [textContent]="'Profit indicator should be filled with max of 67 characters'"></div>
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Please Enter Profit Indicator URL"
+                                [(ngModel)]="betSlipAcca.profitIndiUrl" formControlName="profitIndiUrl">
+                            <mat-hint class="col-red" *ngIf="form.get('profitIndiUrl').invalid">
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="p-l-20 p-t-20">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6 [textContent]="BSLABELS.POPUP_DETAILS"></h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <mat-checkbox class="mat-label" color="primary" [checked]="betSlipAcca.betslipSp.infoIcon"
+                            (change)="betSlipAcca.betslipSp.infoIcon = !betSlipAcca.betslipSp.infoIcon">
+                            <span [textContent]="BSLABELS.INFO_ICON"></span>
+                        </mat-checkbox>
+                    </div>
+               </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label" [textContent]="BSLABELS.POPUP_TITLE"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Pop-Up Title" [(ngModel)]="betSlipAcca.popUpDetails.popUpTitle"
+                                formControlName="popUpTitle" required trim="blur">
+
+                            <mat-hint class="col-red" *ngIf="(form.get('popUpTitle').invalid)">
+                                <div *ngIf="form.get('popUpTitle').errors.required"
+                                    [textContent]="'Please Enter PopUp Title'"></div>
+                                <div *ngIf="form.get('popUpTitle').value.length > 25"
+                                    [textContent]="'PopUp Title should be filled with max of 25 characters'"></div>
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <span class="mat-label" [textContent]="BSLABELS.POPUP_MESSGE"></span>
+                    </div>
+                    <div class="col-md-12">
+                        <tinymce-editor *ngIf="betSlipAcca" #informationTextEditor class="tinymce-layout"
+                            [minEditorStyles]=true [pageName]="'informationTextDesc'"
+                            (outputEditorData)="updateInfoTxtData($event)" [pageItemId]="16"
+                            [initialEditorContent]="formControls.popUpMessage?.value || ''">
+                        </tinymce-editor>
+                        <mat-hint class="col-red" *ngIf="formControls.popUpMessage?.value.length === 0">
+                            PopUp Message should be entered</mat-hint>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label" [textContent]="BSLABELS.PRIMARY_CTA"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Primary CTA Label"
+                                [(ngModel)]="betSlipAcca.popUpDetails.priCtaLabel" formControlName="priCtaLabel"
+                                required trim="blur">
+                            <mat-hint class="col-red" *ngIf="form.get('priCtaLabel').invalid">
+                                <div *ngIf="form.get('priCtaLabel').errors.required"
+                                    [textContent]="'Please enter Primary CTA Label'"></div>
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Primary CTA URL"
+                                [(ngModel)]="betSlipAcca.popUpDetails.priCtaUrl" formControlName="priCtaUrl">
+                            <mat-hint class="col-red" *ngIf="form.get('priCtaUrl').invalid">
+                                <div *ngIf="form.get('priCtaUrl').errors.required"
+                                    [textContent]="'Please enter Primary CTA URL'"></div>
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label" [textContent]="BSLABELS.SECONDARY_CTA"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Secondary CTA"
+                                [(ngModel)]="betSlipAcca.popUpDetails.secCtaLabel" formControlName="secCtaLabel">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Secondary CTA URL"
+                                [(ngModel)]="betSlipAcca.popUpDetails.secCtaUrl" formControlName="secCtaUrl">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+<action-buttons #actionButtons *ngIf="betSlipAcca" [fieldOrItemName]="'Acca insurance Messages'"
+    [validateHandler]="validationHandler" [collection]="betSlipAcca" [showRemoveButton]="false"
+    (actionsEmitter)="actionsHandler($event);">
+</action-buttons>

@@ -1,0 +1,105 @@
+<!-- Lotto Bet History Template -->
+<ng-container *ngIf="lottoHistory.length">
+  <div class="my-bets-single-stakes-scroll">
+    <div class="lotto-bet my-bets-item-scroll" data-crlat="cashout.betItems" *ngFor="let bet of lottoHistory; trackBy: trackByBet;">
+      <ng-container *ngIf="isCongratsBannerShown(bet)">
+        <div [ngClass]="{'congrats-message-lads': isBrandLadbrokes&&celebration.congratsBannerImage, 'congrats-message': !isBrandLadbrokes&&celebration.congratsBannerImage, 'static-celebration-block': !celebration.congratsBannerImage, 'static-banner': !celebration.congratsBannerImage}" [style.background]="celebration.congratsBannerImage ? 'url('+celebration.congratsBannerImage+')' : ''" class="static-celebration-block">
+          <div [ngClass]="{'static-celebration-message': !celebration.congratsBannerImage, 'static-celebration-message-lads': isBrandLadbrokes}">
+              <div [ngClass]="{'celebration-message-lads': isBrandLadbrokes}" class="celebration-message"><span>{{celebration.celebrationMessage}}</span></div>
+              <div [ngClass]="isBrandLadbrokes ? 'winning-message-lads' : 'winning-message'">
+                <span *ngIf="bet.status !== cashoutStatus">{{getReturnValue(bet)}}</span>
+                <span *ngIf="bet.status === cashoutStatus">{{getCashoutReturnValue(bet)}}</span>
+              </div>   
+          </div>
+        </div>
+        <bet-promotions *ngIf="bet.eventSource?.leg" [betEventSource]="bet.eventSource"></bet-promotions>
+      </ng-container>
+      <ng-container *ngIf="!isCongratsBannerShown(bet)">
+        <!-- Header -->
+        <header class="lotto-bet-header" [class.lotto-status]="bet.status !== 'open'">
+          <span data-crlat="cashout.item.header" [textContent]="bet.name"></span>
+          <span class="lotto-status-title" *ngIf="bet.status !== 'open'" [textContent]="bet.status" data-crlat="bet.status"></span>
+        </header>
+      </ng-container>
+      <div class="lotto-bet-panel" [ngClass]="{'lads': isBrandLadbrokes}">
+        <ng-container *ngIf="!isCongratsBannerShown(bet)">
+          <!-- Lotto Won Result -->
+          <div class="lotto-won-panel" *ngIf="bet.status === 'won'">
+            <span class="check-icon"></span>
+            <span class="lotto-won-title" [i18n]="'bethistory.youWon'"></span>
+            <strong [textContent]="bet.totalReturns | currency:bet.currency:'code'"></strong>
+          </div>
+        </ng-container>
+          <!-- Draw Name -->
+          <div class="draw-name" [ngClass]="{'lads-font': isBrandLadbrokes}">
+              <strong class="lotto-draw-name" [textContent]="bet.drawName" data-crlat="drawName"></strong>           
+            <span class="hyphen" [ngClass]="{'lads hide-draw-time': isBrandLadbrokes}"> - </span>
+            <span class="lotto-draw-time" [ngClass]="{'lads': isBrandLadbrokes,'hide-draw-time': isBrandLadbrokes && settled === 'N'}" [dateTimeFmt]="bet.drawDate" [isMyBets]="true" data-crlat="date"></span>
+          </div>
+          <div *ngIf="isSportIconEnabled" class="sports-icon">
+            <svg class="sports-icon-position">
+              <use [attr.xlink:href]="'#'+sportIconSvgId"></use>
+            </svg>
+          </div>
+          <div class="leg-z-index-lotto">
+          <!-- Lotto Balls -->
+            <ul class="lotto-balls" data-crlat="balls">
+              <li class="lotto-ball" *ngFor="let ball of bet.balls; trackBy: trackByBall"
+                  data-crlat="ball" [textContent]="ball.ballNo">
+              </li>
+            </ul>
+          </div>
+
+          <div *ngIf=" bet.settled ==='Y'" class="show-hide-accordion toggle-icon" [ngClass]="{'lads': isBrandLadbrokes}" (click)="handleToggleMore(bet)"
+            [showMoreMode]="true" data-crlat="toggleIcon">
+            <span [textContent]="bet.isShowMore ? 'Hide Results': 'Show Results'"></span>
+            <svg *ngIf="bet.isShowMore else showMore">
+              <use xlink:href="#up-arrow"></use>
+            </svg>
+            <ng-template #showMore>
+              <svg>
+                <use xlink:href="#down-arrow"></use>
+              </svg>
+            </ng-template>
+          </div>
+      </div>
+        <!-- blurb message -->
+        <blurb-message *ngIf="bet.settled == 'N' && bet.outstandingSubs"></blurb-message>
+        <!-- Draw results panel-->
+        <ng-container *ngIf="!(!bet.isShowMore && bet.settled === 'Y' ) || (bet.isShowMore && bet.settled === 'Y' )"
+          class="lotto-bet-panel">
+          <lotto-result-card *ngFor="let result of bet.lotteryResults; let i = index" [lottoResult]="result" [index]="i"
+            [settled]="bet.settled">
+          </lotto-result-card>
+        
+        </ng-container>
+
+      <div class="lotto-bet-panel">
+        <!-- Stake and Returns -->
+        <stake-and-returns-header
+          [stake]="bet.stake"
+          [stakePerLine]="bet.stake"
+          [estimatedReturns]="bet.totalReturns"
+          [currencySymbol]="bet.currency"
+          [settled]="bet.settled"
+          [bet]="bet"
+          [sportType]="'lotto'"
+          [bets]="lottoBets"
+          data-crlat="sectionStakeAndReturns">
+        </stake-and-returns-header>
+        <!-- Bet Receipt Info -->
+        <bet-receipt-info datePattern="HH:mm - dd MMM"
+                          [receipt]="bet.betReceiptId"
+                          [date]="bet.betDate"
+                          data-crlat="betReceiptInfo">
+        </bet-receipt-info>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<!-- No lotto bets error message -->
+<no-bets-section *ngIf="!lottoHistory.length"
+                 [noBetsMessage]="noBetsMessage"
+                 [showStartGamingButton]="!isUsedFromWidget"
+                 [isMyBetsInCasino]="isMyBetsInCasino">
+</no-bets-section>

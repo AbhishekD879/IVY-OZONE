@@ -1,0 +1,132 @@
+.sidebar-right-menu {
+  .sidebar-container {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+  }
+
+  /* Menu Header */
+  .sidebar-menu-header {
+    background: $brand-color-main;
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.1), inset 0 1px 0 rgba(255,255,255,.4), inset 0 10px 25px rgba(255,255,255,.2);
+    color: $color-white;
+    height: 45px;
+    overflow: hidden;
+    padding: 7px 15px;
+    text-align: right;
+    z-index: 1001;
+    position: relative;
+
+    .user-btn {
+      position: relative;
+
+      &:hover {
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 15px 15px rgba(255, 255, 255, 0.15), 0 1px 0 rgba(0, 0, 0, 0.2);
+      }
+
+      .btn-text {
+        max-width: 110px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: inline-block;
+      }
+    }
+
+    .free-bet-ico {
+      top: -4px;
+
+      @media #{$mqMobile} {
+        width: 14px;
+        height: 14px;
+      }
+    }
+
+    button:not(.btn) {
+      padding: 10px 5px 0 0;
+      cursor: pointer;
+      font-size: 11px;
+      text-shadow: 0 1px 0 rgba(0,0,0,.4);
+      background: none;
+      border: none;
+      outline: none;
+    }
+  }
+
+  /* Menu Links  */
+  .menu-links {
+    background-color: $color-white;
+    position: absolute;
+    overflow-x: hidden;
+    overflow-y: auto;
+    left: 0;
+    top: 0;
+    margin: 45px 0 0;
+    height: 100%;
+    padding: 0;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    z-index: 1001;
+    cursor: pointer;
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    li + li {
+      border-top: 1px solid $color-gray-light;
+    }
+
+    .menu-link {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
+      text-decoration: none;
+      padding: 0 15px 0 13px;
+      height: 50px;
+      border-left: 2px solid $color-white;
+
+      .link-title {
+        text-transform: uppercase;
+        font: 700 12px $base-font-family;
+        color: $brand-color-dark;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      &:hover {
+        text-decoration: none;
+        border-left: 2px solid $color-red;
+      }
+
+      &.img-right-link {
+        .link-title {
+          padding: 0 25px 0 0;
+        }
+
+        .link-icon {
+          float: right;
+        }
+      }
+
+      &.img-menu-link {
+        .link-title {
+          padding: 0 0 0 20px;
+        }
+      }
+
+      .link-icon {
+        height: 25px;
+        width: 25px;
+        fill: $brand-color-dark;
+      }
+    }
+
+    .freeBets .link-icon {
+      fill: $color-red;
+    }
+  }
+}

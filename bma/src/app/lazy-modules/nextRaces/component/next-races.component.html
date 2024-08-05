@@ -1,0 +1,83 @@
+<div class="tab-content sk-container {{className}}" *ngIf="!isEventOverlay"
+     [ngClass]="{'sk-loading': !hideLoader && showLoader }"
+     data-crlat="tab.showNextRacesModule">
+  <loading-screen [displayed]="!hideLoader && showLoader"
+                  [isUsedFromWidget]="widget"
+                  [templateType]="'GENERIC'"></loading-screen>
+  <ng-container
+    *ngIf=" isDisplayBanner(leftTitleText) && targetTab?.interstitialBanners?.bannerEnabled && nextRacesModule?.storedEvents?.length && !showLoader ">
+    <lazy-component
+      moduleUri="@lazy-modules-module/virtualEntryPointBanner/virtual-entry-point-banner.module#VirtualEntryPointBannerModule"
+      entryComponent="VirtualEntryPointBannerComponent"
+      [inputs]="{targetTab: targetTab,sportName : sportName,isUnTiedSport: true}">
+    </lazy-component>
+  </ng-container>
+
+  <accordion *ngIf="nextRacesModule?.storedEvents?.length && !showLoader"
+             [isExpanded]="true"
+             [headerClass]="headerClass"
+             (function)="trackCollapse($event)"
+             data-crlat="outerAccordion" [ngClass]="{'outerAccordionFeatured' : isRacingFeatured}"
+             [isHeaderHidden]="!headerVisible && widget"
+             #nextRacesAccordion>
+    <left-side>
+      <span class="left-title-text" [i18n]="leftTitleText" data-crlat="headerTitle.leftMessage"></span>
+    </left-side>
+    <accordion-body>
+      <lazy-component
+      *ngIf="showFilter && nextRacesGroupedData?.groupedRacing?.length && (raceEvent === 'Horse Racing' || raceEvent === 'Greyhounds') && nextRacesGroupedData?.showFilter"
+      moduleUri="@lazy-modules-module/customFlagFiltertoggle/custom-flag-filter-toggle.module#CustomFlagFilterToggleModule"
+      [inputs]="{filters: nextRacesGroupedData?.groupedRacing, selectedFilter: selectedFilter, compName: compName,  moduleType: moduleType,isLadsSideWidget: true ,isNxtTabEnabled: isNxtTabEnabled }"
+      [outputs]="['filterChange']"
+      (event)="onFilterChange($event)" entryComponent="CustomFlagFilterToggleComponent">
+    </lazy-component>
+      <ng-container *ngIf="nextRacesAccordion.isExpanded && nextRacesModule.storedEvents">
+        <lazy-component
+                    moduleUri="@lazy-modules-module/raceCard/race-card-content.module#RaceCardContentModule" [inputs]="{
+                      raceData: nextRacesGroupedData?.storedEvents,
+                      viewFullRaceText: 'racing.viewFullRace',
+                      trackGaDesktop: trackGaDesktop,
+                      trackGa: trackGa,
+                      raceWidget: widget,
+                      raceIndex: raceIndex,
+                      raceOrigin: 'next-races',
+                      raceMaxSelections: nextRacesModule.limitOutcomesCount,
+                      showTimer: showTimer,
+                      showBriefHeader: showBriefHeader,
+                      fluid: fluid,
+                      gtmModuleTitle: 'next races',
+                      hideNonRunners: true,
+                      hostContext: hostContext,
+                      isEventOverlay:isEventOverlay,
+                      isNextRacesModule: true
+                    }" 
+                    data-crlat="raceCard">
+                  </lazy-component>
+      </ng-container>
+      <show-more-link [displayed]="moduleAllLink && showMoreLink"
+                      [link]="showMoreLink?.link" (function)="sendToGTM()"
+                      [title]="showMoreLink?.title" data-crlat="showMore"></show-more-link>
+    </accordion-body>
+  </accordion>
+  <request-error *ngIf="ssDown && !showLoader" [loadFailed]="ssDown" (reloadFn)="reloadComponent()"></request-error>
+</div>
+<div>
+
+  <ng-container *ngIf="nextRacesModule?.storedEvents && isEventOverlay">
+    <lazy-component
+                moduleUri="@lazy-modules-module/raceCard/race-card-content.module#RaceCardContentModule" [inputs]="{
+                  raceData: nextRacesModule.storedEvents,
+                  viewFullRaceText: viewFullRaceText,
+                  trackGaDesktop: trackGaDesktop,
+                  trackGa: trackGa,
+                  raceIndex: raceIndex,
+                  raceOrigin: 'next-races',
+                  showTimer: true,
+                  gtmModuleTitle: 'next races',
+                  hostContext: hostContext,
+                  isEventOverlay:isEventOverlay
+                }" 
+                data-crlat="raceCard">
+              </lazy-component>
+  </ng-container>
+</div>

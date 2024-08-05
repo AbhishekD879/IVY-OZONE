@@ -1,0 +1,18 @@
+<ng-container *ngFor="let couponSegment of couponSegments; trackBy: trackById">
+  <ng-container *ngIf="couponSegment.coupons?.length">
+    <header class="list-header" [textContent]="couponSegment.title"></header>
+    <ul class="links-list-panel" data-crlat="couponContainer">
+      <li class="list-item" *ngFor="let coupon of couponSegment.coupons; trackBy: trackById">
+        <a class="list-item-link" data-crlat="couponItem" [linkHref] [link]="couponUrl(coupon)" [routerLink]="[couponUrl(coupon)]">
+          <span class="item-name" data-crlat="couponName" [textContent]="coupon.name"></span>
+          <svg class="coupon-new-badge" *ngIf="coupon.enableCouponNewBadge" data-crlat="couponNewBadge">
+            <use xlink:href="#new-badge"></use>
+          </svg>
+          <svg class="item-next-arrow">
+            <use xlink:href="#next-arrow"></use>
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </ng-container>
+</ng-container>

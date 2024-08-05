@@ -1,0 +1,61 @@
+- name: "Download root certificate files if they are existing on s3"
+  aws_s3:
+    bucket: "{{ default_s3_bucket }}"
+    object: "{{ s3_certs_path }}/{{ web_root_cert_filename }}.{{ extension_item }}"
+    dest: "{{ cert_tmp_dir.path }}/{{ web_root_cert_filename }}.{{ extension_item }}"
+    mode: get
+  register: s3_certs_path_list
+  failed_when: false
+  changed_when: false
+  with_items:
+    - key
+    - pem
+    - crt
+  loop_control:
+    loop_var: extension_item
+
+- name: "Check that the {{ cert_tmp_dir.path }}/{{web_root_cert_filename}}.key exists"
+  stat:
+    path: "{{ cert_tmp_dir.path }}/{{web_root_cert_filename}}.key"
+  register: key_result
+
+- name: "Check that the {{ cert_tmp_dir.path }}/{{web_root_cert_filename}}.pem exists"
+  stat:
+    path: "{{ cert_tmp_dir.path }}/{{web_root_cert_filename}}.pem"
+  register: pem_result
+
+- name: "Check that the {{ cert_tmp_dir.path }}/{{web_root_cert_filename}}.crt exists"
+  stat:
+    path: "{{ cert_tmp_dir.path }}/{{web_root_cert_filename}}.crt"
+  register: crt_result
+
+- name: Create rootCA key
+  shell: "openssl genrsa -out {{ cert_tmp_dir.path }}/{{web_root_cert_filename}}.key 2048"
+  when:
+    - key_result.stat.exists == False
+
+- name: Create root CA PEM
+  shell: "openssl req -x509 -new -nodes -key {{ cert_tmp_dir.path }}/{{ web_root_cert_filename }}.key -sha256 -days {{ web_root_cert_expire_days }} -out {{ cert_tmp_dir.path }}/{{ web_root_cert_filename }}.pem -subj '{{ web_root_cert_subj }}'"
+  when:
+    - key_result.stat.exists == False
+    - pem_result.stat.exists == False
+
+- name: Create root CA CRT
+  shell: "openssl x509 -in {{ cert_tmp_dir.path }}/{{ web_root_cert_filename }}.pem -inform PEM -out {{ cert_tmp_dir.path }}/{{ web_root_cert_filename }}.crt"
+  when:
+    - key_result.stat.exists == False
+    - pem_result.stat.exists == False
+    - crt_result.stat.exists == False
+
+- name: "upload root certificate files to s3"
+  aws_s3:
+    bucket: "{{ default_s3_bucket }}"
+    object: "{{ s3_certs_path }}/{{ web_root_cert_filename }}.{{ extension_item }}"
+    src: "{{ cert_tmp_dir.path }}/{{ web_root_cert_filename }}.{{ extension_item }}"
+    mode: put
+  with_items:
+    - key
+    - pem
+    - crt
+  loop_control:
+    loop_var: extension_item

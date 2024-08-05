@@ -1,0 +1,162 @@
+<div class="custom-dialog">
+    <h1 mat-dialog-title [textContent]="title"></h1>
+    <form #prizeForm="ngForm">
+        <div class="add-edit-prize" mat-dialog-content>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="PRIZE_FORM.typeLabel">
+                    </span>
+                </div>
+                <div class="col-md-7">
+                    <mat-form-field>
+                        <mat-select name="prizeType" #typeField="ngModel" [(value)]="prize.type"
+                            [(ngModel)]="prize.type" placeholder="Prize Type" (selectionChange)="onPrizeTypeChange($event)" required>
+                            <mat-option *ngFor="let type of prizeTypes" [value]="type" [textContent]="type"></mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <ng-container *ngIf="typeField.errors">
+                        <mat-error *ngIf="typeField.errors.required && typeField.touched" [textContent]="errors.required">
+                        </mat-error>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="PRIZE_FORM.valueLabel">
+                    </span>
+                </div>
+                <div class="col-md-7">
+                    <mat-form-field class="full-width">
+                        <input matInput type="text" step='0.01' twoDigitDecimaNumber
+                        min="0.01" name="prizeValue" #valueField="ngModel" placeholder="Prize Value"
+                            [(ngModel)]="prize.value">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="PRIZE_FORM.textLabel">
+                    </span>
+                </div>
+                <div class="col-md-7">
+                    <mat-form-field class="full-width">
+                        <input matInput type="text" name="prizeText"
+                        #textField="ngModel" placeholder="Prize Text"
+                            [(ngModel)]="prize.text">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="PRIZE_FORM.iconLabel">
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field class="full-width">
+                        <input matInput name="prizeIcon"
+                        #iconField="ngModel" [(ngModel)]="prize.icon.originalname" disabled />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-5">
+                    <div class="file-block">
+                        <input #iconSvgFileInput id="upload-icon" (change)="validateAndUpdateFileFields($event, 'icon')" type="file"
+                            value="upload" />
+                    </div>
+                    <button type="button" (click)="handleUploadImageClick($event)" class="main-image-btn btn bg-teal waves-effect">
+                        <mat-icon class="align-middle ">file_upload</mat-icon>
+                        <span class="t-1" [textContent]="getButtonName(prize.icon.originalname)"></span>
+                    </button>
+                    <button type="button" [disabled]="!prize.icon.originalname" (click)="removeImage('icon')"
+                        class="main-image-btn btn bg-red waves-effect">
+                        <mat-icon class="align-middle ">delete_forever</mat-icon>
+                        <span class="t-1" [textContent]="'Remove'"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="PRIZE_FORM.signpostingLabel">
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field class="full-width">
+                        <input matInput name="prizeSignposting" #signpostingField="ngModel"
+                        [(ngModel)]="prize.signPosting.originalname" disabled />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-5">
+                    <div class="file-block">
+                        <input #signpostingSvgFileInput id="upload-signposting" (change)="validateAndUpdateFileFields($event, 'signPosting')" type="file"
+                            value="upload" />
+                    </div>
+                    <button type="button" (click)="handleUploadImageClick($event)" class="main-image-btn btn bg-teal waves-effect">
+                        <mat-icon class="align-middle ">file_upload</mat-icon>
+                        <span class="t-1" [textContent]="getButtonName(prize.signPosting.originalname)"></span>
+                    </button>
+                    <button type="button" [disabled]="!prize.signPosting.originalname" (click)="removeImage('signPosting')"
+                        class="main-image-btn btn bg-red waves-effect">
+                        <mat-icon class="align-middle ">delete_forever</mat-icon>
+                        <span class="t-1" [textContent]="'Remove'"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="PRIZE_FORM.percentageLabel">
+                    </span>
+                </div>
+                <div class="col-md-7">
+                    <mat-form-field class="full-width">
+                        <input matInput type="text" name="percentage" #percentageField="ngModel"
+                            placeholder="% of Field" [(ngModel)]="prize.percentageOfField" 
+                            [required]="!prize.numberOfEntries" (ngModelChange)="handleWhiteSpaces(false)" preventWhiteSpaces>
+                    </mat-form-field>
+                    <ng-container *ngIf="percentageField.errors">
+                        <mat-error *ngIf="percentageField.errors.required && percentageField.touched" [textContent]="errors.required">
+                            </mat-error>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="PRIZE_FORM.numberOfEntries">
+                    </span>
+                </div>
+                <div class="col-md-7">
+                    <mat-form-field class="full-width">
+                        <input matInput type="text" name="entries" #entriesField="ngModel" placeholder="# of Entries"
+                            [(ngModel)]="prize.numberOfEntries" [required]="!prize.percentageOfField" (ngModelChange)="handleWhiteSpaces(true)"
+                            preventWhiteSpaces>
+                    </mat-form-field>
+                    <ng-container *ngIf="entriesField.errors">
+                        <mat-error *ngIf="entriesField.errors.required && entriesField.touched"  [textContent]="errors.required">
+                           </mat-error>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="row" *ngIf="prize.type=== prizeTypesMapper.FREEBET || prize.type===prizeTypesMapper.TICKET">
+                <div class="col-md-3">
+                    <span class="mat-label" [textContent]="PRIZE_FORM.freebetOfferId">
+                    </span>
+                </div>
+            
+                <div class="col-md-7">
+                    <mat-form-field class="full-width">
+                        <input matInput type="text" name="offerIds" #offerIdField="ngModel" placeholder="Trigger ID"
+                            [(ngModel)]="prize.freebetOfferId" [required]="true">
+                    </mat-form-field>
+            
+                    <ng-container *ngIf="offerIdField.errors">
+                        <mat-error *ngIf="offerIdField.errors.required && offerIdField.touched" [textContent]="errors.required">
+                        </mat-error>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        <div mat-dialog-actions>
+            <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+            <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="!prizeForm.valid || !prizeForm.dirty"
+                (click)="saveChanges()" [mat-dialog-close]="prize">Save</button>
+        </div>
+    </form>
+</div>

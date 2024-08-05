@@ -1,0 +1,8 @@
+<a [linkHref]
+   [link]="link"
+   (click)="clickFn()" data-crlat="showMore" class="show-more-link" title="title">
+  <span [textContent]="title"></span>
+  <svg class="arrow-icon">
+    <use [attr.xlink:href]="'#next-arrow'"></use>
+  </svg>
+</a>

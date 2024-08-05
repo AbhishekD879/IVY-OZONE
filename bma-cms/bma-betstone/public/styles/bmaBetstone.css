@@ -1,0 +1,76 @@
+input[required].ng-pristine.ng-invalid,
+input[required].ng-invalid,
+select[required].ng-invalid,
+select[required].ng-pristine.ng-invalid{
+  border-color: red;
+  outline-color: red;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 6px #d59392;
+}
+
+.col-value div.homeModuleListEditColumns {
+  width: 100%;
+  margin-left: 0;
+  padding-left: 0 !important;
+}
+
+.datetimepicker-wrapper tbody>tr>td{
+  border-top: none;
+  padding-left: 3px;
+}
+.list-filters .filter-input select.tabs{
+  height: 34px;
+  font-size: 14px;
+}
+
+a.editHomeModuleInlineItemList{
+  background-position: -47px 0 !important;
+  cursor: move !important;
+}
+
+a.editHomeModuleItemList{
+  background-image: none !important;
+  text-decoration: none !important;
+}
+
+a.deleteHomeModuleInlineItemList{
+  background-position: -176px 0 !important;
+  cursor: move !important;
+}
+
+#lh-col, #rh-col {
+  display: inline-block;
+  width: 49%;
+  vertical-align: top;
+}
+
+#lh-col {
+}
+
+#rh-col {
+}
+
+.expired .panel-heading{
+  background: #F08080;
+}
+.active .panel-heading{
+  background: #90EE90;
+}
+.upcoming .panel-heading{
+  background: #FFA07A;
+}
+
+.preview-pane {
+  padding-right: 20px;
+}
+
+.preview-pane > div {
+  display: flex; 
+  margin-bottom: 10px
+}
+
+.preview-pane-index {
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+}
+

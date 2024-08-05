@@ -1,0 +1,119 @@
+@import 'global.variables.scss';
+
+.race-header {
+  padding: 9px 10px 8px;
+  background: $brand-color-dark;
+  .race-distance,
+  .race-going {
+    font-size: 10px;
+    color: $color-white;
+  }
+  .race-title {
+    margin: 0;
+    white-space: normal;
+    color: $color-white;
+    font-size: 12px;
+    font-weight: bold;
+    display: block;
+    line-height: 13.2px;
+  }
+  .virtual-title {
+    text-transform: uppercase;
+    color: $color-blue-principal;
+    margin: 10px;
+    background: $color-yellow;
+    border-radius: 2px;
+    position: relative;
+    margin-top: -2px;
+    margin-left: 0px;
+    text-shadow: 0px 0 #888888;
+    font-size: $font-size-pre-xs;
+    padding: 0px 3px 0px 3px;
+  }
+  
+  .gap-signpost {
+    margin-right: 10px;
+  }
+}
+.icons-area {
+  .race-next-link {
+    color: $color-white;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: bold;
+    @include display-flex();
+    @include align-items();
+    span {
+      font-size: $font-size-sm;
+    }
+    svg {
+      margin-left: 5px;
+      height: 8px;
+      width: 5px;
+      fill: $color-white;
+    }
+    &:hover {
+      text-decoration: none;
+    }
+    &:active {
+      text-decoration: underline;
+    }
+  }
+
+  @include display-flex();
+  @include align-items();
+  @include flex-grow(1);
+  @include justify-content(flex-end);
+}
+.race-distance {
+  margin-right: 5px;
+}
+.text-area {
+  .race-timer {
+    display: inline-block;
+    &:empty {
+      display: block;
+    }
+    .label {
+      color: $color-white;
+    }
+    .value {
+      color: $color-yellow;
+    }
+  }
+
+  @include display-flex();
+  @include align-items();
+  @include flex-grow(1);
+}
+.odds-card {
+  box-shadow: none;
+}
+.race-card-content {
+  margin-bottom: 8px;
+  overflow: hidden;
+
+  gh-silk {
+    margin: 0 10px 0 0;
+  }
+}
+.race-sub-header {
+  padding: 0 10px;
+  height: 35px;
+  background: $color-white;
+  font-size: 11px;
+}
+.race-icon-stream {
+  width: 11px;
+  height: 11px;
+  margin-left: 5px;
+}
+.watch-label {
+  text-transform: uppercase;
+  margin-left: 5px;
+}
+.race-header,
+.race-sub-header {
+  @include display-flex();
+  @include align-items();
+}

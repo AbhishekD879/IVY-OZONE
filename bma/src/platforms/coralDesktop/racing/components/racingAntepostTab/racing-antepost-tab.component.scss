@@ -1,0 +1,77 @@
+@import 'global.variables.scss';
+
+.antepost-container {
+  .events-container {
+    .container-content {
+      padding: 0;
+    }
+  }
+  .antepost-events-container {
+    @include grid-row();
+    border-top: 1px solid $color-gray;
+    margin: 0;
+  }
+
+  .antepost-category-wrapper {
+    overflow: hidden;
+
+    @media screen and (min-width: 1026px) {
+      @include flex(1, 1, 33%);
+    }
+
+    @media screen and (max-width: 1025px) {
+      @include flex(1, 1, 34%);
+    }
+  }
+
+  .antepost-category {
+    @include flex();
+    margin: 1px;
+    background: $color-white;
+  }
+  .three-cell {
+    display: none;
+    @media screen and (min-width: 1026px) {
+      @include display-flex();
+    }
+  }
+  .two-cell {
+    @include display-flex();
+    @media screen and (min-width: 1026px) {
+      display: none;
+    }
+  }
+  .three-cell,
+  .two-cell {
+    pointer-events: none;
+  }
+
+  .event-link {
+    @include display-flex();
+    @include justify-content(flex-start);
+    @include flex-direction(column);
+    min-height: 60px;
+    padding: 12px 0 12px 15px;
+    text-decoration: none;
+    color: $color-gray-dark;
+    &:hover {
+      cursor: pointer;
+      background: $color-gray-light;
+    }
+  }
+
+  .event-date {
+    display: block;
+    font-size: 12px;
+  }
+
+  .event-name {
+    display: block;
+    font-size: 13px;
+    color: $color-gray-dark;
+    overflow: hidden;
+    padding-right: 5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

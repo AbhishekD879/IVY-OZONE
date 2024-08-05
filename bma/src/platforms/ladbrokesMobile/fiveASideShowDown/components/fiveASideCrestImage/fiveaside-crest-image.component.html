@@ -1,0 +1,20 @@
+<div class="crest-image" *ngIf="!hasBorderDetails">
+  <div class="team-image" [ngClass]="{'flag-border' : !!hasBorder, 'image-overflow' : hasOverflow}"
+    [style.width.px]="widthHeight" [style.height.px]="widthHeight"
+    [style.background]="(!(hasTeamImage && team?.teamsImage && team.teamsImage.filename && team.fiveASideToggle) && backgroundColor)">
+    <ng-container *ngIf="(hasTeamImage && team?.teamsImage && team.teamsImage.filename && team.fiveASideToggle)">
+      <img class="player-image" [style.width.px]="widthHeight" [style.height.px]="widthHeight"
+        [attr.src]="TEAMSIMAGEPATH + team.teamsImage.filename" />
+    </ng-container>
+  </div>
+</div>
+<div class="crest-image" *ngIf="hasBorderDetails">
+  <div class="team-image" [ngClass]="{'image-overflow' : hasOverflow ,'flag-border-details':hasBorderDetails,
+    'height-width':!(hasTeamImage && team?.teamsImage && team.teamsImage.filename && team.fiveASideToggle)}"
+    [style.background]="(!(hasTeamImage && team?.teamsImage && team.teamsImage.filename && team.fiveASideToggle) && backgroundColor)">
+    <ng-container *ngIf="(hasTeamImage && team?.teamsImage && team.teamsImage.filename && team.fiveASideToggle)">
+      <img class="player-image" [style.width.px]="widthHeight" [style.height.px]="widthHeight"
+        [attr.src]="TEAMSIMAGEPATH + team.teamsImage.filename" />
+    </ng-container>
+  </div>
+</div>

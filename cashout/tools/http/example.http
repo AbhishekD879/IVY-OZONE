@@ -1,0 +1,211 @@
+# Sindle bet cashout offer
+#POST https://backoffice-tst2.coral.co.uk/cashout_service/getcashoutoffer
+#POST https://obcashout-stg2.gib1.egalacoral.com/cashout_service/getcashoutoffer
+#POST https://obcashout.gib1.egalacoral.com/cashout_service/getcashoutoffer
+#POST https://backoffice-lcm.ladbrokes.com/cashout_service/getcashoutoffer
+#POST https://tst2-backoffice-lcm.ladbrokes.com/cashout_service/getcashoutoffer
+#POST https://stg-backoffice-lcm.ladbrokes.com/cashout_service/getcashoutoffer
+POST https://frontoffice-lcm.ladbrokes.com/cashout_service/getcashoutoffer
+Content-Type: application/json
+
+< body-SGL.json
+
+#Response:
+ #{
+ #  "respStatus": "SUCCESS",
+ #  "timeStamp": "2018-12-27 13:59:09",
+ #  "cashoutOffers": [
+ #    {
+ #      "cashoutOfferReqRef": "1",
+ #      "status": "SUCCESS",
+ #      "cashoutValue": 1.11
+ #    }
+ #  ]
+ #}
+
+###
+
+# TBL bet cashout request
+POST https://backoffice-tst2.coral.co.uk/cashout_service/getcashoutoffer
+Content-Type: application/json
+
+< body-TBL.json
+
+#Response:
+ #{
+ #  "respStatus": "SUCCESS",
+ #  "timeStamp": "2018-12-27 14:17:19",
+ #  "cashoutOffers": [
+ #    {
+ #      "cashoutOfferReqRef": "1",
+ #      "status": "SUCCESS",
+ #      "cashoutValue": 0.40
+ #    }
+ #  ]
+ #}
+
+###
+
+# Multiple cashout offer
+POST https://backoffice-tst2.coral.co.uk/cashout_service/getcashoutoffer
+Content-Type: application/json
+
+< body-Multiple.json
+
+#Response:
+ #{
+ #  "respStatus": "SUCCESS",
+ #  "timeStamp": "2018-12-27 14:21:30",
+ #  "cashoutOffers": [
+ #    {
+ #      "cashoutOfferReqRef": "1",
+ #      "status": "SUCCESS",
+ #      "cashoutValue": 1.11
+ #    },
+ #    {
+ #      "cashoutOfferReqRef": "2",
+ #      "status": "SUCCESS",
+ #      "cashoutValue": 0.40
+ #    }
+ #  ]
+ #}
+
+###
+
+# TBL bet with resulted legs
+POST https://backoffice-tst2.coral.co.uk/cashout_service/getcashoutoffer
+Content-Type: application/json
+
+< body-TBL-with-resulted-legs.json
+
+#Response:
+ #{
+ #  "respStatus": "SUCCESS",
+ #  "timeStamp": "2018-12-27 14:27:41",
+ #  "cashoutOffers": [
+ #    {
+ #      "cashoutOfferReqRef": "1",
+ #      "status": "SUCCESS",
+ #      "cashoutValue": 3.75
+ #    }
+ #  ]
+ #}
+
+###
+
+# DBL bet with a losing leg
+POST https://backoffice-tst2.coral.co.uk/cashout_service/getcashoutoffer
+Content-Type: application/json
+
+< body-DBL-bet-with-a-losing-leg.json
+
+#Response:
+ #{
+ #  "respStatus": "SUCCESS",
+ #  "timeStamp": "2018-12-27 14:31:25",
+ #  "cashoutOffers": [
+ #    {
+ #      "cashoutOfferReqRef": "1",
+ #      "status": "ERROR",
+ #      "message": "Cashout unavailable: This bet does not have cashout available"
+ #    }
+ #  ]
+ #}
+
+###
+
+#DBL bet - missing parameters
+POST https://backoffice-tst2.coral.co.uk/cashout_service/getcashoutoffer
+Content-Type: application/json
+
+< body-DBL-bet-missing-parameters.json
+
+#Response:
+ #{
+ #  "respStatus": "SUCCESS",
+ #  "timeStamp": "2018-12-27 14:34:26",
+ #  "cashoutOffers": [
+ #    {
+ #      "cashoutOfferReqRef": "1",
+ #      "status": "ERROR",
+ #      "message": "Strike Price is missing"
+ #    }
+ #  ]
+ #}
+
+###
+
+#Horse racing ACC5
+POST https://backoffice-tst2.coral.co.uk/cashout_service/getcashoutoffer
+Content-Type: application/json
+
+< body-Horse-racing-ACC5.json
+
+#Response:
+ #{
+ #  "respStatus": "SUCCESS",
+ #  "timeStamp": "2018-12-27 14:37:38",
+ #  "cashoutOffers": [
+ #    {
+ #      "cashoutOfferReqRef": "1",
+ #      "status": "SUCCESS",
+ #      "cashoutValue": 13.51
+ #    }
+ #  ]
+ #}
+
+###
+
+#Horse racing ACC5
+POST https://backoffice-tst2.coral.co.uk/cashout_service/getcashoutoffer
+Content-Type: application/json
+
+< ACC4CashoutOffer.json
+
+###
+
+#Cashout with Freebets
+POST https://backoffice-tst2.coral.co.uk/cashout_service/getcashoutoffer
+Content-Type: application/json
+
+< body-with-free-bets.json
+
+#Response:
+ #{
+ #  "respStatus": "SUCCESS",
+ #  "timeStamp": "2018-12-27 14:54:35",
+ #  "cashoutOffers": [
+ #    {
+ #      "cashoutOfferReqRef": "671861",
+ #      "status": "SUCCESS",
+ #      "cashoutValue": 3.09
+ #    }
+ #  ]
+ #}
+
+###
+
+#EMA with Freebets
+#Cashout with Freebets
+POST https://backoffice-tst2.coral.co.uk/cashout_service/
+Content-Type: application/json
+
+< body-EMA-with-Freebets.json
+
+###
+
+GET https://bpp-dev0.coralsports.dev.cloud.ladbrokescoral.com/Proxy/getBetDetails?cashoutBets=Y&status=A&returnPartialCashoutDetails=Y&filter=Y
+Accept: application/json, text/plain, */*
+Origin: https://invictus.coral.co.uk
+Referer: https://invictus.coral.co.uk/event/football/football-denmark/superligaen/vendsyssel-ff-v-midtjylland/9456707/main-markets
+token: 50527f41235e821b5d666c748a8d2ab04fb69ad39ebf07fd79fa2f77797a0af5
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36
+###
+
+#POST https://backoffice-tst2.coral.co.uk/cashout_service/getcashoutoffer
+POST https://backoffice-lcm.ladbrokes.com/cashout_service/getcashoutoffer
+Content-Type: application/json
+
+< ladbrokesError.json
+
+###

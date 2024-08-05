@@ -1,0 +1,73 @@
+@import 'global.variables.scss';
+
+.only-two-odds-space-lad {
+  position: relative;
+  right: 15px;
+}
+.score-table {
+  padding: $card-score-padding;
+  font-size: $card-score-font-size;
+  @include display-flex();
+  @include justify-content(flex-end);
+  color: $card-text-color;
+  font-weight: bold;
+
+  .score-column {
+    position: relative;
+    min-width: 20px;
+    padding: 0 3px;
+    line-height: 20px;
+    text-align: center;
+
+    & > div {
+      height: 20px;
+    }
+
+    .column-header {
+      position: absolute;
+      line-height: 15px;
+      top: -23px;
+      left: -2px;
+      width: 24px;
+      color: $lBlack-light;
+      font-family: $base-font-family;
+      font-weight: normal;
+    }
+
+    &.serving-team {
+
+      .ball-icon {
+        width: 4px;
+        height: 4px;
+        margin: 7px 0 16px 8px;
+        border-radius: 50%;
+
+        &.active {
+          background-color: $color-yellow-alt;
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+.scoreMultiMarketLads {
+  padding-bottom: 47px;
+  margin-top: 12px;
+}
+.scoreMultiMarketCoral {
+   padding-bottom: 47px;
+   margin-top: -2px;
+}
+.scoreA {
+  margin-top: 0px;
+}
+.scoreH {
+  padding-bottom: 0px;
+}
+
+.emptyScore {
+  padding-bottom: 46px;
+}

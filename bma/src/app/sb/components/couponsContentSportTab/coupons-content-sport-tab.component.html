@@ -1,0 +1,38 @@
+<div class="sk-container" [ngClass]="{'sk-loading': !isLoaded}">
+  <loading-screen [displayed]="!isLoaded" [templateType]="'GENERIC'"></loading-screen>
+
+  <div class="heuristic-container" *ngIf="isLoaded && !isResponseError && coupons.length">
+    <accordion *ngFor="let coupon of coupons; trackBy: trackById"
+               data-crlat="accordion"
+               [accordionTitle]="coupon.name"
+               [isExpanded]="isExpanded"
+               (function)="getCouponContent(coupon)">
+      <accordion-body>
+        <loading-screen [displayed]="!coupon.isEventsLoaded" [templateType]="'GENERIC'"></loading-screen>
+
+        <section class="page-container page-inner-container" *ngIf="coupon.isEventsAvailable && coupon.isEventsLoaded">
+          <article class="container-content">
+            <odds-card-header [events]="coupon.events"
+                              [sportConfig]="sport?.sportConfig"
+                              [selectedMarket]="coupon.events[0].markets[0]?.name">
+            </odds-card-header>
+            <odds-card-component *ngFor="let eventEntity of coupon.events"
+                                 [event]="eventEntity"
+                                 [sportConfig]="sport?.sportConfig"
+                                 [selectedMarket]="eventEntity.markets[0]?.name"
+                                 [gtmModuleTitle]="coupon.name"
+                                 data-crlat="eventEntity">
+            </odds-card-component>
+          </article>
+        </section>
+        <no-events *ngIf="!coupon.isEventsAvailable && coupon.isEventsLoaded"></no-events>
+      </accordion-body>
+    </accordion>
+  </div>
+
+  <request-error *ngIf="isLoaded && isResponseError"
+                 (reloadFn)="reloadComponent()"
+                 [loadFailed]="isResponseError">
+  </request-error>
+  <no-events *ngIf="isLoaded && !isResponseError && !coupons.length" [message]="'sb.noCouponsFound'"></no-events>
+</div>

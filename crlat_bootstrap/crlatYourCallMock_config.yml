@@ -1,0 +1,15 @@
+---
+- name: Install software
+  hosts: tag_Name_yourcall_mock
+  user: ubuntu
+  become: yes
+  gather_facts: yes
+  tasks:
+  - name: Print dockers list
+    debug:
+      msg: "{{ ec2_tag_dockers }}"
+    when: ec2_tag_dockers is defined
+
+  - name: Execute crlat.software role
+    include_role:
+      name: crlat.software

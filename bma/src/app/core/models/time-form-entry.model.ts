@@ -1,0 +1,31 @@
+export interface ITimeFormEntry {
+  bestRecentTime: number;
+  entryId: number;
+  expFinalTime: number;
+  expSecTime: number;
+  fairOddsDec: number;
+  fairOddsDen: number;
+  fairOddsNum: number;
+  form: string;
+  greyHoundFullName: string;
+  greyhound: any;
+  greyhoundId: number;
+  handicapAllowanceStatus: string;
+  meetingEntryNap: number;
+  oneLineComment: string;
+  openBetIds: number[];
+  ownerFullName: string;
+  paGreyHoundId: number;
+  paMeetingId: number;
+  positionPrediction: number;
+  raceId: number;
+  reserve: boolean;
+  seedName: string;
+  starRating: number;
+  statusDescription: string;
+  statusName: string;
+  trainerFullName: string;
+  trap: number;
+  updateDate: string;
+  uuid: string;
+}

@@ -1,0 +1,462 @@
+@import "global.variables.scss";
+.vn-bma {
+@import './number-selector.scss';
+$lads-box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+
+@mixin draw-lotto() {
+  border-radius: unset;
+  border: 1px solid $lotto-draw-border;
+  box-shadow: none;
+  font-weight: bold !important;
+}
+
+@mixin banner-text() {
+  background: colour-lighter-white;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.4);
+  width: inherit;
+}
+
+$color-blue-home: #3e5c9f;
+
+#lotto {
+  .lotto-segment {
+    .top-btn-row {
+      .btn {
+        background: $color-gray;
+      }
+    }
+  }
+
+  .bonus-title {
+    position: relative;
+    top: -10px;
+    margin: 0 5px;
+    white-space: nowrap;
+  }
+
+  .check-title {
+    padding: 3px 0 0 25px;
+    font-size: 12px;
+    float: left;
+    line-height: 14px;
+    @include lotto-check-label();
+  }
+
+  .check-styled label {
+    @include lotto-check-styled();
+
+    &:after {
+      border: 1px solid;
+      border-top: 0;
+      border-right: 0;
+    }
+
+    &.col-disabled {
+      opacity: .5;
+      pointer-events: none;
+      cursor: default;
+    }
+  }
+
+  .check-styled {
+    position: absolute;
+    left: 3px;
+  }
+
+  .bet-stake-value-container {
+    border: 1px solid $color-black-soft;
+    border-radius: 3px;
+    background: none;
+
+    input {
+      background: none;
+      text-align: right;
+      padding: 3px 5px 3px 15px;
+
+      /* fixes bet value cutoff on really small mobile screens (below 375px) */
+      @media screen and (max-width: 375px) {
+        padding: 3px 2px 3px 2px;
+      }
+    }
+  }
+
+  .help-icon {
+    cursor: pointer;
+    position: absolute;
+    right: 12px;
+    top: 8px;
+
+    svg {
+      height: 14px;
+      width: 14px;
+      fill: $color-white;
+      margin-top: 13px;
+    }
+  }
+
+  .segment-title {
+    padding-right: 30px;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: $color-white;
+  }
+
+  .container-header {
+    min-height: 35px;
+    padding: 11px;
+    text-transform: none;
+    max-height: 57px;
+    display: block;
+    font-weight: normal;
+    background-color: $color-blue;
+    color: $color-white;
+    &.lads {
+      font-family: $lotto-base-font-family;
+      background-color: $dk-button-color;
+    }
+  }
+
+
+  .page-container {
+    margin-bottom: 10px;
+    background: unset;
+  }
+
+  .group-buttons {
+    padding: 12px 7px;
+    line-height: 16px;
+    background-color:$color-white;
+
+    .group-col {
+      width: 50%;
+
+      .btn-draw {
+        color: $color-blue;
+        background-color: $color-white;
+        border-radius: unset;
+        border: 1px solid $IgreySemiLighter;
+        box-shadow: none;
+        overflow: hidden;
+        font-weight: normal;
+     }
+
+      .btn-draw-lads{
+        color: $lGrayMedium;
+        background-color: $color-white;
+        @include draw-lotto();
+        font-weight: normal !important;
+        text-transform: uppercase;
+        font-size: 11px;
+        overflow: hidden;
+      }
+
+      .draw-active {
+        color:$color-white;
+        background-color: $color-blue;
+        overflow: hidden;
+        @include draw-lotto();
+      }
+
+      .draw-active-lads {
+        color: $lGrayMedium;
+        background-color: $light-grey;
+        border-radius: unset;
+        border: 1px solid $IgreySemiLighter;
+        box-shadow: none;
+        text-transform: uppercase;
+        font-size: 11px;
+        overflow: hidden;
+        font-weight: bold !important;
+      }
+    }
+
+    .group-caption {
+      color: #41494e;
+      font-size: 14px;
+      padding: 0px 5px 12px 5px;
+      p{
+        margin: 0px;
+      }
+    }
+
+
+    button {
+      height: 40px;
+      background-color: $color-green-shade;
+      text-shadow: none;
+      border-radius: 2px;
+      margin: 0;
+      font-size: 13px;
+      box-shadow: none;
+      &.lads {
+        background-color: $lGray;
+        text-transform: uppercase;
+        width: 117;
+        font-size: 15px;
+        font-family: 'Roboto Condensed';
+        font-weight: bold;
+        font-stretch: condensed;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: center;
+        color: $color-white-disable-btn;
+        font-style: normal;
+        box-shadow: none;
+      }
+    }
+  }
+
+  .container-group {
+    margin: 5px 4px;
+    font-size: 12px;
+
+    @media (min-width: $desktopPoint) {
+      margin: 10px 0px;
+    }
+
+  }
+
+    .lads-container-group {
+      margin: 12px 4px;
+  
+      @media (min-width: $desktopPoint) {
+        margin: 12px -1px;
+      }
+    }
+  .container-content {
+    margin: 0 4px;
+  }
+
+  .lotto-balls {
+    padding: 0;
+    list-style: none;
+    margin: 0;
+    display: flex;
+
+    .lotto-ball {
+      width: 40px;
+      height: 40px;
+      font-size: 14px;
+      line-height: 38px;
+      font-weight: 900;
+      margin-right: 12px;
+      border-radius: 20px;
+      text-align: center;
+      background: rgba(224, 226, 235, .5);
+      color: color;      
+    }
+  }
+ 
+
+  .lotto-odds {
+    flex: 1;
+    padding: 0 2px 0;
+  }
+
+  p {
+    font-size: 12px;
+  }
+
+  .btn-circle {
+    background: $color-blue;
+    color:$color-white;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    box-shadow: none;
+    margin-left: 8px;
+    font-weight: 900;
+    @media (min-width: $desktopPoint) {
+      margin-left: 12px;
+    }
+    &.lads {
+      background: $lBlack-medium;
+      box-shadow: none;
+      font-size: 20px;
+      font-weight: bold; 
+      font-stretch: condensed;
+      font-style: normal;
+      letter-spacing: normal;
+      text-align: center;
+      display: block;      
+    }
+  }
+
+  @media (min-width: $tabletPoint) {
+    .lotto-balls {
+      list-style: none;
+      margin: 0;
+      display: flex;
+
+      .lotto-ball {
+        &:last-child {
+          position: relative;
+          margin-left: 12px;
+          border: 2px solid $color-blue;
+          &::before {
+            content: '';
+            border-right: 1px solid $color-gray;
+            left: -12px;
+            position: absolute;
+            height: 24px;
+            width: 1px;
+            top: 7px;
+          }         
+        }
+        @media (min-width: $tabletPoint) and (max-width: 1350px){
+          width: 33px;
+          height: 33px;
+          line-height:30px;
+          &:last-child {
+            line-height: 30px;
+
+        }
+      }
+    }   
+    } 
+  }
+
+  .numbercol {
+    padding: 0 0 0 12px;
+  }
+  .number-picker{
+  .numbercol {
+    padding: 0 0 0 2px;
+  }
+}
+
+  .bs-stake-delete-button {
+    top: 26px !important;
+    &.delete-button svg{
+      fill: $color-gray-dark !important
+    }
+  }
+
+}
+
+.lotto-container {
+  .invisible {
+    opacity: 0;
+  }
+  .container {
+    position: relative;
+    text-align: left;
+    color: $color-white;
+  }
+  .banner {
+    width: -webkit-fill-available;
+  }
+  .lotto-desk-container{
+    min-height: 260px;
+    margin-bottom: 10px;
+  }
+  .desktop-banner{
+      height : 260px;
+      width: -webkit-fill-available;
+  }
+  .banner-text{
+    font-size: 8px;
+    font-weight: normal;
+    color: $color-white;
+    font-stretch: normal;
+    padding: 8px 6px 7px;
+
+    &.coral-banner-text {
+      @include banner-text();
+      margin: -38px 0 0 0;
+      width: -webkit-fill-available;
+      text-align: center;
+      font-size: initial;
+    }
+    &.ladbrokes-banner-text {
+      @include banner-text();
+      margin: -34px 5px 0px 0px;
+      width: -webkit-fill-available;
+      text-align: center;
+      font-size: initial;
+    }
+    &.coral-banner-text-mobile {
+      @include banner-text();
+      margin-top: -36px;
+      font-size: 10px;
+      min-height: 36px;
+      padding: 6px;
+      @media (min-width: $tabletPoint) {
+        bottom: 0px;
+      }
+    }
+  }
+}
+
+.lotto-content {
+  .row>div {
+    margin: 3px 0;
+  }
+
+  .label-text {
+    color: $color-black-soft;
+  }
+
+}
+
+.center-text span {
+  line-height: normal;
+}
+
+.toggle-icon-caption {
+  margin:-2px 0 0 0;
+  padding: 0px 0px 12px 7px;
+  background:$color-white;
+ .toggle-icon{
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.01px;
+  text-transform: capitalize;
+  font-family: unset;
+ }
+  .lads-toggle-icon {
+    color:#4a90e2;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-family: 'Roboto Condensed';
+    font-stretch: condensed;
+    font-weight: bold;
+    letter-spacing: 0px;
+    svg {
+      fill:#4a90e2;
+    }
+  }
+}
+
+.page-segment { 
+  .usefavourites {
+    visibility: hidden;
+  }       
+}
+
+.lads-border{
+  box-shadow: $lads-box-shadow;
+}
+
+.padding-btm-group{
+  padding: 0 0 5px 0;
+}
+
+.padding-btm{
+  padding: 0 0 12px 0;
+}
+
+.btm-margin{
+  border-bottom: 1px solid #e0e2eb;
+}
+
+.lotto-top-bar {
+  .title-bar {
+    font-size: 13px !important;
+  }
+}
+}

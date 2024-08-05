@@ -1,0 +1,16 @@
+<div class="container" (click)="widgetClick()">
+     <div class="all-entries">
+   <div class="view-text" [i18n]="'fs.entryinfo.viewallmyentries'">
+     <div class="col-xs-12 row">
+         <div class="col-xs-1"></div>
+         <div #inputElement class="col-xs-10 background-element content-left">
+            <div [@myInsertMultiRemoveTrigger]  class="dot"
+             [ngClass]= "entry.rankProgress >= losingpercentage ? 'boarder-color-green':'boarder-color-white'"
+              *ngFor="let entry of myEntriesList" [style.margin-left.%]="entry.rankProgress"></div>
+         </div>
+         <div class="col-xs-1"></div>
+    </div>
+ </div>
+</div>
+</div>
+<fiveaside-entrylist-overlay *ngIf="openAllMyEntries" [eventStatus]="eventStatus" [myEntriesList]="myEntriesList" (clearOverlay)="overlayClear()"></fiveaside-entrylist-overlay>

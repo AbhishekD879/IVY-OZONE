@@ -1,0 +1,93 @@
+plugins {
+  id 'java'
+  id 'com.coral.tools' version '3.0-SNAPSHOT'
+  id 'org.springframework.boot' version '3.2.0'
+}
+
+apply plugin: "io.spring.dependency-management"
+
+jar {
+  enabled = false
+}
+group = 'com.entain.oxygen'
+sourceCompatibility = '17'
+
+def nexusRepo = System.getenv("NEXUS_HOST") ?: 'https://nexus-vie.coral.co.uk/repository/maven-public/'
+def nexusUser = System.getenv("NEXUS_USER") ?: project.properties.nexusUser
+def nexusPass = System.getenv("NEXUS_PASS") ?: project.properties.nexusPass
+
+repositories {
+  maven {
+    credentials {
+      username = nexusUser
+      password = nexusPass
+    }
+    url nexusRepo
+  }
+  mavenCentral()
+}
+
+dependencies {
+  developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+  implementation 'org.springframework.boot:spring-boot-starter-validation'
+  implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
+  implementation 'org.springframework.boot:spring-boot-starter-webflux'
+  implementation 'org.springframework.boot:spring-boot-starter-actuator'
+  implementation "org.springframework.boot:spring-boot-starter-aop"
+  implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.1.0'
+
+  implementation 'org.redisson:redisson:3.18.0'
+  implementation 'io.projectreactor:reactor-tools:3.4.24'
+  implementation 'joda-time:joda-time:2.12.1'
+  implementation 'org.modelmapper:modelmapper:3.2.0'
+
+  implementation 'com.egalacoral.spark:siteserver-api:release-155.1.0-jdk-17'
+
+  //Logging
+  implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+  implementation 'org.apache.logging.log4j:log4j-layout-template-json'
+  implementation 'com.lmax:disruptor:3.4.4'
+  implementation 'com.ladbrokescoral.lib:master-slave-lock-starter:release-165.0.0'
+
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testImplementation 'io.projectreactor:reactor-test'
+  testImplementation 'it.ozimov:embedded-redis:0.7.3'
+
+}
+
+jacocoTestReport.reports.xml.enabled=true
+
+test.doFirst {
+  systemProperty 'spring.profiles.active', 'UNIT'
+}
+
+tasks.named('test') {
+  useJUnitPlatform()
+}
+
+configurations {
+  all {
+    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    exclude group: 'io.lettuce', module: 'lettuce-core'
+  }
+}
+
+sonarqube {
+  properties {
+    property "sonar.sources", "src/main/java"
+    property "sonar.exclusions", "**/config/WebClientConfig.java,**/config/EventLoopConfigurer.java"
+  }
+}
+
+jacocoTestReport {
+  afterEvaluate {
+    classDirectories.setFrom(files(classDirectories.files.collect {
+      fileTree(dir: it, exclude: [
+        '**/config/WebClientConfig.java',
+        '**/config/EventLoopConfigurer.java',
+        '**/BetbuilderMiddlewareApplication.java'
+      ])
+    }))
+  }
+}

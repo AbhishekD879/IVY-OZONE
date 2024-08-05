@@ -1,0 +1,88 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="!isLoading">
+  <div class="header">
+    <h2 class="has-activity-badge">Edit Promotions Navigation: <span
+        class="font-italic">{{navigationGroups.title}}</span></h2>
+    <create-updated-at-by class="has-activity-badge" [collection]="navParentGrp"></create-updated-at-by>
+    <header-activity-badge [state]="!navParentGrp.status"></header-activity-badge>
+  </div>
+</div>
+<div class="card" *ngIf="!isLoading">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox color="primary" [checked]="navParentGrp.status"
+          (change)="navParentGrp.status = !navParentGrp.status">
+          Active
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Navigation Group Title*
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !navParentGrp.title}">
+          <input matInput placeholder="Title" [(ngModel)]="navParentGrp.title" [value]="navParentGrp.title"
+            maxlength="50" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!navParentGrp.title">This Field is required*</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="card">
+  <div class="body">
+    <div class="row col-md-10">
+      <table class="custom-table table table-hover table-condensed table-bordered m-b-0" [ngClass]="tableUniqueClass">
+        <thead>
+          <tr class="bg-teal">
+            <th class="font-bold table-col-3" [attr.colspan]="2">Name</th>
+            <th class="font-bold table-col-3">Type</th>
+            <th class="font-bold table-col-3">Status</th>
+            <th class="font-bold table-col-2">Edit</th>
+            <th class="font-bold table-col-2">Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let navItems of navigationGroups?.navItems;let i = index">
+            <td class="drag-handler">
+              <i class="material-icons">swap_vert</i>
+            </td>
+            <td>{{navItems.name}}</td>
+            <td class="shortened-view" [textContent]="displayType(navItems.navType)">
+            </td>
+            <td>
+                <i *ngIf="setNavItemStatus(navItems.leaderboardStatus)" class="material-icons col-{{navItems.leaderboardStatus ? 'light-blue' : 'blue-grey'}}">
+                  {{navItems.leaderboardStatus ? 'check_circle' : 'cancel'}}
+                </i>
+            </td>
+            <td class="align-center">
+              <a (click)="navigateToEdit(navItems)"><i class="material-icons col-red">mode_edit</i></a>
+            </td>
+            <td class="align-center">
+              <a (click)="removeNavItems(i)"><i class="material-icons col-red">remove_circle</i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="body">
+    <div class="row col-md-3">
+      <button (click)="addNavItem()" type="button" class="btn bg-teal waves-effect float-left"
+        [disabled]="isDisabledBtn">
+        <i class="material-icons">add_box</i>
+        <span>Add New Item</span>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<action-buttons #actionButtons *ngIf="!isLoading" [validateHandler]="isValidForm" [fieldOrItemName]="'title'"
+  [collection]="navParentGrp" (actionsEmitter)="actionsHandler($event);"></action-buttons>

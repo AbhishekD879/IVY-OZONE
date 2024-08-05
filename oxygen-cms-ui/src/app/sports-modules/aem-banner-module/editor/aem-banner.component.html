@@ -1,0 +1,71 @@
+<breadcrumbs *ngIf="module" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="module">
+  <div class="header">
+    <h2 class="waves-effect waves-block has-activity-badge">
+      Title: {{module.title}}
+      <create-updated-at-by [collection]="module"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="module.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="module">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox color="primary"
+                      [checked]="!module.disabled"
+                      (change)="module.disabled = !module.disabled">
+          Active
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+          <span class="mat-label">Number of banners </span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width">
+        <input [(ngModel)]="module.moduleConfig.maxOffers" matInput type="number"
+                 placeholder="Number of banners for the carousel module."
+                 trim="blur" required/>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Time per slide</span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width">
+          <input [(ngModel)]="module.moduleConfig.timePerSlide" matInput type="number"
+                 placeholder="Time delay for change banner on the carousel (seconds)."
+                 trim="blur" required/>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <date-range
+          [isSetDateButtons]="true"
+          [startDate]="module.moduleConfig.displayFrom"
+          [endDate]="module.moduleConfig.displayTo"
+          [startPlaceholder]="'Display from'"
+          [endPlaceholder]="'Display to'"
+          [placeholderColumn]="true"
+          (onDateUpdate)="handleDateUpdate($event)">
+        </date-range>
+      </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons
+    #actionButtons
+    *ngIf="module"
+    [validateHandler]="isValidModule"
+    [fieldOrItemName]="'title'"
+    [collection]="module"
+    [showRemoveButton]="false"
+    (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

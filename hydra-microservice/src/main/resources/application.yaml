@@ -1,0 +1,25 @@
+
+spring:
+
+  application.name: hydra
+
+  cloud:
+    discovery.enabled: false
+    config.discovery.enabled: true
+
+management:
+
+  endpoints:
+    web:
+      base-path: /actuator # un-set by default. used for security.
+      path-mapping:
+        health: /health
+        info: /info
+
+  endpoint:
+    health:
+      show-details: always
+
+server:
+  port: 8080
+  forward-headers-strategy: framework

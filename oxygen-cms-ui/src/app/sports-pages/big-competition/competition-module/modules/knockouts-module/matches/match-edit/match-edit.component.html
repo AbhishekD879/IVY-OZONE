@@ -1,0 +1,121 @@
+<breadcrumbs *ngIf="module" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+
+<div class="card" *ngIf="module">
+  <div class="header">
+    <h2 class="has-activity-badge">Competition Module: <span class="font-italic">{{ module.name }}</span></h2>
+    <create-updated-at-by class="has-activity-badge" [collection]="module"></create-updated-at-by>
+    <header-activity-badge [state]="!module.enabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="!moduleNotFound">
+  <div class="body">
+    <form [formGroup]="form" id="knockouts-matches">
+      <div mat-dialog-content>
+        <div class="row clearfix">
+          <div class="col-md-8 m-b-10 m-t-10">
+            <mat-form-field class="full-width">
+              <input matInput type="number" placeholder="Event Id"
+                     formControlName="eventId" (keyup)="getSSEvent($event, false, null)" (blur)="checkForErrors()">
+            </mat-form-field>
+          </div>
+          <div class="col-md-4 m-b-10 m-t-10 custom-form-clearfix">
+            <button mat-button class="btn btn-sm bg-teal float-right m-l-10" (click)="getSSEvent(false, true, eventId.value);"
+                    [disabled]="!eventId.value || (eventId.errors && eventId.errors.invalid)">Upload Event Data
+            </button>
+          </div>
+          <div class="col-md-12">
+            <mat-form-field class="full-width">
+              <input matInput type="text" placeholder="Event name"
+                     formControlName="eventName" trim="blur">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 m-b-10 m-t-10">
+            <mat-form-field class="full-width">
+              <input matInput type="text" placeholder="Home Team Name"
+                     formControlName="homeTeam" trim="blur">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 m-b-10 m-t-10">
+            <mat-form-field class="full-width">
+              <input matInput type="text" placeholder="Home Team Remark"
+                     formControlName="homeTeamRemark" trim="blur">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 m-b-10 m-t-10">
+            <mat-form-field class="full-width">
+              <input matInput type="text" placeholder="Away Team Name"
+                     formControlName="awayTeam" trim="blur">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 m-b-10 m-t-10">
+            <mat-form-field class="full-width">
+              <input matInput type="text" placeholder="Away Team Remark"
+                     formControlName="awayTeamRemark" trim="blur">
+            </mat-form-field>
+          </div>
+          <div class="col-md-12">
+            <mat-form-field class="full-width">
+              <input matInput type="text" placeholder="Venue"
+                     formControlName="venue" trim="blur">
+            </mat-form-field>
+            <date-time-inputs #dateTime class="full-width"
+                              [isSetDateButtons]="true"
+                              [placeholderColumn]="true"
+                              [validationError]="errorMessage"
+                              [placeholder]="'Select start date and time'"
+                              (outputIsoTime)="getConvertedDate($event)">
+            </date-time-inputs>
+
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Specify round" (selectionChange)="onChange()" formControlName="round" required>
+                <mat-option *ngFor="let roundName of roundNames" [value]="roundName">
+                  {{roundName}}
+                </mat-option>
+              </mat-select>
+              <mat-hint class="col-red" *ngIf="formRound.invalid && (formRound.dirty || formRound.touched)">
+                <div *ngIf="formRound.errors.required">
+                  Field is required.
+                </div>
+              </mat-hint>
+            </mat-form-field>
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Abbreviation of Round" formControlName="abbreviation" required>
+                <mat-option *ngFor="let abbr of abbreviationOptions" [value]="abbr">
+                  {{abbr}}
+                </mat-option>
+              </mat-select>
+              <mat-hint class="col-red" *ngIf="abbreviation.invalid && (abbreviation.dirty || abbreviation.touched)">
+                <div *ngIf="abbreviation.errors.required">
+                  Field is required.
+                </div>
+                <div *ngIf="abbreviation.errors.unique">
+                  Abbreviations already in use.
+                </div>
+              </mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<action-buttons
+  *ngIf="module"
+  #actionButtons
+  [form]="form"
+  [fieldOrItemName]="'abbreviation'"
+  [collection]="getMatch()"
+  (actionsEmitter)="actionsHandler($event);"></action-buttons>
+
+<div class="card" *ngIf="moduleNotFound">
+  <div class="header">
+    <h2>Failed to Load Module Data</h2>
+  </div>
+  <div class="body">
+    <a href="/sports-pages/big-competition">
+      <span>Back to Competitions Page</span>
+    </a>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<breadcrumbs *ngIf="onBoardingGuide" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="onBoardingGuide">
+  <div class="header">
+    <h2 class="has-activity-badge">On Boarding Guide:
+      <span class="font-italic">{{onBoardingGuide.guideName}}</span>
+      <create-updated-at-by [collection]="onBoardingGuide"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="!onBoardingGuide.enabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="onBoardingGuide">
+  <form [formGroup]="form" novalidate>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-12">
+          <mat-checkbox color="primary"
+                        [checked]="onBoardingGuide.enabled"
+                        (change)="onBoardingGuide.enabled=!onBoardingGuide.enabled"> Active</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Title
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Guide Name" [(ngModel)]="onBoardingGuide.guideName" formControlName="name" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <cms-upload
+            [label]="'SVG'"
+            [filename]="onBoardingGuide.svgFilename"
+            (onImageUpload)="uploadSVGHandler($event)"
+            (onImageRemove)="removeSVGHandler()">
+          </cms-upload>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="onBoardingGuide"
+  [form]="form"
+  [fieldOrItemName]="'guideName'"
+  [collection]="onBoardingGuide"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>
+

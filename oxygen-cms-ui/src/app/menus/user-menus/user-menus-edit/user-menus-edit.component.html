@@ -1,0 +1,108 @@
+<breadcrumbs *ngIf="userMenu" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="userMenu">
+  <div class="header">
+    <h2 class="has-activity-badge">Header Menu:
+      <span class="font-italic">{{userMenu.linkTitle}}</span>
+      <create-updated-at-by [collection]="userMenu"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="userMenu.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="userMenu">
+  <form [formGroup]="form" novalidate>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-checkbox color="primary" formControlName="disabled"
+                        (change)="userMenu.disabled=!userMenu.disabled">Active</mat-checkbox>
+        </div>
+        <div class="col-md-6">
+          <mat-checkbox color="primary"
+          (change)="userMenu.activeIfLogout=!userMenu.activeIfLogout"
+          formControlName="activeIfLogout">Active if logout</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Link Title
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Link Title" [(ngModel)]="userMenu.linkTitle" formControlName="linkTitle" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Target Uri
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Target Uri" [(ngModel)]="userMenu.targetUri" formControlName="targetUri" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <cms-upload
+            [filename]="userMenu.filename"
+            (onImageUpload)="uploadFileHandler($event)"
+            (onImageRemove)="removeFileHandler()">
+          </cms-upload>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <cms-upload
+            [label]="'SVG Filename'"
+            [filename]="userMenu.svgFilename"
+            (onImageUpload)="uploadSvgHandler($event)"
+            (onImageRemove)="removeSvgHandler()">
+          </cms-upload>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            QA
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="QA" formControlName="qa" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Show Item For
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Show Item For" (selectionChange)="onShowModeChanged($event)" formControlName="showUserMenu">
+              <mat-option *ngFor="let mode of showModes" [value]="mode">
+                {{ mode | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="userMenu"
+  [form]="form"
+  [fieldOrItemName]="'linkTitle'"
+  [collection]="userMenu"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

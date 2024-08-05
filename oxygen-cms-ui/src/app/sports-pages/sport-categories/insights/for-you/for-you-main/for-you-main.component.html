@@ -1,0 +1,64 @@
+    <breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+    <div class="card" *ngIf="forYouBets">
+      <div class="header">
+        <h2 class="waves-effect waves-block">
+          Sport Tab: {{forYouBets.trendingTabName}}
+          <create-updated-at-by [collection]="forYouBets"></create-updated-at-by>
+        </h2>
+        <header-activity-badge [state]="!forYouBets.enabled"></header-activity-badge>
+      </div>
+    </div>
+    <div class="card" *ngIf="forYouBets" >
+      <div class="body">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-checkbox color="primary" [checked]="forYouBets.enabled" (change)="forYouBets.enabled =!forYouBets.enabled"
+              [disabled]="isUntiedSport">
+              Enabled
+            </mat-checkbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">
+              Tab Name
+            </span>
+          </div>
+          <div class="col-md-10">
+            <mat-form-field class="full-width" >
+              <input matInput placeholder="Name" [value]="'For you'" disabled required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">
+              Tab Display Name
+            </span>
+          </div>
+          <div class="col-md-10">
+            <mat-form-field class="full-width" [ngClass]="{'mat-form-field-invalid': !forYouBets.trendingTabName || forYouBets.trendingTabName.length > 15}">
+              <input matInput placeholder="Display Name" [(ngModel)]="forYouBets.trendingTabName" [value]="forYouBets.trendingTabName"
+                required trim="blur" [disabled]="isUntiedSport">
+              <mat-hint class="col-red" *ngIf="!forYouBets.trendingTabName">Tab Display Name should be entered</mat-hint>
+              <mat-hint class="col-red" *ngIf="forYouBets.trendingTabName.length >15">Tab Display Name should be max 15 characters</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+        <div class="body">
+            <cms-data-table [customTableData]="foryouSportTable" 
+              [customTableColumns]="dataTableColumns"
+              [reorder]="false" 
+              [actions]="['edit']"
+              (onElementsOrder)="sportTabReorderHandler($event)">
+            </cms-data-table>
+        </div>
+    </div>
+ 
+<action-buttons #actionButtons *ngIf="sportTab" [fieldOrItemName]="'displayName'" [validateHandler]="isValidForm"
+[collection]="sportTab"  [showRemoveButton]="false" (actionsEmitter)="actionsHandler($event);"></action-buttons>
+ 

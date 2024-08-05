@@ -1,0 +1,65 @@
+@import 'global.variables.scss';
+$IGraySemiMediumLightB:  #efefef;
+.outer-div {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  zoom: normal;
+  aspect-ratio: 100/11;
+}
+
+.text-title{
+  font-weight: 700;
+  font-size: 2.25em;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  color: #2E55A2;
+}
+
+.header-color{
+  background: linear-gradient(177.35deg, #DADEEA 16.52%, #BDCBF5 82.61%);
+
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+}
+:host ::ng-deep featured-module .header-panel {
+  display: none;
+}
+:host ::ng-deep .flag,
+:host ::ng-deep .flag-icon {
+  display: inline;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 0.5px solid $IGraySemiMediumLightB;
+}
+:host ::ng-deep .show-all-button {
+  background: $color-white;
+}
+:host ::ng-deep .surface-bets-container {
+  .header-background{
+    right: -1px !important;
+    margin-top: -1px;
+  }
+  .left-side {
+    margin-left: -1px;
+    margin-top: -1px;
+  }
+  .surface-bet-bg-image,
+  .surface-bet-header {
+    border: 1px solid $color-yellow-alt;
+  }
+}
+:host ::ng-deep competition-outrights{
+  & .accordion-header{
+    padding:10px !important;
+   }
+ & .chevron{
+  left: -9px;
+ }
+}

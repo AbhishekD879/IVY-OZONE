@@ -1,0 +1,210 @@
+@import 'global.variables.scss';
+@import '../../../../../app/quickbet/components/quickbetSelection/quickbet-selection.component.scss';
+
+.quickbet-content {
+  padding: 12px 16px 8px;
+
+  .qb-content-info {
+    &.odd-boost-active {
+      width: 50%;
+    }
+    .outcome-name {
+      font-size: 15px;
+      font-family: inherit;
+      color: $lBlack-medium;
+      text-overflow: ellipsis;
+      margin:0 !important;
+    }
+  }
+
+  .market-name {
+    
+    margin-bottom: 2px;
+    color: #777;
+font-family: Helvetica Neue;
+font-size: 12px !important;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+  }
+
+  .event-name {
+   
+    color: #2B2B2B;
+font-family: Helvetica Neue;
+font-size: 12px !important;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+  }
+
+  .qb-stake-section {
+    @include flex-direction(column);
+
+    .qb-odds-stake-wrapper {
+      @include display-flex;
+      @include justify-content(flex-end);
+      @include align-items(baseline);
+      width: 100%;
+    }
+
+    .odds-value {
+      font-size: 15px;
+      font-weight: normal;
+      color: $lBlack-medium;
+      &.crossed {
+        font-family: $alt-font-family;
+        font-size: $qb-medium-font-size;
+        color: $color-gray-disabled;
+      }
+    }
+
+    .stake {
+      margin-bottom: 11px;
+
+      .stake-input {
+        padding-left: 22px;
+        color: $lBlack-medium;
+        width:82px;
+        height:36px;
+        &.dk-active-input,
+        &:focus {
+          border: $bs-stake-input-border-focused;
+          box-shadow: $bs-stake-input-shadow-focused-out, $bs-stake-input-shadow-focused-in;
+         
+        }
+      }
+    }
+  }
+
+  .each-way {
+    @include display-flex;
+    @include justify-content(flex-end);
+    margin-top: 0;
+    margin-bottom: 15px;
+    width: 100%;
+    position: relative;
+
+    .each-way-highlight {
+      padding: 7px 6px;
+      background: #EFEFF3;
+      display: flex;
+      flex-direction: row;
+      height: 28px;
+      border-radius: 2px;
+      height: 28px;
+    }
+
+    .each-way-label {
+      color: $lBlack-light;
+      margin-right: 6px;
+      line-height: 15px;
+    }
+
+    .each-way-checkbox:checked + label,
+    .each-way-checkbox:not(:checked) + label {
+      padding-left: 20px;
+      right: 0;
+      top: -3px;
+      margin: 0;
+    }
+
+    .each-way-checkbox:not(:checked) + label:before,
+    .each-way-checkbox:checked + label:before {
+      background: $lGray-bg;
+      border: 1px solid $color-gray-silver;
+    }
+
+    .each-way-checkbox:not(:checked) + label:after,
+    .each-way-checkbox:checked + label:after {
+     left: 4px;
+     top: 5px;
+     width: 12px;
+     height: 7px;
+    }
+  }
+
+  .quickbet-sectionwrap {
+    ::ng-deep {
+      p.yourcall-selection span {
+        color: $lBlack-light;
+        font-family: $alt-font-family;
+        font-size: 12px;
+        strong {
+          color: $color-gray-darkest;
+          font-size: $font-size-bit-lgr;
+        }
+      }
+    }
+  }
+}
+
+.deposit-info-msg {
+  padding: 10px 16px 11px;
+  border-bottom: 1px solid $lGrayLight;
+  border-top: 1px solid $lGrayLight;
+  @include display-flex();
+  @include align-items(center);
+  @include justify-content(center);
+
+  svg {
+    @include flex-shrink(0);
+    width: 16px;
+    height: 16px;
+  }
+
+  p {
+    margin: 0 0 4px 6px;
+    font-size: 12px !important;
+    color: $color-gray-darkest !important;
+    line-height: 14px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.twoUpMarketContent {
+  margin-top: 3px;
+}
+.blank-info{
+  height:20px;
+}
+
+// samsung8,9, oneplus nord and IOS 6  devices design issue reslove by @media query 
+@media screen and ( max-width: 420px ) {
+  ::ng-deep {
+    .yc-content-info {
+      flex: 1 1 !important;
+    }
+  }
+}
+.extraplacesignpostOffer_lads{
+  padding: 2px 6px;
+  background: $color-yellow-alt;
+  text-transform: uppercase;
+  border-radius: 2px;
+ @include setFontProps('Roboto Condensed',10px,700,$extraPlaceMsg-color);
+   width: fit-content;
+  margin: 6px 0px;
+  line-height: 12px;
+/* identical to box height */
+
+text-transform: uppercase;
+   @media #{$mqMobile} { 
+    width: fit-content;
+  }
+}
+
+.qb-right-cta-btn-ld{
+  text-transform: uppercase;
+  width:100%;
+  border-radius: 2px;
+  font-size: 15px;
+  font-weight: 700;
+  height: 44px;
+  color: $color-white;
+  background: $color-green;
+  border: none;
+}

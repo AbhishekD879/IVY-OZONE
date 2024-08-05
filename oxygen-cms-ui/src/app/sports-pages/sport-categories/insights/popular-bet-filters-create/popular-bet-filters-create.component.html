@@ -1,0 +1,67 @@
+<!-- Filter Table Popup-->
+<div class="custom-dialog">
+  <div class="header" mat-dialog-title>
+    <h4>Create {{dialog.title}} <span class="font-italic"> </span></h4>
+  </div>
+
+  <div class="card" *ngIf="popularBetsSportObj">
+    <div class="body">
+      <div class="row clearfix">
+        <div class="col-md-12 ">
+          <mat-checkbox color="primary" [disabled]="false" [checked]="popularBetsSportObj.isEnabled"
+            (change)="isEnabledSportFilter($event)">
+            Enabled
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-3">
+          <span class="mat-label">Display Name:</span>
+        </div>
+        <div class="col-md-9">
+          <mat-form-field class="full-width">
+            <input matInput type="text" placeholder="Display Name" [(ngModel)]="popularBetsSportObj.displayName"
+                required trim="blur" autocomplete="off">
+              <mat-hint class="col-red" *ngIf="popularBetsSportObj.displayName.length === 0">DisplayName should be entered</mat-hint>
+              <mat-hint class="col-red" *ngIf="popularBetsSportObj.displayName.length > 15">Max 15 characters
+                allowed</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-3 mat-label">
+          <span class="mat-label"> {{dialog.title === 'Backed In Last Filter' ? 'Hours/Minutes:' : 'Hours:'}}</span>
+        </div>
+        <div class="col-md-4 mat-label" style="width:20px">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Select any value" (selectionChange)="setHoursMinFormData($event)"  [(value)]="hoursOrMinutes" required>
+              <mat-option  *ngIf="dialog.title === 'Backed In Last Filter'" value="30m">30m</mat-option>
+              <mat-option value="1h">1h</mat-option>
+              <mat-option value="3h">3h</mat-option>
+              <mat-option value="12h">12h</mat-option>
+              <mat-option value="24h">24h</mat-option>
+              <mat-option value="48h">48h</mat-option>
+            </mat-select>
+          <mat-hint class="col-red" *ngIf="popularBetsSportObj.time === 0 && dialog.title === 'Backed In Last Filter'">Hours/Minutes field should be selected</mat-hint>
+          <mat-hint class="col-red" *ngIf="(popularBetsSportObj.time === 0) && !(dialog.title === 'Backed In Last Filter')">Hours field should be selected</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-12 ">
+          <mat-checkbox color="primary"  
+            [disabled]="!defaultCheckBoxHandler"        
+            [checked]="popularBetsSportObj.isDefault"
+            (change)="defaultPropertyHandler($event)"> <strong> Make this filter as default filter</strong>             
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button type="reset" class="btn btn-default m-r-20 float-right" (click)="cancel()">Cancel</button>
+    <button mat-button type="submit" class="btn btn-sm bg-teal float-right" [disabled]="!popularBetsFilterValid() || isValueChange"
+        [mat-dialog-close]="popularBetsSportObj" [textContent]="btnTitle"></button>
+  </div>
+</div>

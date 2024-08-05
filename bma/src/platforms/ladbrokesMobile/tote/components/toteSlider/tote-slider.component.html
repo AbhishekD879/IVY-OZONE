@@ -1,0 +1,22 @@
+<ng-container *ngIf="targetTab?.interstitialBanners?.bannerEnabled && eventsData?.length && isDisplayBanner(moduleTitle)">
+  <lazy-component
+    moduleUri="@lazy-modules-module/virtualEntryPointBanner/virtual-entry-point-banner.module#VirtualEntryPointBannerModule"
+    entryComponent="VirtualEntryPointBannerComponent"
+    [inputs]="{targetTab: targetTab,isUnTiedSport:true,sportName : sportName}">
+  </lazy-component>
+</ng-container>
+
+<accordion *ngIf="eventsData?.length"
+           [isExpanded]="isExpanded"
+           (function)="trackModule(sectionTitle, sportName)"
+           data-crlat="outerAccordion"  class="outerAccordionFeatured">
+  <left-side>
+    <span class="left-title-text" [textContent]="moduleTitle"  data-crlat="headerTitle.leftMessage"></span>
+  </left-side>
+  <accordion-body>
+    <racing-panel [title]="'tt.toteEvents'"
+                  [events]="eventsData"
+                  (clickFunction)="clickEvent($event)"
+                  *ngIf="eventsData.length"></racing-panel>
+  </accordion-body>
+</accordion>

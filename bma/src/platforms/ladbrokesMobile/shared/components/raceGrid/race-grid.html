@@ -1,0 +1,8 @@
+<racing-panel *ngFor="let meeting of meetings; trackBy: trackById;"
+              [events]="orderEvents(meeting)"
+              [groupFlag]="racingGroupFlag"
+              [isShowName]="false"
+              [isTote]="isTote"
+              [title]="meeting.name">
+  <watch-label header data-crlat="raceGrid.iconStream" *ngIf="meeting.liveStreamAvailable"></watch-label>
+</racing-panel>

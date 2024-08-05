@@ -1,0 +1,29 @@
+<div class="odds-card desktop-sport-card outright-sport-card" (click)="goToEvent(false, $event)"
+     [attr.data-eventid]="event.id" data-crlat="eventId">
+  <div class="odds-content-right">
+    <div class="odds-content" data-crlat="oddsContent">
+      <div class="odds-names" data-crlat="oddsNames" [textContent]="eventName"></div>
+    </div>
+    <div class="odds-footer" data-crlat="oddsFooter">
+      <div class="odds-left" data-crlat="oddsLeft">
+        <svg class="odds-live" data-crlat="oddsLive" *ngIf="isLive">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#live-label"></use>
+        </svg>
+      <div class="odds-stream-container" *ngIf="isStream">
+        <div class="odds-devider" *ngIf="isLive">|</div>
+        <span [i18n]="'sb.watchLive'" data-crlat="watchLive"></span>
+        <svg class="odds-icon-stream" data-crlat="streamIcon">
+          <use xlink:href="#stream"></use>
+        </svg>
+      </div>
+        <!-- Promotional signposting -->
+        <promotion-icon [type]="'event'"
+                        [display]="event.drilldownTagNames"
+                        [typeId]="event.typeId"
+                        [mode]="'sm'"
+                        data-crlat="promotionIcons">
+        </promotion-icon>
+      </div>
+    </div>
+  </div>
+</div>

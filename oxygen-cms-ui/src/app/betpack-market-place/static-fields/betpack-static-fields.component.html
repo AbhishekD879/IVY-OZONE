@@ -1,0 +1,759 @@
+<div>
+<form [formGroup]="bpLables">
+    <div class="card">
+        <p class="has-activity-badge" style="margin: 10px 15px;">Featured BetPack Background Image</p>
+        <div class="body">
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">
+                        Featured Bet pack Background Image:
+                    </span>
+                </div>
+                <div class="col-md-5">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Background Image" formControlName="backgroundImageFileName" trim="blur"
+                            name="backgroundImgFileName">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <div style="display:none;">
+                        <input id="upload-splash-page" (change)="prepareToUploadFile($event)" type="file" value="upload" />
+                    </div>
+                    <button type="button" (click)="handleUploadImageClick($event)"
+                        class="change-splash-image-btn btn bg-teal waves-effect" style="margin-right: 15px;">Upload
+                        File</button>
+                    <button type="button" (click)="removeMainImage($event)"
+                        class="splash-image-btn btn bg-red waves-effect">Remove File</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="header">
+            <h2 class="has-activity-badge">BetPack Static Fields
+                <create-updated-at-by [collection]="bpLables.value"></create-updated-at-by>
+            </h2>
+        </div>
+    </div>
+    <div class="card">
+        <div class="header">
+            <div class="col-md-8 p-0">
+                BetPack Lables
+            </div>
+
+        </div>
+        <div class="body">
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">
+                        Buy CTA Button Label:
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Buy Button Label" required formControlName="buyButtonLabel" trim="blur"
+                            name="buyButtonLabel">
+                        <mat-error *ngIf=" bpControls.buyButtonLabel.errors?.required">
+                            This Buy Button Label Should be filled</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">
+                        Buy Betpack title label:
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Buy BetPack Label" required trim="blur" name="buyBetPackLabel"
+                            formControlName="buyBetPackLabel" maxLength="20">
+                        <mat-error
+                            *ngIf=" bpControls.buyBetPackLabel.errors?.required||bpControls.buyBetPackLabel.errors?.maxlength">
+                            This Buy BetPack Label Should be filled with max of 20 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.buyBetPackLabel.length || 0}} /20</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">
+                        Go to My Bets Packs CTA Label:
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="gotoMyBetPacksLabel" placeholder="Go to My Bets Packs Label"
+                            required trim="blur" name="gotoMyBetPacksLabel" maxlength="50">
+                        <mat-error
+                            *ngIf=" bpControls.buyBetPackLabel.errors?.required||bpControls.buyBetPackLabel.errors?.maxLength">
+                            This Go To MyBetPack Label Should be filled with max of 50 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.gotoMyBetPacksLabel.length || 0}} /50</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">My Bet Packs title Label:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="betPackReview" required trim="blur" name="betPackReview"
+                            placeholder="Bet Pack Review Area Label" maxLength="20">
+                        <mat-error
+                            *ngIf="bpControls.betPackReview.errors?.required|| bpControls.betPackReview.errors?.maxlength">
+                            This betpack review area Label Should be filled with max of 20 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.betPackReview?.length || 0}} /20</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">More Info CTA Label:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="moreInfoLabel" required trim="blur" name="moreInfoLabel"
+                            placeholder="More Info Label">
+                        <mat-error *ngIf="bpControls.betPackMarketplacePageTitle.errors?.required">
+                            This more info Label Should be filled</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Buy Now CTA Label:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="buyNowLabel" required trim="blur" name="buyNowLabel"
+                            placeholder="Buy Now label" maxLength="20">
+                        <mat-error
+                            *ngIf="bpControls.buyNowLabel.errors?.required || bpControls.buyNowLabel.errors?.maxlength">
+                            This buy now Label Should be filled with max of 20 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.buyNowLabel.length || 0}} /20</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Review Area Go Betting CTA Label:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="reviewGoToBettingLabel" placeholder="Review Go Betting Label"
+                            required trim="blur" name="reviewGoToBettingLabel" maxlength="20">
+                        <mat-error
+                            *ngIf="bpControls.reviewGoToBettingLabel.errors?.required || bpControls.reviewGoToBettingLabel.errors?.maxlength">
+                            This review go to betting Label Should be filled with max of 20 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.reviewGoToBettingLabel?.length || 0}} /20</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Max Purchased Label:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="maxPurchasedLabel" required trim="blur" name="maxPurchasedLabel"
+                            placeholder="Max Purchased Label" maxLength="25">
+                        <mat-error
+                            *ngIf="bpControls.maxPurchasedLabel.errors?.required|| bpControls.maxPurchasedLabel.errors?.maxlength">
+                            This max purchased Label Should be filled with max of 25 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.maxPurchasedLabel?.length || 0}} /25</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Max N Label:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="maxOnePurchasedLabel" placeholder="Max N Label" required
+                            trim="blur" name="maxOnePurchasedLabel" maxLength="25">
+                        <mat-error
+                            *ngIf="bpControls.maxOnePurchasedLabel.errors?.required|| bpControls.maxOnePurchasedLabel.errors?.maxlength">
+                            This max N purchasedLabel Should be filled with max of 25 character</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.maxOnePurchasedLabel?.length || 0}} /25</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Limited Availability Label:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="limitedLabel" required trim="blur" name="limitedLabel"
+                            placeholder="Limited Availability Label" maxLength="25">
+                        <mat-error
+                            *ngIf="bpControls.limitedLabel.errors?.required|| bpControls.limitedLabel.errors?.maxlength">
+                            This limited Label Should be filled with max of 25 character</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.limitedLabel?.length || 0}} /25</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Sold Out Label:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="soldOutLabel" required trim="blur" name="soldOutLabel"
+                            placeholder="Sold Out Label" maxLength="25">
+                        <mat-error
+                            *ngIf="bpControls.soldOutLabel.errors?.required|| bpControls.soldOutLabel.errors?.maxlength">
+                            This sold out Label Should be filled with max of 25 character</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.soldOutLabel?.length || 0}} /25</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Ending Soon Label:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="endingSoonLabel" placeholder="Ending Soon Label" required
+                            trim="blur" name="endingSoonLabel" maxLength="25">
+                        <mat-error
+                            *ngIf="bpControls.endingSoonLabel.errors?.required|| bpControls.endingSoonLabel.errors?.maxlength">
+                            This ending soon Label Should be filled with max of 25 character</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.endingSoonLabel?.length || 0}} /25</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Expires In Label:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="expiresInLabel" placeholder="Expires In Label" required trim="blur"
+                            name="expiresInLabel" maxLength="25">
+                        <mat-error
+                            *ngIf="bpControls.expiresInLabel.errors?.required|| bpControls.expiresInLabel.errors?.maxlength">
+                            This expires Label Should be filled with max of 25 character</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.expiresInLabel?.length || 0}} /25</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Ended Label:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="endedLabel" required trim="blur" name="endedLabel"
+                            placeholder="Ended Label" maxLength="25">
+                        <mat-error *ngIf="bpControls.endedLabel.errors?.required|| bpControls.endedLabel.errors?.maxlength">
+                            This ended Label Should be filled with max of 25 character</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.endedLabel?.length || 0}} /25</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Coming Soon Label:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="comingSoon" required trim="blur" name="comingSoon"
+                            placeholder="Coming Soon Label" maxLength="25">
+                        <mat-error *ngIf="bpControls.comingSoon.errors?.required|| bpControls.comingSoon.errors?.maxlength">
+                            This Coming Soon Label Should be filled with max of 25 character</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.comingSoon?.length || 0}} /25</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Coming Soon SVG:</span>
+                </div>
+                <div class="col-md-8">
+                    <svg-icon-select-input
+                    [formFieldsModels]="comingSoonSVG"
+                    [externalForm]="bpLables"
+                    [controlName]="'comingSoonSvg'"
+                    ></svg-icon-select-input>
+                    <mat-error *ngIf="bpControls.comingSoonSvg.touched&& bpControls.comingSoonSvg.errors?.required">
+                        This Coming Soon SVG Should be filled</mat-error>
+                        <mat-error *ngIf="bpControls.comingSoonSvg.errors?.pattern">
+                            spaces and special characters are not allowed except(._-) </mat-error>
+                            <mat-error *ngIf="bpControls.comingSoonSvg.errors?.minlength">
+                                minimum value should be 3 characters </mat-error>
+                    <!-- <mat-form-field class="full-width">
+                        <input matInput formControlName="comingSoon" required trim="blur" name="comingSoon"
+                            placeholder="Ended Label" maxLength="25">
+                        <mat-error *ngIf="bpControls.comingSoon.errors?.required|| bpControls.comingSoon.errors?.maxlength">
+                            This Coming Soon Label Should be filled with max of 25 character</mat-error>
+                    </mat-form-field> -->
+                </div>
+                <!-- <div class="col-md-2 text-length">{{bpLables.value.comingSoon?.length || 0}} /25</div> -->
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Bet Pack Info Header Label:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="betPackInfoLabel" placeholder="BetPack Info" required trim="blur"
+                            name="betPackInfoLabel" maxlength="25">
+                        <mat-error
+                            *ngIf="bpControls.betPackInfoLabel.errors?.required|| bpControls.betPackInfoLabel.errors?.maxlength">
+                            This betpack info message Should be filled with max of 25 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.betPackInfoLabel?.length || 0}} /25</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Less Info CTA Label:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="lessInfoLabel" placeholder="Less Info" required trim="blur"
+                            name="lessInfoLabel">
+                        <mat-error *ngIf="bpControls.lessInfoLabel.errors?.required">
+                            This less info message Should be filled</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Featured Bet Bundles Title Label:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="featuredBetPackBackgroundLabel"
+                            placeholder="Featured BetPack Background Label" required trim="blur" maxLength="25"
+                            name="featuredBetPackBackgroundLabel">
+                        <mat-error
+                            *ngIf="bpControls.featuredBetPackBackgroundLabel.errors?.required ||  bpControls.featuredBetPackBackgroundLabel.errors?.maxlength">
+                            This Featured BetPack Background Label Should be filled with max of 25 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.featuredBetPackBackgroundLabel?.length || 0}} /25</div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="header">
+            <div class="col-md-8 p-0">
+                BetPack Error & Info Messages
+            </div>
+        </div>
+        <div class="body">
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">KYC Error Message:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="kycArcGenericMessage" placeholder="KYC Error Message" required
+                            trim="blur" name="kycArcGenericMessage">
+                        <mat-error *ngIf=" bpControls.kycArcGenericMessage.errors?.required">
+                            This kycArcGenericMessage Label Should be filled</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Generic Error Message:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="errorMessage" required trim="blur" name="errorMessage"
+                            maxlength="100" placeholder="Generic Error Message">
+                        <mat-error
+                            *ngIf=" bpControls.errorMessage.errors?.required|| bpControls.errorMessage.errors?.maxlength">
+                            This error message Should be filled with max of 100 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.errorMessag?.length || 0}} /100</div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Review Area Error Message:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="reviewErrorMessage" placeholder="Review Error Message" required
+                            trim="blur" name="reviewErrorMessage" maxLength="100">
+                        <mat-error
+                            *ngIf="bpControls.reviewErrorMessage.errors?.required || bpControls.reviewErrorMessage.errors?.maxlength">
+                            This review Error Message Should be filled with max of 100 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.reviewErrorMessage?.length || 0}} /100</div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Deposit Error Message:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="depositMessage" maxlength="100" placeholder="Deposit Message"
+                            required trim="blur" name="depositMessage" maxLength="100">
+                        <mat-error
+                            *ngIf="bpControls.depositMessage.errors?.required|| bpControls.depositMessage.errors?.maxlength">
+                            This deposit message Should be filled with max of 100 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.depositMessage?.length || 0}} /100</div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Bet Pack Success Header Message:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="betPackSuccessMessage" placeholder="BetPack Success Message"
+                            required trim="blur" name="betPackSuccessMessage" maxLength="50">
+                        <mat-error
+                            *ngIf="bpControls.betPackSuccessMessage.errors?.required ||  bpControls.betPackSuccessMessage.errors?.maxlength">
+                            This betpack success message Should be filled with max of 50 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.betPackSuccessMessage?.length || 0}} /50</div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="header">
+            <div class="col-md-8 p-0">
+                BetPack Tooltip Message
+            </div>
+        </div>
+        <div class="body">
+
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Max N Tool tip:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="maxOnePurchasedTooltip" placeholder="Max N Tooltip" required
+                            trim="blur" name="maxOnePurchasedTooltip" maxLength="100">
+                        <mat-error
+                            *ngIf="bpControls.maxOnePurchasedTooltip.errors?.required ||  bpControls.maxOnePurchasedTooltip.errors?.maxlength">
+                            This Max N Purchased Tooltip Should be filled with max 0f 100 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.maxOnePurchasedTooltip?.length || 0}} /100</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Max Purchased Tool Tip:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="maxPurchasedTooltip" placeholder="Max Purchased Tooltip" required
+                            trim="blur" name="maxPurchasedTooltip" maxLength="100">
+                        <mat-error
+                            *ngIf="bpControls.maxPurchasedTooltip.errors?.required ||  bpControls.maxPurchasedTooltip.errors?.maxlength">
+                            This Max Purchased Tooltip Should be filled with max of 100 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.maxPurchasedTooltip?.length || 0}} /100</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Limited Availability Tool Tip:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="limitedTooltip" placeholder="Limited Tooltip" required trim="blur"
+                            name="limitedTooltip" maxLength="100">
+                        <mat-error
+                            *ngIf="bpControls.limitedTooltip.errors?.required ||  bpControls.limitedTooltip.errors?.maxlength">
+                            This Limited Tooltip Should be filled with max of 100 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.limitedTooltip?.length || 0}} /100</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Expires in xx:xx Tool Tip:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="expiresInTooltip" placeholder="ExpiresIn Tooltip" required
+                            trim="blur" name="expiresInTooltip" maxLength="100">
+                        <mat-error
+                            *ngIf="bpControls.expiresInTooltip.errors?.required ||  bpControls.expiresInTooltip.errors?.maxlength">
+                            This expiresIn Tooltip Should be filled with max of 100 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.expiresInTooltip?.length || 0}} /100</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Ending Soon Tool Tip:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="endingSoonTooltip" placeholder="EndingSoon Tooltip" required
+                            trim="blur" name="endingSoonTooltip" maxLength="100">
+                        <mat-error
+                            *ngIf="bpControls.endingSoonTooltip.errors?.required ||  bpControls.endingSoonTooltip.errors?.maxlength">
+                            This endingSoon Tooltip Should be filled with max of 100 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.endingSoonTooltip?.length || 0}} /100</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Ended Tool Tip:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="endedTooltip" placeholder="Ended Tooltip" required trim="blur"
+                            name="endedTooltip" maxLength="100">
+                        <mat-error
+                            *ngIf="bpControls.endedTooltip.errors?.required ||  bpControls.endedTooltip.errors?.maxlength">
+                            This ended Tooltip Should be filled with max of 100 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.endedTooltip?.length || 0}} /100</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Sold Out Tool Tip:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="soldOutTooltip" placeholder="SoldOut Tooltip" required trim="blur"
+                            name="soldOutTooltip" maxLength="100">
+                        <mat-error
+                            *ngIf="bpControls.soldOutTooltip.errors?.required ||  bpControls.soldOutTooltip.errors?.maxlength">
+                            This soldOut Tooltip Should be filled with max 0f 100 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.soldOutTooltip?.length || 0}} /100</div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="header">
+            <div class="col-md-8 p-0">
+                <span>
+                   Titles & URL's
+                </span>
+            </div>
+    
+        </div>
+        <div class="body">
+    
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Use By:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="useByLabel" required trim="blur" name="useByLabel"
+                            placeholder="Use By" maxLength="15">
+                        <mat-error
+                            *ngIf=" bpControls.useByLabel.errors?.required|| bpControls.useByLabel.errors?.maxlength">
+                            This use buy Label Should be filled with max of 15 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.useByLabel?.length || 0}} /15</div>
+            </div>
+    
+    
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Bet Pack Marketplace page title:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="betPackMarketplacePageTitle"
+                            placeholder="Bet Pack Marketplace page title" required trim="blur"
+                            name="betPackMarketplacePageTitle" maxLength="30">
+                        <mat-error
+                            *ngIf="bpControls.betPackMarketplacePageTitle.errors?.required|| bpControls.betPackMarketplacePageTitle.errors?.maxlength">
+                            This betPackMarketplacePageTitle Should be filled with max of 30 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.betPackMarketplacePageTitle?.length || 0}} /30
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Bet Packs Empty Title:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="errorTitle" required trim="blur" name="errorTitle"
+                            placeholder="Error Title label" maxLength="50">
+                        <mat-error
+                            *ngIf="bpControls.errorTitle.errors?.required || bpControls.errorTitle.errors?.maxlength">
+                            This error title Should be filled with max of 50 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.errorTitle?.length || 0}} /50</div>
+            </div>
+    
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Review Area Error Title:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="reviewErrorTitle" placeholder="Review Error Title" required
+                            trim="blur" name="reviewErrorTitle" maxLength="50">
+                        <mat-error
+                            *ngIf="bpControls.reviewErrorTitle.errors?.required || bpControls.reviewErrorTitle.errors?.maxlength">
+                            This review error title Should be filled with max of 50 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.reviewErrorTitle?.length || 0}} /50</div>
+            </div>
+    
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Review Area Go Betting URL:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="reviewGoBettingURL" placeholder="Review Go Betting URL" required
+                            trim="blur" name="reviewGoBettingURL">
+                        <mat-error *ngIf="bpControls.reviewGoBettingURL.errors?.required">
+                            This review Go Betting URL Label Should be filled</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Go Betting URL:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="goBettingURL" required trim="blur" name="goBettingURL"
+                            placeholder="Go Betting URL">
+                        <mat-error *ngIf="bpControls.goBettingURL.errors?.required">
+                            This go betting URL Should be filled</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 d-flex">
+                    <mat-checkbox color="primary" formControlName="allFilterPillMessageActive" 
+                    >
+                    </mat-checkbox>
+                    <span class="mat-label px-1 my-0">ALL filter pill linked message:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="allFilterPillMessage" required trim="blur" name="allFilterPillMessage"
+                            placeholder="ALL filter pill linked message" maxLength="100">
+                        <mat-error
+                            *ngIf=" bpControls.allFilterPillMessage.errors?.required|| bpControls.allFilterPillMessage.errors?.maxlength">
+                            This use buy Label Should be filled with max of 100 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.allFilterPillMessage?.length || 0}} /100</div>
+            </div>
+    
+        </div>
+    </div>
+    <div class="card">
+        <div class="header">
+            <div class="col-md-8 p-0">
+                <mat-checkbox color="primary" formControlName="isDailyLimitBannerEnabled" class="mr-2">
+                </mat-checkbox>
+                <span>
+                    Activate Bet Pack Daily Limit Banner
+                </span>
+            </div>
+    
+        </div>
+        <div class="body">
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Max Bet Pack per day banner message:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="maxBetPackPerDayBannerLabel"
+                            placeholder="Max Bet Pack per day banner label" required trim="blur"
+                            name="maxBetPackPerDayBannerLabel" maxlength="100">
+                        <mat-error
+                            *ngIf="bpControls.maxBetPackPerDayBannerLabel.errors?.required ||  bpControls.maxBetPackPerDayBannerLabel.errors?.maxlength">
+                            This maxBetPackPerDayBanner Label Should be filled with max of 100 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.maxBetPackPerDayBannerLabel?.length || 0}} /100</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Bet Pack already purchased per day banner message:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="betPackAlreadyPurchasedPerDayBannerLabel"
+                            placeholder="Bet Pack already purchased per day banner label" required trim="blur"
+                            name="betPackAlreadyPurchasedPerDayBannerLabel" maxlength="100">
+                        <mat-error
+                            *ngIf="bpControls.betPackAlreadyPurchasedPerDayBannerLabel.errors?.required ||  bpControls.betPackAlreadyPurchasedPerDayBannerLabel.errors?.maxlength">
+                            This betPackAlreadyPurchasedPerDayBannerLabel Label Should be filled with max of 100 characters
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.betPackAlreadyPurchasedPerDayBannerLabel?.length || 0}}
+                    /100
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="header">
+            Routing Links Text
+        </div>
+        <div class="body">
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Route to Bet Bundle Review Page Text:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="goToReviewText" placeholder="Go To Review Text URL" required
+                            trim="blur" name="goToReviewText" maxlength="30">
+                        <mat-error
+                            *ngIf="bpControls.goToReviewText.errors?.required ||  bpControls.goToReviewText.errors?.maxlength">
+                            This Route Link Text Should be filled with max of 30 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.goToReviewText?.length || 0}} /30</div>
+            </div>
+    
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">Route to Bet Bundle Market Page Text:</span>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="goToBetbundleText" placeholder="Go To Betbundle Text" required
+                            trim="blur" name="goToBetbundleText" maxlength="30">
+                        <mat-error
+                            *ngIf="bpControls.goToBetbundleText.errors?.required ||  bpControls.goToBetbundleText.errors?.maxlength">
+                            This Route Link Text Should be filled with max of 30 characters</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-length">{{bpLables.value.goToBetbundleText?.length || 0}} /30</div>
+            </div>
+        </div>
+    </div>
+    <action-buttons *ngIf="hideAction" [fieldOrItemName]="'Labels'"
+    [showRemoveButton]="false" [collection]="bpLables.value" (actionsEmitter)="actionsHandler($event);" [form]="bpLables" >
+    </action-buttons>
+</form>
+</div>

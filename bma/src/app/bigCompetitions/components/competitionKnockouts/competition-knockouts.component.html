@@ -1,0 +1,15 @@
+<div class="knockouts-section">
+  <div class="knockouts-section-inner">
+    <div class="knockout-round-section"
+         *ngFor="let round of eventsByRound.roundNames; trackBy: trackByStatus; index as i"
+         [ngClass]="{'active-round': round.active }">
+      <div class="knockouts-section-header">
+        <span class="knockouts-section-title" [textContent]="round.name"></span>
+      </div>
+      <knockouts-round-winner [round]="round"
+                              [eventsByRound]="eventsByRound"
+                              [abbr]="eventsByRound.roundNames[i + 1]?.abbreviation">
+      </knockouts-round-winner>
+    </div>
+  </div>
+</div>

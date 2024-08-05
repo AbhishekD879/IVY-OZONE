@@ -1,0 +1,43 @@
+<div *ngIf="!ssError && !wsError.reconnectFailed" data-crlat="accordionsList">
+  <switchers [filter]="filter"
+             [switchers]="switchers"
+             [detectGTMLocation]="'sublocation'">
+  </switchers>
+
+  <ng-container *ngIf="eventsByGroups[filter]?.eventsBySports?.length" [lazyItems]="1"
+                [lazyStep]="1"
+                [(lazyLimitChange)]="limit"
+                [lazyRender]="eventsByGroups[filter].eventsBySports.length">
+  <accordion *ngFor="let eventsBySports of eventsByGroups[filter].eventsBySports | slice:0:limit; let i = index; trackBy: getSportTrackingId"
+             [accordionTitle]="eventsBySports.categoryName"
+             [isExpanded]="eventsBySports[expandedKey]"
+             (function)="toggleSport($event, eventsBySports)"
+             data-crlat="accordion">
+    <accordion-body *ngIf="eventsBySports[expandedKey]">
+      <div *ngIf="!eventsByGroups[filter].eventsBySports[i].eventsByTypeName.length" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+      <single-sport-section
+        *ngIf="eventsByGroups[filter].eventsBySports[i].eventsByTypeName.length"
+        [inner]="eventsBySports?.categoryId?.toString() !== HORSE_RACING_CATEGORY_ID"
+        [showExpanded]="showExpanded"
+        [eventsBySports]="eventsByGroups[filter].eventsBySports[i]"
+        [expandedLeaguesCount]="expandedLeaguesCount"
+        [filter]="filter"
+        [gtmModuleTitle]="eventsBySports.categoryName">
+      </single-sport-section>
+      <show-more-link [link]="getShowMoreLink(eventsBySports.sportUri)"
+                      [title]="getShowMoreTitle(eventsBySports.categoryName)" data-crlat="showMore"></show-more-link>
+    </accordion-body>
+  </accordion>
+  <div *ngIf="eventsByGroups[filter].eventsBySports.length > limit" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+  </ng-container>
+
+  <no-events *ngIf="showNoEventsSection(viewByFilters[0])" [message]="'inplay.noLiveEventsFound'" data-crlat="inplay.noLiveEvents"></no-events>
+  <no-events *ngIf="showNoEventsSection(viewByFilters[1])" [message]="'inplay.noUpcomingEventsFound'" data-crlat="noUpcommingEvents"></no-events>
+
+</div>
+
+<request-error *ngIf="ssError || wsError.reconnectFailed"
+               [loadFailed]="ssError || wsError.reconnectFailed"
+               (reloadFn)="reloadComponent()"
+               data-crlat="errorField">
+</request-error>

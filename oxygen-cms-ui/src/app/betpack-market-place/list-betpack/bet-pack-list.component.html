@@ -1,0 +1,31 @@
+<div class="card" *ngIf="isReady">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      BetPack HomePage
+      <small *ngIf="betPackData">Total active Betpacks: {{betPackAmount.active}}, Inactive Betpacks: {{betPackAmount.inactive}}</small>
+    </h2>
+  </div>
+</div>
+<div class="card">
+  <div class="body">
+    <div class="row clearfix">
+      <div class="col-md-3">
+        <button (click)="openCreateBetPack()" [disabled]="disableCreate" type="button"
+          class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create BetPack</span>
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="betPackData">
+      <cms-data-table [customTableData]="betPackData" [customTableColumns]="dataTableColumns"
+        [actions]="['remove','edit']" [reorder]="true" (onElementsOrder)="reorderHandler($event)"
+        [paginationLimit]="paginationLimit" (onRemoveTableElement)="removeBetPack($event)">
+      </cms-data-table>
+    </div>
+    <div *ngIf="getDataError">
+      Request Error
+    </div>
+  </div>
+</div>

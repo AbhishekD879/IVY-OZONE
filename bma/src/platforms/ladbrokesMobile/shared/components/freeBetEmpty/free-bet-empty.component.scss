@@ -1,0 +1,14 @@
+@import 'global.variables.scss';
+
+.empty-free-bet {
+    margin: 16px 0 12px;
+    .empty-free-bet-icon {
+        margin-bottom: 12px;
+    }
+    .empty-free-bet-value {
+        font-family: $alt-font-family;
+        height: 29px;
+        @include display-flex();
+        @include align-items();
+    }
+}

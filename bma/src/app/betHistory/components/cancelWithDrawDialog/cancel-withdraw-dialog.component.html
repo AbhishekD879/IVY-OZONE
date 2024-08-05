@@ -1,0 +1,27 @@
+<modal #cancelWithDrawDialog data-crlat="d.cancelWithDraw">
+  <ng-template #modalHeader>
+    <span data-crlat="dTitle" [i18n]="'bethistory.cancelWithdrawTitle'"></span>
+    <a data-uat="popUpCloseButton" class="btn-close" (click)="closeDialog()">
+      <svg>
+        <use xlink:href="#close-icon"></use>
+      </svg>
+    </a>
+  </ng-template>
+  <ng-template #modalBody>
+    <div data-uat="popUpText" class="container-content text-section">
+        <p class="text-center"><span [i18n]="'bethistory.cancelWithdrawMsg'"></span></p>
+        <div class="group-buttons">
+          <div class="group-btn" data-crlat="buttonGroup">
+            <div class="group-col group-default">
+              <a data-uat="popUpButton" (click)="closeDialog()" class="btn btn-style3 full-width" [i18n]="'bethistory.close'"
+              data-crlat="button.close"></a>
+            </div>
+            <div class="group-col group-default">
+              <a data-uat="popUpButton" (click)="params.confirm(); closeDialog();" class="btn btn-style1 full-width" [i18n]="'bethistory.confirm'"
+              data-crlat="button.confirm"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+  </ng-template>
+</modal>

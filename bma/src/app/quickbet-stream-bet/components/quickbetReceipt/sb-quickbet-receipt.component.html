@@ -1,0 +1,17 @@
+<div class="receipt-text">
+  <span class="sb-qb-betid-text" [i18n]="'quickbet.snbBetId'"></span>
+  <span [textContent]="receiptId"></span>
+</div>
+<div class="qb-successful-msg">
+  <div class="qb-msg-container">
+    <div class="green-tick">
+      <svg>
+        <use xlink:href="#tick"></use>
+      </svg>
+    </div>
+    <div [i18n]="'quickbet.snbSuccessMsg'" class="success-text"></div>
+  </div>
+</div>
+<button class="qb-done-cta-btn"
+        (click)="onQuickbetEvent()"
+        [i18n]="'quickbet.snbDone'"></button>

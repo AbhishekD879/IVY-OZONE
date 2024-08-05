@@ -1,0 +1,4 @@
+<div *ngIf="staticBlock" class="yourcall-static-block" [ngClass]="{'byb-static-block': !!minHeightByb }" data-crlat="yourcallStaticBlock">
+  <div [innerHtml]="staticBlock.htmlMarkup" class="yourcall-static-text" [ngStyle]="{'padding-top': !!minHeightByb ? '0px' : '15px', 'padding-bottom': !!minHeightByb ? '0px' : '15px'}" 
+  data-crlat="yourcallStaticText"></div>
+</div>

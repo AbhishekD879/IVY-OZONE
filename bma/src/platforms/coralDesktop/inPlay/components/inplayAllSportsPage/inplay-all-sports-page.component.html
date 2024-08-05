@@ -1,0 +1,14 @@
+<ng-container *ngIf="!state.loading && !state.error">
+  <div data-crlat="tabContent">
+    <multiple-sports-sections
+      [eventsByGroups]="data"
+      [expandedSportsCount]="expandedSportsCount"
+      [expandedLeaguesCount]="expandedLeaguesCount"
+      [viewByFilters]="viewByFilters"
+      [ssError]="ssError"
+      data-crlat="accordionsList">
+    </multiple-sports-sections>
+  </div>
+</ng-container>
+
+<outlet-status [state]="state"></outlet-status>

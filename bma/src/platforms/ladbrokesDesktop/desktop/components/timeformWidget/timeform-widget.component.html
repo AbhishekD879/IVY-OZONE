@@ -1,0 +1,46 @@
+<div class="tab-content timeform-widget">
+  <accordion *ngIf="timeformData"
+             [isExpanded]="true"
+             [headerClass]="timeformData ? 'secondary-header' : ''"
+             [isHeaderHidden]="false">
+    <left-side>
+      <span class="left-title-text">
+        <svg class="timeform-logo" data-crlat="timeform.logo">
+          <use xlink:href="#timeform-logo"></use>
+        </svg>
+      </span>
+    </left-side>
+    <right-side>
+      <span *ngIf="(timeformData && timeformData.winnerPrediction)" class="right-title-text timeform-prediction">
+        <span class="thin-text">
+          <span [i18n]="'racing.tf'"></span><span [i18n]="'racing.pick'"></span>
+        </span>
+        <span class="text-bold" [textContent]="timeformData.winnerPrediction.greyHoundFullName"></span>
+      </span>
+    </right-side>
+    <accordion-body>
+      <div class="timeform-widget-content">
+        <span [textContent]="timeformData.verdict"></span>
+      </div>
+      <div class="timeform-widget-positions" *ngIf="timeformData?.positions?.length">
+        <div class="greyhound-details" *ngFor="let greyhound of timeformData.positions; trackBy: trackByPosition">
+          <div class="position-logo" [ngClass]="getTimeFormClass(greyhound)">
+            <svg>
+              <use xlink:href="#greyhound-icon"></use>
+            </svg>
+          </div>
+          <div class="greyhound-name">
+            <span class="text-bold" [textContent]="greyhound.greyHoundFullName"></span>
+            <span [i18n]="'racing.trainer'"></span><b [textContent]="greyhound.trainer"></b>
+          </div>
+          <div class="greyhound-rating" data-crlat="greyhoundRating">
+            <b [i18n]="'racing.rating'" data-crlat="label"></b>
+            <svg *ngFor="let star of greyhound.stars; trackBy: trackByStar" data-crlat="value">
+              <use xlink:href="#star"></use>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </accordion-body>
+  </accordion>
+</div>

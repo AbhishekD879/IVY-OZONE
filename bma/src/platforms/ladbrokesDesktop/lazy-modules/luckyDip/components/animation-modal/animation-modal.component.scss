@@ -1,0 +1,78 @@
+
+@import 'global.variables.scss';
+
+:host {
+    ::ng-deep .modal {
+        background-color: black !important;
+        overflow-y: hidden;
+    }
+}
+
+:host {
+    ::ng-deep .modal {
+        width: auto;
+        height: 85%;
+        min-height: 80%;
+        border-radius: 10px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        top: 52%;
+        .modal-dialog {
+            margin: 0;
+            width: 100vh !important;
+            .modal-content {
+                .modal-header {
+                    display: none;
+                }
+                .modal-body {
+                    max-height: 100vh;
+                    overflow-y: hidden;
+                    height: 100vh;
+                    background-color: black;
+                     
+                    .playerCardDescriptionPotential {
+                        font-size: 23.408pt;
+                    }
+                    .outcomeValue {
+                        font-size: 30.235pt;
+                    }
+                    .playerName {
+                        font-size: 13.654pt;
+                    }
+                    .returnsDescription {
+                        font-size: 12pt;
+                        fill: black;
+                    }
+                    .amount {
+                        font-size: 31pt;
+                        fill: black;
+                    }
+                    .path {
+                        margin-top: 2%!important;
+                        fill: $color-white;
+                        font-weight: bold;
+                        font-family: $robo-font-family;
+                        text-transform: uppercase;
+                    }
+                    svg {
+                        height: 68vh;
+                    }
+                    .button.btn-secondary.lucky-dip {
+                        width: 54%;
+                        height: 9%;
+                        margin: 2% 19%;
+                        text-transform: uppercase;
+                        background: $color-green-cool;
+                        color: $sup-btn-font;
+                        font-size: 15px;
+                        border-radius: 2px;
+                        position: fixed;
+                        bottom: 2%;
+                        font-family: $robo-font-family;
+                        font-weight: 700;
+                    }
+                }
+            }
+        }
+    }
+}

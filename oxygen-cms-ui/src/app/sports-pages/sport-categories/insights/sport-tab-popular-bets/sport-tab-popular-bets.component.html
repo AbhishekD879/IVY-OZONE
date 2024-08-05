@@ -1,0 +1,493 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="sportTab">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Sport Tab: {{populrBetsData.trendingTabName}}
+      <create-updated-at-by [collection]="sportTab"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="!populrBetsData?.enabled"></header-activity-badge>
+  </div>
+</div>
+
+<form [formGroup]="form" *ngIf="sportTab && form" autocomplete="off">
+<div class="card" *ngIf="sportTab">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-checkbox color="primary" [checked]="populrBetsData.enabled" (change)="populrBetsData.enabled = !populrBetsData.enabled"
+          [disabled]="isUntiedSport">
+          Enabled
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Tab Name
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width" [ngClass]="{'mat-form-field-invalid': !sportTab.name}">
+          <input matInput placeholder="Name" [value]="sportTab.name" disabled required trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Tab Display Name
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !populrBetsData.trendingTabName || populrBetsData.trendingTabName.length > 15}">
+          <input matInput placeholder="Display Name" [(ngModel)]="populrBetsData.trendingTabName" [value]="populrBetsData.trendingTabName" formControlName="trendingTabName"
+            required trim="blur" [disabled]="isUntiedSport">
+          <mat-hint class="col-red" *ngIf="form.get('trendingTabName').errors?.required">Tab Display Name should be entered</mat-hint>
+          <mat-hint class="col-red" *ngIf="form.get('trendingTabName').value?.length > 15">Tab Display Name should be max 15 characters</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Popular bets static fields-->
+  <div class="card">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-12">
+          <h6>Popular Bets SubTab Headers</h6>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            SubTab Header Label
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="SubTab Header Label" required trim="blur" formControlName="headerDisplayName" [(ngModel)]="populrBetsData.popularTabs[0].headerDisplayName" >
+            <mat-hint class="col-red" *ngIf="form.get('headerDisplayName').invalid">
+              <div *ngIf="form.get('headerDisplayName').errors?.required"> SubTab Header Label should be entered </div>
+              <div *ngIf="form.get('headerDisplayName').value?.length > 15"> Can enter upto 15 charaters only. </div>
+          </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-12">
+          <h6>Popular Bets Configurations</h6>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Event Starting Within
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Event Starting Within" required trim="blur" formControlName="startsInText" [(ngModel)]="populrBetsData.popularTabs[0].startsInText">
+            <mat-hint class="col-red" *ngIf="form.get('startsInText').invalid">
+              <div *ngIf="form.get('startsInText').errors.required"> Event Starting Within should be entered </div>
+              <div *ngIf="form.get('startsInText').value.length > 25"> Can enter upto 25 charaters only. </div>
+          </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Backed In The Last
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Backed In The Last" required trim="blur" formControlName="backedInLastText" [(ngModel)]="populrBetsData.popularTabs[0].backedInLastText">
+            <mat-hint class="col-red" *ngIf="(form.get('backedInLastText').invalid)">
+              <div *ngIf="form.get('backedInLastText').errors.required"> Backed In The Last should be entered </div>
+              <div *ngIf="form.get('backedInLastText').value.length > 25"> Can enter upto 25 charaters only. </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Show more
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Show More" trim="blur" formControlName="showMoreText" [(ngModel)]="populrBetsData.popularTabs[0].showMoreText" required >
+            <mat-hint class="col-red" *ngIf="(form.get('showMoreText').invalid)">
+              <div *ngIf="form.get('showMoreText').errors.required"> Show more should be entered </div>
+              <div *ngIf="form.get('showMoreText').value.length > 15"> Can enter upto 15 charaters only. </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Show less
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Show Less" trim="blur" formControlName="showLessText" [(ngModel)]="populrBetsData.popularTabs[0].showLessText" required >
+            <mat-hint class="col-red" *ngIf="(form.get('showLessText').invalid)">
+              <div *ngIf="form.get('showLessText').errors.required"> Show less should be entered </div>
+              <div *ngIf="form.get('showLessText').value.length > 15"> Can enter upto 15 charaters only. </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <mat-checkbox color="primary" 
+          [checked]="populrBetsData.popularTabs[0].enableBackedUpTimes" 
+          (change)="populrBetsData.popularTabs[0].enableBackedUpTimes = !populrBetsData.popularTabs[0].enableBackedUpTimes">
+          Backed times enable/disable
+          </mat-checkbox>
+        </div>
+ 
+        <div class="col-md-6">
+          <mat-checkbox color="primary" 
+          [checked]="populrBetsData.popularTabs[0].enableArrowIcon" 
+          (change)="populrBetsData.popularTabs[0].enableArrowIcon = !populrBetsData.popularTabs[0].enableArrowIcon">
+          Arrow icons enable/disable
+          </mat-checkbox>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Backed in XXX Times!
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Backed in {n} Times" type="text" min="0" max="30" trim="blur" formControlName="backedUpTimesText" [(ngModel)]="populrBetsData.popularTabs[0].backedUpTimesText"required>
+            <mat-hint class="col-red" *ngIf="(form.get('backedUpTimesText').invalid)">
+              <div *ngIf="form.get('backedUpTimesText').errors.required"> Backed in XXX Times should  be entered </div>
+              <div *ngIf="form.get('backedUpTimesText').value.length > 30"> Can enter upto 30 charaters only. </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Information text description
+          </span>
+        </div>
+        <div class="col-md-12">
+          <tinymce-editor *ngIf="sportTab" #informationTextEditor class="tinymce-layout" [minEditorStyles]=true 
+            [pageName]="'informationTextDesc'" (outputEditorData)="updateInfoTxtData($event)"
+            [pageItemId]="sportTab.sportId" [initialEditorContent]="formControls.informationTextDesc?.value || ''">
+          </tinymce-editor>
+          <mat-hint class="col-red" *ngIf="formControls.informationTextDesc?.value.length ===0">
+            Information text description should  be entered</mat-hint>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Number of Popular Bets (Default)
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Number of Popular Bets (Default)" type="number" min= "1" formControlName="numbOfDefaultPopularBets"  [(ngModel)]="populrBetsData.popularTabs[0].numbOfDefaultPopularBets" required>
+            <mat-hint *ngIf="form.get('numbOfDefaultPopularBets').invalid">
+              <div class="col-red" *ngIf="form.get('numbOfDefaultPopularBets').errors.required">
+                Number of Popular Bets (Default) should  be entered</div>
+              <div class="col-red" *ngIf="form.get('numbOfDefaultPopularBets').errors.min">
+                Number of Popular Bets (Default) should  be greater than zero</div>
+              <div class="col-red" *ngIf="form.get('numbOfDefaultPopularBets').errors.max">
+                  Number of Popular Bets (Default) can be 10 max</div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Number of Popular Bets (ShowMore)
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Number of Popular Bets (ShowMore)" type="number" min= "1" trim="blur" formControlName="numbOfShowMorePopularBets" [(ngModel)]="populrBetsData.popularTabs[0].numbOfShowMorePopularBets" required>
+            <mat-hint *ngIf="form.get('numbOfShowMorePopularBets').invalid">
+              <div class="col-red" *ngIf="form.get('numbOfShowMorePopularBets').errors.required">
+                Number of Popular Bets (ShowMore) should  be entered</div>
+              <div class="col-red" *ngIf="form.get('numbOfShowMorePopularBets').errors.min">
+                Number of Popular Bets (ShowMore) should  be greater than zero</div>
+              <div class="col-red" *ngIf="form.get('numbOfShowMorePopularBets').errors.max">
+                  Number of Popular Bets (ShowMore) can be 15 max</div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Price Range
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Enter range in fractions like: 1/10 - 10/1" trim="blur" formControlName="priceRange" [(ngModel)]="populrBetsData.popularTabs[0].priceRange" required>
+            <mat-hint class="col-red" *ngIf="form.get('priceRange').invalid">
+              <div *ngIf="form.get('priceRange').errors?.pattern"> Price Range not valid. Please enter in this format i.e. 1/10-10/1 </div> 
+              <div *ngIf="form.get('priceRange').errors.required"> Price Range should  be entered </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            No PopularBets Message
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Display Message for no popular bets" trim="blur" formControlName="noPopularBetsMsg" [(ngModel)]="populrBetsData.popularTabs[0].noPopularBetsMsg" required>
+            <mat-hint class="col-red" *ngIf="form.get('noPopularBetsMsg').invalid">
+              <div *ngIf="form.get('noPopularBetsMsg').errors.required"> No PopularBets Message should  be entered </div>
+              <div *ngIf="form.get('noPopularBetsMsg').value.length > 100"> Can enter upto 100 characters only. </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Last Updated Time
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Last Updated Time" trim="blur" formControlName="lastUpdatedTime" [(ngModel)]="populrBetsData.popularTabs[0].lastUpdatedTime"required>
+            <mat-hint class="col-red" *ngIf="form.get('lastUpdatedTime').invalid">
+              <div *ngIf="form.get('lastUpdatedTime').errors.required"> Last Updated Time should  be entered </div>
+              <div *ngIf="form.get('lastUpdatedTime').value.length > 20"> Can enter upto 20 characters only. </div>
+          </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <h6>BetSlip Bar Configurations</h6>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-checkbox color="primary" 
+          [checked]="populrBetsData.popularTabs[0].enableAddToBetSlipBar" 
+          (change)="populrBetsData.popularTabs[0].enableAddToBetSlipBar = !populrBetsData.popularTabs[0].enableAddToBetSlipBar">
+            Enabled
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+           Description
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="BetSlip Bar Description" trim="blur" formControlName="betSlipBarDesc" [(ngModel)]="populrBetsData.popularTabs[0].betSlipBarDesc" required>
+            <mat-hint class="col-red" *ngIf="form.get('betSlipBarDesc').invalid">
+              <div *ngIf="form.get('betSlipBarDesc').errors.required">BetSlip Bar Description should  be entered </div>
+              <div *ngIf="form.get('betSlipBarDesc').value.length > 50"> Can enter upto 50 characters only. </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+           CTA label
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="BetSlip Bar CTA button label" trim="blur" formControlName="betSlipBarCTALabel" [(ngModel)]="populrBetsData.popularTabs[0].betSlipBarCTALabel"  required>
+            <mat-hint class="col-red" *ngIf="form.get('betSlipBarCTALabel').invalid">
+              <div *ngIf="form.get('betSlipBarCTALabel').errors.required"> BetSlip Bar CTA button label should  be entered </div>
+              <div *ngIf="form.get('betSlipBarCTALabel').value.length > 25"> Can enter upto 25 characters only. </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Bets Added Description
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Description for bets added to betslip" trim="blur" formControlName="betSlipBarBetsAddedDesc" [(ngModel)]="populrBetsData.popularTabs[0].betSlipBarBetsAddedDesc"required>
+            <mat-hint class="col-red" *ngIf="form.get('betSlipBarBetsAddedDesc').invalid">
+              <div *ngIf="form.get('betSlipBarBetsAddedDesc').errors.required"> Description for bets added to betslip should  be entered </div>
+              <div *ngIf="form.get('betSlipBarBetsAddedDesc').value.length > 50"> Can enter upto 50 characters only. </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Remove Bets CTA label
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Remove Bets CTA button label" trim="blur" formControlName="betSlipBarRemoveBetsCTALabel"  [(ngModel)]="populrBetsData.popularTabs[0].betSlipBarRemoveBetsCTALabel" required>
+            <mat-hint class="col-red" *ngIf="form.get('betSlipBarRemoveBetsCTALabel').invalid">
+              <div *ngIf="form.get('betSlipBarRemoveBetsCTALabel').errors.required"> Remove Bets CTA button label should  be entered </div>
+              <div *ngIf="form.get('betSlipBarRemoveBetsCTALabel').value.length > 25"> Can enter upto 25 characters only. </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <span class="">
+            Bets Added description for suspended Bets
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Bets Added description for suspended Bets" trim="blur" formControlName="suspendedBetsAddedText"  [(ngModel)]="populrBetsData.popularTabs[0].suspendedBetsAddedText" required>
+            <mat-hint class="col-red" *ngIf="form.get('suspendedBetsAddedText').invalid">
+              <div *ngIf="form.get('suspendedBetsAddedText').errors.required">Bets Added description for suspended Bets label should  be entered </div>
+              <div *ngIf="form.get('suspendedBetsAddedText').value.length > 50"> Can enter upto 50 characters only. </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <span class="mat-label">
+            Description for suspended Bets
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder=" Description for suspended Bets" trim="blur" formControlName="suspendedBetsDesc" [(ngModel)]="populrBetsData.popularTabs[0].suspendedBetsDesc" required>
+            <mat-hint class="col-red" *ngIf="form.get('suspendedBetsDesc').invalid">
+              <div *ngIf="form.get('suspendedBetsDesc').errors.required">  Description for suspended Bets label should  be entered </div>
+              <div *ngIf="form.get('suspendedBetsDesc').value.length > 50"> Can enter upto 50 characters only. </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- Backed in last filter and Event start In filter tables-->
+<div class="card" *ngIf="sportTab">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-12">
+        <h6>Backed In Last Filters</h6>
+      </div>
+    </div>
+    <!-- search and create button.-->
+    <div class="row clearfix">
+      <div class="col-md-6">
+        <button (click)="updatePopularBetFilter('backedInLastFilter','create')" type="button"
+          class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create Filter</span>
+        </button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="body">
+        <div *ngIf="!eventStartsFilter">
+          <cms-alert #requestError ></cms-alert>
+        </div>
+        <cms-data-table *ngIf="!updatingPopularTimeFilters" 
+          [customTableData]="populrBetsData.popularTabs[0].backedInLastFilter"
+          [customTableColumns]="sortByFiltersColumns" 
+          [actions]="['remove','onPageEdit']" 
+          [filterString]="searchField"
+          (onPageEditTableElement)="updatePopularBetFilter('backedInLastFilter','edit',$event)"
+          [reorder]="true" (onElementsOrder)="reorderHandler($event, 'backedInLastFilter')"
+          [popularBetsMarketSwitcher]="showMarketSwitcher"
+          [updatingPopularTimeFilters]="updatingPopularTimeFilters"
+          (onRemoveTableElement)="removeFilter($event, 'backedInLastFilter')">
+        </cms-data-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="sportTab">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-12">
+        <h6>Event Starts Within Filters</h6>
+      </div>
+    </div>
+    <!-- search and create button.-->
+    <div class="row clearfix">
+      <div class="col-md-6">
+        <button (click)="updatePopularBetFilter('eventStartsFilter','create')" type="button"
+          class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create Filter</span>
+        </button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="body">
+        <div *ngIf="eventStartsFilter">
+          <cms-alert #requestError ></cms-alert>
+        </div>
+        <cms-data-table *ngIf="!updatingPopularTimeFilters" 
+          [customTableData]="populrBetsData.popularTabs[0].eventStartsFilter"
+          [customTableColumns]="timeFitersColumns" 
+          [actions]="['remove','onPageEdit']"
+          (onPageEditTableElement)="updatePopularBetFilter('eventStartsFilter','edit',$event)" 
+          [reorder]="true" [filterString]="searchField"
+          [sportId]="populrBetsData.popularTabs[0].sportId" 
+          [popularBetsMarketSwitcher]="showMarketSwitcher"
+          (onElementsOrder)="reorderHandler($event, 'eventStartsFilter')" 
+          (onRemoveTableElement)="removeFilter($event, 'eventStartsFilter')"
+          [updatingPopularTimeFilters]="updatingPopularTimeFilters">
+        </cms-data-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons #actionButtons *ngIf="sportTab" [fieldOrItemName]="'displayName'" [validateHandler]="validationHandler" 
+  [collection]="sportTab" [showRemoveButton]="false" (actionsEmitter)="actionsHandler($event);"></action-buttons>

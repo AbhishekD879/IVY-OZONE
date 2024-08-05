@@ -1,0 +1,16 @@
+<loading-screen [displayed]="showLoader" [longRenderView]="true" [templateType]="'GENERIC'"></loading-screen>
+<div class="container" *ngIf="!showLoader && isModuleAvailable">
+    <ng-container *ngFor="let module of fanzoneModuleData?.modules; index as i; trackBy: trackByModules">
+        <surface-bets-carousel class="surface-bets-carousel" *ngIf="module['@type'] === 'SurfaceBetModule'"
+            [module]="module">
+        </surface-bets-carousel>
+        <featured-highlight-carousel class="highlight_carousel" *ngIf=" module['@type'] === 'HighlightCarouselModule'"
+            [highlightsCarousel]="module" [fzHighlighCarouselTitle]="fanzoneDetails.nextGamesLbl"></featured-highlight-carousel>
+    </ng-container>
+    <no-events *ngIf="noEventFound"></no-events>
+    <request-error *ngIf="ssDown || !isConnectSucceed" [loadFailed]="ssDown || !isConnectSucceed"
+        (reloadFn)="reloadComponent()">
+    </request-error>
+</div>
+<!-- Fanzone Outrights -->
+<fanzone-outrights [fanzoneTeam]="fanzoneTeam"></fanzone-outrights>

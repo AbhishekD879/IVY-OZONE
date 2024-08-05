@@ -1,0 +1,85 @@
+{
+  "config" : {
+    "title" : "Beach Volleyball",
+    "name" : "beachvolleyball",
+    "path" : "beach-volleyball",
+    "tier" : 2,
+    "categoryType" : "gaming",
+    "isOutrightSport" : false,
+    "isMultiTemplateSport" : false,
+    "oddsCardHeaderType" : "oneTwoType",
+    "request" : {
+      "categoryId" : "52",
+      "siteChannels" : "M",
+      "marketsCount" : true,
+      "isActive" : false,
+      "dispSortName" : [ "HH", "MH", "WH" ],
+      "dispSortNameIncludeOnly" : [ "HH", "MH", "WH" ],
+      "marketTemplateMarketNameIntersects" : "|Match Betting|,|Match Betting Head/Head|,|Handicap Match Result|"
+    },
+    "tabs" : {
+      "live" : { },
+      "coupons" : {
+        "date" : "today",
+        "isActive" : true
+      },
+      "today" : {
+        "isNotStarted" : true
+      },
+      "tomorrow" : { },
+      "future" : { },
+      "outrights" : {
+        "isActive" : true,
+        "marketsCount" : false
+      }
+    }
+  },
+  "tabs" : [ {
+    "id" : "tab-matches",
+    "name" : "matches",
+    "label" : "Matches",
+    "url" : "/sport/beach-volleyball/matches",
+    "hidden" : true,
+    "sortOrder" : 1.0,
+    "subTabs" : [ {
+      "id" : "tab-today",
+      "name" : "today",
+      "label" : "Today",
+      "url" : "/sport/beach-volleyball/matches/today",
+      "hidden" : false
+    }, {
+      "id" : "tab-tomorrow",
+      "name" : "tomorrow",
+      "label" : "Tomorrow",
+      "url" : "/sport/beach-volleyball/matches/tomorrow",
+      "hidden" : false
+    }, {
+      "id" : "tab-future",
+      "name" : "future",
+      "label" : "Future",
+      "url" : "/sport/beach-volleyball/matches/future",
+      "hidden" : false
+    } ]
+  }, {
+    "id" : "tab-competitions",
+    "name" : "competitions",
+    "label" : "Competitions",
+    "url" : "/sport/beach-volleyball/competitions",
+    "hidden" : true,
+    "sortOrder" : 2.0
+  }, {
+    "id" : "tab-outrights",
+    "name" : "outrights",
+    "label" : "Outrights",
+    "url" : "/sport/beach-volleyball/outrights",
+    "hidden" : true,
+    "sortOrder" : 3.0
+  }, {
+    "id" : "tab-coupons",
+    "name" : "coupons",
+    "label" : "Coupons",
+    "url" : "/sport/beach-volleyball/coupons",
+    "hidden" : true,
+    "sortOrder" : 4.0
+  } ]
+}

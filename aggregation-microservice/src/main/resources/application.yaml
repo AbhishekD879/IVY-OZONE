@@ -1,0 +1,91 @@
+logging:
+  level:
+    root: INFO
+    web: INFO
+
+spring:
+
+  application.name: aggregation
+
+  cloud:
+    discovery.enabled: false
+    config.discovery.enabled: true
+
+  cache:
+    redis:
+      use-key-prefix: false
+      cache-null-values: false
+      time-to-live: 5m
+
+  redis:
+    host: localhost
+    port: 6379
+
+management:
+
+  endpoint:
+    health.show-details: always
+    metrics.enabled: true
+
+  endpoints.web:
+    base-path: /actuator # un-set by default.
+    path-mapping:
+      health: /health
+      info: /info
+    exposure.include: "*"
+    exposure.exclude: env,beans
+
+api:
+
+  image:
+    numberOfRetries: 3
+    readTimeout: 5s
+    writeTimeout: 5s
+    connectionTimeout: 5s
+    racingpost: https://img.coral.co.uk/img/racing_post/
+    teamtalk: http://clientimages.teamtalk.com/racing/silks/
+
+  df:
+    endpoint: https://raceinfo-api.coral.co.uk/race_info/
+    timeout: 5s
+
+
+webclient:
+  silks.threads: 0
+  images.threads: 0
+  max:
+    connections: 100
+  acquire:
+    timeout: 10000
+  netty:
+    log:
+      level: ERROR
+
+silks:
+  expected-width: 40
+  expected-height: 29
+  expected-extension: png
+  providers:
+    teamtalk-coral:
+      endpoint: ${api.image.teamtalk}
+      defaultSilk: silk-teamtalk.gif
+    teamtalk-ladbrokes:
+      endpoint: ${api.image.teamtalk}
+      defaultSilk: silk-teamtalk.gif
+    racingpost-coral:
+      endpoint: https://silks.coral.co.uk/RP/images/
+      defaultSilk: silk-racingpost-coral.gif
+    racingpost-ladbrokes:
+      endpoint: https://silks.ladbrokes.com/RP/images/
+      defaultSilk: silk-racingpost-ladbrokes.gif
+    coral:
+      endpoint: /
+      defaultSilk: silk-racingpost-coral.gif
+
+general:
+  path:
+    cache:
+      ttl: 2d
+  image:
+    cache:
+      ttl: 2d

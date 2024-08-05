@@ -1,0 +1,833 @@
+@import './colours.variables.scss';
+@import './media-queries.variables.scss';
+@import './fonts.variables.scss';
+
+$border-radius: 3px;
+$border-radius-sm: 2px;
+$page-bg      : $color-gray;
+// OXYGEN APP STYLES
+//----------------------------------------------------------------------
+
+$platform-padding: 4px;
+$platform-paddings: 0px $platform-padding;
+$clock-svg-color: #c3e6ff;
+$app-header-height: 56px;
+
+//----------------------------------------------------------------------
+// Top Bar
+//  _______________________________________
+// |     |                                 |
+// |  <  | (icon) Title Text        (icon) |
+// |_____|_________________________________|
+$top-bar-wrap-bg : #252835;                  /* Top Bar Wrapper Background */
+$top-bar-bg      : $redDark;                  /* Top Bar Background */
+$top-bar-color   : $color-white;                     /* Top Bar Text Color */
+
+$btn-back-color   : $color-white;                    /* Back Button Color */
+$top-bar-back-bg  : $redDarkest;                 /* Back Button Background Color */
+$top-bar-fav-icon : $color-lightest-grey;
+$fav-icon-top-bar : $color-darkest-black;
+$top-bar-back-hover-bg: $brand-color-denim-blue;
+$footer-primary-color: #818181;
+$footer-bg           : #1d1f29;
+
+$title-icon-color : $color-white;                    /* Title Icon Color */
+
+$top-bar-height: 42px;
+
+$competition-text-color : $color-white; 
+//----------------------------------------------------------------------
+// Pop-ups
+//
+$popup-header-padding: 12px 40px 12px 12px; /* Pop-up header padding - 40px for close btn */
+$popup-padding: 10px;                       /* Pop-up header padding */
+$popup-header-bg: $red;                     /* Pop-up header Background color */
+$popup-header-color: $color-white;          /* Pop-up header text color */
+$popup-header-font-size: 11px;              /* Pop-up header font-size */
+$popup-header-min-height: 35px;             /* Pop-up header min-height */
+$popup-header-margin-bottom: 2px;           /* Pop-up header margin-bottom */
+$popup-header-text-transform: inherit;      /* Pop-up header text-transform */
+$popup-header-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .2), 
+                          inset 0 1px 0 rgba(255, 255, 255, .3); /* Pop-up header box-shadow */
+$popup-header-close-size: 16px;             /* Pop-up header button-close size   */
+
+$popup-content-border-radius: $border-radius; /* Pop-up content border-radius */
+$popup-overlay-color: rgba(0, 0, 0, .8);
+
+//----------------------------------------------------------------------
+// Favourites/Leagues
+//  _____
+//  \___/    _|_ (counter)
+//   _|_     / \
+
+$counter-color   : $color-orange-light;    /* Favourites Counter Font Color */
+$fav-icon-color  : $color-white;           /* Favourites Icon Fill Color */
+$leag-icon-color : $color-white;         /* League Icon Fill Color */
+
+//----------------------------------------------------------------------
+// Tabs Panel
+//  _____________________________
+// |         |         |         |
+// |  tab 1  |  tab 2  |  tab 3  |
+// |_________|_________|_________|
+
+$tabs-front-clr   : $color-white;
+$tabs-back-clr    : $page-bg;
+$tabs-active-clr  : $madison;
+$tabs-shadow-color: $page-bg;
+$tabs-font-color  : $color-gray-dark;
+
+/* col-name */
+@mixin col-name() {
+  font-weight: normal ;
+  text-transform: uppercase;
+}
+
+//----------------------------------------------------------------------
+// Switchers
+//
+//   Today   Tomorrow   Future
+//  ________==========_________
+
+$switch-border-color    : $color-gray;
+$switch-border-color-act: $brand-color-dark;
+$switch-background      : $brand-color-main;
+$switch-font-color      : $color-gray-dark;
+
+$btm-switchers-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+@mixin btm-switchers() {
+  &.active:after {
+    background: #000;
+  }
+}
+
+//----------------------------------------------------------------------
+// Page Container
+//
+$page-cont-bg      : $page-bg;
+$header-bg-clr1    : $brand-color-secondary;
+$header-bg-clr2    : $brand-color-main;
+$header-font-color : $color-gray-dark;
+$header-icon-bg    : $color-gray-dark;
+
+//----------------------------------------------------------------------
+// Odds Card
+//
+
+$card-h-bg        : $color-white;
+$card-h-font-color: lighten($color-gray-dark, 50%);
+$card-border-clr  : $color-gray;
+$card-font-clr    : $color-gray-dark;
+$card-text-color: $color-gray-dark;
+$live-icon-width: 11px;
+$live-icon-height: 11px;
+$card-padding: 10px 12px;
+$card-l-side-width: 20px;
+$card-font-size: 13px;
+$card-score-font-size: 12px;
+$card-score-padding: 0 12px;
+$card-footer-height: 25px;
+$card-watch-live-font-size: 9px;
+$card-footer-height: 17px;
+$card-odd-wrapper-width: 56px;
+
+//----------------------------------------------------------------------
+// My Bets Sport Event Card
+//
+$event-card-font:       $alt-font-family;
+$single-selection-name: $color-gray-darkest;
+$single-selection-name-font-size: $font-size-tablet;
+$cashout-odds-names-font-family: $alt-font-family;
+$cashout-odds-opacity: 0.4;
+$cashout-odds-date-color: $lBlack-light;
+$live-clock-color: $lBlack-light;
+$cashed-out-mark-size: 24px;
+$single-selection-odds: $lBlack-light;
+$single-selection-odds-font-weight: 500;
+$single-selection-odds-crossed: $lBlack-light;
+$live-score-points-font-size: $font-size-lg;
+$live-score-points-font-family: $alt-font-family;
+$single-market-name:    $lBlack-light;
+$event-header:          #252835;
+$odds-date-font:        $base-font-family;
+$odds-date-font-size:   11px;
+$suspended-color:       $lBlack-medium;
+$single-selection-odds-suspended: $single-selection-odds;
+$single-market-name-suspended: $single-market-name;
+@mixin leg-status() {
+  color: $color-gray-darkest;
+  font-size: $font-size;
+  font-family: $base-font-family;
+}
+$arrow-icon-width:      10px;
+$arrow-top-width:       75%;
+$losing-color:          $red2;
+$losing-indentation:    6px;
+$event-card-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+$odds-content-height:   22px;
+$event-card-padding: 12px 22px 12px 12px;
+$event-card-silk-margin: 12px;
+$event-card-silk-space: 40px;
+$event-market-name-margin: 4px 0 2px;
+
+//----------------------------------------------------------------------
+// Bet receipt info (bethistory module)
+//
+
+$bet-receipt-info-font-family: $alt-font-family;
+$bet-receipt-info-font-size: $font-size;
+$bet-receipt-info-font-color: $lBlack-light;
+$bet-receipt-info-opacity: 1;
+$bet-receipt-info-date-color: $lBlack-medium;
+
+//----------------------------------------------------------------------
+// Bet receipt info (bethistory module)
+//
+
+$cashout-stake-and-returns-font-family: $alt-font-family;
+$cashout-stake-and-returns-font-size: $font-size;
+$cashout-stake-and-returns-color: $lBlack-medium;
+
+//----------------------------------------------------------------------
+// Links List Panel
+//
+$list-item-border-clr: $color-gray;
+$list-arrow-icon-clr: #707070;
+$list-title-bg-clr: #e2e2e6;
+
+//----------------------------------------------------------------------
+// Bet Button
+//  _________
+// |        |
+// |  2/20  |
+// |________|
+
+$bet-btn-bg: linear-gradient(-180deg, #F5F5F5 0%, #EEEEEE 52%, #E7E7E7 100%);
+$bet-btn-bg-disabled: linear-gradient(-180deg, #F5F5F5 0%, #EEEEEE 52%, #E7E7E7 100%);
+$bet-btn-font-size: 14px;
+
+//----------------------------------------------------------------------
+// Super Button
+
+$sup-btn-bg: none;
+$nav-point-padding: 0 10px 0;
+$sup-btn-color: $btn-bg-green-color;
+$sup-btn-padding: 12px 0 12px;
+$sup-btn-font: #fff;
+$sup-btn-font-size: 15px;
+$theme-bg-parent-color:linear-gradient(0deg, #D9DBDC 0%, #FFFFFF 100%);
+$sup-btn-bg-color:linear-gradient(0deg, #252835 0%, #3B4054 100%);
+$btn-mix-sup: linear-gradient(270deg, #D5D5D5 0%, #E9E9E9 100%);
+$btn-blue-mix: linear-gradient(270deg, #252835 0%, #3B4054 100%);
+$btn-bg-theme-color: linear-gradient(0deg, #07294B 0%, #084D8D 100%);
+$btn-mix-color: linear-gradient(0deg, #D9DBDC 0%, #ECECED 100%);
+$sup-btn-mix: linear-gradient(270deg, #D9DBDC 0%, #FFFFFF 100%);
+$sup-btn-color-mix: linear-gradient(270deg, #084D8D 0%, #07294B 100%);
+// //----------------------------------------------------------------------
+// Show All Button
+//  _____________________
+// |                     |
+// |      Show All       |
+// |_____________________|
+
+$show-all-bg: $page-bg;
+
+/* Background color for `<body>`. */
+$body-bg      : #f9f9f9;
+$page-bg      : $color-gray;
+$event-bar-bg : $brand-color-secondary;
+$media-btns-bg: $brand-color-secondary;
+
+/* Other */
+$border-radius: 3px;
+$border-radius-sm: 2px;
+$border-color: $color-gray-darker;
+$custom-select-height: 30px;
+
+$ngdialog-zindex: 1020;
+
+//----------------------------------------------------------------------
+// no-bets-section
+$no-bets-button-margin: 24px;
+$no-bets-button-size: $font-size-tablet;
+$no-bets-button-color: $lGray;
+$no-bets-button-font: $alt-font-family;
+
+//----------------------------------------------------------------------
+// <see-all-link></see-all-link> (SEE ALL >)
+
+$see-all-color: $color-blue-alt;
+
+//----------------------------------------------------------------------
+// <list-card></list-card>
+
+$list-card-color: $color-gray-darkest;
+$list-card-border-color: $lGrayLight;
+$list-card-arrow-color: $lBlack-light;
+$list-card-font: $alt-font-family;
+$list-card-arrow:#777777;
+$list-card-grey:#efeff3;
+$list-card-black:#2b2b2b;
+
+//----------------------------------------------------------------------
+// <live-label></live-label>
+
+@mixin live-label {
+  color: $color-yellow-alt;
+  background: $lGray;
+  padding: 0 4px;
+  font-size: $font-size-md;
+  font-family: $base-font-family;
+  font-weight: bold;
+  line-height: 15px;
+  min-height: 15px;
+  &:active{
+    background: $IGrayPremium;
+    color: $color-yellow-alt;
+    opacity: 1;
+  }
+}
+
+//----------------------------------------------------------------------
+// terms-block
+$terms-block-color: $color-gray-dark2;
+$terms-block-font: $alt-font-family;
+
+//----------------------------------------------------------------------
+// forecast-tricast-checkboxes
+
+$checkbox-color: $lGray;
+$checkbox-font: $alt-font-family;
+$checkbox-bg: $lGrayLight;
+$checkbox-checked: $btn-bg-green-color;
+$checkbox-disabled: $lGrayLight;
+$checkbox-border: #e2e2e6;
+$checkbox-font-size: $font-size;
+
+//----------------------------------------------------------------------
+// forecast-tricast-market
+$fortri-btn-width: calc(100% - 50px);
+$fortri-btn-margin: 16px 25px;
+$fortri-inner-shadow: none;
+
+//----------------------------------------------------------------------
+// <home-screen></home-screen>
+
+$home-screen-logo: '../../../../platforms/ladbrokesMobile/assets/images/svg/homepage/ladbrokes-logo.svg';
+$home-screen-bg: $brand-color-dark;
+
+//----------------------------------------------------------------------
+// Goal / Correction animation
+
+$goal-label-bg: $color-yellow-extra;
+$goal-label-color: $lGray;
+$correction-label-bg: $lGrayDark;
+$correction-label-color: $lGray;
+$goal-label-height: 15px;
+
+/***** Promo Labels *****/
+$pl-cashout-bg-color: #f0e5d8;
+$pl-cashout-color: $lBlack-medium;
+$pl-label-font-size: 10px;
+$pl-label-font-family: $base-font-family;
+
+/***** BS Subheader *****/
+$bs-subheader-height: 36px;
+$bs-subheader-color: #8e919f;
+$bs-subheader-active-color: $color-white;
+$bs-subheader-active-border-color: $color-white;
+$bs-subheader-bg-color: $lGray;
+$bs-content-margin-top: 8px;
+$bs-content-padding-bottom: 0;
+$bs-widget-bg: $lGray-bg;
+$bs-content-bg: $lGray-bg;
+$bs-content-max-height: 60vh;
+
+//----------------------------------------------------------------------
+// <surface-bets-carousel></surface-bets-carousel>
+
+$surface-bet-pad: 4px 4px;
+
+/* Show history button */
+$show-history-button-color: $color-blue-alt;
+$show-history-button-font-size: $font-size-tablet;
+$show-history-button-letter-spacing: 0;
+$show-history-button-font-stretch: condensed;
+
+/* Bet History Terms and Conditions */
+$bh-terms-and-conditions-min-height: 40px;
+$bh-terms-and-conditions-letter-spacing: -0.3px;
+$bh-terms-and-conditions-padding-top-bottom: 12px;
+$bh-terms-and-conditions-text-color: $lBlack-medium;
+$bh-terms-and-conditions-border-color: $lGrayLight;
+$bh-terms-and-conditions-box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+$bh-terms-and-conditions-margin-top: 16px;
+$bh-terms-and-conditions-info-padding: 16px 16px 0;
+$bh-terms-and-conditions-info-font-size: 12px;
+$bh-terms-and-conditions-info-margin-bottom: 24px;
+$bh-terms-and-conditions-info-line-height: 14px;
+$bh-terms-and-conditions-info-color: $lBlack-medium;
+$bh-terms-and-conditions-font-family: $alt-font-family;
+
+/* Regular bet header */
+$bh-bet-header-bg-color: $lGrayLight;
+$bh-bet-header-text-color: $lGray;
+$bh-bet-header-font-size: $font-size-tablet;
+$bh-bet-border-color: $lGrayDark;
+$bh-bet-border-top-size: 1px;
+$bh-bet-min-height: 36px;
+$bh-bet-dark-triangle-margin-top: 1px;
+$bh-bet-light-triangle-margin-top: 2px;
+
+/* Bet history top success message */
+$bh-top-success-message-font: $alt-font-family;
+$bh-top-success-message-color: $lBlack-medium;
+$bh-top-success-message-margin: 12px 0 0 3px;
+
+/* Byb history */
+$byb-progress-bar-background-color: rgba(74, 144, 226, 0.1);
+$byb-stats-unavailable-tooltip-background: $lGray;
+$byb-tooltip-padding: 14px 12px 12px;
+$byb-tooltip-margin-top: 1px;
+
+//----------------------------------------------------------------------
+// <lotto-bets></lotto-bets>
+
+$lotto-border-color: $lGrayDark;
+$lotto-font-color: $lGray;
+$lotto-bet-margin: 0 0 12px;
+$lotto-font-family: $alt-font-family;
+$lotto-base-font-family:$alt-font-family;
+$lotto-stake-pad: 0 0 8px;
+$lotto-line-header: $color-gray-darkest;
+$lotto-mybets-draws-color :$color-gray-darkest;
+$lotto-ball-bg-color :$lGrayLight;
+@mixin lotto-bet() {
+  margin: $lotto-bet-margin;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .15);
+}
+@mixin lotto-header() {
+  min-height: 35px;
+  padding: 8px 12px;
+  color: $lGray;
+  background: $lGrayLight;
+  border-bottom: 1px solid $lGrayDark;
+  border-top: 1px solid $lGrayDark;
+  font-size: $font-size-tablet;
+}
+@mixin lotto-draw-time() {
+  font-size: 12px;
+  font-family:$alt-font-family;
+}
+@mixin lotto-ball() {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-stretch: condensed;
+  color:$list-card-black;
+  background:#efeff3;
+  font-size: $font-size-xl;
+  font-family: $base-font-family;
+}
+@mixin lotto-check-styled(){
+  background: #f9f9f9;
+  color: #777777;
+  box-shadow: inset 4px 4px 7px 0 rgba(162, 162, 162, 0.06);
+  border: solid 1px #ccc;
+}
+@mixin lotto-check-label{
+  color :#2b2b2b;
+}
+//-------------------------------------------------------------------------
+// <bet-promotions></bet-promotions>
+
+$bet-promos-padding: 12px;
+$bet-promos-extra-padding: 4px;
+$bet-promos-line-height: 22px;
+$bet-promos-color: $lBlack-medium;
+$bet-promos-font-size: $font-size-lg;
+
+@mixin bet-promos-after() {}
+
+@mixin bet-promos-boosted() {
+  width: 31px;
+  height: 22px;
+  padding-top: 1px;
+
+  .icon-svg {
+    width: 31px;
+    height: 22px;
+  }
+}
+
+@mixin bet-promos-money-back() {
+  height: 24px;
+  background-color: $color-yellow-alt;
+  padding: 5px 4px;
+  margin: 0 12px 0 0;
+
+  .icon-svg {
+    width: 16px;
+    height: 14px;
+    fill: $color-black;
+  }
+}
+
+//----------------------------------------------------------------------
+// Edit my acca history
+$cashout-history-item-font-family: $alt-font-family;
+$cashout-history-item-font-size: $font-size;
+$cashout-used-msg-font-family: $alt-font-family;
+$cashout-history-color: $color-gray-darkest;
+$ema-stake-value-font-weight: bold;
+$ema-bet-container-shadow: 0 1px 0 0 $lGrayDark, 0 -1px 0 0 $lGrayDark;
+$ema-edited-acca-bet-header-color: $color-gray-darkest;
+$ema-history-bet-header-min-height: 63px;
+$ema-edited-acca-bet-header-padding: 12px 16px;
+$ema-history-header-line-height: normal;
+$ema-button-font-size: 12px;
+$ema-button-padding: 6px;
+$ema-history-drawer-header-padding: 17px 16px;
+$ema-history-background: $color-white;
+$ema-stake-and-returns-bottom-padding: 8px;
+$ema-undo-button-color: $lGrayMediumLight;
+
+@mixin bet-item-outer-space() {
+  &.outer-space {
+    margin: 0 0 12px 0;;
+
+    &.collapsed {
+      margin-bottom: 5px;
+    }
+  }
+  &:last-child {
+    margin-bottom: 0;
+    .bet-container {
+      margin-bottom: 0;
+    }
+  }
+}
+
+@mixin ema-bet-history-label() {
+  opacity: 1;
+  color: $color-gray-darkest;
+  font-family: $alt-font-family;
+  margin-top: 6px;
+}
+
+@mixin cashout-history-header-text() {
+  font-size: $font-size-tablet;
+  font-stretch: condensed;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+$ema-history-dialog-width: 740px;
+$ema-history-list-height: 425px;
+
+//----------------------------------------------------------------------
+// <over-ask-offer-notification></over-ask-offer-notification>
+
+$bs-oversask-notification-margin: 0;
+$bs-oversask-notification-padding: 12px 14px 14px 32px;
+$bs-oversask-notification-border: none;
+$bs-oversask-notification-icon-size: 15px;
+$bs-oversask-notification-icon-left: 12px;
+$bs-oversask-notification-icon-top: 12px;
+$bs-oversask-notification-color: $lGray;
+$bs-oversask-notification-background: #f9f9fa;
+$bs-overask-trader-offer-expires-margin: 8px 0 0;
+$bs-overask-trader-offer-message-font-size: 12px;
+$bs-oversask-notification-timer-weight: normal;
+$bs-oversask-notification-message-opacity: 1;
+
+/* Cash Out panel and range slider */
+$cashout-button-height: 44px;
+$cashout-btn-border-radius: 2px;
+$cashout-btn-margin: 2px 8px 8px;
+$partial-cashout-btn-text-top: 9px;
+$partial-cashout-btn-margin-left: 6px;
+$close-partial-icon-cashout-width-height: 14px;
+$close-partial-area-width: 14%;
+$partial-cashout-activate-btn-width: 25%;
+$full-cashout-normal-color: $btn-bg-green-color;
+$partial-cashout-normal-color: $btn-bg-green-dark;
+$partial-cashout-active-color: $full-cashout-normal-color;
+$slider-color: $btn-bg-green-color;
+$slider-underline-color: $lGraySemiMediumLight;
+$slider-round-color: $btn-bg-green-color;
+$cashout-success-color: $btn-bg-green-dark;
+$cashout-btn-font-size: $font-size-bit-lgr;
+$cashout-btn-font-stretch: condensed;
+$cashout-btn-letter-spacing: 0.02px;
+$partial-cashout-btn-font-size: $font-size;
+$partial-cashout-letter-spacing: 0.02;
+$partial-cashout-value-font-size: $font-size;
+$partial-cashout-value-line-height: $font-size-tablet;
+$cashout-slider-margin-top: 3px;
+$partial-cashout-activate-margin-top: 2px;
+$cashout-timer-height: 24px;
+$cashout-timer-font-weight: normal;
+$cashout-progress-spinner-border-width: 3px;
+$cashout-progress-spinner-box-shadow: inset 0 0 0 3px #6f961c;
+
+$cashout-disabled-btn-oberlay-display: none;
+$cashout-disabled-btn-bg-color: $color-green-disabled;
+
+/* <cashout-error-message></cashout-error-message> */
+$cashout-error-message-background: $bh-gray-color;
+$cashout-error-message-padding: 11px 12px;
+$cashout-error-message-color: $color-gray-darkest;
+$cashout-error-font-family: $alt-font-family;
+$cashout-error-letter-spacing: 0;
+
+/* <cash-out-message></cash-out-message> */
+$cash-out-message-overflow: hidden;
+$cash-out-message-padding: 11px;
+$cash-out-message-line-height: 1.2;
+$cash-out-message-height: 52px;
+$cash-out-message-font-family: $alt-font-family;
+$cash-out-message-text-align: center;
+$cash-out-message-font-size:12px;
+$cash-out-message-background-color:  $color-white;
+$cash-out-message-zoom: 1;
+$cash-out-message-border-top: 1px solid $color-gray;
+$cash-out-message-color: $color-blue-medium;
+$cash-out-message-font-weight: 500;
+$cash-out-font-family: $alt-font-family;
+
+/* <cash-out-popup></cash-out-popup> */
+$cash-out-popup-event-margin: 12px 0px 24px 0px;
+$cash-out-popup-event-font-family: Roboto;
+$cash-out-popup-event-font-size: 13px;
+$cash-out-popup-event-font-stretch: condensed;
+$cash-out-popup-event-color: $color-grey-medium;
+$cash-out-popup-reason-width: 247px;
+$cash-out-popup-reason-font-family: Roboto;
+$cash-out-popup-reason-font-size: 13px;
+$cash-out-popup-reason-font-stretch: condensed;
+$cash-out-popup-reason-color: $color-grey-medium;
+$cash-out-popup-header-font-size: 15px;
+$cash-out-popup-header-color: $color-black-medium;
+
+/* <fanzone-syt-popup></fanzone-syt-popup> */
+$fanzone-syt-popup-title-font-family: Helvetica;
+$fanzone-syt-popup-dont-show-me-font-family: Roboto;
+$fanzone-syt-popup-font-size: 13px;
+$fanzone-syt-popup-dont-show-me-font-size: 11px;
+$fanzone-syt-popup-title-font-stretch: normal;
+$fanzone-syt-popup-font-weight: bold;
+$fanzone-syt-popup-font-weight-bold: 600;
+$fanzone-syt-popup-title-style: normal;
+$fanzone-syt-popup-title-width: 174px;
+$fanzone-syt-popup-title-height: 17px;
+$fanzone-syt-popup-line-break-width: 231px;
+$fanzone-syt-popup-line-break-height: 1px;
+$fanzone-syt-popup-title-margin: 0 1px 12px 0;
+$fanzone-syt-popup-text-margin: 12px 1px 12px 1px;
+$fanzone-syt-popup-i-m-in-margin: 10px 34px 10px 35px;
+$fanzone-syt-popup-dont-show-me-margin: 0px 58px 12px 60px;
+$fanzone-syt-popup-line-break-margin: 14px 0 12px 17px;
+$fanzone-transparent-color: transparent;
+$fanzone-syt-border: 0;
+$fanzone-syt-modal-padding: 0px;
+$fanzone-syt-line-height: 1.43;
+$fanzone-syt-header-height: 50px;
+$fanzone-syt-header-border-radius: 2px;
+$fanzone-syt-popup-text-padding: 18px;
+$fanzone-syt-popup-eighteen: 18px;
+$fanzone-syt-popup-sixtySevenPx: 67px;
+$fanzone-syt-popup-twelvePx: 12px;
+$fanzone-syt-popup-thirtyFivePx: 35px;
+
+
+/* <runner-spotlight></runner-spotlight> */
+$runner-spotlight-font: $font-size;
+
+// Quick Filters
+$quick-filter-letter-spacing: -0.01px;
+$quick-filter-box-shadow: 0 2px 5px 0 rgba(84, 84, 84, 0.26);
+
+/* Promo icons */
+@mixin icon-label-styles() {
+  @include display-flex();
+  @include justify-content(center);
+  @include align-items(center);
+}
+
+@mixin big-icon-styles() {
+  height: 34px;
+  width: 38px;
+  @include icon-label-styles();
+  margin-left: 1px;
+}
+
+@mixin small-icon-styles() {
+  padding-right: 5px;
+  padding-left: 5px;
+  height: 15px;
+  @include icon-label-styles();
+  margin-left: 4px;
+}
+
+@mixin middle-icon-styles() {
+  width: 30px;
+  height: 30px;
+  @include icon-label-styles();
+  margin-left: 4px;
+}
+
+@mixin mini-icon-styles() {
+  @include small-icon-styles();
+}
+/* race */
+$race-header-height: 30px;
+$race-footer-height: $race-header-height;
+$race-card-h-padding: 0 10px;
+$label-line-height: 15px;
+$race-carousel-button-width: 20px;
+$race-card-width: 275px;
+$race-card-delimiter: 5px;
+$race-number-width: 30px;
+$race-silk-horseracing-width: 40px;
+$race-silk-horseracing-height: 30px;
+$race-silk-greyhound-width: 30px;
+$race-silk-greyhound-height: $race-silk-greyhound-width;
+$race-card-btn-width: 60px;
+$race-card-horseracing-btn-height: $race-card-btn-width;
+$race-card-greyhound-btn-height: 70px;
+$page-container-header-bottom-margin: 2px;
+
+/* datepicker */
+$date-picker-height: 45px;
+$date-picker-icon-color: #4b4b4b;
+
+$bs-stake-input-border-focused: 1px solid rgba($lBlack-medium, 0.7);
+$bs-stake-input-shadow-focused-out: 0 0 1px 1px rgba($color-blue-alt, 0.3);
+$bs-stake-input-shadow-focused-in: inset 4px 4px 7px 0 rgba($color-gray-shadow, 0.06);
+
+/* modal-dialog */
+$modal-dialog-width: 295px;
+$modal-dialog-btn-list-align: right;
+$modal-dialog-btn-style4-color: $lGray;
+$modal-dialog-btn-list-height: 35px;
+$lotto-dialog-pad:0px 24px 24px;
+$lotto-dialog-lineHieight:16px;
+$lotto-dialog-color:$lGray;
+$lotto-b-ball-separator-color: $lGrayDark;
+$lotto-draw-border: $lGrayLight;
+$lotto-draw-lable-font : 13px;
+$lotto-drawResults-font :12px;
+$lotto-draw-lost-bg :#c81a21;
+$lotto-draw-open-bg :$lGrayLight;
+/* pc-badge icons */
+$pc-badge-color: $lGray;
+$pc-badge-font-size: $font-size-sm;
+$pc-badge-height: 15px;
+$pc-badge-line-height: $pc-badge-height;
+$pc-badge-enhanced-background: $color-yellow-alt;
+$pc-badge-specials-background: $color-yellow-alt;
+
+/* skeleton */
+$sk-min-height: 915px;
+$sk-tablet-min-height: 1400px;
+$sk-widget-height: 380px;
+$sk-scoreboard-height: 227px;
+$sk-tablet-scoreboard-height: 261px;
+$sk-mobile-padding: 12px;
+$sk-tablet-padding: 8px;
+
+$quick-deposit-notification-bg: $warning-msg-color;
+
+/* Gaming Overlay */
+$gaming-overlay-bg: $brand-color-dark;
+
+/* accordion */
+$accdn-margin-bottom: 8px;
+
+/* odd-boost icons */
+$odds-boost-icon-width: 60px;
+$odds-boost-info-content-icon-width: 28px;
+$odds-boost-info-content-icon-scale: -1;
+
+/* Five-A-Side */
+$branding-padding: 2px 8px;
+
+/* AEM inline promos */
+$promo-background-color: rgba(96, 0, 5);
+
+/* slider */
+$slide-dots-color: $lGrayDark;
+$slide-dots-color-active: $brand-color-main;
+$slide-dots-height: 3px;
+
+
+/* banners */
+$banner-padding: 8px;
+$banner-min-height: 40;
+$banner-shadow-height: 2px;
+$banner-sk-height: calc(#{$banner-min-height} * 1vw + #{$banner-padding} * 3 + #{$slide-dots-height});
+$banner-sk-padding: calc(#{$banner-min-height} * 1% + #{$banner-padding} * 3 + #{$slide-dots-height});
+$offer-terms-bg: transparent;
+$offer-terms-color: rgba(255, 255, 255, 0.5);
+
+/* timeline */
+$timeline-bottom-offset: 53px;
+$timeline-font-family: $alt-font-family;
+
+/* SEO Content */
+$seo-title-color: $lGray;
+$seo-title-font: $font-size-tablet;
+$seo-static-content-color: $color-gray-darkest;
+$seo-static-content-font-family: $alt-font-family;
+$seo-static-content-link-color: $red;
+
+// Byb history
+$switch-btn-active-color: $color-blue-alt;
+$market-description-color: $color-gray-dark2;
+$button-background-enabled: $color-green-alt;
+$button-background-disabled: $color-green-disabled;
+$counter-background-disabled: $lGrayLight;
+$sign-disabled: $color-sign-disabled;
+$sign-enabled: $color-sign-enabled;
+$selection-btn-text-color: $color-gray-darkest;
+$increment-color: $color-gray-dark2;
+$font-increment-number: $alt-font-family;
+$bet-builder: $color-green-shade;
+$bet-buildbet-inactive-text: $color-white;
+$bet-buildbet-font-size: 14px;
+$marketdesc-color: $color-blue-dark;
+// Byb history
+$switch-btn-active-color: $color-blue-alt;
+$switch-show-color: $blue;
+$switch-byb-font-family: $alt-font-family;
+$switch-byb-market-des-color:$color-gray-dark2;
+$switch-byb-market-range-color:$color-sign-enabled;
+$switch-byb-market-player-color:$color-black;
+$switch-stats-font-family: 'Roboto Condensed';
+$byb-showcard-accordion: 0 -5% 0 0;
+$byb-player-font-weight: normal;
+
+/*
+  * used for <regular-bet-header> component
+ */
+ $reuse-selection-border-button: $blue;
+ $reuse-button-padding: 5px;
+ $reuse-selection-font-size: 12px;
+ $reuse-selection-font-family: 'Roboto Condensed';
+ $show-signPosting-color: #F01E28;
+ $racing-signPosting-margin: 16px;
+
+//profit indicator
+$profit-indicator-line-height: 13px;
+$profit-indicator-height: none;
+$profit-indicator-justify-content: flex-end;
+$profit-indicator-border-radius: 18px;
+//quick switch
+$quick-switch-spacing: 0.001px;
+$quick-switch-text-transform: uppercase;
+$quick-switch-color: var(--scoreboard-home-team, #FBC400);
+$quick-switch-bottom-padding: 59px;

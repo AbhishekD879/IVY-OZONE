@@ -1,0 +1,18 @@
+<modal #dialog data-crlat="d.congrats" class="euroCongrats-dialog">
+  <ng-template #modalBody>
+    <div class="text-center freebet-model">
+      <p class="font-weight-bold" [textContent]="freeTokenMessage[0]"></p>
+      <p class="mb-1">
+        <span [textContent]="freeTokenMessage[1]"></span>
+        <strong>
+          <span [textContent]="freeTokenMessage[2]"></span>
+        </strong>
+      </p>
+      <p [textContent]="freeTokenMessage[3]"></p>
+    </div>
+    <div class="group-col group-default">
+      <button data-crlat="okButton" class="btn btn-style4 full-width" [i18n]="'bs.close'"
+        (click)="closeDialog()"></button>
+    </div>
+  </ng-template>
+</modal>

@@ -1,0 +1,58 @@
+<div class="in-play-score" data-crlat="inPlayScore">
+  <div *ngIf="!isTennis" class="in-play-scores-container" data-crlat="inPlayScoresContainer">
+    <ng-container *ngIf="isBoxScoreType">
+            <span [textContent]="boxScore?.home.inn1"></span>
+            <span [textContent]="boxScore?.home.inn2"></span>
+    </ng-container>
+    <ng-container *ngIf="!isBoxScoreType">
+      <span *ngIf="isEventHasOddsScores()"
+            [textContent]="getOddsScore('teamA', isPenalties)"></span>
+      <span *ngIf="isEventHasCurrentPoints()" 
+      [textContent]="'teamA' | callBack : getCurrentPoints : this"></span>
+    </ng-container>
+  </div>
+
+  <div *ngIf="isTennis" class="in-play-scores-container">
+      <span *ngFor="let setScores of tennisScores; trackBy: trackByIndex"
+            [textContent]="setScores[getTennisScoreForPlayer('playerA')]"></span>
+  </div>
+
+  <span class="in-play-game-status in-play-game-status__bigger"
+        data-crlat="inPlayGameStatus.inPlayGameStatusBigger"
+        *ngIf="isLive() && !getTennisSetIndex() && !isClockAllowed()"
+        [i18n]="'sb.live'"></span>
+  <span class="in-play-game-status in-play-game-status__bigger"
+        *ngIf="isHalfTime">HT</span>
+  <span class="in-play-game-status in-play-game-status__bigger"
+        *ngIf="isPenalties">PENS</span>
+  <span class="in-play-game-status in-play-game-status__bigger"
+        *ngIf="getTennisSetIndex()"
+        [textContent]="getTennisSetIndex()"></span>
+
+  <live-clock class="in-play-game-status in-play-game-status__bigger"
+              [event]="event"
+              [hidden]="isHalfTime || isPenalties"
+              (clockUpdated)="onClockUpdate()"
+              *ngIf="isClockAllowed()">
+  </live-clock>
+
+  <div *ngIf="!isTennis" class="in-play-scores-container in-play-score-reversed"
+       data-crlat="inPlayScoresContainer.inPlayScoreReversed">
+    <ng-container *ngIf="isBoxScoreType">
+      <span [textContent]="boxScore?.away.inn1"></span>
+      <span [textContent]="boxScore?.away.inn2"></span>
+    </ng-container>
+    <ng-container *ngIf="!isBoxScoreType">
+    <span *ngIf="isEventHasOddsScores()"
+          [textContent]="getOddsScore('teamB', isPenalties)"></span>
+    <span *ngIf="isEventHasCurrentPoints()"
+    [textContent]="'teamB' | callBack : getCurrentPoints : this"></span>
+
+    </ng-container>
+  </div>
+
+  <div *ngIf="isTennis" class="in-play-scores-container in-play-score-reversed">
+      <span *ngFor="let setScores of tennisScores; trackBy: trackByIndex"
+            [textContent]="setScores[getTennisScoreForPlayer('playerB')]"></span>
+  </div>
+</div>

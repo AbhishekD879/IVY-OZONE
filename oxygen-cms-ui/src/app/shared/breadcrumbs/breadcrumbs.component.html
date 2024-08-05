@@ -1,0 +1,9 @@
+<div class="card" *ngIf="breadcrumbsData">
+  <ol class="breadcrumb">
+    <li *ngFor="let breadcrumb of breadcrumbsData; let last = last">
+      <a [ngClass]="{ 'active': last }"
+         [routerLink]="[breadcrumb.url]">{{ breadcrumb.label }}</a>
+    </li>
+  </ol>
+</div>
+

@@ -1,0 +1,9 @@
+<home-screen data-crlat="homeScreen"></home-screen>
+
+<ng-container *ngIf="!isProduction">
+  <lazy-component moduleUri="@lazy-modules-module/devLog/dev-log.module#DevLogModule"></lazy-component>
+</ng-container>
+
+<banners-section *ngIf='isHomePage' [page]='"homepage"' class='vn-bma'
+  style='position: absolute;top: 60px;z-index: 3;height: 100%;width: 100%;'></banners-section>
+<bma-main class="vn-bma"></bma-main>

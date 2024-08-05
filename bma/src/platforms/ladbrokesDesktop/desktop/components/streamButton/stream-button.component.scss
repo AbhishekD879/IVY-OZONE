@@ -1,0 +1,34 @@
+@import 'global.variables.scss';
+
+:host(.live-stream-active) {
+  span {
+    text-align: center;
+    display: block;
+  }
+  .label {
+    margin-top: 5px;
+  }
+  @include align-items();
+  @include flex(0, 0, 50px);
+  @include justify-content();
+  @include display-flex();
+  @include flex-direction(column);
+  border: 1px solid $color-gray;
+  border-top: none;
+  border-left: none;
+  font-size: 10px;
+  .available {
+    cursor: pointer;
+  }
+
+  svg {
+    fill: $brand-color-dark;
+    height: 21px;
+    width: 21px;
+    margin: 10px 0 0;
+  }
+}
+
+.odds-card-component {
+  @include flex(1, 1, auto);
+}

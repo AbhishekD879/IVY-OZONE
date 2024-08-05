@@ -1,0 +1,68 @@
+@import 'global.variables.scss';
+
+.competition-category {
+  .spinner-loader.small-loader {
+    margin: 10px auto;
+    padding: 0;
+  }
+}
+.competition-category-tiles {
+  @include grid-row();
+  border-top: 1px solid $color-gray;
+  margin: 0;
+}
+.competition-category-tile-wrapper {
+  @include flex(1,1,calc(100% / 3));
+  overflow: hidden;
+  @media screen and (min-width: 1366px) {
+    @include flex(1,1,25%);
+  }
+}
+
+.competition-category-tile {
+  @include flex();
+  border-right: 1px solid $color-gray;
+  border-bottom: 1px solid $color-gray;
+}
+.fourth-cell {
+  display: none;
+  @media screen and (min-width: 1366px) {
+    @include display-flex();
+  }
+}
+.third-cell {
+  @include display-flex();
+  @media screen and (min-width: 1366px) {
+    display: none;
+  }
+}
+.fourth-cell,
+.third-cell {
+  pointer-events: none;
+}
+.league-link {
+  height: 50px;
+  padding-left: 15px;
+  @include display-flex();
+  @include align-items();
+  &:hover {
+    cursor: pointer;
+    text-decoration: none;
+    background: $color-gray-light;
+  }
+}
+.league-name {
+  font: bold 12px/1.2 $base-font-family;
+  color: $color-gray-dark;
+  overflow: hidden;
+  padding-right: 5px;
+  text-overflow: ellipsis;
+  display: block;
+  white-space: nowrap;
+  @include flex();
+}
+
+.league-link yourcall-icon {
+  margin-right: 15px;
+  display: block;
+}

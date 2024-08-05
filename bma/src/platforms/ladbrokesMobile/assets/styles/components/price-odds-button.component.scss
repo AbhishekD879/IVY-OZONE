@@ -1,0 +1,68 @@
+@import 'global.variables.scss';
+
+$btn-bet-border-color: #dbdbdb;
+$btn-up-bg:   #cd4200;
+$btn-down-bg: #0090a5;
+
+.btn.btn-bet,
+.btn-bet {
+  border: 1px solid $btn-bet-border-color;
+  color: $color-gray-darkest;
+  font-family: $base-font-family;
+  line-height: $bet-btn-font-size;
+  border-radius: 2px;
+  .handicap-btn {
+    display: inline;
+    font-size: $font-size-md;
+    color: $color-blue-cornflower;
+    padding-right: 15px;
+    @media #{$mqMobile} {
+      display: block;
+      text-align: center;
+      padding-right: 0px;
+    }
+  }
+}
+
+@keyframes up-button {
+  from {
+    color: $color-gray-dark;
+  }
+
+  to {
+    color: $btn-up-bg;
+  }
+}
+
+@keyframes down-button {
+  from {
+    color: $color-gray-dark;
+  }
+
+  to {
+    color: $btn-down-bg;
+  }
+}
+
+@-webkit-keyframes up-button {
+  from {
+    color: $color-gray-dark;
+  }
+
+  to {
+    color: $btn-up-bg;
+  }
+}
+
+@-webkit-keyframes down-button {
+  from {
+    background: inherit;
+    color: $color-gray-dark;
+  }
+
+  to {
+    color: $btn-down-bg;
+  }
+}
+
+

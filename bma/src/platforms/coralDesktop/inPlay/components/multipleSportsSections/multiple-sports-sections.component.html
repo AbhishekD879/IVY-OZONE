@@ -1,0 +1,38 @@
+<div *ngIf="!ssError && !wsError.reconnectFailed" data-crlat="accordionsList">
+  <switchers [filter]="filter"
+             [switchers]="switchers"
+             [detectGTMLocation]="'sublocation'">
+  </switchers>
+
+  <ng-container *ngIf="eventsByGroups[filter]?.eventsBySports?.length" [lazyItems]="1"
+                [lazyStep]="1"
+                [(lazyLimitChange)]="limit"
+                [lazyRender]="eventsByGroups[filter].eventsBySports.length">
+  <accordion *ngFor="let eventsBySports of eventsByGroups[filter].eventsBySports | slice:0:limit; let i = index; trackBy: getSportTrackingId"
+             [accordionTitle]="eventsBySports.categoryName"
+             [isExpanded]="eventsBySports[expandedKey]"
+             (function)="toggleSport($event, eventsBySports)">
+    <accordion-body *ngIf="eventsBySports[expandedKey]">
+      <div *ngIf="!eventsByGroups[filter].eventsBySports[i].eventsByTypeName.length" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+      <single-sport-section
+        *ngIf="eventsByGroups[filter].eventsBySports[i].eventsByTypeName.length"
+        [inner]="true"
+        [showExpanded]="showExpanded"
+        [eventsBySports]="eventsByGroups[filter].eventsBySports[i]"
+        [expandedLeaguesCount]="expandedLeaguesCount"
+        [filter]="filter"
+        [gtmModuleTitle]="eventsBySports.categoryName">
+      </single-sport-section>
+    </accordion-body>
+  </accordion>
+  <div class='loading-v3' *ngIf="eventsByGroups[filter].eventsBySports.length > limit" data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+  </ng-container>
+  <no-events *ngIf="showNoEventsSection(viewByFilters[0])" [message]="'inplay.noLiveEventsFound'" data-crlat="label.noLiveEvents"></no-events>
+  <no-events *ngIf="showNoEventsSection(viewByFilters[1])" [message]="'inplay.noUpcomingEventsFound'" data-crlat="label.noUpcomingEvents"></no-events>
+</div>
+
+<request-error *ngIf="ssError || wsError.reconnectFailed"
+               [loadFailed]="ssError || wsError.reconnectFailed"
+               (reloadFn)="reloadComponent()"
+               data-crlat="errorField">
+</request-error>

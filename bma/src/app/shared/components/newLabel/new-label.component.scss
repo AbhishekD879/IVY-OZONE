@@ -1,0 +1,15 @@
+@import 'global.variables.scss';
+
+new-label {
+  @include inline-flex();
+  @include align-items(center);
+  color: $color-white;
+  background: $color-red;
+  padding: 0 3px;
+  text-transform: uppercase;
+  font-size: $font-size-xs;
+  line-height: 12px;
+  min-height: 12px;
+  border-radius: 2px;
+  letter-spacing: 1px;
+}

@@ -1,0 +1,32 @@
+<modal #fanzoneSelectYourTeam>
+    <ng-template #modalHeader>
+        <div class="SYC-Popup-title" [textContent]="fanzonePopupData.sycTitle"></div>
+    </ng-template>
+    <ng-template #modalBody>
+        <div class="body">
+            <div class="SYC-Popup-text" [innerHTML]="fanzonePopupData.sycPopUpDescription"></div>
+            <div *ngIf='(fanzonePopupData.teamId!=="FZ001") && !thankYouPopup'
+                class="SYC-Popup-img">
+                <fanzone-crest-image [hasTeamImage]="true" [team]="fanzonePopupData.sycTeam.asset"
+                    [widthHeight]="88" [fontWeight]="bold" [teamName]="fanzonePopupData.sycTeam.name"
+                    [dialogText]="true">
+                </fanzone-crest-image>
+            </div>
+            <div class="SYC-Popup__input-container"
+                *ngIf='(fanzonePopupData.teamId==="FZ001") && !thankYouPopup'>
+                <input class="SYC-Popup__input" [(ngModel)]="customTeamName" [value]="customTeamName"
+                    [ngClass]="customTeamNameError ? 'SYC-Popup__input--error' : 'SYC-Popup__input--no-error'"
+                    id="customTeamName" name="customTeamName" autocomplete="off"
+                    (input)="setCustomTeamName($event)" required>
+            </div>
+            <div class="SYC-Popup__ctaButton">
+                <button *ngIf='fanzonePopupData.ctaPrimaryBtn' class="SYC-Popup__ctaButton--ctaPrimaryBtn"
+                    [textContent]="fanzonePopupData.ctaPrimaryBtn"
+                    (click)="ctaPrimaryBtnClick(fanzonePopupData.ctaPrimaryBtn, fanzonePopupData.teamName, fanzonePopupData.teamId)"></button>
+                <button *ngIf='fanzonePopupData.ctaSecondaryBtn' class="SYC-Popup__ctaButton--ctaSecondaryBtn"
+                    [textContent]="fanzonePopupData.ctaSecondaryBtn"
+                    (click)="ctaSecondaryBtnClick(fanzonePopupData, fanzonePopupData.ctaSecondaryBtn)"></button>
+            </div>
+        </div>
+    </ng-template>
+</modal>

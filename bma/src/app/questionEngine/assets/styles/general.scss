@@ -1,0 +1,288 @@
+@import 'global.variables.scss';
+
+$mb: 15px;
+$color-green: #88b923;
+
+.question-engine {
+  background-color: $brand-color-main;
+  font: $base-font-family;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  display: block;
+}
+
+ul {
+  padding-left: 0;
+
+  li {
+    list-style: none;
+  }
+}
+
+.qe-bg {
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: bottom;
+  height: 100%;
+}
+
+.qe-container {
+  padding: 6px 16px 0;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100vh;
+  display: block;
+  color: $color-white;
+  font-size: 14px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-family: $base-font-family;
+  margin: 0 auto;
+}
+
+a {
+  color: $color-white;
+}
+
+/*
+  general style for button close app btn 'X'
+*/
+.qe-btn-close {
+  position: absolute;
+  right: 15px;
+  padding: 0;
+  top: 15px;
+  background: transparent;
+  border:none;
+  cursor: pointer;
+  .close-svg {
+    width: 12px;
+    height: 12px;
+    fill: $color-white;
+  }
+}
+
+/*
+  general style for back arrow btn '<--'
+*/
+.qe-btn-back {
+  display: inline-block;
+  margin-top: 15px;
+  margin-bottom: 45px;
+
+  &-svg {
+    width: 19px;
+    height: 16px;
+    fill: $color-white;
+  }
+}
+
+/*
+  general style for main btn in Splash Page
+*/
+.main-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 46px;
+  border-radius: 1px;
+  background-color: $color-yellow;
+  border: 1px solid $color-yellow;
+  font-family: $base-font-family;
+  font-size: 14px;
+  color: $gold-level-text;
+  text-transform: capitalize;
+  margin-bottom: $mb;
+
+  &:hover {
+    text-decoration: none;
+    border: 1px solid $color-yellow;
+    background: lighten($color-yellow, 15%);
+    border-color: lighten($color-yellow, 15%);
+    box-shadow: 0 1px 2px rgba(65, 73, 78, .2)
+  }
+}
+
+/*
+* Style for LINKS PAGE
+**/
+
+.heading-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: $color-white;
+  margin-bottom: 30px;
+}
+
+.links-list {
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: $color-white;
+    margin-bottom: 30px;
+    text-align: left;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    list-style: none;
+    border-bottom: 1px dashed $color-white;
+    padding-bottom: $mb;
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  }
+  p {
+    font-size: 12px;
+  }
+
+  // TERMS AND CONDITIONS
+  &.terms-and-conditions {
+    counter-reset: my-badass-counter;
+    font-size: 12px;
+    line-height: 16px;
+
+    dt {
+      margin-bottom: 20px;
+    }
+
+    dd {
+      margin-bottom: 20px;
+      line-height: 16px;
+
+      &:before {
+        content: counter(my-badass-counter) " . ";
+        counter-increment: my-badass-counter;
+        padding-right: 3px;
+      }
+
+      ul {
+        padding-left: 35px;
+
+        li {
+          list-style: lower-alpha;
+          padding-left: 0;
+          border-bottom: none;
+        }
+      }
+    }
+  }
+
+  // Prizes
+  &.prizes {
+    text-align: center;
+    margin-bottom: 40px;
+
+    li {
+      padding: 0 35px 15px;
+
+      &:last-child {
+        padding-bottom: 40px;
+      }
+    }
+
+    h1 {
+      font-size: 30px;
+      font-weight: bold;
+      text-align: center;
+      color: $color-yellow;
+    }
+
+    ul {
+      p {
+        font-weight: bold;
+      }
+
+      & + p {
+        font-size: 11px;
+        padding: 0 35px;
+      }
+    }
+  }
+
+  //FAQ
+  &.faq {
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      font-size: 16px;
+      font-weight: bold;
+      color: $color-yellow;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.qe-footer-img {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: block;
+}
+/*
+* STYLES for spinner, when qeData is loading
+*/
+.qe-spinner-general {
+  &.spinner-wrap {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+
+    .spinner-loader {
+      margin: auto;
+      width: 34px;
+      height: 34px;
+
+        &:before {
+          border-width: 1px;
+        }
+      }
+    }
+}
+
+/*
+* STYLES for load error, when no qeData
+*/
+.loading-error {
+  &-wrap {
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    width: 100%;
+  }
+
+  &-btn.main-btn {
+    width: 70%;
+    color: $color-blue-dark;
+  }
+
+  &-text {
+    font-family: $base-font-family;
+    font-size: 16px;
+    color: $color-white;
+    margin-bottom: 25px;
+  }
+
+  &-no-content {
+    margin-top: -80px;
+  }
+}

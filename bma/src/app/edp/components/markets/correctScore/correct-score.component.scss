@@ -1,0 +1,147 @@
+//Global styles
+@import 'global.variables.scss';
+
+.correct-score-container {
+  background: $color-white;
+  margin: 2px 0px 0px;
+}
+
+.no-cs-margin {
+  margin: 0;
+}
+.other-cs-align {
+border: none;
+}
+.col-border-none {
+  border: none;
+}
+@media only screen and (max-width: $mobilePoint) {
+  .cell-pad-cs-score {
+    margin: 1% 0 2% 0;
+    display: inline-block;
+    padding: 1.2% 0 0.3% 0;
+  }
+  .col-name {
+    .col-name-other-txt {
+      margin-bottom: 1.9%;
+      display: inline-block;
+    }
+  }
+}
+
+.teams-group {
+  padding: 10px 10px;
+  @include display-flex();
+  @include flex-flow();
+  @include flex();
+  @include justify-content(flex-start);
+  @include align-items(flex-end);
+
+  &:first-child + .teams-group {
+    padding-top: 10px;
+  }
+
+  .team-col {
+    font-size: 11px;
+    color: $color-gray-dark;
+
+    @include display-flex();
+    @include flex-direction(column);
+    @include align-items(flex-start);
+    @include justify-content(flex-start);
+    min-width: 90px;
+    font-weight: bold;
+    text-align: center;
+    overflow: hidden;
+    @include word-break();
+
+    &:first-child + .team-col {
+      min-width: 27px;
+      width: 27px;
+      @include align-items(center);
+      @include flex-direction(column-reverse);
+    }
+
+    .custom-select {
+      width: 90px;
+      margin: 9px 0 0 0;
+
+      select {
+        border: 1px solid $color-gray;
+        border-radius: 4px;
+      }
+    }
+
+    &.odd-right {
+      @include justify-content(flex-end);
+      @include align-items(flex-end);
+      margin-left: auto;
+    }
+
+    button[disabled] {
+      text-shadow: none;
+    }
+  }
+
+  .team-col-divider {
+    width: 7px;
+    height: 1px;
+    border-top: 1px solid $color-gray;
+    margin-bottom: 15px;
+    display: inline-block;
+  }
+}
+
+@media #{$mqLandscapeAndDesktop} {
+  .correct-score {
+    .row-pad .col-bordered:first-child .col-inner {
+      padding-left: 0;
+    }
+  }
+}
+.team-name {
+  border-top: 1px solid $color-gray;
+  border-bottom: 1px solid $color-gray;
+  padding: 5px 0 5px 0px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: space-around;
+  span {
+    width: 33%;
+    font-size: 11px;
+    color: $color-gray-dark;
+  }
+}
+.team-name-order {
+  width: 50% !important;
+}
+.team-name-order-one {
+  width: 100% !important;
+}
+.team-label {
+  font-weight: bold !important;
+  font-size: 13px !important;
+}
+#odd-value {
+  font-size: 12px;
+}
+#team-value {
+  font-size: 11px;
+}
+price-odds-button{
+  ::ng-deep .btn-bet {
+   font-size: 12px;
+  }
+}
+show-all-button {
+  ::ng-deep .show-all-button {
+    @media #{$mqMobile} {
+      border-top: 1px solid $color-gray;
+    }
+    background: $color-white;
+  }
+}
+#row-top {
+  margin-top: 0px;
+}

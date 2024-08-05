@@ -1,0 +1,12 @@
+<div class="content">
+    <fiveaside-entry-summary *ngIf="myEntriesList?.length" [eventStatus]="'live'" [isOverlay]=false
+        [teamColors]="teamColors" [hasTeamImage]="hasTeamImage" [isLeaderboard]=false
+        [entryIdList]="entryIdList" [entryInfo]="myEntriesList[0]" [index]=0
+        [prizePoolData]="myEntriesList[0]" [isTopEntry]=true>
+    </fiveaside-entry-summary>
+</div>
+<div>
+    <fiveaside-multientry-progress *ngIf="prize" [contestInfo]="contestInfo" [prize]="prize" [teamColors]="teamColors"
+        [hasTeamImage]="hasTeamImage" [myEntriesList]="myEntriesList">
+    </fiveaside-multientry-progress>
+</div>

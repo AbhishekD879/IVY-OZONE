@@ -1,0 +1,29 @@
+@import 'global.variables.scss';
+
+.empty-free-bet {
+    @include display-flex();
+    @include align-items();
+    @include flex-direction(column);
+    margin: 25px 0 20px;
+
+    &.margin {
+        margin-top: 8px;
+    }
+
+    .empty-free-bet-icon {
+        svg {
+            margin: 0 0 1px 4px;
+            width: 95px;
+            height: 95px;
+        }
+        margin-bottom: 20px;
+    }
+
+    .empty-free-bet-value {
+        line-height: 16px;
+        text-align: center;
+        font-family: $base-font-family;
+        font-size: $font-size-tablet;
+        color: $color-black;
+    }
+}

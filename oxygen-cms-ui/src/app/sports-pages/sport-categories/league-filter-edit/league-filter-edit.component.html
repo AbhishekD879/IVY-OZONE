@@ -1,0 +1,66 @@
+<div class="custom-dialog">
+  <div class="card">
+    <div class="header">
+      <h2>Edit League Filter: <span class="font-italic">{{ leagueFilter.leagueName }}</span></h2>
+      <create-updated-at-by [collection]="leagueFilter"></create-updated-at-by>
+    </div>
+  </div>
+
+  <form [formGroup]="form">
+    <div class="card">
+      <div class="body">
+        <div class="row clearfix">
+          <div class="col-md-2">
+              <span class="mat-label">
+                League Filter Name
+              </span>
+          </div>
+          <div class="col-md-10">
+            <mat-form-field class="full-width">
+              <input matInput type="text"
+                     placeholder="Title"
+                     [(ngModel)]="leagueFilter.leagueName"
+                     formControlName="leagueName"
+                     required trim="blur">
+              <mat-hint class="col-red" *ngIf="!leagueFilter.leagueName">Filter name should be entered</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-md-2">
+              <span class="mat-label">
+                League IDs
+              </span>
+          </div>
+          <div class="col-md-10">
+            <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !leagueFilter.leagueIds }">
+              <input matInput type="text"
+                     aria-label="leagueIds"
+                     placeholder="League IDs"
+                     [(ngModel)]="leagueFilter.leagueIds"
+                     required trim="blur"
+                     formControlName="leagueIds">
+              <mat-hint class="col-red" *ngIf="!leagueFilter.leagueIds">At least one league ID should be entered</mat-hint>
+              <mat-error *ngIf="leagueIds.hasError('pattern')">
+                Invalid format (use coma separated values)
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-button
+              type="reset"
+              class="btn btn-default m-r-20 float-right"
+              (click)="cancel()">Cancel</button>
+      <button mat-button
+              type="submit"
+              class="btn btn-sm bg-teal float-right"
+              [disabled]="leagueIds.invalid || !leagueFilter.leagueName"
+              (click)="normalizeLeagueFilter()"
+              [mat-dialog-close]="leagueFilter">Save</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,35 @@
+<div *ngIf="isInit && isMarketSelections">
+  <div class="switchers" data-crlat="switchers">
+    <a class="switch-btn"
+       data-crlat="buttonSwitch"
+       *ngFor="let switcher of switchers; trackBy: trackBySwitchers; index as i;"
+       [ngClass]="{'active': isActiveGroup(i)}"
+       (click)="selectGroup(i)">
+      <span [i18n]="switcher.title"></span>
+    </a>
+  </div>
+
+  <div class="yourcall-markets row row-left row-no-gutter row-col-last">
+    <div class="col-xs"
+         *ngFor="let selection of switcherSelections; trackBy: trackBySelections;"
+         data-crlat="yourcall.selection">
+      <div class="col-inner col-vertical">
+        <button [ngClass]="{'active': isSelected(selection)}"
+                class="one-row-btn btn-bet" data-crlat="betButton"
+                (click)="selectValue(selection)">
+          {{ selection.title }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <show-all-button *ngIf="showMore"
+                   data-crlat="showAllButton"
+                   (click)="toggleShow()"
+                   [allShown]="allShown">
+  </show-all-button>
+</div>
+
+<div *ngIf="isInit && !isMarketSelections">
+  <p class="no-data" [i18n]="'yourCall.marketNoSelections'"></p>
+</div>

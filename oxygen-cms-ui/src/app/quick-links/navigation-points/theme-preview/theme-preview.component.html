@@ -1,0 +1,56 @@
+<div class="row" *ngIf="alignmentFromParent && themeValueFromParent">
+  <div class="col-md-2 text-left">
+    Theme Preview
+  </div>
+  <div class="col-md-8">
+    <ng-container *ngIf="alignmentFromParent == 'center' && themeValueFromParent">
+      <div [class]="centerTopClass">
+        <div class='col-sm-12  text-center my-1'>
+          This section will fit approximately {{defaultFormConfig?.config?.description?.maxLength || 0}} characters
+        </div>
+        <div class="col-sm-12 text-center">
+          <button [class]="centerBtnClass">
+            ~{{defaultFormConfig?.config?.title?.maxLength || 0}} characters
+          </button>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="alignmentFromParent == 'right' && themeValueFromParent">
+      <div [class]="rightTopClass">
+        <div class='col-sm-8 text-center p-4'>
+          <div class="row">
+            <div class="col-sm-12">
+              <h3>~{{defaultFormConfig?.config?.description?.maxLength || 0}} characters</h3>
+              <span>This section will fit approximately {{this.isBrandLads ==
+                true?defaultFormConfig?.config?.shortDescription?.lads?.maxLength:defaultFormConfig?.config?.shortDescription?.coral?.maxLength
+                || 0}} characters</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <button [class]="rightBtnClass">
+            ~{{defaultFormConfig?.config?.title?.maxLength || 0}} CHARACTER
+          </button>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="alignmentFromParent == 'bgImage' && themeValueFromParent">
+      <div [class]="rightTopClass">
+        <img [attr.src]="bgImage" class="img" alt="background image ">
+          <div class="right-alignment">
+            <div class="row description">
+              <div class="main-description">
+                <div class="sub-description">~{{defaultFormConfig?.config?.description?.maxLength || 0}} characters</div>
+                <span>This section will fit approximately {{this.isBrandLads ==
+                  true?defaultFormConfig?.config?.shortDescription?.lads?.maxLength:defaultFormConfig?.config?.shortDescription?.coral?.maxLength
+                  || 0}} characters</span>
+              </div>
+              <button [class]="rightBtnClass">
+                ~{{defaultFormConfig?.config?.title?.maxLength || 0}} CHARACTER
+              </button>
+            </div>
+          </div>
+    </div>
+    </ng-container>
+  </div>
+</div>

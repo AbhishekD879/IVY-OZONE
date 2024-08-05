@@ -1,0 +1,116 @@
+<ng-container *ngIf="!isLoading">
+    <breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+
+    <div class="card" *ngIf="!isEdit">
+        <div class="header">
+            <h2 class="has-activity-badge">
+                <span class="font-italic" [textContent]="topSportsConstants.CREATE_NEW_TOPSPORTS"></span>
+            </h2>
+        </div>
+    </div>
+
+    <div class="card" *ngIf="topSportData && isEdit">
+        <div class="header">
+            <h2 class="has-activity-badge">
+                {{topSportsConstants.EDIT_TOP_SPORTS}}<span>{{topSportData.sportsName}}</span>
+                <create-updated-at-by [collection]="topSportData"></create-updated-at-by>
+            </h2>
+            <header-activity-badge [state]="!topSportData.isTopSports"></header-activity-badge>
+        </div>
+    </div>
+    <div class="card">
+        <div class="body">
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-checkbox color="primary" [checked]="topSportData.isTopSports" (change)='activeStatus()'>Active
+                    </mat-checkbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label" for="sportsName" [textContent]="topSportsConstants.SPORT_NAME"></span>
+                </div>
+                <div class="col-md-5">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Sports Name" [(ngModel)]="topSportData.sportsName"
+                            [value]="topSportData.sportsName" required trim="blur" [disabled]="isEdit">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label" for="desktopImageId"
+                        [textContent]="topSportsConstants.DESKTOP_IMAGE_ID"></span>
+                </div>
+                <div class="col-md-5">
+                    <mat-form-field class="full-width">
+                        <input matInput [(ngModel)]="topSportData.desktopImageId" [value]="topSportData.desktopImageId"
+                        [placeholder]="topSportsConstants.DESKTOP_IMAGE_ID" trim="blur">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label" for="mobileImageId"
+                        [textContent]="topSportsConstants.MOBILE_IMAGE_ID"></span>
+                </div>
+                <div class="col-md-5">
+                    <mat-form-field class="full-width">
+                        <input matInput [(ngModel)]="topSportData.mobileImageId" [value]="topSportData.mobileImageId"
+                            [placeholder]="topSportsConstants.MOBILE_IMAGE_ID" trim="blur">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label" for="signposting" [textContent]="topSportsConstants.SIGNPOSTING"></span>
+                </div>
+                <div class="col-md-5">
+                    <mat-form-field class="full-width">
+                        <input matInput [(ngModel)]="topSportData.signposting" [value]="topSportData.signposting"
+                            [placeholder]="topSportsConstants.SIGNPOSTING" trim="blur" maxlength="100">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label" for="stockImageURL" [textContent]="topSportsConstants.REDIRECTION_URL"></span>
+                </div>
+                <div class="col-md-10">
+                    <mat-form-field class="full-width">
+                        <input matInput id="stockImageURL" [(ngModel)]="topSportData.stockImageURL" [value]="topSportData.stockImageURL"
+                            [placeholder]="topSportsConstants.REDIRECTION_URL">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="body">
+            <div class="row">
+                <div class="col-4 col-md-7 p-b-0 m-b-0">
+                    <button mat-button type="button" class="btn bg-teal waves-effect float-left"
+                        [disabled]="isValidForm()" (click)="saveChanges()">
+                        <mat-icon>save</mat-icon>
+                        <span *ngIf="isEdit" [textContent]="topSportsConstants.SAVE_CHANGES"></span>
+                        <span *ngIf="!isEdit" [textContent]="topSportsConstants.CREATE_TOP_SPORT"></span>
+                    </button>
+                </div>
+                <div class="col-4 col-md-2 p-b-0 m-b-0" *ngIf="topSportData && isEdit">
+                    <button mat-button type="button" class="btn bg-blue-grey waves-effect float-left"
+                        [disabled]="isValidForm()" (click)="revertChanges();">
+                        <mat-icon>undo</mat-icon>
+                        <span [textContent]="topSportsConstants.REVERT_CHANGES"></span>
+                    </button>
+                </div>
+                <div class="col-4 col-md-3 p-b-0 m-b-0" *ngIf="topSportData && isEdit">
+                    <button mat-button type="button" class="btn bg-red waves-effect float-right" (click)="remove();">
+                        <mat-icon>delete_forever</mat-icon>
+                        <span [textContent]="topSportsConstants.REMOVE"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

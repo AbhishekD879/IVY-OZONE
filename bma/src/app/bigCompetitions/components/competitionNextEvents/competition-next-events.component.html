@@ -1,0 +1,22 @@
+<live-events-carousel *ngIf="moduleConfig.typeId"
+                      [carouselId]="moduleConfig.id"
+                      [categoryId]="categoryId"
+                      [typeId]="moduleConfig.typeId">
+</live-events-carousel>
+
+<accordion [accordionTitle]="moduleConfig.name"
+           [isExpanded]="isExpanded" [headerClass]="'secondary-header'"
+           (function)="accordionHandler()"
+           *ngIf="events.length">
+  <accordion-body>
+    <div class="container-inner-content next-events-container">
+      <list-view
+        [sportConfig]="sportConfig"
+        [events]="events"
+        [maxDisplay]="moduleConfig.maxDisplay"
+        [gtmModuleTitle]="moduleConfig.name"
+        [deviceType]="moduleConfig.brand.device">
+      </list-view>
+    </div>
+  </accordion-body>
+</accordion>

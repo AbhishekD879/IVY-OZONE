@@ -1,0 +1,5 @@
+<div *ngIf="state.loading && isLoaderEnabled" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+<outlet-status *ngIf="handleError" [state]="state">
+  <request-error [loadFailed]="true" (reloadFn)="reloadComponent()"></request-error>
+</outlet-status>
+<ng-container #container></ng-container>

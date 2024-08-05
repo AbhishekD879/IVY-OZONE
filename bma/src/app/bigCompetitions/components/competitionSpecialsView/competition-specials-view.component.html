@@ -1,0 +1,48 @@
+<div class="container">
+  <div *ngIf="initialData?.length">
+    <ng-container *ngFor="let eventsBySection of eventsBySections; trackBy: trackByIndex; let sectionIndex = index">
+      <accordion *ngIf="eventsBySection && eventsBySection.events.length"
+                 [accordionTitle]="eventsBySection.sectionTitle" [headerClass]="'secondary-header'"
+                 [isExpanded]="openMarketTabs[sectionIndex]"
+                 [card]="true"
+                 [inner]="inner">
+        <accordion-body>
+          <div *ngFor="let eventEntity of limitTo(eventsBySection); trackBy: trackById">
+            <odds-card-component *ngIf="eventEntity.markets[0].outcomes.length && eventsBySection.typeName !== 'Enhanced Multiples'"
+                                 data-crlat="eventEntity"
+                                 [event]="eventEntity" [eventType]="'specials'">
+            </odds-card-component>
+          </div>
+          <div *ngIf="eventsBySection.typeName === 'Enhanced Multiples'">
+            <div *ngFor="let groupedBy of eventsBySection.groupedByDate; trackBy: trackByIndex;">
+              <div class="odds-card-header" *ngIf="showGroupedHeader(groupedBy)">
+                <div class="odds-left" data-crlat="oddsLeft">
+                  <div class="odds-header-title" [textContent]="groupedBy.title"></div>
+                </div>
+              </div>
+              <div *ngFor="let eventEntity of groupedBy.events; trackBy: trackById;">
+                <odds-card-component *ngIf="eventEntity.markets[0].outcomes.length" [event]="eventEntity"
+                                     [limitSelections]="showAllGroupedByDate ? false : eventEntity.groupedLimit"
+                                     data-crlat="eventEntity" [eventType]="'specials'">
+                </odds-card-component>
+              </div>
+              <show-all-button (click)="showAllGroupedByDate = !showAllGroupedByDate" *ngIf="isShowButtonForGroupedByDateEnabled(eventsBySection.groupedByDate)"
+                               [customStylesClass]="['show-all-button-light']" [allShown]="showAllGroupedByDate">
+              </show-all-button>
+            </div>
+            <show-all-button (click)="eventsBySection.showAll = !eventsBySection.showAll" *ngIf="isShowButtonEnabled(eventsBySection)"
+                             [customStylesClass]="['show-all-button-light']" [allShown]="eventsBySection.showAll">
+            </show-all-button>
+          </div>
+        </accordion-body>
+      </accordion>
+    </ng-container>
+  </div>
+  <a class="show-more" *ngIf="initialData?.length && viewAllUrl" [routerLink]="[viewAllUrl]">
+    <span [i18n]="'bigcompetitions.viewAllSpecials'"></span>
+    <svg>
+      <use [attr.xlink:href]="'#next-arrow'"></use>
+    </svg>
+  </a>
+  <no-events *ngIf="!initialData?.length"></no-events>
+</div>

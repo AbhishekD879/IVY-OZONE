@@ -1,0 +1,14 @@
+extends ../layouts/default
+
+block intro
+	.container
+		h1 mainMenu
+	
+block content
+	.container
+		if mainMenus.length
+			each mainMenu in mainMenus
+				h2= mainMenu.imageTitle
+
+		else
+			h3.text-muted There are no mainMenus yet.

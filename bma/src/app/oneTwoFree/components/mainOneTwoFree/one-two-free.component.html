@@ -1,0 +1,30 @@
+<div data-widget="one-two-free" id="one-two-free" class="preview">
+  <div class="center-container otf-info-container" *ngIf="!isGuest && !isInShopUser && !showIOSDialog">
+    <div class="loader-container">
+      <div *ngIf="showBackButton" class="otfLoadingError-wrapper">
+        <div [i18n]="'bma.otf.bundleLoadingErrorMsg'"></div>
+        <button (click)="redirectHandler()" class="otfLoadingBackButton" [i18n]="'bma.otf.bundleLoadingErrorBtn'"></button>
+      </div>
+    </div>
+  </div>
+  <login-splash-screen
+    *ngIf="isGuest || isInShopUser || showIOSDialog"
+    [content]="splashContent"
+    [isInShopUser]="isInShopUser"
+    (invokeLogin)="openLoginPopUp()"
+  ></login-splash-screen>
+  <div class="iosWarning-wrapper" *ngIf="showIOSDialog">
+    <div class="iosWarningDialog-container">
+      <div class="iosDialog-header">
+        <span>{{ dialogContent.header }}</span>
+      </div>
+      <div class="iosDialog-body">
+        <p [innerHTML]="dialogContent.body"></p>
+      </div>
+      <div class="iosDialogBtn-list">
+        <button (click)="handleIOSDialogBtn()" class="{{ dialogContent.btnSecondary.cssClass }}">{{ dialogContent.btnSecondary.caption }}</button>
+        <a href="{{ dialogContent.btnPrimary.url }}" rel="noopener" target="_blank" class="{{ dialogContent.btnPrimary.cssClass }}" type="button">{{ dialogContent.btnPrimary.caption }}</a>
+      </div>
+    </div>
+  </div>
+</div>

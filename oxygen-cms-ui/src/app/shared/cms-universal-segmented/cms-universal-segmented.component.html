@@ -1,0 +1,60 @@
+<form #form="ngForm">
+    <div class="segment">
+        <mat-radio-group [(ngModel)]="segmentsData.activeSegment" (change)="segmentHandler($event.value)" name="segment">
+            <div class="row">
+                <div class=" col-md-3 p-t-15">
+                    <mat-radio-button
+                        [value]="constants.UNIVERSAL" [checked]="segmentsData.activeSegment === constants.UNIVERSAL">
+                        <span>{{constants.UNIVERSAL_TITLE}}</span>
+                    </mat-radio-button>
+                </div>
+                <div class="col-md-9">
+                    <mat-form-field class="full-width">
+                        <input type="text" #universal id="universal" matInput [matTooltip]="constants.TOOLTIP" name="exclusion"
+                            [disabled]="segmentsData.activeSegment !== constants.UNIVERSAL"
+                            [value]="segmentsData.exclusionSegments" [placeholder]="'Exclusion Segments'"
+                            trim="blur" (input)="onSegmentChange.next($event)" [matAutocomplete]="auto1">
+                        <mat-autocomplete #auto1="matAutocomplete" name="segmentExclusion" (optionSelected)="exclusionSegmentSelected($event)">
+                            <mat-option *ngFor="let segment of segmentsFilteredList" [value]="segment">
+                                {{ segment }}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-hint class="col-red" *ngIf="isExclusionInvalid" [textContent]='constants.VALID_SEGMENT'>
+                        </mat-hint>
+                        <mat-hint class="col-red" *ngIf="!isSegmentValid && segmentsData.activeSegment == constants.UNIVERSAL" [textContent]='constants.EXTRA_COMMAS'>
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class=" col-md-3 p-t-15">
+                    <mat-radio-button 
+                        [value]="constants.SEGMENTED" [checked]="segmentsData.activeSegment === constants.SEGMENTED">
+                        <span>{{constants.SEGMENT_TITLE}}</span>
+                    </mat-radio-button>
+                </div>
+                <div class="col-md-9">
+                    <mat-form-field class="full-width">
+                        <input type="text" #inclusion id="inclusion" matInput [matTooltip]="constants.TOOLTIP" name="inclusion" autocomplete="off"
+                            [disabled]="segmentsData.activeSegment !== constants.SEGMENTED"
+                            [value]="segmentsData.inclusionSegments" [placeholder]="'Inclusion Segments'"
+                            trim="blur" (input)="onSegmentChange.next($event)"
+                            [required]="segmentsData.activeSegment === constants.SEGMENTED" [matAutocomplete]="auto2">
+                            <mat-autocomplete #auto2="matAutocomplete" name="segmentExclusion" (optionSelected)="inclusionSegmentSelected($event)">
+                                <mat-option *ngFor="let segment of segmentsFilteredList" [value]="segment">
+                                    {{ segment }}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-hint class="col-red" *ngIf="isInclusionEmpty()" [textContent]='constants.EMPTY_FIELD'>
+                            </mat-hint>
+                            <mat-hint class="col-red" *ngIf="isInclusionInvalid" [textContent]='constants.VALID_SEGMENT'>
+                            </mat-hint>
+                            <mat-hint class="col-red" *ngIf="!isSegmentValid && segmentsData.activeSegment == constants.SEGMENTED" [textContent]='constants.EXTRA_COMMAS'>
+                            </mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-radio-group>
+    </div>
+</form>

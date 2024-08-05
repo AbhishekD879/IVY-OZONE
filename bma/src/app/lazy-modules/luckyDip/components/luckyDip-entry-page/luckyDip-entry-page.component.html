@@ -1,0 +1,18 @@
+<div>
+    <div class="marketDescContent">
+        <div class="marketTemplate" (click)="onInfoIconClick($event)">
+            <svg class="infoIcon">
+                <use xlink:href="#limit-info"></use>
+            </svg>
+            <div class="marketDesc" [textContent]="luckyDipDesc"></div>
+        </div>
+        <hr>
+    </div>
+    <div class="selectionContent">
+        <div class="marketName" [textContent]="marketName"></div>
+        <luckyDip-odds-button class="oddsClass" [cmsData]="cmsData" [event]="event" [market]="market"
+            [outcome]="outcome" [odds]="odds" [overlayBannerImage]="overlayBannerImage" [luckyDipDesc]='luckyDipDesc'
+            [marketName]='marketName' [bannerImage]="bannerImage">
+        </luckyDip-odds-button>
+    </div>
+</div>

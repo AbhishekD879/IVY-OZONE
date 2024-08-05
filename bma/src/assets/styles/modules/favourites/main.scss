@@ -1,0 +1,231 @@
+/* Skin styles */
+@import 'global.variables.scss';
+
+$counter-shadow: none;                 /* Favourites Counter Shadow */
+$counter-font-size: 8px;               /* Favourites Counter Font Size */
+$leag-title-dis: inline-block;       /* League Title Display */
+$tabs-font-weight : bold;
+
+/* favourite icon */
+.odds-fav-icon {
+  width: 17px;
+  height: 17px;
+  max-width: 20px;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+
+  &.fav-active {
+    .fav-icon-svg {
+      stroke: $color-yellow;
+      fill: $color-yellow;
+    }
+  }
+
+  .fav-icon-svg {
+    fill: none;
+    stroke: $color-gray-dark;
+    width: 16px;
+    height: 16px;
+    opacity: 0.5;
+    display: inline-block;
+    stroke-width: 2px;
+
+    &.yellow-stroke {
+      stroke: $color-yellow;
+    }
+
+    &.active {
+      stroke: $color-yellow;
+      fill: $color-yellow;
+    }
+  }
+
+  &.fav-icon-header{
+    margin: 0 5px 0 10px;
+    stroke: $color-white;
+    fill: $color-white;
+
+    .fav-icon-svg {
+      &.active {
+        stroke: $fav-icon-color;
+        fill: $fav-icon-color;
+      }
+    }
+  }
+
+  .fav-icon-active{
+    transform: scale(0.80);
+  }
+
+  .fav-icon-inactive{
+    transform: scale(1);
+  }
+
+  &.fav-pos {
+    position: absolute;
+    top: 19px;
+    right: 22px;
+    z-index: 2;
+  }
+
+  .favourite-counter {
+    color: $counter-color;
+    font: $tabs-font-weight $counter-font-size $base-font-family;
+    box-shadow: $counter-shadow;
+    position: absolute;
+    z-index: 2;
+    padding: 1px;
+    background: $top-bar-bg;
+    border-radius: 30px;
+    text-align: center;
+    line-height: 8px;
+    top: -6px;
+    left: 15px;
+    min-width: 10px;
+  }
+  &.all-favourites {
+    margin: -3px 0;
+  }
+}
+
+.subheader-inner {
+  .title-side {
+    .fav-icon-svg {
+      stroke: $color-white;
+    }
+  }
+}
+
+.event-title-bar {
+  .fav-icon-svg {
+    stroke: $fav-icon-color;
+  }
+}
+
+/* favourite icon on betslip-reciept header */
+.bs-stake-header {
+  .odds-fav-icon {
+    margin: 0 0 10px;
+
+    .fav-icon-svg {
+      stroke-width: 1px;
+    }
+  }
+}
+
+/* favourite icon inside odds-card on betslip-receipt */
+.favourites-wrapper {
+  .odds-fav-icon {
+    display: block;
+    margin: 0;
+
+    .fav-icon-svg {
+      stroke-width: 1px;
+    }
+
+    &.fav-match {
+      margin-right: 10px;
+    }
+  }
+
+  .odds-card .odds-footer {
+    @include flex-wrap(wrap);
+  }
+}
+
+.favourite-label {
+  position: relative;
+  top: -3px;
+  left: 3px;
+  font-family: $base-font-family;
+  font-size: $font-size-sm;
+  text-decoration: underline;
+  color: $color-white;
+}
+
+/* match event */
+.match-event {
+  font-size: 11px;
+  max-width: 100%;
+  padding: 10px 15px 0;
+  position: relative;
+  width: 100%;
+  color: $color-black;
+  @include display-flex();
+  @include flex-flow();
+  @include align-items();
+  @include justify-content();
+  border-bottom: 1px solid $color-white;
+
+  .match-top {
+    padding: 0 0 5px;
+    text-align: center;
+    display: block;
+  }
+
+  .match-event-inner {
+    @include flex(1,1);
+    width: 90%;
+  }
+
+  .fav-icon {
+    margin: 0;
+    @include align-self(flex-end);
+  }
+
+  .match-btm {
+    @include display-flex();
+    @include flex-flow();
+    @include align-items();
+    @include justify-content();
+
+    .team {
+      font-size: 12px;
+      width: 50%;
+      text-align: center;
+      @include word-break();
+    }
+
+    .clock {
+      font-size: 11px;
+      color: $color-black;
+    }
+
+    & > * {
+      @include flex(0,0);
+      padding: 0 5px;
+      font-size: 30px;
+
+      &.match-timer {
+        color: $color-white;
+        font-size: 12px;
+        font-weight: 700;
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 5px;
+        background: $color-red;
+        text-transform: uppercase;
+        white-space: nowrap;
+        min-width: 45px;
+        text-align: center;
+        margin: 0 10px;
+      }
+    }
+  }
+}
+
+.float-right {
+  float: right;
+}
+
+.favourites-padding {
+  padding: 7px 0;
+  text-align: right;
+
+  .label-text {
+    font-size: 11px;
+  }
+}

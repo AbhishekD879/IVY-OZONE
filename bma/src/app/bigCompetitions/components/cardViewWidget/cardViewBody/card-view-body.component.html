@@ -1,0 +1,35 @@
+<a (click)="goToEvent($event)" [ngClass]="{'card-view-inplay': isInPlay }">
+  <div class="card-main-body">
+    <div class="card-favorite-icon-container" *ngIf="isFootball">
+      <div>
+        <favourites-add-button
+          class="odds-side star-item"
+          [event]="event"
+          [sportName]="sportName"
+          [config]="{ location: getLocation() }">
+        </favourites-add-button>
+      </div>
+    </div>
+    <div class="card-watch-live-icon-container" *ngIf="isStreamAvailable()">
+      <svg class="card-icon card-watch-live-icon">
+        <use xlink:href="#stream"></use>
+      </svg>
+    </div>
+  </div>
+
+  <inplay-card-details *ngIf="isInPlay" [event]="event"></inplay-card-details>
+  <prematch-card-details *ngIf="viewType === 'prematch'" [event]="event"></prematch-card-details>
+
+  <div class="card-more-link-container"
+       *ngIf="showMarketsCount()"
+       [ngClass]="{'hero-card-more': isInPlay }">
+    <div class="card-more-link">
+      <span class="card-markets-count" [textContent]="marketsCount"></span>
+      <span class="card-markets-count" [i18n]="'bigcompetitions.markets'"></span>
+    </div>
+  </div>
+
+  <div class="market-name" *ngIf="isInPlay">
+    <span [textContent]="event.markets[0]?.name"></span>
+  </div>
+</a>

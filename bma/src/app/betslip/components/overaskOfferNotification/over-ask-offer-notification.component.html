@@ -1,0 +1,10 @@
+<div class="bs-overask-trader-offer">
+  <svg class="bs-overask-trader-offer-info-icon">
+    <use xlink:href="#i-icon"></use>
+  </svg>
+  <div class="bs-overask-trader-offer-message" [textContent]="traderOfferNotificationMessage" data-crlat="oTraderOffer"></div>
+  <div *ngIf="isTimerShown && offerTimer" class="bs-overask-trader-offer-expires" data-crlat="oExpOffer">
+    <span [textContent]="traderOfferExpiresMessage"></span>
+    <span class="bs-overask-trader-offer-expires-timer" [textContent]="offerTimer"></span>
+  </div>
+</div>

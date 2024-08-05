@@ -1,0 +1,71 @@
+{
+  "addr": "77.52.194.150",
+  "id": 395645,
+  "isConfirmed": "Y",
+  "isFunded": "Y",
+  "isSettled": "N",
+  "receipt": "O/0168754/0000209",
+  "provider": "OpenBetSports",
+  "timeStamp": "2017-12-01T14:43:56.000Z",
+  "betTypeRef": {
+    "id": "SGL"
+  },
+  "stake": {
+    "stakePerLine": "1.00",
+    "amount": "1.00",
+    "freebet": "0.00",
+    "freebetOfferCategory": "BET PACK",
+    "currencyRef": {
+      "id": "GBP"
+    }
+  },
+  "payout": [
+    {
+      "bonus": "0.0",
+      "refunds": "0.00",
+      "winnings": "0.00",
+      "potential": "1.11"
+    }
+  ],
+  "lines": {
+    "number": "1"
+  },
+  "cashoutValue": "0.90",
+  "leg": [
+    {
+      "sportsLeg": {
+        "winPlaceRef": {
+          "id": "WIN"
+        },
+        "legPart": [
+          {
+            "outcomeRef": {
+              "id": "442027486",
+              "outcomeDesc": "|Paris FC|",
+              "eventDesc": "|Paris FC| |vs| |Perthshire|",
+              "marketDesc": "|Handicap Match Result -| |Paris FC| +|1.0| |goal|"
+            },
+            "range": {
+              "low": "1.0",
+              "high": "1.0",
+              "rangeTypeRef": {
+                "id": "MATCH_HANDICAP"
+              }
+            }
+          }
+        ],
+        "prices": [
+          {
+            "priceNum": "1",
+            "priceDen": "9",
+            "priceTypeRef": {
+              "id": "LP"
+            }
+          }
+        ],
+        "placeTerms": ""
+      },
+      "documentId": "1"
+    }
+  ]
+}

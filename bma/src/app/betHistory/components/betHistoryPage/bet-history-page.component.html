@@ -1,0 +1,84 @@
+<div class="sk-container"  [ngClass]="{'sk-loading': state.loading}">
+  <div *ngIf="!state.loading && !state.error" class="container bet-history-page history-bets" data-crlat="accordionsList">
+    <switchers [filter]="filter" [switchers]="betTypes" data-crlat="switchers">
+    </switchers>
+
+    <div class="datepickers-section" *ngIf="showDatepicker" data-crlat="datePickersSection">
+      <date-picker [date]="startDate" dateType="startDate" label="From" data-crlat="dateFrom" [minDate]="minDate" [maxDate]="maxDate"
+                   (errorStateData)="processDateRangeData($event)"></date-picker>
+      <date-picker [date]="endDate" dateType="endDate" label="To" data-crlat="dateTo" [minDate]="minDate" [maxDate]="maxDate"
+                   (errorStateData)="processDateRangeData($event)"></date-picker>
+    </div>
+
+    <profit-loss-link></profit-loss-link>
+
+    <div *ngIf="!loadFailed && !isDatePickerError()">
+      <div class="container loader-spinner-container" *ngIf="isLoading">
+        <loading-screen [displayed]="isLoading" [isUsedFromWidget]="isUsedFromWidget" [templateType]="'GENERIC_BET'" class="my-bets-ignore-scroll"></loading-screen>
+      </div>
+
+      <ng-container *ngIf="!isLoading" [ngSwitch]="filter">
+        <regular-bets *ngSwitchCase="regularType.viewByFilters" [regularBets]="bets" [isBetHistoryTab]="true"
+                      [isUsedFromWidget]="isUsedFromWidget" [area]="area" [isSportIconEnabled]="isSportIconEnabled"
+                      [isMyBetsInCasino]="isMyBetsInCasino" data-crlat="betType.regular" [origin]="'settledbets'"></regular-bets>
+
+        <lotto-bets *ngSwitchCase="lottoType.viewByFilters" [settled]="'Y'" [lottoBets]="bets" 
+                    [isUsedFromWidget]="isUsedFromWidget" [isMyBetsInCasino]="isMyBetsInCasino" [isBetHistoryTab]="true"
+                    [isSportIconEnabled]="isSportIconEnabled"
+                    data-crlat="betType.lotto"></lotto-bets>
+
+        <pool-bet-history *ngSwitchCase="poolType.viewByFilters" [isBetHistoryTab]="true" [poolBets]="bets"
+                          [isMyBetsInCasino]="isMyBetsInCasino" [isUsedFromWidget]="isUsedFromWidget" [isSportIconEnabled]="isSportIconEnabled" data-crlat="betType.pool">
+        </pool-bet-history>
+          <div *ngIf="betsLazyLoading.isLoadingMore" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+      </ng-container>
+      <terms-conditions *ngIf="!isLoading && bets.length > 0"></terms-conditions>
+    </div>
+
+    <div class="history-errors error-template container-content" *ngIf="isDatePickerError()">
+      <svg class="alert-icon">
+        <use xlink:href="#alert"></use>
+      </svg>
+      <div *ngIf="!datePickerErrors.moreThanOneYear">
+        <p class="center-text" data-crlat="textMsg" [i18n]="'bethistory.incorrectDateRange'"></p>
+      </div>
+      <div *ngIf="datePickerErrors.moreThanOneYear">
+        <p class="error-template-message center-text" data-crlat="textMsg" [innerHTML]="contactUsMsg"
+           [attr.data-help-support-url]="helpSupportUrl"></p>
+      </div>
+    </div>
+
+    <div *ngIf="!isDatePickerError() && loadFailed" class="container-content">
+      <svg class="alert-icon">
+        <use xlink:href="#alert"></use>
+      </svg>
+      <div class="center-text">
+        <span [i18n]="'bs.betHistoryErrorMessage'" data-crlat="betHistoryErrorMessage"></span>
+      </div>
+      <div class="center-text">
+        <span [i18n]="'bs.errorServiceDepartmentMessage'"></span>
+        <span>
+                  <a [routerLink]="'/contact-us'" [i18n]="'bs.errorServiceDepartmentLink'"></a>
+              </span>
+      </div>
+      <div class="center-text">
+        <button class="btn btn-style1" (click)="reload()" data-crlat="button.reload">
+          <span [i18n]="'bs.reload'" data-crlat="label.reload"></span>
+        </button>
+      </div>
+    </div>
+
+    <lazy-component *ngIf="!!isMyBetsInCasino"
+    moduleUri="@lazy-modules-module/casinoMyBetsIntegration/casino-my-bets-integration.module#CasinoMyBetsIntegrationModule"
+    entryComponent="CasinoGoToSportsComponent"></lazy-component>
+  </div>
+
+  <outlet-status [state]="state" [skeletonType]="'GENERIC_BET'">
+    <request-error [errorMsg]="errorMsg"
+                   [loginNeed]="!userStatus"
+                   [insertedPlace]="'bet-history-page'"
+                   [reloadMethods]="['SUCCESSFUL_LOGIN']"
+                   (reloadFn)="reloadComponent()">
+    </request-error>
+  </outlet-status>
+</div>

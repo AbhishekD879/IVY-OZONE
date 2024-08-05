@@ -1,0 +1,28 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>Add a New Participant Details</h1>
+  <form [formGroup]="form">
+    <div mat-dialog-content>
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input [(ngModel)]="participant.obName" matInput type="text" placeholder="OB Name"
+                   formControlName="obName" required trim="blur">
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input [(ngModel)]="participant.fullName" matInput type="text" placeholder="Front End Full Name"
+                   formControlName="fullName" trim="blur">
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input [(ngModel)]="participant.abbreviation" matInput type="text" placeholder="Name Abbreviation"
+                   formControlName="abbreviation" trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions >
+      <button (click)="closeDialog()" mat-button class="btn btn-sm bg-cean m-r-20 float-right">Cancel</button>
+      <button [disabled]="form.invalid" mat-button class="btn btn-sm bg-teal float-right"
+              [mat-dialog-close]="participant">Add</button>
+    </div>
+  </form>
+</div>

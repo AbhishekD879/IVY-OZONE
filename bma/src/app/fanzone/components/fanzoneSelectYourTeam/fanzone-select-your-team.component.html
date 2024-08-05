@@ -1,0 +1,28 @@
+<div *ngIf='fanzoneData && fanzonePopupData' class="select-your-team">
+    <top-bar [title]="fanzonePopupData.sycTitle"></top-bar>
+    <div class="select-your-team__message select-your-team__text" [textContent]="fanzonePopupData.sycDescription">
+    </div>
+    <div class="row select-your-team__grid">
+        <ng-container *ngFor="let team of fanzoneData; let index = index;">
+            <div *ngIf="team && (team.teamId!=='FZ001')" class="col-md-3 col-sm-4 col-xs-4 select-your-team__grid-col">
+                <div class='card select-your-team__card'
+                    [ngClass]="{'select-your-team__card--highlight':  index === currentlyClickedCardIndex }"
+                    (click)="onTeamSelection(team, index)">
+                    <div class="card-body select-your-team__card-body">
+                        <fanzone-crest-image [hasTeamImage]="team.asset? true: false" [teamName]="team.name" [team]="team.asset"
+                            [widthHeight]="65">
+                        </fanzone-crest-image>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngFor="let team of fanzoneData; let index = index;">
+            <div *ngIf="team && (team.teamId === 'FZ001')" class="col-md-3 col-sm-4 col-xs-4 select-your-team__grid-col">
+                <div class="card select-your-team__card" [ngClass]="{'select-your-team__card--highlight':noTeamSupport}">
+                    <span (click)="onNoTeamSupportSelection(team.name)"
+                        class="card-text my-auto select-your-team__card--text select-your-team__text" [textContent]="iDonotSupportAnyTeam"></span>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

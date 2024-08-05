@@ -1,0 +1,45 @@
+@import "global.variables.scss";
+
+.preference-popup {
+  &-title {
+    @include setFanzoneSYTText(Helvetica, 15px, bold, left, normal, normal, normal, normal);
+    text-transform: uppercase;
+    color: $lGray;
+  }
+  &-text {
+    margin: 2px 5px 0 2px;
+    @include setFanzoneSYTText(Helvetica, 13px, normal, left, normal, normal, normal, normal);
+    color: $lBlack-light;
+  }
+  &__ctaButton {
+    float: right;
+    &--ctaPrimaryBtn, &--ctaSecondaryBtn {
+      padding: 10px 12px;
+      border: $fanzone-syt-border;
+      @include setFanzoneSYTText(Roboto, 13px, bold, center, condensed, normal, normal, normal);
+    }
+    &--ctaPrimaryBtn {
+      width: 100px;
+      background-color: $color-yellow-alt;
+      color: $color-black;
+      height: 36px;
+    }
+    &--ctaSecondaryBtn {
+      background-color: $fanzone-transparent-color;
+      color: $color-black-light-medium;
+    }
+  }
+}
+
+.notification_bell_ring-container {
+  width: 100%;
+  margin: 20px 0px;
+  display: flex;
+  height: 40px;
+}
+
+.notification_bell_ring {
+  height: 37px;
+  object-fit: contain;
+  text-align: center;
+}

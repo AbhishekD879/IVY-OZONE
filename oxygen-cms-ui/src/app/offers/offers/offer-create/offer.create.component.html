@@ -1,0 +1,71 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>Create a New Offer</h1>
+  <div mat-dialog-content>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row clearfix">
+          <div class="col-md-12">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Name" [(ngModel)]="newOffer.name" [value]="newOffer.name" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <date-range
+            [isSetDateButtons]="true"
+            [startPlaceholder]="'Display From*'"
+            [endPlaceholder]="'Display To*'"
+            (onDateUpdate)="handleDateUpdate($event)">
+          </date-range>
+      </div>
+      <div class="col-md-12">
+        <div class="row clearfix">
+          <div class="col-md-12">
+            <customer-variants-select
+              [optionsType]="'existing'"
+              [placeholder]="'Show Offer To'"
+              [customerType]="newOffer.showOfferTo"
+              (onChange)="setShowToCustomer($event)">
+            </customer-variants-select>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="row clearfix">
+          <div class="col-md-12">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Target Uri" [(ngModel)]="newOffer.targetUri" [value]="newOffer.targetUri" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="row clearfix">
+          <div class="col-md-12">
+            <vip-levels-input [(ngModel)]="newOffer.vipLevelsInput"></vip-levels-input>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-5">
+        <div class="row clearfix">
+            <div class="col-md-12">
+              <mat-form-field class="full-width">
+                <mat-select (selectionChange)="setModule($event.value)"
+                            placeholder="Module" required>
+                  <mat-option *ngFor="let module of offerModulesData" [value]="module.id">
+                    {{ module.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+    <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="!isValidModel()" [mat-dialog-close]="newOffer">Create</button>
+  </div>
+</div>

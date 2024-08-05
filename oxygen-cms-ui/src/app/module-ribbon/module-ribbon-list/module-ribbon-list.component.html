@@ -1,0 +1,55 @@
+<div class="card" *ngIf="!isLoading">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Module Ribbon Tabs Page
+      <small>{{visibleItems}} Visible Items</small>
+    </h2>
+  </div>
+</div>
+<div class="card" *ngIf="!isLoading">
+  <div class="body">
+    <!-- search and download button.-->
+    <div *ngIf="moduleRibbonTabs" class="row clearfix">
+      <div class="col-md-3 m-b-0 white-space-nowrap">
+        <button (click)="createModuleRibbonTab();" mat-button type="button" class="btn bg-teal waves-effect float-left">
+          <mat-icon>add_box</mat-icon>
+          <span>Create Module Ribbon Tab</span>
+        </button>
+      </div>
+      <div class="segment-dropdown col-md-4 m-b-0">
+        <cms-segment-dropdown [activeSegment]='selectedSegment'
+                              (selectedSegment)="segmentHandler($event)">
+        </cms-segment-dropdown>
+      </div>
+      <div class="col-md-2 m-b-0">
+        <download-cvs [cvsData]="moduleRibbonTabs" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div class="col-md-3 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Module Ribbon Tab" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <!-- main content, config moduleRibbonTabs list-->
+    <div *ngIf="moduleRibbonTabs && moduleRibbonTabs.length">
+      <div *ngIf="orderMessage" class="order-message">
+        {{ orderMessage }}
+      </div>
+      <cms-segment-data-table *ngIf="moduleRibbonTabs && segmentChanged"
+        [selectedSegment]="selectedSegment"
+        [customTableData]="moduleRibbonTabs"
+        [customTableColumns]="dataTableColumns"
+        [reorder]="true"
+        [filterString]="searchField"
+        [filterProperties]="filterProperties"
+        [actions]="['remove','edit']"
+        (onElementsOrder)="reorderHandler($event)"
+        (onRemoveTableElement)="removeModuleRibbonTab($event)">
+      </cms-segment-data-table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,144 @@
+<ng-container [ngTemplateOutlet]="quickStake" *ngIf="isKeyboardShown && quickStakeItemsList?.length && isBrandLadbrokes"></ng-container>
+<div id="dk-keyboard" class="dk-keyboard" [hidden]="!isKeyboardShown && hideKeyboardFlag"
+  [ngClass]="{'dk-keyboard-shown': isKeyboardShown, 'isTotePool': isTotePool,'keyboard-slide-up': !hideKeyboardFlag}"
+  data-crlat="betslip.keyboard">
+
+    <div class="dk-column">
+      <div #dkKey class="dk-key dk-key-1" data-value="1" data-crlat="keyboard.key"
+        (click)="onButtonClickHandler($event)">1</div>
+      <div #dkKey class="dk-key dk-key-4" data-value="4" data-crlat="keyboard.key"
+        (click)="onButtonClickHandler($event)">4</div>
+      <div #dkKey class="dk-key dk-key-7" data-value="7" data-crlat="keyboard.key"
+        (click)="onButtonClickHandler($event)">7</div>
+      <div #dkKey class="dk-key dk-key-00" data-value="00" data-crlat="keyboard.key"
+        (click)="onButtonClickHandler($event)">00</div>
+    </div>
+  
+    <div class="dk-column">
+      <div #dkKey class="dk-key dk-key-2" data-value="2" data-crlat="keyboard.key"
+        (click)="onButtonClickHandler($event)">2
+      </div>
+      <div #dkKey class="dk-key dk-key-5" data-value="5" data-crlat="keyboard.key"
+        (click)="onButtonClickHandler($event)">5
+      </div>
+      <div #dkKey class="dk-key dk-key-8" data-value="8" data-crlat="keyboard.key"
+        (click)="onButtonClickHandler($event)">8
+      </div>
+      <div #dkKey class="dk-key dk-key-0" data-value="0" data-crlat="keyboard.key"
+        (click)="onButtonClickHandler($event)">0
+      </div>
+    </div>
+  
+    <div class="dk-column">
+      <div #dkKey class="dk-key dk-key-3" data-value="3" data-crlat="keyboard.key"
+        (click)="onButtonClickHandler($event)">3
+      </div>
+      <div #dkKey class="dk-key dk-key-6" data-value="6" data-crlat="keyboard.key"
+        (click)="onButtonClickHandler($event)">6
+      </div>
+      <div #dkKey class="dk-key dk-key-9" data-value="9" data-crlat="keyboard.key"
+        (click)="onButtonClickHandler($event)">9
+      </div>
+      <div #dkKey class="dk-key dk-key-." data-value="." data-crlat="keyboard.key"
+        (click)="onButtonClickHandler($event)" [ngClass]="{'disabled': isDecimalPointPressed || !isDecimalButtonEnabled}">.
+      </div>
+    </div>
+    <div class="dk-column">
+     <div *ngIf="((availableFreeBets && availableFreeBets.length > 0) || (availableBetPacks && availableBetPacks.length > 0)  || (availableFanzone && availableFanzone.length > 0) || selected) && !triggeredFromToteBets; else showToteFreeBetTogggle" #dkKey
+          class="dk-key"
+          [ngClass]="selected ? (isBrandLadbrokes ? 'dk-free-bet-sel-lads' : 'dk-free-bet-sel-coral') : 
+          (isBrandLadbrokes ? 'dk-free-bet-lads fb-ripple' : 'dk-free-bet-coral fb-ripple')"
+          data-value="free-bet" 
+          data-crlat="keyboard.key">
+          <lazy-component
+          moduleUri="@freebetsModule/freebets.module#FreebetsModule"
+          [inputs]="{freeBets: availableFreeBets,
+               selected: selected, 
+               freebetsConfig, 
+               isBoostEnabled, 
+               isSelectionBoosted, 
+               canBoostSelection,
+               showOnDigitKeyborad: true,
+               digitKeyboard: true,
+               isBetslip: isBetslip,
+               betPackList:availableBetPacks,
+               fanzoneList:availableFanzone,
+               freeBetImageName
+          }"
+          [outputs]="['selectedChange']"
+          (event)="onFreebetChange($event)"
+          entryComponent="FreeBetToggleComponent">
+          </lazy-component>
+     </div>
+     <ng-template #showToteFreeBetTogggle>
+          <div #dkKey *ngIf="(availableToteFreeBets?.length > 0 || availableToteBetPacks?.length > 0)&& areToteBetsInBetslip"
+               class="dk-key"
+               [ngClass]="selectedToteFreeBetValue ? (isBrandLadbrokes ? 'dk-free-bet-sel-lads' : 'dk-free-bet-sel-coral') : 
+               (isBrandLadbrokes ? 'dk-free-bet-lads fb-ripple' : 'dk-free-bet-coral fb-ripple')"
+               data-value="free-bet" 
+               data-crlat="keyboard.key">
+               <lazy-component *ngIf="(availableToteFreeBets?.length > 0 || availableToteBetPacks?.length > 0)"
+               moduleUri="@freebetsModule/freebets.module#FreebetsModule"
+               [inputs]="{freeBets: availableToteFreeBets,
+                    freebetsConfig: setToteFreebetConfig(),
+                    betPackList: availableToteBetPacks,
+                    selected: selectedToteFreeBetObj, 
+                    showOnDigitKeyborad: true,
+                    selectedToteFreeBetValue: selectedToteFreeBetValue,
+                    digitKeyboard: true,
+                    isBetslip: isBetslip,
+                    toteFreeBetSelected: toteFreeBetSelected}"
+                [outputs]="['toteBet', 'removetoteFreeBet']"
+                (event)="onToteFreebetChange($event)"
+               entryComponent="ToteFreeBetsToggleComponent">
+               </lazy-component>
+          </div>
+     </ng-template>
+      <div #dkKey
+           class="dk-key delete dk-key-delete"
+           data-value="delete"
+           data-crlat="keyboard.key"
+           (click)="onButtonClickHandler($event)">
+        <svg>
+          <use xlink:href="#icn_keypad-delete"></use>
+        </svg>
+      </div>
+      <div #dkKeyEnter *ngIf="!areToteBetsInBetslip"
+               class="dk-key enter dk-key-enter"
+               [ngClass]="((availableFreeBets && availableFreeBets.length > 0) || (availableFanzone && availableFanzone.length > 0) || (availableBetPacks && availableBetPacks.length > 0) ||selected)  ? 'dk-enter': 'dk-large'"
+               data-value="enter"
+               data-crlat="keyboard.key"
+               (click)="onButtonClickHandler($event)">
+               <svg>
+               <use xlink:href="#icn_keypad-enter"></use>
+               </svg>
+          </div>
+      <div #dkKeyEnter *ngIf="areToteBetsInBetslip"
+               class="dk-key enter"
+               [ngClass]="((availableToteFreeBets && availableToteFreeBets?.length > 0) || (availableToteBetPacks && availableToteBetPacks.length > 0))  ? 'dk-enter': 'dk-large'"
+               data-value="enter"
+               data-crlat="keyboard.key"
+               (click)="onButtonClickHandler($event)">
+            <svg>
+              <use xlink:href="#icn_keypad-enter"></use>
+            </svg>
+          </div>
+    </div>
+    
+    <ng-template #quickStake>
+      <div class="dk-quick-stake" [ngClass]="{'dk-quick-stake-totepool-bma': isTotePool && !isBrandLadbrokes,
+      'dk-quick-stake-totepool-lads': isTotePool && isBrandLadbrokes }"data-crlat="quickStakePanel2">
+        <div class="dk-column" *ngFor="let qdButton of quickStakeItemsList">
+            <div #qsKey class="dk-key dk-key-{{qdButton.value}}"  [ngStyle]="{'margin': isBrandLadbrokes ? '0px 0px 8px 0px' : '8px 0px 0px 0px'}" [textContent]="qdButton.label" [attr.data-value]="qdButton.value"
+            (click)="onButtonClickHandler($event,'qb')" data-crlat="quickStake.key"></div>
+          </div>
+        </div>
+  </ng-template>
+  <div *ngIf="isQuickDepositButtonsShown && !quickStakeItemsList" class="dk-quick-deposit" data-crlat="quickStakePanel">
+    <div class="dk-column" *ngFor="let qdButton of quickDepositButtons">
+      <div #qsKey class="dk-key" [textContent]="qdButton.label" [attr.data-value]="qdButton.value"
+        (click)="onButtonClickHandler($event,'qb')" data-crlat="quickStake.key"></div>
+    </div>
+  </div>
+</div>
+<ng-container [ngTemplateOutlet]="quickStake" *ngIf="isKeyboardShown && quickStakeItemsList?.length && !isBrandLadbrokes"></ng-container>

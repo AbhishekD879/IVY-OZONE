@@ -1,0 +1,44 @@
+<div class="sk-container" [ngClass]="{'sk-loading': !isLoaded}">
+  <loading-screen [displayed]="!isLoaded" [templateType]="'GENERIC'"></loading-screen>
+  <div class="heuristic-container" *ngIf="isLoaded && !isResponseError && eventsBySections.length">
+    <accordion  *ngFor="let eventsBySection of eventsBySections; trackBy: trackByTypeId; let i = index;"
+                data-crlat="accordion"
+                [accordionTitle]="eventsBySection.sectionTitle"
+                [isExpanded]="isExpanded[i]"
+                [card]="true">
+      <accordion-body *ngIf="!isEnhancedMultiplesSection(eventsBySection)">
+        <odds-card-component *ngFor="let eventEntity of eventsBySection.events; trackBy: trackById"
+                            data-crlat="eventEntity"
+                            [event]="eventEntity"
+                            [sportConfig]="sport?.sportConfig"
+                            [eventType]="'specials'"
+                            [gtmModuleTitle]="eventsBySection.sectionTitle">
+        </odds-card-component>
+      </accordion-body>
+
+      <accordion-body *ngIf="isEnhancedMultiplesSection(eventsBySection)">
+        <div *ngFor="let groupedBy of eventsBySection.groupedByDate; trackBy: trackByIndex">
+          <div class="odds-card-header">
+            <div class="odds-left" data-crlat="oddsLeft">
+              <div class="odds-header-title" [textContent]="groupedBy.title"></div>
+            </div>
+          </div>
+          <odds-card-component *ngFor="let eventEntity of groupedBy.events; trackBy: trackByIndex"
+                              [event]="eventEntity"
+                              [sportConfig]="sport?.sportConfig"
+                              [eventType]="'specials'"
+                              [gtmModuleTitle]="eventsBySection.sectionTitle"
+                              data-crlat="eventEntity">
+          </odds-card-component>
+        </div>
+      </accordion-body>
+    </accordion>
+  </div>
+
+<request-error *ngIf="isLoaded && isResponseError"
+               (reloadFn)="loadSpecialsData()"
+               [loadFailed]="isResponseError">
+</request-error>
+<no-events *ngIf="isLoaded && !isResponseError && !eventsBySections.length"></no-events>
+
+</div>

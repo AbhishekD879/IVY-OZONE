@@ -1,0 +1,27 @@
+@import 'global.variables.scss';
+
+.wrapper {
+  @include display-flex();
+  @include align-items(center);
+  @include justify-content(flex-start);
+  padding: 12px 13px;
+  .opta-logo {
+    width: 22px;
+    height: 9px;
+  }
+  .static-text {
+    ::ng-deep p {
+      font-family: $alt-font-family;
+      font-size: 12px;
+      color: $color-gray-darkest;
+      margin: 0 auto;
+      padding: 0 6px;
+    }
+  }
+  .see-more {
+    font-family: $alt-font-family;
+    font-size: 12px;
+    color: $color-blue-alt;
+    white-space: nowrap;
+  }
+}

@@ -1,0 +1,40 @@
+@import 'global.variables.scss';
+
+.content{
+    padding: 0px 4px;
+    width:100%;
+    position:relative;
+    display: inline-block;
+    margin-top: 2px;
+  }
+
+  .my-entries {
+    @include setFontProps($base-font-family, $font-size-base, bold, $color-light-white-grey);
+    // margin: 0 25px 6px 25px;
+
+    @media #{$mqMobile} {
+      // margin: 9px 15px 8px 15px;
+    }
+  }
+
+  .my-entries-tutorial {
+    display: flex;
+    justify-content: space-between;
+    padding: 2% 2% 0;
+    margin: 0 0 6px;
+  }
+
+  .tutorial-link {
+    padding: 0px;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #007aff;
+    cursor: pointer;
+    width: 35px;
+  }

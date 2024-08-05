@@ -1,0 +1,30 @@
+@import 'global.variables.scss';
+
+@mixin blurb-content($margin, $fontSize, $letterSpacing, $fontFamily, $color, $padding) {
+  margin: $margin;
+  font-size: $fontSize;
+  letter-spacing: $letterSpacing;
+  font-family: $fontFamily;
+  color: $color;
+  padding: $padding;
+}
+
+.rules-entry-area {
+  box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+  background: $color-border-bottom-dark-black;
+  padding: 12px 16px;
+  @media (min-width: $tabletPoint) {
+    margin: 0px;
+    padding: 12px 24px;
+  }
+}
+
+::ng-deep .rules-sub-header {
+  clear: both;
+  background-color: $color-bluecharcoal;
+  border-radius: 4px;
+  @include blurb-content(12px 4px 15px 0, $font-size-tablet, -0.16px, $alt-font-family, $lGrayLighter,12px 12px 12px 12px);
+  & > p {
+    @include blurb-content(0 4px 0 0, $font-size-tablet, -0.16px, $alt-font-family, $lGrayLighter, unset);
+  }
+}

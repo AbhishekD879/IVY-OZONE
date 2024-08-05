@@ -1,0 +1,140 @@
+@import 'global.variables.scss';
+
+.bs-declined-stake-content {
+  margin-bottom: 16px;
+}
+
+.bs-container {
+  .bs-multiple-receipt {
+    .bs-single-receipt-odds {
+      padding-top: 0;
+    }
+
+    .bs-single-receipt {
+      .stake-row {
+        padding: 0 16px;
+
+        &:first-child {
+          padding-top: 16px;
+        }
+      }
+    }
+  }
+}
+
+.bs-single-receipt {
+  .stake-row {
+    padding: 16px;
+  }
+
+  .bet-id-number {
+    .bet-id {
+      color: $lBlack-light;
+    }
+  }
+  .bs-stake-info {
+    .selection-type {
+      font-size: 15px;
+    }
+    .bs-receipt-odds {
+      font-weight: 400;
+      font-size: 15px;
+      color: $color-gray-darkest;
+    }
+    .bs-stake-title,
+    .stake-type,
+    .selection-type,
+    .stake-description {
+      color: $lBlack-medium;
+    }
+
+    .bs-stake-title {
+      line-height: 14px;
+    }
+  }
+  .bs-stake-footer {
+    background: $lGrayLight;
+    padding: 12px 16px;
+    &::after, &::before {
+      content: none;
+    }
+    .line {
+      color: $lBlack-medium;
+      margin-bottom: 6px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  .alerts-wrapper {
+    font-size: 10px;
+  }
+}
+.stakes-wrapper {
+  padding: 8px 0 0 0;
+  box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+}
+.bs-stake {
+  .bs-canceled-stake-message {
+    padding: 15px 15px 0 15px;
+    color: $color-red;
+    font-size: 13px;
+    font-weight: bold;
+  }
+
+  &.is-canceled {
+
+    .stake-row {
+      padding-top: 8px;
+    }
+
+    .bs-stake-boost,
+    .favourites-column,
+    .alert-column,
+    .bs-single-receipt-odds,
+    .bet-id-number,
+    .bet-id-number,
+    .bs-stake-footer { display: none; }
+
+    .bs-multiple-receipt & {
+      padding-bottom: 15px;
+    }
+  }
+}
+
+.bs-tote-container, .uktote-receipt {
+  .bs-single-receipt.bs-stake {
+    font-family: $alt-font-family;
+  }
+
+  .multiple-legs-pool {
+    font-family: $alt-font-family;
+
+    .leg-item-title {
+      color: $color-gray-darkest;
+    }
+  }
+
+  .single-legs-pool {
+    margin-bottom: 3px;
+  }
+
+  .lines-info {
+    margin-top: 6px;
+  }
+}
+
+.promotion-icon-label {
+  align-items: center;
+  ::ng-deep {
+    .promo-labels {
+      &.betslip {
+        margin-top: 3px!important;
+      }
+      .cashout-label-wrapper {
+        margin-top: 0px!important;
+      }
+    }
+  }
+}

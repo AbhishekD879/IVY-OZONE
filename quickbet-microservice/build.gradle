@@ -1,0 +1,135 @@
+// base build v1.2
+// https://bitbucket.org/symphonydevelopers/codebase-main/src/master/tools/gradle/build.gradle
+
+// Limitations of the plugins DSL
+// https://docs.gradle.org/5.2.1/userguide/plugins.html#plugins_dsl_limitations
+
+plugins {
+  id 'java'
+  id 'jacoco'
+
+  id 'eclipse'
+  id 'idea'
+
+  id 'org.springframework.boot' version '2.7.1'
+  id 'com.coral.tools' version "3.0-SNAPSHOT"
+}
+
+apply plugin: "io.spring.dependency-management"
+
+group 'com.coral.oxygen.middleware'
+
+def nexusMavenRepo = 'https://nexus-vie.coral.co.uk/repository/maven-public/'
+ext.nexusUser = project.properties.nexusUser ?: System.getenv('NEXUS_USER')
+ext.nexusPass = project.properties.nexusPass ?: System.getenv('NEXUS_PASS')
+
+repositories {
+  maven {
+    credentials {
+      username = "${nexusUser}"
+      password = "${nexusPass}"
+    }
+    url nexusMavenRepo
+  }
+  mavenLocal()
+}
+
+configurations {
+  all {
+    exclude module: 'spring-boot-starter-tomcat'
+    exclude module: 'spring-boot-starter-logging'
+    // exclude module: 'joda-time'
+  }
+  compileOnly {
+    extendsFrom annotationProcessor
+  }
+}
+
+// FIXME: re-work enum usage
+// to forbid using 2.11.0 which causes issues with deserialization. BMA-53883
+ext['jackson-bom.version'] = '2.10.5'
+
+dependencies {
+
+  // Development
+  developmentOnly 'org.springframework.boot:spring-boot-devtools'
+  annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+  // async logging
+  implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+  implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.5'
+  implementation 'com.lmax:disruptor:3.4.4'
+
+  // Project libriries
+  implementation 'com.entain.oxygen:betting-api:release-172.0.0'
+  implementation 'com.coral:bpp-api:release-172.0.0'
+  implementation 'com.ladbrokescoral.oxygen:banach-api:2.5'
+  implementation 'com.egalacoral.spark:siteserver-api:release-172.0.0'
+  implementation 'com.egalacoral.spark:liveserv-api:1.6'
+  implementation 'com.ladbrokescoral.scoreboards:bip-scoreboards-java-parser:1.11'
+  implementation 'com.newrelic.agent.java:newrelic-api:latest.release'
+  implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+
+
+  // Spring Boot
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+  implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+  implementation 'org.springframework.boot:spring-boot-starter-jetty'
+  implementation 'org.springframework.boot:spring-boot-starter-actuator'
+  implementation 'org.springframework.boot:spring-boot-starter-cache'
+  implementation 'org.springframework.boot:spring-boot-starter-reactor-netty'
+
+  // implementation 'org.redisson:redisson-spring-boot-starter:3.13.3' // FIXME: use spring-boot-starter
+  implementation 'org.redisson:redisson:3.19.0'
+  implementation 'com.corundumstudio.socketio:netty-socketio:1.7.18' // TODO: is it good package ?
+
+  implementation 'org.springframework.boot:spring-boot-starter-integration:2.4.2'
+  implementation 'org.springframework.integration:spring-integration-redis:5.4.1'
+
+  // Tools
+  implementation 'commons-codec:commons-codec:1.14' // FIXME: use JDK
+  implementation 'commons-io:commons-io:2.7' // FIXME: used JDK
+  // implementation 'commons-io:commons-io:2.7'
+  implementation 'com.google.guava:guava:29.0-jre'
+  implementation 'com.github.ben-manes.caffeine:caffeine:2.8.5'
+
+  implementation 'joda-time:joda-time:2.12.2'
+
+  // FIXME: why jackson and gson in same codebase ??
+  // what the reason to use vavr ??
+  // implementation 'io.vavr:vavr:0.10.3'
+  implementation 'io.vavr:vavr-jackson:0.10.2'
+  implementation 'io.vavr:vavr-gson:0.10.2'
+
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testImplementation 'io.socket:socket.io-client:1.0.0' // FIXME: use same library for testing or this one for application
+  testImplementation 'org.mockito:mockito-inline:2.13.0' // mockito v2 for mocking final classes and final methods
+}
+
+jacocoTestReport.reports.xml.enabled = true
+
+test{
+  useJUnitPlatform()
+
+  // FIXME: IT tests are freezing
+  exclude '**/*IT.class'
+  systemProperty 'spring.profiles.active', 'UNIT'
+}
+
+jar {
+  enabled = false
+}
+
+springBoot {
+  buildInfo()
+}
+
+bootBuildImage {
+  imageName = "${rootProject.name}"
+}
+
+sonarqube {
+  properties {
+    property 'sonar.coverage.exclusions', "**/configuration/QuickBetConfiguration.java,**/connector/SocketIOConnector.java"
+  }
+}

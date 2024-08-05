@@ -1,0 +1,89 @@
+<div class="sk-container" [ngClass]="{'sk-loading': state.loading}" >
+  <outlet-status [skeletonType]="'GENERIC_FULL'" [state]="state">
+    <request-error *ngIf="state.error" [loadFailed]="state.error" (reloadFn)="reloadComponent()"></request-error>
+  </outlet-status>
+  <ng-container *ngIf="!state.loading && !state.error">
+    <!--- top Bar -->
+    <top-bar *ngIf="isChildComponentLoaded" [title]="'sb.' + racingName"
+            [iconId]="racingIconId"
+            data-crlat="topBar"
+            [iconSvg]="racingIconSvg"
+            [path]="racingDefaultPath"
+            [innerContent]="racingName === 'horseracing'"
+            (titleFunc)="goToDefaultPage()"
+            [isHorseRacingDetailPage]="isHRDetailPage"
+            [ngStyle]="{'z-index': topBarIndex}"
+            [isRouteRequestSuccess]="isRouteRequestSuccess">
+
+        <breadcrumbs *ngIf="meetingsTitle"
+                    [items]="breadcrumbsItems"
+                    (navigationMenu)="showMeetingsList()"
+                    [isExpanded]="showMeetings"
+                    [menuItems]="quickNavigationItems"
+                    [sportName]="racingName"
+                    [defaultTab]="defaultTab">
+        </breadcrumbs>
+        <quick-navigation *ngIf="meetingsTitle"
+                          [items]="quickNavigationItems"
+                          [showMenu]="showMeetings"
+                          (showMeetingsListFn)="showMeetingsList()"
+                          [meetingsTitle]="meetingsTitle"
+                          [eventEntity]="eventEntity"
+                          [races]="races"
+                          [eventsOrder]="eventsOrder"
+                          [sectionTitle]="sectionTitle"
+                          [sportName]="racingName"
+                          [filter]="filter"
+                          [display]="display"
+                          [sportEventsData]="sportEventsData"
+                          [isExtraPlaceAvailable]="isExtraPlaceAvailable"
+                          [nextRacesComponentEnabled]="nextRacesComponentEnabled"
+                          [categoryId]="categoryId"
+                          [sportModule]="sportModule"
+                          [offersAndFeaturedRacesTitle]="offersAndFeaturedRacesTitle"
+                          [isMarketAntepost]="isMarketAntepost">
+        </quick-navigation>
+      <top-bar-body class="top-bar-side" data-crlat="topBarContent">
+        <a *ngIf="isBetFilterLinkAvailable" [routerLink]="'/bet-finder'" class="bet-finder-link" data-crlat="betFinderLink">
+          <svg class="bet-finder-icon">
+            <use xlink:href="#bet-finder-icon"></use>
+          </svg>
+          <span class="bet-finder-title" data-crlat="betFinderTitle" [i18n]="'bf.betFinder'"></span>
+        </a>
+      </top-bar-body>
+    </top-bar>
+
+    <div *ngIf="!isDetailPage && isRouteRequestSuccess">
+      <div class="race-block banner-block-place" data-crlat="raceBlock">
+        <!--- Banners Section-->
+        <loading-screen [displayed]="!isChildComponentLoaded"
+        templateType="BANNER"
+        [skeletonOnly]="true"></loading-screen>
+        <lazy-component *ngIf="isChildComponentLoaded"
+              moduleUri="@lazy-modules-module/banners/banners.module#BannersModule"
+              [inputs]='{ page: racingName}' data-crlat="bannersSection">
+        </lazy-component>
+      </div>
+
+      <switchers *ngIf="isChildComponentLoaded"
+        class="tab-switchers"
+        [type]="'scrollable'"
+        [switchers]="racingTabs"
+        [activeTab]="activeTab"
+        [noPaddings]="true"
+        [detectGTMLocation]="'location'"
+        [preventReload]="true"
+      ></switchers>
+
+      <!--- Navigation Points -->
+      <lazy-component *ngIf="isChildComponentLoaded" moduleUri="@lazy-modules-module/superButton/super-button.module#SuperButtonModule"
+                      [inputs]="{
+                            type: 'sport',
+                            categoryId: categoryId
+                          }">
+      </lazy-component>
+    </div>
+    <router-outlet></router-outlet>
+
+  </ng-container>
+</div>

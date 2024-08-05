@@ -1,0 +1,48 @@
+<div class="card">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Quiz page
+    </h2>
+  </div>
+</div>
+<div class="card">
+  <div class="body">
+    <div class="row clearfix">
+      <div class="col-md-3">
+        <button (click)="createQuiz()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create Quiz</span>
+        </button>
+      </div>
+      <div *ngIf="quizData" class="col-md-3">
+        <download-cvs [cvsData]="quizData" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div *ngIf="quizData" class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Quiz" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="quizData">
+      <cms-data-table class="test"
+        [customTableData]="quizData"
+        [customTableColumns]="dataTableColumns"
+        [multyRemove]="true"
+        [actions]="['edit']"
+        [filterString]="searchField"
+        [filterProperties]="filterProperties"
+        [isRemoveCheckboxEnabled]="isRemoveCheckboxEnabled"
+        (onRemoveTableElement)="removeQuiz($event)"
+        (onMultyRemove)="removeHandlerMulty($event)">
+      </cms-data-table>
+    </div>
+
+    <div *ngIf="getDataError">
+      Request Error
+    </div>
+  </div>
+</div>

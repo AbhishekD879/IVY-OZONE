@@ -1,0 +1,23 @@
+@import 'global.variables.scss';
+
+.race-cards-controls {
+  background: $lGray-bg;
+  box-shadow: 0 -1px 0 0 $lGrayLight, 0 1px 0 0 $lGrayLight;
+  margin-bottom: 1px;
+  @include display-flex();
+
+  .race-cards-show-option {
+    cursor: pointer;
+    width: 100px;
+    padding: 6px 10px;
+    font-size: $font-size-md;
+    font-weight: bold;
+    color: #4a90e2;
+    text-transform: uppercase;
+    background: $lGray-bg;
+  }
+}
+
+.sort-by-section {
+  width: 100%;
+}

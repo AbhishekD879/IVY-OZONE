@@ -1,0 +1,28 @@
+@import 'global.variables.scss';
+
+:host {
+  &.suspended {
+    opacity: 0.4;
+  }
+
+  .live-score-points {
+    font-weight: 700;
+    color: $event-header;
+  }
+
+  .second-inning {
+    margin-right: 8px;
+    color: $lBlack-light;
+    font-family: $base-font-family;
+    font-size: $font-size-md;
+  }
+
+  .cashout-odds-score {
+    display: block;
+    li {
+      &:last-child {
+        color: $event-header;
+      }
+    }
+  }
+}

@@ -1,0 +1,73 @@
+<div class="card" *ngIf="filtersList && filtersList.length">
+  <div class="body">
+    <div class="row">
+      <div class="col-sm-12">
+        <h3>Event Filters</h3>
+      </div>
+    </div>
+    <ng-container *ngFor="let filter of filtersList; trackBy: trackByName;">
+      <ng-container [ngSwitch]="filter.name">
+        <ng-template [ngSwitchCase]="timeFilterName">
+          <div class="row time-filter">
+            <div class="col-md-2">
+              <mat-checkbox color="primary"
+                            [checked]="filter.data.enabled"
+                            (change)="toggleFilter($event.checked, filter)">
+                Start Time:
+              </mat-checkbox>
+            </div>
+            <div class="col-md-10">
+              <inline-multiselect [values]="filter.data.values"
+                                  [options]="filter.params.defaults"
+                                  [pattern]="filter.params.pattern"
+                                  [templateName]="filter.params.templateName"
+                                  [validationMessage]="filter.params.validationMessage"
+                                  [ordered]="true"
+                                  [unique]="true"
+                                  (update)="updateFilter($event, filter)">
+              </inline-multiselect>
+            </div>
+          </div>
+        </ng-template>
+
+        <ng-template [ngSwitchCase]="leagueFilterName">
+          <div class="row league">
+            <div class="col-md-2">
+              <mat-checkbox color="primary"
+                            [checked]="filter.data.enabled"
+                            (change)="toggleFilter($event.checked, filter)">
+                Leagues:
+              </mat-checkbox>
+            </div>
+            <div class="col-md-3">
+              <button (click)="createLeagueFilter(filter)"
+                      type="button"
+                      class="btn bg-teal waves-effect float-left">
+                <i class="material-icons">add_box</i>
+                <span>Create League filter</span>
+              </button>
+            </div>
+            <div class="col-md-7">
+              <div class="input-with-icon">
+                <i class="material-icons">search</i>
+                <mat-form-field>
+                  <input matInput placeholder="Search For Filter League" [(ngModel)]="searchField" [value]="searchField">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <cms-data-table
+            [customTableData]="filter.data.values"
+            [customTableColumns]="filter.params.tableColumns"
+            [actions]="['remove','onPageEdit']"
+            [filterString]="searchField"
+            [filterProperties]="filter.params.searchBy"
+            (onPageEditTableElement)="editFilter($event)"
+            (onRemoveTableElement)="removeLeagueHandler($event, filter)">
+          </cms-data-table>
+          <p *ngIf="!filter.data.values?.length" class="align-center p-t-10">No League filters provided</p>
+        </ng-template>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

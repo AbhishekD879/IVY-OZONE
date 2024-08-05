@@ -1,0 +1,97 @@
+<ng-container *ngIf="sportName === 'horseracing'">
+  <div [ngClass]="group.flag" *ngFor="let group of racing.groupedRacing">
+
+  <ng-container *ngIf=" isDisplayBanner(titleMap[group.flag]) && targetTab?.interstitialBanners?.bannerEnabled && group.data && group.data.length && racing.classesTypeNames[group.flag].length > 0">
+    <ng-template *ngTemplateOutlet="VirtualBanner "></ng-template>
+  </ng-container>
+
+
+    <accordion *ngIf="group.data && group.data.length && racing.classesTypeNames[group.flag].length > 0"
+               [headerClass]="'secondary-header'"
+               [isExpanded]="accordionsState[group.flag]"
+               (function)="trackModule(group.flag, sportName)"
+               data-crlat="outerAccordion"  class="outerAccordionFeatured">
+      <left-side><span class="left-title-text" [textContent]="titleMap[group.flag]"></span></left-side>
+      <accordion-body>
+        <horse-race-grid [eventsData]="racing"
+                         [racingGroupFlag]="group.flag"
+                         [raceType]="'horseracing'"
+                         [sportName]="sportName"
+                         [eventsOrder]="eventsOrder"
+                         [isEnabledCardState]="isEnabledCardState"
+                         [isLimitReached]="isLimitReached"
+                         [isClearBuildCardState]="isClearBuildCardState"
+                         [racingGroup]="group.data"
+                         [showSwitcher]="showSwitcher"
+                         (toogleCheckBox)="emitFetchCardId($event)"
+                         [isEventOverlay]="isEventOverlay"
+                         [groupFlagText]="titleMap[group.flag]">
+        </horse-race-grid>
+      </accordion-body>
+    </accordion>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="sportName === 'greyhound'">
+
+  <ng-container *ngIf=" isDisplayBanner('sb.events') && targetTab?.interstitialBanners?.bannerEnabled && filter === 'by-time'">
+    <ng-template *ngTemplateOutlet="VirtualBanner"></ng-template>
+  </ng-container>
+
+
+
+  <accordion *ngIf="filter === 'by-time'" [isExpanded]="true" [headerClass]="'secondary-header'"
+    data-crlat="outerAccordion"  class="outerAccordionFeatured" >
+    <left-side><span class="left-title-text" [i18n]="'sb.events'"></span></left-side>
+    <accordion-body>
+      <race-list [events]="byTimeEvents" [expanded]="true" [limit]="10" [sportName]="sportName"
+        [eventsOrder]="eventsOrder">
+      </race-list>
+      <div class="item-inner item-legend">
+        <small data-crlat="section.boldPriced">
+          <strong [i18n]="'sb.bold'" data-crlat="bold"></strong>
+          <span [i18n]="'sb.priced'" data-crlat="priced"></span>
+        </small>
+      </div>
+    </accordion-body>
+  </accordion>
+
+  
+
+  <!--- Event by Meeting -->
+  <ng-container *ngIf="filter === 'by-meeting' || isEventOverlay">
+      <ng-container *ngFor="let group of racing.groupedRacing">
+  <ng-container *ngIf=" isDisplayBanner(titleMap[group.flag]) && targetTab?.interstitialBanners?.bannerEnabled && racing.classesTypeNames[group.flag].length > 0 && group.data && group.data.length ">
+    <ng-template *ngTemplateOutlet="VirtualBanner "></ng-template>
+  </ng-container>
+
+          <accordion *ngIf="racing.classesTypeNames[group.flag].length > 0 && group.data && group.data.length"
+                     [isExpanded]="accordionsState[group.flag]"
+                     [headerClass]="'secondary-header'"
+                     (function)="trackModule(group.flag, sportName)"
+                     data-crlat="outerAccordion"  class="outerAccordionFeatured" >
+            <left-side><span class="left-title-text" [textContent]="titleMap[group.flag]"  data-crlat="headerTitle.leftMessage"></span></left-side>
+            <accordion-body>
+              <horse-race-grid [eventsData]="racing"
+                               [racingGroupFlag]="group.flag"
+                               [raceType]="'greyhound'"
+                               [sportName]="sportName"
+                               [eventsOrder]="eventsOrder"
+                               [racingGroup]="group.data"
+                               [isEventOverlay]="isEventOverlay"
+                               [showSwitcher]="showSwitcher"
+                               [filterDay]="filterDay"
+                               [groupFlagText]="titleMap[group.flag]">
+              </horse-race-grid>
+            </accordion-body>
+          </accordion>
+        </ng-container>
+
+    </ng-container>
+</ng-container>
+
+<ng-template #VirtualBanner >
+  <virtual-entry-point-banner [targetTab]="targetTab" [isUnTiedSport]= true [sportName]="sportName">
+  </virtual-entry-point-banner>
+ </ng-template>
+

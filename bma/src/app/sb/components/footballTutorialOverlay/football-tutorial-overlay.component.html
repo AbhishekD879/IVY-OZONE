@@ -1,0 +1,57 @@
+<div id="football-tutorial-overlay" [scroll-fix] class="cookie-top vn-smart-banner-margin-top">
+  <div class="container">
+    <div class="favicons-area">
+      <div #topStar class="header-panel animate" >
+        <a class="odds-fav-icon fav-icon-header">
+          <svg class="fav-icon-svg active">
+            <use xlink:href="#star"></use>
+          </svg>
+          <span class="favourite-counter">1</span>
+        </a>
+      </div>
+      <div class="main-panel animate arr2">
+        <div class="odds-fav-icon" >
+          <svg class="fav-icon-svg yellow-stroke">
+            <use xlink:href="#star"></use>
+          </svg>
+        </div>
+      </div>
+      <div class="star-animation odds-fav-icon">
+        <svg class="fav-icon-svg active">
+          <use xlink:href="#star"></use>
+        </svg>
+      </div>
+    </div>
+    <div class="arr-panel">
+      <div class="arr-div arr1">
+        <span [i18n]="'sb.coralIntroducesNew'"></span><br/>
+        Favourites
+        <span [i18n]="'sb.featureAllowingYouTo'"></span><br/>
+        <span [i18n]="'sb.easilyAccessAndFollowSeveral'"></span><br/>
+        <span [i18n]="'sb.matchesOfYourChoice'"></span>
+      </div>
+      <div class="arr-div animate arr2" >
+        <span [i18n]="'sb.pressingTheStarWillAddThis'"></span><br/>
+        <span [i18n]="'sb.matchToYour'"></span>
+        Favourites matches
+        <svg>
+          <use xlink:href="#arr1"></use>
+        </svg>
+      </div>
+      <div class="arr-div animate arr3">
+        <span [i18n]="'sb.hereYouCanQuicklyAndEasily'"></span><br/>
+        <span [i18n]="'sb.accessYourFavouritedMatches'"></span>
+        <svg *ngIf="!arrShow">
+          <use xlink:href="#arr3"></use>
+        </svg>
+        <svg *ngIf="arrShow">
+          <use xlink:href="#arr1"></use>
+        </svg>
+      </div>
+    </div>
+    <div class="text-panel">
+      <span class="animate textPanel" [i18n]="'sb.tryItNow'"></span>
+      <button class="btn btn-style1" (click)="hideTutorial()" [i18n]="'sb.closeTutorial'"></button>
+    </div>
+  </div>
+</div>

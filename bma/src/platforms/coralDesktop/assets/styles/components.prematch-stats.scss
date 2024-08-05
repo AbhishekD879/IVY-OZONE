@@ -1,0 +1,16 @@
+.match-widget-container {
+  @include display-flex();
+  @include justify-content();
+
+  div {
+    max-height: 317px;
+    min-height: 317px;
+  }
+
+  iframe {
+    max-width: 500px;
+    min-width: 500px;
+    max-height: 317px;
+    min-height: 317px;
+  }
+}

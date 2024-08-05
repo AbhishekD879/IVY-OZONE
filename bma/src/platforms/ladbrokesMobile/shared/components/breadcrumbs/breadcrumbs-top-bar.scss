@@ -1,0 +1,52 @@
+$breadcrumbs-color: #fbcc5a;
+
+:host(.black-top-bar) {
+  .breadcrumbs_container {
+    position: static;
+    background: none;
+    padding: 0;
+    margin: 0;
+
+    .breadcrumb_item {
+      color: $breadcrumbs-color;
+
+      .breadcrumb_link {
+        color: $breadcrumbs-color;
+      }
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+  }
+}
+
+:host(.black-top-bar-ladbrokes) {
+  .breadcrumbs_container {
+    position: static;
+    background: $top-bar-wrap-bg;
+    padding: 0;
+    margin: 0;
+
+    .breadcrumb_item {
+      font-family: $alt-font-family;
+      font-size: $font-size-lg;
+      color: $top-bar-color;
+
+      .breadcrumb_link {
+        color: $top-bar-color;
+      }
+      &:last-child {
+        padding-right: 0;
+        .breadcrumb_link {
+          cursor: pointer;
+          color: $top-bar-color;
+        }
+      }
+      .toggle-icon {
+        svg {
+          fill: $title-icon-color;
+        }
+      }
+    }
+  }
+}

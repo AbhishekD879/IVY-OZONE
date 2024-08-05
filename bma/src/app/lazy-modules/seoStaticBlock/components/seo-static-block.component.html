@@ -1,0 +1,15 @@
+<accordion 
+  *ngIf="seoStaticBlockContent && seoPageTitleBlock"
+  [accordionTitle]="seoPageTitleBlock"
+  [isExpanded]="isExpanded"
+  [isSeoContent]="isSeoContent"
+  class="seo-main-content"
+  data-crlat="accordion">
+  <seo-block-content data-crlat="seoBlockContent">
+    <div *ngIf="seoStaticBlockContent" data-crlat="seoStaticBlock">
+      <div class="seo-static-block" data-crlat="seoBlock">
+        <div class="seo-static-block-content" [innerHtml]="seoStaticBlockContent" data-crlat="seoContent"></div>
+      </div>
+    </div>
+  </seo-block-content>
+</accordion>

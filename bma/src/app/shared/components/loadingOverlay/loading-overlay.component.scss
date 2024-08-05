@@ -1,0 +1,22 @@
+@import 'global.variables.scss';
+
+$footZindex: 1002;
+
+.loading-overlay {
+  background: $color-black;
+  content: '';
+  height: 100%;
+  left: 0;
+  opacity: .85;
+  position: fixed;
+  top: 56px;
+  width: 100%;
+  z-index: $footZindex + 1;
+
+  .spinner-loader {
+    top: 35%;
+  }
+}
+.loading-overlay-playbreak {
+  top: 84px;
+}

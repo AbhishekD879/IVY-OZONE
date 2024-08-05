@@ -1,0 +1,27 @@
+<div *ngIf="brand === 'bma'">
+  <div *ngIf="isMyBetsEpr() && extraPlaceName" class="extraplacesignpostOffer"
+    [ngClass]="{'openbets_coral': origin === 'openbets' || origin === 'settledbets' || origin === 'cashoutbets'}"
+    [textContent]="extraPlaceName"></div>
+  <div *ngIf="!isMyBetsPage() && extraPlaceName" class="extraplacesignpostOffer"
+    [ngClass]="{'edp_coral': origin === 'edp','caurosel_coral': origin === 'offers','receipt_coral': origin === 'betreceipts' || origin === 'quickbetreceipt','betslip_coral':origin === 'betslip'}"
+    [textContent]="extraPlaceName">
+  </div>
+  <div *ngIf="origin === 'betslip' && !isMyBetsPage() && extraPlaceName" class="minHeight"></div>
+    <div *ngIf="isMyBetsPage() && isNonRunnerEvent() && !isBetHistory" class="notification_coral "
+  [ngClass]="[(origin ==='settledbets' && index === 0) ? 'settled-bet-notification' : '',(origin ==='cashoutbets' || origin ==='openbets') ? 'open-bet-notification' : '']">
+  <span  [textContent]="nonRunnerMessage"></span>
+</div>
+</div>
+<div *ngIf="brand === 'ladbrokes'">
+  <div *ngIf="isMyBetsEpr() && extraPlaceName" class="extraplacesignpostOffer"
+    [ngClass]="{'openbets_lads': origin === 'openbets' || origin === 'settledbets' || origin === 'cashoutbets'}"
+    [textContent]="extraPlaceName"></div>
+  <div *ngIf="!isMyBetsPage() && extraPlaceName" class="extraplacesignpostOffer"
+    [ngClass]="{'edp_lads': origin === 'edp','caurosel_lads': origin === 'offers','receipt_lads': origin === 'betreceipts' || origin === 'quickbetreceipt','betslip_lads':origin === 'betslip'}"
+    [textContent]="extraPlaceName"></div>
+    <div *ngIf="origin === 'betslip' && !isMyBetsPage() && extraPlaceName" class="minHeight"></div>
+    <div *ngIf="isMyBetsPage() && isNonRunnerEvent() && !isBetHistory" class="notification_lads"
+  [ngClass]="[(origin ==='settledbets' && index === 0) ? 'settled-bet-notification' : '',(origin ==='cashoutbets' || origin ==='openbets') ? 'open-bet-notification' : '']">
+  <span  [textContent]="nonRunnerMessage"></span>
+</div>
+</div>

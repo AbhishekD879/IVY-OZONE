@@ -1,0 +1,7 @@
+<div>
+  <p (click)="showMore = !showMore" data-crlat="showMore">
+    <span [innerHTML]="titleText"></span>
+    <span [hidden]="showMore === true">...</span>
+  </p>
+  <p *ngIf="showMore" [textContent]="contentText"></p>
+</div>

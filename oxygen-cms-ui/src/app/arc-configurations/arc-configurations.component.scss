@@ -1,0 +1,75 @@
+@import '../../styles/custom-theme/variables.scss';
+
+.tableHeaderContainer {
+  padding: 0;
+  margin-left: 12px;
+}
+.contentContainer {
+  padding: 0;
+}
+.edit-config-group {
+  &.header {
+    padding: 16px 20px;
+    min-height: 60px;
+
+    .header-dropdown {
+      top: 12px;
+      ::ng-deep .mat-checkbox {
+        line-height: 25px;
+        .mat-checkbox-layout {
+          margin: 0 0 0 8px;
+          .mat-checkbox-label {
+            font-weight: normal;
+          }
+        }
+      }
+    }
+
+    .btn {
+      font-size: 10px;
+      background: $oxygenGreen;
+      padding-right: 8px;
+
+      i {
+        top: 2px;
+      }
+
+      span {
+        top: -4px;
+      }
+    }
+    h2 {
+      line-height: 27px;
+    }
+  }
+
+  &.body {
+    mat-form-field.mat-form-field {
+      max-width: 100px;
+    }
+  }
+
+  .tableContainer {
+    display: table;
+    border-collapse: collapse;
+  }
+
+  .tableHeader {
+    display: table-header-group;
+  }
+
+  .tableBody {
+    display: table-row-group;
+  }
+
+  .tableRow {
+    display: table-row;
+  }
+
+  .tableTh, .tableCol {
+    display: table-cell;
+    padding: 6px;
+    vertical-align: middle;
+    border: 1px solid $borderGrey;
+  }
+}

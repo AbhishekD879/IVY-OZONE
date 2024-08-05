@@ -1,0 +1,115 @@
+@import "global.variables.scss";
+
+@mixin height-width-mixin($height, $width) {
+  height: $height;
+  width: $width;
+}
+
+:host ::ng-deep .modal-dialog::after {
+  content: " ";
+  position: absolute;
+  background: var(--featured-image) no-repeat;
+  background-size: contain;
+  @include height-width-mixin(50%, 65%);
+  left: 17%;
+  align-items: center;
+  top: -25%;
+}
+
+:host ::ng-deep .modal-dialog {
+  top: -18%;
+  @include height-width-mixin(25%, 80%);
+
+  .modal-content .modal-header {
+    min-height: 0;
+    overflow: visible;
+
+    .btn-close {
+      display: block;
+      margin: 0;
+      right: 10px;
+      top: 10px;
+
+      svg {
+        fill: $color-light-black;
+        width: 12px;
+      }
+    }
+  }
+
+  .modal-content .modal-body {
+    padding-bottom: 1%;
+    padding-left: 5%;
+    padding-right: 5%;
+    max-height: 50vh;
+    overflow: hidden;
+
+    .marketHeader p {
+      font-size: $font-size-md;
+      font-family: $helve-font-family;
+    }
+
+    .marketDescription p {
+      font-size: $font-size-md;
+      font-family: $helve-font-family;
+    }
+  }
+
+  .modal-content {
+    @include height-width-mixin(auto, 90%);
+    max-height: 100vh;
+  }
+}
+
+.body {
+  text-align: center;
+  color: $lBlack-light;
+}
+
+@media screen and (min-width: 900px) {
+  :host ::ng-deep .modal {
+    user-select: none;
+  }
+
+  :host ::ng-deep .modal-dialog {
+    top:-6%;
+    
+    .modal-content {
+      @include height-width-mixin(auto, 27.25%);
+      max-height: 100vh;
+    }
+
+    .modal-content .modal-body { 
+      .marketHeader p {
+        color: #777;
+        text-align: center;
+        font-family: Roboto Condensed !important;
+        font-size: $font-size-bit-lgr;
+        font-weight: 700;
+        line-height: normal;
+      }
+      
+      .marketDescription p {
+        color: #777;
+        text-align: center;
+        font-family: Helvetica;
+        font-size: 11px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 142.99%; 
+      }
+    }
+    
+    .btn-close svg{
+      width:14.08px !important;
+      height:14.08px;
+    }
+  }
+
+  :host ::ng-deep .modal-dialog::after {
+    left: 40%;
+    width: 203px;
+    height: 94px;
+    top: -29%;
+  }
+}

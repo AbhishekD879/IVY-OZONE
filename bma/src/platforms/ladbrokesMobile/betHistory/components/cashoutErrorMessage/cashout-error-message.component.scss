@@ -1,0 +1,17 @@
+@import 'global.variables.scss';
+
+.cashout-error-message {
+    .info-container{
+        @include display-flex();
+        svg{
+          width: 13.3px;
+          height: 13.3px;
+          margin-right: 6.5px;
+        }
+      }
+    line-height: 14px;
+    letter-spacing: 0.000825px;
+    margin: 0px;
+    background-color: $color-white;
+    padding: 5px 0 11px 8px;
+}

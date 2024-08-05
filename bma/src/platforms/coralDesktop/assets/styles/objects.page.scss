@@ -1,0 +1,139 @@
+/* *********************************************************************************************************************
+
+  OBJECTS:
+  So called “cosmetic free design patterns” such as a grid system
+
+********************************************************************************************************************* */
+
+// Base styles for the page
+// =============================================================================
+
+$left-column-width: 160px;
+$right-column-width: 320px;
+$right-column-width-lg: 330px;
+$page-segment-width: 760px;
+
+.page-inner.page-inner-top-margin {
+  margin-top: 10px;
+}
+
+#page-wrapper {
+  min-width: $st-point;
+  max-width: $lg-point;
+  margin: 0 auto;
+}
+
+.error-page-container {
+  width: 100%;
+}
+
+#page-content {
+  background: $color-gray-darker-two;
+  padding-top: 10px;
+  width: 100%;
+  overflow: hidden;
+  min-height: initial;
+  @include display-flex();
+}
+
+#left-column {
+  background: $brand-color-dark;
+  margin-right: 10px;
+  @include flex(0,0,$left-column-width);
+  max-width: $left-column-width;
+}
+
+#right-column {
+  z-index: 0;
+
+  @include flex(0,0,$right-column-width);
+  max-width: $right-column-width;
+
+  @media screen and (min-width: $lg-point) {
+    @include flex(0,0,$right-column-width-lg);
+    max-width: $right-column-width-lg;
+  }
+
+  @media screen and (max-width: 766px) {
+    display: block;
+  }
+}
+
+#content {
+  background-color: transparent;
+  overflow: hidden;
+  width: 100%;
+}
+
+// Styles for the page container
+// =============================================================================
+/* temporary added as we don't have story for this */
+.page-container.page-inner-container {
+  .container-content {
+    margin: 0;
+    border-radius: 0;
+  }
+}
+
+/* applied to the competition-type-events page for aligning of market selectors */
+.competition-match-wrapper {
+  position: relative;
+  .container-inner-content {
+    margin: 0 0 10px;
+  }
+}
+.container-inner-content {
+  margin: 0;
+  border-radius: 0;
+  &.loading-v3 {
+    margin: auto;
+    border-radius: 8px;
+  }
+
+  &.spinner-loader {
+    margin: 10px auto;
+  }
+}
+.spinner-loader.small-loader {
+  padding-top: 15px;
+}
+
+.custom-input-container {
+  input {
+    overflow: hidden;
+
+    &:focus {
+      box-shadow: none;
+      outline: transparent 0;
+    }
+  }
+}
+
+/* market selectors */
+.custom-select {
+  &.market-selector {
+    select {
+      padding: 0 20px 0 50px;
+      line-height: 34px;
+    }
+  }
+}
+.bs-content {
+  background-color: $color-gray;
+  .stakes-wrapper {
+    padding: 5px 0;
+  }
+  .multiples-header {
+    margin: 0 0 1px;
+    ~ .stakes-wrapper {
+      padding: 0;
+      &:last-child {
+        padding-bottom: 5px;
+      }
+    }
+  }
+}
+
+#footer .time-panel {
+  line-height: 11px;
+}

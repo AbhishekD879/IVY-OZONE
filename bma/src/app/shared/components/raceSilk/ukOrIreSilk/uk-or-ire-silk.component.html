@@ -1,0 +1,4 @@
+<div [ngClass]="[eventEntity.isUKorIRE ? 'with-default': 'inter-silk', isStreamBet ? 'silk-img-stream-bet': 'silk-img']"
+    data-crlat="raceCard.silk" *ngIf="outcomeEntity.racingFormOutcome?.silkName">
+    <div [ngStyle]="silkClass"></div>
+</div>

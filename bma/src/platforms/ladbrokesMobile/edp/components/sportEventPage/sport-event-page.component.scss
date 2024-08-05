@@ -1,0 +1,109 @@
+@import '../../../../../app/edp/components/sportEventPage/sport-event-page.component.scss';
+:host {
+    show-all-button {
+        ::ng-deep .show-all-button {
+            border-top: 1px solid $color-gray;
+            text-decoration: none;
+            background: $color-white;
+            span {
+                color: $blue;
+                &:hover{
+                  text-decoration: underline;
+                  text-decoration-color: $color-blue-alt;
+                }
+                &:active{
+                  text-decoration: none;
+                  color: darken($color-blue-alt, 25%);
+                }
+            }
+        }
+    }
+    .price-button {
+        price-odds-button {
+            ::ng-deep .btn-bet {
+                min-width: auto;
+                font-size: 13px;
+                line-height: 13px;
+                min-height: 40px;
+                width: 100px;
+                left: 36%;
+                .handicap-btn {
+                    display: inline-flex;
+                    padding-right: 30px;
+                    color: $color-blue-cornflower;
+                }
+            }
+        }
+    }
+    #wdw-name {
+        padding-right: 4px;
+        word-break: break-word;
+      }
+    .handicap-wdw {
+        price-odds-button {
+            ::ng-deep .btn-bet {
+                min-width: auto;
+                font-size: 13px;
+                line-height: 13px;
+                min-height: 40px;
+                width: 100px;
+                left: 28%;
+                .handicap-btn {
+                    display: inline-flex;
+                    padding-right: 30px;
+                    color: $color-blue-cornflower;
+                }
+            }
+        }
+    }
+}
+
+::ng-deep .lads-brnd.scorecast-container {
+  .switch-btn {
+    color: $lBlack-light !important;
+  }
+  .switch-btn.active {
+    color: $lGray!important;
+  }
+  .switchers-buttons .switch-btn.active {
+    background-color: $switch-btn-active-color;
+    color: $color-white !important;
+  }
+  .switchers .switch-btn.active:after {
+    background: $red !important;
+  }
+}
+.competition-filters {
+    .filter-wrapper {  
+      &.active {
+        background-color: $color-blue-alt !important;
+  
+        .filter {
+          color: $color-white;
+        }
+      }
+    }
+}
+
+.sk-container .scroll-container .filter-wrapper .filter{
+    font-family: HelveticaNeue;
+    background: none;
+    &:active {
+      color: $color-white;
+      background-color: $color-blue-alt-heavy;
+    }
+}
+
+.sk-container {
+    .scroll-container {
+        position: sticky;
+        top: $app-header-height + $top-bar-height;
+        z-index: 7;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+        background-color: $market-pills-bg;
+    }
+
+    .pill-height {
+      top: $app-header-height + $top-bar-height + 40px !important;
+    }
+}

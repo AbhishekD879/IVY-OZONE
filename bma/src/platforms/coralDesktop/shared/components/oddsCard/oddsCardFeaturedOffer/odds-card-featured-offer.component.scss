@@ -1,0 +1,192 @@
+@import 'global.variables.scss';
+
+.featured-offer {
+  background-color: $color-gray;
+
+  &.smart-boosts {
+    .offer-body {
+      height: 70px;
+    }
+  }
+
+  .btn-bet {
+    width: 230px;
+    height: 40px;
+  }
+
+  .header-container {
+    height: 35px;
+    font-size: 12px;
+    font-weight: bold;
+    @include display-flex();
+  }
+  .was-price-container {
+    @include display-flex();
+    @include justify-content(flex-end);
+  }
+  @media (min-width: $sm-point) {
+    .was-price {
+      width: 230px;
+    }
+  }
+}
+
+.special-offer {
+
+  .header-container {
+    border-bottom: 2px solid $pink-trendy;
+  }
+
+  .left-side {
+    background-color: $pink-trendy;
+  }
+}
+
+.enhanced-offer {
+
+  .header-container {
+    border-bottom: 2px solid $color-blue-lighter;
+  }
+
+  .left-side {
+    background-color: $color-blue-lighter;
+  }
+}
+
+.offer-flex-center {
+  @include display-flex();
+  @include align-items();
+}
+
+.offer-header {
+  text-transform: uppercase;
+  border-radius: 2px 2px 0px 0px;
+  background-color: $color-gray-light;
+
+  .left-side {
+    @include flex(0, 0, auto);
+    font-weight: 700;
+    height: 100%;
+    color: $color-white;
+    border-top-left-radius: 2px;
+  }
+
+  .right-side {
+    @include flex();
+    @include display-flex();
+    @include justify-content(space-between);
+    @include align-items();
+
+    color: $color-gray-dark;
+    margin-left: 10px;
+    overflow: hidden;
+    padding-right: 10px;
+  }
+
+  .offer-title {
+    font-size: 12px;
+    font-weight: 700;
+    margin: 0 10px;
+    text-transform: uppercase;
+  }
+}
+
+.offer-body {
+  height: 60px;
+  cursor: pointer;
+
+  &.featured-no-pointer {
+    cursor: default;
+  }
+}
+
+.offer-type {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.offer-body {
+  @include display-flex();
+
+  margin-top: 1px;
+  background-color: $color-white;
+}
+
+.offer-favorite-icon {
+  margin-left: 15px;
+
+  .odds-fav-icon {
+    margin: 0px;
+    width: 18px;
+    height: 18px;
+
+    .fav-icon-svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+.offer-info-container {
+  @include display-flex();
+  @include flex-direction(column);
+
+  overflow: hidden;
+  white-space: nowrap;
+
+  margin: 10px 0 0 15px;
+  .offer-info-top {
+    @include display-flex();
+
+    color: $color-gray-dark;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 700;
+  }
+
+  .offer-info-bottom {
+    @include display-flex();
+
+    font-size: 11px;
+    line-height: 12px;
+    color: $color-gray-dark;
+
+    .odds-icon-stream {
+      margin-left: 10px;
+      min-height: 12px;
+      min-width: 12px;
+    }
+  }
+
+  .offer-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+}
+
+.offer-odd-price-container {
+  @include display-flex();
+  @include flex-direction(column);
+  @include flex();
+  @include justify-content(center);
+  @include align-items(flex-end);
+
+  margin: 0px 50px 0px 10px;
+}
+
+.offer-event-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: $sm-point) {
+  .featured-offer .btn-bet {
+    width: 50px;
+  }
+
+  .offer-odd-button-container {
+    margin: 0px 25px 0px 10px;
+  }
+}

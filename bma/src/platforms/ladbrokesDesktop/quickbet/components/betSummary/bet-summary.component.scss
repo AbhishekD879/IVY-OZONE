@@ -1,0 +1,41 @@
+@import 'global.variables.scss';
+@import '../../../../../app/quickbet/components/betSummary/bet-summary.component.scss';
+
+:host(.quick-german) {
+  & .qb-fee {
+    background-color: $lGray-bg;
+    padding: 0 16px 16px;
+    margin: 0;
+    font-size: 12px;
+    text-align: left;
+  }
+}
+
+.quickbet-info-spot {
+  background: $lGray-bg;
+  padding: 12px 16px;
+
+  .qb-stake-info {
+    color: #252835;
+    font-family: inherit;
+    font-size: 12px !important;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 8px;
+  }
+
+  .qb-return-info {
+    color: #252835;
+    font-family: inherit;
+    font-size: 14px !important;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  &.quickdeposit-info-spot {
+    background: $color-white;
+    padding: 4px 12px 16px;
+  }
+}

@@ -1,0 +1,19 @@
+<div *ngIf="filters" class="competition-filters" [class.margin-top]="marginTop">
+  <span *ngIf="isCompetitionsPage"
+        class="filter-label" [class.padding-top]="paddingTop"
+        data-crlat="competitionsPageFilterLabel"
+        [i18n]="'bma.filters.competitionPage'"
+  ></span>
+  <span *ngIf="!isCompetitionsPage"
+        class="filter-label" [class.padding-top]="paddingTop"
+        data-crlat="landingPageFilterLabel"
+  ></span>
+
+  <div class="scroll-container" [class.padding-top]="paddingTop" [scrollable]>
+    <ng-container *ngFor="let filter of filters; trackBy: trackByIndex">
+      <competition-filter [filter]="filter"
+                          (filterChange)="onFilterChange($event)"
+      ></competition-filter>
+    </ng-container>
+  </div>
+</div>

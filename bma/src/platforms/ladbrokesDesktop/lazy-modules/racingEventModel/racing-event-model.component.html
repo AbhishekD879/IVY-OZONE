@@ -1,0 +1,177 @@
+<div *ngIf="!isMarketAntepost && eventEntity.categoryCode === 'HORSE_RACING'" class="race-details-container build-your-racecard"
+     data-crlat="buildYourRacecard">
+  <div class="race-details-container-l" data-crlat="raceDetailsContainer">
+    <div class="race-name" data-crlat="raceName">
+      <div class="label" [textContent]="eventEntity.localTime" data-crlat="time"></div>
+      <div class="value" [textContent]="eventEntity.name" data-crlat="name"></div>
+      <div class="value" *ngIf="!isToday" [textContent]="eventEntity.filteredTime" data-crlat="futureTime"></div>
+    </div>
+    <div class="race-going" *ngIf="eventEntity.racingFormEvent?.going" data-crlat="raceGoing">
+      <div class="label" [i18n]="'racing.going'" data-crlat="label"></div>
+      <div class="value text-uppercase" [textContent]="going" data-crlat="value"></div>
+    </div>
+    <div class="race-distance" *ngIf="eventEntity.racingFormEvent?.distance" data-crlat="raceDistance">
+      <div class="label" [i18n]="'racing.distance'" data-crlat="label"></div>
+      <div class="value" data-crlat="value">{{ eventEntity.racingFormEvent.distance }}</div>
+    </div>
+  </div>
+  <div class="race-details-container-r">
+    <race-timer [event]="eventEntity" [utc]="true" [displayTime]="false"></race-timer>
+  </div>
+</div>
+
+<div class="tabs-panel" *ngIf="!isMarketAntepost"
+ [ngClass]="{'backdown': eventEntity.markets.length === 0, 'has-market-description': isDescriptionAvailable}">
+  <action-arrows>
+    <action-arrows-content>
+      <div #marketsContainer class="scroll-container markets-container" [ngClass]="{'single-element': eventEntity.sortedMarkets?.length === 1}">
+        <ul class="scroll-inner" [ngClass]="{'flex-tabs': eventEntity.sortedMarkets?.length <= allowFlexTabs}" data-crlat="panel.tabs">
+          <li *ngFor="let marketEntity of eventEntity.sortedMarkets; trackBy: trackById;"
+            [ngClass]="{'active': marketEntity.label === selectedMarket}" data-crlat="tabActive">
+            <span class="tab" (click)="change(marketEntity)" draggable="false" data-crlat="tab.tpTabs">
+              <span class="race-time" [textContent]="marketEntity.label" data-crlat="tab"></span>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </action-arrows-content>
+  </action-arrows>
+</div>
+<div class="market-tooltip" [ngClass]="{'has-description': isDescriptionAvailable}">
+  <lazy-component *ngIf="secondaryMarketsTooltip && marketContainer"
+    moduleUri="@lazy-modules-module/market-description/market-description.module#MarketDescriptionModule"
+    [inputs]="{ toolTipArgs: toolTipArgs, marketContainer: marketContainer, toolTipTitle: 'secondaryMarketsTitle', sportName: sportName }"
+    entryComponent="MarketTooltipComponent">
+  </lazy-component>
+</div>
+
+<lazy-component *ngIf="selectedMarket === forecastLabel"
+                moduleUri="@lazy-modules-module/forecastTricast/forecastTricast.module#ForecastTricastModule"
+                [inputs]="{event: eventEntity, marketEntity: forecastTricastMarket, selectedPoolType: forecastLabel,
+                  isMarketDescriptionEnabled: isMarketDescriptionAvailable, delta: delta }"></lazy-component>
+
+<lazy-component *ngIf="selectedMarket === tricastLabel"
+                moduleUri="@lazy-modules-module/forecastTricast/forecastTricast.module#ForecastTricastModule"
+                [inputs]="{event: eventEntity, marketEntity: forecastTricastMarket, selectedPoolType: tricastLabel,
+                  isMarketDescriptionEnabled: isMarketDescriptionAvailable, delta: delta }"></lazy-component>
+
+<!-- Totepool tab-->
+  <lazy-component *ngIf="isMarketDescriptionAvailable && selectedMarket=='Totepool' && hasSortedMarketsFromCms&&isToteForecastTricast"
+  moduleUri="@lazy-modules-module/market-description/market-description.module#MarketDescriptionModule"
+  [inputs]="{ eventEntity: eventEntity, selectedMarket: selectedMarket }"
+  entryComponent="MarketDescriptionComponent">
+  </lazy-component>   
+  <lazy-component *ngIf="selectedMarket === toteLabel"
+                  moduleUri="@uktote-lazy-load/uk-tote.module#UkToteModule"
+                  data-crlat="UKToteEvent"
+                  [inputs]="{
+                    pools: pools,
+                    doRedirect: false,
+                    event: poolEventEntity,
+                    fixedOddsEvent: eventEntity,
+                    selectedPoolType: selectedMarketType
+                  }">
+  </lazy-component>
+
+<lazy-component *ngIf="isMarketDescriptionAvailable && !isToteForecastTricast && hasSortedMarketsFromCms"
+  moduleUri="@lazy-modules-module/market-description/market-description.module#MarketDescriptionModule"
+  [inputs]="{ eventEntity: eventEntity, selectedMarket: selectedMarket }"
+  entryComponent="MarketDescriptionComponent">
+</lazy-component>
+
+<!--- Market Container -->
+<div *ngFor="let marketEntity of eventEntity.markets; trackBy: trackById; let mIndex = index">
+  <accordion [accordionTitle]="displayMarketHeader(marketEntity)" [card]="true" [isExpanded]="!marketEntity.collapseMarket"
+    [isHeaderHidden]="!displayMarketHeader(marketEntity)" *ngIf="displayMarketPanel(marketEntity) && marketEntity.outcomes &&
+            !isGroupedRaceMarket(marketEntity)"
+    data-crlat="marketOutcomes">
+    <right-side>
+      <cashout-label *ngIf="marketEntity.cashoutAvail === 'Y'"></cashout-label>
+    </right-side>
+
+    <accordion-body>
+      <!--Future/antepost event header card-->
+
+      <div class="race-event-info" *ngIf="isMarketAntepost">
+        <!--Market label-->
+        <span class="race-market-label" data-crlat="eachWayContainer">Antepost</span>
+        <!--Event time and title-->
+        <span class="race-market-event-title" data-crlat="eventTitle" [textContent]="eventEntity.name"></span>
+      </div>
+
+      <div class="terms-before-market" *ngIf="isMarketAntepost" data-crlat="terms">
+        <!--Market terms-->
+        <div class="race-market-terms" [innerHtml]="formatAntepostTerms(marketEntity.terms)" *ngIf="marketEntity.isEachWayAvailable"
+          data-crlat="eachWayContainer">
+        </div>
+        <span class="class-value" [textContent]="eventEntity.uiClass" *ngIf="eventEntity.uiClass" data-crlat="termsClass">
+        </span>
+
+        <div class="horse-racing-icons">
+          <span class="pull-right">
+            <cashout-label *ngIf="marketEntity.cashoutAvail === 'Y' || marketEntity.viewType === 'handicaps'"></cashout-label>
+          </span>
+        </div>
+      </div>
+
+      <div class="terms-before-market row row-no-gutter eprSection" *ngIf="!isMarketAntepost && termsBeforeMarketAvailable[marketEntity.id]"
+        data-crlat="raceMarketHeader">
+        <div>
+          <lazy-component *ngIf="marketEntity.templateMarketName === 'Win or Each Way'"
+          moduleUri="@lazy-modules-module/extraPlaceSignposting/extra-place-signposting.module#ExtraPlaceSignpostingModule"
+          [inputs]="{marketData:marketEntity,origin:'edp'}" entryComponent="ExtraPlaceSignpostingComponent">
+        </lazy-component>
+        <div data-crlat="terms">
+          <div class="term-value" [innerHtml]="marketEntity?.terms | callBack : formatEventTerms : this" *ngIf="marketEntity.isEachWayAvailable"
+            data-crlat="eachWayContainer"></div>
+          <span class="class-value" [textContent]="eventEntity.uiClass" *ngIf="eventEntity.uiClass" data-crlat="termsClass">
+          </span>
+        </div>
+      </div>
+
+        <div class="horse-racing-icons col-xs-4">
+          <!-- Promotional signposting -->
+          <promotion-icon [type]="'market'"
+                          [display]="marketEntity.drilldownTagNames"
+                          [eventDrillDownTags]="eventEntity.drilldownTagNames"
+                          [marketName]="marketEntity.name"
+                          [cashoutAvailable]="marketEntity.cashoutAvail === 'Y' || marketEntity.viewType === 'handicaps'"
+                          [mode]="'md'"
+                          [isGpAvailable] = "isBOGAvailable(eventEntity, marketEntity.isGpAvailable) && !isGreyhoundEdp"
+                          data-crlat="promotionIcons">
+          </promotion-icon>
+        </div>
+      </div>
+
+      <race-cards-controls class="sort-by-container race-cards-controls"
+                           [sortBy]="sortBy"
+                           [market]="marketEntity"
+                           [isInfoHidden]="isInfoHidden"
+                           [isGreyhoundEdp]="isGreyhoundEdp"
+                           [sortOptionsEnabled]="sortOptionsEnabledFn(true, marketEntity)"
+                           [eventEntityId]="eventEntity.id"
+                           (toggleShowOptions)="toggleShowOptions(expandedSummary, mIndex, $event)"
+                           *ngIf="isNotAntepostOrSpecials && !isSpOnly">
+      </race-cards-controls>
+      <!-- Racing Event -->
+      <div class="inner-container">
+        <div *ngFor="let outcomeEntity of marketEntity.outcomes; trackBy: trackById; let oIndex = index"
+          data-crlat="outcomeEntity">
+          <racing-outcome-card [eventEntity]="eventEntity" [marketEntity]="marketEntity" [outcomeEntity]="outcomeEntity"
+                      [showSummary]="expandedSummary.length && expandedSummary[mIndex][oIndex]" [outcomIndex]="oIndex"
+                      (expand)="onExpandSection(expandedSummary, mIndex, oIndex)" [isNotRacingSpecials]="true">
+            <price-odds-button (click)="stopPropagation($event)" [event]="eventEntity" [market]="marketEntity"
+              [outcome]="outcomeEntity">
+            </price-odds-button>
+          </racing-outcome-card>
+        </div>
+      </div>
+    </accordion-body>
+  </accordion>
+</div>
+<!-- Grouped racing markets To Finish, Top Finish, Place Insurance-->
+<lazy-component *ngIf="isGroupedMarket()" [ngClass]="{'sort-by-enabled': sortOptionsEnabled}" 
+moduleUri="@lazy-modules-module/raceMarket/race-market.module#RaceMarketModule"
+[inputs]="{ sortBy: sortBy,eventEntity:eventEntity,expandedSummary:expandedSummary,sm:selectedMarket,sortOptionsEnabled:sortOptionsEnabled,sortOptionsEnabledFn:sortOptionsEnabledFn}"
+entryComponent="RaceMarketComponent">
+</lazy-component>

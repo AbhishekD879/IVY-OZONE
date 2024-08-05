@@ -1,0 +1,31 @@
+@import 'global.variables.scss';
+
+@keyframes rotateAnimation {
+    from {transform: rotateY(0deg);}
+    to {transform: rotateY(359deg);}
+}
+.spinner-section {
+    margin: 5px;
+    .fiveasie-spinner {
+        perspective: 100px;
+        @include display-flex();
+        @include justify-content(center);
+        @include align-items(center);
+        .fiveaside-icon {
+            width: 40px;
+            height: 53px;
+            background-image: url(/assets/images/fiveaside-spinner-logo.png);
+            background-size: 40px;
+            will-change: transform;
+            transform: rotateY(0deg);
+            animation: rotateAnimation 2.5s linear infinite;
+        }
+        
+    }
+    .fiveaside-loading-text {
+        @include setFontProps($base-font-family, 11px, bold, $color-white);
+        margin-top: 10px;
+        text-align: center;
+        text-transform: uppercase;
+    }
+}

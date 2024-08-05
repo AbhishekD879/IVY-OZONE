@@ -1,0 +1,40 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>Create a Tab</h1>
+  <form [formGroup]="form">
+    <div mat-dialog-content>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Tab Name" formControlName="name" type="text"
+                   [(ngModel)]="competitionTab.name"
+                   [value]="competitionTab.name"
+                   required
+                   trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <mat-checkbox class="mat-label" color="primary" formControlName="enabled"
+                        [checked]="competitionTab.enabled"
+                        (change)="competitionTab.enabled = !competitionTab.enabled">
+            Active
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <mat-checkbox class="mat-label" color="primary" formControlName="hasSubtabs"
+                        [checked]="competitionTab.hasSubtabs"
+                        (change)="competitionTab.hasSubtabs = !competitionTab.hasSubtabs">
+            Tab has sub tabs
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button class="btn btn-default m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+      <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="form.invalid" [mat-dialog-close]="competitionTab">Create</button>
+    </div>
+  </form>
+</div>

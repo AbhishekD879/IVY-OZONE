@@ -1,0 +1,75 @@
+<!-- Bet item -->
+<div class="bet-item outer-space tooltip-container" *ngFor="let bet of bets; trackBy: trackBet" [class.collapsed]="!bet.eventSource.accaHistory.isExpanded">
+  <div class="bet-container" data-crlat="betContainer">
+
+    <!-- Bet header -->
+    <regular-bet-header [bet]="bet"
+                        [betHistoryHeader]="true"
+                        [showArrow]="!bet.eventSource.accaHistory.isExpanded"
+                        (click)="expandBet(bet)"></regular-bet-header>
+
+    <!-- Bet expandable content -->
+    <ng-container *ngIf="bet.eventSource.accaHistory.isExpanded">
+
+      <!-- Boosted status-->
+      <div *ngIf="bet.eventSource.accaHistory.isBoosted" class="stake-boosted">
+        <svg class="boosted-icon">
+          <use xlink:href="#odds-boost-icon-dark"></use>
+        </svg>
+        <span class="boosted-text" [i18n]="'bs.boostedMsg'"></span>
+      </div>
+
+      <!-- Leg list (selections) -->
+      <bet-leg-list [bet]="bet" viewType="list"   [estimatedReturns]="bet.eventSource.potentialPayout" [editAccaHistory]="true"></bet-leg-list>
+
+      <!-- Partial cashout history -->
+      <div *ngIf="bet.eventSource.accaHistory.partialCashoutHistory" class="partial-cashout-history-container">
+        <partial-cashout-history [currencySymbol]="bet.eventSource.currencySymbol"
+                                 [terms]="bet.eventSource.betTermsChange"></partial-cashout-history>
+      </div>
+
+      <!-- Stake and returns -->
+
+      <div class="stake-container">
+        <stake-and-returns-header [stake]="bet.eventSource.stake"
+                                  [bet]="bet"
+                                  [legType]="bet.eventSource.legType"
+                                  [stakePerLine]="bet.eventSource.stakePerLine"
+                                  [estimatedReturns]="bet.eventSource.potentialPayout"
+                                  [settled]="bet.eventSource.settled"
+                                  [currencySymbol]="bet.eventSource.currencySymbol"
+                                  [sportType]="'regularBets'"
+                                  [bets]="bets"
+                                  class="ema-stake-and-returns">
+        </stake-and-returns-header>
+      </div>
+
+      <!-- Receipt -->
+      <bet-receipt-info [receipt]="bet.eventSource.receipt"
+                        [date]="bet.eventSource.date" datePattern="HH:mm - dd MMM"
+                        data-crlat="betReceiptInfo"></bet-receipt-info>
+
+      <!-- Cashout history -->
+      <div class="cashout-history ema-history-cashout" [class.ema-history] data-crlat="cashOutHistory">
+        <header [i18n]="'ema.cashoutHistory.header'" data-crlat="cashOutHistoryTitle"></header>
+        <div class="cashout-item" data-crlat="stakeUsed">
+          <span class="cashout-item-name" [i18n]="'ema.cashoutHistory.stakeUsed'"></span>
+          <span class="cashout-item-value">
+            <span [textContent]="bet.eventSource.currencySymbol"></span>
+            <span [textContent]="bet.eventSource.stake"></span>
+          </span>
+        </div>
+        <div class="cashout-item" data-crlat="cashoutValue">
+          <span class="cashout-item-name" [i18n]="'ema.cashoutHistory.cashedOut'"></span>
+          <span class="cashout-item-value">
+            <span [textContent]="bet.eventSource.currencySymbol"></span>
+            <span [textContent]="bet.eventSource.accaHistory.cashoutUsed"></span>
+          </span>
+        </div>
+        <div class="cashout-used-msg" [textContent]="bet.eventSource.accaHistory.cashoutUsedMsg"
+             data-crlat="cashOutUsedMsg"></div>
+      </div>
+
+    </ng-container>
+  </div>
+</div>

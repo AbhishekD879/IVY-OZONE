@@ -1,0 +1,48 @@
+accordion {    
+    .tabs-panel {
+        &.tabs-bottom {
+            margin-top: 2px;
+            margin-bottom: 0;
+
+            .sub-header {
+                margin: 0;
+                display: block;
+                padding: 8px 15px;
+                font-size: 12px;
+                font-weight: 700;
+                background-color: #f9fafe;
+                color: #07294b;
+            }
+
+            .scroll-container {
+                .scroll-inner {
+                    padding: 4px 0;
+                    margin-bottom: 0px;
+
+                    li {
+                        border: none;
+
+                        .tab {
+                            height: 40px;
+                            padding: 0px 15px !important;
+
+                            .race-time {
+                                font-size: 13px;
+                                line-height: 18px;
+                            }
+
+                            .race-type {
+                                display: block;
+                                font-size: 12px;
+                                text-transform: capitalize;
+                                text-align: left;
+                                font-weight: normal;
+                                padding: 4px 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

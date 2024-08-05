@@ -1,0 +1,131 @@
+@import 'global.variables.scss';
+
+$timeform-line-height: 10px;
+$spacing: 3px;
+$font-size: 12px;
+$font-size-xl: 13px;
+$font-size-pre-xs: 9px;
+$font-size-xs: 8px;
+$thin-text: 100;
+
+.timeform-widget {
+  .timeform-logo {
+    fill: $color-white;
+    height: 15px;
+    width: 70px;
+  }
+
+  .timeform-prediction {
+    font-size: $font-size;
+    margin-right: 10px;
+
+    .thin-text {
+      font-weight: $thin-text;
+
+      span:first-child {
+        font-weight: bold;
+      }
+    }
+
+    .text-bold {
+      font-weight: bold;
+      color: $color-orange-light;
+      text-transform: uppercase;
+    }
+  }
+
+  .timeform-widget-content {
+    font-size: $font-size-xl;
+    color: $color-gray-dark;
+    padding: 15px;
+  }
+
+  .timeform-widget-positions {
+    padding: 0 $timeform-line-height $timeform-line-height $timeform-line-height;
+
+    .greyhound-details {
+      @include display-flex();
+      background-color: $color-gray-light;
+      height: 50px;
+
+      &:not(:last-child) {
+        margin-bottom: 1px;
+      }
+
+      .position-logo {
+        @include display-flex();
+        @include align-items(center);
+        @include justify-content(center);
+        width: 35px;
+
+        &.position-1 {
+          background-color: $color-orange-light;
+        }
+
+        &.position-2 {
+          background-color: lighten($color-gray-dark, 50%);
+        }
+
+        &.position-3 {
+          background-color: $color-bronze;
+        }
+
+        svg {
+          fill: $color-gray-dark;
+          height: 25px;
+          width: 26px;
+        }
+      }
+
+      .greyhound-name {
+        color: $color-gray-dark;
+        font-size: $font-size;
+        overflow: hidden;
+        padding: 10px 9px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        span:first-child {
+          color: $color-gray-dark;
+          font-size: $font-size-xl;
+
+          &::after {
+            content: "\A";
+            white-space: pre;
+          }
+        }
+
+        b {
+          margin-left: $spacing;
+        }
+      }
+
+      .greyhound-rating {
+        background-color: $color-gray-light;
+        margin-left: auto;
+        padding: 0 10px;
+        width: 90px;
+
+        b {
+          color: $color-gray-dark;
+          font-size: $font-size-pre-xs;
+          display: block;
+          line-height: $font-size-xs;
+          margin-top: 14px;
+          text-transform: uppercase;
+        }
+
+        svg {
+          fill: $color-gray-dark;
+          height: 10px;
+          margin-top: 5px;
+          width: 10px;
+
+          &:not(:last-child) {
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
+}

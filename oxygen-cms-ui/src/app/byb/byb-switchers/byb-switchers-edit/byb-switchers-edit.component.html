@@ -1,0 +1,59 @@
+<breadcrumbs *ngIf="bybSwitcher" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="bybSwitcher">
+  <div class="header">
+    <h2>Edit BYB Switcher: <span class="font-italic">{{bybSwitcher.name}}</span></h2>
+    <create-updated-at-by [collection]="bybSwitcher"></create-updated-at-by>
+    <header-activity-badge [state]="!bybSwitcher.enabled"></header-activity-badge>
+  </div>
+</div>
+<div class="card" *ngIf="bybSwitcher">
+  <div class="body">
+    <form [formGroup]="form" id="byb-switchers">
+      <div class="row">
+        <div class="col-md-2">
+          <mat-checkbox color="primary"
+                        formControlName="enabled"> Active
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-2">
+          <span class="mat-label">Title</span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !bybSwitcher.name}">
+            <input matInput placeholder="Switcher Title" formControlName="name" trim="blur">
+            <mat-hint class="col-red" *ngIf="!bybSwitcher.name">Switcher Title should be entered</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row ">
+        <div class="col-md-2">
+          <span class="mat-label">Provider</span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !bybSwitcher.provider}">
+            <input matInput placeholder="Switcher Provider" formControlName="provider" trim="blur">
+            <mat-hint class="col-red" *ngIf="!bybSwitcher.provider">Switcher provider should be entered</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <mat-checkbox color="primary"
+                        formControlName="default"> Default Switcher
+          </mat-checkbox>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="bybSwitcher"
+  [form]="form"
+  [fieldOrItemName]="'name'"
+  [collection]="getBYBSwitcher()"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

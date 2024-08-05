@@ -1,0 +1,299 @@
+@import 'global.variables.scss';
+
+.inspired-virtual-carousel {
+  margin: 5px 0 0;
+  position: relative;
+  &.widget {
+    margin: 0;
+    padding: 10px;
+  }
+  .virtual-carousel {
+    overflow: visible;
+    width: 170px;
+    .carousel-slides {
+      position: relative;
+      .slide {
+        border-radius: 2px;
+        background-color: $color-white;
+        margin-right: 5px;
+        font-family: $base-font-family;
+        text-align: center;
+        height: 128px;
+        &.widget {
+          background-color: $color-gray-light;
+          margin-right: 10px;
+        }
+        &.hide-slide {
+          display: none;
+        }
+        &.last-slide {
+          width: 97px;
+        }
+        header {
+          line-height: 25px;
+          background-color: $brand-color-main;
+          border-radius: 2px 2px 0;
+          .slide-title {
+            line-height: 13px;
+            font-size: 11px;
+            font-weight: bold;
+            color: $color-white;
+            text-transform: uppercase;
+          }
+        }
+        .live-now-slide {
+          cursor: pointer;
+        }
+        .slide-body {
+          padding: 5px 10px 8px 10px;
+          .start-time {
+            line-height: 19px;
+            font-size: 16px;
+            font-weight: bold;
+            color: $color-gray-dark;
+          }
+          .starts-title {
+            line-height: 24px;
+            font-size: 10px;
+            color: $color-gray-dark;
+          }
+          .timer {
+            .timer-item {
+              display: inline-block;
+              width: 43px;
+              line-height: 25px;
+              font-size: 12px;
+              font-weight: bold;
+              margin-right: 10px;
+              color: $color-gray-dark;
+              border-radius: 1px;
+              background-color: $color-gray-light;
+
+              &:after {
+                position: absolute;
+                line-height: 25px;
+                font-size: 12px;
+                content: ':';
+                margin-left: 18px;
+              }
+              &:last-child {
+                &:after {
+                  content: '';
+                }
+              }
+            }
+          }
+          .live-now-label {
+            width: 82px;
+            height: 20.2px;
+            margin: 15px 34px 14px;
+            line-height: 20.2px;
+            border-radius: 2px;
+            background-color: $color-red-alt;
+            &:hover{
+              opacity: 0.85;
+              color: $color-white;
+            }
+            &:active{
+              background-color: $color-redstone2;
+              opacity: 1;
+              color: $color-white;
+            }
+            .label-title {
+              color: $color-white;
+              text-transform: uppercase;
+              font-size: 13px;
+            }
+          }
+          .bet-now-link {
+            display: inline-block;
+            line-height: 12px;
+            width: 47px;
+            font-size: 10px;
+            font-weight: bold;
+            text-decoration: none;
+            text-transform: uppercase;
+            color: $color-gray-dark;
+            cursor: pointer;
+            &:hover{
+              text-decoration: underline;
+            }
+            &:active{
+              text-decoration: none;
+              color: $lGrayMedium;
+            }
+          }
+          &.last-title {
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: $color-gray-dark;
+            text-decoration: underline;
+            @include display-flex();
+            @include align-items(center);
+            @include justify-content(center);
+            @include flex-flow(column);
+            height: 100%;
+            .part-1 {
+              height: 12px;
+              width: 46px;
+              font-size: 10px;
+              line-height: 12px;
+            }
+            .part-2 {
+              height: 15px;
+              width: 57px;
+              font-size: 12px;
+              line-height: 15px;
+            }
+          }
+        }
+      }
+    }
+  }
+  &:hover {
+    .action-arrow-wrapper {
+      .action-arrow {
+        opacity: 1;
+
+        &.left {
+          left: 0;
+        }
+
+        &.right {
+          right: 0;
+        }
+      }
+    }
+  }
+  &:not(:hover) {
+    .action-arrow-wrapper {
+      .action-arrow {
+        opacity: 0;
+
+        &.left {
+          left: -20px;
+        }
+
+        &.right {
+          right: -20px;
+        }
+      }
+    }
+  }
+  .action-arrow-wrapper {
+    background: transparent;
+    .action-arrow {
+      @include display-flex();
+      @include justify-content(center);
+      @include align-items(center);
+      user-select: none;
+      background: rgba(92, 99, 107, 0.6);
+      opacity: 0;
+      z-index: 2;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 20px;
+      cursor: pointer;
+      @include transition();
+
+      .arrow-icon {
+        width: 5px;
+        height: 10px;
+        fill: $color-white;
+      }
+    }
+  }
+}
+.show-all-title {
+  height: 18px;
+  font-family: $base-font-family;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 10px;
+  line-height: 1.8;
+  text-align: right;
+  top: -1px;
+  right: 5px;
+  position: relative;
+  cursor: pointer;
+  color: $color-gray-dark;
+
+  &:hover{
+    text-decoration: underline;
+  }
+  &:active{
+    text-decoration: underline;
+  }
+}
+
+.virtualHomePagCarousel{
+  overflow-x: hidden;
+  overflow-y: hidden;
+  width: 100%;
+}
+
+.virtual-section-wrapper-nextevents{
+  .inspired-virtual-carousel {
+      width: 100% !important;
+      overflow-x: hidden !important;
+      overflow-y: hidden !important;    
+  }
+}
+
+.virtualsTitleHeader{
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: -0.006px;
+  color: #102948;
+  height: 18px;
+  margin-left: 7px;
+}
+
+#virtual-home-lad {
+  .virtualsTitleHeader{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+    letter-spacing: 0.00144375px;
+    color: #000000;
+    height: 18px;
+    margin-left: 7px;
+  }
+
+  .inspired-virtual-carousel {
+    &.widget {
+      padding-left: 0px !important;
+    }
+
+    .virtual-carousel {
+      overflow-y: clip !important;
+    }
+  }
+}
+
+#virtual-nextevents-desktop {
+  .inspired-virtual-carousel {
+    .virtual-carousel {
+      overflow-y: clip !important;
+    }
+  }
+}
+
+#virtual-home-coral{
+  .inspired-virtual-carousel {
+    &.widget {
+      padding-left: 0px !important;
+    }
+
+    .virtual-carousel {
+      overflow-y: clip !important;
+    }
+  }
+}

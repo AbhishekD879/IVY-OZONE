@@ -1,0 +1,76 @@
+@import '../../../../app/retail/assets/styles/main.scss';
+
+.retail-page {
+
+  #banner-section {
+    &:not(:empty){
+      padding: 10px 0 0;
+    }
+  }
+
+  .upgrade-button {
+    margin: 13px 12px 0;
+    width: auto;
+
+    #upgradeBtn {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      background-color: $btn-bg-green-color;
+      border-radius: 2px;
+      text-shadow: none;
+      text-align: center;
+      box-shadow: none;
+    }
+
+    .btn {
+      a {
+        color: $btn-input-color; 
+        font-size: 15px; 
+        font-family: $base-font-family; 
+        text-decoration: none;
+        border-radius: 2px;
+      }
+    }
+  }
+
+  .vertical-menu {
+    box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+    background-color: $color-white;
+    margin-top: 13px;
+
+    .list-item-link {
+      font-family: $alt-font-family;
+      padding: 12px;
+      margin: 0;
+      border-bottom: 1px solid $lGrayLight;
+      .item-icon {
+        width: 16px;
+        height: 14px;
+        margin: 0 8px 0 0;
+      }
+      .item-next-arrow {
+        width: 6px;
+        right: 16px;
+        height: 11px;
+        margin-top: -5px;
+        fill: $lBlack-light;
+      }
+    }
+    .item-name {
+      font-family: $alt-font-family;
+      font-size: $font-size-tablet;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: 0px;
+      color: $color-gray-darkest;
+      height: 15px;
+
+      .item-description {
+        padding-top: 0;
+      }
+    }
+  }
+}

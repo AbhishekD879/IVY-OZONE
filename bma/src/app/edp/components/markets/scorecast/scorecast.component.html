@@ -1,0 +1,94 @@
+<accordion [isExpanded]="isExpanded"
+           [headerClass]="'secondary-header'"
+           [isChevronToLeft]="true"
+           [memoryId]="memoryId"
+           [memoryLocation]="memoryLocation"
+           data-crlat="accordion">
+  <left-side>
+    <span class="left-title-text" [i18n]="'sb.tabsNameScorecast'"  data-crlat="headerTitle.leftMessage"></span>
+  </left-side>
+  <right-side>
+    <cashout-label *ngIf="cashoutAvail"></cashout-label>
+  </right-side>
+  <accordion-body>
+    <div class="scorecast-container">
+      <div data-crlat="correctScoreTeams">
+        <div class="switchers group-btm-pad" data-crlat="switchers">
+          <span class="switcher-wrapper" *ngFor="let key of scorecastKeys; trackBy: trackByIndex">
+            <a class="switch-btn"
+            data-crlat="scorecastMarkets"
+            *ngIf="scorecastMarkets[key]"
+               [ngClass]="{'active': selectedScorecastMarket.name === key, 'disabled': isScorecastDisabled(scorecastMarkets[key])}"
+             (click)="selectScorecastMarket(key)"
+            [textContent]="getSwitcherText(scorecastMarkets[key])">
+            </a>
+          </span>
+        </div>
+      </div>
+    <div class="scorecast-subcontainer">
+      <p class="scorecast-select-scorer-label" [i18n]="'sb.scorecast.selectGoalscorer'"></p>
+      <div data-crlat="correctScoreTeams">
+        <div class="switchers-buttons switchers-buttons--scorecast group-btm-pad" data-crlat="switchers">
+          <div class="switcher-wrapper" *ngFor="let team of teamsArray; trackBy: trackByIndex">
+            <a class="switch-btn"
+              data-crlat="goalscorerTeamItem"
+              *ngIf="selectedScorecastMarket?.teamsGoalscorers[team.name].length"
+              [ngClass]="{'active': selectedGoalscorerTeam.name === team.name, 'disabled': isGoalscorerDisabled}"
+              (click)="selectGoalscorerTeam(team)"
+              [textContent]="team.name">
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="custom-select--scorecast-goalscorer">
+        <custom-select>
+          <select class="form-control"
+            data-crlat="playerScorersList"
+            (change)="goalscorerChanged($event.target.value)"
+            [disabled]="isGoalscorerDisabled">
+            <option [value]="outcome.name" *ngFor="let outcome of goalscorerOutcomes; trackBy: trackById" [textContent]="outcome.name"></option>
+          </select>
+        </custom-select>
+      </div>
+
+      <p class="scorecast-select-scorer-label" [i18n]="'sb.scorecast.selectResult'"></p>
+      <div class="teams-group">
+        <div class="team-col custom-select--scorecast-score">
+          <custom-select>
+            <select class="form-control"
+                    #scoreH
+                    [disabled]="isScoreDisabled"
+                    (change)="selectCorrectScore($event.target.value, 'teamH')"
+                    data-crlat="scorecastTeamScore.home">
+              <option
+                [value]="value"
+                *ngFor="let value of scorecastScoresTeamH; trackBy: trackByIndex">{{ value }}</option>
+            </select>
+          </custom-select>
+        </div>
+        <div class="team-col"><span class="team-col-divider"></span></div>
+        <div class="team-col custom-select--scorecast-score">
+          <custom-select>
+            <select class="form-control"
+                    #scoreA
+                    [disabled]="isScoreDisabled"
+                    (change)="selectCorrectScore($event.target.value, 'teamA')"
+                    data-crlat="scorecastTeamScore.away">
+              <option [value]="score" *ngFor="let score of scorecastScoresTeamA; trackBy: trackByIndex">{{ score }}</option>
+            </select>
+          </custom-select>
+        </div>
+        <div class="team-col odd-right">
+          <button [disabled]="isAddToBetslipDisabled"
+            data-crlat="addToBetslipBtn" [last-made-bet] (click)="addToMultiples($event)"
+            class="col-btn btn-bet" [ngClass]="{'active': isInBetslip()}">
+            <span *ngIf="!cumulativeOdd">N/A</span>
+            <span *ngIf="cumulativeOdd" data-crlat="outputPrice"
+              [textContent]="cumulativeOddPriceToShow"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </accordion-body>
+</accordion>

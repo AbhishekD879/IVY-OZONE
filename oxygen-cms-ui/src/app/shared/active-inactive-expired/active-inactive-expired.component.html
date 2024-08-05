@@ -1,0 +1,7 @@
+<small *ngIf="collection">
+  <br>
+  <span>Total: {{total}}</span>
+  <span *ngIf="!collection.showOnlyTotal">, Active: {{collection.active}}</span>
+  <span *ngIf="!collection.showOnlyTotal">, Inactive: {{collection.inactive}}</span>
+  <span *ngIf="!collection.showOnlyTotal && collection.expired !== undefined">, Expired: {{collection.expired}}</span>
+</small>

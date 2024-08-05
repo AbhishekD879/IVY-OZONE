@@ -1,0 +1,27 @@
+spring:
+  redis:
+    password: D2D2D9FBB87079F58F2FE3C4B367006C695D63FD
+    sentinel:
+      master: master
+      nodes:  AT1L5XACOD808.dbz.unix:26388,AT1L5XACOD809.dbz.unix:26388,AT1L5XACOD797.dbz.unix:26388
+
+
+siteServer:
+  baseUrl: https://ss-aka-ori.ladbrokes.com/
+
+liveserv:
+  url: https://push-gib.ladbrokes.com/push
+
+
+df:
+  baseUrl: https://sb-api.ladbrokes.com
+  apiKey: LDdf80bc9a7db040f8bff0f57d760edaee
+  loggingLevel: BASIC
+
+masterlock:
+  aws:
+    dynamo.lock-table-name: LB-MSLOCKTABLE-NONPROD
+
+app:
+  nextRaces:
+    timePeriodMinutes: 15

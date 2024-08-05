@@ -1,0 +1,36 @@
+clone:
+  depth: full
+pipelines:
+
+  default:
+    - step:
+        name: build
+        image: openjdk:8
+        caches:
+          - gradle
+          - gradlewrapper
+        script:
+          - ./gradlew test build
+          - wget -P /usr/local/ https://download.java.net/openjdk/jdk17/ri/openjdk-17+35_linux-x64_bin.tar.gz && tar xvf /usr/local/openjdk-17+35_linux-x64_bin.tar.gz -C /usr/local/ && rm -f /usr/local/openjdk-17+35_linux-x64_bin.tar.gz
+          - export JAVA_HOME=/usr/local/jdk-17 && export PATH=$JAVA_HOME/bin:$PATH
+          - ./gradlew sonarqube -x compileJava -x compileTestJava
+
+
+  pull-requests:
+    '**':
+      - step:
+          name: build
+          image: openjdk:8
+          script:
+            - ./gradlew test build
+            - wget -P /usr/local/ https://download.java.net/openjdk/jdk17/ri/openjdk-17+35_linux-x64_bin.tar.gz && tar xvf /usr/local/openjdk-17+35_linux-x64_bin.tar.gz -C /usr/local/ && rm -f /usr/local/openjdk-17+35_linux-x64_bin.tar.gz
+            - export JAVA_HOME=/usr/local/jdk-17 && export PATH=$JAVA_HOME/bin:$PATH
+            - ./gradlew sonarqube -x compileJava -x compileTestJava
+              -Dsonar.pullrequest.key=$BITBUCKET_PR_ID
+              -Dsonar.pullrequest.base=$BITBUCKET_PR_DESTINATION_BRANCH
+              -Dsonar.pullrequest.branch=$BITBUCKET_BRANCH
+
+definitions:
+  caches:
+    sonarcloud: ~/.sonar/cache
+    gradlewrapper: ~/.gradle/wrapper

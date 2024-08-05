@@ -1,0 +1,47 @@
+<header class="racing-panel-header" *ngIf="titleText">
+  <span class="racing-panel-title"
+        data-crlat="raceGrid.meeting.name"
+        [innerHTML]="titleText"></span>
+  <ng-content select="[header]"></ng-content>
+</header>
+<div class="scroll-panel" data-crlat="eventTimePanel.tabs">
+  <div class="scroll-container"
+       scrollable-racing
+       [rescrollOnChange]="events?.length ? eventId : null">
+    <ul class="scroll-inner">
+      <li *ngFor="let event of events; trackBy: trackById"
+          [ngClass]="{'active': eventId === event.id,
+                      'race-on': !event.isResulted && (!event.isStarted || event.isLiveNowEvent)}"
+          [attr.data-eventid]="event.id"
+          data-crlat="raceGrid.event">
+        <a class="tab"
+           linkHref
+           [link]="formEdpUrl(event)"
+           (click)="goToEvent(event, $event)"
+           ClickLinkDirective
+           data-crlat="tab">
+          <span class="racing-time"
+                [textContent]="event.localTime"
+                data-crlat="raceGrid.raceTime" [ngClass]="{'text-bold': isLpAvailable(event)}">
+          </span>
+          <span class="racing-name"
+                *ngIf="isShowName && !(event.id.toString() === removeEventnameId) && !event.displayName && 
+                !(event.isResulted || event.isStarted || event.isLiveNowEvent)"
+                [textContent]="event.name | slice:0:4"
+                data-crlat="raceGrid.raceName" [ngClass]="{'text-bold': (isLpAvailable(event) || ladsTabNav)}"></span>
+          <span class="racing-name display-name" *ngIf="isShowName && event.displayName"
+          [ngClass]="{'text-bold': isLpAvailable(event)}" [textContent]="event.displayName"
+                data-crlat="raceGrid.raceName"></span>
+
+          <lazy-component
+                moduleUri="@lazy-modules-module/racingStatus/racing-status.module#RacingStatusModule"
+                [inputs]="{event: event, isEventSelected: eventId === event.id, isHrEdp: isHrEdp === false ? false : true}"
+                [outputs]="['removeEventNameEmitter', 'eventStatusUpdate']"
+                (event)="handleOutput($event)">
+          </lazy-component>
+        </a>
+      </li>
+      <ng-content select="[list]"></ng-content>
+    </ul>
+  </div>
+</div>

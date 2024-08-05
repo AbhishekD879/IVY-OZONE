@@ -1,0 +1,153 @@
+{
+  "config": {
+    "title": "Football",
+    "name": "football",
+    "path": "football",
+    "tier": 1,
+    "categoryType": "gaming",
+    "isOutrightSport": false,
+    "isMultiTemplateSport": false,
+    "oddsCardHeaderType": "homeDrawAwayType",
+    "request": {
+      "categoryId": "16",
+      "siteChannels": "M",
+      "marketsCount": true,
+      "isActive": false
+    },
+    "tabs": {
+      "live": {},
+      "coupons": {
+        "date": "today",
+        "isActive": true
+      },
+      "today": {
+        "templateMarketNameOnlyIntersects": true,
+        "isNotStarted": true
+      },
+      "tomorrow": {
+        "templateMarketNameOnlyIntersects": true
+      },
+      "future": {
+        "templateMarketNameOnlyIntersects": true
+      },
+      "outrights": {
+        "marketsCount": false,
+        "isActive": true
+      },
+      "upcoming": {
+        "isNotStarted": true
+      },
+      "specials": {
+        "marketsCount": false,
+        "marketDrilldownTagNamesContains": "MKTFLAG_SP"
+      },
+      "jackpot": {},
+      "results": {}
+    }
+  },
+  "tabs": [
+    {
+      "id": "tab-matches",
+      "name": "matches",
+      "label": "Matches",
+      "url": "/sport/football/matches",
+      "hidden": false,
+      "sortOrder": 1,
+      "subTabs": [
+        {
+          "id": "tab-today",
+          "name": "today",
+          "label": "Today",
+          "url": "/sport/football/matches/today",
+          "hidden": false
+        },
+        {
+          "id": "tab-tomorrow",
+          "name": "tomorrow",
+          "label": "Tomorrow",
+          "url": "/sport/football/matches/tomorrow",
+          "hidden": false
+        },
+        {
+          "id": "tab-future",
+          "name": "future",
+          "label": "Future",
+          "url": "/sport/football/matches/future",
+          "hidden": false
+        }
+      ],
+      "marketsNames": [],
+      "trendingTabs": []
+    },
+    {
+      "id": "tab-live",
+      "name": "live",
+      "label": "In-Play",
+      "url": "/sport/football/live",
+      "hidden": false,
+      "sortOrder": 2,
+      "marketsNames": [],
+      "trendingTabs": []
+    },
+    {
+      "id": "tab-competitions",
+      "name": "competitions",
+      "label": "Competitions",
+      "url": "/sport/football/competitions",
+      "hidden": false,
+      "sortOrder": 3,
+      "marketsNames": [],
+      "trendingTabs": []
+    },
+    {
+      "id": "tab-coupons",
+      "name": "coupons",
+      "label": "Coupons",
+      "url": "/sport/football/coupons",
+      "hidden": false,
+      "sortOrder": 4,
+      "marketsNames": [],
+      "trendingTabs": []
+    },
+    {
+      "id": "tab-outrights",
+      "name": "outrights",
+      "label": "Outrights",
+      "url": "/sport/football/outrights",
+      "hidden": false,
+      "sortOrder": 5,
+      "marketsNames": [],
+      "trendingTabs": []
+    },
+    {
+      "id": "tab-jackpot",
+      "name": "jackpot",
+      "label": "Jackpot",
+      "url": "/sport/football/jackpot",
+      "hidden": false,
+      "sortOrder": 6,
+      "marketsNames": [],
+      "trendingTabs": []
+    },
+    {
+      "id": "tab-specials",
+      "name": "specials",
+      "label": "Specials",
+      "url": "/sport/football/specials",
+      "hidden": false,
+      "sortOrder": 7,
+      "marketsNames": [],
+      "trendingTabs": []
+    },
+    {
+      "id": "tab-popularbets",
+      "name": "popularbets",
+      "label": "Popular Bets",
+      "url": "/sport/football/popularbets",
+      "hidden": false,
+      "sortOrder": 8.0,
+      "marketsNames": [],
+      "trendingTabs": []
+    }
+  ]
+}

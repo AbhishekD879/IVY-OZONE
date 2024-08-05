@@ -1,0 +1,15 @@
+bpp:
+  url: http://bpp.internal.tst.coral.co.uk
+
+upms:
+  profile: default
+
+spring:
+  redis:
+    host: localhost
+    port: 6379
+masterlock:
+  aws:
+    dynamo.lock-table-name: CR-MSLOCKTABLE-DEV
+  partitionKey: LOCAL
+  enabled: false

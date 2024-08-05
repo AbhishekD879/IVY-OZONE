@@ -1,0 +1,25 @@
+---
+- name: Create HostsMonitoring EC2 node
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    instance_type: t2.micro
+    security_group: crlat
+    subnet_name: services
+    volume_size: 16
+    action: create
+    node_type: SingleNode
+    assign_public_ip: no
+    tags:
+      Team: Automation
+      NodeType: "{{ node_type }}"
+      Name: oxygen-monitor
+      ClusterName: Services
+      ClusterNodeType: HostsMonitor
+      dockers: telegraf,influxdb,chronograf
+    num_nodes: 1
+  tasks:
+  - name: crlat.vpc
+    include_role:
+      name: crlat.vpc

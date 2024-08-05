@@ -1,0 +1,54 @@
+<div class="card" *ngIf="leaguesData">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Banach Leagues Page
+      <small *ngIf="leaguesData.length">Total Active Leagues: {{leaguesAmount.active}}, Inactive Leagues: {{leaguesAmount.inactive}}</small>
+      <small *ngIf="!leaguesData.length">No Banach Leagues Found</small>
+    </h2>
+  </div>
+</div>
+
+<div class="card" *ngIf="leaguesData">
+  <div class="body">
+    <!-- search and download button.-->
+    <div class="row clearfix">
+      <div class="col-md-3">
+        <button (click)="createLeague()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create Banach League</span>
+        </button>
+      </div>
+      <div class="col-md-3">
+        <download-cvs [cvsData]="leaguesData" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Banach League" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <!-- main content, config groups list-->
+    <div *ngIf="leaguesData && leaguesData.length > 0">
+      <cms-data-table
+        [customTableData]="leaguesData"
+        [customTableColumns]="dataTableColumns"
+        [reorder]="true"
+        [actions]="['remove','edit']"
+        [filterString]="searchField"
+        [filterProperties]="filterProperties"
+        (onElementsOrder)="reorderHandler($event)"
+        (onRemoveTableElement)="removeLeague($event)">
+      </cms-data-table>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="getDataError">
+  <div class="body">
+    Request Error
+  </div>
+</div>

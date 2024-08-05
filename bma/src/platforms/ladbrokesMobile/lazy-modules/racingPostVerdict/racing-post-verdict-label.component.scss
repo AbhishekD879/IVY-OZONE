@@ -1,0 +1,28 @@
+@import 'global.variables.scss';
+
+:host {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  line-height: 26px;
+  height:26px;
+}
+
+.logo {
+  width: 88px;
+  height: 9px;
+  vertical-align: baseline;
+  float: left;
+  margin-top: 8px;
+}
+
+.verdict {
+  text-transform: uppercase;
+  font-family: $base-font-family;
+  font-weight: bold;
+  font-size: $font-size;
+  line-height: 11px;
+  color: $color-gray-darkest;
+  float: left;
+  margin: 7px 4px 0px 3px;
+}

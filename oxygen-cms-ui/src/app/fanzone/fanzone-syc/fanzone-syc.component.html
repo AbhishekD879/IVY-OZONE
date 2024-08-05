@@ -1,0 +1,376 @@
+<div *ngIf="isReady">
+  <breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+  <form [formGroup]="form">
+    <div class="card">
+      <div class="header">
+        <h2 [textContent]="SYC_POPUP_CONST.sycHeading"></h2>
+      </div>
+      <div class="body">
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="SYC_POPUP_CONST.sycPopUpTitle"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_POPUP_CONST.sycPopUpTitle" formControlName="sycPopUpTitle"
+                [(ngModel)]="fanzoneSyc.sycPopUpTitle" [value]="fanzoneSyc.sycPopUpTitle" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="SYC_POPUP_CONST.sycPopUpDescription"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_POPUP_CONST.sycPopUpDescription" formControlName="sycPopUpDescription"
+                [(ngModel)]="fanzoneSyc.sycPopUpDescription" [value]="fanzoneSyc.sycPopUpDescription" required
+                trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="SYC_POPUP_CONST.sycImage"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_POPUP_CONST.sycImage" formControlName="sycImage"
+                [(ngModel)]="fanzoneSyc.sycImage" [value]="fanzoneSyc.sycImage" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="SYC_POPUP_CONST.okCTA"></span>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_POPUP_CONST.okCTA" formControlName="okCTA"
+                [(ngModel)]="fanzoneSyc.okCTA" [value]="fanzoneSyc.okCTA" required trim="blur">
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-2 offset-md-1">
+            <span class="mat-label" [textContent]="SYC_POPUP_CONST.dontShowAgain"></span>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_POPUP_CONST.dontShowAgain" formControlName="dontShowAgain"
+                [(ngModel)]="fanzoneSyc.dontShowAgain" [value]="fanzoneSyc.dontShowAgain" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="SYC_POPUP_CONST.remindLater"></span>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_POPUP_CONST.remindLater" formControlName="remindLater"
+                [(ngModel)]="fanzoneSyc.remindLater" [value]="fanzoneSyc.remindLater" required trim="blur">
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 offset-md-1">
+            <span class="mat-label" [textContent]="SYC_POPUP_CONST.remindLaterHideDays"></span>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_POPUP_CONST.remindLaterHideDays" formControlName="remindLaterHideDays"
+                [(ngModel)]="fanzoneSyc.remindLaterHideDays" [value]="fanzoneSyc.remindLaterHideDays" required
+                trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card" *ngIf="isReady">
+      <div class="header">
+        <h2 [textContent]="SYC_POPUP_CONST.seasonDetails"></h2>
+      </div>
+
+      <div class="body">
+        <div class="row">
+          <div class="col-md-12 m-b-0 m-t-20">
+            <date-range [isSetDateButtons]="true" [startDate]="fanzoneSyc.seasonStartDate"
+              [endDate]="fanzoneSyc.seasonEndDate" [startPlaceholder]="SYC_POPUP_CONST.seasonStartDate"
+              [endPlaceholder]="SYC_POPUP_CONST.seasonEndDate" [placeholderColumn]="true"
+              (onDateUpdate)="handleDateUpdate($event)">
+            </date-range>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="header">
+        <h2 [textContent]="SYC_SELECT_CONST.sycHeading"></h2>
+      </div>
+      <div class="body">
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="SYC_SELECT_CONST.sycTitle"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_SELECT_CONST.sycTitle" formControlName="sycTitle"
+                [(ngModel)]="fanzoneSyc.sycTitle" [value]="fanzoneSyc.sycTitle" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="SYC_SELECT_CONST.sycDescription"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_SELECT_CONST.sycDescription" formControlName="sycDescription"
+                [(ngModel)]="fanzoneSyc.sycDescription" [value]="fanzoneSyc.sycDescription" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="SYC_SELECT_CONST.daysToChangeTeam"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput type="number" min="1" [placeholder]="SYC_SELECT_CONST.daysToChangeTeam" formControlName="daysToChangeTeam"
+                [(ngModel)]="fanzoneSyc.daysToChangeTeam" [value]="fanzoneSyc.daysToChangeTeam" required trim="blur">
+              <mat-error class="error-message" *ngIf="form.controls.daysToChangeTeam.errors?.pattern"> No of days must
+                be greater than zero(0) </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="header">
+        <h2 [textContent]="SYC_SELECT_CONST.sycPopUpCTAHeading"></h2>
+      </div>
+      <div class="body">
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="SYC_SELECT_CONST.sycLoginCTA"></span>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_SELECT_CONST.sycLoginCTA" formControlName="sycLoginCTA"
+                [(ngModel)]="fanzoneSyc.sycLoginCTA" [value]="fanzoneSyc.sycLoginCTA" required trim="blur">
+            </mat-form-field>
+          </div>
+          <div class="col-md-1 offset-md-1">
+            <span class="mat-label" [textContent]="SYC_SELECT_CONST.sycConfirmCTA"></span>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_SELECT_CONST.sycConfirmCTA" formControlName="sycConfirmCTA"
+                [(ngModel)]="fanzoneSyc.sycConfirmCTA" [value]="fanzoneSyc.sycConfirmCTA" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="SYC_SELECT_CONST.sycChangeCTA"></span>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_SELECT_CONST.sycChangeCTA" formControlName="sycChangeCTA"
+                [(ngModel)]="fanzoneSyc.sycChangeCTA" [value]="fanzoneSyc.sycChangeCTA" required trim="blur">
+            </mat-form-field>
+          </div>
+          <div class="col-md-1 offset-md-1">
+            <span class="mat-label" [textContent]="SYC_SELECT_CONST.sycExitCTA"></span>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_SELECT_CONST.sycExitCTA" formControlName="sycExitCTA"
+                [(ngModel)]="fanzoneSyc.sycExitCTA" [value]="fanzoneSyc.sycExitCTA" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="SYC_SELECT_CONST.sycCancelCTA"></span>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_SELECT_CONST.sycCancelCTA" formControlName="sycCancelCTA"
+                [(ngModel)]="fanzoneSyc.sycCancelCTA" [value]="fanzoneSyc.sycCancelCTA" required trim="blur">
+              <mat-hint class="col-red" *ngIf="fanzoneSyc?.sycCancelCTA?.length > 10">
+                This field can be max 10 characters long</mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="col-md-1 text-length">{{fanzoneSyc?.sycCancelCTA?.length || 0}}/10</div>
+        </div>
+      </div>
+
+      <div class="header">
+        <h2 [textContent]="SYC_SELECT_CONST.sycPopUpTitles"></h2>
+      </div>
+      <div class="body">
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="SYC_SELECT_CONST.sycThankYouTitle"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_SELECT_CONST.sycThankYouTitle" formControlName="sycThankYouTitle"
+                [(ngModel)]="fanzoneSyc.sycThankYouTitle" [value]="fanzoneSyc.sycThankYouTitle" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="SYC_SELECT_CONST.sycConfirmTitle"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_SELECT_CONST.sycConfirmTitle" formControlName="sycConfirmTitle"
+                [(ngModel)]="fanzoneSyc.sycConfirmTitle" [value]="fanzoneSyc.sycConfirmTitle" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="SYC_SELECT_CONST.sycNoTeamSelectionTitle"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_SELECT_CONST.sycNoTeamSelectionTitle"
+                [(ngModel)]="fanzoneSyc.sycNoTeamSelectionTitle" formControlName="sycNoTeamSelectionTitle"
+                [value]="fanzoneSyc.sycNoTeamSelectionTitle" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="header">
+        <h2 [textContent]="SYC_SELECT_CONST.sycPopUpMessages"></h2>
+      </div>
+      <div class="body">
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="SYC_SELECT_CONST.customTeamNameText"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_SELECT_CONST.customTeamNameText" formControlName="customTeamNameText"
+                [(ngModel)]="fanzoneSyc.customTeamNameText" [value]="fanzoneSyc.customTeamNameText" required
+                trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="SYC_SELECT_CONST.customTeamNameDescription"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_SELECT_CONST.customTeamNameDescription" formControlName="customTeamNameDescription"
+                [(ngModel)]="fanzoneSyc.customTeamNameDescription" [value]="fanzoneSyc.customTeamNameDescription" required
+                trim="blur">
+                <mat-hint class="col-red" *ngIf="fanzoneSyc?.customTeamNameDescription?.length > 150">
+                  This field can be max 150 characters long</mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 text-length">{{fanzoneSyc?.customTeamNameDescription?.length || 0}}/150</div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="SYC_SELECT_CONST.thankYouMsg"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_SELECT_CONST.thankYouMsg" formControlName="thankYouMsg"
+                [(ngModel)]="fanzoneSyc.thankYouMsg" [value]="fanzoneSyc.thankYouMsg" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="SYC_SELECT_CONST.sycConfirmMsgMobile"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_SELECT_CONST.sycConfirmMsgMobile" formControlName="sycConfirmMsgMobile"
+                [(ngModel)]="fanzoneSyc.sycConfirmMsgMobile" [value]="fanzoneSyc.sycConfirmMsgMobile" required
+                trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="SYC_SELECT_CONST.sycConfirmMsgDesktop"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_SELECT_CONST.sycConfirmMsgDesktop"
+                formControlName="sycConfirmMsgDesktop" [(ngModel)]="fanzoneSyc.sycConfirmMsgDesktop"
+                [value]="fanzoneSyc.sycConfirmMsgDesktop" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="SYC_SELECT_CONST.sycPreLoginTeamSelectionMsg"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_SELECT_CONST.sycPreLoginTeamSelectionMsg"
+                formControlName="sycPreLoginTeamSelectionMsg" [(ngModel)]="fanzoneSyc.sycPreLoginTeamSelectionMsg"
+                [value]="fanzoneSyc.sycPreLoginTeamSelectionMsg" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="SYC_SELECT_CONST.sycPreLoginNoTeamSelectionMsg"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_SELECT_CONST.sycPreLoginNoTeamSelectionMsg"
+                formControlName="sycPreLoginNoTeamSelectionMsg" [(ngModel)]="fanzoneSyc.sycPreLoginNoTeamSelectionMsg"
+                [value]="fanzoneSyc.sycPreLoginNoTeamSelectionMsg" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="SYC_SELECT_CONST.changeTeamTimePeriodMsg"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="SYC_SELECT_CONST.changeTeamTimePeriodMsg"
+                formControlName="changeTeamTimePeriodMsg" [(ngModel)]="fanzoneSyc.changeTeamTimePeriodMsg"
+                [value]="fanzoneSyc.changeTeamTimePeriodMsg" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <action-buttons #actionButtons [validateHandler]="validationHandler" [fieldOrItemName]="'sycTitle'"
+    [collection]="fanzoneSyc" [showRemoveButton]="false" (actionsEmitter)="actionsHandler($event);">
+  </action-buttons>
+</div>

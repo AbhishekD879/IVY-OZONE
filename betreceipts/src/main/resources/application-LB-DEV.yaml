@@ -1,0 +1,31 @@
+spring:
+  redis:
+    host: 10.152.50.74
+    port: 6388
+    sentinel:
+      master: mymaster
+      nodes:  10.152.50.78:26388
+
+
+
+#lads config...
+siteServer:
+  baseUrl: https://tst2-backoffice-lcm.ladbrokes.com/
+
+liveserv:
+  url: https://tst2-push-lcm.ladbrokes.com/push
+
+
+#lads config...
+df:
+  baseUrl: https://ld-dev1.api.datafabric.dev.aws.ladbrokescoral.com
+  apiKey: LDaa2737afbeb24c3db274d412d00b6d3b
+  loggingLevel: BASIC
+
+masterlock:
+  aws:
+    dynamo.lock-table-name: LB-MSLOCKTABLE-DEV
+
+app:
+  nextRaces:
+    timePeriodMinutes: 60

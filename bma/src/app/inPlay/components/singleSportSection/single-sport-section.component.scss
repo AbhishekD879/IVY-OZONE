@@ -1,0 +1,25 @@
+@import 'global.variables.scss';
+
+.show-more-leagues {
+  @include justify-content(center);
+  @include display-flex();
+  height: 38px;
+  margin-top: 1px;
+  align-items: center;
+  background: $color-white;
+  font-size: 11px;
+  color: $madison;
+  text-transform: uppercase;
+
+  span {
+    margin: 2px;
+  }
+}
+
+.hr-accordion {
+  margin-bottom: 5px !important;
+}
+
+.see-all-link {
+  margin-right: 30px;
+}

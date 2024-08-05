@@ -1,0 +1,103 @@
+- name: Build DNSmasq config
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    dns_mask_server_tag_name: dnsmasq
+    region: eu-west-1
+    dns_recodrd_name: []
+    dns_records_dict: {}
+    s3bucket_name: crlat-storage
+    remote_dnsmasq_conf_file: dnsmasq/dnsmasq.conf.d/dyndnsrecords.conf
+  tasks:
+
+  - name: Read Facts
+    local_action:
+      module: ec2_remote_facts
+      region: "{{ region }}"
+    register: ec2_facts
+
+  - name: Filter EC2 instances
+    set_fact:
+      dns_recodrd_name: "{{ dns_recodrd_name + [{'private_ip': host_item.private_ip_address, 'dns_records': (host_item.tags.Name|regex_findall('(.+),?'))}] }}"
+    with_items: "{{ec2_facts.instances}}"
+    loop_control:
+      loop_var: host_item
+    when:
+      - host_item.tags.Name is defined
+      - host_item.state != 'terminated'
+      - host_item.state != 'stopped'
+
+  - name: Print DNS records
+    debug:
+      msg: "{{ dns_recodrd_name }}"
+
+  - name: Build DNS records dict
+    set_fact:
+      dns_records_dict: "{{dns_records_dict | combine({ host_item.1: host_item.0.private_ip }) }}"
+    with_subelements:
+      - "{{ dns_recodrd_name }}"
+      - dns_records
+    loop_control:
+      loop_var: host_item
+
+  - name: Print DNS records
+    debug:
+      msg: "{{ dns_records_dict }}"
+
+  - name: "Find instances to be added to {{dns_mask_server_tag_name}} configuration"
+    set_fact:
+      automation_dns_instance: "{{ host_item.private_ip_address }}"
+    with_items: "{{ec2_facts.instances}}"
+    loop_control:
+      loop_var: host_item
+    when:
+      - host_item.tags.Name is defined
+      - host_item.tags.Name == dns_mask_server_tag_name
+      - host_item.state != 'terminated'
+
+  - name: Print Automation Storage IP
+    debug:
+      var: automation_dns_instance
+
+  - name: Create temporary file for dnsmasq config
+    tempfile:
+      state: file
+      prefix: dnsmask_config_
+      suffix: .tmp
+    register: dnsmasq_config_file
+
+  - name: Print dnsmasq_config_file path
+    debug:
+      var: dnsmasq_config_file.path
+
+
+  - name: Print DNS records
+    debug:
+      msg: "{{ dns_records_dict }}"
+
+  - name: "Write dns records to {{ dnsmasq_config_file.path }}"
+    lineinfile:
+      path: "{{ dnsmasq_config_file.path }}"
+      line: "address=/{{ record_item.key }}.{{ private_domain }}/{{ record_item.value }}"
+    with_dict: "{{ dns_records_dict }}"
+    loop_control:
+      loop_var: record_item
+
+  - name: "Upload config file to S3 {{ s3bucket_name }}/{{ remote_dnsmasq_conf_file }}"
+    aws_s3:
+      bucket: "{{ s3bucket_name }}"
+      object: "{{ remote_dnsmasq_conf_file }}"
+      src: "{{ dnsmasq_config_file.path }}"
+      mode: put
+      overwrite: yes
+
+  - name: Restart DNSmasq service
+    uri:
+      url: "http://{{ automation_dns_instance }}:5380/restart"
+      method: PUT
+
+  - name: "Delete local tmp file: {{ dnsmasq_config_file.path }}"
+    file:
+      path: "{{ dnsmasq_config_file.path }}"
+      state: absent

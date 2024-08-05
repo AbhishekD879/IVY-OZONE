@@ -1,0 +1,56 @@
+@import 'global.variables.scss';
+
+.forecast-tricast-market {
+  margin-top: 0;
+
+  .forecast-tricast-inner {
+    width: 100%;
+    box-shadow: $fortri-inner-shadow;
+  }
+  .terms-before-market {
+    @include align-items(center);
+  }
+  .add-to-betslip-btn {
+    display: block;
+    margin: $fortri-btn-margin;
+    width: $fortri-btn-width;
+    height: 44px;
+    font-size: $font-size-lgr;
+    border: 1px solid $color-green-2;
+    text-transform: uppercase;
+    background: $color-maingreen;
+    &:hover{
+      background: $color-green-light2;
+    }
+    &:active{
+      background: $color-green-shine;
+    }
+    &[disabled] {
+      background: $color-maingreen;
+      color: $color-white;
+      border: none;
+      opacity: 0.5;
+    }
+  }
+  .odds-right .suspended-label {
+    padding-right: 12px;
+  }
+  &.has-market-description {
+    margin-top: 0px;
+  }
+}
+
+/* Terms panel */
+.terms-block {
+  background: #fff;
+  color: $terms-block-color;
+  font-size: $font-size-md;
+  font-family: $terms-block-font;
+  line-height: 11px;
+  padding: 14px 12px;
+  margin: 0;
+
+  &.top-block {
+    padding-bottom: 0;
+  }
+}

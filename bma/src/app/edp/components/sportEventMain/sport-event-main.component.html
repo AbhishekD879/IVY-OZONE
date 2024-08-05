@@ -1,0 +1,203 @@
+<div class="sk-container" [ngClass]="{'sk-loading': state.loading}">
+  <outlet-status [skeletonType]="'GENERIC_FULL'" [state]="state">
+    <request-error (reloadFn)="reloadComponent()"></request-error>
+  </outlet-status>
+<ng-container *ngIf="!state.loading && !state.error">
+  <no-events *ngIf="!eventEntity" [message]="'sb.noMarketsAvailable'"></no-events>
+
+  <div *ngIf="eventEntity" class="sport-event-tabs">
+    <span *ngIf="isQuickSwitchPanelActive" class="quick-switch-overlay"></span>
+    <div class="native-video-player-placeholder" #nativeVideoPlayerPlaceholder></div>
+    <div class="sk-container scoreboard"
+         [ngClass]="{'sk-loading': isLoading(),
+                     'tablet': deviceService.isTablet,
+                     'br-mob-scoreboard': brScoreboardConfig.available && !streamShown,
+                     'img-arena-mob-scoreboard': imgFrontRowArena.available && !streamShown}">
+      <loading-screen [displayed]="isLoading()"
+                      [skeletonOnly]="true"
+                      templateType="SCOREBOARD"></loading-screen>
+      <event-title-bar
+        *ngIf="isEventTitleBarAvailable() && !streamShown"
+        [event]="eventEntity"
+        data-crlat="eventEntity"
+        [sportname]="sportName"
+        [isSpecial]="isSpecialEvent"
+        [fallbackScoreboardType]="fallbackScoreboardType"
+        [isFallbackScoreboards]="isFallbackScoreboards"
+        [isOutright]="isOutRight"
+        [isFootball]="isFootball">
+      </event-title-bar>
+
+      <bet-genius-scoreboard
+        *ngIf="bgScoreboardConfig.available && !streamShown"
+        [config]="bgScoreboardConfig">
+      </bet-genius-scoreboard>
+
+      <lazy-component
+        *ngIf="brScoreboardConfig.available && !streamShown"
+        moduleUri="@lazy-modules-module/betRadarProvider/bet-radar.module#BetRadarCoralModule"
+        [inputs]="{betRadarMatchId: betRadarMatchId}">
+      </lazy-component>
+
+      <img-scoreboard-provider
+        *ngIf="imgFrontRowArena.available && imgEventDetails && !streamShown"
+        [imgEventDetails]="imgEventDetails"
+      ></img-scoreboard-provider>
+
+      <visualization-container
+        *ngIf="eventsWithVisualizationParams.length"
+        [isHidden]="streamShown"
+        [visType]="'slider'"
+        [visParams]="eventsWithVisualizationParams"
+        [eventId]="eventId"
+        [expandable]="false">
+      </visualization-container>
+
+      <vis-pre-match-widget
+        *ngIf="preMatchWidgetAvailable"
+        [hidden]="streamShown"
+        [eventId]="eventId">
+      </vis-pre-match-widget>
+
+      <scoreboard
+        *ngIf="gpScoreboardAvailable"
+        id="scoreboard-panel"
+        [ngClass]="{'hidden-scoreboard': streamShown}"
+        [eventId]="eventId"
+        (isLoaded)="isLoadedHandler($event)"
+        [scoreboardUrl]="scoreboardUrl">
+      </scoreboard>
+
+      <opta-scoreboard
+        *ngIf="optaScoreboardAvailable"
+        [hidden]="streamShown"
+        [event]="eventEntity"
+        (isLoaded)="isLoadedHandler($event)"
+        [toggleScoreboard]="streamShown">
+      </opta-scoreboard>
+      </div>
+      <div class="data--disclaimer--container" *ngIf="isShownDisclaimer()">
+        <div class="disclaimer" [textContent]="dataDisclaimer?.dataDisclaimer"></div>
+      </div>
+    <div>
+
+    <event-video-stream *ngIf="eventEntity.liveStreamAvailable"
+        [eventEntity]="eventEntity" 
+        [colorSchema]="white-stream"
+        (playStreamError)="onPlayLiveStreamError()">
+      </event-video-stream>
+
+        <div *ngIf="showNewUserTabs
+                    && (isMarketsTabAvailable() || eventEntity.liveStreamAvailable || favouritesVisible)"
+             class="event-tabs"
+             [ngClass]="{'outrights-tabs': (!isLoggedIn || !myBetsAvailable) && !favouritesVisible}">
+          <div class="tabs-list" *ngIf="isMarketsTabAvailable()">
+            <ul>
+              <li (click)="setActiveUserTab('markets')"
+                  [ngClass]="{active: activeUserTab === 'markets'}"
+                  data-crlat="tab.tpTabs">
+                <span draggable="false" [i18n]="'sb.tabsMarkets'" data-crlat="tab"></span>
+              </li>
+              <li (click)="updateCashoutData();setActiveUserTab('myBets')"
+                  *ngIf="isLoggedIn && myBetsAvailable"
+                  [ngClass]="{active: activeUserTab === 'myBets'}"
+                  data-crlat="tab.tpTabs">
+                <span draggable="false" data-crlat="tab">{{ myBets }}</span>
+                <span *ngIf="showSignPosting" class="show-signposting"></span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="icon-block" *ngIf="eventEntity.liveStreamAvailable || favouritesVisible">
+            <div (click)="playStream($event)" class="play-close-stream"
+                 [hidden]="!eventEntity.liveStreamAvailable" data-crlat="tab.tpTabs">
+              <div class="live-stream-btm" [ngClass]="{'active': streamShown}" data-crlat="liveStream">
+                <svg *ngIf="!streamShown" class="odds-icon-stream" data-crlat="oddsIconStream" >
+                  <use xlink:href="#stream"></use>
+                </svg>
+                <span *ngIf="!streamShown" draggable="false" [i18n]="'sb.watch'" data-crlat="tab"></span>
+                <span *ngIf="streamShown" draggable="false" [i18n]="'sb.done'" data-crlat="tab"></span>
+              </div>
+            </div>
+
+            <div *ngIf="favouritesVisible" class="fav-and-notification-btn">
+              <favourites-add-button
+                class="football-favourites"
+                [event]="eventEntity"
+                [sportName]="sportName">
+              </favourites-add-button>
+              <div *ngIf="footballAlertsVisible" (click)="onFootballBellClick()"
+                   class="notification-icon-wrapper fav-icon">
+                <svg *ngIf="footballBellActive">
+                  <use xlink:href="#bell-icon-on"></use>
+                </svg>
+                <svg *ngIf="!footballBellActive">
+                  <use xlink:href="#bell-icon-turn-off"></use>
+                </svg>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <ul  *ngIf="!showNewUserTabs"
+          class="events-tabs" data-crlat="userTabs">
+          <li (click)="setActiveUserTab('markets')"
+              [ngClass]="{active: activeUserTab === 'markets'}"
+              *ngIf="isMarketsTabAvailable()"
+              data-crlat="tab.tpTabs">
+            <span draggable="false" [i18n]="'sb.tabsMarkets'" data-crlat="tab"></span>
+          </li>
+          <li (click)="updateCashoutData();setActiveUserTab('myBets')" [hidden]="!isLoggedIn || !myBetsAvailable"
+              [ngClass]="{active: activeUserTab === 'myBets'}"
+              data-crlat="tab.tpTabs">
+            <span draggable="false" data-crlat="tab">{{ myBets }}</span>
+            <span *ngIf="showSignPosting" class="show-signposting"></span>
+          </li>
+          <li (click)="playStream($event)" [hidden]="!eventEntity.liveStreamAvailable" data-crlat="tab.tpTabs">
+            <span *ngIf="!streamShown || !isLoggedIn" draggable="false" [i18n]="'sb.watchLive'" data-crlat="tab"></span>
+            <span *ngIf="streamShown && isLoggedIn" draggable="false" [i18n]="'sb.watchStop'" data-crlat="tab"></span>
+            <svg class="watch-live-icon">
+              <use xlink:href="#watch-live-icon"></use>
+            </svg>
+          </li>
+        </ul>
+
+        <!-- My bets -->
+        <lazy-component *ngIf="activeUserTab === 'myBets' && myBetsAvailable && isLoggedIn"
+          data-crlat="placedBets"
+          moduleUri="@betHistoryModule/bet-history.module#BetHistoryModule"
+          entryComponent="MyBetsComponent"
+          [inputs]="{ placedBets: placedBets, cashoutIds: cashoutIds, cashoutBets: cashoutBets, eventId: eventId, section: MYBETS_EDP}">
+        </lazy-component>
+
+      <div *ngIf="activeUserTab === 'markets'" data-crlat="tabContent">
+        <no-events *ngIf="!eventEntity?.markets?.length" [message]="'sb.noMarketsAvailable'"></no-events>
+        <edp-surface-bets-carousel *ngIf="(isOutRight || isEnhanceMultiples) && eventEntity?.id" [eventId]="eventEntity.id"></edp-surface-bets-carousel>
+        <!-- Outrights Event Page -->
+        <div *ngIf="isOutRight" class="tab-content">
+          <event-markets [eventEntity]="eventEntity" [eventId]="eventEntity.id" [fetchOutcomes]="isMTASport()" [sportConfig]="sport.config" [panelType]="'outright'" data-crlat="accordionsList"></event-markets>
+        </div>
+
+          <!-- Enhanced Multiples Event Page -->
+          <div *ngIf="isEnhanceMultiples" class="tab-content" data-crlat="enhanceMultiplesMarket">
+            <event-markets [eventEntity]="eventEntity"
+                           [fetchOutcomes]="isMTASport()" 
+                           [eventId]="eventEntity.id"
+                           [sportConfig]="sport.config"
+                           [panelType]="'enhancedMultiple'"
+                           data-crlat="enhancedMultiple"></event-markets>
+          </div>
+          <sport-event-page *ngIf="!isEnhanceMultiples && !isOutRight"
+            [isMobileOnly]="isMobileOnly"
+            [isOptaAvailable]="optaScoreboardAvailable"
+            [isOptaProviderPresent]="isOptaProviderPresent">
+          </sport-event-page>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <lazy-component *ngIf="isStreambetAvailable && eventEntity.liveStreamAvailable && !isEnhanceMultiples && !isOutRight"
+    moduleUri="@lazy-modules-module/stream-bet-tutorial-pop-up/stream-bet-tutorial-pop-up.module#StreamBetTutorialPopUpModule">
+  </lazy-component>
+</div>

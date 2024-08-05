@@ -1,0 +1,73 @@
+@import 'global.variables.scss';
+
+$virtualSubMenuActiveBg: #d5ebf8;
+$virtualSubMenuActiveBr: #797979;
+$virtualSubMenuItemBr: #b0b0b0;
+
+.vc-submenu {
+  &-wrap {
+    position: relative;
+  }
+  .scroll-container {
+    background-color: $brand-color-dark;
+    padding: 12px 9px;
+
+    .scroll-inner {
+      border: none;
+      box-shadow: none;
+    }
+  }
+
+  .vc-item {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    height: 38px;
+    width: auto;
+    position: relative;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: solid 1px $virtualSubMenuItemBr;
+    background-color: $color-white;
+    color: $lGray;
+    font-family: $base-font-family;
+    font-size: $font-size-md;
+    margin: 0 3px;
+    text-transform: uppercase;
+    font-weight: normal;
+    @include transition(text-shadow, .3s);
+    @include align-items(normal);
+
+    &.active, &:hover {
+      border:1px solid $virtualSubMenuActiveBr;
+      background-color: $virtualSubMenuActiveBg;
+      .sport-name {
+        font-weight: bold;
+      }
+    }
+
+    .sport-name {
+      font-size: $font-size-md;
+      font-family: $base-font-family;
+      color: $lGray;
+    }
+  }
+}
+
+.vc-time {
+  font-size: $font-size-xs;
+  line-height: 1;
+  text-align: right;
+  display: block;
+  position: relative;
+  color: $lGray;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+@media #{$mqLandscapeAndDesktop} {
+  .virtual-carousel-menu {
+    margin-bottom: 4px;
+  }
+}

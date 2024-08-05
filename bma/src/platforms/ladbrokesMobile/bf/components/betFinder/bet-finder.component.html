@@ -1,0 +1,163 @@
+<div>
+  <top-bar [title]="'bf.betFinder'"
+           [innerContent]="true">
+    <top-bar-body class="top-bar-side" data-crlat="topBarContent">
+      <div class="bf-top-header">
+        <div class="bf-reset" (click)="onReset()" data-crlat="reset">
+          <svg class="refresh-icon" [ngClass]="{'rotate-icon': refreshRotate}" data-crlat="refreshIcon">
+            <use xlink:href="#refresh-icon"></use>
+          </svg>
+          <span class="bf-reset-text" [i18n]="'bf.resetFilters'"></span>
+        </div>
+      </div>
+    </top-bar-body>
+  </top-bar>
+  <div class="bet-finder-container">
+    <div class="bf-header">
+      <div class="bf-header-holder">
+        <div class="bf-heading">
+          <div class="bf-header-title" [i18n]="'bf.bfHeaderMessage'" data-crlat="title"></div>
+        </div>
+        <div class="bf-header-text" [i18n]="'bf.bfHeaderTextLadbrokes'" data-crlat="text"></div>
+      </div>
+    </div>
+    <section class="page-container page-inner-container">
+      <div class="container-content">
+        <div #bfFormContainer class="bf-form-container">
+          <form>
+            <!-- Meetings -->
+            <div class="bf-filter-holder bf-no-pb">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div data-crlat="dropDownCont" class="bf-meetings"
+                       [ngClass]="{ 'active-dropdown': isActiveDropDown }">
+                    <div data-crlat="dropDown" class="meetings-title"
+                         (click)="onClickDropDown()">
+                      <span data-crlat="selItem" class="title"
+                              [textContent]="selectedCourse"></span>
+                      <svg class="arrow-top">
+                        <use xlink:href="#down-arrow"></use>
+                      </svg>
+                    </div>
+                    <ul class="bf-meetings-list">
+                      <li *ngFor="let meeting of meetings"
+                          class="bf-meeting-item"
+                          data-crlat="item"
+                          [ngClass]="{ 'active': meeting.courseShort === filters.meetingShort }"
+                          (click)="onSelectChange(meeting)"
+                          [textContent]="meeting.course">
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Odds Buttons -->
+            <div class="bf-form-part bf-no-pb">
+              <div class="bf-form-title" [i18n]="'bf.oddsRange'"></div>
+              <div class="row">
+                <div class="col-xs-6" *ngFor="let item of oddsButtons">
+                  <div class="btn btn-primary full-width bf-btn bf-btn-large"
+                       [ngClass]="{active: filters[item]}"
+                       (click)="selectButton(item)"
+                       data-crlat="oddsFilterButtons">
+                    <div data-crlat="filterName" [i18n]="'bf.' + item"></div>
+                    <svg class="check-icon">
+                      <use xlink:href="#check-icon"></use>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Form Buttons -->
+            <div class="bf-form-part bf-no-pb">
+              <div class="bf-form-title" [i18n]="'bf.form'"></div>
+              <div class="row">
+                <div class="col-xs-6"
+                     *ngFor="let item of formButtons; let btnsIndex = index;"
+                     [ngClass]="{'col-xs-12': btnsIndex === 0}">
+                  <div class="btn btn-primary full-width bf-btn bf-btn-large"
+                       [ngClass]="{active: filters[item]}"
+                       (click)="selectButton(item)"
+                       data-crlat="formFilterButtons">
+                    <div data-crlat="filterName" [i18n]="'bf.' + item"></div>
+                    <svg class="check-icon">
+                      <use xlink:href="#check-icon"></use>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Going Button -->
+            <div class="bf-form-part bf-no-pb">
+              <div class="bf-form-title" [i18n]="'bf.provenGround'"></div>
+              <div class="row">
+                <div class="col-xs-12" *ngFor="let item of provenButtons">
+                  <div class="btn btn-primary full-width bf-btn bf-btn-large"
+                       [ngClass]="{active: filters[item]}"
+                       (click)="selectButton(item)"
+                       data-crlat="goingFilterButtons">
+                    <div data-crlat="filterName" [i18n]="'bf.' + item"></div>
+                    <svg class="check-icon">
+                      <use xlink:href="#check-icon"></use>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Supercomputer Buttons -->
+            <div class="bf-form-part">
+              <div class="bf-form-title" [i18n]="'bf.form'"></div>
+              <div class="row">
+                <div class="col-xs-12 group-buttons-indent">
+                  <toggle-buttons
+                    [buttons]="computerButtonsSelector.values"
+                    [selectedBtn]="selectedButton"
+                    (toggleData)="selectRadioButton($event)">
+                  </toggle-buttons>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stars Rating -->
+            <div class="bf-form-part grey-form-part bf-form-last">
+              <div class="bf-form-title star-title" [i18n]="'bf.selectStarRating'"></div>
+                <div class="bf-stars" data-crlat="bfStars">
+                  <svg class="star-icon"
+                       *ngFor="let star of stars; trackBy: trackByIndex; let starsIndex = index;"
+                       [ngClass]="{'active': filters.starSelection > starsIndex}"
+                       (click)="selectStar(starsIndex + 1)"
+                       data-crlat="stars">
+                    <use xlink:href="#star"></use>
+                  </svg>
+                </div>
+            </div>
+
+            <!-- Bottom Buttons -->
+            <div class="row bf-buttons fixed" [style.width.px]="bfWidth" >
+              <div class="col-xs-6">
+                <div class="button btn-secondary full-width bf-btn"
+                     [ngClass]="{disabled: disableSelectionButton}"
+                     [i18n]="'bf.saveSelection'"
+                     (click)="onSaveSelection()"
+                     data-crlat="saveSelection"></div>
+              </div>
+              <div class="col-xs-6">
+                <div class="button btn-primary full-width bf-btn"
+                     [ngClass]="{disabled: disableSaveButton}"
+                     (click)="onFindBets()"
+                     data-crlat="findBets">
+                  <div class="bf-found-button" [i18n]="'bf.findBets'"></div>
+                  <div class="bf-found" [textContent]="foundResult" data-crlat="foundResultText"></div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

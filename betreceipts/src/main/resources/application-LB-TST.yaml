@@ -1,0 +1,27 @@
+spring:
+  redis:
+    password: D2D2D9FBB87079F58F2FE3C4B367006C695D63FD
+    sentinel:
+      master: master
+      nodes:  AT1T5XACOD874.dbz.unix:26388,AT1T5XACOD875.dbz.unix:26388,at1t5xacod878.dbz.unix:26388
+
+
+siteServer:
+  baseUrl: https://tst2-backoffice-lcm.ladbrokes.com/
+
+df:
+  baseUrl: https://ld-dev1.api.datafabric.dev.aws.ladbrokescoral.com
+  apiKey: LDaa2737afbeb24c3db274d412d00b6d3b
+  loggingLevel: BASIC
+
+liveserv:
+  url: https://tst2-push-lcm.ladbrokes.com/push
+
+
+masterlock:
+  aws:
+    dynamo.lock-table-name: LB-MSLOCKTABLE-NONPROD
+
+app:
+  nextRaces:
+    timePeriodMinutes: 15

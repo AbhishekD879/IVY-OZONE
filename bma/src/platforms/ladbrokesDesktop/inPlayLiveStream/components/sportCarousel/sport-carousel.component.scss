@@ -1,0 +1,95 @@
+@import 'global.variables.scss';
+
+$heightSize: 53px;
+
+:host {
+  .in-play-live-stream .d-live-stream-module {
+    .error-message {
+      background-color: transparent;
+      color: $color-white;
+    }
+  }
+
+  .carousel-menu.carousel-menu-inplay-home {
+    height: $heightSize;
+
+    .scroll-container {
+      background: $color-white;
+      cursor: pointer;
+      border-bottom: solid 1px $lGrayLight;
+      overflow-x: auto;
+
+      .scroll-inner {
+        position: static;
+        padding: 0;
+
+        li {
+          width: auto;
+          height: $heightSize;
+
+          .menu-item {
+            padding-top: 8px;
+            color: $lBlack-light;
+            &:hover {
+              text-decoration: none;
+              background: $IGreyLightDark
+            }
+            &.active {
+              border-bottom: 3px solid $lGray;
+              color: $lGray;
+              background: transparent;
+
+              .carousel-icon {
+                .submenu-list-icon {
+                  fill: $lGray;
+                }
+                .count-label {
+                  background: $lGray;
+                  color: $color-yellow-alt;
+                }
+              }
+            }
+
+            .carousel-icon {
+              width: 20px;
+              display: block;
+              position: relative;
+              padding: 0 0 5px;
+              text-align: center;
+              margin: 0 auto;
+
+              .count-label {
+                width: 11px;
+                height: 11px;
+                line-height: $line-height-xs;
+                border: none;
+                font-size: $font-size-xxs;
+                color: $lGray;
+                top: -3px;
+                right: 0;
+                transform: translateX(50%);
+                font-weight: bold;
+                background: $color-yellow-alt;
+              }
+
+              .submenu-list-icon {
+                fill: $lBlack-light;
+                height: 20px;
+                width: 20px;
+                margin: 0 auto;
+                display: block;
+              }
+            }
+
+            .submenu-list-title {
+              font: #{$font-size-md}/#{$line-height-xs} $alt-font-family;
+              padding: 0 12px;
+              white-space: nowrap;
+              max-width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}

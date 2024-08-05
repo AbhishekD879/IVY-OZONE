@@ -1,0 +1,192 @@
+@import "global.variables.scss";
+@import "./../../../../ladbrokesMobile/fiveASideShowDown/components/fiveASideLiveLeaderBoard/fiveaside-live-leader-board.component.scss";
+@import "./../../../../ladbrokesMobile/fiveASideShowDown/components/fiveASidePreLeaderBoard/fiveASidePreLeaderBoardMixin/fiveaside-pre-leader-board-mixin.scss";
+$imagesPath: '/assets/images/';
+$desktop-med: '1300px';
+.flip-list-move {
+  transition: transform 1s;
+}
+.overlayTopbar{
+  display: inline;
+}
+.service-wrapper{
+  .service-msg {
+    font-size: 14px;
+  }
+}
+.leaderboard-container {
+  @include leader-board-mixins(98.5%, 100%, 10px 0px 0px 0px, url('#{$imagesPath}5ASideWithPlayers.png') #010101, 1100px, no-repeat);
+  background-position-x: center;
+  position: absolute;
+  .slide-content {
+    margin: 55px 75px;
+    border-radius: 9px;
+    background-color: transparent;
+   }
+.leader-board-header {
+  @include leader-board-mixin(200px, 0, url('#{$imagesPath}soccerwithgrassdesktop.png'), 100%, no-repeat);
+  @media (min-width: $desktopPoint) and (max-width: 1299px ) {
+    @include leader-board-mixin(165px, 0, url('#{$imagesPath}soccerwithgrassdesktop.png'), 100%, no-repeat);
+  }
+  @media (min-width: $desktop-med) and (max-width: $desktopLargePointLow ) {
+    @include leader-board-mixin(190px, 0, url('#{$imagesPath}soccerwithgrassdesktop.png'), 100%, no-repeat);
+  }
+  @media (min-width: $desktopLargePoint) {
+    @include leader-board-mixin(220px, 0, url('#{$imagesPath}soccerwithgrassdesktop.png'), 100%, no-repeat);
+  }
+.contest-description {
+        height: 32px;
+        background-color: $color-gray-fiveaside;
+        padding: 8px 12px;
+        color: $color-white;
+        justify-content: space-between;
+        display: flex;
+        font-weight: $font-size-base;
+        .description-name {
+         max-width: 60%;
+         height: 16px;
+         font-family: $base-font-family;
+         font-size: $font-size-base;
+         overflow: hidden;
+         display: inline-block;
+         text-transform: uppercase;
+        }
+        .clock-time {
+          height: 16px;
+          font-family: $base-font-family;
+          font-size: $font-size-base;
+          display: inline;
+          text-align: right;
+          overflow: hidden;
+          font-weight: bold;
+        }
+      }
+
+      .country-flags {
+        padding: 15px 80px 0px 80px;
+        text-transform: uppercase;
+        color: $color-white;
+        display: flex;
+        justify-content: space-between;
+        .home-flag {
+          @include country-flags-mixin(25px, 41px, 41px, 0 2px 4px 0 #828282);
+        }
+        .away-flag {
+          @include country-flags-mixin(25px, 41px, 41px, 0 2px 4px 0 #828282);
+        }
+      }
+         .country-names {
+          padding: 10px 25px 0;
+          text-transform: uppercase;
+          display: flex;
+          justify-content: space-between;
+           .home-name {
+             @include country-name-mixin(150px, 10px, $color-white, 10px, center, $base-font-family, 1px, bold, hidden );
+           }
+           .away-name {
+             @include country-name-mixin(150px, 10px, $color-white, 10px, center, $base-font-family, 1px, bold, hidden );
+           }
+         }
+         .country-scores {
+          padding: 10px 95px 0px;
+          display: flex;
+          justify-content: space-between;
+           .home-score {
+            @include country-name-mixin(15px, 19px, $color-white, 13px, center, $base-font-family, 1px, bold, hidden );
+           }
+           .away-score {
+            @include country-name-mixin(15px, 19px, $color-white, 13px, center, $base-font-family, 1px, bold, hidden );
+           }
+         }
+     }
+     .content{
+      height: 100%;
+      color : white;
+      .content-wrapper {
+        overflow: hidden;
+      }
+     }
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .slide-content::-webkit-scrollbar  {
+      display: none;
+    }
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .slide-content {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    }
+  }
+.leader-board {
+    display: flex;
+    justify-content: space-between;
+    padding: 3% 2% 0;
+    margin: 0 0 24px 0;
+    .leader-board-title {
+      @include live-board-entries-mixin(100%, 16px, $alt-font-family, $font-size-xl, bold, condensed, normal, normal, normal, $lGrayLighter);
+    }
+    .leader-board-rules {
+      @include live-board-entries-mixin(32px, 17px, $alt-font-family, $font-size, 500, normal, normal, normal, normal, $color-blue-selected);
+      cursor: pointer;
+    }
+  }
+  .my-entries-tutorial {
+  display: flex;
+  justify-content: space-between;
+  padding: 2% 2% 0;
+  margin: 2px 0 6px;
+
+  .my-entry-title {
+    @include live-board-entries-mixin(100%, 16px, $alt-font-family, $font-size-xl, bold, condensed, normal, normal, normal, $lGrayLighter);
+  }
+
+  .tutorial-btn {
+    cursor: pointer;
+    @include live-board-entries-mixin(32px, 17px, $alt-font-family, $font-size, 500, normal, normal, normal, normal, $color-blue-selected);
+  }
+}
+  .team-col-divider {
+    width: 100%;
+    height: 1px;
+    border-top: 1px solid $color-blue-selected;
+    margin: 10px 0;
+    display: inline-block;
+  }
+  ::ng-deep {
+    .description-name {
+      & > p {
+      @include contest-desc-p-mixin($font-size-base, $base-font-family, bold);
+     }
+     }
+   }
+   .cards-content {
+    height: 1650px;
+    overflow-y: scroll;
+    margin-bottom: 25px;
+    background-image: linear-gradient($color-lobby-desktop, $color-lobby-desktop);
+    background-repeat: no-repeat;
+    background-position: -23px 0, 0 0;
+}
+
+  .force-overflow {
+      min-height: 450px;
+      margin-right: 12px;
+  }
+
+  #custom-scroll::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px $color-scrollbar-webkit;
+      box-shadow: inset 0 0 6px $color-scrollbar-webkit;
+      border-radius: 10px;
+      background-color: $color-scrollbar-track;
+  }
+
+  #custom-scroll::-webkit-scrollbar {
+      width: 12px;
+      background-color: $color-scrollbar-track;
+  }
+
+  #custom-scroll::-webkit-scrollbar-thumb {
+      -webkit-box-shadow: inset 0 0 6px $color-scrollbar-webkit;
+      box-shadow: inset 0 0 6px $color-scrollbar-webkit;
+      border-radius: 11.5px;
+      background-color: $color-scrollbar-thumb;
+  }

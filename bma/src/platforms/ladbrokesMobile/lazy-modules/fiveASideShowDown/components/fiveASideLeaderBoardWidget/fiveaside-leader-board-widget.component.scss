@@ -1,0 +1,61 @@
+@import "global.variables.scss";
+
+$widget-slide-width: 340px;
+.pr-carousel {
+  margin: 0 -4px;
+}
+.leaderboard-widget-carousel {
+   .carousel-slides {
+    overflow: visible;
+    position: relative;
+    @include display-flex();
+    @include justify-content(flex-start);
+    height: 100%;
+    width: 340px;
+    &.widget-full-width {
+        width: 100%;
+    }
+    &.center-mode {
+      width: $widget-slide-width;
+      margin-left: 13px;
+    }
+   }
+   .leaderboard-widget-slide {
+    min-width: $widget-slide-width;
+    &.widget-full-width {
+        width: 100%;
+        min-width: 100%;
+    }
+   }
+   &.one-card-mode {
+    @include display-flex();
+    @include justify-content(center);
+  }
+}
+.ng-carousel {
+  ::ng-deep {
+    .carousel-slide-copy {
+      width: $widget-slide-width;
+      min-width: $widget-slide-width;
+    }
+  }
+}
+.widget-dots {
+  margin: 12px auto;
+}
+.carousel-header {
+  @include display-flex();
+  margin: 5px 12px 13px;
+  .five-a-side-icon {
+    margin-right: 5px;
+    & > svg {
+        width: 16px;
+        height: 18px;
+    }
+  }
+  .carousel-header-text {
+    text-transform: uppercase;
+    @include setFontProps($base-font-family, $font-size, bold, $color-gray-darkest);
+  }
+}
+

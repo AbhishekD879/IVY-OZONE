@@ -1,0 +1,35 @@
+<div class="custom-dialog">
+    <h1 mat-dialog-title>New Coupon Market Mapping</h1>
+    <form [formGroup]="form" novalidate>
+      <div mat-dialog-content>
+        <div class="row">
+          <div class="col-md-12 p-b-20">
+            <mat-form-field class="full-width">
+              <input matInput
+                     [(ngModel)]="couponMarketMapping.couponId"
+                     placeholder="Coupon ID"
+                     formControlName="couponId"
+                     required trim="blur">
+              <mat-hint class="col-red" *ngIf="!couponMarketMapping.couponId">couponId should be entered</mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="col-md-12 p-b-20">
+            <mat-form-field class="full-width">
+              <input matInput
+                     [(ngModel)]="couponMarketMapping.marketName"
+                     placeholder="Market Template Name"
+                     formControlName="marketName"
+                     required trim="blur">
+              <mat-hint class="col-red" *ngIf="!couponMarketMapping.marketName">Market template name should be entered</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div mat-dialog-actions>
+        <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+        <button mat-button class="btn btn-sm bg-teal float-right"
+                [mat-dialog-close]="couponMarketMapping" [disabled]="!isMarketSelectorValid()" (click)="getCouponMarket()">Save</button>
+      </div>
+    </form>
+  </div>
+  

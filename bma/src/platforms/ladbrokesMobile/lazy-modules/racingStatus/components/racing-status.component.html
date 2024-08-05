@@ -1,0 +1,11 @@
+<ng-container *ngIf="event.isResulted || event.isStarted || event.isLiveNowEvent || status.title">
+  <svg *ngIf="status.title === racingStatusConstants.result" class="racing-icon" data-crlat="raceGrid.iconRace">
+    <use [attr.xlink:href]="isOverlayResultIcon ? '#event-result-icon-no-fill' : '#icn_race-finished'"></use>
+  </svg>
+  <div *ngIf="status.title === racingStatusConstants.inPlay" class="inplay-icon-container">
+    <div  class="shape">
+      <div class="shape-copy"></div>
+    </div>
+  </div>
+  <span [className]="status.class" [textContent]="status.title" [attr.data-crlat]="status.class"></span>
+</ng-container>

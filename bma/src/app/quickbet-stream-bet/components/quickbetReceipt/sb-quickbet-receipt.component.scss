@@ -1,0 +1,155 @@
+//Global styles
+@import 'global.variables.scss';
+
+$qb-content-side-padding: 15px;
+$qb-small-font-size: 11px;
+$qb-medium-font-size: 12px;
+$qb-large-font-size: 14px;
+$qb-outcome-name-height: 13px;
+$qb-small-font-size: 11px;
+
+/* Quickbet content */
+.quickbet-content {
+  background: $color-white;
+  @include display-flex();
+  @include flex-direction(column);
+  padding: 15px $qb-content-side-padding;
+
+  .quickbet-sectionwrap {
+    width: 100%;
+    @include display-flex();
+  }
+
+  /*// if quick bet is for racing:*/
+  .qb-content-info,
+  .qb-stake-section {
+    width: 50%;
+  }
+
+  .qb-stake-section {
+    text-align: right;
+
+    odds-boost-price {
+      margin-left: 4px;
+    }
+
+    .odds-label {
+      color: $color-gray-dark;
+      text-transform: capitalize;
+      font-weight: normal;
+      font-size: $qb-small-font-size;
+    }
+
+    .odds-label {
+      color: lighten($color-gray-dark, 50%);
+    }
+
+    .odds {
+      font-weight: normal;
+      font-size: $qb-medium-font-size;
+      margin-bottom: 10px;
+    }
+
+    .odds-value {
+      color: $color-gray-dark;
+      font-weight: bold;
+      font-size: $qb-medium-font-size;
+    }
+  }
+}
+
+.qb-done-cta-btn {
+  width: 202px;
+  height: 40px;
+  background: #85AF35;
+  color: $color-white;
+  border-radius: 2px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: normal;
+  text-align: center;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+.receipt-text {
+  font-family: $alt-font-family;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  text-transform: capitalize;
+  color: $color-white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 202px;
+  height: 26px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
+  margin-bottom: 2px;
+
+   .sb-qb-betid-text {
+    margin-right: 5px;
+   }
+}
+
+.qb-successful-msg {
+  width: 202px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+  text-transform: capitalize;
+  color: #FFFFFF;
+  margin-bottom: 2px;
+  display: flex;
+}
+.qb-msg-container {
+  margin: auto;
+  display: flex;
+  .success-text {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.green-tick {
+  width: 20px;
+  height: 20px;
+  background: #85AF35;
+  border-radius: 10px;
+  margin-right: 6px;
+  display: flex;
+  svg {
+    width: 12px;
+    height: 8.5px;
+    margin: auto;
+  }
+}
+
+.tooltipQB-max-payout {
+  padding-right: 0px;
+  padding-left: 4px;
+  margin-top: -2px;
+  position: absolute;
+}
+
+.tooltipQB-max-payout-android {
+  padding-right: 0px;
+  padding-left: 4px;
+  margin-top: -2px;
+  position: absolute;
+}
+
+.maxPayOut-info-icon {
+  height: 14px;
+  width: 15px;
+  margin-bottom: -1px;
+  margin-right: 3px;
+}

@@ -1,0 +1,70 @@
+<div data-crlat="accordionsList">
+  <ng-container *ngIf="eventsBySports[0]?.events[0]?.categoryId !== HORSE_RACING_CATEGORY_ID">
+  <ng-container *ngFor="let competition of eventsBySports; index as competitionIndex; trackBy: trackByCategoryId">
+    <accordion [accordionTitle]="competition.categoryName"
+               [card]="true"
+               [isExpanded]="expandedFlags[competitionIndex]"
+               *ngIf="competition.events.length"
+               (function)="toggleCompetitionSection(competition.events, competitionIndex)"
+               data-crlat="accordion">
+      <accordion-body data-crlat="containerContent">
+        <odds-card-header 
+          [events]="competition.events"
+          [sportConfig]="sport?.sportConfig">
+        </odds-card-header>
+        <div *ngFor="let event of competition.events; trackBy: trackById" class="event-card-container" data-crlat="eventEntity">
+          <stream-button
+            class="live-stream-active"
+            *ngIf="liveStreamTab"
+            [activeEvent]="activeEvent"
+            [event]="event"
+            (update)="updateActiveEvent($event)">
+          </stream-button>
+
+          <odds-card-component
+            class="odds-card-component"
+            [isLiveStreamTab]="liveStreamTab"
+            [isActiveLiveStream]="liveStreamTab && activeEvent && userService.status && event.id === activeEvent.id"
+            [gtmDataLayer]="gtmDataLayer"
+            [showLocalTime]="true"
+            [event]="event"
+            [sportConfig]="sport?.sportConfig"
+            [selectedMarket]="(event.markets[0] ? event.markets[0].name : '')">
+          </odds-card-component>
+        </div>
+      </accordion-body>
+    </accordion>
+  </ng-container>
+  </ng-container>
+  <ng-container *ngIf="HREvents.length">
+    <div *ngFor="let event of HREvents; trackBy: trackById; index as eventIndex" class="event-card-container" data-crlat="eventEntity">
+      <accordion       
+          [accordionTitle]="event.name"
+          [card]="true"
+          [inner]="false"     
+          [isExpanded]="expandedFlags[eventIndex]"
+          class="hr-accordion"
+          [isCustomElement]="true"
+          [eventEntity]="event"
+          *ngIf="event"
+          (function)="toggleCompetitionSection([event], eventIndex)" data-crlat="accordion">
+          <accordion-body data-crlat="containerContent" [ngClass]="{'hr-accordion-body':liveStreamTab}">
+            <stream-button
+                  class="live-stream-active"
+                  *ngIf="liveStreamTab"
+                  [activeEvent]="activeEvent"
+                  [event]="event"
+                  (update)="updateActiveEvent($event)">
+                </stream-button>
+            <lazy-component *ngIf="event" data-crlat="raceCard" class="hr-race-card"
+              moduleUri="@lazy-modules-module/raceCardInplay/race-card-inplay.module#RaceCardInplayModule"
+              entryComponent="RaceCardInplayComponent" [inputs]="{showHeader: false,  trackGa:trackGa, trackGaDesktop: trackGaDesktop,
+              raceData:[event], raceWidget:widget, raceMaxSelections:3, showBriefHeader:true,
+              hostContext:hostContext, fluid:fluid, showTimer:showTimer, viewFullRaceText:'racing.viewFullRace',
+              gtmModuleTitle:'next races', hideNonRunners:true}">
+            </lazy-component>
+          </accordion-body>
+      </accordion>
+  </div>
+  </ng-container>
+</div>

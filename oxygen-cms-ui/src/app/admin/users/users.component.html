@@ -1,0 +1,43 @@
+<div class="card users" *ngIf="!isLoading">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Users Page
+      <active-inactive-expired [collection]="usersAmount"></active-inactive-expired>
+    </h2>
+  </div>
+  <div class="body">
+    <cms-alert #errorBlock ></cms-alert>
+    <div class="row clearfix">
+      <div class="col-md-6">
+        <button (click)="createUser()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create User</span>
+        </button>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For User" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <!-- Users table -->
+    <div *ngIf="users.length">
+      <cms-data-table
+        [customTableData]="users"
+        [customTableColumns]="dataTableColumns"
+        [actions]="['remove','edit']"
+        [filterString]="searchField"
+        [filterProperties]="searchableProperties"
+        (onRemoveTableElement)="removeHandler($event)">
+      </cms-data-table>
+    </div>
+
+    <div *ngIf="getDataError">
+      Request Error
+    </div>
+  </div>
+</div>

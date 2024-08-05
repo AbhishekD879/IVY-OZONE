@@ -1,0 +1,31 @@
+@import 'global.variables.scss';
+
+.forecast-tricast-race-card {
+  .odds-content {
+    @include display-flex();
+    @include align-items(center);
+    @include justify-content(space-between);
+    height: 40px;
+    background: $color-white;
+    border-top: 1px solid $lGrayLight;
+    color: $color-gray-darkest;
+  }
+  .odds-side {
+    margin-right: 3px;
+    font-weight: bold;
+  }
+  .odds-left {
+    padding-left: 12px;
+    font-family: $alt-font-family;
+    font-weight: 500;
+    font-size: $font-size;
+  }
+  .odds-names {
+    margin-left: 1px;
+    padding: 0;
+  }
+}
+
+:host:last-child .forecast-tricast-race-card {
+  border-bottom: 1px solid $lGrayLight;
+}

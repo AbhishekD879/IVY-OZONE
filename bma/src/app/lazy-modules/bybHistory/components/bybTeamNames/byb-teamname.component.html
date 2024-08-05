@@ -1,0 +1,13 @@
+<div class='switchers-container'>
+    <div class="switchers switchers-1" *ngIf="displaySwitchers">
+        <a class="switch-btn" id='switch-custom'
+            *ngFor="let switcher of switchers; trackBy: trackBySwitchers; index as i;"
+            [ngClass]="{'switch-btn-coral': isCoral, 'switch-btn-lads': !isCoral, 'active': isActiveGroup(i) && isCoral, 'active-lads': isActiveGroup(i) && !isCoral}" (click)="selectGroup(i)">
+            <span id='switcher-name' [i18n]="switcher.name"></span>
+        </a>
+    </div>
+</div>
+<div class='partition'> </div>
+<p *ngIf='selectedGroupMarket' class='select-name' [textContent]="'Time Period'"></p>
+<byb-timeline *ngIf='selectedGroupMarket' (collapseLists)='fncollapseLists()' [eachMarketGroup]='selectedGroupMarket'
+    [marketGroupName]='marketGroupName'> </byb-timeline>

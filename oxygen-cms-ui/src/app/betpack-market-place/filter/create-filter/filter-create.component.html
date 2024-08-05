@@ -1,0 +1,66 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>Create Filter</h1>
+  <div mat-dialog-content>
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox color="primary" [checked]="newFilter.filterActive"
+          (change)="newFilter.filterActive = !newFilter.filterActive">
+          Active
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Filter Name:
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !newFilter.filterName}">
+          <input matInput placeholder="Filter Name" maxlength="30" [(ngModel)]="newFilter.filterName" name="filterName"
+            #filterName="ngModel" [value]="newFilter.filterName"  required
+            trim="blur">
+          <mat-error *ngIf="filterName.invalid && (filterName.dirty || filterName.touched)" >
+            Filter Name should be entered</mat-error>
+          <mat-hint class="redcolor" *ngIf="(filterName.dirty || filterName.touched)&&isHaveAll">All Filter not allowed</mat-hint>
+          <mat-hint class="redcolor" *ngIf="(filterName.dirty || filterName.touched)&&isSpecialCar">Special Charactors were not allowed</mat-hint>
+     
+        </mat-form-field>
+        
+      </div>
+      <div class="col-md-2 text-length">{{newFilter.filterName.length || 0}} /30</div>
+    </div>
+  </div>
+  <div mat-dialog-content>
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox color="primary" [checked]="newFilter.isLinkedFilter" [(ngModel)]="newFilter.isLinkedFilter"
+        (change)="newFilter.linkedFilterWarningText = newFilter.isLinkedFilter? newFilter.linkedFilterWarningText: null">
+          Linked Filter
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row" *ngIf="newFilter.isLinkedFilter">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Warning Text:
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !newFilter.linkedFilterWarningText}">
+          <input matInput placeholder="Warning Text" maxlength="100" rows="5" [(ngModel)]="newFilter.linkedFilterWarningText" name="linkedFilterWarningText"
+            #warning="ngModel" [value]="newFilter.linkedFilterWarningText" required
+            trim="blur">
+          <mat-error *ngIf="warning.invalid && (warning.dirty || warning.touched)">
+            Warning text should be entered</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-2 text-length">{{newFilter.linkedFilterWarningText?.length || 0}} /100</div>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+  <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="isValid()"
+    [mat-dialog-close]="newFilter">Create</button>
+</div>

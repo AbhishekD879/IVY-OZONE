@@ -1,0 +1,117 @@
+#docker run -d --name=crlat_pypi -e PYPI_PASSWD_FILE=/srv/pypi/.htaccess -v /mnt/crlat-pypi-repo/packages:/srv/pypi:rw -v $(pwd)/.htaccess:/srv/pypi/.htaccess -p 80:80 codekoala/pypi
+- name: "Create AllureReports repository directories on S3"
+  file:
+    path: "{{ dnsmasq_dir }}"
+    state: directory
+    mode: u+rwx
+  with_items:
+    - "/var/www"
+    - "/var/www/allure"
+  loop_control:
+    loop_var: dnsmasq_dir
+
+- name: Set nginx config
+  set_fact:
+    nginx_conf:
+      server_name: ec2_tag_Name
+      upstreams: []
+#        name: upstream_name
+#        instances:
+#          - instance1_addr
+#          - instance2_addr
+      locations:
+        - path: '/get_user/'
+          params:
+            - name: proxy_pass
+              value: http://AccountsSharing:8080/get_user/
+        - path: '/reports/'
+          params:
+            - name: root
+              value: /var/www
+            - name: autoindex
+              value: 'on'
+
+
+# get certs
+## create tmp dir
+- name: Create temporary directory for certificates
+  local_action:
+    module: tempfile
+    state: directory
+    prefix: cert_dir
+  register: cert_tmp_dir
+
+## download root ca pem
+## download domain certs
+- name: "Download certificate files from s3"
+  local_action:
+    module: aws_s3
+    bucket: "{{ default_s3_bucket }}"
+    object: "{{ s3_certs_path }}/{{ cert_file }}"
+    dest: "{{ cert_tmp_dir.path }}/{{ cert_file }}"
+    mode: get
+  with_items:
+    - "{{ web_root_cert_filename }}.pem"
+    - "{{ private_domain }}.crt"
+    - "{{ private_domain }}.key"
+  loop_control:
+    loop_var: cert_file
+
+- name: Create NGINX config folders on remote
+  file:
+    path: "{{ conf_path_item }}"
+    state: directory
+  with_items:
+    - /etc/nginx
+    - /etc/nginx/ssl
+    - /etc/nginx/conf.d
+  loop_control:
+    loop_var: conf_path_item
+
+- name: "Upload certs"
+  copy:
+    src: "{{ cert_tmp_dir.path }}/{{ local_cert_file }}"
+    dest: "/etc/nginx/ssl/{{ local_cert_file }}"
+  with_items:
+    - "{{ web_root_cert_filename }}.pem"
+    - "{{ private_domain }}.crt"
+    - "{{ private_domain }}.key"
+  loop_control:
+    loop_var: local_cert_file
+
+# build configs
+- name: "Build NGINX Revers Proxy config"
+  template:
+    src: nginx_template.j2
+    dest: /etc/nginx/conf.d/reverse_proxy.conf
+
+- name: Remove any existing docker NginxProxy
+  docker_container:
+    name: NginxProxy
+    state: absent
+
+# start docker
+- name: Create NginxProxy Container
+  docker_container:
+    name: NginxProxy
+    image: nginx:alpine
+    state: started
+    restart: yes
+    restart_policy: always
+    links:
+      - AccountsSharing
+    dns_servers:
+      - "{{ dns_server_ip }}"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/nginx/conf.d:/etc/nginx/conf.d
+      - /etc/nginx/ssl:/etc/nginx/ssl
+      - "/var/www:/var/www"
+
+# delete temp dir
+- name: "Delete tmp folder {{ cert_tmp_dir.path }}"
+  file:
+    path: "{{ cert_tmp_dir.path }}"
+    state: absent

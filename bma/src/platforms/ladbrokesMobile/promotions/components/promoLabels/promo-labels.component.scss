@@ -1,0 +1,194 @@
+@import 'global.variables.scss';
+
+.promo-labels {
+  @include display-flex();
+  @include align-items();
+  flex-wrap: wrap;
+  font-size: 11px;
+  color: $lGray;
+  text-transform: uppercase;
+  font-stretch: condensed;
+  line-height: 15px;
+  font-weight: bold;
+  padding: 5px 0 15px;
+  .promo-icon {
+    height: 12px;
+    width: 12px;
+    margin-right: 4px;
+    fill: #000000;
+  }
+
+  .promo-label {
+    display: inline-flex;
+    align-items: center;
+    font-family: $base-font-family;
+    background-color: $color-yellow-alt;
+    padding: 0 4px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &.price-boost {
+      .promo-icon {
+        height: 11px;
+        width: 9px;
+      }
+    }
+
+    &.money-back {
+      .promo-icon {
+        height: 11px;
+        width: 11px;
+      }
+    }
+
+    &.extra-place-icon {
+      .promo-icon {
+        height: 11px;
+        width: 13px;
+      }
+    }
+
+    &.acca-insurance {
+      .promo-icon {
+        height: 7px;
+        width: 10px;
+      }
+    }
+  }
+
+  &.bet-history-mode {
+    padding: 8px 0 0;
+    .promo-label {
+      margin-bottom: 2px;
+      &.extra-place-icon {
+        font-family: $alt-font-family;
+        padding: 0 4px 0 0;
+        font-size: 10px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 0px;
+        background-color: transparent;
+        text-transform: capitalize;
+        color: $lBlack-light;
+        .promo-icon {
+          height: 10px;
+          width: 13px;
+          margin-right: 6px;
+        }
+      }
+    }
+  }
+
+  &.selection-info {
+    padding: 0;
+    .evflag_pb {
+      background: $color-yellow;
+      padding: 0 5px;
+      border-radius: 1px;
+      font-size: $pl-label-font-size;
+      font-weight: bold;
+      .promo-icon {
+        width: 9px;
+      }
+    }
+  }
+}
+
+.promo-labels.quickbet {
+  margin-top: -5px;
+  padding: 0 15px 15px;
+  display: inline-flex;
+  &:last-child {
+    padding-right: 0;
+    margin-right: -10px;
+  }
+}
+
+.promo-labels {
+  &.betslip {
+    margin-top: 10px;
+    .promo-label,
+    cashout-label {
+      white-space: nowrap;
+      margin: 0 4px 4px 0;
+    }
+  }
+
+  &.betslip, &.quickbetslip {
+    padding: 0;
+  }
+
+  &.quickbet {
+    .promo-label,
+    cashout-label,
+    bog-label {
+      margin-left: 0;
+      margin-right: 4px;
+    }
+  }
+}
+
+:host ::ng-deep {
+  .promo-labels.quickbet .bog-block {
+    &.bog-bg {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+  .promo-labels.promo-lucky-dip {
+    padding-bottom: 0;
+  }
+}
+
+.promo-labels.selection-info {
+  .promo-label,
+  .cashout-icon {
+    border-radius: 2px;
+    margin-bottom: 4px;
+    margin-left: 0;
+    margin-right: 4px;
+  }
+  .promo-label {
+    padding: 0 4px;
+    line-height: 15px;
+  }
+  .cashout-label-wrapper {
+    height: 15px;
+    padding: 2px 4px;
+    border-radius: 1px;
+    background-color: $color-bleach-white;
+    font-family: $base-font-family;
+    font-size: $font-size-sm;
+    font-weight: bold;
+    color: $lBlack-medium;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .cashout-icon {
+      display: none;
+    }
+    .cashout-label {
+      line-height: 15px;
+      margin: 0;
+    }
+  }
+  &.betslip, &.quickbetslip, &.quickbet {
+    ::ng-deep {
+      .cashout-label-wrapper, .promo-label {
+        margin-top: 5px;
+      }
+    }
+  }
+}
+
+.promo-labels.quickbetslip {
+  padding-top: 6px;
+  .promo-label {
+    margin: 0 4px 4px 0;
+  }
+}

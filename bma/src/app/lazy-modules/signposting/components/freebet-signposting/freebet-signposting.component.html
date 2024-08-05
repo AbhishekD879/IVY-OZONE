@@ -1,0 +1,11 @@
+<ng-container *ngIf="isSignpostingEnabled">
+    <div class="signposting-container">
+        <div class="ew-icon-container">
+            <svg class="ew-signposting-icon">
+                <use xlink:href="#info-icon"></use>
+            </svg>
+        </div>
+        <span class="signpostingTxt" [ngClass]="brand === 'ladbrokes' ? 'altFontFamily' : 'baseFontFamily'"
+            [i18n]="signpostingMessage"></span>
+    </div>
+</ng-container>

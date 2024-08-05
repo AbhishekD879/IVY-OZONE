@@ -1,0 +1,22 @@
+<ng-container *ngIf="!state.loading && !state.error">
+  <top-bar [title]="'stats.searchLeagues'" [path]="'search-leagues'" data-crlat="statsSearchLeagues"></top-bar>
+
+  <div class="tab-content" data-crlat="tabContent">
+    <div class="container">
+      <ul class="links-list-panel" *ngIf="areas" data-crlat="accordionsList">
+        <li class="list-item" *ngFor="let area of areas">
+          <a class="list-item-link" [routerLink]="['/leagues', area.sportId, area.id]" data-crlat="listItemLink">
+            <span class="item-name" [innerHtml]="area.name" data-crlat="areaName"></span>
+            <svg class="item-next-arrow">
+              <use xlink:href="#next-arrow"></use>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</ng-container>
+
+<outlet-status [state]="state">
+  <request-error (reloadFn)="reloadComponent()"></request-error>
+</outlet-status>

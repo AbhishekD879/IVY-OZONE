@@ -1,0 +1,78 @@
+server:
+  http2:
+    enabled: true
+  port: 8080
+  forward-headers-strategy: framework
+
+spring:
+
+  profiles:
+    include: cors
+
+  application.name: build-your-bet
+
+  cloud:
+    discovery.enabled: false
+    config.discovery.enabled: true
+    loadbalancer.ribbon.enabled: false
+
+management:
+
+  endpoint:
+    health.show-details: always
+
+  endpoints.web:
+    base-path: / # un-set by default. used for security.
+    path-mapping:
+      health: /health
+      info: /info
+    exposure:
+      include: '*' # prod: info, health
+    cors:
+      allow-credentials: true
+      allowed-headers: '*'
+      allowed-methods: '*'
+      allowed-origins: ${application.allowedOrigins} # FIXME: re-work ansible to use parameter: management.endpoints.web.cors.allowed-origins
+
+banach:
+  url: https://coral-test2.banachtechnology.com
+  timeout: 5000
+  writeTimeout: 1000
+  connectTimeout: 3000
+  retries: 1
+  max.pool.size: 200
+  client.log.level: INFO
+  leagues.pool.size: 100
+  leagues.threads: 0
+  markets.pool.size: 100
+  markets.threads: 0
+  markets-grouped.pool.size: 100
+  markets-grouped.threads: 0
+  event.pool.size: 100
+  event.threads: 0
+  events.pool.size: 100
+  events.threads: 0
+  selection.pool.size: 2000
+  selection.threads: 0
+  price.pool.size: 5000
+  price.threads: 300
+  players.pool.size: 100
+  players.threads: 0
+  player-stats.pool.size: 100
+  player-stats.threads: 0
+  stats-value-range.pool.size: 100
+  stats-value-range.threads: 0
+  player-stats-opta.pool.size: 100
+  player-stats-opta.threads: 0
+
+byb.log.execution.time.enabled: false
+
+logging:
+  level:
+    root: info
+    org.springframework.web.reactive.DispatcherHandler: INFO
+    org.springframework.web.server.adapter.HttpWebHandlerAdapter: DEBUG
+    org.springframework.web.reactive.function.client.ExchangeFunctions: DEBUG
+    reactor.netty.http.client: INFO
+    # to see requests
+#    reactor.ipc.netty.channel.ChannelOperationsHandler: debug

@@ -1,0 +1,35 @@
+/*SKIN variables-------------------------------------*/
+$mobileSmallPoint    : 320px;
+$mobilePoint         : 460px;
+$tabletPoint         : 767px;
+$st-point            : 970px;
+$landscapeTabletPoint: 1024px;
+$desktopPoint        : 1280px;
+$desktopLargePoint   : 1600px;
+$xl-point            : 1920px;
+
+/* Default breakpoints */
+$sm-point      : $landscapeTabletPoint;
+$md-point      : $desktopPoint;
+$lg-point      : $desktopLargePoint;
+
+$tabletPointLow          : ($tabletPoint - 1px);
+$landscapeTabletPointLow : ($landscapeTabletPoint - 1px);
+$desktopLargePointLow    : ($desktopLargePoint - 1px);
+$desktopPointLow         : ($desktopPoint - 1px);
+
+$mqSmallMobile         : "screen and (max-width: #{$mobileSmallPoint})";
+$mqMobile              : "screen and (max-width: #{$tabletPointLow})";
+$mqIphoneX             : "only screen and (device-width : 375px) and (device-height : 812px) and (-webkit-device-pixel-ratio : 3)";
+$mqTablet              : "screen and (min-width: #{$tabletPoint}) and (max-width: #{$desktopPointLow})";
+$mqLandscapeTabletOnly : "screen and (min-width: #{$tabletPoint}) and (max-width: #{$landscapeTabletPoint})";
+$mqLandscapeTablet     : "screen and (max-width: #{$landscapeTabletPointLow})";
+$mqMobileAndTablet     : "screen and (max-width: #{$desktopPointLow})";
+$mqMobileAndPortrait   : "screen and (min-width: #{$tabletPointLow}) and (max-width: #{$landscapeTabletPointLow})";
+$mqLandscape           : "screen and (min-width: #{$landscapeTabletPoint}) and (max-width: #{$desktopPointLow})";
+$mqLandscapeAndDesktop : "screen and (min-width: #{$landscapeTabletPoint})";
+$mqDesktop             : "screen and (min-width: #{$desktopPoint})";
+$mqTabletAndDesktop    : "screen and (min-width: #{$tabletPoint})";
+$mqDesktopLarge        : "screen and (min-width: #{$desktopLargePoint})";
+$mqMaxPoint            : "screen and (min-width: #{$xl-point})";
+$mqStPoint             : "screen and (min-width: #{$st-point})";

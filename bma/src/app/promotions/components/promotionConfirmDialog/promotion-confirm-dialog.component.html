@@ -1,0 +1,40 @@
+<modal #dialog [overscrollFix]="'always'" data-crlat="d.promo">
+  <ng-template #modalHeader>
+    <div>
+      <span [i18n]="'promotions.betpack'" data-crlat="dTitle"></span>
+    </div>
+  </ng-template>
+  <ng-template #modalBody>
+    <div class="container">
+      <div [textContent]="promo?.betPack?.bodyText"></div>
+      <div class="Rectangle" *ngIf="errorMsg">
+        <span class="error-container">
+          <svg class="alert-icon">
+            <use xlink:href="#icn-info"></use>
+          </svg>
+          <span class="error-message"> {{ errorMsg }} </span>
+        </span>
+      </div>
+      <div class="group-buttons btn-align-right">
+        <div class="group-btn">
+          <div class="group-col group-default">
+            <button class="btn" [ngClass]="!(errorMsg && buttonName =='Confirm') ? 'btn-style4': 'btn-style2'"
+              (click)="closeThisDialog('exit')" [i18n]="'promotions.exit'" data-crlat="exitButton" [disabled]="isPending"></button>
+          </div>
+          <div class="group-col group-default" *ngIf="!(errorMsg && buttonName =='Confirm')">
+            <button class="btn btn-style2" (click)="confirmDialog($event)" [disabled]="isPending"
+              data-crlat="confirmButton">
+              <spinner *ngIf="isPending"></spinner>
+              <span [ngSwitch]="buttonName">
+                <span *ngSwitchCase="'Confirm'" [i18n]="'promotions.confirm'"></span>
+                <span *ngSwitchCase="'Login'" [i18n]="'promotions.login'"></span>
+                <span *ngSwitchCase="'Deposit'" [i18n]="'promotions.deposit'"></span>
+                <span *ngSwitchDefault [i18n]="'promotions.confirm'"></span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</modal>

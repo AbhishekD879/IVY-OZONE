@@ -1,0 +1,84 @@
+<div class="card">
+    <div class="header">
+      <h2 class="has-activity-badge">
+        <span>Lotto</span>
+      </h2>
+    </div>
+</div>
+<div class="card"  *ngIf="!isLoading && mainLotto">
+  <div class="header">
+    
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Banner URI
+        </span>
+      </div>
+      <div class="col-md-5">
+        <mat-form-field class="full-width" >
+          <input matInput placeholder="Enter Banner URL here" required
+                 trim="blur" [(ngModel)]="mainLotto.globalBannerLink">
+        </mat-form-field>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Banner Text
+        </span>
+      </div>
+      <div class="col-md-5">
+        <mat-form-field class="full-width" >
+          <input matInput placeholder="Enter Banner text here" required
+                 trim="blur" maxlength="150" [(ngModel)]="mainLotto.globalBannerText">
+                 <mat-hint class="col-red" *ngIf="!mainLotto.globalBannerText || mainLotto.globalBannerText.length > 100">*The banner text should be filled with max of 100 characters</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Number of days
+        </span>
+      </div>
+      <div class="col-md-5">
+        <mat-form-field class="full-width" >
+          <input matInput placeholder="Enter Previous results day count" type="number" min="0" max="30"
+                 trim="blur" [(ngModel)]="mainLotto.dayCount">
+                 <mat-hint class="col-red" *ngIf="mainLotto.dayCount > 30">*The number of days should be filled with max of 30</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row clearfix">
+      <div class="col-md-3">
+        <a (click)="createLotto()" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Add lotto</span>
+        </a>
+      </div>
+    </div>
+  <div *ngIf="mainLotto.lottoConfig.length > 0">
+    <cms-data-table
+      [customTableData]="mainLotto.lottoConfig"
+      [customTableColumns]="dataTableColumns"
+      [actions]="['remove', 'edit']"
+      [reorder]="true"
+      (onElementsOrder)="reorderHandler($event)"
+      (onRemoveTableElement)="removeLotto($event)">
+    </cms-data-table>
+  </div>
+  </div>
+</div>
+</div>
+<action-buttons  *ngIf="!isLoading && mainLotto"
+  #actionButtons
+  [validateHandler]="isValidModel"
+  [fieldOrItemName]="'lotto'"
+  [collection]="mainLotto"
+  (actionsEmitter)="actionsHandler($event);"
+  [showRemoveButton]="false">
+</action-buttons>

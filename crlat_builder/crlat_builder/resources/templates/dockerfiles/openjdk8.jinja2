@@ -1,0 +1,13 @@
+FROM {{ jdk_base_image_name }}:{{ jdk_base_image_tag }}
+
+{% if install_web_root %}
+### SECTION START: Install web root certificate
+ADD certificates/crlat-web-root.crt /usr/local/share/ca-certificates/crlat-web-root.crt
+RUN apk add --no-cache ca-certificates && /usr/sbin/update-ca-certificates
+### SECTION END: Install web root certificate
+{% endif %}
+
+{% block content %}{% endblock %}
+{% if docker_cmd is defined %}
+CMD {{ docker_cmd }}
+{% endif %}

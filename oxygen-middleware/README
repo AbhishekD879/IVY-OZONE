@@ -1,0 +1,6 @@
+Run in docker
+0. run consul: docker run -p 8400:8400 -p 8500:8500 -p 8600:53/udp -h node1 progrium/consul -server -bootstrap -ui-dir /ui
+1. gradle build
+2. docker build -t oxygen-middleware .
+3. docker run --rm -it  --name Middleware oxygen-middleware --discovery.consul.host=${host_ip} --discovery.consul.port=5701
+4. Parameters should be ins=cremented: -Dserver.port=8101 -Ddiscovery.public.port=5701

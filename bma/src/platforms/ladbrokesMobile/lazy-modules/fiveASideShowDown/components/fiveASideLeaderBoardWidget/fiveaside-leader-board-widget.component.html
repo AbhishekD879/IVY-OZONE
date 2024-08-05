@@ -1,0 +1,47 @@
+<ng-container *ngIf="showDownData && showDownData.length == 1">
+  <fiveaside-leader-board-widget-card [widgetData]="showDownData[0]"
+  [eventEntity]="showDownData[0]?.eventDetails || null"
+  [leaderBoards]="showDownData"></fiveaside-leader-board-widget-card>
+</ng-container>
+<ng-container *ngIf="showDownData && showDownData.length > 1">
+  <div class="carousel-header">
+    <div class="five-a-side-icon">
+      <svg>
+        <use xlink:href="#fiveaside-widget-header-icon"></use>
+      </svg>
+    </div>
+    <div class="carousel-header-text">
+      <span [i18n]="'fs.widgetHeader'"></span>
+    </div>
+  </div>
+  <div class="pr-carousel">
+    <div class="ng-carousel leaderboard-widget-carousel" [class.one-card-mode]="isOneCard"
+    [ngCarousel]
+    [ngCarouselName]="carouselName"
+    [ngCenterMode]="true"
+    [ngCarouselActiveClass]="'swiper-slide-active'"
+    [ngCarouselLoop]="false"
+    [ngCarouselWatch]="showDownData.length"
+    [ngStopSlideOnHover]="true"
+    [slidesToScroll]="1"
+    [ngCarouselMoveThresholdPercentage]="5"
+    (activeSlideIndex)="handleActiveSlide($event)">
+    <slidecontainer class="carousel-slides only-child" [ngClass]="{'widget-full-width': (showDownData.length == 1)}">
+      <slide *ngFor="let widget of showDownData; index as i;" class="leaderboard-widget-slide"
+        [ngClass]="{'widget-full-width': (showDownData.length == 1)}">
+        <fiveaside-leader-board-widget-card *ngIf="widget" [widgetData]="widget"
+          [eventEntity]="widget?.eventDetails || null"
+          [leaderBoards]="showDownData"></fiveaside-leader-board-widget-card>
+      </slide>
+    </slidecontainer>
+  </div>
+  </div>
+  
+  <ul class="widget-dots slide-dots bellow" >
+    <li *ngFor="let slide of showDownData; let ind = index;"
+        [ngClass]="{'slide-active': slide.active}">
+      <button type="button" (click)="goToSlide(ind)" ></button>
+    </li>
+  </ul>
+</ng-container>
+

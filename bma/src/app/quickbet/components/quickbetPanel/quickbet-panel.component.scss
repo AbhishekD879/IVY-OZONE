@@ -1,0 +1,201 @@
+//Global styles
+@import 'global.variables.scss';
+
+$qb-content-side-padding: 15px;
+$footZindex: 1002;
+
+.quickbet-panel {
+  .show-iframe {
+    background: $color-white;
+  }
+
+  width: 100%;
+  font-family: $base-font-family;
+  position: fixed;
+  z-index: $footZindex + 2;
+  bottom: 0;
+  opacity: 0;
+  @include transform(translateY(100vh));
+  @include transition(transform, .3s, ease-in-out);
+  overflow: hidden;
+  
+  &.disable-trans{
+    @include transition(transform, .3s, ease-in-out);
+  }
+
+
+  &.quickbet-slide-up {
+    opacity: 1;
+    @include transform(translateY(0));
+  }
+
+  .selection-undisplayed-error {
+    padding: 15px;
+    text-align: center;
+    color:$color-gray-dark;
+  }
+
+  /* Quickbet header */
+  .quickbet-header {
+    @include display-flex();
+    @include justify-content(center);
+    position: relative; // will have to add it dynamically from html to display the 'x' content quickly.
+    padding: 13px 0;
+    background: $brand-color-main;
+    height: 45px;
+    width: 100%;
+
+    .qb-header-title {
+      text-transform: capitalize;
+      margin: 0;
+      color: $color-white;
+      font-size: 16px;
+      min-width: 64px;
+      text-align: center;
+      width: auto;
+      line-height: 17.6px;
+    }
+
+    .qb-header-close-btn {
+      border: none;
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      padding: 10px;
+
+      svg {
+        height: 12px;
+        width: 12px;
+        fill: $color-white;
+      }
+    }
+
+    .qb-header-5-a-side-logo {
+      height: 21px;
+      width: 18px;
+      margin-right: 10px;
+    }
+  }
+
+  .betslip-deposit .item-inner > .row:last-child > div {
+    visibility: hidden;
+  }
+
+  .betslip-deposit .item-inner > .row.pay-fields label:before {
+    content: none;
+  }
+
+  .custom-select {
+    margin: 0;
+    display: inline-block;
+    overflow: visible;
+
+    .odds-select {
+      &.crossed {
+        text-decoration: line-through;
+      }
+    }
+    svg {
+      width: 11px;
+      height: 7px;
+      right: 7px;
+      top: 6px;
+      margin-top: 0;
+    }
+  }
+
+}
+
+/* Quickbet controls */
+.quickbet-controls {
+  background: $color-white;
+  @include display-flex();
+  min-height: 45px;
+  height: 45px;
+  position: relative;
+
+  .qb-left-cta-btn,
+  .qb-right-cta-btn {
+    display: block;
+    border: none;
+    width: 50%;
+    font-weight: bold;
+    font-size: 13px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .qb-left-cta-btn {
+    background: $color-yellow;
+    color: $color-gray-dark;
+    &:hover{
+      background: $color-yellow-alt2 !important;
+     }
+  
+     &:active{
+      background: $color-orange-peel;
+      color: $color-white;
+     }
+  }
+  .qb-right-cta-btn {
+    background: $color-green-shade;
+    color: $color-white;
+    transition: .3s all;
+    &:hover{
+      background: $color-green-light-leaf;
+    }
+    &:active{
+      background: $color-green-dark-leaf;
+    }
+    &:disabled {
+      background: $color-green-shade;
+      color: $color-green-disabled;
+      opacity: .50;
+    }
+  }
+}
+
+// fix to not overlap with Iphone X bottom software button.
+@supports (height: constant(safe-area-inset-bottom)) {
+  .quickbet-controls {
+    --safe-area-inset-bottom: constant(safe-area-inset-bottom);
+    height: calc(45px + var(--safe-area-inset-bottom));
+    padding-bottom: var(--safe-area-inset-bottom);
+  }
+}
+
+@supports (height: env(safe-area-inset-bottom)) {
+  .quickbet-controls {
+    --safe-area-inset-bottom: env(safe-area-inset-bottom);
+    height: calc(45px + var(--safe-area-inset-bottom));
+    padding-bottom: var(--safe-area-inset-bottom);
+  }
+}
+
+.quickbet-opened {
+  overflow: hidden;
+}
+
+@media only screen and (max-device-width: $mobilePoint) {
+  // Header overlaps quickbet panel when cookie banner is opened
+  .yourcall-bs-opened.cookie-banner-opened #header .header-inner {
+    height: 0;
+    padding: 0;
+  }
+
+  .yourcall-bs-opened {
+    .quickbet-panel {
+      max-height: 100%;
+      overflow: auto;
+    }
+  }
+}
+.closure-message-container {
+  color: $color-gray-darkest;
+  font-size: 12px;
+  padding: 14px 12px 12px;
+  box-shadow: 0 2px 2px 0 rgba(162, 162, 162, 0.26), 0 0 2px 0 rgba(162, 162, 162, 0.26);
+  background-color: $color-white;
+  margin-bottom: 3px;
+  line-height: 15px;
+  font-family: $base-font-family;
+}

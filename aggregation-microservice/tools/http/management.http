@@ -1,0 +1,21 @@
+### Clear all cache
+
+POST http://localhost:8080/mng/clearAll
+
+### Clear cache by ids
+
+POST http://localhost:8080/mng/clear/silks?ids=129865,199331
+
+### View all cached keys
+
+GET http://localhost:8080/mng/cache
+
+### View all cached keys by key pattern
+
+GET http://localhost:8080/mng/cache?pattern=*129865.gif
+
+###
+
+GET http://localhost:8080/mng/cache?pattern=*racing_post*
+
+###

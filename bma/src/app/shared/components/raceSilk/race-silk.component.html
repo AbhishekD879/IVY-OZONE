@@ -1,0 +1,21 @@
+<!-- silk for virtual races -->
+<virtual-silk class="virtual-silk"
+              *ngIf="isVirtual"
+              [event]="eventEntity" [outcome]="outcomeEntity">
+</virtual-silk>
+<div
+  *ngIf="isGeneric"
+  [ngClass]="{'silk-img': true, 'snb-silk-img': isStreamBet}" data-crlat="raceCard.silk"></div>
+<gh-silk
+    *ngIf="isGreyhound"
+    [outcome]="outcomeEntity"
+    [event]="eventEntity"
+    data-crlat="raceCard.silk">
+</gh-silk>
+<uk-or-ire-silk
+    *ngIf="isUKorIRE"
+    [outcomeEntity]="outcomeEntity"
+    [eventEntity]="eventEntity"
+    data-crlat="raceCard.silk"
+    [isStreamBet]="isStreamBet">
+</uk-or-ire-silk>

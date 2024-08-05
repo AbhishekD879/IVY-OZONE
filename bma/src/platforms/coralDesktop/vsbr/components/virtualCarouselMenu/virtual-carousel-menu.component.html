@@ -1,0 +1,29 @@
+<nav class="virtual-carousel-menu vc-menu">
+  <div class="scroll-container" scrollable>
+    <ul class="scroll-inner scroll-inner--no-padding">
+      <svg-list [list]="elementsInMenu"></svg-list>
+      <li [ngClass]="{active: menuElement.isActive}" *ngFor="let menuElement of elementsInMenu; trackBy: trackByMenu">
+        <a (click)="goToVirtual(menuElement)"
+        [ngClass]="{active: menuElement.isActive}"
+           target="{{menuElement.inApp ? '' : '_blank'}}"
+           class="is-desktop vc-item"
+           data-crlat="item"
+           [title]="menuElement.name"
+           [linkHref]
+           [routerLink]="menuElement.targetUri">
+           <span *ngIf="menuElement.label"
+                class="vc-time"
+                [ngClass]="menuElement.label.className"
+                [textContent]="menuElement.label.text">
+          </span>
+          <span class="vc-icon" data-crlat="virtualMenuCarouselItem">
+            <svg data-crlat="svg" class="vc-svg" *ngIf="menuElement.svgId" [disable-dragging]>
+              <use [attr.xlink:href]="'#' + menuElement.svgId"></use>
+            </svg>
+          </span>
+          <span class="sport-name" data-crlat="name" [textContent]="menuElement.name"></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>

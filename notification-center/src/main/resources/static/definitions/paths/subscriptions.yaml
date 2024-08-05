@@ -1,0 +1,62 @@
+post:
+  tags:
+  - subscriptions
+  summary: Get information about subscription
+  description: Return infromation for subscription with a list of subscription types
+  operationId: getSubscriptionInfo
+  parameters: []
+  requestBody:
+    description: SubscriptionRequest object
+    content:
+      application/json:
+        schema:
+          description: SubscriptionRequest object that contains all information needed for checking state of subscriptions
+          $ref: '../components/subscriptions.yaml#/SubscriptionRequest'
+    required: true
+  responses:
+    200:
+      description: Subscription event
+      content:
+        application/json:
+          schema:
+            description: Subscriptions information with a list of types
+            $ref: '../components/subscriptions.yaml#/SubscriptionCreateResponse'
+    default:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            description: Error object
+            $ref: '../components/subscriptions.yaml#/ErrorResponse'
+  deprecated: false
+put:
+  tags:
+  - subscriptions
+  summary: Create/Update subscription
+  description: Cretae new or update exsted subscription
+  operationId: cretaeSubscription
+  parameters: []
+  requestBody:
+    description: SubscriptionCretaeRequest object
+    content:
+      application/json:
+        schema:
+          description: SubscriptionCretaeRequest object that contains all information needed for creatin new subscriptions
+          $ref: '../components/subscriptions.yaml#/SubscriptionCreateRequest'
+    required: true
+  responses:
+    200:
+      description: SubscriptionCreate object
+      content:
+        application/json:
+          schema:
+            description: Subscriptions with a list of types
+            $ref: '../components/subscriptions.yaml#/SubscriptionCreateResponse'
+    default:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            description: Error object
+            $ref: '../components/subscriptions.yaml#/ErrorResponse'
+  deprecated: false

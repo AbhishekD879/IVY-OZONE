@@ -1,0 +1,29 @@
+<div class="sidebar-container-full-height" data-crlat="sidebarContainer">
+  <div class="sidebar-container">
+    <div class="sidebar-menu-header" [ngClass]="{ 'receipt': onReceipt }" data-crlat="sidebarMenuHeader">
+        <span class="betslip-label" [i18n]="betslipLabel" data-crlat="betslipHeader"></span>
+        <div class="centering-title">
+          <button class="btn-balance" name="btnBalance"
+                  *ngIf="user.status"
+                  (click)="toggleDropDownMenu()"
+                  [textContent]="user.showBalance ? user.sportBalanceWithSymbol : balanceText"
+                  data-crlat="betslipBalanceButton">
+          </button>
+        </div>
+
+      <div *ngIf="!isDropDownMenuHidden" class="drop-down-menu" data-crlat="betslipBalanceButtonDropdown">
+        <div class="menu-item"
+             [i18n]="user.showBalance ? 'bs.hideBalance' : 'bs.showBalance'"
+             (mousedown)="toggleBalance(!user.showBalance)"
+             data-crlat="hideBalanceOption">
+        </div>
+        <a class="menu-item" [i18n]="'bs.deposit'" (mousedown)="quickDeposit()" data-crlat="depositOption"></a>
+      </div>
+    </div>
+    <div class="slide-content">
+      <div class="slide w-content-scroll" data-crlat="slideScrollableContent">
+        <betslip-container class="slide-content" data-crlat="slideContent"></betslip-container>
+      </div>
+    </div>
+  </div>
+</div>

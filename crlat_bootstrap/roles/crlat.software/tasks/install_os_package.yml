@@ -1,0 +1,14 @@
+
+- name: "Run pre-install configuration for {{ package_to_install }}"
+  include_tasks: "{{ preconf_actions[package_to_install] }}"
+  when: package_to_install in preconf_actions.keys()
+
+- name: "Installing package {{ package_to_install }}"
+  apt:
+    name: "{{ package_to_install }}"
+    state: latest
+    update_cache: no
+
+- name: "Run post-install configuration for {{ package_to_install }}"
+  include_tasks: "{{ postconf_actions[package_to_install] }}"
+  when: package_to_install in postconf_actions.keys()

@@ -1,0 +1,33 @@
+<loading-screen [displayed]="!allEvents?.length"
+                  [templateType]="'GENERIC'"></loading-screen>
+
+<ng-container *ngIf="targetTab?.interstitialBanners?.bannerEnabled && allEvents?.length && isDisplayBanner(sectionTitle)">
+  <lazy-component
+    moduleUri="@lazy-modules-module/virtualEntryPointBanner/virtual-entry-point-banner.module#VirtualEntryPointBannerModule"
+    entryComponent="VirtualEntryPointBannerComponent"
+    [inputs]="{targetTab: targetTab,isUnTiedSport:true,sportName : sportName}">
+  </lazy-component>
+</ng-container>
+
+<accordion *ngIf="allEvents?.length"
+           [accordionTitle]="sectionTitle"
+           [isExpanded]="true"
+           (function)="sendCollapseGTM()"
+           data-crlat="outerAccordion"  [ngClass]="{'outerAccordionFeatured' : isRacingFeatured}">
+  <accordion-body data-crlat="race.enhancedRacesCarousel">
+    <ng-container *ngFor="let key of raceKeys">
+      <racing-panel *ngIf="groupedEvents[key]?.events?.length"
+                    [events]="groupedEvents[key].events"
+                    [title]="groupedEvents[key].title"
+                    (clickFunction)="goToEvent($event)"
+                    [attr.data-crlat]="groupedEvents[key].title">
+        <div header class="racing-label">
+          <svg class="racing-icon" [attr.data-crlat]="'promotionIcon.' + key">
+            <use [attr.xlink:href]="groupedEvents[key].svgId"></use>
+          </svg>
+          {{ groupedEvents[key].name }}
+        </div>
+      </racing-panel>
+    </ng-container>
+  </accordion-body>
+</accordion>

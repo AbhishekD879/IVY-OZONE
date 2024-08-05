@@ -1,0 +1,46 @@
+
+
+<div class="modal-share" >
+<modal #shareToSocialMediaDialog  [overscrollFix] ="'always'"  [ngStyle]="{'display': betShareImageCardService.imagesLoaded?'block':'none'}" >
+  <ng-template #modalHeader>
+    <div class="title" [ngClass]="{'coral':isCoral} ">Share</div>
+    <a data-uat="popUpCloseButton" class="btn-close" (click)="closeDialog()">
+      <svg>
+        <use xlink:href="#close-icon"></use>
+      </svg>
+    </a>
+  </ng-template>
+
+  <ng-template #modalBody>
+    <div class="titleDesc" [ngClass]="{'coral':isCoral} " [textContent]="betDataToShare.popUpTitle"></div>
+    <ng-container *ngFor="let data of betDataToShare.description | keyvalue: unsorted; let i = index">
+      <div class="descLayout" [ngClass]="{'coral':isCoral}"  *ngIf="betDataToShare.shareData[0][data.key] || betDataToShare.shareData[data.key]">
+        <div class="check-styled">
+          <input id="betShare-{{i}}" checked data-crlat="Checkbox" type="checkbox"
+            (change)="checked($event.target.checked, data.key);" [checked]="betDataToShare[data.key+'Flag']"/>
+          <label for="betShare-{{i}}"></label>
+        </div>
+        <div class="innerLayout">
+          <span class="descHeading" [ngClass]="{'coral':isCoral}" [textContent]="data.value"></span>
+          <div class="descData" [ngClass]="{'coral':isCoral}">
+            <q>
+              <span [i18n]="data.key === 'stake' ? 'bethistory.stakePerLine' : 
+              data.key === 'returns' ? statusText(betDataToShare.shareData[0].status) : data.key === 'odds' ? '@' : '' ">
+              </span>
+              <span *ngIf = "['stake','returns'].includes(data.key) " [textContent]="tranformWithCurrency(betDataToShare.shareData[data.key])"></span>
+              <span *ngIf = "!(['stake','returns'].includes(data.key))">{{betDataToShare.shareData[data.key] ? betDataToShare.shareData[data.key] :betDataToShare.shareData[0][data.key]}}</span>
+            </q>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="line-break"></div>
+    <div class="btnContainer" [ngClass]="{'coral':isCoral}">
+      <button class="btnLayout cancelBtnLayout" [ngClass]="{'coral':isCoral}" (click)="close(true)" [i18n]="'bs.clearBetslipCancel'"></button>
+      <button class="btnLayout shareBtnLayout" [ngClass]="{'coral':isCoral}" (click)="share()" [disabled]="!isShareAllowed" [i18n]="'bs.shareBetslipTitle'"></button>
+    </div>
+  </ng-template>
+</modal>
+
+</div>

@@ -1,0 +1,111 @@
+@import 'global.variables.scss';
+
+.custom-input-container.tote-input-container {
+  @include display-flex();
+  @include justify-content(flex-end);
+  @include flex-wrap(wrap);
+  width: 80px;
+  background: none;
+
+  input {
+    width: 80px;
+    background: $color-white;
+    border: 1px solid $color-gray;
+    color: $color-gray-dark;
+    line-height: 30px;
+    border-radius: 3px;
+    padding: 3px 5px 3px 35px;
+    text-align: right;
+
+    &:focus, &:active {
+      border-color: $color-gray-dark;
+      color: $color-gray-dark;
+      box-shadow: none;
+    }
+
+    &.error {
+      @include input-placeholder($color-red);
+    }
+    &[disabled] {
+      opacity: 1;
+      @include input-placeholder($color-gray);
+    }
+  }
+
+  .currency {
+    color: lighten($color-gray-dark, 50%);
+    width: 35px;
+    position: absolute;
+    left: 0;
+    margin-left: 0;
+    pointer-events: none;
+    overflow-wrap: initial;
+    text-align: left;
+    padding-left: 9px;
+
+    &.error {
+      color: $color-red;
+    }
+    &.disabled-currency {
+      color: $color-gray;
+    }
+  }
+}
+
+.pool-bet-contanter {
+  border-top: 1px solid $color-gray;
+  margin: 0 10px;
+  padding: 10px 0 6px;
+
+
+  .stake-range-error,
+  .stake-range-error .total-stake {
+    color: $color-red;
+  }
+
+  .total-stake {
+    padding: 10px 0;
+    text-align: right;
+    font-size: 11px;
+    strong {
+      color: $color-gray-dark;
+    }
+
+    .stake-label {
+      color: lighten($color-gray-dark, 50%);
+      margin-right: 5px;
+    }
+  }
+
+  .bet-slip-container {
+    padding: 10px 0 0;
+    display: flex;
+    text-transform: uppercase;
+
+    .clear-btn-wrap {
+      float: left;
+      width: 50%;
+      font-size: 12px;
+      line-height: 12px;
+      font-weight: bold;
+      padding: 8px 10px;
+      text-align: center;
+      text-decoration: underline;
+      a {
+        color: $color-gray-dark;
+      }
+    }
+
+    button {
+      float: right;
+      width: 50%;
+      text-transform: uppercase;
+    }
+
+    &:after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+  }
+}

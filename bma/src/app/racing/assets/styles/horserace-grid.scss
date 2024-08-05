@@ -1,0 +1,110 @@
+@import 'global.variables.scss';
+
+$racing-grid-header-height: 30px;
+$racing-grid-content-height: 50px;
+$racing-grid-content-width: 60px;
+$racing-grid-font: 13px;
+$racing-stream-icon-size: 12px;
+$racing-icon-width: 12px;
+$racing-icon-height: 12px;
+
+.horserace {
+  &.race-grid {
+    background-color: $page-bg;
+    padding: 0;
+    margin: 0;
+    .rg-section {
+      margin: 2px 0 0;
+      background-color: $color-gray-light;
+    }
+    .rg-header {
+      padding: 0 10px;
+      height: $racing-grid-header-height;
+      color: #41494e;  
+      text-transform: none;
+      font-size: 12px;
+      font-weight: 700;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      .rg-title {
+        font-family: $base-font-family;
+        text-transform: uppercase;
+        flex: 1 1 auto;
+      }
+      svg {
+        margin: 0 0 0 10px;
+      }
+      .rg-stream-icon {
+        width: $racing-stream-icon-size;
+        height: $racing-stream-icon-size;
+      }
+    }
+    .rg-section .scroll-container .scroll-inner {
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+  }
+  .tabs-panel {
+    &.tabs-bottom {
+      padding-bottom: 0;
+      border-bottom: 0;
+      margin-bottom: 0;
+      .scroll-container {
+        margin-bottom: 0;
+        .pool-indicators-container {
+          li {
+            cursor: pointer;
+          }
+          display: inherit;
+        }
+        .scroll-inner li {
+          border-right: none;
+          height: $racing-grid-content-height;
+          @include display-flex();
+          @include align-items(center);
+          &:active {
+            background: transparent;
+          }
+          .tab {
+            font-size: $racing-grid-font;
+            font-weight: normal;
+            padding: 10px 0;
+            min-width: $racing-grid-content-width;
+            height: $racing-grid-content-height;
+            @include display-flex();
+            @include flex-direction(column);
+            @include align-items(center);
+            @include justify-content(space-around);
+            position: relative;
+            .race-time {
+              width: 100%;
+            }
+          }
+          .tote-indicator {
+            background-color: $brand-color-secondary;
+            padding: 5px 10px;
+            color: $color-white;
+            text-transform: uppercase;
+            min-height: 22px;
+            height: 5px;
+            font-size: 10px;
+            margin-right: 10px;
+            border-radius: 1px;
+            @include justify-content(center);
+          }
+        }
+      }
+    }
+  }
+  .race-resulted {
+    .race-icon {
+      height: $racing-icon-height;
+      width: $racing-icon-width;
+      position: absolute;
+      left: 50%;
+      margin-left: -6px;
+      bottom: 0;
+    }
+  }
+}

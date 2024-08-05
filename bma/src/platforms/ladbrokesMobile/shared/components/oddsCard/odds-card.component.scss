@@ -1,0 +1,399 @@
+@import 'global.variables.scss';
+
+.odds-card {
+  display: block;
+  position: relative;
+  background: $color-white;
+  border-top: 2px solid $card-border-clr;
+  padding: $card-padding;
+  color: $color-gray-darkest;
+  font: #{$font-size-md}/#{$line-height-xs} $alt-font-family;
+  box-shadow: 10px 0 0 $color-white, -10px 0 0 $color-white;
+
+  &.odds-single {
+    border: none;
+    border-radius: 3px;
+    margin: 0 0 4px;
+    padding: 10px;
+  }
+  &.odds-g-bg {
+    background: $color-gray-light;
+    box-shadow: 10px 0 0 $color-gray-light, -10px 0 0 $color-gray-light;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  .odds-content {
+    @include display-flex();
+    @include justify-content(space-between);
+    @include align-items();
+    @include flex-flow();
+    min-height: 30px;
+
+    &.odds-wrap {
+      @include flex-flow(row, wrap);
+    }
+
+    strong.odds-side {
+      display: inline-block;
+      min-width: $card-l-side-width;
+    }
+
+    .odds-side {
+      text-align: center;
+
+      .fav-icon-svg {
+        stroke: $card-text-color;
+
+        &.active {
+          stroke: $color-yellow;
+        }
+      }
+
+      strong {
+        display: inline-block;
+        min-width: $card-l-side-width;
+      }
+
+      .label-text {
+        display: block;
+        margin-top: 4px;
+      }
+    }
+
+    .odds-live {
+      margin-left: 10px;
+    }
+
+    .odds-names {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      font-weight: bold;
+      line-height: $line-height-xs;
+      white-space: nowrap;
+      color: $color-gray-darkest;
+
+      strong {
+        font-size: $font-size-tablet;
+        line-height: $line-height-sm;
+      }
+      &.odds-names-list > * {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      &.odds-names-wrap {
+        white-space: normal;
+        width: 100%;
+
+        &.odds-names-list > * {
+          white-space: normal;
+        }
+      }
+    }
+
+    .odds-text-left {
+      float: left;
+      margin-right: 5px;
+    }
+
+    .odds-small {
+      font-size: $font-size-md;
+      font-weight: normal;
+    }
+
+    .odds-normal {
+      font-weight: normal;
+    }
+
+    .odds-disabled {
+      color: lighten($color-gray-dark, 50%);
+    }
+
+    .odds-icon-stream {
+      width: $font-size + $font-size-sm;
+      height: $font-size + $font-size-sm;
+      margin: 0 0 0 5px;
+    }
+
+    .odds-btn-content {
+      @include display-flex();
+      margin-left: -6px;
+
+      .odds-btn-wrapper {
+        @include display-flex();
+        min-width: $card-odd-wrapper-width;
+
+        .btn-bet {
+          display: block;
+          margin: 0 0 0 6px;
+        }
+      }
+      .odds-btn-hl {
+        @include display-flex();
+        min-width: $card-odd-wrapper-width;
+        .btn-bet {
+          display: block;
+          margin: 0 0 0 8px;
+          width: 68px;
+        }
+      }
+    }
+  }
+
+  .odds-img {
+    margin-right: 5px;
+
+    img {
+      height: 25px;
+    }
+  }
+
+  .odds-icon {
+    height: 25px;
+    width: 25px;
+    fill: $color-black;
+  }
+
+  // TODO global styles, remove when suppressed by <odds-card-score>
+  .odds-score {
+    margin: 0;
+    padding: $card-score-padding;
+    font-size: $card-score-font-size;
+    list-style: none;
+    @include display-flex();
+    @include justify-content(flex-end);
+    color: lighten($color-gray-dark, 50%);
+    max-width: 65px;
+
+    li {
+      @include display-flex();
+      @include align-items();
+      @include justify-content();
+      @include flex-flow(column, wrap);
+      padding: 0 5px 0 0;
+      max-width: 15px;
+      line-height: 17px;
+
+      &:last-child,
+      &.last-core {
+        color: $card-text-color;
+        padding-right: 0;
+      }
+
+      &.last-core + li {
+        display: none;
+      }
+
+      .odds-tennis-score {
+        display: block;
+      }
+    }
+  }
+
+  .odds-live-icon {
+    width: $live-icon-width;
+    height: $live-icon-height;
+  }
+
+  .odds-more-link {
+    position: relative;
+    padding-right: 8px;
+    color: $color-blue-alt;
+    font-size: 11px;
+    font-weight: bold;
+    font-family: "Roboto Condensed";
+    &:after {
+      content: '';
+      position: absolute;
+      top: 4px;
+      right: 0;
+      border: solid black;
+      border-width: 0 1px 1px 0;
+      display: inline-block;
+      padding: 2px;
+      will-change: transform;
+      transform: rotate(-45deg);
+    }
+    &:hover {
+      text-decoration: none;
+    }
+    &:active {
+      text-decoration: underline;
+    }
+  }
+
+  .odds-footer {
+    @include display-flex();
+    @include align-items();
+    font-size: $font-size-sm;
+    line-height: $font-size;
+    margin: 10px 0 0px;
+    min-height: $card-footer-height;
+
+    span {
+      margin-right: 5px;
+      line-height: $card-footer-height;
+    }
+
+    .odds-live-icon {
+      margin-right: 5px;
+    }
+
+    .odds-fav-icon {
+      margin-right: 12px;
+    }
+
+    .odds-bold {
+      font-weight: bold;
+    }
+
+    .odds-next-score {
+      font-weight: bold;
+      font-size: 10px;
+      color: $color-yellow;
+      margin-right: 10px
+    }
+    .odds-right {
+      height: $card-footer-height;
+    }
+  }
+}
+
+.show-hide-stats {
+  margin: 5px 12px 8px 12px;
+  font-size: 11px;
+  font-weight: bold;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0px;
+  text-align: right;
+  color: #4a90e2;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  font-family: 'Roboto Condensed';
+
+  .show-stats {
+    width: fit-content;
+    height: 11px;
+  }
+
+  .hide-stats {
+    width: fit-content;
+  }
+
+  svg {
+    width: 8.3px;
+    height: 6px;
+    flex-grow: 0;
+    margin: 3px 0 0 3px;
+    fill: #4a90e2;
+  }
+}
+.was-price {
+  min-width: 50px;
+  font-size: $card-score-font-size;
+  color: $font-color-main;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: -0.1px;
+
+  span {
+    margin-right: 5px;
+    line-height: $line-height-normal;
+  }
+}
+
+.odds-icon-stream {
+  width: 12px;
+  height: 12px;
+  vertical-align: top;
+  margin-right: 5px;
+  &.watch-live {
+    fill: $color-orange;
+  }
+}
+
+.odds-watch, .odds-watch-live, .odds-live {
+  text-transform: uppercase;
+  font-size: $card-watch-live-font-size;
+  font-weight: 700;
+}
+
+.odds-watch-live, .odds-live {
+  color: $color-orange;
+}
+
+.odds-live {
+  @include display-flex();
+  @include align-items(center);
+}
+
+//------ODDS------------
+
+.odds-head {
+  font-weight: 300;
+  font-size: 7px;
+  width: 77px;
+  overflow: hidden;
+  margin: 0 auto;
+  padding-bottom: 1px;
+  text-overflow: ellipsis;
+}
+
+.odds-left {
+  max-width: 100%;
+  @include display-flex();
+  @include align-items();
+  @include flex(1, 1, auto);
+  overflow: hidden;
+
+  &.no-wrap {
+    overflow: visible;
+  }
+}
+
+.odds-right {
+  width: auto;
+  padding: 0 0 0 5px;
+  @include display-flex();
+  @include align-items();
+  @include justify-content(flex-end);
+  @include flex(1, 0, auto);
+}
+
+.odds-right-vertical {
+  @include flex-direction(column);
+  @include align-items(flex-end);
+
+  .previous-prices {
+    padding-top: 2px;
+    font-size: 9px;
+    min-width: 45px;
+    text-align: center;
+    color: $color-gray-dark;
+  }
+}
+
+.live-stream-tab .odds-card .odds-content.odds-wrap {
+  @include flex-flow();
+}
+
+.odds-card-component list-card {
+  padding: 12px 30px 12px 12px;
+
+  .list-card-name {
+    margin: -1px 0;
+    font-size: $font-size-tablet;
+  }
+
+  .live-card-label,
+  .list-card-date {
+    @include flex-order(-1);
+    margin-bottom: 12px;
+  }
+}

@@ -1,0 +1,3 @@
+<a class="list-card-name" [ngClass]="{'list-card-name-no-svg': !item.svgId}"  linkHref [link]="link" [textContent]="title || item.name" data-crlat="couponName"></a>
+<div class="list-card-date" [textContent]="date" *ngIf="date" data-crlat="event.date"></div>
+<ng-content></ng-content>

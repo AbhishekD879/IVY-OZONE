@@ -1,0 +1,193 @@
+<breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="newPost">
+  <div class="header">
+    <div class="row">
+      <div class="col-sm-10">
+        <h2 class="waves-effect waves-block has-activity-badge">
+          Post: {{newPost.name}}
+        </h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="newPost">
+  <div class="body">
+    <div class="row">
+      <div class="col-sm-2">
+        <span class="mat-label">
+           Choose message template
+        </span>
+      </div>
+      <div class="col-sm-6">
+        <mat-form-field class="full-width">
+          <mat-select [(ngModel)]="newPost.template" (selectionChange)="setTemplate($event.value)" placeholder="Choose message template"
+                      required>
+            <mat-option *ngFor="let template of templates; trackBy: trackByIdentity" [value]="template">{{template.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <ng-container *ngIf="newPost?.template">
+          <mat-hint class="">
+            Warning: All Fields Are Required For The Selected Template!
+          </mat-hint>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="newPost?.template">
+  <div class="body">
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="row">
+          <div class="col-sm-2">
+          <span class="mat-label">
+            Name
+          </span>
+          </div>
+          <div class="col-sm-8">
+            <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !newPost.name}">
+              <input matInput placeholder="Name" [(ngModel)]="newPost.name" [value]="newPost.name" trim="blur">
+              <mat-hint class="col-red" *ngIf="!newPost.name">Name should be entered</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="activeTemplate.headerText">
+          <div class="col-sm-2">
+          <span class="mat-label">
+            Header Text
+          </span>
+          </div>
+          <div class="col-sm-8">
+            <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !headerValid}">
+              <input matInput placeholder="Header Text" [(ngModel)]="newPost.template.headerText" [value]="newPost.template.headerText">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="activeTemplate.yellowHeaderText">
+          <div class="col-sm-2">
+            <span class="mat-label">
+              Yellow Header Text
+            </span>
+          </div>
+          <div class="col-sm-10">
+            <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !yellowHeaderValid}">
+              <input matInput placeholder="Yellow Header Text" [(ngModel)]="newPost.template.yellowHeaderText"
+                     [value]="newPost.template.yellowHeaderText">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="activeTemplate.subHeader">
+          <div class="col-sm-2">
+          <span class="mat-label">
+            Subheader Text
+          </span>
+          </div>
+          <div class="col-sm-8">
+            <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !subHeaderValid}">
+              <input matInput placeholder="Subheader Text" [(ngModel)]="newPost.template.subHeader" [value]="newPost.template.subHeader">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2">
+            <span class="mat-label">
+            Text
+            </span>
+          </div>
+          <div class="col-sm-8">
+            <tinymce-editor [ngClass]="{ 'mat-form-field-invalid': !textValid}"
+              #text
+              [pageName]="'post'"
+              [readonly]="newPost.isSpotlight || newPost.isVerdict"
+              [pageItemId]="newPost.id"
+              (outputEditorData)="updateText($event)"
+              [initialEditorContent]="newPost.template.text || ''"></tinymce-editor>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="activeTemplate.eventId">
+          <div class="col-sm-2">
+          <span class="mat-label">
+            Event ID
+          </span>
+          </div>
+          <div class="col-sm-8">
+            <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !eventIdValid}">
+              <input matInput placeholder="Event ID" [(ngModel)]="newPost.template.eventId" [value]="newPost.template.eventId">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="activeTemplate.selectionId">
+          <div class="col-sm-2">
+          <span class="mat-label">
+            Selection ID
+          </span>
+          </div>
+          <div class="col-sm-8">
+            <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !selectionIdValid}">
+              <input matInput placeholder="Selection ID" [(ngModel)]="newPost.template.selectionId" [value]="newPost.template.selectionId">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="activeTemplate.betPromptHeader">
+          <div class="col-sm-2">
+          <span class="mat-label">
+            Bet Prompt Header
+          </span>
+          </div>
+          <div class="col-sm-8">
+            <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !betPromptHeaderValid}">
+              <input matInput placeholder="Bet Prompt Header" [(ngModel)]="newPost.template.betPromptHeader" [value]="newPost.template.betPromptHeader">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="activeTemplate.postHref">
+          <div class="col-sm-2">
+          <span class="mat-label">
+            Post Href
+          </span>
+          </div>
+          <div class="col-sm-8">
+            <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !postHrefValid}">
+              <input matInput placeholder="Post Href" [(ngModel)]="newPost.template.postHref" [value]="newPost.template.postHref">
+            </mat-form-field>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-sm-4">
+        Post Preview:
+        <post-preview [post]="newPost"></post-preview>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="getDataError">
+  Request Error
+</div>
+
+<div class="card" *ngIf="newPost">
+  <div class="body">
+    <div class="row --m-t-10">
+      <div class="col-sm-3 m-b-0">
+        <button mat-button type="button" class="btn bg-teal waves-effect"
+                (click)="savePostChanges()"
+                [disabled]="!checkModelValid()">
+          <mat-icon>save</mat-icon>
+          <span>Create Post</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

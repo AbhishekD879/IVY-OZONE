@@ -1,0 +1,46 @@
+<div class="custom-dialog">
+    <div class="header" mat-dialog-title>
+      <h4>Create Teams <span class="font-italic"> </span></h4>
+    </div>
+  
+    <div class="card"  >
+      <div class="body">
+        <div class="row clearfix">
+          <div class="col-md-3">
+            <span class="mat-label">Name:</span>
+          </div>
+          <div class="col-md-9">
+            <mat-form-field class="full-width">
+              <input matInput type="text" 
+              placeholder="Name" 
+              [(ngModel)]="teamPlayers.teamName"  
+              required trim="blur" 
+              autocomplete="off">
+            <mat-hint class="col-red" *ngIf="teamPlayers.teamName.length === 0">Name should be entered</mat-hint>
+            <mat-hint class="col-red" *ngIf="teamPlayers.teamName.length > 100">Max 100 characters allowed</mat-hint>
+          </mat-form-field>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-md-3">
+            <span class="mat-label">URL:</span>
+          </div>
+          <div class="col-md-9">
+            <mat-form-field class="full-width">
+              <input matInput type="text" 
+               placeholder="Url" 
+               [(ngModel)]="teamPlayers.teamLogoUrl"
+               required trim="blur" autocomplete="off">
+               <mat-hint class="col-red" *ngIf="teamPlayers.teamLogoUrl.length === 0">Url should be entered</mat-hint>
+               <mat-hint class="col-red" *ngIf="teamPlayers.teamLogoUrl.length > 100">Max 100 characters allowed</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+     <div mat-dialog-actions>
+      <button mat-button type="reset" class="btn btn-default m-r-20 float-right" (click)="cancel()">Cancel</button>
+      <button mat-button type="submit" class="btn btn-sm bg-teal float-right" [disabled]="!isValidTeamPlayersTable() || isValueChange"
+       [mat-dialog-close]="teamPlayers " [textContent]="btnTitle"></button>
+    </div>
+  </div>

@@ -1,0 +1,83 @@
+@import 'global.variables.scss';
+
+:host {
+  margin-top: 10px;
+  display: block;
+
+  .race-details-container {
+    .value, .label {
+      display: inline-block;
+    }
+    &.build-your-racecard {
+      background: $color-white;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 -1px 2px 0 rgba(0, 0, 0, 0.05);
+      @include align-items(center);
+      flex-direction: row;
+      .race-name {
+        .label,
+        .value {
+          font-size: 16px;
+        }
+      }
+      .label {
+        line-height: 26px;
+      }
+      .value {
+        font-weight: bold;
+        padding-left: 5px;
+      }
+      .value, .label {
+        color: $color-gray-darkest;
+      }
+      .race-timer {
+        .value, .label {
+          color: $color-gray-darkest;
+          display: inline-block;
+        }
+      }
+      .race-going, .race-distance {
+        margin: 0 0 0 16px;
+      }
+      .race-details-container-l {
+        line-height: 25px;
+        & > div {
+          @include display-flex();
+        }
+      }
+    }
+  }
+
+  .tabs-panel .scroll-container .scroll-inner {
+    background: #fff;
+  }
+
+  .terms-before-market {
+    .term-value {
+      color: $color-gray-dark2;
+      font-family: $alt-font-family;
+    }
+  }
+
+  ::ng-deep {
+    .race-market {
+      margin: 0 0 10px 0;
+    }
+
+    .horse-form-table tr {
+      line-height: 11px;
+    }
+    .backdown {
+      margin-bottom: 10px;
+    }
+  }
+
+  .horse-racing-icons promotion-icon {
+    font-size: 10px;
+  }
+}
+.eprSection{
+  justify-content: space-between;
+  align-content: space-around;
+}

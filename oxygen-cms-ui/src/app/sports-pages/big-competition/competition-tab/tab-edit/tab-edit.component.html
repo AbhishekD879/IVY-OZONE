@@ -1,0 +1,85 @@
+<breadcrumbs *ngIf="competitionTab" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+
+<div class="card" *ngIf="competitionTab">
+  <div class="header">
+    <h2 class="has-activity-badge">Competition Tab: <span class="font-italic">{{ competitionTab.name }}</span></h2>
+    <create-updated-at-by class="has-activity-badge" [collection]="competitionTab"></create-updated-at-by>
+    <header-activity-badge [state]="!competitionTab.enabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="competitionTab">
+  <div class="body">
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-md-2">
+          <mat-checkbox class="mat-label" color="primary" formControlName="enabled"
+                        [checked]="competitionTab.enabled"
+                        (change)="competitionTab.enabled = !competitionTab.enabled">
+            Active
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <mat-checkbox class="mat-label" color="primary" [checked]="competitionTab.hasSubtabs" disabled>
+            Tab has sub tabs
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Tab Name
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !competitionTab.name}">
+            <input matInput placeholder="Tab Name" type="text" formControlName="name" (change)="onNameChanged()"
+                   [(ngModel)]="competitionTab.name" [value]="competitionTab.name" required trim="blur">
+            <mat-hint class="col-red" *ngIf="!competitionTab.name">Tab Name should be entered</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            URL
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !competitionTab.uri}">
+            <input matInput placeholder="URL" type="text" formControlName="uri"
+                   [(ngModel)]="competitionTab.uri" [value]="competitionTab.uri" trim="blur" readonly>
+            <mat-hint class="col-red" *ngIf="!competitionTab.uri">URL should be entered</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<competition-sub-tabs-list *ngIf="competitionTab && competitionTab.hasSubtabs" [tabs]="subTabsList"></competition-sub-tabs-list>
+<competition-modules-list *ngIf="competitionTab && !competitionTab.hasSubtabs"
+                              [container]="'tab'"
+                              [modulesList]="modulesList"></competition-modules-list>
+
+<action-buttons
+  *ngIf="competitionTab"
+  #actionButtons
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'name'"
+  [collection]="competitionTab"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>
+
+<div class="card" *ngIf="tabNotFound">
+  <div class="header">
+    <h2>Failed to Load Competition Tab Data</h2>
+  </div>
+  <div class="body">
+    <a href="/sports-pages/big-competition">
+      <span>Back to Competitions Page</span>
+    </a>
+  </div>
+</div>

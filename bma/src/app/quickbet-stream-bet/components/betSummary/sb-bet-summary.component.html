@@ -1,0 +1,62 @@
+<div class="quickbet-info-spot qb-on-overlay" *ngIf="!isBetSummaryInReceipt" [ngClass]="{'qb-with-fb': showFreeBet()}">
+  <div class="free-bet" *ngIf="showFreeBet()" [ngClass]="{'snb-fb-border': !!selectedFreeBet}">
+    <lazy-component
+          moduleUri="@freebetsModule/freebets.module#FreebetsModule"
+          [inputs]="{freeBets: freebetsList,
+               freebetsGroup,
+               selected: selectedFreeBet,
+               freebetsConfig,
+               isBoostEnabled,
+               isSelectionBoosted,
+               canBoostSelection,
+               showOnDigitKeyborad: true,
+               digitKeyboard: true,
+               betPackList,
+               betPackGroup,
+               selection,
+               categoryName,
+               eventName
+          }"
+          [outputs]="['selectedChange']"
+          (event)="onFreebetChange($event)"
+          entryComponent="FreeBetToggleComponent">
+    </lazy-component>
+  </div>
+  <!-- && !selection.freebetValue -->
+  <p class="qb-stake-info qb-overlay-stakes" data-crlat="totalStake" (click)="stakeElemClick()">
+    <span [i18n]="'quickbet.snbStake'" data-crlat="label"
+    *ngIf="selection.stake === '0' || !selection.stake"></span>
+    <span *ngIf="selection.stake !== '0' && (selection.stake || selection.freebetValue)" 
+    [textContent]="getStakeEntered()" class="stake-value-entered" data-crlat="value"></span>
+  </p>
+  <p class="qb-return-info qb-overlay-stakes">
+    <span [i18n]="'quickbet.overlayEstReturns'" class="stake-label"
+     data-crlat="estReturnsLabel"></span>
+    <span [textContent]="isCapped()" class="stake-returns" 
+    data-crlat="totalEstReturns"></span>
+  </p>
+</div>
+
+<div class="quickbet-info-spot receipt-summary" *ngIf="isBetSummaryInReceipt && selection.freebetValue" [ngClass]="{'qb-with-fb': showFreeBet()}">
+  <div class="qb-stake-info qb-overlay-stakes-receipt" data-crlat="totalStake">
+    <span class="snb-stake-text" [i18n]="'quickbet.snbSummaryStake'" data-crlat="label"></span>
+    <span *ngIf="!selection.freebetValue" [textContent]="getTotalStake()" data-crlat="value"></span>
+    <span class="freebet-stake snb-fb-stake" data-crlat="combinedStake" *ngIf="selection.freebetValue">
+      <span class="free-bet-label">
+        <free-bet-label 
+          [freeBetLabelText]="selection.freeBetOfferCategory" 
+          [selected]="selection.freebetValue" 
+          [jump]="'jump'"
+          [plusSuffix]="selection.stakeAmount >= 0">
+        </free-bet-label>
+      </span>
+      <span *ngIf="selection.stakeAmount >= 0" [textContent]="getStake()"></span>
+    </span>
+  </div>
+  <div class="qb-return-info qb-overlay-stakes-receipt">
+    <span [i18n]="'quickbet.qbOverlayEstReturns'" class="stake-label"
+     data-crlat="estReturnsLabel"></span>
+    <span [textContent]="isCapped()" class="stake-returns" 
+    data-crlat="totalEstReturns"></span>
+  </div>
+</div>

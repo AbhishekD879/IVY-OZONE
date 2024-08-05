@@ -1,0 +1,41 @@
+import {Base} from './base.model';
+import {Question} from '@app/client/private/models/question.model';
+import {SplashPage} from '@app/client/private/models/splash-page.model';
+import {QEQuickLinks} from '@app/client/private/models/qeQuickLinks.model';
+import {Upsell} from '@app/client/private/models/upsell';
+import {Filename} from '@app/client/public/models/filename.model';
+import {QuestionDetailsModel} from '@app/client/private/models/questionDetails.model';
+import {EndPage} from '@app/client/private/models/end-page.model';
+import {Prize} from '@app/client/private/models/prize.model';
+import {QuizPopup} from '@app/client/private/models/quizPopup.model';
+import {EventDetails} from '@app/client/private/models/eventDetails.model';
+import {QuizConfiguration} from '@app/client/private/models/quizconfiguration.model';
+import { FssRewards } from '@app/client/private/models/coins-rewards.model';
+
+export interface Quiz extends Base {
+  title: string;
+  sourceId: string;
+  firstQuestion: Question;
+  displayFrom: string;
+  displayTo: string;
+  entryDeadline: string;
+  active: boolean;
+  quizLoginRule: string;
+  splashPage: SplashPage;
+  qeQuickLinks: QEQuickLinks;
+  quizLogoSvg: Filename;
+  quizBackgroundSvg: Filename;
+  notValid: boolean;
+  isChanged: boolean;
+  upsell: Upsell;
+  endPage: EndPage;
+  defaultQuestionsDetails: QuestionDetailsModel;
+  submitPopup: QuizPopup;
+  exitPopup: QuizPopup;
+  correctAnswersPrizes: Array<Prize>;
+  eventDetails: EventDetails;
+  highlighted: boolean;
+  quizConfiguration: QuizConfiguration;
+  questionSummaryReportMarkup?: string;
+  coin?: FssRewards;
+}

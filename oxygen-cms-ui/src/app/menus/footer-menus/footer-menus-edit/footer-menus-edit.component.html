@@ -1,0 +1,155 @@
+<breadcrumbs *ngIf="footerMenu" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="footerMenu">
+  <div class="header">
+    <h2 class="has-activity-badge">Footer Menu:
+      <span class="font-italic">{{footerMenu.linkTitle}}</span>
+      <create-updated-at-by [collection]="footerMenu"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="footerMenu.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="footerMenu">
+  <form [formGroup]="form" novalidate>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="alert bg-green m-b-0">
+              Only top 5 or 6 Items (depending on brand) of Each Device Type, Will be Displayed
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <mat-checkbox color="primary" formControlName="disabled"
+                        (change)="footerMenu.disabled=!footerMenu.disabled">Active</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-checkbox color="primary"
+          (change)="footerMenu.inApp=!footerMenu.inApp"
+          formControlName="inApp">In App</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-checkbox color="primary"
+          (change)="footerMenu.authRequired=!footerMenu.authRequired"
+          formControlName="authRequired">Auth Required</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <mat-checkbox color="primary"
+          (change)="footerMenu.mobile=!footerMenu.mobile"
+          formControlName="mobile">Mobile</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-checkbox color="primary"
+          (change)="footerMenu.tablet=!footerMenu.tablet"
+          formControlName="tablet">Tablet</mat-checkbox>
+        </div>
+        <div class="col-md-4">
+          <mat-checkbox color="primary"
+          (change)="footerMenu.desktop=!footerMenu.desktop"
+          formControlName="desktop">Desktop</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Link Title*
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Link Title" [(ngModel)]="footerMenu.linkTitle" formControlName="linkTitle" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Target Uri
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Target Uri" [(ngModel)]="footerMenu.targetUri" formControlName="targetUri" trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Show Item For
+          </span>
+        </div>
+        <div class="col-md-6">
+          <customer-variants-select
+            [optionsType]="'loggedIn'"
+            [customerType]="footerMenu.showItemFor"
+            (onChange)="onShowModeChanged($event)">
+          </customer-variants-select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+              System ID
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="System ID" [(ngModel)]="footerMenu.systemID" formControlName="systemID">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <ng-container *ngIf="isIMActive; else cmsUpload">
+          <div class="col-md-2">
+            <span class="mat-label">SVG Icon</span>
+          </div>
+          <div class="col-md-6">
+            <svg-icon-select-input
+              [formFieldsModels]="footerMenu"
+              [externalForm]="form"
+            ></svg-icon-select-input>
+          </div>
+        </ng-container>
+        <ng-template #cmsUpload>
+          <div class="col-md-8">
+            <cms-upload
+              [label]="'SVG File'"
+              [filename]="footerMenu.svgFilename"
+              (onImageUpload)="uploadSvgHandler($event)"
+              (onImageRemove)="removeSvgHandler()">
+            </cms-upload>
+          </div>
+        </ng-template>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <cms-upload
+            [label]="'Filename'"
+            [filename]="footerMenu.filename"
+            (onImageUpload)="uploadImageHandler($event)"
+            (onImageRemove)="removeImageHandler()">
+          </cms-upload>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-10">
+          <cms-universal-segmented [segmentsDataObj]='segmentsList' [isRevert]="isRevert" (isFormValid)="isSegmentFormValid($event)"
+            (segmentsModifiedData)="modifiedSegmentsHandler($event)"></cms-universal-segmented>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="footerMenu"
+  [validateHandler]="validationHandler"
+  [fieldOrItemName]="'linkTitle'"
+  [collection]="footerMenu"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

@@ -1,0 +1,27 @@
+<div>
+
+  <!-- Top Bar-->
+  <top-bar [title]="'tt.toteInfoTitle'" [iconSvg]="svg" [iconId]="svgId"></top-bar>
+
+  <!--- Banners Section-->
+  <lazy-component 
+     moduleUri="@lazy-modules-module/banners/banners.module#BannersModule"
+     [inputs]='{ page: bannerCategory}' data-crlat="bannersSection">
+  </lazy-component>
+
+  <static-block [service]="'internationalTote'"></static-block>
+
+  <static-block [service]="'toteJackpot'"></static-block>
+
+  <static-block [service]="'toteTrifecta'"></static-block>
+
+  <static-block [service]="'toteExacta'"></static-block>
+
+  <static-block [service]="'totePlaced'"></static-block>
+
+  <static-block [service]="'toteWin'"></static-block>
+
+</div>
+<lazy-component moduleUri="@lazy-modules-module/quickLinks/quick-links.module#QuickLinksModule"
+[inputs]="{applyCss: true}" entryComponent="QuickLinksComponent">
+  </lazy-component>

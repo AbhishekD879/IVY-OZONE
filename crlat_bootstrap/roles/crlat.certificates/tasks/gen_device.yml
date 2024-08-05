@@ -1,0 +1,71 @@
+- name: "Download {{ domain_name }} certificate files if they are existing on s3"
+  aws_s3:
+    bucket: "{{ default_s3_bucket }}"
+    object: "{{ s3_certs_path }}/{{ domain_name }}.{{ extension_item }}"
+    dest: "{{ cert_tmp_dir.path }}/{{ domain_name }}.{{ extension_item }}"
+    mode: get
+  register: s3_certs_path_list
+  failed_when: false
+  changed_when: false
+  with_items:
+    - key
+    - csr
+    - crt
+    - ext
+  loop_control:
+    loop_var: extension_item
+
+- name: "Check that the {{ cert_tmp_dir.path }}/{{domain_name}}.key exists"
+  stat:
+    path: "{{ cert_tmp_dir.path }}/{{domain_name}}.key"
+  register: key_result
+
+- name: "Check that the {{ cert_tmp_dir.path }}/{{domain_name}}.csr exists"
+  stat:
+    path: "{{ cert_tmp_dir.path }}/{{domain_name}}.csr"
+  register: csr_result
+
+- name: "Check that the {{ cert_tmp_dir.path }}/{{domain_name}}.ext exists"
+  stat:
+    path: "{{ cert_tmp_dir.path }}/{{domain_name}}.ext"
+  register: ext_result
+
+- name: "Check that the {{ cert_tmp_dir.path }}/{{domain_name}}.crt exists"
+  stat:
+    path: "{{ cert_tmp_dir.path }}/{{domain_name}}.crt"
+  register: crt_result
+
+- name: "Create {{ domain_name }} key"
+  shell: "openssl genrsa -out {{ cert_tmp_dir.path }}/{{domain_name}}.key 2048"
+  when: (key_result.stat.exists|bool == False)
+
+- name: "Create {{ domain_name }} signing request"
+  shell: "openssl req -new -key {{ cert_tmp_dir.path }}/{{ domain_name }}.key -out {{ cert_tmp_dir.path }}/{{ domain_name }}.csr -subj '/C=UA/ST=Lviv/L=Lviv/O=Symphony/OU=AutomationCoral/CN={{domain_name}}'"
+  when: (key_result.stat.exists|bool == False) or (csr_result.stat.exists|bool == False)
+    - key_result.stat.exists == False
+    - csr_result.stat.exists == False
+
+- name: "Create {{ domain_name }}.ext extension file: {{ ext_result.stat.exists }}"
+  template:
+    src: v3.ext.j2
+    dest: "{{ cert_tmp_dir.path }}/{{ domain_name }}.ext"
+  when: (key_result.stat.exists|bool == False) or (csr_result.stat.exists|bool == False) or (ext_result.stat.exists|bool == False)
+
+- name: "Sign {{ domain_name }}  CRT"
+  shell: "openssl x509 -req -in {{ cert_tmp_dir.path }}/{{ domain_name }}.csr -CA {{ cert_tmp_dir.path }}/{{web_root_cert_filename}}.pem -CAkey {{ cert_tmp_dir.path }}/{{web_root_cert_filename}}.key -CAcreateserial -out {{ cert_tmp_dir.path }}/{{ domain_name }}.crt -days {{device_expire_days}} -sha256 -extfile {{ cert_tmp_dir.path }}/{{ domain_name }}.ext"
+  when: (key_result.stat.exists|bool == False) or (csr_result.stat.exists|bool == False) or (ext_result.stat.exists|bool == False) or (crt_result.stat.exists|bool == False)
+
+
+- name: "Upload certifacate files for {{ domain_name }}"
+  aws_s3:
+    bucket: "{{ default_s3_bucket }}"
+    object: "{{ s3_certs_path }}/{{ domain_name }}.{{ extension_item }}"
+    src: "{{ cert_tmp_dir.path }}/{{ domain_name }}.{{ extension_item }}"
+    mode: put
+  with_items:
+    - 'key'
+    - 'csr'
+    - 'ext'
+    - 'crt'
+  loop_control:
+    loop_var: extension_item

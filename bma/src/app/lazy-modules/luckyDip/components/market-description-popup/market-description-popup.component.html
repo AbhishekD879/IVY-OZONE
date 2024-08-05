@@ -1,0 +1,16 @@
+<modal #dialog [ngStyle]="{'--featured-image': 'url(' + overlayBannerImgPath + ')'}">
+
+  <ng-template #modalHeader>
+    <a data-uat="popUpCloseButton" class="btn-close" (click)="closeMarketDescriptionDialog()">
+      <svg>
+        <use xlink:href="#close-icon"></use>
+      </svg>
+    </a>
+  </ng-template>
+  <ng-template #modalBody>
+    <div class="body">
+      <div class="marketHeader" [innerHTML]="marketTitle"></div>
+      <div class="marketDescription" [innerHTML]="marketDescripton"></div>
+    </div>
+  </ng-template>
+</modal>

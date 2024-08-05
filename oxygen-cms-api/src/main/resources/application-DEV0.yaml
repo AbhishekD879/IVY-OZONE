@@ -1,0 +1,134 @@
+logging:
+  level:
+    com.ladbrokescoral: DEBUG
+
+spring:
+
+  data.mongodb:
+    uri: ${MONGODB:mongodb://cms-api:password@10.112.145.246:27017/bma?authSource=admin&replicaSet=rs0}
+
+akamai:
+
+  scheduled:
+    enabled: false
+    workers:
+      count: 5
+
+fastpurge:
+  cp_code:
+
+homeModule:
+  removeExpired:
+    cron: 0 0/5 * 1/1 * ?
+dashboard:
+  removeExpired:
+    cron: 0 0/5 * 1/1 * ?
+
+images:
+  hosting: s3
+
+nextRaces:
+  timePeriodMinutes : 60
+
+masterlock:
+  aws:
+    dynamo:
+      url: https://dynamodb.eu-west-2.amazonaws.com
+      lock-table-name: CR-MSLOCKTABLE-DEV
+
+amazon:
+  s3:
+    region: "eu-west-2"
+    bucket-name: "cms-api-ui-dev0"
+
+specialpages:
+  specialpageConfig:
+    ladbrokes:
+      url: https://bpp-dev0.ladbrokesoxygen.dev.cloud.ladbrokescoral.com/Proxy/specialpage
+      secret: export MAINTENANCE_KEY=VALUE
+    bma:
+      url: https://bpp-dev0.coralsports.dev.cloud.ladbrokescoral.com/Proxy/specialpage
+      secret: export MAINTENANCE_KEY=VALUE
+
+magicurl:
+  longurl: https://muckers2-excalibur.ladbrokes.com/5-a-side/leaderboard/
+
+showdown:
+  base:
+    url: https://showdown2.internal.tst.ladbrokes.com/showdown/api/
+
+# always last few seconds should be sync with featured.cron.expression
+last.view.seconds: 5
+
+cfcache:
+  tags:
+    bma: CSP-dev0-coral
+    ladbrokes : CSP-dev0-ladbrokes
+
+coral:
+  kafka:
+    bootstrap-servers: 10.151.48.99:9092,10.151.48.102:9092,10.151.48.119:9092
+    admin:
+      properties:
+        bootstrap:
+          servers: ${coral.kafka.bootstrap-servers}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      bootstrap-servers: ${coral.kafka.bootstrap-servers}
+      ssl:
+        key-store-location: classpath:ssl/dev/coral/ozone-publisher.keystore.jks
+        trust-store-location: classpath:ssl/dev/coral/ozone-publisher.truststore.jks
+        key-store-password: changeit
+        key-password: changeit
+        trust-store-password: changeit
+        trust-store-type: JKS
+        key-store-type: JKS
+      security:
+        protocol: SSL
+    properties:
+      security:
+        protocol: SSL
+    topic:
+      ladbrokes: timeline
+      coral: timeline-cr
+    partitions: 1
+    replicaFactor: 2
+  topic:
+    timeline: timeline
+    active-bet-packs: ${topic.bet-pack.prefix}__active-bet-packs-topic
+    partitions: 1
+    replicaFactor: 2
+
+topic:
+  bet-pack:
+    prefix: DEV0
+
+ladbrokes:
+  kafka:
+    bootstrap-servers: 10.151.49.99:9092,10.151.49.102:9092,10.151.49.119:9092
+    admin:
+      properties:
+        bootstrap:
+          servers: ${ladbrokes.kafka.bootstrap-servers}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      bootstrap-servers: ${ladbrokes.kafka.bootstrap-servers}
+      ssl:
+        key-store-location: classpath:ssl/dev/ladbrokes/ozone-publisher.keystore.jks
+        trust-store-location: classpath:ssl/dev/ladbrokes/ozone-publisher.truststore.jks
+        key-store-password: changeit
+        key-password: changeit
+        trust-store-password: changeit
+        trust-store-type: JKS
+        key-store-type: JKS
+      security:
+        protocol: SSL
+    properties:
+      security:
+        protocol: SSL
+    topic:
+      leaderboard-contest: ${distributed.prefix}-LDRBRD-leaderboard-contest
+    partitions: 1
+    replicaFactor: 1
+  topic:
+    timeline: timeline

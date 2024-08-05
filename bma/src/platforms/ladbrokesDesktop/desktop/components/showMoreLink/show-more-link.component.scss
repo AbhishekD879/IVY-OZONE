@@ -1,0 +1,40 @@
+@import 'global.variables.scss';
+
+in-play-sport-tab {
+  + :host {
+    .show-more-link {
+      margin-top: -2px;
+    }
+  }
+}
+
+.show-more-link {
+  background: $color-white;
+  height: 36px;
+  text-transform: uppercase;
+  padding: 0 12px;
+  @include display-flex();
+  @include align-items();
+  @include justify-content(flex-end);
+  font-size: 11px;
+  cursor: pointer;
+  font-weight: bold;
+  color: $blue;
+  text-decoration: none;
+  margin-top: -1px;
+  border-top: 1px solid $lGrayLight;
+
+  &.show-more-link:active {
+    text-decoration: underline;
+  }
+  .yourcall-hash {
+    color: $caribbean-green;
+  }
+
+  .arrow-icon {
+    width: 5px;
+    height: 8px;
+    fill: $blue;
+    margin-left: 5px;
+  }
+}

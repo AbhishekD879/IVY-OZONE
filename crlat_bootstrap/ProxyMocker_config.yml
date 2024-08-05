@@ -1,0 +1,20 @@
+---
+- name: Install software
+  hosts: tag_ClusterNodeType_ProxyMockerNodes
+  user: ubuntu
+  become: yes
+  gather_facts: yes
+  tasks:
+  - name: Print dockers list
+    debug:
+      msg: "{{ ec2_tag_dockers }}"
+    when: ec2_tag_dockers is defined
+
+  - name: Print s3 mounpoints list
+    debug:
+      msg: "{{ ec2_tag_s3mounts }}"
+    when: ec2_tag_s3mounts is defined
+
+  - name: Execute crlat.software role
+    include_role:
+      name: crlat.software

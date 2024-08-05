@@ -1,0 +1,11 @@
+@import 'global.variables.scss';
+
+.star-icon {
+  width: 10px;
+  height: 9px;
+  fill: $color-gray;
+
+  &.active {
+    fill: $color-yellow-alt;
+  }
+}

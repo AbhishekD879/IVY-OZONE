@@ -1,0 +1,23 @@
+<date-time-inputs
+  [isSetDateButtons]="isSetDateButtons"
+  [placeholderColumn]="placeholderColumn"
+  [validationError]="errorMessage"
+  [initialDate]="startDate"
+  [max]="maxStartDate"
+  [placeholder]="startPlaceholder"
+  [isSecondsEnabled] = "isSecondsEnabled"
+  (outputIsoTime)="handleDateChange($event, 'start')"
+  [disableFlag]="isStartDateEnable">
+</date-time-inputs>
+<date-time-inputs
+  [isSetDateButtons]="isSetDateButtons"
+  [disabled]="checkEndDateEnable"
+  [placeholderColumn]="placeholderColumn"
+  [validationError]="errorMessage"
+  [initialDate]="endDate"
+  [min]="minEndDate"
+  [placeholder]="endPlaceholder"
+  [isSecondsEnabled] = "isSecondsEnabled"
+  (outputIsoTime)="handleDateChange($event, 'end')"
+  [disableFlag]="isEndDateEnable">
+</date-time-inputs>

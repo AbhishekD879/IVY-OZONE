@@ -1,0 +1,15 @@
+<switchers data-crlat="switchers"
+           [filter]="filter"
+           [switchers]="sortSwitchers">
+</switchers>
+<accordion *ngFor="let type of eventsMap[filter].typeNames; trackBy: trackById; let index = index"
+           [accordionTitle]="type.typeName"
+           [isExpanded]="isExpanded[index]"
+           data-crlat="outerAccordion"
+           (function)="accordionHandler(index, type)"
+           class="top-accordion">
+  <accordion-body>
+    <list-card *ngFor="let event of type.typeNameEvents; trackBy: trackById;" (click)="closeOverlay(event)" data-crlat="race.antepost.event"
+               [item]="event" [link]="event.link" [date]="event.date"></list-card>
+  </accordion-body>
+</accordion>

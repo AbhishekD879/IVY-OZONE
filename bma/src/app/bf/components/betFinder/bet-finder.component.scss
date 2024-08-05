@@ -1,0 +1,248 @@
+@import 'global.variables.scss';
+
+
+.bet-finder-container {
+  color: $color-gray-dark;
+  font-family: $base-font-family;
+
+  .bf-header {
+    background: $color-white;
+    padding: 15px 10px 0;
+
+    .bf-header-title {
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .bf-header-text {
+      font-size: 11px;
+      margin-bottom: 5px;
+      line-height: 18px;
+    }
+
+    .bf-header-message {
+      font-size: 11px;
+      font-weight: bold;
+    }
+  }
+
+  .page-container {
+    background: $color-white;
+  }
+
+  .bf-form-container {
+    padding: 0 10px 20px;
+    position: relative;
+
+    .bf-form-part {
+      border-bottom: 1px solid $color-gray;
+      padding: 20px 0;
+
+      .bf-form-title {
+        font-size: 12px;
+        font-weight: bold;
+        margin-bottom: 5px;
+
+        &.star-title {
+          display: inline-block;
+          margin: 0;
+        }
+      }
+
+      &.bf-form-last {
+        margin-bottom: 45px;
+      }
+
+      input[type="text"] {
+        height: 36px;
+        background: $color-white;
+        border: 1px solid $color-gray;
+        padding: 10px;
+        margin-top: 10px;
+        outline: 0;
+        box-shadow: 0 1px 0 $color-white;
+      }
+
+      select {
+        border: 1px solid $color-gray;
+        background: $color-white;
+      }
+
+      .custom-select {
+        margin: 10px 0 0;
+      }
+
+      .group-buttons {
+        margin-top: 10px;
+
+        .group-btn .group-col-toggle .btn {
+          color: $color-gray-dark;
+          font-size: 11px;
+          font-weight: bold;
+          background: $color-white;
+          border: 1px solid $color-gray;
+          box-shadow: none;
+          text-shadow: none;
+
+          &.active {
+            background: $brand-color-main;
+            color: $color-white;
+            border: none;
+            pointer-events: initial;
+          }
+
+          .check-icon {
+            display: none;
+          }
+        }
+      }
+
+      .bf-btn {
+        color: $color-gray-dark;
+        background: $color-white;
+        border: 1px solid $color-gray;
+
+        &.active {
+          background: $brand-color-main;
+          color: $color-white;
+          border: none;
+        }
+
+        .check-icon {
+          display: none;
+        }
+      }
+
+      .float-section {
+        float: right;
+      }
+
+      .bf-stars {
+        cursor: pointer;
+        display: inline-block;
+        @extend .float-section;
+
+        .star-icon {
+          width: 17px;
+          height: 17px;
+          stroke: $color-gray;
+          fill: $color-white;
+          margin-left: 10px;
+
+          &.active {
+            stroke: $brand-color-main;
+            fill: $brand-color-main;
+          }
+        }
+      }
+    }
+
+    .bf-buttons {
+      position: absolute;
+      bottom: 0;
+      background: $color-white;
+      width: 100%;
+      margin: 0 -14px;
+      padding: 0 5px 15px;
+      text-align: center;
+
+      &.fixed {
+        position: fixed;
+        bottom: 55px;
+        box-shadow: 0px -6px 10px -4px rgba(0,0,0,0.4);
+
+        // fix to not overlap with Iphone X bottom software button.
+        @supports (padding-bottom: constant(safe-area-inset-top)) {
+          > [class*=col-] {
+            --safe-area-inset-bottom: constant(safe-area-inset-bottom);
+            padding-bottom: calc(var(--safe-area-inset-bottom) - 18px);
+          }
+        }
+
+        @supports (padding-bottom: env(safe-area-inset-top)) {
+          > [class*=col-] {
+            --safe-area-inset-bottom: env(safe-area-inset-bottom);
+            padding-bottom: calc(var(--safe-area-inset-bottom) - 18px);
+          }
+        }
+
+        @media #{$mqDesktop}{
+          position: absolute;
+          bottom: 0;
+          box-shadow: none;
+        }
+      }
+
+      .bf-btn {
+        padding: 8px 5px;
+        height: 35px;
+        margin-top: 15px;
+
+        &.btn-secondary {
+          padding: 12px 5px;
+        }
+      }
+
+      .bf-found {
+        font-size: 8px;
+      }
+    }
+
+    .bf-btn {
+      height: 30px;
+      font-size: 11px;
+      margin-top: 10px;
+      box-shadow: none;
+      text-shadow: none;
+    }
+  }
+}
+
+.bf-top-header {
+  .bf-reset {
+    margin-right: 5px;
+    cursor: pointer;
+
+    .bf-reset-text {
+      text-decoration: none;
+      color: $color-white;
+      font-size: 11px;
+      vertical-align: middle;
+      @media #{$mqTabletAndDesktop} {
+      &:hover {
+        text-decoration: underline;
+      }
+      }
+      &:active {
+        text-decoration: none;
+        color: $color-medium-gray;
+      }
+    }
+
+    .refresh-icon {
+      width: 22px;
+      height: 22px;
+      fill: $color-gray-dark;
+      cursor: pointer;
+      vertical-align: middle;
+      display: none;
+
+      &.rotate-icon {
+        animation: spin 1s 1;
+        @-moz-keyframes spin {
+          from { -moz-transform: rotate(360deg); }
+          to { -moz-transform: rotate(0deg); }
+        }
+        @-webkit-keyframes spin {
+          from { -webkit-transform: rotate(360deg); }
+          to { -webkit-transform: rotate(0deg); }
+        }
+        @keyframes spin {
+          from {transform:rotate(360deg);}
+          to {transform:rotate(0deg);}
+        }
+      }
+    }
+  }
+}

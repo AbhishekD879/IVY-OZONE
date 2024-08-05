@@ -1,0 +1,111 @@
+<!-- events -->
+<div class="competition-type-events sk-container" [ngClass]="{'sk-loading': !isLoaded}">
+  <loading-screen [displayed]="!isLoaded" [templateType]="'GENERIC'" [isFullPage]="true"></loading-screen>
+
+  <!--- Top Bar -->
+  <top-bar [title]="'Competitions'" [iconSvg]="titleIconSvg" [iconId]="titleIconSvgId"
+           [innerContent]="sportName === 'football'" (titleFunc)="goToPage(sportDefaultPath)" *ngIf='!isOnHomePage'>
+    <top-bar-body id="fav-icon" (touchstart)="favIconDown()" (touchend)="favIconUp()" class="top-bar-side" data-crlat="topBarContent">
+      <favourites-counter [listenerName]="'sportCompetition'"></favourites-counter>
+    </top-bar-body>
+  </top-bar>
+
+  <!-- Competitions new header with a  multi-level dropdown -->
+  <div #competitionsHeader class="competitions-header" *ngIf="isLoaded" [ngClass]="{'active': isShowCompetitions}" data-crlat="title">
+    <div class="competitions-title" [textContent]="typeName" data-crlat="typeName"></div>
+    <div *ngIf="isTierOne" class="competitions-selector" (click)="showCompetitionsList()">
+      <span class="competitions-selector-title" data-crlat="changeCompetition">Change Competition</span>
+      <svg class="competitions-selector-arrow">
+        <use [attr.xlink:href]="(isShowCompetitions? '#up-arrow' : '#down-arrow')"></use>
+      </svg>
+    </div>
+  </div>
+
+  <div #competitionsList class="coupons-list" *ngIf="isLoaded"  [ngClass]="{'active': isShowCompetitions}">
+    <div [ngClass]="{'tennis-competitions' : isTennis()}" class="coupons-wrap">
+      <div *ngIf="showSpinnerInDropdown" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+      <!--- Initial categories -->
+      <competitions-categories *ngIf="mainCategories?.length"
+                               [categories]="mainCategories"
+                               [isAzCategories]="false"
+                               [competitionsClasses]="'competitions-categories-accordion change-competition'"
+                               [categoryId]="sportId"
+                               [hidden]="showSpinnerInDropdown"
+                               data-crlat="competitionListContainer"></competitions-categories>
+
+      <competitions-categories *ngIf="allCategories?.length"
+                               [categories]="allCategories"
+                               [competitionsClasses]="'competitions-categories-accordion change-competition'"
+                               [isAzCategories]="true"
+                               [hidden]="showSpinnerInDropdown"
+                               data-crlat="competitionItem"
+                               [categoryId]="sportId"></competitions-categories>
+    </div>
+  </div>
+
+  <div class="competitions-wrapper" [hidden]="isShowCompetitions" data-crlat="tabContent">
+    <!-- Competition tabs(Matches, Outrights, Results) -->
+    <switchers
+      *ngIf="isLoaded && showSwitchers"
+      [type]="'scrollable'"
+      [switchers]="competitionTabs"
+      [activeTab]="activeTab"
+      [switchIdPropertyName]="'id'"
+      (switchAction)="tabsSwitcher($event)"
+      [noPaddings]="true"
+      [detectGTMLocation]="'location'"
+    ></switchers>
+
+    <!-- Time Filters -->
+    <lazy-component *ngIf="isSportEventFiltersEnabled && competitionFilters.length && activeTab?.name === 'matches' && displayFilters"
+                    data-crlat="competitionFilters"
+                    moduleUri="@lazy-modules-module/competitionFilters/competitionFilters.module#CompetitionFiltersModule"
+                    [inputs]="{filters: competitionFilters, isCompetitionsPage: true, sportId: sportId, paddingTop: true, marginTop: true}"
+                    [outputs]="['filterChange']"
+                    (event)="handleCompetitionFilterOutput($event)"
+    ></lazy-component>
+
+    <!-- Matches section -->
+    <competitions-matches-tab
+      *ngIf="activeTab?.name === 'matches'"
+      [eventsByCategory]="eventsByCategory"
+      [eventsByCategoryCopy]="eventsByCategoryCopy"
+      [sport]="sport"
+      [isLoaded]="isLoaded"
+      [sportId]="sportId"
+      [competitionPage]="true"
+      [inner]="true"
+      data-crlat="accordionsList"
+      [targetTab]="targetTab">
+    </competitions-matches-tab>
+
+    <!--Outrights-->
+    <competitions-outrights-tab
+      *ngIf="activeTab?.name === 'outrights'"
+      [outrights]="outrights"
+      [isLoaded]="isLoaded">
+    </competitions-outrights-tab>
+
+    <!-- Results section !-->
+    <competitions-results-tab
+      [seasonId]="seasonId"
+      [isLoaded]="isLoaded"
+      *ngIf="activeTab?.name === 'results'">
+    </competitions-results-tab>
+
+    <!-- Standings section !-->
+    <competitions-standings-tab
+      [typeId]="typeId"
+      [classId]="classId"
+      [sportId]="sportId"
+      [seasonId]="seasonId"
+      [isLoaded]="isLoaded"
+      *ngIf="activeTab?.name === 'standings'">
+    </competitions-standings-tab>
+
+    <div *ngIf="!activeTab?.name">
+      <no-events *ngIf="isLoaded"></no-events>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,12 @@
+<div class="knockout-round-winner" *ngFor="let stage of eventsByRound[round.name]; index as i">
+
+  <div class="knockout-box"
+       [ngClass]="{ 'final': stage.length === 1 }"
+       *ngFor="let event of stage">
+    <knockouts-card [cardEvent]="event"
+                    [stage]="stage">
+    </knockouts-card>
+  </div>
+
+  <div *ngIf="abbr" class="knockout-stage-name" [textContent]="(abbr + (i + 1))"></div>
+</div>

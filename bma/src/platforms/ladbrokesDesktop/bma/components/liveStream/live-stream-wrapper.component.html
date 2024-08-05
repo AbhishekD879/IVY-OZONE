@@ -1,0 +1,11 @@
+<top-bar *ngIf="isTopBarShown" [title]="'sb.liveStream'"></top-bar>
+
+<lazy-component moduleUri="@inplayModule/inplay.module#InplayModule"
+                entryComponent="InplayWatchLivePageComponent"
+                [inputs]="{isLiveStreamPage: true}"
+                [handleError]="true">
+</lazy-component>
+
+<lazy-component moduleUri="@lazy-modules-module/quickLinks/quick-links.module#QuickLinksModule"
+[inputs]="{applyCss: true}" entryComponent="QuickLinksComponent">
+  </lazy-component>

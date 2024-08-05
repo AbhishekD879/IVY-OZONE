@@ -1,0 +1,9 @@
+<div class="container">
+    <div class="col-xs-12 row space-around">
+        <div #inputElement class="col-xs-12 background-element content-left">
+            <div [@myInsertMultiRemoveTrigger] class="dot"
+                [ngClass]="entry.rankProgress >= losingpercentage ? 'boarder-color-green':'boarder-color-white'"
+                *ngFor="let entry of myEntriesList" [style.margin-left.%]="entry.rankProgress"></div>
+        </div>
+    </div>
+</div>

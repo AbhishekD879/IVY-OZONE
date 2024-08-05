@@ -1,0 +1,6 @@
+<top-bar *ngIf="mode !== BET_HISTORY" [title]="'retail.betTracker'" data-crlat="topBar"></top-bar>
+<div *ngIf="!isBetTrackerLoaded" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+<div id="main-app" *ngIf="isBetTrackerLoaded">
+  <bet-tracker-app *ngIf="mode !== BET_HISTORY"></bet-tracker-app>
+  <bet-tracker-history *ngIf="mode === BET_HISTORY"></bet-tracker-history>
+</div>

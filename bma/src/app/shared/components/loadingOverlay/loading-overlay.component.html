@@ -1,0 +1,3 @@
+<div [hidden]="!overlayVisible" class="loading-overlay" [ngClass]="{'loading-overlay-playbreak' : (apiVanillaService.persistPlaybreak || isOverlayPlayBreakAdjusted)}" data-crlat="loading-overlay" scroll-fix>
+  <div [hidden]="!spinnerVisible" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+</div>

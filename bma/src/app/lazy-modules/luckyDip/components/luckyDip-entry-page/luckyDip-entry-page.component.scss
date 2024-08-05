@@ -1,0 +1,63 @@
+
+@import 'global.variables.scss';
+
+@mixin padding-mixin($padding) {
+  padding: $padding;
+}
+
+.selectionContent {
+  background: $color-white;
+  border-bottom: 1px solid $color-gray;
+  font-size: 13px ;
+  font-family:$alt-font-family;
+  @include padding-mixin(10px 12px);
+  display: flex;
+  align-items: center;
+}
+
+.marketDescContent {
+  background: $color-white;
+  border-bottom: 1px solid $color-gray;
+  @include padding-mixin(10px 12px);
+  display: flex;
+  align-items: center;
+}
+
+.marketName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+  font-family: $basic-font-family;
+}
+
+.marketDesc {
+  padding-left: 2px;
+  height: 14px;
+  font-family: $basic-font-family;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  color: $color-gray-darkest;
+}
+
+.marketTemplate {
+  display: flex;
+  word-break: break-all;
+}
+
+.oddsClass {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: flex-end;
+  word-break: break-word;
+  margin-left: auto;
+}
+
+.infoIcon {
+  height: 12px;
+  width: 25px;
+  cursor: pointer;
+  margin-left: -6%;
+}

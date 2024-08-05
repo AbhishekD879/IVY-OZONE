@@ -1,0 +1,39 @@
+@import '../../assets/styles/general.scss';
+@import '../../../../../app/questionEngine/components/splashPage/splash-page.component.scss';
+
+.splash-page {
+  .strap-line {
+    font-family: $alt-font-family;
+    line-height: 1.31;
+  }
+
+  .main-btn {
+    height: 42px;
+    border-radius: 21px;
+    color: $color-white;
+    opacity: 0.95;
+    border: none;
+    @include bg-gradient($color-green, $color-green-grass, bottom);
+    margin-bottom: 20px;
+
+    font-size: $font-size-bit-lgr;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+  .promo-logo {
+    max-height: 70px;
+  }
+}
+
+:host ::ng-deep {
+  .qe-footer {
+    .qe-footer-list-link {
+      padding: 13px;
+      font-family: $alt-font-family;
+    }
+  }
+}

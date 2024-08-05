@@ -1,0 +1,27 @@
+<header class="countdown-header">
+  <div class="countdown-header-event">
+    <div class="countdown-header-event-time" data-crlat="eventTime">
+      {{ startTimeUnix | date: "HH:mm" }}
+    </div>
+    <div class="countdown-header-event-name" [textContent]="eventName" data-crlat="eventName"></div>
+  </div>
+  <div class="countdown-header-timer" data-crlat="countDownTimer">
+    <div class="circle" [ngClass]="{'animate': fillDeg}">
+      <div class="mask full" [style.transform]="'rotate(' + fillDeg + 'deg)'">
+        <div
+          class="fill"
+          [style.transform]="'rotate(' + fillDeg + 'deg)'"
+        ></div>
+      </div>
+      <div class="mask half">
+        <div
+          class="fill"
+          [style.transform]="'rotate(' + fillDeg + 'deg)'"
+        ></div>
+      </div>
+      <div class="circle-inside">
+        <span [textContent]="timeLeft"></span>
+      </div>
+    </div>
+  </div>
+</header>

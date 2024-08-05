@@ -1,0 +1,14 @@
+<loading-screen [displayed]="!isLoading" [templateType]="'GENERIC'" [longRenderView]="true"></loading-screen>
+<div *ngIf='isLoading' class='btn-group-parent'>
+    <div class='btn-group' *ngIf="overMarkets">
+        <button class='btn-select' [ngClass]="{'btn-select-coral': isCoral, 'btn-select-lads': !isCoral, 'active': buttonState === 'over' && isCoral, 'active-lads': buttonState === 'over' && !isCoral}" id='switch-custom'
+        *ngIf='this.overMarketsMap.size' (click)="displayIncrement('over')" [textContent]="'Over'"></button>
+        <button class='btn-select' id='switch-custom' *ngIf='market?.key == "TOTAL GOALS" && this.overMarketsMap.size'
+        [ngClass]="{'btn-select-coral': isCoral, 'btn-select-lads': !isCoral, 'active': buttonState === 'exact' && isCoral, 'active-lads': buttonState === 'exact' && !isCoral}" (click)="exactMarkets()" [textContent]="'Exactly'"></button>
+        <button class='btn-select' [ngClass]="{'btn-select-coral': isCoral, 'btn-select-lads': !isCoral, 'active': buttonState === 'under' && isCoral, 'active-lads': buttonState === 'under' && !isCoral}" id='switch-custom'
+        *ngIf='this.underMarketsMap.size'   (click)="displayIncrement('under')" [textContent]="'Under'"></button>
+    </div>
+    <div class='partition'> </div>
+    <byb-counter [selectedMap]='showMarkets' (selectedSelection)='selectValue($event)'
+    [buttonState]='buttonState' [initial]='initial' [incrementvalue]='incrementvalue' (collapseLists)='fncollapseLists()'></byb-counter>
+</div>  

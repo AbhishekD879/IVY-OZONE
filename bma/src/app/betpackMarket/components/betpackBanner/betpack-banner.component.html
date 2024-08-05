@@ -1,0 +1,13 @@
+<div *ngIf="enableBanner" [hidden]="!isValidImage" class="bpmp-banner-entry" (click)="migrateToBPMP()">
+  <img class="disableImg" [src]="bpmpBannerImageUrl" (load)="isValidImage = true" (error)="isValidImage = false">
+  <div class="bpmp_detail">
+    <a class="btn-close" (click)="closeBanner($event);$event.stopPropagation();">
+      <svg class="close-icon">
+        <use xlink:href="#close-icon"></use>
+      </svg>
+    </a>
+    <div class="bpmp_welcome_text" [innerHTML]="welcomeMsg" ></div>
+    <a class="tnCLink" [textContent]="termsAndCondition" [href]="termsAndConditionLink"
+      (click)="$event.stopPropagation();" target="_self"></a>
+  </div>
+</div>

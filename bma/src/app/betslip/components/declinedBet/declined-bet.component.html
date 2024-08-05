@@ -1,0 +1,33 @@
+<div class="bs-declined-stake-content" data-crlat="stakeContent">
+  <p class="stake-message" data-crlat="stakeMsg" [i18n]="'bs.overaskMessages.betIsDeclined'"></p>
+  <div class="stake-info">
+    <div class="stake-title">
+      <span *ngIf="selectionName"
+            data-uat="selectionName"
+            [textContent]="selectionName">
+      </span>
+      <betslip-fctc-list *ngIf="!selectionName && fctcData"
+                         [outcomes]="fctcData.outcomes"
+                         [lines]="fctcData.lines"
+                         [modifire]="fctcData.modifire"
+                         data-uat="selectionName">
+      </betslip-fctc-list>
+      <span *ngIf="selectionName && stakeMultiplier"
+            class="bs-stake-title-lines"
+            data-crlat="stakeMultiplier"
+            [textContent]="stakeMultiplier">
+      </span>
+    </div>
+    <span class="stake-type"
+          data-uat="marketName"
+          [textContent]="marketName">
+    </span>
+    <ng-container *ngIf="eventName">
+      /
+      <span class="stake-event-name"
+            data-uat="eventName"
+            [textContent]="eventName">
+    </span>
+    </ng-container>
+  </div>
+</div>

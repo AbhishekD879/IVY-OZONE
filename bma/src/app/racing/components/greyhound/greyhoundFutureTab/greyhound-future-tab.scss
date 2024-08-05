@@ -1,0 +1,12 @@
+@import 'global.variables.scss';
+
+greyhound-future-tab:host list-card::ng-deep {
+  .list-card-name {
+    font-weight: bold;
+    font-size: $font-size-tablet;
+  }
+
+  .list-card-date {
+    font-size: $font-size-sm;
+  }
+}

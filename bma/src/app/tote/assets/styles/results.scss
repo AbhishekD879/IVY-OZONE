@@ -1,0 +1,50 @@
+@import 'global.variables.scss';
+
+$color-mako: $color-gray-dark;
+$color-alto: $color-gray;
+
+.tote-results-container {
+  .result-container {
+    color: $color-mako;
+    font-size: 11px;
+    padding: 5px 10px;
+    background: $color-white;
+
+    .result {
+      min-height: 50px;
+      @include display-flex();
+      @include align-items();
+      @include flex(1, 0, auto);
+      border-bottom: 1px solid $color-alto;
+
+      &:last-child {
+        border: none;
+      }
+      .result-name {
+        margin-left: 5px;
+      }
+      .silk-img {
+        margin: 0;
+      }
+    }
+    .jockey-trainer {
+      color: $color-mako;
+    }
+  }
+
+  .container-header .icon-label {
+    margin: 0;
+    width: 15px;
+    height: 15px;
+  }
+
+  .result-by-type.page-container.page-inner-container .container-content {
+    margin: 4px;
+    border-radius: 3px;
+  }
+
+  .result-by-type-container.page-container .container-content {
+    margin: 0;
+    border-radius: 0;
+  }
+}

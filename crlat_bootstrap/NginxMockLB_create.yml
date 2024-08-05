@@ -1,0 +1,31 @@
+---
+- name: Create NGINX mock loqd balancer EC2 node
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    key_name: crlat
+    instance_type: t2.medium
+    security_group: crlat
+    image_name: ubuntu_1604_ansible
+    subnet_name: private
+    volume_size: 8
+    action: create
+    node_type: SingleNode
+    assign_public_ip: yes
+    tags:
+      DNSrecords: crlat-qbbackends-mock
+      team: Automation
+      nodeType: "{{ node_type }}"
+      Name: ProxyMockerLB
+      class: private
+      packages: docker
+      dockers: telegraf,NginxSslLB
+      NginxUpstream: ProxyMockerNodes
+      ClusterName: QuickBetLoadTest
+      ClusterNodeType: ProxyMockerLB
+    num_nodes: 1
+  tasks:
+  - name: crlat.vpc
+    include_role:
+      name: crlat.vpc

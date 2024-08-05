@@ -1,0 +1,125 @@
+@import 'global.variables.scss';
+.quick-nav {
+  font-family: $base-font-family;
+  position: fixed;
+  top: 0;
+  left: -9999px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  transition: left 0s .2s linear;
+
+  .overlay {
+    transition: opacity .25s .05s linear;
+    background: $popup-overlay-color;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 0;
+  }
+  .quick-nav-holder {
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: $color-white;
+    transition: all .3s ease-in-out;
+    will-change: transform;
+    transform: translate3d(0, 100%, 0);
+  }
+  &.active {
+    top: 0;
+    left: 0;
+    transition: left 0s 0s linear;
+
+    .overlay {
+      transition: opacity .2s linear;
+      opacity: 1;
+    }
+    .quick-nav-holder {
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  .quick-nav-frame {
+    max-height: calc(100vh - 167px);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .links-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      + li {
+        border-top: 1px solid $color-gray;
+      }
+    }
+
+    .list-link {
+      display: block;
+      position: relative;
+      color: $color-gray-dark;
+      padding: 12px 13px;
+      font-size: $font-size-base;
+
+      &:hover {
+        text-decoration: none;
+      }
+      &.active-link {
+        font-weight: bold;
+      }
+      .item-next-arrow {
+        position: absolute;
+        right: 13px;
+        top: 50%;
+        margin-top: -7px;
+        width: 8px;
+        height: 13px;
+        fill: $color-gray-alt;
+      }
+    }
+  }
+  .quick-subtitle {
+    background: $color-gray;
+    color: $color-gray-dark;
+    text-transform: uppercase;
+    font-size: $font-size-md;
+    font-weight: normal;
+    display: block;
+    padding: 15px 12px;
+  }
+  .quick-title {
+    background: $brand-color-main;
+    text-align: center;
+    position: relative;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: $color-white;
+
+    strong {
+      font-weight: normal;
+    }
+    .close-menu {
+      position: absolute;
+      top: 50%;
+      right: 8px;
+      will-change: transform;
+      transform: translateY(-50%);
+      padding: 5px;
+      background: none;
+      border: 0;
+      line-height: 0;
+
+      svg {
+        fill: $color-white;
+        width: 12px;
+        height: 12px;
+      }
+    }
+  }
+}

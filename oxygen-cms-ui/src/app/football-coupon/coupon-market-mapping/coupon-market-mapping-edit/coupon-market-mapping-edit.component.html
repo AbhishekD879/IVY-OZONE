@@ -1,0 +1,60 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="!isLoading">
+  <div class="header">
+    <h2>Edit Coupon Market Mapping: <span class="font-italic">{{ couponMarketMapping.couponId }}</span></h2>
+    <create-updated-at-by [collection]="couponMarketMapping"></create-updated-at-by>
+  </div>
+</div>
+
+<form [formGroup]="form">
+  <div class="card" *ngIf="!isLoading">
+    <div class="body">
+      <div class="row clearfix">
+        <div class="col-md-3">
+            <span class="mat-label">
+                couponId
+            </span>
+        </div>
+        <div class="col-md-7">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !couponMarketMapping.couponId}">
+            <input matInput type="text"
+                   placeholder="couponId"
+                   [(ngModel)]="couponMarketMapping.couponId"
+                   formControlName="couponId"
+                   required trim="blur">
+            <mat-hint class="col-red" *ngIf="!couponMarketMapping.couponId">couponId should be entered</mat-hint>
+
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-3">
+            <span class="mat-label">
+              Market Template Name
+            </span>
+        </div>
+        <div class="col-md-7">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !couponMarketMapping.marketNam }">
+            <input matInput type="text" required
+                   aria-label="Market Template Name"
+                   placeholder="Market Template Name"
+                   [(ngModel)]="couponMarketMapping.marketName"
+                   formControlName="marketName"
+                   [matAutocomplete]="auto"
+                   (keyup)="isTemplateNameValid()">
+            <mat-hint class="col-red" *ngIf="!couponMarketMapping.marketName">Template market name should be entered</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<action-buttons
+  #actionButtons
+  *ngIf="!isLoading"
+  [validateHandler]="isValidModel"
+  [fieldOrItemName]="'couponId'"
+  [collection]="this.couponMarketMapping"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

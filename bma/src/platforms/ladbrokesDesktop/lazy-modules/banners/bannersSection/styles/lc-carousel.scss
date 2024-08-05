@@ -1,0 +1,155 @@
+@import 'global.variables.scss';
+
+.swiper-container {
+  padding-top: calc(#{$banner-min-height} * 1% + #{$banner-shadow-height});
+
+  .carousel-slides {
+    width: calc(100% + 8px);
+  }
+}
+
+.lc-carousel {
+  padding-bottom: $banner-shadow-height;
+  margin-bottom: -$banner-shadow-height;
+}
+.swiper-container {
+  margin-bottom: 0;
+}
+
+@keyframes timer-fill {
+  from {
+    will-change: transform;
+    transform: translateX(0);
+  }
+  to {
+    will-change: transform;
+    transform: translateX(100%);    
+  }
+}
+
+.lc-carousel__prev,
+.lc-carousel__next {
+  position: absolute;
+  top: 0;
+  bottom: -2px;
+  width: 20px;
+  background-color: rgba($color-black, 0.6);
+  opacity: 0;
+  transition: opacity ease 350ms, transform ease 350ms;
+  z-index: 2;
+  display: none;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: 10px;
+  background-position: center;
+
+  &:hover {
+    background-color: rgba($color-black, 0.8);
+  }
+}
+
+.lc-carousel:hover .lc-carousel__prev,
+.lc-carousel:hover .lc-carousel__next {
+  will-change: transform;
+  transform: translateX(0);
+}
+.lc-carousel__prev {
+  left: 0;
+  will-change: transform;
+  transform: translateX(-100%);
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjU4NSIgaGVpZ2h0PSIxMDI0IiB2aWV3Qm94PSIwIDAgNTg1IDEwMjQiPgo8cGF0aCBmaWxsPSIjZmZmIiBkPSJNLTAuMTQzIDUxMmw0OTEuNTIgNTEyIDkzLjYyMy05Ny41MjQtMzk3Ljg5Ny00MTQuNDc2IDM5Ny44OTctNDE0LjQ3Ni05My42MjMtOTcuNTI0eiI+PC9wYXRoPgo8L3N2Zz4K");
+  background-size: 8px 14px;
+}
+.lc-carousel__next {
+  right: 0;
+  will-change: transform;
+  transform: translateX(100%);
+  background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iOHB4IiBoZWlnaHQ9IjE0cHgiIHZpZXdCb3g9IjAgMCA4IDE0IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPGcgaWQ9Ik1haW4iIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSJGb290YmFsbC18LUxhbmRpbmctUGFnZS18LTE2MDBweCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTEyODYuMDAwMDAwLCAtNjgyLjAwMDAwMCkiIGZpbGw9IiNGRkZGRkYiPgogICAgICAgICAgICA8cG9seWdvbiBpZD0iQmFjay1DaGV2cm9uIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjkwLjAwMDAwMCwgNjg5LjAwMDAwMCkgc2NhbGUoLTEsIDEpIHRyYW5zbGF0ZSgtMTI5MC4wMDAwMDAsIC02ODkuMDAwMDAwKSAiIHBvaW50cz0iMTI4NiA2ODkgMTI5Mi43MiA2ODIgMTI5NCA2ODMuMzMzMzMzIDEyODguNTYgNjg5IDEyOTQgNjk0LjY2NjY2NyAxMjkyLjcyIDY5NiI+PC9wb2x5Z29uPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+");
+  background-size: 8px 14px;
+}
+
+/* Desktop breakpoint */
+@media only screen and (min-width: $landscapeTabletPoint) {
+  .lc-carousel__prev,
+  .lc-carousel__next {
+    display: block;
+  }
+}
+
+.lc-offer {
+  height: 100%;
+  margin-right: 12px;
+  position: relative;
+}
+
+.lc-offer__image {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  display: block;
+  opacity: 1;
+
+  &[data-src] {
+    opacity: 0;
+  }
+}
+
+.lc-offer__terms,.lc-offer_terms{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 5px 10px;
+  font-size: $font-size-pre-xs;
+  line-height: normal;
+  text-decoration: none;
+  white-space: normal;
+  color: $offer-terms-color;
+  background-color: $offer-terms-bg;
+
+  p {
+    margin: 0;
+    padding: 0;
+    font-size: 11px;
+    line-height: normal;
+    @media #{$mqTablet} {
+      font-size: $font-size-pre-xs;
+    }
+    @media #{$mqMobile} {
+      font-size: $font-size-xs;
+    }
+  }
+
+  u {
+    text-decoration: underline;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.swiper-container .carousel-slides:not(.center-mode) {
+  width: 100%;
+}
+
+.ng-carousel {
+  ::ng-deep {
+    .carousel-slides {
+      @include transform(translate(-$slide-width * 2, 0));
+
+      &.carousel-no-scroll {
+        @include transform(translate(-$slide-width, 0));
+      }
+    }
+
+    .slide, .carousel-slide-copy {
+      width: $slide-width;
+      min-width: $slide-width;
+    }
+  }
+}
+
+#banner-section {
+  background-color: transparent;
+}

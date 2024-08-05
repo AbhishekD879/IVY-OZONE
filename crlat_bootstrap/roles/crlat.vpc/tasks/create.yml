@@ -1,0 +1,21 @@
+- name: Provision a set of instances
+  ec2:
+    key_name: "{{ key_name }}"
+    group: "{{ security_group }}"
+    vpc_subnet_id: "{{ subnets[subnet] }}"
+    instance_type: t2.medium
+    image: "{{ os_images[os_image] }}"
+    volumes:
+      - device_name: /dev/sda1
+        volume_size: "{{ volume_size }}"
+    region: "{{region}}"
+    assign_public_ip: "{{assign_public_ip}}"
+    wait: "{{ wait }}"
+    exact_count: "{{ exact_count }}"
+    count_tag:
+      Group: "{{ tag_name }}"
+    instance_tags:
+      Group: "{{ tag_group }}"
+      Name: "{{ tag_name }}"
+      Type: "{{tag_type}}"
+  register: ec2

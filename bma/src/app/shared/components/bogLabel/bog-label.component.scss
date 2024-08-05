@@ -1,0 +1,47 @@
+@import 'global.variables.scss';
+
+.bog {
+  &-block {
+    @include display-flex();
+    @include align-items(center);
+    font-family: $base-font-family;
+    white-space: nowrap;
+    margin: 0 4px 4px 0;
+  }
+  &-bg {
+    background-color: $color-yellow;
+    padding: 0 4px;
+    @include flex-wrap(wrap);
+    @include inline-flex();
+    text-transform: uppercase;
+    font-stretch: condensed;
+    font-weight: bold;
+    border-radius: 1px;
+    height: 17px;
+
+    .bog-label {
+      color: $color-blue;
+      padding-left: 4px;
+      line-height: normal;
+      font-size: 8px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  }
+
+  &-label {
+    font-family: $base-font-family;
+    font-size: 10px;
+    color: $single-selection-odds;
+    font-weight: bold;
+    @include inline-flex();
+    @include align-items(center);
+  }
+
+  &-icon {
+    width: 17px;
+    height: 8px;
+    margin-right: 3px;
+    @include inline-flex();
+  }
+}

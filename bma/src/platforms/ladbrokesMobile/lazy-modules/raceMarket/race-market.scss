@@ -1,0 +1,126 @@
+@import 'global.variables.scss';
+
+.race-market {
+  margin-top: 0;
+  box-shadow: 0 -1px 0 0 $lGrayLight, 0 1px 0 0 $lGrayLight;
+  .race-market-header {
+    .header-wrapper {
+      @include display-flex();
+      @include justify-content(flex-end);
+      @include align-items(center);
+      background-color: $color-white;
+      min-height: 30px;
+      padding-right: 12px;
+      margin: 0;
+
+      li {
+        min-width: 65px;
+        list-style-type: none;
+        text-align: center;
+        margin-left: 6px;
+        font-size: $font-size-md;
+        color: $color-gray-dark2;
+        font-family: $alt-font-family;
+        text-transform: uppercase;
+      }
+    }
+  }
+  .previous-prices {
+    font-family: $alt-font-family;
+    font-size: $font-size-md;
+    color: $color-gray-dark2;
+  }
+  .price-odds-wrapper {
+    margin-left: 6px;
+
+    .btn-bet,
+    .btn.btn-bet {
+      width: 50px;
+      //disabled
+      &.active[disabled], &.bet-up[disabled],
+      &.bet-down[disabled], &.bet-dis[disabled],
+      &[disabled] {
+        width: 50px;
+      }
+    }
+  }
+  .odds-card {
+    .odds-content {
+      @include align-items(center);
+      .odds-side {
+        min-width: auto;
+        .label-text {
+          color: $color-gray-darkest;
+        }
+      }
+      .odds-right {
+        padding-left: 0;
+      }
+
+      .odds-small {
+        white-space: normal;
+        .toggle-icon.cd-lads-mob-hr {
+          > span {
+            display: none!important;
+          }
+        }
+      }
+    }
+  }
+
+  .new-race-card .odds-content .odds-left {
+    .silk-img {
+      margin-left: 0;
+      width: 40px;
+    }
+
+    gh-silk {
+      margin: 0 0 0 6px;
+    }
+    .odds-names-list {
+      .horse-star {
+        display: inline-flex;
+        flex-direction: row;
+       .start-rating {
+         margin-left: 5px;
+         padding: 0 4px;
+         letter-spacing: 1px;
+         color: $color-yellow-alt;
+         border: 1px solid $color-yellow-alt;
+         border-radius: 2px;
+         height: 15px;
+         line-height: 14px;
+         font-family: $base-font-family;
+         font-size: $font-size;
+         display: inline-block;
+         .star-icon {
+          width: 10px;
+          height: 9px;
+          fill: $color-yellow-alt;
+         }
+       }
+      }
+    }
+  }
+
+  @media(max-width: $mobilePoint) {
+    .toggle-icon {
+      display: inline;
+    }
+  }
+}
+
+:host ::ng-deep { 
+  .toggle-icon {
+    padding-left: 0px;
+  }
+  .showMore {
+    padding-right: 4px;
+  }
+}
+
+:host ::ng-deep { 
+  .race-market .new-race-card .odds-content .toggle-icon svg {
+    margin-left: 0px;
+  }
+}

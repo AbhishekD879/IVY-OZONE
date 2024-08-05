@@ -1,0 +1,70 @@
+<breadcrumbs *ngIf="desktopQuickLink" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="desktopQuickLink">
+  <div class="header">
+    <h2 class="has-activity-badge">Desktop Quick Links:
+      <span class="font-italic">{{desktopQuickLink.title}}</span>
+      <create-updated-at-by [collection]="desktopQuickLink"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="desktopQuickLink.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="desktopQuickLink">
+  <form [formGroup]="form" novalidate>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-checkbox color="primary" formControlName="disabled"
+            (change)="desktopQuickLink.disabled=!desktopQuickLink.disabled"> Active</mat-checkbox>
+        </div>
+        <div class="col-md-6">
+          <mat-checkbox color="primary" formControlName="isAtoZQuickLink"
+            (change)="desktopQuickLink.isAtoZQuickLink=!desktopQuickLink.isAtoZQuickLink"> A-Z Menu</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Title
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Title" [(ngModel)]="desktopQuickLink.title" formControlName="title" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+              Uri
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Uri" [(ngModel)]="desktopQuickLink.target" formControlName="target" required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <cms-upload
+            [label]="'Icon'"
+            [filename]="desktopQuickLink.filename"
+            (onImageUpload)="uploadIconHandler($event)"
+            (onImageRemove)="removeIconHandler()">
+          </cms-upload>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="desktopQuickLink"
+  [form]="form"
+  [fieldOrItemName]="'title'"
+  [collection]="desktopQuickLink"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

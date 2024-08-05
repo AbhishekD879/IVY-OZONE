@@ -1,0 +1,32 @@
+<div class="inner-container bet-receipt" (click)="$event.stopPropagation()">
+  <div class="receipt-title" [i18n]="'tt.betReceiptTitle'" data-crlat="betReceipt.title"></div>
+  <div class="receipt-msg">
+    <!-- Only successful bets msg -->
+    <div *ngIf="!betsReceiptData.failedBets.length">
+      <svg class="ok-icon">
+        <use xlink:href="#ok"></use>
+      </svg>
+      <span [textContent]="betsReceiptData.successfulBetReceiptMsg" data-crlat="betReceipt.successMsg"></span>
+    </div>
+    <!-- Successful and failed bets msg -->
+    <div *ngIf="betsReceiptData.failedBets.length">
+      <svg class="warning-icon">
+        <use xlink:href="#info-icon"></use>
+      </svg>
+      <span class="failed-msg" [textContent]="betsReceiptData.unsuccessfulBetReceiptMsg" data-crlat="betReceipt.failedMsgData">
+      </span>
+      <br>
+      <span class="failed-msg" [i18n]="'tt.unsuccessfulBetReceiptAdv'" data-crlat="betReceipt.failedMsg"></span>
+    </div>
+  </div>
+  <div *ngFor="let bet of betsReceiptData.successBets; trackBy: trackByIndex;" data-crlat="betReceipt.betItem">
+    <bet-item [bet]="bet" [poolCurrencySymbol] = "poolCurrencySymbol"></bet-item>
+  </div>
+  <div class="total-stake" data-crlat="betReceipt.totalStake">
+    <span class="stake-label" [i18n]="'tt.totalStakeTitle'" data-crlat="label"></span>
+    <strong [textContent]="(betsReceiptData.totalStake | currency:poolCurrencySymbol: 'code')"
+            data-crlat="value"></strong>
+  </div>
+  <div class="rules-msg" [i18n]="'tt.bettingRulesMsg'" data-crlat="betReceipt.bettingRules"></div>
+  <button class="btn btn-style1 full-width" (click)="continue()" [i18n]="'tt.continue'" data-crlat="betReceipt.continueButton"></button>
+</div>

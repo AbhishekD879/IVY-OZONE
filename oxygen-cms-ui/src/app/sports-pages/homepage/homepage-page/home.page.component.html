@@ -1,0 +1,35 @@
+<div class="card">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Home Page
+      <small *ngIf="sportModules">Total active homepages: {{homepageAmount.active}}, inactive
+        homepages: {{homepageAmount.inactive}}</small>
+    </h2>
+  </div>
+</div>
+
+<div class="card">
+  <div class="body">
+    <!-- search and download button.-->
+    <div *ngIf="sportModules && sportModules.length > 0" class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-2">
+        <download-cvs [cvsData]="sportModules" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+    </div>
+
+    <!-- main content, config groups list-->
+    <div *ngIf="sportModules && sportModules.length > 0">
+      <cms-data-table
+        [customTableData]="sportModules"
+        [customTableColumns]="dataTableColumns"
+        [reorder]="true"
+        (onElementsOrder)="reorderHandler($event)">
+      </cms-data-table>
+    </div>
+
+    <div *ngIf="getDataError">
+      Request Error
+    </div>
+  </div>
+</div>

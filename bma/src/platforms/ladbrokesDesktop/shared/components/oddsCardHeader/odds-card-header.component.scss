@@ -1,0 +1,124 @@
+@import 'global.variables.scss';
+@import '../../../../../app/shared/components/oddsCardHeader/odds-card-header.component.scss';
+//------ODDS-CARD-HEADER------------
+.odds-card-header {
+  @include display-flex(); 
+  @include align-items();
+  padding: 0 12px 0;
+  height: 26px;
+  min-height: inherit;
+  background: $color-white;
+  border-style: solid;
+  border-width: 1px 0;
+  border-color: $lGrayLight;
+  border-top: 0;
+  color: $color-gray-darkest;
+  margin: 0;
+  font-family: $base-font-family;
+  font-weight: normal;
+  font-size: 11px;
+  position: relative;
+  z-index: 1;
+  text-transform: uppercase;
+
+  &.odds-card-pad {
+    &.odds-card-pad-fav {
+      padding-right: 10px;
+    }
+  }
+
+  .odds-header-title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: $lGray;
+    font-weight: bold;
+  }
+
+  .odds-header-col {
+    padding: 0;
+    margin: 0 0 0 10px;
+    width: 50px;
+    text-align: center;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @media (max-width: $odds-button-small-size) {
+    .odds-header-col {
+      min-width: $price-odd-btn-max-width-1599;
+      margin-left: 4px;
+    }
+  }
+
+  @media (min-width: $odds-button-big-size) {
+    .odds-header-col {
+      min-width: $price-odd-btn-min-width-1600;
+      margin-left: 8px;
+    }
+  }
+
+  &:after, &:before {
+    display: none;
+  }
+}
+
+.favourites-wrapper .odds-card-header {
+  &.odds-card-pad {
+    padding: 0 10px 0;
+  }
+
+  .odds-header-col {
+    min-width: 45px;
+    max-width: 45px;
+    margin: 0 5px 0 0;
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+}
+
+//------OVERRIDDEN-STYLES
+.inplay-widget-odds-card-header {
+  .odds-card-header {
+    background-color: $color-white;
+    padding: 0;
+    height: 15px;
+    margin: 1px 0;
+    border: none;
+
+    &.odds-card-pad {
+      padding-right: 0;
+    }
+
+    .odds-right {
+      @include justify-content();
+      padding: 0;
+    }
+
+    .odds-header-col {
+      @include flex();
+      min-width: auto;
+      font-size: 9px;
+      line-height: 15px;
+      height: 15px;
+      color: $color-gray-dark;
+      background-color: $color-gray-light;
+      margin: 0 1px 0 0;
+
+      &:last-child {
+        margin: 0;
+      }
+    }
+  }
+}
+
+odds-card-component {
+  list-card {
+    border-top: none;
+    border-bottom: 1px solid $lGrayLight;
+  }
+}

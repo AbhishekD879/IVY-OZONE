@@ -1,0 +1,52 @@
+@import 'global.variables.scss';
+
+:host {
+  margin: 0;
+
+  accordion-body {
+    margin: 0 4px;
+    display: block;
+
+    .market-terms {
+      background: $color-white;
+      font-size: $font-size-md;
+      color: $color-gray-darkest;
+      padding: 12px 12px 0;
+      font-family: $alt-font-family;
+    }
+    .no-pad{
+      padding-top: 0px;
+    }
+  }
+}
+
+:host.featured-markets {
+  accordion {
+    margin: 0;
+  }
+
+  .odds-card {
+    box-shadow: none;
+    border-bottom: 1px solid $color-gray;
+  }
+}
+show-all-button{
+  ::ng-deep .show-all-button {
+    text-decoration: none;
+    background: $color-white;
+    span {
+       color: $blue;
+       &:hover{
+        text-decoration: underline;
+        text-decoration-color: $color-blue-alt;
+      }
+      &:active{
+        text-decoration: none;
+        color: darken($color-blue-alt, 25%);
+      }
+    }
+  }
+}
+.epr-margin{
+  padding-left: 12px;
+}

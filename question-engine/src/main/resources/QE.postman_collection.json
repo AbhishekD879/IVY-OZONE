@@ -1,0 +1,109 @@
+{
+	"info": {
+		"_postman_id": "66ecbe36-4aa7-4679-a13c-059f5e9ef986",
+		"name": "QE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Send answers",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"questionIdToAnswerId\": {\n    \"637f1a4d-fe05-4f5d-9083-d678f4ca8fc1\": [\n      \"f48f1116-d00e-4559-ae54-82315b66a2ee\"\n    ],\n    \"265d6eeb-6cf5-41e2-a5fd-2820f27d6a78\": [\n      \"a7edb101-9961-4033-a851-38e706bd1a0c\"\n    ],\n    \"f86a5ad3-1cb0-43a6-8dca-6966910564b7\": [\n      \"6b226df2-6b5f-4063-a9b1-90a97c39d9a7\"\n    ],\n    \"c4120866-a9fc-4528-b7e3-ebc1bf3b96d2\": [\n      \"ad4577d6-b3cb-4b48-856d-815a17a72823\"\n    ]\n  },\n  \"quizId\": \"5e566e02c9e77c0001b08840\",\n  \"username\": \"rooney-test\",\n  \"customerId\": \"10518396\",\n  \"sourceId\": \"/correct4\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/user-answer/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"user-answer",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get with username",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/quiz/history/rooney-test3/?source-id=/correct4&previous-limit=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"quiz",
+						"history",
+						"rooney-test3",
+						""
+					],
+					"query": [
+						{
+							"key": "source-id",
+							"value": "/correct4"
+						},
+						{
+							"key": "previous-limit",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get anonymous",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "80ac594c-7fdd-40f3-a40d-2b7edac5556a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "5a2d276c-0b27-44bc-ae13-93f4e67f3c7d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,87 @@
+<breadcrumbs *ngIf="leagueLink" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="leagueLink">
+  <div class="header">
+    <h2>Edit League Link: <span class="font-italic">{{leagueLink.linkName}}</span></h2>
+    <create-updated-at-by [collection]="leagueLink"></create-updated-at-by>
+    <header-activity-badge [state]="!leagueLink.enabled"></header-activity-badge>
+  </div>
+</div>
+<div class="card" *ngIf="leagueLink">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox color="primary"
+          [checked]="leagueLink.enabled"
+          (change)="leagueLink.enabled = !leagueLink.enabled">
+          Active for League Link
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-2">
+        <span class="mat-label">Link Name</span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !leagueLink.linkName && !isCorrectName(leagueLink.linkName)}">
+          <input matInput placeholder="Link Name" [(ngModel)]="leagueLink.linkName" [value]="leagueLink.linkName" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!leagueLink.linkName">Link Name should be entered</mat-hint>
+          <mat-hint class="col-red" *ngIf="leagueLink.linkName && !isCorrectName(leagueLink.linkName)">Name needs to start with letters</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">OpenBet ID</span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !leagueLink.obLeagueId || !isNumber(leagueLink.obLeagueId)}">
+          <input matInput placeholder="Type ID" [(ngModel)]="leagueLink.obLeagueId" [value]="leagueLink.obLeagueId" required>
+          <mat-hint class="col-red" *ngIf="!leagueLink.obLeagueId">OpenBet ID should be entered</mat-hint>
+          <mat-hint class="col-red" *ngIf="!isNumber(leagueLink.obLeagueId)">Only numbers are allowed</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">DataHub ID</span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !leagueLink.dhLeagueId || !isNumber(leagueLink.dhLeagueId)}">
+          <input matInput placeholder="DataHub ID" [(ngModel)]="leagueLink.dhLeagueId" [value]="leagueLink.dhLeagueId" required>
+          <mat-hint class="col-red" *ngIf="!leagueLink.dhLeagueId">DataHub ID should be entered</mat-hint>
+          <mat-hint class="col-red" *ngIf="!isNumber(leagueLink.dhLeagueId)">Only numbers are allowed</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">Coupon IDs</span>
+      </div>
+      <div class="col-md-6">
+        <inline-multiselect [values]="leagueLink.couponIds"
+                            [pattern]="pattern"
+                            [required]="true"
+                            [options]="couponIdsOptions"
+                            [templateName]="'couponTemplate'"
+                            [unique]="true"
+                            (update)="updateCouponIds($event)">
+        </inline-multiselect>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="getDataError">
+  <div class="body">
+    Failed to load League Link data
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="leagueLink"
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'linkName'"
+  [collection]="leagueLink"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

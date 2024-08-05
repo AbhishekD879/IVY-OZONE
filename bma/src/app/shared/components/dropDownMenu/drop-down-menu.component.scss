@@ -1,0 +1,161 @@
+@import 'global.variables.scss';
+
+.dropdown {
+  background: $brand-color-dark;
+  outline: none;
+
+  &.expanded {
+    .change-btn svg {
+      &.dropdown-down-arrow {
+        @include transform(rotate(180deg));
+      }
+    }
+    .change-button svg {
+      &.dropdown-down-arrow-coupon {
+        @include transform(rotate(180deg));
+      }
+    }
+    .dropdown-menu {
+      display: block;
+    }
+    .overlay {
+      display: block;
+    }
+  }
+
+  .dropdown-header {
+    height: 42px;
+    color: $color-white;
+    font-weight: bold;
+    &-not-coupon {
+      display: flex;
+      align-items: center;
+      line-height: 16.5px;
+    }
+    .label {
+      display: inline-block;
+      padding: 0px 12px;
+      max-width: 75%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      vertical-align: top;
+    }
+    .toggle{
+      display: block;
+      padding: 0px 6px;
+      max-width: 75%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      height: 16px;
+      font-weight: normal;
+      font-size: 13px;
+    }
+  }
+
+  .change-btn {
+    position: relative;
+    display: inline-block;
+    padding: 0px 12px 0px 6px;
+    color: $color-yellow;
+    text-transform: uppercase;
+    font-size: $font-size-md;
+    vertical-align: bottom;
+    &:active{
+      color: lighten($color: $color-yellow, $amount: 25%)
+    }
+    svg {
+      margin-left: 5px;
+      margin-bottom: 2px;
+      height: 5px;
+      width: 8px;
+      fill: $color-yellow;
+      @include transition(all, .3s);
+    }
+  }
+
+  .change-button {
+    position: relative;
+    display: flex;
+    margin: 0px 6px 12px;
+    color: $color-yellow;
+    text-transform: uppercase;
+    font-size: $font-size-md;
+    vertical-align: bottom;
+    .coup {
+      margin-left: 5px;
+      margin-bottom: 2px;
+      height: 5px;
+      width: 8px;
+      fill: $color-yellow;
+      @include transition(all, .3s);
+    }
+    .coupon {
+      margin-left: 5px;
+      margin-bottom: 2px;
+      height: 5px;
+      width: 8px;
+      fill: #fff;
+      right: 0;
+      position: absolute;
+      @include transition(all, .3s);
+    }
+    .of-coupon{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 168px;
+      font-size: 13px;
+      font-weight: normal;
+      text-transform: capitalize;
+    }
+  }
+
+  .overlay,
+  .dropdown-menu {
+    z-index: 10;
+    position: absolute;
+    display: none;
+    right: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .dropdown-menu {
+    width: 295px;
+    max-height: 332px;
+    background: $brand-color-secondary;
+    overflow-y: scroll;
+  }
+
+  .overlay {
+    height: 100vh;
+    left: 0;
+  }
+
+  .menu-item {
+    display: block;
+    color: $color-white;
+
+    &.active {
+      background: $brand-color-dark;
+      font-weight: bold;
+    }
+
+    &:last-child {
+      .menu-title {
+        padding-bottom: 24px;
+      }
+    }
+
+    .menu-title {
+      padding: 12px;
+      display: block;
+      white-space: nowrap;
+      line-height: $line-height-sm;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      opacity: .9;
+    }
+  }
+}

@@ -1,0 +1,479 @@
+@import 'global.variables.scss';
+
+/* Container */
+$page-cont-bg      : $page-bg;
+$page-cont-shadow  : none;
+$page-cont-margin  : 2px;
+$page-cont-radius  : 3px;
+$container-pad     : 5px;
+$header-bg-clr1    : $color-gray-light;
+$header-bg-clr2    : $brand-color-main;
+$header-font-color : $brand-color-dark;
+$header-icon-bg    : $color-gray-dark;
+$header-b-top      : none;
+$header-b-top-act  : none;
+$header-margin     : 0px;
+$header-padding    : 0 1px 0 12px;
+$header-height     : 40px;
+$header-font-height: 15px;
+$header-font-style : uppercase;
+$header-font-weight: 700;
+$header-font-size  : 12px;
+$header-icon-size  : 10px;
+$forced-header-font-size: 14px;
+
+accordion, aggregated-markets {
+  display: block;
+  margin-bottom: $accdn-margin-bottom;
+
+  accordion {
+    margin: 4px 0 0;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+
+  markets-group-component, correct-score, scorer {
+    accordion {
+      margin: 0;
+    }
+  }
+
+  .seo-content-show {
+    display: block;
+  }
+
+  .seo-content-hide {
+    display: none;
+  }
+}
+
+aggregated-markets{
+  correct-score, scorer{
+    accordion{
+      margin: 0;
+    }
+  }
+}
+
+.horseracing-tabs {
+  .page-container.is-expanded {
+    margin-bottom: 8px;
+  }
+}
+
+.single-accordion {
+  .page-container.is-expanded {
+    margin-bottom: 8px;
+    box-shadow: 0 1.6px rgba(151, 151, 151, 0.14);
+  }
+  &:last-child .page-container.is-expanded {
+    margin-bottom: 0px;
+  }
+}
+
+.multiples-accordion {
+  .page-container.is-expanded {
+    margin-bottom: 0;
+  }
+
+  accordion {
+    padding: 0;
+    margin: 0;
+  }
+
+  .single-accordion {
+    &:last-of-type {
+      margin-bottom: 0px;
+    }
+  }
+}
+
+.ngdialog-content, .bet-history-page {
+  .page-container {
+    & > .container-header {
+      font-family: $base-font-family;
+      text-transform: none;
+    }
+  }
+}
+
+.container-header {
+  @include display-flex();
+  @include align-items();
+  @include user-select();
+  .header-title{
+    font-weight: 700;
+    line-height: 15px;
+    margin: auto;
+  }
+  .title-header{
+    font-weight: 700;
+    line-height: 15px;
+    margin: auto;
+    font-size: $header-font-size;
+  }
+  &.no-flex {
+    display: block;
+  }
+  &.forced-chevron-up-and-styles {
+    span, h1 {
+      text-transform: capitalize;
+      font-size: $forced-header-font-size;
+    }
+    .chevron-up {
+      visibility: visible;
+
+      &:before {
+        @include transform(rotate(45deg));
+      }
+      &:after {
+        @include transform(rotate(-45deg));
+      }
+    }
+  }
+}
+
+.success-reg-popup .container-header {
+  flex-direction: column;
+  @include align-items(flex-start);
+}
+
+.accordion-left-side {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.short-description {
+  &.coral-btn {
+    .MsoNormal {
+      .btn-style2 {
+        background-color: $color-blue !important;
+        @media #{$mqTabletAndDesktop} {
+          &:hover {
+            background-color: lighten($color-blue, 25%) !important;
+          }
+        }
+        &:active {
+          background-color: darken($color-blue, 10%) !important;
+        }
+      }
+    }
+  }
+  &.lads-descr {
+  .accordion-element-js {
+  .page-container {
+      &>.container-header {
+        background-color: $red;
+        color: $color-white;
+      }
+    }
+  }
+  }
+  &.coral-btn{
+    .text-section {
+      .container-inside-text {
+        .MsoNormal {
+          .btn-style2 {
+            background-color: $color-blue !important;
+            @media #{$mqTabletAndDesktop} {
+              &:hover {
+                background-color: lighten($color-blue, 25%) !important;
+              }
+            }
+            &:active {
+              background-color: darken($color-blue, 10%) !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+.accordion-left-side,
+left-side {
+  @include display-flex();
+  @include align-items();
+}
+.accordion-right-side,
+right-side {
+  @include display-flex();
+  @include align-items();
+  @include flex-grow(1);
+  @include justify-content(flex-end);
+
+  .race-see-all-arrow {
+    right: 16px;
+    margin-top: -6px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    height: 11px;
+    width: 6px;
+  }
+}
+
+.page-container {
+  background: $page-cont-bg;
+  overflow: hidden;
+  .text-section {
+  .container-inside-text {
+      .MsoNormal {
+        .btn-style2 {
+          &:active {
+            background-color: $color-green-dark-leaf !important;
+          }
+          @media #{$mqTabletAndDesktop} {
+            &:hover {
+              background-color: $color-green-light-leaf !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  & > .container-header {
+    background-color: $color-white-light;
+    color: $lightGrey;
+    padding: $header-padding;
+    margin: $header-margin;
+    position: relative;
+    min-height: $header-height;
+    font: $header-font-weight #{$header-font-size}/#{$header-font-height} $base-font-family;
+    text-transform: $header-font-style;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    @include clearfix();
+    @include user-select();
+
+    .icon-label {
+      display: inline-block;
+      vertical-align: middle;
+      fill: $color-gray-dark;
+      height: $header-icon-size;
+      width: $header-icon-size;
+      margin-right: 5px;
+    }
+
+    &.toggle-header {
+      cursor: pointer;
+      background: $color-gray-light;
+      color: $header-font-color;
+      border-top: $header-b-top;
+      &:active {
+        background: $IGreyLightDark
+      }
+    }
+
+    &.inner-header {
+      padding: $header-padding;
+      min-height: 40px;
+      text-transform: $header-font-style;
+      font-size: 10px;
+      line-height: 17px;
+
+    }
+  }
+
+  &.is-expanded > .toggle-header {
+    background-color: $header-bg-clr1;
+    color: $brand-color-dark;
+    border-top: $header-b-top-act;
+
+    .center-message {
+      color: $color-gray;
+    }
+
+    .icon-label {
+      fill: $color-white;
+    }
+  }
+
+  &.page-inner-container .container-content {
+    margin: $container-pad;
+    box-shadow: $page-cont-shadow;
+    border-radius: $page-cont-radius;
+    background: $color-white;
+  }
+
+  &.page-card .container-content {
+    background: none;
+
+    .container-inner-content {
+      margin: 0 0 $container-pad;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .container-content {
+    overflow: hidden;
+    &.text-section {
+      font-size: 12px;
+      padding: 15px;
+      line-height: 18px;
+      background: $color-white;
+    }
+  }
+}
+
+.accordion-margin {
+  .page-container .container-content {
+    margin-top: 0;
+  }
+}
+
+.matches-card {
+  .page-container {
+    &.is-expanded {
+      margin-bottom: 8px;
+      box-shadow: 0 1.6px rgba(151, 151, 151, 0.14);
+    }
+  }
+  &:last-child .page-container.is-expanded {
+    margin-bottom: 0px;
+  }
+  .container-inner-content {
+    margin: 0;
+    border-radius: 0;
+  }
+}
+.tennis-competitions {
+  .page-container.is-expanded,
+  accordion {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+.change-competition {
+  .page-container {
+    &.is-expanded {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.container-inner-content {
+  margin: $page-cont-margin 0 0;
+  box-shadow: $page-cont-shadow;
+  overflow: hidden;
+  background: $color-white;
+}
+
+.pc-badge {
+  margin-left: 10px;
+  margin-top: 1px;
+  color: $pc-badge-color;
+  background-color: $color-gray;
+  font-size: $pc-badge-font-size;
+  text-align: center;
+  line-height: $pc-badge-line-height;
+  height: $pc-badge-height;
+  border-radius: 2px;
+  text-transform: none;
+
+  &.pc-badge--enhanced {
+    min-width: 47px;
+    background-color: $pc-badge-enhanced-background;
+  }
+  &.pc-badge--specials {
+    min-width: 37px;
+    background-color: $pc-badge-specials-background;
+  }
+}
+
+/*----------------------------------------------------------------------
+ * Chevron styles
+*/
+.chevron {
+  @include flex(0, 0, auto);
+  width: 11px;
+  height: 6px;
+  position: relative;
+  cursor: pointer;
+  &.right {
+    margin-left: 4px;
+    margin-right: 10px;
+  }
+  &.left {
+    margin-right: 12px;
+  }
+  &:before,
+  &:after {
+    content: '';
+    width: 8px;
+    height: 2px;
+    background: $brand-color-dark;
+    position: absolute;
+    top: 3px;
+  }
+  &:before {
+    left: 5px;
+  }
+  &:after {
+    left: 0;
+  }
+}
+
+.chevron-up {
+  visibility: hidden;
+}
+
+.chevron-down {
+  &:before {
+    @include transform(rotate(-45deg));
+  }
+  &:after {
+    @include transform(rotate(45deg));
+  }
+}
+
+.chevron-byb {
+  &:before {
+    @include transform(rotate(45deg));
+  }
+  &:after {
+    @include transform(rotate(-45deg));
+  }
+}
+
+.chevron-right {
+  transform: rotate(90deg) translateZ(0);
+  &:before {
+    transform: rotate(35deg) translateZ(0);
+  }
+  &:after {
+    transform: rotate(-35deg) translateZ(0);
+  }
+}
+
+.outer-rectangle {    
+    .container-header {
+      height: 80px;
+      border-top: 1px solid $color-gray !important;
+      background-color:$color-white !important;
+    }
+}
+.byb-showcard-market {
+    .container-header {
+      cursor: auto;
+      .accordion-right-side {
+        margin: 0 3% 0 0;
+      }
+      .chevron {
+        display: none;
+      }
+  }
+}
+
+.isByb {
+  color: $switch-byb-market-des-color;
+}
+
+.hr-header {
+  width: 100%;
+}

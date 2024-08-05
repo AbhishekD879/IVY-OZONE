@@ -1,0 +1,107 @@
+@import "global.variables.scss";
+
+:host {
+  display: block;
+  margin: 0 -4px 10px;
+  margin-top: 10px;
+  @include display-flex();
+  @include flex-wrap(wrap);
+
+  list-card {
+    min-height: 36px;
+    padding: 0px 4px 0px 6px;
+    font-size: $font-size-tablet;
+    border-right: 1px solid $list-card-grey;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 45%;
+    flex-shrink: 0;
+    margin: 2px;
+    width: 181.5px;
+    height: 36px;
+    border-radius: 2px;
+    background: var(--brand-white, $color-white);
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.25) !important;
+    ::ng-deep {
+      .list-card-name {
+        flex: 1 1;
+        color: $ql-coral-list-name;
+        font-family: $lato-font-family;
+        font-size: 11px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 15px;
+        height: 16px;
+        width: 137px;
+        margin-left: -7px;
+        flex-shrink: 0;
+      }
+      .list-card-name-no-svg {
+        margin-left: 0 !important;
+      }
+    }
+
+    &:active {
+      background: $IGreyLightDark;
+    }
+
+    &:last-child {
+      border-bottom: 1px solid $list-card-grey;
+      width: 367px;
+      height: 36px;
+      flex-shrink: 0;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      margin-top: -4px;
+      right: 6px;
+      border: solid $list-card-arrow;
+      border-width: 0 2px 2px 0;
+      padding: 3px;
+      border-radius: 1px;
+      @include transform(rotate(-45deg));
+      height: 6.527px;
+      flex-shrink: 0;
+      fill: $ql-arrow-color;
+    }
+  }
+
+  list-card:nth-child(odd) {
+    margin-left: 4px;
+    margin-top: 2px;
+    margin-right: 2px;
+    margin-bottom: 2px;
+  }
+
+  list-card:nth-child(even) {
+    margin-right: 4px;
+    margin-top: 2px;
+    margin-left: 2px;
+    margin-bottom: 2px;
+  }
+
+  list-card:nth-child(odd):last-child {
+    margin-left: 4px !important;
+    margin-right: 4px !important;
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+
+  list-card:nth-child(odd):last-child a {
+    width: 322px;
+    flex-shrink: 0;
+  }
+
+  .quick-link-icon {
+    width: 16px;
+    height: 16px;
+    margin: -1px 13px -1px 0px;
+    flex: 0 0 auto;
+    flex-shrink: 0;
+    @include flex-order(-1);
+  }
+}

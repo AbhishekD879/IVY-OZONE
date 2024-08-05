@@ -1,0 +1,29 @@
+@import '../../assets/styles/general.scss';
+@import '../../../../../app/questionEngine/components/questionsPage/questions-page.component.scss';
+
+.qe-header {
+  &-inf {
+    align-items: stretch;
+    will-change: transform;
+    transform: skew(-20deg);
+    margin: 0 15px 30px 15px;
+
+    &-item {
+      span {
+        transform: skew(20deg);
+        font-weight: normal;
+      }
+    }
+    .top-left-header {
+      color: $brand-color-main;
+      span {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .logo-small {
+    height: 20px;
+    margin: 0 auto 30px;
+  }
+}

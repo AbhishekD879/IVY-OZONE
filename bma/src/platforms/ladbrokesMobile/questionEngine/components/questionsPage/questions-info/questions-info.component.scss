@@ -1,0 +1,15 @@
+@import "../../../assets/styles/general.scss";
+@import '../../../../../../app/questionEngine/components/questionsPage/questions-info/questions-info.component.scss';
+
+.questions-info {
+  .info-list {
+    text-align: center;
+    font-weight: bold;
+    &-title {
+      font-size: $font-size-tablet;
+    }
+    &-date {
+      font-size: $font-size-md;
+    }
+  }
+}

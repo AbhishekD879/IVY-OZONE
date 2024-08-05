@@ -1,0 +1,68 @@
+<breadcrumbs *ngIf="offerModule" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="offerModule">
+  <div class="header">
+    <h2 class="waves-effect waves-block has-activity-badge">
+      Offer Module: {{offerModule.name}}
+      <create-updated-at-by [collection]="offerModule"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="offerModule.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="offerModule">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-10">
+        <mat-checkbox class="mat-label" color="primary"
+                    (change)="offerModule.disabled = !offerModule.disabled"
+                    [checked]="!offerModule.disabled">
+          Active
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Name
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width"
+                        [ngClass]="{ 'mat-form-field-invalid': !offerModule.name}">
+          <input matInput required placeholder="Name"  [(ngModel)]="offerModule.name" [value]="offerModule.name" trim="blur">
+          <mat-hint class="col-red" *ngIf="!offerModule.name">Name should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="offerModule">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Show Module On
+        </span>
+      </div>
+      <div class="col-md-10">
+        <customer-variants-select
+          [optionsType]="'device'"
+          [placeholder]="'Show Offer On'"
+          [customerType]="offerModule.showModuleOn"
+          (onChange)="onShowModuleOnChange($event)">
+        </customer-variants-select>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<action-buttons
+  #actionButtons
+  *ngIf="offerModule"
+  [validateHandler]="isValidModel"
+  [fieldOrItemName]="'name'"
+  [collection]="offerModule"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

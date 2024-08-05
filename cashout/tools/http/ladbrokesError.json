@@ -1,0 +1,54 @@
+{
+  "cashoutOfferRequests": [
+    {
+      "cashoutOfferReqRef": "1925833627",
+      "bet": {
+        "stakeAmount": "1.00",
+        "tokenValue": "0.00",
+        "betType": "SGL",
+        "legType": "W",
+        "legs": [
+          {
+            "legNo": "1",
+            "legSort": "--",
+            "parts": [
+              {
+                "partNo": "1",
+                "type": "2.0",
+                "ladder": "STABLE",
+                "result": "-",
+                "priceType": "L",
+                "strikePrice": {
+                  "num": "4",
+                  "den": "11"
+                },
+                "spotPrice": {
+                  "num": "1",
+                  "den": "1"
+                },
+                "deductions": [
+                  {
+                    "type": "deadheatWin",
+                    "den": "100"
+                  },
+                  {
+                    "type": "deadheatPlace",
+                    "den": "100"
+                  },
+                  {
+                    "type": "rule4SP",
+                    "den": "100"
+                  },
+                  {
+                    "type": "rule4LP",
+                    "den": "100"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

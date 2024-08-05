@@ -1,0 +1,54 @@
+def agentLabel = "dev-slave"
+def agentDockerImage = "740335462382.dkr.ecr.eu-west-2.amazonaws.com/groovy:2.5.4"
+
+pipeline {
+    agent {
+        label agentLabel
+    }
+    triggers {
+        bitbucketPush()
+    }
+    stages {
+        stage ("ECR Login") {
+            steps {
+                script {
+                    sh("eval \$(aws ecr get-login --region eu-west-2 --registry-ids 740335462382)")
+                }
+            }
+        }
+        stage ("Run tests") {
+            steps {
+                script {
+                    sh "docker run --rm  -v \$(pwd):/opt/workdir/ -w /opt/workdir/vars ${agentDockerImage} tests/main.groovy"
+                }
+            }
+        }
+    }
+    post {
+        cleanup {
+            cleanWs()
+        }
+        failure {
+            script {
+                def build_timestamp = new Date()
+                def build_timestamp_string = build_timestamp.format("dd-MMM-yyyy HH:mm:ss")
+                def build_url = env.RUN_DISPLAY_URL
+
+                emailext(
+                    subject: "${currentBuild.result} build: ${currentBuild.fullDisplayName}",
+                    body: """
+                            <TABLE>
+                            <TR><TD align="right">
+                            </TD><TD valign="center"><B style="font-size: 150%;">BUILD ${currentBuild.result}</B></TD></TR>
+                            <TR><TD>Build URL</TD><TD><A href="${build_url}">${build_url}</A></TD></TR>
+                            <TR><TD>Project:</TD><TD>${env.JOB_NAME}</TD></TR>
+                            <TR><TD>Date of build:</TD><TD>${build_timestamp_string}</TD></TR>
+                            <TR><TD>Build duration:</TD><TD>${currentBuild.durationString}</TD></TR>
+                            </TABLE>
+                          """,
+                    recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'CulpritsRecipientProvider'], [$class: 'RequesterRecipientProvider']]
+                )
+            }
+        }
+    }
+}

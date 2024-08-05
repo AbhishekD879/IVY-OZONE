@@ -1,0 +1,69 @@
+<ng-container *ngIf="!state.loading && !state.error">
+  <!--- Top Bar -->
+  <ng-container *ngIf="!isSportDetailPage">
+    <top-bar [title]="sportTitle || 'sb.' + sportName"
+             [iconSvg]="sportIconSvg"
+             [iconId]="sportIconId"
+             [innerContent]="topBarInnerContent"
+             data-crlat="topBar"
+             (titleFunc)="goToDefaultPage()">
+    </top-bar>
+    <breadcrumbs [sportName]="sportName" [sportTabs]="sportTabs" [defaultTab]="defaultTab"></breadcrumbs>
+    <!--- Banners Section-->
+    <div class="banner-block" data-crlat="bannerBlock">
+      <lazy-component
+          moduleUri="@lazy-modules-module/banners/banners.module#BannersModule"
+          [inputs]='{ page: sportBanner}' data-crlat="bannersSection">
+      </lazy-component>
+    </div>
+    <!--- Enhanced Section -->
+    <enhanced-multiples-carousel *ngIf="isEnhancedMultiplesEnabled" [sportName]="sportName"></enhanced-multiples-carousel>
+
+    <!--- Tabs -->
+    <action-arrows>
+      <action-arrows-content>
+        <switchers
+          [type]="'scrollable'"
+          [switchers]="sportTabs"
+          [activeTab]="sportActiveTab"
+          [noPaddings]="true"
+          [detectGTMLocation]="'location'"
+          [sportName]="sportName"
+          [preventReload]="true"
+        ></switchers>
+      </action-arrows-content>
+    </action-arrows>
+
+  </ng-container>
+
+  <div class="page-inner" data-crlat="accordionsList">
+    <div class="page-segment">
+      <router-outlet *ngIf="!isSportDetailPage"></router-outlet>
+      <ng-container *ngIf="isHomeUrl()">
+        <ng-container [ngSwitch]="defaultTab">
+          <sport-matches-page *ngSwitchCase="'matches'"></sport-matches-page>
+          <sport-tabs-page *ngSwitchDefault [displayTab]="{name: defaultTab}"></sport-tabs-page>
+        </ng-container>
+    </ng-container>
+      <lazy-component *ngIf="isSportDetailPage"
+                      moduleUri="@edpModule/edp.module#EdpModule">
+      </lazy-component>
+    </div>
+    <!--- Widget Side -->
+    <widgets data-uat="widgetColumn"
+             class="widget-column"
+             [params]="{categoryId: sportId}"
+             [sportName]="sportName"
+             [sportConfig]="sportTabs"
+             [sportActiveTab]="sportActiveTab?.id"
+             [sportDetailPage]="sportDetailPage"
+             *ngIf="!isSportDetailPage && (sportActiveTab || sportDetailPage)">
+    </widgets>
+  </div>
+  <lazy-component moduleUri="@lazy-modules-module/quickLinks/quick-links.module#QuickLinksModule"
+  [inputs]="{applyCss: true}" entryComponent="QuickLinksComponent">
+  </lazy-component>
+</ng-container>
+<outlet-status [state]="state">
+  <request-error *ngIf="state.error && !state.loading" (reloadFn)="reloadComponent()"></request-error>
+</outlet-status>

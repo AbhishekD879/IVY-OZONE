@@ -1,0 +1,22 @@
+<ng-container [ngSwitch]="componentName">
+    <favourites-matches *ngSwitchCase="'favourites'"
+                        [widget]="'favouritesWidget'"
+                        [isWidgetColumn]="true"
+                        data-crlat="favouritesWidget">
+    </favourites-matches>
+
+    <w-betslip *ngSwitchCase="'betslip'"></w-betslip>
+
+    <w-mini-games-iframe *ngSwitchCase="'mini-games'"></w-mini-games-iframe>
+
+    <w-match-centre *ngSwitchCase="'match-centre'"></w-match-centre>
+  <ng-container *ngSwitchCase="'next-races'">
+      <lazy-component moduleUri="@lazy-modules-module/nextRaces/next-races.module#NextRacesModule"
+      [inputs]="{moduleType: 'horseracing', raceIndex: 'next-races-right-column',
+      showLoader: true, hostContext: 'featured-races', widget: true,trackGaDesktop: true, compName: 'home'}" 
+      entryComponent="NextRacesModuleComponent">
+    </lazy-component>
+    </ng-container>
+
+  <offer-section *ngSwitchCase="'offers'"></offer-section>
+</ng-container>

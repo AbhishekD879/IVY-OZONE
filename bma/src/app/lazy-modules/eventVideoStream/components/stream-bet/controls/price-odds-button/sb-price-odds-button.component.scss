@@ -1,0 +1,191 @@
+@import 'global.variables.scss';
+
+/* Button style */
+$btn-act-bg: $color-green;
+$btn-up-bg: $color-pink;
+$btn-down-bg: $color-tealish;
+$btn-width: 50px;
+$btn-height: 40px;
+
+@mixin bet-animation($animation-name) {
+  animation-duration: 2s;
+  animation-name: $animation-name;
+  animation-iteration-count: 1;
+  animation-fill-mode: backwards;
+
+  -webkit-animation-duration: 2s;
+  -webkit-animation-name: $animation-name;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-fill-mode: backwards;
+}
+
+sb-price-odds-button {
+  @include display-flex();
+  @include flex-flow(column);
+  @include justify-content(center);
+  @include align-items(flex-end);
+  word-break: break-word;
+}
+
+.btn.snb-btn-bet,
+.snb-btn-bet {
+  background: rgba(0, 0, 0, 0.4);
+  color: $color-white;
+  font-size: $bet-btn-font-size;
+  font-family: $base-font-family;
+  line-height: $bet-btn-font-size;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  text-align: center;
+  font-weight: bold;
+  outline: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+
+  &.not-show-historic-prices {
+    margin-bottom: 6px;
+  }
+
+  &.surface-bet-btn {
+    &.not-show-historic-prices {
+      margin-bottom: 9px;
+    }
+  }
+
+  &.bet-animation {
+    position: fixed;
+    background: $btn-act-bg;
+    display: none;
+    z-index: 1001;
+    top: 0;
+    left: 0;
+  }
+
+  &.bet-visible {
+    display: block;
+    transition: all .5s ease;
+  }
+
+  &.active {
+    background: $btn-act-bg;
+    border-color: $btn-act-bg;
+    color: $color-white;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  /* live bet update */
+  &.bet-up:not([disabled]) {
+    @include bet-animation(up-button);
+  }
+
+  &.bet-down:not([disabled]) {
+    @include bet-animation(down-button);
+  }
+
+  /* disabled */
+  &.active[disabled], &.bet-up[disabled],
+  &.bet-down[disabled], &.bet-dis[disabled],
+  &[disabled] {
+    // background-image: $bet-btn-bg-disabled;
+    // color: $color-gray-dark;
+    border-color: $color-gray-darker;
+    background-image: none;
+    color:  $color-white;
+    opacity: 0.5;
+  }
+}
+
+.odds-head{
+  width: auto;
+  min-width: 58px;
+  max-width: 90px;
+  height: 12px;
+  font-family: $base-font-family;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 12px;
+  /* identical to box height */
+  text-align: center;
+  letter-spacing: -0.0061px;
+  color: #FFFFFF;
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  white-space: nowrap;
+}
+
+.odds-head-caps {
+  text-transform: uppercase;
+}
+
+.odds-price {
+  width: 70px;
+  height: 17px;
+  // font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+  text-align: center;
+  letter-spacing: -0.0061px;
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.historic-prices {
+  @include align-self(center);
+  .previous-prices {
+    margin-top: 5px;
+    font-size: $font-size-pre-xs;
+  }
+}
+
+@keyframes up-button {
+  from {
+    color: $color-gray-dark;
+  }
+
+  to {
+    color: $btn-up-bg;
+  }
+}
+
+@keyframes down-button {
+  from {
+    color: $color-gray-dark;
+  }
+
+  to {
+    color: $btn-down-bg;
+  }
+}
+
+@-webkit-keyframes up-button {
+  from {
+    color: $color-gray-dark;
+  }
+
+  to {
+    color: $btn-up-bg;
+  }
+}
+
+@-webkit-keyframes down-button {
+  from {
+    color: $color-gray-dark;
+  }
+
+  to {
+    color: $btn-down-bg;
+  }
+}

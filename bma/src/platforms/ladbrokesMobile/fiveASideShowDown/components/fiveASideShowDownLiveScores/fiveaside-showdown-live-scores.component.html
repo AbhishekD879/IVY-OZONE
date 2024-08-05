@@ -1,0 +1,13 @@
+<!-- Football Score and animation section-->
+<ul class="cashout-odds-score">
+  <li [class]="'live-scores cashout-live-scores id-' + animatingComponentId">
+    <span [ngClass]="{'live-score-points' : !isMatchFullTime, 'live-score-points-finished' : isMatchFullTime }">
+      <score-digit [animationDelay]="animationDelay" [number]="homeScore"></score-digit>
+    </span>
+    <span [ngClass]="{'live-score-points' : !isMatchFullTime, 'live-score-points-finished' : isMatchFullTime }"> -
+    </span>
+    <span [ngClass]="{'live-score-points' : !isMatchFullTime, 'live-score-points-finished' : isMatchFullTime }">
+      <score-digit [animationDelay]="animationDelay" [number]="awayScore"></score-digit>
+    </span>
+  </li>
+</ul>

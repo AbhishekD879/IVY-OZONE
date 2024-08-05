@@ -1,0 +1,1167 @@
+<div *ngIf="!hidden" class="sk-container" [ngClass]="{'sk-loading': !loadFailed && !loadComplete,
+    'widget': isTablet, 'is-drawer-shown': overask.isOnTradersReview}">
+
+  <loading-screen [displayed]="!loadFailed && !loadComplete || !userService.userFinishedLogin" data-crlat="bsLoad"
+    [templateType]="'GENERIC_BET'" [isUsedFromWidget]="isTablet"></loading-screen>
+
+  <div #bsWrapper *ngIf="loadComplete && !loadFailed && !hidden && userService.userFinishedLogin"
+    class="bs-wrapper-block" [ngClass]="{'bs-overask-offers': overask.userHasChoice}"
+    [ngStyle]="{'max-height' : isMobile ? '100%' : bsMaxHeight}">
+    <div class="container bs-content full-height">
+
+      <betslip-subheader *ngIf="!isNoSelections || isLottoBet(lottobetslipData)" [suspendedOutcomesCounter]="suspendedOutcomesCounter" [ngClass]="{'betslip-sub-header': isLottoBet(lottobetslipData)}"
+        (clear)="cleanBetslip(true, true)" (remove)="removeAllSuspended()">
+      </betslip-subheader>
+      <div class="restricted-HR-msg-container" *ngIf="restrictedHorseMsg && horseNames.length>0 && !isNoSelections && betSlipSingles?.length>1 && eventIdDetails?.length>1 && isRestrictedData">
+        <div class="restricted-horse-content" [ngClass] = "{'restricted-content': betSlipSingles?.length > 4 && !deviceViewType.mobile && !deviceViewType.tablet}" *ngIf="validateRestrictedHRs()">
+          <span class="restricted-horse-msg" [ngClass] = "{'isMobile': deviceViewType.mobile, 'restricted-msg': betSlipSingles?.length > 4 && !deviceViewType.mobile  && !deviceViewType.tablet}" [textContent]="restrictedHorseMsg"></span>
+          <span class="info-mark bs-restrictedHorseMessage-tooltip" [ngClass] = "{'bs-restrictedHorseMessage-tooltip-mobile': deviceViewType.mobile, 'bs-restrictedHorseMessage-tooltip-desktop': betSlipSingles?.length > 4 && !deviceViewType.mobile && !deviceViewType.tablet}">
+            <svg (click)="showRestrictedHRInfoTooltip(restrictedHorseMsg, 'restricted Horses')" [tooltip]="'restrictedHorseTooltip'" [showTooltip]="isShowHorseRestrictedInfo" [toolTipArgs]="restrictedHorseTooltipData">
+              <use xlink:href="#info-icon-bg"></use>
+            </svg>
+          </span>
+        </div>
+        <div class="horse-info" *ngIf="restrictedHorseMsg && horseNames.length>0 && !isNoSelections && betSlipSingles?.length>1 && eventIdDetails?.length>1 && isRestrictedData">
+          <div *ngFor="let horseName of horseNames">
+            <div class="mb-eventName" [textContent]="horseName">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="restricted-HR-msg-container" style="margin-top: 5px;" *ngIf="restrictedRaceCardMsg && restrictedRaces.length>0 && !isNoSelections && betSlipSingles?.length>1 && eventIdDetails?.length>1 && isRestrictedData">
+        <div class="restricted-horse-content" [ngClass] = "{'restricted-content': betSlipSingles?.length > 4 && !deviceViewType.mobile && !deviceViewType.tablet}" *ngIf="validateRestrictedRacecards()">
+          <span class="restricted-horse-msg" [ngClass] = "{'isMobile': deviceViewType.mobile, 'restricted-msg': betSlipSingles?.length > 4 && !deviceViewType.mobile && !deviceViewType.tablet}" [textContent]="restrictedRaceCardMsg"></span>
+          <span class="info-mark bs-restrictedRaceCardMessage-tooltip" [ngClass] = "{'bs-restrictedRaceCardMessage-tooltip-mobile': deviceViewType.mobile, 'bs-restrictedRaceCardMessage-tooltip-desktop': betSlipSingles?.length > 4 && !deviceViewType.mobile && !deviceViewType.tablet}">
+            <svg (click)="showRaceCardInfoTooltip(restrictedRaceCardMsg, 'restricted Racecards')" [tooltip]="'restrictedRaceCardTooltip'" [showTooltip]="isShowRacecardRestrictedInfo" [toolTipArgs]="restrictedRaceCardTooltipData">
+              <use xlink:href="#info-icon-bg"></use>
+            </svg>
+          </span>
+        </div>
+        <div class="horse-info" *ngIf="restrictedRaceCardMsg && restrictedRaces.length>0 && !isNoSelections && betSlipSingles?.length>1 && eventIdDetails?.length>1 && isRestrictedData">
+          <div *ngFor="let restrictedEventName of restrictedRaces">
+            <div class="mb-eventName" [textContent]="restrictedEventName">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <free-bets-notification
+      *ngIf="(freeBetAvailable || betTokensAvailable) && !hideAvailableFreeBetsMessage && !overask.hasTraderMadeDecision && !areToteBetsInBetslip()"
+      [isBetslip]="true"
+      [hasFreeBets]="freeBetAvailable"
+      [isNoSelections]="isNoSelections"
+      [hasFanzones] ="fanZoneAvailable"
+      [freebetsConfig]="freebetsConfig"
+      (hide)="hideFreeBetNotification()">
+    </free-bets-notification>
+    <free-bets-notification *ngIf="((isToteFreeBetAvailable || isToteBetTokensAvailable) && areToteBetsInBetslip() && !hideAvailableFreeBetsMessage)"
+      [hasFreeBets]="isToteFreeBetAvailable"
+      [hasBetTokens] ="isToteBetTokensAvailable"
+      [freebetsConfig]="freebetsConfig"
+      [isBetslip]="true"
+      [isNoSelections]="isNoSelections"
+      (hide)="hideFreeBetNotification()"></free-bets-notification> 
+      <lazy-component *ngIf="!isNoSelections && isBoostEnabled"
+        moduleUri="@oddsBoostModule/odds-boost.module#OddsBoostModule"
+        entryComponent="LadbrokesOddsBoostBetslipHeaderComponent" [hidden]="overask.userHasChoice"
+        [inputs]="{ boostDisabled: placeBetsPending }">
+      </lazy-component>
+      <!--TODO WTH is that? it is removed within Coral while ago... investigate-->
+
+      <bs-overlay-notification *ngIf="!isNoSelections" data-crlat="bsNotification" [messageConfig]="overlayMsgConfig"
+        (clear)="clearOverlayMessage()">
+      </bs-overlay-notification>
+
+      <div class="bs-selections-wrapper scrollable-content" id="bs-selections-wrapper" data-crlat="bsCont"
+        [class.prevent-flickering]="isDigitKeyboardShown">
+
+        <bs-notification *ngIf="overask.stateMessage && overask.isNotInProcess" [bsIsClosable]="false"
+          [bsType]="'information'" [bsPosition]="'top'" [bsMessage]="overask.stateMessage" data-crlat="stateMsg">
+        </bs-notification>
+
+        <bs-notification *ngIf="betslipMessage.msg" [bsIsClosable]="true" [bsType]="betslipMessage.type"
+          [bsPosition]="'top'" [bsMessage]="betslipMessage.msg" data-crlat="bs.ntfErr">
+        </bs-notification>
+
+        <ds-betslip-link></ds-betslip-link>
+
+        <empty-betslip [showButton]="isMobile" *ngIf="isNoSelections && !hideEmptyBetslip"></empty-betslip>
+
+        <over-ask-offer-notification *ngIf="overask.userHasChoice" [isTimerShown]="isOveraskCanBePlaced">
+        </over-ask-offer-notification>
+
+        <lazy-component *ngIf="lottobetslipData && lottobetslipData.length"
+        moduleUri="@lazy-modules-module/lottoBetSlip/lotto-betslip.module#LottoBetslipModule"
+        entryComponent="LadbrokesLottoBetslipComponent"
+        [inputs]="{betSlipSingles:betSlipSingles, lottobetslipData: lottobetslipData}"
+        [outputs]="['onStakeInput', 'removeFrombetList', 'lottoBetsEmitter', 'removeErrorMsg']"
+        (event)="onstakeInputChangeEvents($event)">
+      </lazy-component>
+
+      <ng-container *ngIf="!isLottoBet(lottobetslipData)">
+
+        <!-- Betslip singles -->
+        <div #singleStakesWrapper class="bs-singles" *ngIf="betSlipSingles?.length" data-crlat="singles">
+          <!-- All stakes -->
+          <div class="bs-all-stakes"
+              *ngIf="betSlipSingles?.length > 1"
+              data-crlat="betslip.allStakesContainer">
+
+            <div class="bs-stake">
+              <div class="bs-stake-content" data-crlat="stakeContent">
+                <div class="bs-stake-info">
+                  <span class="all-stakes-title" data-crlat="label.allStakes">All single stakes</span>
+                </div>
+                <div class="bs-stake-body">
+                  <form class="stake-input" data-crlat="stake.amountInputForm" novalidate>
+                    <label class="currency-label"
+                    [ngClass]="{'show-currency': +allStakes.value }"
+                    [attr.data-currency]="currencySymbol"
+                    [textContent]="+allStakes.value ? currencySymbol :
+                    ''">
+                    </label>
+                    <input id="allSingleStakes"
+                          name="allSingleStakes"
+                          placeholder="Stake"
+                          autocomplete="off" [disabled]="overask.isInProcess || placeBetsPending || serviceClosureService.userServiceClosureOrPlayBreak"
+                          [(ngModel)]="allStakes.value"
+                          (ngModelChange)="setStakes()"
+                          [isInit]="onDidigitKeyboardInit()"
+                          [digit-keyboard-input]
+                          [componentId]="'slide-out-betslip'"
+                          [showDecimalPoint]="true"
+                          [showQuickDepositButtons]="false"                          
+                          [quickStakeItems]="quickStakeItems"
+                          [eventAction]="'betslip'"
+                          [patternRestrict]="stakePattern"
+                          (keyup)="setSingleStake()"
+                          [patternToFixed]="true"
+                          data-money-validate="true"
+                          data-crlat="value"
+                          [class]="'All_single_quickStake-'+getAllSingleStakeOutcomeIds()"/>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stakes-wrapper">
+            <div class="single-stake bs-stake"
+              *ngFor="let betslipStake of betSlipSingles; trackBy: trackByIndex; let stakeIndex = index;"
+              [class.suspended]="betslipStake.disabled"
+              [class.bs-overask-bet-removed]="!betslipStake.isSelected && betslipStake.isOfferRemovable"
+              [class.is-linked]="betslipStake.dependsOn"
+              [hidden]="overask.userHasChoice && !betslipStake.isTraderOffered && !betslipStake.isTraderDeclined && !betslipStake.isTraderAccepted"
+              data-crlat="betslip.stake">
+              <div class="bs-stake-notifications" *ngIf="!betslipStake.disabled">
+                <bs-notification *ngIf="betslipStake.handicapErrorMsg" [bsPosition]="'bottom'" [bsType]="'error'"
+                  [bsMessage]="betslipStake.handicapErrorMsg">
+                </bs-notification>
+
+                <bs-notification *ngIf="betslipStake.errorMsg" [bsPosition]="'bottom'" [bsType]="'error'"
+                  [bsMessage]="betslipStake.errorMsg" [bsNoScroll]="autoScrollOff(betslipStake.error)">
+                </bs-notification>
+
+                <bs-notification
+                  *ngIf="!betslipStake.isFCTC && overask.isNotInProcess && getPriceChangeMessage(betslipStake) as message"
+                  [bsPosition]="'bottom'" [bsType]="'error'" [bsNoScroll]="true" [bsMessage]="message">
+                </bs-notification>
+              </div>
+              <div *ngIf="!betslipStake.isTraderDeclined; else declinedBet" class="bs-stake-content"
+                data-crlat="stakeContent">
+                <div class="bs-stake-row">
+                  <div *ngIf="!(betslipStake.children && overask.userHasChoice)" class="bs-stake-actions">
+                    <div class="bs-stake-delete-button" *ngIf="!betslipStake.isOfferRemovable"
+                      [ngClass]="{'button-disabled': overask.isInProcess}"
+                      (click)="overask.isNotInProcess && removeFromBetslip(stakeIndex)" data-crlat="stake.deleteButton">
+                      <svg>
+                        <use xlink:href="#close-icon"></use>
+                      </svg>
+                    </div>
+
+                    <label *ngIf="betslipStake.isOfferRemovable && !isBetCheckboxDisabled()"
+                      for="check-bet-{{stakeIndex}}" class="bs-checkbox-wrapper">
+                      <svg class="bs-overask-bet-remove-icon">
+                        <use xlink:href="#close-icon"></use>
+                      </svg>
+                      <input type="checkbox" id="check-bet-{{stakeIndex}}" [(ngModel)]="betslipStake.isSelected"
+                        [ngModelOptions]="{standalone: true}" [disabled]="isBetCheckboxDisabled()"
+                        (ngModelChange)="removeFromOffer(betslipStake.id)" data-crlat="selectStakeCheckbox" />
+                    </label>
+                  </div>
+
+                  <div class="bs-stake-info">
+                    <span class="bs-stake-title" (click)="openSelectionInfoDialog(betslipStake)"
+                      data-uat="selectionName">
+                      <span *ngIf="!betslipStake.isSelected && betslipStake.isOfferRemovable"
+                        class="bs-overask-bet-removed-note" [i18n]="'bs.overaskElements.removed'">
+                      </span>
+
+                      <span *ngIf="!betslipStake.isFCTC" [textContent]="betslipStake.outcomeName"></span>
+                      <betslip-fctc-list *ngIf="betslipStake.isFCTC" [outcomes]="betslipStake.outcomes"
+                        [lines]="betslipStake.Bet.lines">
+                      </betslip-fctc-list>
+                    </span>
+
+                    <span class="bs-stake-type" data-uat="marketName"
+                    [textContent]="findWinOrEachWay(betslipStake)">
+                    </span>
+
+                    <div class="bs-stake-event-name">
+                      <span data-uat="eventName">
+                        <span *ngIf="isRacingOrVirtual(betslipStake)" [textContent]="getEventTime(betslipStake)"></span>
+                        <span [textContent]="betslipStake.eventName | eventName"></span>
+                      </span>
+                    </div>
+                    <lazy-component *ngIf="betslipStake.marketName === 'Win or Each Way' || betslipStake.marketName === 'Outright'"
+                    moduleUri="@lazy-modules-module/extraPlaceSignposting/extra-place-signposting.module#ExtraPlaceSignpostingModule"
+                    [inputs]="{betSlipData:betslipStake,origin:'betslip'}"
+                    entryComponent="ExtraPlaceSignpostingComponent">
+                  </lazy-component>
+                    <div class="promotion-icon-label">
+                        <promotion-icon
+                        [type]="'market'"
+                        [mode]="'sm'"
+                        [display]="appendDrillDownTagNames(betslipStake)"
+                        [marketName]="betslipStake.marketName"
+                        [sport]="'sport'"
+                        data-crlat="promotionIcons"
+                        [disablePopUp]=true>
+                        </promotion-icon>
+                       <!-- Promo labels -->
+                      <promo-labels [cashoutValue]="betslipStake.isCashoutAvailable"
+                      [event]="betslipStake.Bet?.legs[0]?.parts[0]?.outcome?.details" [marketId]="betslipStake.marketId"
+                      [exclude]="promoLabelsFlagsExcluded" [mode]="'betslip'">
+                    </promo-labels>
+                    </div>
+                  </div>
+
+                  <div *ngIf="!betslipStake.isTraderOffered && !betslipStake.isTraderAccepted" class="bs-stake-body">
+                    <div class="bs-stake-body-row">
+                      <div class="stake-odds">
+                        <div class="stake-odd-container"
+                          [class.no-odds-boost]="!betslipStake.Bet.oddsBoost && isBoostEnabled && isBoostActive">
+                          <!-- Boost not available icon -->
+                          <lazy-component *ngIf="!betslipStake.Bet.oddsBoost && isBoostEnabled && isBoostActive"
+                            moduleUri="@oddsBoostModule/odds-boost.module#OddsBoostModule"
+                            entryComponent="OddsBoostInfoIconComponent"></lazy-component>
+
+                          <ng-container *ngIf="!betslipStake.isFCTC">
+                            <!-- Odds number - LP -->
+                            <strong class="stake-odd-number" *ngIf="!betslipStake.isSP && !betslipStake.isSPLP"
+                              [ngClass]="getStakeOddClass(betslipStake)" [textContent]="odds(betslipStake)"
+                              data-uat="odds" data-crlat="odds">
+                            </strong>
+
+                            <!-- Odds number - SP -->
+                            <strong class="stake-odd-number"
+                              *ngIf="betslipStake.isSP || (betslipStake.isSPLP && !betslipStake.pricesAvailable)"
+                              [i18n]="'bs.SP'" data-uat="odds" data-crlat="odds">
+                            </strong>
+
+                            <!-- Odds select - SP/LP -->
+                            <lazy-component *ngIf="betslipStake.isSPLP && betslipStake.pricesAvailable"
+                              moduleUri="@freebetsModule/freebets.module#FreebetsModule"
+                              [ngClass]="{'offered': betslipStake.traderChangedStake}" [inputs]="{
+                              options: getStakeOptions(betslipStake),
+                              selectedValue: betslipStake.price.priceType,
+                              disabled: betslipStake.disabled || overask.isInProcess,
+                              mode: isStakeBoostAvailable(betslipStake) ? 'secondary' : 'default'
+                            }" [outputs]="['valueChange']" (event)="setPriceType($event, stakeIndex)"
+                              entryComponent="LadbrokesLpSpDropdownComponent">
+                            </lazy-component>
+                          </ng-container>
+                        </div>
+
+                        <!-- Boosted price for Single stake -->
+                        <lazy-component *ngIf="isStakeBoostAvailable(betslipStake)"
+                          moduleUri="@oddsBoostModule/odds-boost.module#OddsBoostModule"
+                          entryComponent="LadbrokesOddsBoostPriceComponent" [inputs]="{
+                        oldPrice: getBoostedOldPrice(betslipStake, 'single'),
+                        newPrice: getBoostedNewPrice(betslipStake, 'single')
+                      }">
+                        </lazy-component>
+                      </div>
+
+                      <div class="stake-field">
+                        <form class="stake-input" [ngClass]="{'offered': betslipStake.traderChangedStake}"
+                          data-crlat="stake.amountInputForm" novalidate>
+                          <label class="currency-label" [ngClass]="{'show-currency': +betslipStake.stake.perLine }"
+                            [attr.data-currency]="currencySymbol" [textContent]="+betslipStake.stake.perLine ? currencySymbol :
+                            ''">
+                          </label>
+                          <input id="singleStake-{{stakeIndex}}" name="amount" placeholder="Stake"
+                            (click)="setFocusIndex(betslipStake.isFCTC ? 'tri-four' : 'singles')"
+                            [disabled]="betslipStake.disabled || overask.isInProcess || placeBetsPending || serviceClosureService.userServiceClosureOrPlayBreak"
+                            [(ngModel)]="betslipStake.stake.perLine" autocomplete="off"
+                            (ngModelChange)="setAmount(betslipStake, betslipStake.stake.perLine)" [digit-keyboard-input]
+                            [selectedFreeBet]="betslipStake.selectedFreeBet"
+                            [freebetsList]="betslipStake.availableFreeBets"
+                            [fanzoneList]="betslipStake.availableFanzone"
+                            [betPackList]="betslipStake.availableBetTokens"
+                            [freebetsConfig]="freebetsConfig"
+                            [isBoostEnabled]="isBoostEnabled"
+                            [isSelectionBoosted]="isBoostActive"
+                            [canBoostSelection]="canBoostSelection(betslipStake)"
+                            (freeBetSelected)="handleFreebetOutput($event, betslipStake)"
+                            [componentId]="'slide-out-betslip'" [showDecimalPoint]="true"
+                            [showQuickDepositButtons]="false" [quickStakeItems]="quickStakeItems" [eventAction]="'betslip'"
+                            [patternRestrict]="stakePattern"
+                            [patternToFixed]="true"
+                            data-crlat="value" 
+                            [class]="'singlestake-'+betslipStake.outcomeIds.join(',')"/>
+                        </form>
+                      </div>
+                    </div>
+                    <ng-container *ngIf="isFreebetButtonShown(betslipStake)">
+                      <lazy-component moduleUri="@freebetsModule/freebets.module#FreebetsModule" [inputs]="{freeBets: betslipStake.availableFreeBets,
+                          betPackList:betslipStake.availableBetTokens,
+                          fanzoneList:betslipStake.availableFanzone,
+                          selected: betslipStake.selectedFreeBet,
+                          freebetsConfig: freebetsConfig,
+                          isBoostEnabled: isBoostEnabled,
+                          isSelectionBoosted: isBoostActive,
+                          canBoostSelection: canBoostSelection(betslipStake), 
+                          isBetslip: true}" [outputs]="['selectedChange']" 
+
+                        (event)="handleFreebetOutput($event, betslipStake)" entryComponent="FreeBetToggleComponent">
+                      </lazy-component>
+                    </ng-container>
+
+                    <div class="estimated-returns-ew">
+                      <ng-container *ngIf="!betslipStake.isFCTC">
+                        <div class="bs-stake-each-way bs-each-way" *ngIf="!!betslipStake.isEachWayAvailable" [ngClass]="{'bs-each-way-position':(betSlipSingles?.length == 1 && betSlipSingles[0].sportId == '21')}">
+                          <div *ngIf="stakeIndex==horseIndex" [tooltip]="'eachWay'"
+                               [showTooltip]="disableEachWayTooltip" [toolTipArgs]="toolTipArgs"></div>
+                          <form name="eachWayForm" [ngClass]="{'offered' : betslipStake.traderChangedLegType}"
+                            novalidate data-crlat="eachWayForm">
+                            <input data-uat="eachWay" [id]="getStakeId('winOrEach', stakeIndex)"
+                              [name]="getStakeId('winOrEach', stakeIndex)" type="checkbox"
+                              [checked]="betslipStake.Bet.isEachWay"
+                              [disabled]="betslipStake.disabled || overask.isInProcess || placeBetsPending"
+                              (click)="winOrEachWay(betslipStake, $event)" />
+                            <label [for]="getStakeId('winOrEach', stakeIndex)" [i18n]="'bs.EW'"
+                              data-crlat="label.eachWay">
+                            </label>
+                          </form>
+                        </div>
+
+                        <span class="stake-est-return">
+                          <span [i18n]="'bs.potentialResults'" data-crlat="estReturn.label"></span>
+                          <span class="stake-est-return-number"
+                            [ngClass]="{'offered': betslipStake.traderChangedStake || betslipStake.traderChangedOdds}"
+                            [textContent]="calculateEstReturns(stakeIndex)" data-crlat="estReturn">
+                          </span>
+                        </span>
+                      </ng-container>
+
+                      <span *ngIf="betslipStake.isFCTC" class="stake-est-return">
+                        <span [i18n]="'bs.potentialResults'" data-crlat="estReturn.label"></span>
+                        <span class="stake-est-return-number" [textContent]="calculateEstReturns(stakeIndex)"
+                          data-crlat="estReturn">
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+
+                  <betslip-offered-data *ngIf="betslipStake.isTraderOffered || betslipStake.isTraderAccepted"
+                    [price]="odds(betslipStake)" [oldPrice]="betslipStake.oldLegs"
+                    [isSp]="betslipStake.isSP || (betslipStake.isSPLP && !betslipStake.pricesAvailable)"
+                    [eachWay]="betslipStake.Bet.isEachWay" [isTraderChangedLegType]="betslipStake.traderChangedLegType"
+                    [currencySymbol]="currencySymbol" [isStakeChanged]="betslipStake.traderChangedStake"
+                    [isOddsChanged]="betslipStake.traderChangedOdds"
+                    [isOddsTypeChanged]="betslipStake.traderChangedPriceType" [stake]="betslipStake.stake.perLine">
+                  </betslip-offered-data>
+
+                  <a *ngIf="!betslipStake.isSelected && betslipStake.isOfferRemovable" class="bs-overaks-undo-btn"
+                    [i18n]="'bs.overaskElements.undo'" (click)="undoOveraskBetRemove(betslipStake)"
+                    data-crlat="oUndoBtn">
+                  </a>
+                </div>
+
+                
+                <ng-container *ngIf="betslipStake.Bet.isEachWay && betslipStake.selectedFreeBet && betslipStake?.price?.priceType !== 'SP' && !betslipStake.disabled">
+                  <div class="bs-stake-row">
+                    <div *ngIf="isMobile" class="bs-stake-actions">
+                    </div>
+                
+                    <div class="bs-stake-info">
+                      <lazy-component moduleUri="@lazy-modules-module/signposting/signposting.module#SignpostingModule"
+                        entryComponent="FreebetSignpostingComponent" [inputs]="{ betInfo: betslipStake, signpostingTitle: 'eachway'  }">
+                      </lazy-component>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+
+              <ng-template #declinedBet>
+                <declined-bet data-crlat="declinedBet"
+                  [selectionName]="!betslipStake.isFCTC ? betslipStake.outcomeName : ''"
+                  [fctcData]="betslipStake.isFCTC ? {outcomes: betslipStake.outcomes, lines: betslipStake.Bet.lines} : null"
+                  [marketName]="betslipStake.isFCTC ? betslipStake.Bet.betComplexName : betslipStake.marketName"
+                  [eventName]="((betslipStake.isRacingSport ? betslipStake.localTime + ' ' : '') + betslipStake.eventName) | eventName">
+                </declined-bet>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+
+        <!-- Multiples Header -->
+        <div class="multiples-header" data-crlat="multiplesHeader" *ngIf="betSlipMultiples?.length > 0">
+          <span data-crlat="bsHeadMsg" [i18n]="'bs.multiples'"></span>&nbsp;<span data-crlat="bsHeadCount"
+            [textContent]="multiplesSectionCount"></span>
+        </div>
+
+        <!-- ACCA -->
+        <div class="stakes-wrapper acca-bets" *ngIf="accaBets?.length" data-crlat="acca">
+          <div *ngFor="let betslipStake of accaBets; trackBy: trackByIndex; let stakeIndex = index;">
+            <div class="bs-stake" [class.suspended]="betslipStake.disabled && overask.userHasChoice"
+              [class.bs-overask-bet-removed]="!betslipStake.isSelected && betslipStake.isOfferRemovable"
+              [hidden]="overask.userHasChoice && !betslipStake.isTraderOffered && !betslipStake.isTraderDeclined && !betslipStake.isTraderAccepted"
+              data-crlat="betslip.stake">
+
+              <betslip-multiple-bet-parts *ngIf="betslipStake.oldLegs" [oldLegs]="betslipStake.oldLegs">
+              </betslip-multiple-bet-parts>
+
+              <div class="bs-stake-notifications">
+                <!-- Errors -->
+                <bs-notification *ngIf="betslipStake.error" [bsIsClosable]="true" [bsPosition]="'bottom'"
+                  [bsType]="'error'" [bsMessage]="getErrorMsgLocale(betslipStake)">
+                </bs-notification>
+
+                <bs-notification *ngIf="betslipStake.errorMsg" [bsPosition]="'bottom'" [bsType]="'error'"
+                  [bsMessage]="betslipStake.errorMsg">
+                </bs-notification>
+
+                <bs-notification *ngIf="betslipStake.Bet.errorMsg" [bsIsClosable]="true" [bsPosition]="'bottom'"
+                  [bsType]="'error'" [bsMessage]="betslipStake.Bet.errorMsg">
+                </bs-notification>
+
+                <div class="bs-notification bottom information"
+                  [ngClass]="{'error': isSuccess(betslipStake.potentialPayout, betslipStake.Bet.betOffer.additionalLegsCount)}"
+                  *ngIf='betslipStake.Bet.betOffer.offer && betslipStake.Bet.betOffer.isAccaValid'>
+                  <static-block *ngIf="betslipStake.Bet.betOffer.offer && betslipStake.Bet.betOffer.isAccaValid"
+                    [service]="accaTemplate(betslipStake.potentialPayout, betslipStake.Bet.betOffer.additionalLegsCount)"
+                    [params]="[betslipStake.Bet.betOffer.additionalLegsCount, betslipStake.Bet.betOffer.offer.freebetTriggerMaxBonus]"
+                    [removeContainer]="true" data-crlat="accaContainer">
+                  </static-block>
+                </div>
+              </div>
+
+              <div *ngIf="!betslipStake.isTraderDeclined; else declinedAcca" class="bs-stake-content"
+                data-crlat="stakeContent">
+                <div class="bs-stake-row">
+                  <div class="bs-stake-actions" *ngIf="betslipStake.isOfferRemovable && !isBetCheckboxDisabled()">
+                    <label for="getStakeId('check-acca-bet', stakeIndex)" class="bs-checkbox-wrapper"
+                      data-crlat="selectStakeCheckbox">
+                      <svg class="bs-overask-bet-remove-icon">
+                        <use xlink:href="#close-icon"></use>
+                      </svg>
+                      <input type="checkbox" id="getStakeId('check-acca-bet', stakeIndex)"
+                        [(ngModel)]="betslipStake.isSelected" [ngModelOptions]="{standalone: true}"
+                        [disabled]="isBetCheckboxDisabled()" (ngModelChange)="removeFromOffer(betslipStake.id)"
+                        data-crlat="selectStakeCheckbox" />
+                    </label>
+                  </div>
+
+                  <div class="bs-stake-info">
+                    <span class="bs-stake-title" (click)="openSelectionMultiplesDialog(stakeIndex, false, true)">
+                      <span *ngIf="!betslipStake.isSelected && betslipStake.isOfferRemovable"
+                        class="bs-overask-bet-removed-note" [i18n]="'bs.overaskElements.removed'">
+                      </span>
+                      <span [textContent]="getAccatype(betslipStake)" data-uat="selectionName"></span>
+                      <span class="bs-stake-title-lines" data-crlat="stakeMultiplier"
+                        *ngIf="betslipStake?.stakeMultiplier"
+                        [textContent]="' (x' + betslipStake?.stakeMultiplier + ')'">
+                      </span>
+                    </span>
+
+                    <acca-insurance-subtitle [bet]="betslipStake.Bet"
+                      (passMessageConfigFn)="showOverlayMessage($event)">
+                      <div class="bs-stake-subtitle">
+                        <span class="bs-stake-type" data-uat="marketName" [i18n]="'bs.ACC_info'"></span>
+                        <i class="bs-stake-info-button" data-crlat="stakeInfoButton"
+                          *ngIf="!showMultipleRemoveLink(betslipStake) && !betslipStake.isOfferRemovable"
+                          (click)="openSelectionMultiplesDialog(stakeIndex, false, true)">
+                          <svg class="info-button">
+                            <use xlink:href="#icn_info-icon-bg"></use>
+                          </svg>
+                        </i>
+                      </div>
+                    </acca-insurance-subtitle>
+                  </div>
+                  <div *ngIf="!betslipStake.isTraderOffered && !betslipStake.isTraderAccepted" class="bs-stake-body">
+                    <div class="bs-stake-body-row">
+                      <div class="stake-odds">
+                        <div class="stake-odd-container">
+                          <!-- Acca odds -->
+                          <span
+                            *ngIf="!betslipStake.isSP && !betslipStake.isSPLP && betslipStake.stakeMultiplier === 1 && oddsACCA(betslipStake)"
+                            class="stake-odd-number" [class.boosted]="isStakeBoostAvailable(betslipStake)"
+                            [textContent]="oddsACCA(betslipStake)" data-uat="odds" data-crlat="odds">
+                          </span>
+
+                          <ng-container
+                            *ngIf="betslipStake.isSP || (betslipStake.isSPLP && !betslipStake.pricesAvailable) && betslipStake.stakeMultiplier === 1">
+                            <!-- Boost not available icon -->
+                            <lazy-component *ngIf="!betslipStake.Bet.oddsBoost && isBoostEnabled && isBoostActive"
+                              moduleUri="@oddsBoostModule/odds-boost.module#OddsBoostModule"
+                              entryComponent="OddsBoostInfoIconComponent">
+                            </lazy-component>
+                            <span class="stake-odd-number" data-crlat="odds">N/A </span>
+                          </ng-container>
+                        </div>
+
+                        <!-- Boosted price for ACCA stake -->
+                        <lazy-component *ngIf="isStakeBoostAvailable(betslipStake)"
+                          moduleUri="@oddsBoostModule/odds-boost.module#OddsBoostModule"
+                          entryComponent="LadbrokesOddsBoostPriceComponent" [inputs]="{
+                          oldPrice: getBoostedOldPrice(betslipStake, 'acca'),
+                          newPrice: getBoostedNewPrice(betslipStake, 'acca')
+                        }">
+                        </lazy-component>
+                      </div>
+                      <div class="stake-field">
+                        <form class="stake-input" [ngClass]="{'offered': betslipStake.traderChangedStake}"
+                          data-crlat="stake.amountInputForm" novalidate>
+                          <label class="currency-label" [ngClass]="{'show-currency': +betslipStake.stake.perLine }"
+                            [attr.data-currency]="currencySymbol" [textContent]="+betslipStake.stake.perLine ? currencySymbol :
+                          ''">
+                          </label>
+                          <input [attr.id]="getStakeId('accaMultipleStake', stakeIndex)" name="amountMultiple"
+                            placeholder="Stake" autocomplete="off" (click)="setFocusIndex('multiples')"
+                            [disabled]="betslipStake.disabled || overask.isInProcess || placeBetsPending || serviceClosureService.userServiceClosureOrPlayBreak"
+                            [(ngModel)]="betslipStake.stake.perLine"
+                            (ngModelChange)="setAmount(betslipStake, betslipStake.stake.perLine)" [digit-keyboard-input]
+                            [selectedFreeBet]="betslipStake.selectedFreeBet"
+                            [freebetsList]="betslipStake.availableFreeBets"
+                            [betPackList]="betslipStake.availableBetTokens"
+                            [fanzoneList]="betslipStake.availableFanzone"
+                            [freebetsConfig]="freebetsConfig"
+                            [isBoostEnabled]="isBoostEnabled"
+                            [isSelectionBoosted]="isBoostActive"
+                            [canBoostSelection]="canBoostSelection(betslipStake)"
+                            (freeBetSelected)="handleFreebetOutput($event, betslipStake)"
+                            [componentId]="'slide-out-betslip'" [showDecimalPoint]="true"
+                            [showQuickDepositButtons]="false"  [quickStakeItems]="quickStakeItems" [eventAction]="'betslip'"
+                            [patternRestrict]="stakePattern"
+                            [patternToFixed]="true"
+                            data-money-validate="true" data-crlat="value" 
+                            [class]="'acca-'+betslipStake.outcomeIds.join(',')"/>
+                        </form>
+                      </div>
+                    </div>
+
+                    <ng-container *ngIf="isFreebetButtonShown(betslipStake)">
+                      <lazy-component moduleUri="@freebetsModule/freebets.module#FreebetsModule" [inputs]="{freeBets: betslipStake.availableFreeBets,
+                          betPackList:betslipStake.availableBetTokens,
+                          fanzoneList:betslipStake.availableFanzone,
+                          selected: betslipStake.selectedFreeBet,
+                          freebetsConfig: freebetsConfig,
+                          isBoostEnabled: isBoostEnabled,
+                          isSelectionBoosted: isBoostActive,
+                          canBoostSelection: canBoostSelection(betslipStake),
+                          isBetslip: true}" [outputs]="['selectedChange']" 
+
+                        (event)="handleFreebetOutput($event, betslipStake)" entryComponent="FreeBetToggleComponent">
+                      </lazy-component>
+                    </ng-container>
+
+                    <div class="estimated-returns-ew">
+                      <div class="bs-stake-each-way" *ngIf="isMultiplesEachWay()">
+                        <form name="eachWayForm" [ngClass]="{'offered' : betslipStake.traderChangedLegType}" novalidate
+                          data-crlat="eachWayForm">
+                          <input data-uat="eachWay" [id]="getStakeId('winOrEachMult', stakeIndex)"
+                            [name]="getStakeId('winOrEachMult', stakeIndex)" type="checkbox"
+                            [checked]="betslipStake.Bet.isEachWay"
+                            [disabled]="betslipStake.disabled || overask.isInProcess || placeBetsPending"
+                            (click)="winOrEachWay(betslipStake, $event)" />
+                          <label [for]="getStakeId('winOrEachMult', stakeIndex)" [i18n]="'bs.EW'"
+                            data-crlat="label.eachWay">
+                          </label>
+                        </form>
+                      </div>
+                      <span class="stake-est-return">
+                        <span [i18n]="'bs.potentialResults'" data-crlat="estReturn.label"></span>
+                        <span class="stake-est-return-number"
+                          [ngClass]="{'offered': betslipStake.traderChangedStake || betslipStake.traderChangedOdds}"
+                          [textContent]="calculateEstReturnsMultiples(stakeIndex, accaBets)" data-crlat="estReturn">
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+
+                  <betslip-offered-data *ngIf="betslipStake.isTraderOffered || betslipStake.isTraderAccepted"
+                    [currencySymbol]="currencySymbol" [returns]="calculateEstReturnsMultiples(stakeIndex, accaBets)"
+                    [isStakeChanged]="betslipStake.traderChangedStake" [eachWay]="betslipStake.Bet.isEachWay"
+                    [isTraderChangedLegType]="betslipStake.traderChangedLegType" [stake]="betslipStake.stake.perLine">
+                  </betslip-offered-data>
+
+                  <a *ngIf="!betslipStake.isSelected && betslipStake.isOfferRemovable" class="bs-overaks-undo-btn"
+                    [i18n]="'bs.overaskElements.undo'" (click)="undoOveraskBetRemove(betslipStake)"
+                    data-crlat="oUndoBtn">
+                  </a>
+                </div>
+
+                <ng-container *ngIf="betslipStake.Bet.isEachWay && betslipStake.selectedFreeBet && !betslipStake.isSP && !betslipStake.disabled && !overask.userHasChoice">
+                  <lazy-component moduleUri="@lazy-modules-module/signposting/signposting.module#SignpostingModule"
+                    entryComponent="FreebetSignpostingComponent" [inputs]="{ betInfo: getBetInfoPrice(betslipStake), signpostingTitle: 'eachway' }">
+                  </lazy-component>
+                </ng-container>
+              </div>
+
+              <ng-template #declinedAcca>
+                <declined-bet data-crlat="declinedBet" [selectionName]="getAccatype(betslipStake)"
+                  [stakeMultiplier]="betslipStake.stakeMultiplier ? ' (x' + betslipStake.stakeMultiplier + ')' : ''"
+                  [marketName]="betslipStake.typeInfo ? betslipStake.typeInfo : ''">
+                </declined-bet>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+
+        <!-- Betslip multiples -->
+        <div class="stakes-wrapper" *ngIf="betSlipMultiples?.length" data-crlat="multiples">
+          <div *ngFor="let multipleBetslipStake of notAccaBets; trackBy: trackByIndex; let stakeIndex = index;"
+            class="bs-stake" [class.suspended]="multipleBetslipStake.disabled && overask.userHasChoice"
+            [class.bs-overask-bet-removed]="!multipleBetslipStake.isSelected && multipleBetslipStake.isOfferRemovable"
+            [hidden]="overask.userHasChoice && !multipleBetslipStake.isTraderOffered && !multipleBetslipStake.isTraderDeclined && !multipleBetslipStake.isTraderAccepted"
+            data-crlat="betslip.stake">
+
+            <betslip-multiple-bet-parts *ngIf="multipleBetslipStake.oldLegs" [oldLegs]="multipleBetslipStake.oldLegs">
+            </betslip-multiple-bet-parts>
+
+            <div class="bs-stake-notifications">
+              <!-- Errors -->
+              <bs-notification *ngIf="multipleBetslipStake.error" [bsIsClosable]="true" [bsPosition]="'bottom'"
+                [bsType]="'error'" [bsMessage]="getErrorMsgLocale(multipleBetslipStake)">
+              </bs-notification>
+
+              <bs-notification *ngIf="multipleBetslipStake.errorMsg" [bsPosition]="'bottom'" [bsType]="'error'"
+                [bsMessage]="multipleBetslipStake.errorMsg">
+              </bs-notification>
+
+              <bs-notification *ngIf="multipleBetslipStake.Bet.errorMsg" [bsPosition]="'bottom'" [bsType]="'error'"
+                [bsMessage]="multipleBetslipStake.Bet.errorMsg">
+              </bs-notification>
+
+            </div>
+
+            <div *ngIf="!multipleBetslipStake.isTraderDeclined; else declinedMultiple" class="bs-stake-content"
+              data-crlat="stakeContent">
+              <div class="bs-stake-row">
+                <div class="bs-stake-actions" *ngIf="multipleBetslipStake.isOfferRemovable && !isBetCheckboxDisabled()">
+                  <label for="getStakeId('check-multiple-bet', stakeIndex)" class="bs-checkbox-wrapper"
+                    data-crlat="selectStakeCheckbox">
+                    <svg class="bs-overask-bet-remove-icon">
+                      <use xlink:href="#close-icon"></use>
+                    </svg>
+                    <input type="checkbox" id="getStakeId('check-multiple-bet', stakeIndex)"
+                      [(ngModel)]="multipleBetslipStake.isSelected" [ngModelOptions]="{standalone: true}"
+                      [disabled]="isBetCheckboxDisabled()" (ngModelChange)="removeFromOffer(multipleBetslipStake.id)"
+                      data-crlat="selectStakeCheckbox" />
+                  </label>
+                </div>
+
+                <div class="bs-stake-info">
+                  <span class="bs-stake-title" (click)="openSelectionMultiplesDialog(stakeIndex)">
+                    <span *ngIf="!multipleBetslipStake.isSelected && multipleBetslipStake.isOfferRemovable"
+                      class="bs-overask-bet-removed-note" [i18n]="'bs.overaskElements.removed'">
+                    </span>
+                    <span [textContent]="getTypeLocale(multipleBetslipStake)" data-uat="selectionName"></span>
+                    <span class="bs-stake-title-lines" data-crlat="stakeMultiplier"
+                      *ngIf="multipleBetslipStake?.stakeMultiplier"
+                      [textContent]="' (x' + multipleBetslipStake?.stakeMultiplier + ')'">
+                    </span>
+                  </span>
+
+                  <div class="bs-stake-subtitle">
+                    <span *ngIf="multipleBetslipStake.typeInfo" class="bs-stake-type" data-uat="marketName"
+                      [textContent]="multipleBetslipStake.typeInfo"></span>
+                    <i *ngIf="!showMultipleRemoveLink(multipleBetslipStake) && !multipleBetslipStake.isOfferRemovable && SSDSType(multipleBetslipStake.type)"
+                      class="bs-stake-info-button" data-crlat="stakeInfoButton"
+                      (click)="openSelectionMultiplesDialog(stakeIndex)">
+                      <svg class="info-button">
+                        <use xlink:href="#icn_info-icon-bg"></use>
+                      </svg>
+                    </i>
+                  </div>
+                   <!--Lucky 15/31/63 sign posting -->
+                   <!--todo: luckybonus: optimise the code-->
+                   <div  *ngIf="showLuckySignPostInfoLable(multipleBetslipStake.type) && showLuckySignPost && isLuckyAvailable" class="luckynewbonus">
+                    <span class="luckyflower" [textContent]="getTypeLocale(multipleBetslipStake)"></span>
+                   <svg *ngIf="betReceiptService.isBetSlipShown" class="info-button infolabel">
+                     <use (click)="openSelectionMultiplesDialog(stakeIndex, true, false, getTypeLocale(multipleBetslipStake))" xlink:href="#icn_info-icon-bg"></use>
+                   </svg>
+                   </div>
+                       </div>
+                <div *ngIf="!multipleBetslipStake.isTraderOffered && !multipleBetslipStake.isTraderAccepted"
+                  class="bs-stake-body">
+                  <div class="bs-stake-body-row">
+                    <div class="stake-odds">
+                      <div class="stake-odd-container">
+                        <!-- Multiple stake odds  -->
+                        <span class="stake-odd-number"
+                          *ngIf="!multipleBetslipStake.isSP && !multipleBetslipStake.isSPLP && (multipleBetslipStake.stakeMultiplier === 1) && oddsACCA(multipleBetslipStake)"
+                          [class.boosted]="isStakeBoostAvailable(multipleBetslipStake)"
+                          [textContent]="oddsACCA(multipleBetslipStake)" data-uat="odds" data-crlat="odds">
+                        </span>
+
+                        <ng-container
+                          *ngIf="(multipleBetslipStake.isSP || (multipleBetslipStake.isSPLP && !multipleBetslipStake.pricesAvailable)) && multipleBetslipStake.stakeMultiplier === 1">
+                          <!-- Boost not available icon -->
+                          <lazy-component *ngIf="!multipleBetslipStake.Bet.oddsBoost && isBoostEnabled && isBoostActive"
+                            moduleUri="@oddsBoostModule/odds-boost.module#OddsBoostModule"
+                            entryComponent="OddsBoostInfoIconComponent">
+                          </lazy-component>
+                          <span class="stake-odd-number" data-uat="odds" data-crlat="odds">N/A</span>
+                        </ng-container>
+                      </div>
+
+                      <!-- Boosted price for Multiple stake -->
+                      <lazy-component *ngIf="isStakeBoostAvailable(multipleBetslipStake)"
+                        moduleUri="@oddsBoostModule/odds-boost.module#OddsBoostModule"
+                        entryComponent="LadbrokesOddsBoostPriceComponent" [inputs]="{
+                        oldPrice: getBoostedOldPrice(multipleBetslipStake, 'multiple'),
+                        newPrice: getBoostedNewPrice(multipleBetslipStake, 'multiple')
+                      }">
+                      </lazy-component>
+                    </div>
+
+                    <div class="stake-field">
+                      <form class="stake-input" [ngClass]="{'offered': multipleBetslipStake.traderChangedStake}"
+                        data-crlat="stake.amountInputForm" novalidate>
+                        <label class="currency-label"
+                          [ngClass]="{'show-currency': +multipleBetslipStake.stake.perLine }"
+                          [attr.data-currency]="currencySymbol" [textContent]="+multipleBetslipStake.stake.perLine ? currencySymbol :
+                        ''">
+                        </label>
+                        <input [id]="getStakeId('accaMultipleStake', stakeIndex)" name="amountMultiple"
+                          placeholder="Stake" autocomplete="off" (click)="setFocusIndex('multiples')"
+                          [disabled]="multipleBetslipStake.disabled || overask.isInProcess || placeBetsPending || serviceClosureService.userServiceClosureOrPlayBreak"
+                          [(ngModel)]="multipleBetslipStake.stake.perLine"
+                          (ngModelChange)="setAmount(multipleBetslipStake, multipleBetslipStake.stake.perLine)"
+                          [selectedFreeBet]="multipleBetslipStake.selectedFreeBet"
+                          [freebetsList]="multipleBetslipStake.availableFreeBets"
+                          [betPackList]="multipleBetslipStake.availableBetTokens"
+                          [fanzoneList]="multipleBetslipStake.availableFanzone"
+                          [isBoostEnabled]="isBoostEnabled"
+                          [isSelectionBoosted]="isBoostActive"
+                          [freebetsConfig]="freebetsConfig"
+                          [canBoostSelection]="canBoostSelection(multipleBetslipStake)"
+                          (freeBetSelected)="handleFreebetOutput($event, multipleBetslipStake)" [digit-keyboard-input]
+                          [componentId]="'slide-out-betslip'" [showDecimalPoint]="true"
+                          [showQuickDepositButtons]="false" [quickStakeItems]="quickStakeItems" [eventAction]="'betslip'"
+                          [patternRestrict]="stakePattern"
+                          [patternToFixed]="true"
+                          data-money-validate="true" data-crlat="value"
+                          [class]="'multiple-'+multipleBetslipStake.outcomeIds?.join(',')" />
+                      </form>
+                    </div>
+                  </div>
+
+                  <ng-container *ngIf="isFreebetButtonShown(multipleBetslipStake)">
+                    <lazy-component moduleUri="@freebetsModule/freebets.module#FreebetsModule" [inputs]="{freeBets: multipleBetslipStake.availableFreeBets,
+                        betPackList:multipleBetslipStake.availableBetTokens,
+                        fanzoneList:multipleBetslipStake.availableFanzone,
+                        selected: multipleBetslipStake.selectedFreeBet,
+                        freebetsConfig: freebetsConfig,
+                        isBoostEnabled: isBoostEnabled,
+                        isSelectionBoosted: isBoostActive,
+                        canBoostSelection: canBoostSelection(multipleBetslipStake),
+                        isBetslip: true}" [outputs]="['selectedChange']"
+                      (event)="handleFreebetOutput($event, multipleBetslipStake)" 
+                      entryComponent="FreeBetToggleComponent">
+                    </lazy-component>
+                  </ng-container>
+
+                  <div class="estimated-returns-ew">
+                    <div class="bs-stake-each-way" *ngIf="isMultiplesEachWay()">
+                      <form name="eachWayForm" [ngClass]="{'offered' : multipleBetslipStake.traderChangedLegType}"
+                        novalidate data-crlat="eachWayForm">
+                        <input data-uat="eachWay" [id]="getStakeId('winOrEachMultiple', stakeIndex)"
+                          [name]="getStakeId('winOrEachMultiple', stakeIndex)" type="checkbox"
+                          [checked]="multipleBetslipStake.Bet.isEachWay"
+                          [disabled]="multipleBetslipStake.disabled || overask.isInProcess || placeBetsPending"
+                          (click)="winOrEachWay(multipleBetslipStake, $event)" />
+                        <label [for]="getStakeId('winOrEachMultiple', stakeIndex)" [i18n]="'bs.EW'"
+                          data-crlat="label.eachWay">
+                        </label>
+                      </form>
+                    </div>
+
+                    <span class="stake-est-return">
+                      <span [i18n]="'bs.potentialResults'" data-crlat="estReturn.label"></span>
+                      <span class="stake-est-return-number"
+                        [ngClass]="{'offered': multipleBetslipStake.traderChangedStake || multipleBetslipStake.traderChangedOdds}"
+                        [textContent]="calculateEstReturnsMultiples(stakeIndex, notAccaBets)" data-crlat="estReturn">
+                      </span>
+                    </span>
+
+                    <span *ngIf="showLuckySignPostInfoLable(multipleBetslipStake.type) && showLuckySignPost && isLuckyAvailable && !checkSP(multipleBetslipStake) && isShownAllWinner()" 
+                    class="stake-est-return">
+                      <span class="allWinnerBonus" [i18n]="'bs.allWinnerBonus'" data-crlat="estReturn.label"></span>
+                       <span class="stake-est-return-number allWinnerBonus"
+                            [ngClass]="{'offered': multipleBetslipStake.traderChangedStake || multipleBetslipStake.traderChangedOdds}"
+                            [textContent]="bonusValue"
+                            data-crlat="estReturn">
+                      </span>
+                    </span>
+
+
+                  </div>
+                </div>
+
+                <betslip-offered-data
+                  *ngIf="multipleBetslipStake.isTraderOffered || multipleBetslipStake.isTraderAccepted"
+                  [currencySymbol]="currencySymbol" [returns]="calculateEstReturnsMultiples(stakeIndex, notAccaBets)"
+                  [isStakeChanged]="multipleBetslipStake.traderChangedStake"
+                  [eachWay]="multipleBetslipStake.Bet.isEachWay"
+                  [isTraderChangedLegType]="multipleBetslipStake.traderChangedLegType"
+                  [stake]="multipleBetslipStake.stake.perLine">
+                </betslip-offered-data>
+
+                <a *ngIf="!multipleBetslipStake.isSelected && multipleBetslipStake.isOfferRemovable"
+                  class="bs-overaks-undo-btn" [i18n]="'bs.overaskElements.undo'"
+                  (click)="undoOveraskBetRemove(multipleBetslipStake)">
+                </a>
+              </div>
+
+              <ng-container *ngIf="multipleBetslipStake.Bet.isEachWay && multipleBetslipStake.selectedFreeBet && !multipleBetslipStake.isSP && !multipleBetslipStake.disabled && !overask.userHasChoice">
+                <lazy-component moduleUri="@lazy-modules-module/signposting/signposting.module#SignpostingModule"
+                  entryComponent="FreebetSignpostingComponent" [inputs]="{ betInfo: getBetInfoPrice(multipleBetslipStake), signpostingTitle: 'eachway' }">
+                </lazy-component>
+              </ng-container>
+            </div>
+
+            <ng-template #declinedMultiple>
+              <declined-bet data-crlat="declinedBet" [selectionName]="getTypeLocale(multipleBetslipStake)"
+                [stakeMultiplier]="multipleBetslipStake.stakeMultiplier > 1 && !SSDSType(multipleBetslipStake.type) ? ' (x' + multipleBetslipStake.stakeMultiplier + ')' : ''"
+                [marketName]="multipleBetslipStake.typeInfo ? multipleBetslipStake.typeInfo : ''">
+              </declined-bet>
+            </ng-template>
+          </div>
+        </div>
+
+        <!-- Betslip Totes -->
+        <div class="stakes-wrapper bs-tote-container" *ngIf="areToteBetsInBetslip()" data-crlat="singles">
+          <div class="single-stake bs-stake" data-crlat="betslip.stake" [class.suspended]="toteBetSuspendedError">
+            <div class="bs-stake-notifications">
+              <bs-notification *ngIf="toteError" [bsPosition]="'bottom'" [bsType]="'error'" [bsMessage]="toteError"
+                [bsNoScroll]="true">
+              </bs-notification>
+            </div>
+
+            <div class="bs-stake-content" data-crlat="stakeContent">
+
+              <div class="bs-stake-actions">
+                <div class="bs-stake-delete-button" (click)="removeToteBet()" data-crlat="stake.deleteButton">
+                  <svg>
+                    <use xlink:href="#close-icon"></use>
+                  </svg>
+                </div>
+              </div>
+
+              <div class="bs-stake-info">
+                <span class="bs-stake-title" [textContent]="toteBetSlip.poolName" data-uat="selectionName"></span>
+                <span class="bs-stake-type" [textContent]="toteBetSlip.betTitle" data-uat="marketName"></span>
+
+                <div *ngIf="!toteBetSlip.isPotBet" data-crlat="toteBetOutcomes">
+                  <div
+                    *ngFor="let item of toteBetSlip.orderedOutcomes; trackBy: trackByIndex; let outcomeIndex = index;"
+                    class="non-multiplelegs-outcomes" data-crlat="stake.outcome">
+                    <span *ngIf="toteBetSlip.toteBet.toteBetDetails.showOrderPosition" class="stake-type runner-number"
+                      [textContent]="outcomeIndex + 1" data-crlat="outcome.number"></span>
+                    <span *ngIf="!toteBetSlip.toteBet.toteBetDetails.showOrderPosition && item.runnerNumber !== '0'"
+                      class="stake-type runner-number" [textContent]="item.runnerNumber"
+                      data-crlat="outcome.number"></span>
+                    <span>&nbsp;</span>
+                    <span class="stake-type" [textContent]="item.name" data-crlat="outcome.name">
+                    </span>
+                  </div>
+                  <div class="tote-race-details">
+                    <span class="stake-description" [textContent]="toteBetSlip.eventTitle" data-uat="eventName"></span>
+                    <div class="stake-description race-date" [i18n]="toteBetSlip.correctedDay" data-crlat="eventDate">
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="toteBetSlip.isPotBet" class="multiple-legs-pool" data-crlat="toteBetSlip.multipleLegs">
+                  <div *ngFor="let leg of toteBetSlip.orderedLegs; trackBy: trackByIndex" class="leg-item"
+                    data-crlat="toteBetSlip.leg">
+                    <div class="leg-item-title" [textContent]="toteBetSlip.getLegTitle(leg)"></div>
+                    <div class="outcome-item" *ngFor="let outcome of leg.outcomes">
+                      <div class="outcome-item-title" [textContent]="toteBetSlip.getSelectionName(outcome)"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="bs-stake-body">
+                <div class="bs-stake-body-row">
+                  <div class="stake-odds"></div>
+                  <div class="stake-field">
+                    <form class="stake-input tote-stake" [showCurrency]="{ currency: toteBetSlip.poolCurrencySymbol,
+                                        value: toteBetSlip.toteBet.poolBet.stakePerLine,
+                                        limit: 8 }" data-crlat="stake.amountInputForm" novalidate>
+                      <label class="currency-label" [textContent]="+toteBetSlip.toteBet.poolBet.stakePerLine ? 
+                             toteBetSlip.poolCurrencySymbol:'' ">
+                      </label>
+                      <input id="toteBet" name="amount" [disabled]="toteBetSuspendedError" placeholder="Stake"
+                        [(ngModel)]="toteBetSlip.toteBet.poolBet.stakePerLine"
+                        (ngModelChange)="toteBetSlip.setStakePerLine()" [digit-keyboard-input]
+                        (freeBetSelected)="handleFreebetOutput($event)"
+                        (keyup)="setStake()"
+                        [componentId]="'slide-out-betslip'"
+                        [showDecimalPoint]="true" [showQuickDepositButtons]="false" [quickStakeItems]="quickStakeItems" [eventAction]="'betslip'"
+                        [patternRestrict]="stakePattern"
+                        [patternToFixed]="true"
+                        data-money-validate="true" data-crlat="value" autocomplete="off"
+                        [attr.data-currency-length]="toteBetSlip.poolCurrencySymbol.length" 
+                        class="tote_quickStake" />
+                    </form>
+                  </div>
+                </div>
+                <!--Tote Free Bets signpost-->
+                <ng-container *ngIf="isToteFreeBetAvailable || isToteBetTokensAvailable">
+                  <lazy-component moduleUri="@freebetsModule/freebets.module#FreebetsModule"
+                  [inputs]="{freeBets: availableToteFreeBets,
+                  freebetsConfig: freebetsConfig,
+                  betPackList: availableToteBetPacks,
+                  selected: selectedToteFreeBetObj,
+                  isBetslip:true,
+                  toteFreeBetSelected: toteFreeBetSelected}"
+                    [outputs]="['toteBet', 'removetoteFreeBet']"
+                    (event)="handleFreebetOutput($event)"
+                  entryComponent="ToteFreeBetsToggleComponent">
+                  </lazy-component>
+                </ng-container>
+                <div class="estimated-returns-ew">
+                  <div *ngIf="areToteBetsInBetslip()">
+                    <span class="stake-est-return">
+                      <span [i18n]="'bs.potentialResults'" data-crlat="estReturn.label"></span>
+                      <span class="stake-est-return-number" [textContent]="'N/A'" data-crlat="estReturn"></span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </ng-container>
+
+        <betslip-deposit-error-container
+          *ngIf="!showIFrame && !quickDeposit.quickDepositFormExpanded && !isDigitKeyboardShown"
+          [errorMsg]="amountNeededErrorMessage" [errorType]="'error'"
+          [neededAmountForPlaceBet]="quickDeposit.neededAmountForPlaceBet"></betslip-deposit-error-container>
+
+        <lazy-component
+          *ngIf="betslipStakeService.maxFlag && maxPayFlag && !isNoSelections && !quickDeposit.quickDepositFormExpanded && !isDigitKeyboardShown"
+          moduleUri="@lazy-modules-module/maxpayOutErrorContainer/maxpayout-error-container.module#MaxpayoutErrorContainerModule"
+          [inputs]="{betType:'betslip', errorMsg: maxPayMsg}" entryComponent="LadbrokesMaxpayoutErrorContainerComponent"
+          data-crlat="maxPayout">
+        </lazy-component>
+        <!-- Footer notifications, Total stake & return, German fee, Footer buttons (Inside scrollable content) -->
+        <ng-container *ngIf="!isNoSelections &&
+                           !showIFrame &&
+                           !isDigitKeyboardShown &&
+                           !quickDeposit.quickDepositFormExpanded &&
+                           (!placeBetsPending || overask.isInProcess)">
+          <ng-container *ngTemplateOutlet="footerNotificationsTpl"></ng-container>
+
+          <betslip-total-wrapper
+            [totalStake]="((totalStakeWithOutFreeBets() || '0.00') | currency:currencySymbol:'code')"
+            [totalFreeBetsStake]="(totalFreeBetsStake())"
+            [totalReturns]="(totalEstReturns() | currency:currencySymbol:'code') || 'N/A'"
+            [freeBetLabelText]="getFreeBetLabelText()">
+          </betslip-total-wrapper>
+          <div *ngIf="isGermanUser" data-crlat="taxMessage" class="total-fee total-fee-place" [i18n]="'bs.tax5'"></div>
+          <ng-container *ngTemplateOutlet="footerButtonsTpl"></ng-container>
+        </ng-container>
+      </div>
+
+      <!-- Footer -->
+      <div class="bs-scrolling-fix-ios bs-footer-anchoring"
+        *ngIf="betSlipSingles?.length > 0 || areToteBetsInBetslip() || isLottoBet(lottobetslipData)">
+
+        <bs-notification *ngIf="lottoErrorMsg"
+        [bsIsClosable]="true"
+        [bsPosition]="'bottom'"
+        [bsType]="'error'"
+        [bsMessage]="lottoErrorMsg.errorDesc"
+        [bsNoScroll]="true">
+      </bs-notification>
+      
+        <lazy-component *ngIf="onBoardingData?.tutorialEnabled"
+          moduleUri="@lazy-modules-module/onBoardingTutorial/firstBetPlacement/first-bet-placement.module#LadbrokesOnBoardingFirstBetModule"
+          entryComponent="LadbrokesOnBoardingFirstBetComponent"
+          [inputs]="{onBoardingData: onBoardingData, isDigitKeyboardShown: isDigitKeyboardShown}">
+        </lazy-component>
+
+        <div class="scrollable-content prevented-container" data-crlat="bsFoot">
+          <lazy-component *ngIf="quickDepositIFrameFormExpanded" class="qb-quick-deposit-iframe"
+            moduleUri="@quickDepositModule/quick-deposit.module#QuickDepositModule" [inputs]="{
+                            showPriceChangeNotification: false,
+                            priceChangeBannerMsg: priceChangeBannerMsg,
+                            placeSuspendedErr: placeSuspendedErr,
+                            stake: currentStake,
+                            estimatedReturn: totalEstReturns(),
+                            estimatedReturnAfterPriceChange: estimatedReturnAfterPriceChange
+                        }" [outputs]="['openIframeEmit', 'quickDepositStakeChange', 'closeWindow', 'closeIframeEmit']"
+            (event)="onQuickDepositEvents($event)" entryComponent="QuickDepositIframeComponent" data-crlat="QD">
+          </lazy-component>
+
+          <div class="bs-footer with-shadow" data-crlat="bsFoot" [ngClass]="{
+                'keyboard-shown': isDigitKeyboardShown
+                }">
+
+            <lazy-component [hidden]="!quickDeposit.quickDepositFormExpanded || !quickStakeVisible"
+              moduleUri="@quickbetModule/quickbet.module#QuickbetModule" [outputs]="['quickStakeSelect']"
+              (event)="onQuickStakeSelect($event.value)" entryComponent="LadbrokesQuickStakeComponent">
+            </lazy-component>
+
+            <betslip-deposit-error-container
+              *ngIf="allowQuickDeposit() && !quickDeposit.quickDepositFormExpanded && isDigitKeyboardShown"
+              [errorMsg]="amountNeededErrorMessage" [errorType]="'error'"
+              [neededAmountForPlaceBet]="quickDeposit.neededAmountForPlaceBet">
+            </betslip-deposit-error-container>
+
+            <lazy-component
+              *ngIf="betslipStakeService.maxFlag && maxPayFlag && !isNoSelections && !quickDeposit.quickDepositFormExpanded && isDigitKeyboardShown"
+              moduleUri="@lazy-modules-module/maxpayOutErrorContainer/maxpayout-error-container.module#MaxpayoutErrorContainerModule"
+              [inputs]="{betType:'betslip', errorMsg: maxPayMsg}"
+              entryComponent="LadbrokesMaxpayoutErrorContainerComponent" data-crlat="maxPayout">
+            </lazy-component>
+
+            <!-- Footer notificatios, Total stake & return, German fee (Inside sticky footer) -->
+            <ng-container *ngIf="isDigitKeyboardShown || (isDigitKeyboardShown && !isShowQuickDepositBtnShown())
+            || quickDeposit.quickDepositFormExpanded || (placeBetsPending && !overask.isInProcess)">
+              <ng-container *ngTemplateOutlet="footerNotificationsTpl"></ng-container>
+
+              <betslip-total-wrapper class="in-bs-footer"
+                [totalStake]="((totalStakeWithOutFreeBets() || '0.00') | currency:currencySymbol:'code')"
+                [totalFreeBetsStake]="(totalFreeBetsStake())"
+                [jump]="'jump'"
+                [totalReturns]="(totalEstReturns() | currency:currencySymbol:'code') || 'N/A'"
+                [freeBetLabelText]="getFreeBetLabelText()">
+              </betslip-total-wrapper>
+              <div *ngIf="isGermanUser" class="total-fee total-fee-betslip" [i18n]="'bs.tax5'" data-crlat="taxMessage">
+              </div>
+            </ng-container>
+
+            <digit-keyboard class="betslip-keyboard" [hidden]="!loadComplete" [componentId]="'slide-out-betslip'"
+              [currency]="currencySymbol" [toteFreeBetSelected]="toteFreeBetSelected" isBetslip="true" [betslip-digit-keyboard]
+              [freeBetLabelText]="getFreeBetLabelText()" [selectedToteFreeBetValue]="fetchStakePerLine()"
+              (keyboardShown)="onKeyboardToggle(false)" (keyboardHidden)="onKeyboardToggle(true)"
+              [freeBetImageName]="getFreeBetLabelText(true)" [areToteBetsInBetslip]="areToteBetsInBetslip()"
+              >
+            </digit-keyboard>
+
+            <!-- Footer buttons (Inside sticky footer) -->
+            <ng-container *ngIf="isDigitKeyboardShown || (isDigitKeyboardShown && !isShowQuickDepositBtnShown())
+            || quickDeposit.quickDepositFormExpanded || (placeBetsPending && !overask.isInProcess)">
+              <ng-container *ngTemplateOutlet="footerButtonsTpl"></ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <request-error *ngIf="loadFailed" [loadFailed]="loadFailed" (reloadFn)="reloadComponent()"></request-error>
+
+  <overask-holding-drawer *ngIf="overask.isOnTradersReview && overaskDrawerIsConfigured && loadComplete"
+    [relativeToParent]="!isMobile" [title]="overaskProcessingTitle" [topMessage]="overaskProcessingTopMessage"
+    [bottomMessage]="overaskProcessingBottomMessage" [currencySymbol]="currencySymbol"></overask-holding-drawer>
+
+  <ng-template #footerNotificationsTpl>
+    <div class="footer-notifications">
+
+      <ng-info-panel *ngIf="toteBetGeneralError" class="container" [message]="toteBetGeneralError.msg"
+        [type]="toteBetGeneralError.type" [withArrowBottom]="true" [noHide]="true" [noScroll]="true"
+        data-crlat="betslipDeposit.textMsg"></ng-info-panel>
+
+      <div class="bs-notification warning" *ngIf="overask.errorMessage" [textContent]="overask.errorMessage"
+        data-crlat="overaskErrorMessage">
+      </div>
+
+      <div
+        *ngIf="!hasErrors() && !!placeStakeErr && !quickDeposit.showQuickDepositForm && !quickDeposit.quickDepositFormExpanded"
+        class="bs-notification default">
+        <svg>
+          <use xlink:href="#icn_info"></use>
+        </svg>
+        <span [textContent]="placeStakeErr"></span>
+      </div>
+
+      <ng-container *ngIf="!quickDeposit.quickDepositFormExpanded">
+        <div *ngIf="placeSuspendedErr.msg || toteBetSuspendedError" class="bs-notification default" data-crlat="bs.Err">
+          <svg>
+            <use xlink:href="#icn_info"></use>
+          </svg>
+          <span [textContent]="getFooterWarningMsg()"></span>
+        </div>
+
+        <div *ngIf="showPriceChangeNotification()" class="bs-notification default" data-crlat="bs.ntfErr">
+          <svg>
+            <use xlink:href="#icn_info"></use>
+          </svg>
+          <span [textContent]="priceChangeBannerMsg" class="text-left"></span>
+        </div>
+
+        <!-- Overask offer expired message -->
+        <div *ngIf="overask.stateMessage && overask.isNotInProcess" class="bs-notification default"
+          data-crlat="bs.ntfErr">
+          <svg>
+            <use xlink:href="#icn_info"></use>
+          </svg>
+          <span [textContent]="overask.stateMessage" class="text-left"></span>
+        </div>
+      </ng-container>
+
+      <div class="bs-notification warning" *ngIf="countDownClock">
+        <span [i18n]="'bs.countDownTimerMessage'" data-crlat="timerMsg"></span>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- Footer buttons (update account, place bet, overask) -->
+  <ng-template #footerButtonsTpl>
+    <div *ngIf="isUpgradeVisible()" class="bs-buttons-wrapper">
+      <button class="base-btn wide-btn" data-crlat="upgradeAccountBtn" (click)="navigateToUpgrade()">
+        <span [i18n]="'bs.upgradeAccount'"></span>
+      </button>
+    </div>
+
+    <div *ngIf="!isUpgradeVisible()" class="bs-buttons-wrapper">
+      <!-- Place bet -->
+      <button *ngIf="showBetNowBtn()" class="base-btn betnow-btn" (click)="templatePlaceBet();"
+        [disabled]="disableBetNowBtn()" data-uat="betNowBtn">
+        <spinner *ngIf="placeBetsPending && overask.isNotInProcess || quickDeposit.quickDepositPending"
+          data-crlat="spinner.loader"></spinner>
+        <span *ngIf="placeBetsPending || quickDeposit.quickDepositPending" class="bs-countdown-timer"
+          data-crlat="timer">
+          {{ countDownCurrentValue }}
+        </span>
+        <span *ngIf="isPlaceButtonShown()" [i18n]="bsButtonTitle"></span>
+        <span *ngIf="!isLiveEvent && placeBetsPending" [i18n]="'bs.betNow'"></span>
+      </button>
+
+      <!-- Open quick deposit -->
+      <button *ngIf="isShowQuickDepositBtnShown()" class="base-btn betnow-btn" [disabled]="iframeLoadingInProgress || multiplesShouldBeRebuilded ||
+              (isZeroBalanceWithExistingBets && totalStake() === '0.00')" (click)="loadQuickDepositIFrame()"
+        data-crlat="makeQD">
+        <spinner *ngIf="isIFrameLoadingInProgress()"></spinner>
+        <span *ngIf="isDepositAndPlaceBets()" [i18n]="'bs.betslipMakeQuickDepositBtn'"></span>
+      </button>
+
+      <!-- Overask confirm/cancel offer-->
+      <ng-container *ngIf="overask.userHasChoice">
+        <button class="base-btn overask-btn2" (click)="rejectOffer()" data-crlat="ovCancel"
+          [i18n]="'bs.overaskElements.cancelTradersOffer'">
+        </button>
+        <button class="base-btn overask-btn1" [disabled]="!isBetsSelected" (click)="acceptOffer()" data-crlat="ovAccept"
+          [i18n]="'bs.betNow'">
+        </button>
+      </ng-container>
+    </div>
+  </ng-template>
+</div>

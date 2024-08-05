@@ -1,0 +1,19 @@
+<modal #fanzoneGameLaunchDialog>
+  <ng-template #modalHeader>
+    <span class="games-title" [textContent]="fanzoneGameLaunchData.gameDisplayName"></span>
+    <svg class="btn-close" (click)="close()">
+      <use xlink:href="#close-icon"></use>
+    </svg>
+  </ng-template>
+  <ng-template #modalBody>
+    <div class="body">
+      <iframe class="game-launch-container" type="text/html"
+              [src]="fanzoneGameLaunchData.gameLaunchUrl | safe: 'resourceUrl'"
+              frameborder="0"
+              id="iframeGameLaunch"
+              #iframeGameLaunch
+              title="Game launch">
+      </iframe>
+    </div>
+  </ng-template>
+</modal>

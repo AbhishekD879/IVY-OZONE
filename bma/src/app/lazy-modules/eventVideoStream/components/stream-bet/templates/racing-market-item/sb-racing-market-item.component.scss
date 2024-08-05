@@ -1,0 +1,100 @@
+@import 'global.variables.scss';
+
+.Rectangle {
+  width: 250px;
+  height: 42px;
+  margin: 0 8px 0 0;
+  border-radius: 2px;
+  background-color: rgba(0, 0, 0, 0.4);
+  display:flex;
+  align-items: center;
+}
+
+span {
+  width: 30px;
+  height: 16px;
+  margin: 0 0 1px;
+  font-family: $alt-font-family;
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.01px;
+  text-align: center;
+  color: #fff;
+
+  &.odds {
+    font-size: 12px;
+  }
+  &.odds-draw {
+    font-size: 9px;
+  }
+}
+.hr-bitmap {
+  width: 42px;
+  height: 30px;
+  margin: 5px;
+}
+.Horse-Name {
+  width: 125px;
+  height: auto;
+  margin-left: 7px;
+  font-family: $alt-font-family;
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+.Odds {
+  width: 60px;
+  height: 42px;
+  font-family: $alt-font-family;
+  font-size: 12px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.01px;
+  text-align: center;
+  color: #fff;
+}
+
+.span-hr {
+  width: 30px;
+  height: 11px;
+  margin: 1px 0 0;
+  font-family: $alt-font-family;
+  font-size: 9px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.01px;
+  text-align: center;
+  color: #fff;
+}
+
+.hr-position {
+  display:flex;
+  flex-direction: column;
+  margin: 5px 0 5px 5px;
+}
+
+.Rectangle-odds {
+  margin: 0 0 0 12px;
+  display: flex;
+  align-items: center;
+}

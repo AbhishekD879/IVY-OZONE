@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-md-12">
+    <app-round-names-list [(competitionModule)]="module"></app-round-names-list>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <matches-list *ngIf="module.knockoutModuleData.rounds.length" [(competitionModule)]="module"
+                  (competitionModuleChange)="handleModuleChange($event)"></matches-list>
+  </div>
+</div>

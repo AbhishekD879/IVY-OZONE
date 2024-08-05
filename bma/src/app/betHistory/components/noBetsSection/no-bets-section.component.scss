@@ -1,0 +1,60 @@
+@import 'global.variables.scss';
+
+.no-bets-container {
+  display: block;
+  background: $color-white;
+  padding: 18px;
+  text-align: center;
+
+  .no-bets-msg {
+    font-size: $font-size-lg;
+    font-family: $no-bets-button-font;
+    font-weight: bold;
+    line-height: normal;
+
+    &.lads-text{
+      line-height: 17px;
+    }
+  }
+
+  .button {
+    margin-top: $no-bets-button-margin;
+    font-size: $no-bets-button-size;
+    color: $no-bets-button-color;
+    background: $color-yellow;
+    &:hover{
+      background: $color-yellow-alt2;
+      color: $color-gray-dark;
+    }
+    &:active{
+      background: $color-orange-peel;
+      color: $color-white;
+    }
+  }
+}
+
+.no-bets-msg-container {
+  display: block;
+  background: $color-white;
+  padding: 18px;
+  text-align: center;
+
+  .no-bets-msg {
+    font-size: $font-size-lg;
+    font-family: $no-bets-button-font;
+    font-weight: bold;
+  }
+
+  .no-bets-button {
+    background-color: $color-yellow;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: $base-font-family;
+    height: 35px;
+    width: 169px;
+    border: 0px;
+    margin-top: 20px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+  }
+}

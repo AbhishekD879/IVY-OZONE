@@ -1,0 +1,29 @@
+<div #moduleRibbon id="module-ribbon" class="module-ribbon" data-crlat="moduleRibbon">
+  <switchers
+    *ngIf="moduleList.length"
+    [type]="'scrollable'"
+    [switchers]="moduleList"
+    [activeTab]="activeTab"
+    [noPaddings]="true"
+    [detectGTMLocation]="'location'"
+    [GATrackingModule]="'moduleribbon'"
+    [GTMTrackingObj]="GTMTrackingObj"
+  ></switchers>
+
+  <lazy-component
+    *ngIf="initialTabLoaded === activeTab.id && isFirstBetAvailable"
+    moduleUri="@lazy-modules-module/onBoardingTutorial/firstBetPlacement/first-bet-placement.module#OnBoardingFirstBetModule"
+    [outputs]="['entryClose']"
+    (event)="onStartTutorialClick()"
+    entryComponent="FirstBetEntryPointComponent"  >
+  </lazy-component>
+  <div [ngClass]="getPlaceholderCls()" *ngIf="superButtonAvailable">
+    <lazy-component moduleUri="@lazy-modules-module/superButton/super-button.module#SuperButtonModule"
+    [inputs]="{
+      type: 'homeTabs',
+      homeTabUrl: homeTabUrl
+    }">
+</lazy-component>
+  </div>
+  
+</div>

@@ -1,0 +1,79 @@
+@import 'global.variables.scss';
+
+$arrow-size: 8px;
+
+:host {
+  ::ng-deep {
+    .page-container.is-expanded > .toggle-header {
+      background-color: $color-gray;
+      color: $color-gray-dark;
+      font-weight: normal;
+      font-size: $font-size-md;
+      &.inner-header {
+        background-color: $color-gray-light;
+        font-size: $font-size;
+        font-weight: bold;
+      }
+    }
+    header.inner-header > .accordion-right-side {
+      visibility: hidden;
+    }
+    .is-expanded > header.inner-header > .accordion-right-side {
+      visibility: visible;
+    }
+    .chevron-up {
+      display: none;
+    }
+    .page-container > .container-header.inner-header.toggle-header {
+      background-color: $color-gray-light;
+      color: $brand-color-dark;
+    }
+    .page-container > .container-header.inner-header {
+      font-size: $font-size;
+      color: $color-gray-dark;
+    }
+    .show-all-button-light {
+      height: 38px;
+      font-size: $font-size-md;
+      text-decoration: none;
+      color: $madison;
+    }
+  }
+}
+
+.odds-card-header {
+  border-top: none;
+  font-size: $font-size-md;
+}
+
+.event-header-link {
+  @include display-flex();
+  align-items: center;
+  color: inherit;
+  white-space: nowrap;
+  svg {
+    width: $arrow-size;
+    height: $arrow-size;
+    will-change: transform;
+    transform: rotate(90deg);
+    margin-left: 5px;
+  }
+}
+
+.container-inner-content {
+  margin: 0;
+}
+
+.event-header-time {
+  text-transform: capitalize;
+}
+
+.odds-card .odds-content {
+  .odds-normal {
+    font-weight: bold;
+  }
+  .odds-small {
+    font-size: $font-size-md;
+  }
+}
+

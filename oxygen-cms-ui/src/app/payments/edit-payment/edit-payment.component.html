@@ -1,0 +1,66 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="payment">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Payment Method: {{payment.name}}
+      <create-updated-at-by [collection]="payment"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="!payment.active"></header-activity-badge>
+  </div>
+</div>
+
+<div *ngIf="payment && !isUniqIdentifier()" class="alert alert-warning alert-dismissible" role="alert">
+  There more indentifiers setup for {{payment.identifier}}, Please take a look to {{noneUniqIdentifiers}}
+</div>
+
+<div class="card" *ngIf="payment">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-checkbox color="primary"
+                      [checked]="payment.active"
+                      (change)="payment.active = !payment.active">
+          Active
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Name
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !payment.name}">
+          <input matInput placeholder="Name" [(ngModel)]="payment.name" [value]="payment.name" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!payment.name">Name should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Identifier
+        </span>
+      </div>
+      <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <mat-select [value]="payment.identifier"
+                        [(ngModel)]="payment.identifier" required>
+              <mat-option *ngFor="let type of identifierTypes" [value]="type">
+                {{ type }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+<action-buttons
+  #actionButtons
+  *ngIf="payment"
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'name'"
+  [collection]="payment"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

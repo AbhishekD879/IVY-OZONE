@@ -1,0 +1,23 @@
+<modal #infoDialog [ngClass]="params.dialogClass" >
+  <ng-template #modalHeader>
+    <img [src]="params.src" alt="">
+    <a class="btn-close" (click)="closeDialog()">
+      <svg>
+        <use xlink:href="#close-icon"></use>
+      </svg>
+    </a>
+    <span [textContent]="params.caption"></span>
+
+  </ng-template>
+  <ng-template #modalBody>
+    <div [innerHtml]="params.text"></div>
+    <div *ngIf="params.buttons?.length" class="btn-list">
+        <button *ngFor="let btn of params.buttons; trackBy: trackByFn"
+                class="btn"
+                [ngClass]="btn.cssClass || 'btn-style2'"
+                [textContent]="btn.caption"
+                (click)="handleBtnClick(btn)">
+        </button>
+    </div>
+  </ng-template>
+</modal>

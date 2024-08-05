@@ -1,0 +1,33 @@
+- name: Stop Machines
+  ec2:
+    wait: yes
+    region: "{{ region }}"
+    instance_tags:
+      Name: "{{ tag_name }}"
+    state: stopped
+  register: ec2
+
+- name: Set Stopped prefix
+  ec2_tag:
+    region: "{{ region }}"
+    resource: "{{item}}"
+    state: present
+    tags:
+      Name: "Stopped_{{ tag_name }}"
+  with_items: "{{ ec2.instance_ids }}"
+
+- name: Terminate instances
+  ec2:
+    wait: yes
+    region: "{{ region }}"
+    state: "absent"
+    instance_ids: "{{ ec2.instance_ids }}"
+
+- name: Set Terminated prefix
+  ec2_tag:
+    region: "{{ region }}"
+    resource: "{{item}}"
+    state: present
+    tags:
+      Name: "Terminated_{{ tag_name }}"
+  with_items: "{{ ec2.instance_ids }}"

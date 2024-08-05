@@ -1,0 +1,48 @@
+<div class="card" *ngIf="autoseoPagesData">
+    <div class="header">
+      <h2 class="waves-effect waves-block">
+       Auto Seo Page
+      </h2>
+    </div>
+  </div>
+  <div class="card" *ngIf="autoseoPagesData">
+    <div class="body">
+      <!-- search and download button.-->
+      <div *ngIf="autoseoPagesData" class="row clearfix">
+        <div class="col-md-3">
+          <button (click)="addNewAutoSeoPage()" type="button" class="btn bg-teal waves-effect float-left">
+            <i class="material-icons">add_box</i>
+            <span>Create Auto Seo Page</span>
+          </button>
+        </div>
+        <div class="col-md-3">
+          <download-cvs [cvsData]="autoseoPagesData" [cvsDataTable]="dataTableColumns"></download-cvs>
+        </div>
+        <div class="col-md-6 m-b-0">
+          <div class="input-with-icon m-b-0">
+            <i class="material-icons">search</i>
+            <mat-form-field>
+              <input matInput placeholder="Search For Auto Seo Page" [(ngModel)]="searchField" [value]="searchField">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+  
+      <!-- main content, autoseo pages list-->
+      <div *ngIf="autoseoPagesData">
+        <cms-data-table 
+          [customTableData]="autoseoPagesData"
+          [customTableColumns]="dataTableColumns"
+          [filterString]="searchField"
+          [filterProperties]="filterProperties"
+          [actions]="['remove','onPageEdit']"
+          (onPageEditTableElement)="editAutoSeoPage($event)"
+          (onRemoveTableElement)="handleRemoveAutoSeoPage($event)">
+        </cms-data-table>
+      </div>
+  
+      <div *ngIf="getDataError">
+        Request Error
+      </div>
+    </div>
+  </div>

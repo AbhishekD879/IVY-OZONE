@@ -1,0 +1,141 @@
+<breadcrumbs *ngIf="sportsQuickLink" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="sportsQuickLink">
+  <div class="header">
+    <h2 class="has-activity-badge">Sports Quick Links Menu:
+      <span class="font-italic">{{sportsQuickLink.title}}</span>
+      <create-updated-at-by [collection]="sportsQuickLink"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="sportsQuickLink.disabled"></header-activity-badge>
+  </div>
+</div>
+<div class="card" *ngIf="!isLinkVlid">
+  <div class="alert alert-danger m-b-0">
+    {{maxLinksAmount}} Quick Links are already scheduled for this period. Please amend your schedule.
+  </div>
+</div>
+<div class="card" *ngIf="sportsQuickLink">
+  <form [formGroup]="form" novalidate>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-12">
+          <mat-checkbox color="primary"
+                        [checked]="!sportsQuickLink.disabled"
+                        (change)="linkStateChange()"> Active</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+              Title
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput
+                   [(ngModel)]="sportsQuickLink.title"
+                   placeholder="Title"
+                   formControlName="title"
+                   required trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Destination
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput
+                   required
+                   placeholder="Destination"
+                   [(ngModel)]="sportsQuickLink.destination"
+                   formControlName="destination">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <date-range
+            [isSetDateButtons]="true"
+            [startDate]="sportsQuickLink.validityPeriodStart"
+            [endDate]="sportsQuickLink.validityPeriodEnd"
+            [startPlaceholder]="'Validity Period Start Date'"
+            [endPlaceholder]="'Validity Period End Date'"
+            (onDateUpdate)="handleDateUpdate($event)">
+          </date-range>
+          <input hidden
+                 formControlName="validityPeriodStart"
+                 [(ngModel)]="sportsQuickLink.validityPeriodStart">
+          <input hidden
+                 formControlName="validityPeriodEnd"
+                 [(ngModel)]="sportsQuickLink.validityPeriodEnd">
+        </div>
+      </div>
+
+      <div class="row">
+        <ng-container *ngIf="isIMActive; else cmsUpload">
+          <div class="col-md-2">
+            <span class="mat-label">SVG Icon</span>
+          </div>
+          <div class="col-md-6">
+            <svg-icon-select-input
+              [formFieldsModels]="sportsQuickLink"
+              [externalForm]="form"
+            ></svg-icon-select-input>
+          </div>
+        </ng-container>
+        <ng-template #cmsUpload>
+          <div class="col-md-8">
+            <cms-upload
+              [label]="'Icon'"
+              [filename]="sportsQuickLink.svgFilename"
+              (onImageUpload)="uploadIconHandler($event)"
+              (onImageRemove)="removeIconHandler()">
+            </cms-upload>
+          </div>
+        </ng-template>
+      </div>
+      <div class="row" *ngIf="isHomePage">
+        <div class="col-md-10">
+          <cms-universal-segmented [segmentsDataObj]='segmentsList' [isRevert]="isRevert" (isFormValid)="isSegmentFormValid($event)"
+            (segmentsModifiedData)="modifiedSegmentsHandler($event)"></cms-universal-segmented>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="isFanzoneSportCategory">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Fanzone Inclusion
+          </span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Fanzone Inclusion Segments" required [(ngModel)]="sportsQuickLink.fanzoneInclusions"
+              formControlName="fanzoneInclusions" #select multiple>
+              <div class="select-all">
+                <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}" (change)="toggleAllSelection()">
+                  Select All</mat-checkbox>
+              </div>
+              <mat-option id="optionClick" [ngClass]="{ 'fanzone-inactive-item': !segment.active }"
+                *ngFor="let segment of fanzoneInclusionList" [value]="segment.teamId" (click)="optionClick()">
+                {{ segment.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      
+    </div>
+  </form>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="sportsQuickLink"
+  [validateHandler]="validationHandler"
+  [fieldOrItemName]="'title'"
+  [collection]="sportsQuickLink"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

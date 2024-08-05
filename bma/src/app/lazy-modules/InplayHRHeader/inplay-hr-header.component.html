@@ -1,0 +1,32 @@
+<div class="row row-no-gutter lads" [ngClass]="hrHeaderClasses" data-crlat="raceHeader">
+  <div class="text-area col-xs-10">
+    <div class="title-container">
+      <span class="race-header-title" data-crlat="raceCard.eventName" [textContent]="eventEntity.name"></span>     
+      <live-label *ngIf="(eventEntity.isStarted || eventEntity.eventIsLive) && !showRaceDetails" data-crlat="live"></live-label>      
+    </div>
+    <div class="race-detail-area" *ngIf="showRaceDetails">
+      <ng-container *ngIf="eventEntity.racingFormEvent">
+        <span *ngIf="eventEntity.racingFormEvent?.raceType" class="race-going" [textContent]="eventEntity.racingFormEvent.raceType"></span>
+        <span *ngIf="eventEntity.racingFormEvent.going" class="race-going">{{ eventEntity.racingFormEvent.going }}</span>
+        <span *ngIf="eventEntity.racingFormEvent.distance" class="race-distance">{{ eventEntity.racingFormEvent.distance }}</span>
+        <live-label *ngIf="eventEntity.isStarted || eventEntity.eventIsLive" data-crlat="live"></live-label>
+      </ng-container>
+      <race-timer *ngIf="!eventEntity.isStarted || !eventEntity.eventIsLive" class="small" [event]="eventEntity" [utc]="true" [displayTime]=false></race-timer>           
+  </div>
+  </div>
+  <div class="icons-area col-xs-2" (click)="handleEvent($event)">          
+    <ng-container *ngIf="isStreamLabelShown(eventEntity) && !showRaceDetails"> 
+      <svg class="watch-icon-stream">
+        <use xlink:href="#stream"></use>
+      </svg>
+      <span class="watch-label" data-crlat="watchLabel"  [textContent]="watchText" [i18n]="'sb.watch'"></span>     
+    </ng-container> 
+    <a class="race-next-link" *ngIf="showRaceDetails" [attr.id]="eventEntity.typeName + eventEntity.id" (click)="trackEvent(eventEntity)"
+      [linkHref] [link]="formEdpUrl(eventEntity)" data-crlat="raceNextLink">
+      <span class="see-all-text" [attr.id]="eventEntity.typeName + eventEntity.id" [textContent]= "seeAllText" data-crlat="viewFullRace"></span>
+      <svg>
+        <use xlink:href="#next-arrow"></use>
+      </svg>
+    </a>         
+  </div>
+</div>

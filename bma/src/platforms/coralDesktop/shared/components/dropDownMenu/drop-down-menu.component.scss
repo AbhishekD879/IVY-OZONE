@@ -1,0 +1,237 @@
+@import 'global.variables.scss';
+
+.dropdown {
+  background: $brand-color-dark;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 12px;
+  cursor: pointer;
+  outline: none;
+
+  &.switcher-dropdown {
+    position: initial;
+    text-align: end;
+    margin: 0 0 7px;
+  }
+
+  &.expanded {
+    background: $brand-color-dark;
+
+    .label svg {
+      &.dropdown-up-arrow {
+        top: 13px;
+      }
+      &.dropdown-down-arrow {
+        top: 24px;
+      }
+    }
+    .dropdown-menu {
+      display: block;
+    }
+  }
+  .dropdown-menu {
+    z-index: 10;
+    position: absolute;
+    right: 0;
+    background: $brand-color-dark;
+    display: none;
+    transition: all 0.3s linear;
+    margin: 0;
+    padding: 0;
+    max-width: 300px;
+
+    .sub-menu {
+      position: relative;
+      background: $brand-color-dark;
+      margin: 0;
+      padding: 0;
+      max-height: 185px;
+      overflow-y: auto;
+      overflow-x: hidden;
+
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      &::-webkit-scrollbar-thumb:vertical {
+        margin: 6px;
+        background-color: $light-blue;
+        border-radius: 6px;
+      }
+
+      &::-webkit-scrollbar-button:start:decrement,
+      &::-webkit-scrollbar-button:end:increment {
+        height: 6px;
+        display: block;
+      }
+
+      .menu-item {
+        @include display-flex();
+        @include align-items();
+
+        .menu-title {
+          width: 100%;
+          padding-left: 20px;
+        }
+      }
+
+      .menu-icon {
+        margin-left: auto;
+      }
+    }
+  }
+  .label {
+    color: $color-white;
+    padding: 12px 20px 13px 15px;
+    height: 40px;
+    font-weight: bold;
+    line-height: 15px;
+    &:hover {
+      background: $brand-color-dark;
+      text-decoration: underline;
+    }
+    &:active{
+      color: $color-medium-gray;
+      text-decoration: none;
+    }
+  }
+  .menu-item {
+    font-size: 11px;
+    min-width: 220px;
+    display: block;
+    color: $light-blue;
+    border-bottom: 1px solid $brand-color-secondary;
+    transition: all 0.3s linear;
+
+    &:last-child {
+      border: none;
+    }
+
+    &:hover {
+      color: $color-white;
+      background: $brand-color-secondary;
+    }
+
+    .menu-title {
+      padding: 6px 10px;
+      display: block;
+      white-space: nowrap;
+      height: 30px;
+      line-height: 18px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &.has-child {
+        position: relative;
+        padding-right: 25px;
+
+        &:before, &:after {
+          content: '';
+          width: 4px;
+          height: 1px;
+          background: $light-blue;
+          position: absolute;
+          top: 50%;
+          transition: all .3s;
+        }
+
+        &:before {
+          transform: rotate(-35deg);
+          right: 10px;
+        }
+
+        &:after {
+          transform: rotate(35deg);
+          right: 13px;
+        }
+
+        &:hover, &.item-active {
+          &:before, &:after {
+            background: $color-white;
+          }
+        }
+
+        &.item-active {
+          background: $brand-color-secondary;
+          border-left: 2px solid $color-red;
+          padding-left: 8px;
+          color: $color-white;
+
+          &:before {
+            transform: rotate(35deg);
+          }
+
+          &:after {
+            transform: rotate(-35deg);
+          }
+        }
+      }
+
+    }
+  }
+  .label svg {
+    height: 3px;
+    width: 5px;
+    fill: $light-blue;
+    position: absolute;
+    right: 10px;
+    &.dropdown-up-arrow {
+      top: 16px;
+    }
+    &.dropdown-down-arrow {
+      top: 22px;
+    }
+  }
+}
+
+:host.header-dropdown {
+  display: inline-block;
+
+  .dropdown {
+    position: relative;
+    background: none;
+    font-size: 9px;
+
+    .dropdown-menu {
+      top: -12px;
+      right: -3px;
+
+      .menu-item {
+        min-width: 0;
+        font-size: 9px;
+        text-align: right;
+        border: 1px solid $brand-color-secondary;
+
+        &:last-child {
+          border-top-width: 0;
+          border-color: $brand-color-dark;
+        }
+
+        .menu-title {
+          padding: 3px 12px;
+          line-height: 26px;
+          height: 32px;
+        }
+      }
+    }
+
+    .label {
+      padding: 0 10px;
+      height: 10px;
+      line-height: 10px;
+
+      svg {
+        right: 2px;
+
+        &.dropdown-up-arrow {
+          top: 0;
+        }
+
+        &.dropdown-down-arrow {
+          top: 5px;
+        }
+      }
+    }
+  }
+}

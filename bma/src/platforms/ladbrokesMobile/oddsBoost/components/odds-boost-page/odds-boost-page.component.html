@@ -1,0 +1,96 @@
+<ng-container *ngIf="!state.loading && !state.error" class="odds-boost-page">
+    <top-bar [title]="pageTitle" data-crlat="topBar"></top-bar>
+    <section data-crlat="oddsBoostSection.Todays" class="section">
+        <article class="info-content-container">
+            <p class="odds-boosts-title" [i18n]="'oddsboost.page.todayOddsBoosts'" data-crlat="sectionHeader">Today's
+                Odds Boosts</p>
+            <div class="odds-boost" [ngClass]="{'active-boost-value': isLoggedIn}" data-crlat="oddsBoostHeader" >
+                <span class="boost-indicator" [ngClass]="{ enabled: enabled, disabled: !enabled, animated: canAnimate }"
+                    data-crlat="boostIndicator">
+                    <svg class="boost-meter" viewBox="0 0 25 20">
+                        <use xlink:href="#odds-boost-meter-dark"></use>
+                    </svg>
+                    <svg class="boost-arrow active" viewBox="0 0 12 10">
+                        <use xlink:href="#odds-boost-indicator"></use>
+                    </svg>
+                    <svg class="boost-arrow inactive" viewBox="0 0 12 10">
+                        <use xlink:href="#odds-boost-indicator"></use>
+                    </svg>
+                </span>
+                <p *ngIf="noTokens" class="odds-boosts-description" data-crlat="oddsBoostsDescription"
+                    [innerHtml]="isLoggedIn ? loggedInHeaderText : loggedOutHeaderText"></p>
+                <div *ngIf="isLoggedIn" class="odds-boost-available-upcoming" data-crlat="tokensCount">
+                    <div *ngIf="availableBoosts?.length > 0 || !noTokens" (click)="available()"
+                        class="odds-boosts-available"
+                        [ngClass]="{'odds-boosts-active':isActive, 'odds-boosts-inactive':!isActive,'odds-boost-active-fullwidth':upcomingBoosts?.length == 0}"
+                        data-crlat="availableNowAmount">
+                        <div class="boosts-label-available" data-crlat="label" [i18n]="'oddsboost.page.availableNow'">
+                        </div>
+                        <div class="boosts-value-available " data-crlat="value"
+                            [textContent]="isLoggedIn && startingAvailbleTokenNumber|| 0"></div>
+                    </div>
+                    <div *ngIf="upcomingBoosts?.length > 0" (click)="upcoming()" class="odds-boosts-upcoming"
+                        [ngClass]="{'odds-boosts-active':!isActive, 'odds-boosts-inactive':isActive,'odds-boost-active-fullwidth':availableBoosts?.length == 0}"
+                        data-crlat="upcomingAmount">
+                        <div class="boosts-label-upcoming " data-crlat="label" [i18n]="'oddsboost.page.upcomingBoosts'">
+                        </div>
+                        <div class="boosts-value-upcoming" data-crlat="value"
+                            [textContent]="isLoggedIn && startingUpcomingTokenNumber || 0"></div>
+                    </div>
+                </div>
+                <p *ngIf="!noTokens" class="odds-boosts-description" data-crlat="oddsBoostsDescription"
+                    [innerHtml]="isLoggedIn ? noTokensText : loggedOutHeaderText"></p>
+            </div>
+            <div *ngIf="availableBoosts?.length && isActive && validDateToShow && timerMessage && (sameExpiry || nextSport)" data-crlat="availableTimer">
+                <odds-boost-upcoming-header [countDownDate]="nextAvailableBoostDate"
+                    [isLads]="true" [tab]="isActive" [sport]="nextSport" [timerStart]="timerStart"
+                    [sameTimeExpiry]="sameExpiry" type="Available">
+                </odds-boost-upcoming-header>
+            </div>
+
+            <div *ngIf="upcomingBoosts?.length && !isActive && validDateToShow && timerMessage && (sameExpiry || nextSport)" data-crlat="upcomingTimer">
+                <odds-boost-upcoming-header [countDownDate]="nextUpcomingBoostDate"
+                    [isLads]="true" [tab]="isActive" [sport]="nextSport" [timerStart]="timerStart"
+                    [sameTimeExpiry]="sameExpiry" type="Upcoming">
+                </odds-boost-upcoming-header>
+            </div>
+            <button *ngIf="!isLoggedIn" class="btn login-button" (click)="openLoginDialog()" [i18n]="'bma.signIn'"
+                data-crlat="logIn"></button>
+        </article>
+    </section>
+    <div *ngIf="sportPills" class="sport-pills" data-crlat="sportPills">
+        <div class="scroll-container" [scrollable] data-crlat="scrollContainer">
+            <ng-container *ngFor="let filter of sportPills; trackBy: trackByIndex">
+                <div class="filter-wrapper" [class.active]="filter.active" (click)="onSelectonOfSportPill(filter)" data-crlat="filterWrapper">
+                    <p class="filter" [textContent]="filter?.name" data-crlat="filter"></p>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+
+    <section *ngIf="isLoggedIn && isActive && availableBoosts.length > 0" data-crlat="oddsBoostSection.Available"
+        class="section">
+        <article class="info-content-container odds-boost-list-container">
+            <odds-boost-list [oddsBoosts]="availableBoosts" data-crlat="availableBoostsList" [tab]="isActive"
+                [isLads]="true" [timerStart]="timerStart" [sortedTokensData]="sortedTokensData"
+                [expireTokenDetails]="expireTokenDetails" (leastTimeToken)="leastTimeToken($event)" (oddsBoostTokensPills)="filterOddsboostTokens($event)"></odds-boost-list>
+        </article>
+    </section>
+    <section *ngIf="isLoggedIn && !isActive && upcomingBoosts.length > 0" data-crlat="oddsBoostSection.Upcoming"
+        class="section">
+        <article class="info-content-container odds-boost-list-container">
+            <odds-boost-list [oddsBoosts]="upcomingBoosts" data-crlat="upcomingBoostsList" [tab]="isActive"
+                [isLads]="true" [timerStart]="timerStart" [sortedTokensData]="sortedTokensData"
+                [expireTokenDetails]="expireTokenDetails" (leastTimeToken)="leastTimeToken($event)" (oddsBoostTokensPills)="filterOddsboostTokens($event)"></odds-boost-list>
+        </article>
+    </section>
+    <section class="section" data-crlat="accordion">
+        <accordion [accordionTitle]="'Terms & Conditions'" [isExpanded]="isExpanded"
+            data-crlat="oddsBoostSection.TermsAndConditions">
+            <accordion-body class="info-content-container" data-crlat="termsAndConditionsContent">
+                <div class="content" [innerHtml]="termsAndConditionsText"></div>
+            </accordion-body>
+        </accordion>
+    </section>
+    <svg-list *ngIf="config.svg" [list]="config.svg"></svg-list>
+</ng-container>

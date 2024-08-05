@@ -1,0 +1,78 @@
+<div class="sk-container" [ngClass]="{'sk-loading': !isLoaded || state.loading}">
+  <loading-screen [displayed]="!isLoaded || state.loading" [templateType]="'GENERIC'"></loading-screen>
+  <ng-container *ngIf="isLoaded && !state.loading">
+    <div class="table-widget" *ngIf="seasons && seasons.length">
+      <div class="table-menu" data-crlat="competitions">
+      <span class="page-arr"
+            [ngClass]="{'no-events':seasonIndex === 0}"
+            (click)="goToPrev()"
+            data-crlat="goToPrev">
+        <svg>
+          <use xlink:href="#prev-arrow"></use>
+        </svg>
+      </span>
+        <div class="table-name" [attr.title]="getTableTitle()" data-crlat="resultTableName">
+          <div [textContent]="competitionName"></div>
+          <div class="year" [textContent]="competitionYear"></div>
+        </div>
+        <span class="page-arr"
+              [ngClass]="{'no-events':seasonIndex === seasons.length - 1}"
+              (click)="goToNext()"
+              data-crlat="goToNext">
+        <svg>
+          <use xlink:href="#next-arrow"></use>
+        </svg>
+      </span>
+      </div>
+      <tabs-panel *ngIf="showTabs"
+                  [tpTabs]="competitions"
+                  (tpFunction)="changeGroup($event)"
+                  [tpFuncArr]="'id'"
+                  [tpActiveTab]="activeTab">
+      </tabs-panel>
+      <table class="table-panel-widget" data-crlat="resultRows" *ngIf="result?.rows?.length">
+        <colgroup>
+          <col/>
+          <col/>
+          <col/>
+          <col/>
+          <col/>
+          <col/>
+          <col/>
+        </colgroup>
+        <thead>
+        <tr>
+          <th>Team</th>
+          <th>P</th>
+          <th>W</th>
+          <th>D</th>
+          <th>L</th>
+          <th>GD</th>
+          <th>Pts</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let row of tableData; index as rowIndex; trackBy: trackById">
+          <td title="{{ row.name }}">{{ rowIndex + 1 }}. {{ row.name }}</td>
+          <td>{{ getTableValue(row.values, 'matchesTotal') }}</td>
+          <td>{{ getTableValue(row.values, 'winTotal') }}</td>
+          <td>{{ getTableValue(row.values, 'drawTotal') }}</td>
+          <td>{{ getTableValue(row.values, 'lossTotal') }}</td>
+          <td>{{ getTableValue(row.values, 'goalDiffTotal') }}</td>
+          <td>{{ getTableValue(row.values, 'pointsTotal') }}</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="7">
+            <svg class="opta-logo">
+              <use xlink:href="#opta-logo"></use>
+            </svg>
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+  </ng-container>
+  <no-events *ngIf="isLoaded && !state.loading && isNoEvents()" message="stats.noResultsAvailable"></no-events>
+</div>

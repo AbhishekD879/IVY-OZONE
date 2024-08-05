@@ -1,0 +1,24 @@
+<div class="switchers"  id='switch-custom'
+     data-crlat="switchers"
+     *ngIf="displaySwitchers && !(market.grouping === 'Correct Score')">
+  <a class="switch-btn"
+     data-crlat="buttonSwitch"
+     *ngFor="let switcher of switchers; trackBy: trackBySwitchers; index as i;"
+     [ngClass]="{'active': isActiveGroup(i)}"
+     (click)="selectGroup(i)">
+    <span [i18n]="switcher.name"></span>
+  </a>
+</div>
+
+<p  *ngIf="market.grouping === 'Correct Score'" class='select-name'> Time Period </p>
+<div class="switchers_correctscore switchers-1"  id='switch-custom'
+     *ngIf="market.grouping === 'Correct Score' && displaySwitchers">
+  <a class="switch-btn_correctscore"
+     *ngFor="let switcher of switchers; trackBy: trackBySwitchers; index as i;"
+     [ngClass]="{'active': isActiveGroup(i)}"
+     (click)="selectGroup(i)">
+    <span class='switcher-btn' [i18n]="switcher.name"></span>
+  </a>
+</div>
+
+<yourcall-market [game]="game" *ngIf="selectedMarket" [market]="selectedMarket"></yourcall-market>

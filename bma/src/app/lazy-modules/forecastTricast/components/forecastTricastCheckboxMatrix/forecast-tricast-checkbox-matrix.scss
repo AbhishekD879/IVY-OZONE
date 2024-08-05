@@ -1,0 +1,111 @@
+@import 'global.variables.scss';
+
+$checkbox-size: 18px;
+$non-runner-background: $color-gray-light;
+$non-runner-color: $color-gray-dark;
+
+$execta-contents: '1st' '2nd' 'ANY';
+$trifecta-contents: '1st' '2nd' '3rd' 'ANY';
+
+@mixin content($contents, $i: 1) {
+  @if ($i <= length($contents)) {
+    &:nth-child(#{$i}) {
+      .checkbox {
+        &:after {
+          content: nth($contents, $i);
+        }
+      }
+    }
+
+    @include content($contents, $i + 1);
+  }
+}
+
+.forecast-tricast-checkboxes {
+  @include display-flex();
+  .check-area {
+    width: 50px;
+    height: 40px;
+    @include display-flex();
+    @include justify-content(center);
+    @include align-items();
+    border-width: 0 0 1px 1px;
+    border-style: solid;
+    border-color: $checkbox-border;
+    background: $checkbox-bg;
+    cursor: pointer;
+    position: relative;
+    font-family: $checkbox-font;
+    color: $checkbox-color;
+    &.disabled {
+      background-color: $color-gray-light;
+    }
+    &.non-runner {
+      background-color: $non-runner-background;
+      pointer-events: none;
+      .non-runner-text {
+        font-size: $font-size-md;
+        font-weight: bold;
+        color: $color-gray-dark;
+        opacity: 0.8;
+
+        @media screen and (min-width: 450px) {
+          font-size: $font-size-tablet;
+        }
+      }
+    }
+    &.checked {
+      background-color: $color-white;
+    }
+    @media screen and (min-width: 450px) {
+      width: 60px;
+    }
+  }
+}
+
+.labels-mode {
+  :host {
+    .forecast-tricast-checkboxes {
+      .check-area {
+        background-color: $checkbox-bg;
+        .checkbox {
+          &:after {
+            font-size: $checkbox-font-size;
+            color: $checkbox-color;
+          }
+        }
+
+        &.checked {
+          background-color: $checkbox-checked;
+          .checkbox {
+            &:after {
+              color: $color-white;
+            }
+          }
+        }
+
+        &.disabled, &.non-runner {
+          opacity: 1;
+          background-color: $checkbox-disabled;
+
+          .checkbox:after {
+            color: #777;
+            opacity: .5;
+          }
+        }
+      }
+    }
+  }
+
+  &.execta-pool :host {
+    .check-area {
+      @include content($execta-contents);
+    }
+  }
+  &.trifecta-pool :host {
+    .check-area {
+      @include content($trifecta-contents);
+    }
+  }
+}
+

@@ -1,0 +1,45 @@
+@import 'global.variables.scss';
+
+.show-more-leagues {
+  background: $color-white;
+  font-size: 12px;
+  color: $color-blue-alt;
+  font-weight: bold;
+}
+
+.single-accordion {
+  :host-context(.multiples-accordion) &.is-expanded + &.is-expanded {
+    margin-top: 4px;
+  }
+  & ::ng-deep .odds-card-header {
+    border-top: none;
+  }
+}
+
+.single-sport {
+  margin-bottom: 5px;
+}
+
+inplay-page {
+  :host {
+    .sticky-market-selector {
+      top: $app-header-height;
+    }
+  }
+}
+
+.in-play-header-counter.in-play-single-header {
+  background: $color-white;
+  font-weight: bold;
+  text-transform: capitalize;
+
+  .in-play-count {
+    color: $color-black;
+    font-family: $alt-font-family;
+    font-size: 13px;
+  }
+}
+
+.hr-accordion {
+  margin-bottom: 5px;
+}

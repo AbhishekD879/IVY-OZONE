@@ -1,0 +1,19 @@
+.order-message {
+    margin: 10px;
+    margin-top: -5px;
+}
+.layoutAuto{
+    overflow-x:auto;  
+}
+
+::ng-deep .mat-checkbox {
+    .mat-checkbox-layout {
+      .mat-checkbox-inner-container {
+        [type=checkbox]:checked, [type=checkbox]:not(:checked) {
+            position: absolute;
+            left: 0;
+            opacity: 0;
+        }
+      }
+    }
+  }

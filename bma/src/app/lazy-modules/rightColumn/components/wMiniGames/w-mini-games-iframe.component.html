@@ -1,0 +1,10 @@
+<div class="mini-games-container">
+  <iframe class="mini-games-iframe" *ngIf="!isError"
+          [src]="miniGamesUrl"
+          [hidden]="!showContent">
+  </iframe>
+  <div class="mini-games-error" *ngIf="isError">
+    <span [i18n]="'bma.miniGamesError'"></span>
+  </div>
+  <div *ngIf="showLoadingSpinner" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+</div>

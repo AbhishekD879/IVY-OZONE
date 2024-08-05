@@ -1,0 +1,4 @@
+<div *ngIf="isFanzoneEnabled && fanzoneBannerImage" class="fanzone-banner-entry"
+  [routerLink]="fanzoneRoutingUrl" (click)="iMInClicked(fanzoneName)">
+  <img class="fanzone-banner-entry-bg-img"  [attr.src]="fanzoneBannerImage">
+</div>

@@ -1,0 +1,64 @@
+@import 'global.variables.scss';
+
+.team-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    height: 44px;
+
+    .pm-team-name {
+        min-height: 14px;
+        font-family: $alt-font-family;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 14px;
+        align-items: center;
+        letter-spacing: -0.0061px;
+        color: #FFFFFF;
+        width: 85px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    .plus-minus-frame {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 8px 12px 10px 12px;
+        height: 22px;
+        justify-content: space-between;
+
+        .btn-plus-minus {
+            touch-action: manipulation;
+            width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            mix-blend-mode: normal;
+            font-weight: 700;
+            svg{
+                width: 20px;
+                height: 20px;
+                left: -6px;
+                position: relative;
+                top: -1px;
+            }
+        }
+
+        .pm-points {
+            height: 22px;
+            font-family: $alt-font-family;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 22px;
+            text-align: center;
+            letter-spacing: -0.00915px;
+            color: #FFFFFF;
+            margin: 0px 12px;
+        }
+    }
+}

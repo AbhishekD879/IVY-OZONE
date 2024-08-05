@@ -1,0 +1,98 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="!isLoading">
+  <div class="header">
+    <h2>Edit Maintenance Page: <span class="font-italic">{{ maintenancePage.name }}</span></h2>
+    <create-updated-at-by [collection]="maintenancePage"></create-updated-at-by>
+  </div>
+</div>
+<div class="card" *ngIf="!isLoading">
+  <div class="body">
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-md-3">
+          <mat-checkbox color="primary"
+                        [checked]="maintenancePage.mobile"
+                        (change)="maintenancePage.mobile = !maintenancePage.mobile">
+            Mobile
+          </mat-checkbox>
+        </div>
+        <div class="col-md-3">
+          <mat-checkbox color="primary"
+                        [checked]="maintenancePage.tablet"
+                        (change)="maintenancePage.tablet = !maintenancePage.tablet">
+            Tablet
+          </mat-checkbox>
+        </div>
+        <div class="col-md-3">
+          <mat-checkbox color="primary"
+                        [checked]="maintenancePage.desktop"
+                        (change)="maintenancePage.desktop = !maintenancePage.desktop">
+            Desktop
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Page Name
+          </span>
+        </div>
+        <div class="col-md-5">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !maintenancePage.name}">
+            <input matInput type="text" placeholder="Page Name" [(ngModel)]="maintenancePage.name"
+                    formControlName="pageName"
+                    required trim="blur">
+            <mat-hint class="col-red" *ngIf="!maintenancePage.name">Page Name should be entered</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Target Uri
+          </span>
+        </div>
+        <div class="col-md-5">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !maintenancePage.targetUri}">
+              <input matInput type="text" placeholder="Target Uri" [(ngModel)]="maintenancePage.targetUri"
+                    formControlName="pageTargetUri"
+                    required trim="blur">
+              <mat-hint class="col-red" *ngIf="!maintenancePage.targetUri">Target Uri should be entered</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-10">
+          <cms-upload
+            [label]="'Filename'"
+            [filename]="maintenancePage.filename"
+            (onImageUpload)="uploadImageHandler($event)"
+            (onImageRemove)="removeImageHandler()">
+          </cms-upload>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <date-range
+            [isSetDateButtons]="true"
+            [startDate]="maintenancePage.validityPeriodStart"
+            [endDate]="maintenancePage.validityPeriodEnd"
+            [startPlaceholder]="'Validity Period Start Date'"
+            [placeholderColumn]="'true'"
+            [endPlaceholder]="'Validity Period End Date'"
+            (onDateUpdate)="handleDateUpdate($event)">
+          </date-range>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="!isLoading"
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'name'"
+  [collection]="maintenancePage"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

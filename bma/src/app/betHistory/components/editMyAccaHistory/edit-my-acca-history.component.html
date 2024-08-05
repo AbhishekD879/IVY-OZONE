@@ -1,0 +1,11 @@
+<div class="show-history" [i18n]="'ema.history.showHistory'" (click)="onShowHistory()" data-crlat="buttonShowHistory"></div>
+
+<drawer [show]="showDrawer" [contentStyle]="drawerStyles"
+        [contentClass]="'edit-acca-history'"
+  (shown)="onDrawerShown()" (hide)="showDrawer = false">
+  <span [textContent]="drawerHeader" header></span>
+  <ng-container body>
+    <div *ngIf="loading" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+    <edit-my-acca-history-list *ngIf="!loading" [bets]="bets"></edit-my-acca-history-list>
+  </ng-container>
+</drawer>

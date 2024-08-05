@@ -1,0 +1,101 @@
+<!-- Football Score and animation section-->
+<ul *ngIf="event.scoreType === 'Simple'"
+    class="cashout-odds-score"
+    data-crlat="cashout.score">
+
+  <span *ngIf="isFootball">
+    <!-- Football Goal -->
+    <span class="score-change goal"><span class="score-change-text" [i18n]="'bethistory.goal'"></span></span>
+    <!-- Football Correction -->
+    <span class="score-change correction"><span class="score-change-text" [i18n]="'bethistory.correction'"></span></span>
+  </span>
+  <li [class]="'live-scores cashout-live-scores id-' + animatingComponentId">
+        <span class="live-score-points"
+              data-crlat="home.team.score">
+              <score-digit [animationDelay]="animationDelay"
+             [number]="event?.comments?.teams?.home?.score"></score-digit>
+        </span>
+    <span> - </span>
+    <span class="live-score-points"
+          data-crlat="away.team.score">
+          <score-digit [animationDelay]="animationDelay"
+             [number]="event?.comments?.teams?.away?.score"></score-digit>
+        </span>
+  </li>
+</ul>
+
+<ul class="cashout-odds-score"
+    data-crlat="cashout.score"
+    *ngIf="getScore('home') && (event.scoreType === 'SetsGamesPoints' || event.scoreType === 'SetsPoints')">
+  <!-- Sport Score -->
+  <li [class]="'live-scores cashout-live-scores'">
+    <span class="live-score-points">(</span>
+    <span class="live-score-points">
+      <score-digit
+              [number]="getScore('home')"></score-digit>
+    </span>
+    <span class="live-score-points">)</span>
+
+    <span class="live-score-points home-current-points"
+          *ngIf="event.scoreType === 'SetsGamesPoints'">
+          <score-digit
+                  [number]="getGamesScore('home')"></score-digit>
+    </span>
+
+    <span class="live-score-points home-current-points"
+          *ngIf="currentPoints('home')">
+    <ng-container *ngIf="!isAdvance(currentPoints('home'))">
+      <score-digit *ngIf="!isAdvance(currentPoints('home'))"
+                        [number]="currentPoints('home')">
+            </score-digit>
+    </ng-container>
+      
+      <span *ngIf="isAdvance(currentPoints('home'))"
+            [textContent]=" 'home' | callBack :  currentPoints: this">
+      </span>
+    </span>
+    <span> - </span>
+
+    <span class="live-score-points away-current-points"
+          *ngIf="getScore('away')">
+      <ng-container *ngIf="!isAdvance(currentPoints('away'))">
+            <score-digit *ngIf="!isAdvance(currentPoints('away'))"
+                        [number]="currentPoints('away')">
+            </score-digit>
+      </ng-container>
+      <span *ngIf="isAdvance(currentPoints('away'))"
+            [textContent]=" 'away' | callBack : currentPoints: this">
+      </span>
+    </span>
+
+    <span class="live-score-points away-current-points"
+          *ngIf="event.scoreType === 'SetsGamesPoints'">
+          <score-digit [number]="getGamesScore('away')"></score-digit>
+    </span>
+
+    <span class="live-score-points">(</span>
+    <span class="live-score-points">
+      <score-digit
+            [number]=" 'away' | callBack : getScore: this "></score-digit>
+    </span>
+    <span class="live-score-points">)</span>
+  </li>
+</ul>
+
+<span class="cashout-odds-score"
+      data-crlat="cashout.score"
+      *ngIf="event.scoreType === 'BoxScore'">
+  <span class="second-inning" *ngIf="event?.comments?.teams?.away?.inn2 || event?.comments?.teams?.home?.inn2" [i18n]="'bethistory.cricketSecondInning'"></span>
+
+  <span class="live-score-points" [textContent]="event?.comments?.teams?.home.score || '--'"></span>
+  <span> | </span>
+  <span class="live-score-points away-current-points" [textContent]="event?.comments?.teams?.away.score || '--'"></span>
+</span>
+
+<span class="cashout-odds-score"
+      data-crlat="cashout.score"
+      *ngIf="event.scoreType === 'GAA'">
+  <span class="live-score-points" [textContent]="event?.comments?.teams?.home.score"></span>
+  <span> | </span>
+  <span class="live-score-points away-current-points" [textContent]="event?.comments?.teams?.away.score"></span>
+</span>

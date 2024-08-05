@@ -1,0 +1,798 @@
+## application.yaml
+## dev0 prototype
+
+distributed.prefix: ${spring.profiles.active}
+
+secured.public.api.path : /cms/api/secured
+
+promosandbox:
+  distributed:
+    prefix: ${spring.profiles.active}
+
+logging:
+
+  # FIXME: remove me after Filebeat migration
+  # Collapsing multiline stack traces into a single log event
+  pattern.console: "%clr{%d{${LOG_DATEFORMAT_PATTERN}}}{faint} %clr{${LOG_LEVEL_PATTERN}} %clr{%pid}{magenta} %clr{---}{faint} %clr{[%15.15t]}{faint} %clr{%-40.40c{1.}}{cyan} %clr{:}{faint} %m%xEx{separator(\t=>)}%n%xEx{none}"
+
+  level:
+    root: INFO
+    com.ladbrokescoral: INFO
+    com.egalacoral: INFO
+    org.springframework.data.mongodb.core.MongoTemplate: WARN
+
+
+
+
+mongodb:
+  cmsApi:
+    uri: ${MONGODB}
+    database: bma
+  cmsArchival:
+    uri: ${MONGODB-ARCHIVAL}
+    database: cms_api_history
+  cmsArchivalJobs:
+    uri: ${MONGODB-AUDITJOBS}
+    database: cspAudit
+
+
+spring:
+  application.name: cms-api
+  profiles:
+    active: LOCAL
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
+
+  cloud:
+    discovery.enabled: false
+    config.discovery.enabled: true
+
+  jmx.enabled: true
+
+  output.ansi.enabled: DETECT
+
+  servlet.multipart:
+    max-file-size: 30MB
+    max-request-size: 30MB
+
+  jackson:
+    mapper:
+      accept-case-insensitive-enums: true
+    time-zone: UTC
+
+  aop:
+    auto: true
+    proxy-target-class: true
+
+  task:
+    scheduling:
+      pool:
+        size: 20
+
+management:
+
+  endpoint:
+    health.show-details: always
+
+  endpoints.web:
+    base-path: /actuator # un-set by default. used for security.
+    path-mapping:
+      health: /health
+      info: /info
+    exposure:
+      include: '*' # prod: info, health
+    cors:
+      allow-credentials: true
+      allowed-headers: '*'
+      allowed-methods: '*'
+      allowed-origins: ${application.allowedOrigins} # FIXME: re-work ansible to use parameter: management.endpoints.web.cors.allowed-origins
+
+server:
+  port: 8080
+  compression:
+    enabled: true
+  forward-headers-strategy: framework
+
+mongock:
+  runner-type: initializingbean # applicationrunner | initializingbean
+  change-logs-scan-package:
+    - com.ladbrokescoral.oxygen.cms.configuration.changelogs
+  legacy-migration:
+    collection-name: dbchangelog
+
+springdoc:
+  show-actuator: true
+  api-docs.path: /api-docs
+  swagger-ui:
+    path: /index.html
+    disable-swagger-default-url: true
+
+staticContent:
+  removeExpired:
+    afterDays: 1
+    cron: 0 0 * * * ?
+
+caches:
+  svg-sprite:
+    ttl: 30
+  initial-data:
+    ttl: 30
+  users:
+    ttl: 86400 # seconds
+  sport-categories:
+    ttl: 3600
+  offer-modules:
+    ttl: 3600
+  navigation-points:
+    ttl: 30
+  edp-surface-bets:
+    ttl: 30
+  buildyourbet-leagues-available:
+    ttl: 30
+  questions-summary-report:
+    ttl: 3600
+  virtual-next-events:
+    ttl: 60
+
+jwt:
+  secret: sO0aramNSM
+  tokenExpiration: 3600          # 1 hr
+  refreshTokenExpiration: 14400  # 4 hr
+
+public.api.token: token123
+secrets.hash:
+  prefix: MD5
+  salt: ${secrets.hash.prefix}.F2D55ADC34E81
+
+ok.http.pool:
+  idle:
+    count: 20
+    ttl.seconds: 300
+
+cloudflare:
+  endpoint: https://api.cloudflare.com/client/v4
+  token: Bearer G98ABmSVaxF7KHq5oUpudq65IMDKWtWf5g774i2A
+
+akamai:
+  scheduled:
+    enabled: true
+    initial:
+      delay: 1
+    fixed:
+      delay: 60
+  poolSize: 20
+  timeout: 200000
+  # used for ArrayBlocking queue, limits amount of Akamai files waiting for upload
+  queue.size: 500
+  #note: there are also akamai.path & akamai.url defined in each profile !
+  brand.configs:
+    bma:
+      enabled: false
+      storeType: ObjectStore
+      uploadCpcode:
+      host: coraliassets-nsu.akamaihd.net
+      key: 16581CF46f02W7P5D4IZ3LbEIgLLUs6j4B2dG5B3xh7YZz61AJ
+      keyName: bm-mobile-tst2
+      basePath: /12345/CORAL/bet-tst1.coral.co.uk
+      url: https://bet-tst1.coral.co.uk,https://sports-tst2.coral.co.uk
+    ladbrokes:
+      enabled: false
+      storeType: FileStore
+      upload.cpcode:
+      host: coraliassets-nsu.akamaihd.net
+      key: 16581CF46f02W7P5D4IZ3LbEIgLLUs6j4B2dG5B3xh7YZz61AJ
+      keyName: bm-mobile-tst2
+      basePath:
+      url:
+public:
+  brand: "bma"
+crm:
+  frontend: "cl"
+  brand: "CORAL"
+  commType: 501
+aws:
+  s3:
+    region: "eu-west-2"
+    bucket-name:
+    brand.configs:
+      bma:
+        enabled: false
+        region: ${aws.s3.region}
+        bucket: ${aws.s3.bucket-name}
+        basePath:
+        # Akamai or CloudFlare
+        purgeService: Akamai
+        # required if purgeService is CloudFlare
+        purgeZoneId:
+        purgeUrl:
+      ladbrokes:
+        enabled: false
+        region: ${aws.s3.region}
+        bucket: ${aws.s3.bucket-name}
+        basePath:
+        # Akamai or CloudFlare
+        purgeService: Akamai
+        # required if purgeService is CloudFlare
+        purgeZoneId:
+        purgeUrl:
+
+fastpurge:
+  scheme: https
+  host: akab-jt645jydurw65rjv-h7c5j54kafbzcmkl.purge.akamaiapis.net
+  invalidate_cp_code_path: /ccu/v3/invalidate/cpcode/production
+  invalidate_url_path: /ccu/v3/invalidate/url/production
+  client_secret: KzQ820+gO8KYbcXrqZ4HBRF4fFmRfVTwIdMCruJMO+U=
+  access_token: akab-5ykp4wu7nip22njn-d4xd5gy3ye7ryckb
+  client_token: akab-ulwlathkdagxq25z-aesc3jsitdmggtqu
+  queue.capacity: 2000
+  initial.delay.seconds: 30
+  fixed.delay.seconds: 60
+
+homeModule:
+  removeExpired:
+    afterDays: 28
+    cron: 0 0 0 1/1 * ?
+  autoRefresh:
+    delayMillis: 60000
+
+dashboard:
+  removeExpired:
+    afterDays: 7
+    cron: 0 0 0 1/1 * ?
+
+sportCategory:
+  updateHasEventsField:
+    cron: 0 0/10 * * * ?
+  uploadArchival:
+    cron: 0 0 0 * * ?
+
+
+timeline:
+  brands: bma,ladbrokes
+  cron: 0 0/20 * * * ?
+
+archival:
+  removeExpired:
+    afterDays: 30
+    cron: 0 0 0 * * ?
+
+
+
+
+application:
+  allowedOrigins: http://bm-tst1.coral.co.uk,https://bm-tst1.coral.co.uk,http://bm-tst1.ladbrokes.com,https://bm-tst1.ladbrokes.com,https://invictus.coral.co.uk,https://bm.coral.co.uk,https://bma-gn-tst2.coral.co.uk,https://bma-gn-stg2.coral.co.uk,https://bma-gn.coral.co.uk,https://bma-gn-hl.coral.co.uk,https://oxynative.coral.co.uk,https://bet-hl.coral.co.uk,https://new-invictus.coral.co.uk,https://connect-invictus.coral.co.uk,https://test-invictus.coral.co.uk,https://mustang-invictus.coral.co.uk,https://inplay-invictus.coral.co.uk,https://muckers-invictus.coral.co.uk,https://mustang-new-invictus.coral.co.uk,https://td-invictus.coral.co.uk,https://native-invictus.coral.co.uk,https://consul.service.local.coral.co.uk,https://korali-invictus.coral.co.uk,https://release-invictus.coral.co.uk,https://express.coral.co.uk,https://bet-stg2.coral.co.uk,https://bet-tst1.coral.co.uk,https://bet-tst2.coral.co.uk,https://bet-tst3.coral.co.uk,https://bet-tst4.coral.co.uk,https://bet.coral.co.uk,https://express-invictus.coral.co.uk,https://phoenix-invictus.coral.co.uk,https://korali2-invictus.coral.co.uk,https://muckers2-invictus.coral.co.uk,https://connect-app.coral.co.uk,https://connect-app-tst1.coral.co.uk,https://connect-app-tst2.coral.co.uk,https://connect-app-stg2.coral.co.uk,https://fantom-invictus.coral.co.uk,https://desktop-invictus.coral.co.uk,https://muckers3-invictus.coral.co.uk,https://avengers-invictus.coral.co.uk,https://laffly-invictus.coral.co.uk,https://desktop-release-invictus.coral.co.uk,https://naughty-invictus.coral.co.uk,https://odds-invictus.coral.co.uk,https://hollow-invictus.coral.co.uk,https://graceful-invictus.coral.co.uk,https://grim-invictus.coral.co.uk,https://brave-invictus.coral.co.uk,https://silent-invictus.coral.co.uk,https://clumsy-invictus.coral.co.uk,https://amazing-invictus.coral.co.uk,https://cherry-excalibur.coral.co.uk,https://raspberry-excalibur.coral.co.uk,https://excalibur.coral.co.uk
+
+images:
+  hosting: akamai
+  core: /images/uploads
+
+  svg:
+    path: ${images.core}/svg
+    optimization.enable: true
+
+  guide:
+    path: ${images.core}/guide
+
+  banners:
+    small:
+      path: ${images.core}/banners/small
+      size: 640x200
+    medium:
+      path: ${images.core}/banners/medium
+      size: 491x190
+    desktop:
+      path: ${images.core}/banners/desktop
+      size: 720x150
+
+  promotions:
+    medium: ${images.core}/promotions/medium
+    size: 468x185
+
+  couponStatsWidget:
+    medium: ${images.core}/couponStatsWidget/medium
+    size: 375x780
+
+  firstbet:
+    medium: ${images.core}/firstbet/medium
+    size: 20x20
+
+  crc:
+    medium: ${images.core}/crc/medium
+    size: 375x780
+
+  racealert:
+    medium: ${images.core}/racealert/medium
+    size: 375x780
+
+  mystable:
+    medium: ${images.core}/mystable/medium
+    size: 375x780
+
+  CouponAndMarketSwitcher:
+    medium: ${images.core}/CouponAndMarketSwitcher/medium
+    size: 20x20
+
+  structure:
+    path: ${images.core}/structure
+
+  offers:
+    path: /img/offers
+    medium: ${images.offers.path}/medium
+    size: 290x180
+
+  maintenancePage:
+    original: ${images.core}/maintenance-page/
+    medium: ${images.core}/maintenance-page/medium
+    mediumSize: 1057x1136
+
+  connectmenus: ${images.core}/connect-menu
+
+  rightmenus:
+    small:
+      path: ${images.core}/right_menu/small
+      size: 40x40
+    medium:
+      path: ${images.core}/right_menu/medium
+      size: 156x156
+    large:
+      path: ${images.core}/right_menu/large
+      size: 468x468
+    svg: ${images.core}/right_menu
+
+  bankingmenus:
+    small:
+      path: ${images.core}/banking_menu/small
+      size: 40x40
+    medium:
+      path: ${images.core}/banking_menu/medium
+      size: 156x156
+    large:
+      path: ${images.core}/banking_menu/large
+      size: 468x468
+    svg: ${images.core}/banking_menu
+
+  ssopage:
+    medium: ${images.core}/sso-page/medium
+    original: ${images.core}/sso-page
+    size: 160x160
+
+  usermenus:
+    small:
+      path: ${images.core}/user_menu/small
+      size: 40x40
+    medium:
+      path: ${images.core}/user_menu/medium
+      size: 156x156
+    large:
+      path: ${images.core}/user_menu/large
+      size: 468x468
+    svg: ${images.core}/user_menu
+
+  footermenus:
+    small:
+      path: ${images.core}/footer_menu/small
+      #in bma-cms small & medium size were 40x40 and 32x32
+      size: 40x40
+    medium:
+      path: ${images.core}/footer_menu/medium
+      size: 32x32
+    large:
+      path: ${images.core}/footer_menu/large
+      size: 96x96
+    svg: ${images.core}/footer_menu
+
+  topgames:
+    small:
+      path: ${images.core}/top_games/small
+      #in bma-cms small & medium size were 104x104 and 60x60
+      size: 104x104
+    medium:
+      path: ${images.core}/top_games/medium
+      size: 60x60
+    large:
+      path: ${images.core}/top_games/large
+      size: 180x180
+    icon:
+      small:
+        path: ${images.core}/top_games/small_icon
+        size: 20x20
+      medium:
+        path: ${images.core}/top_games/medium_icon
+        size: 32x32
+      large:
+        path: ${images.core}/top_games/large_icon
+        size: 96x96
+
+  sportcategories:
+    small:
+      path: ${images.core}/sport_category/small
+      size: 104x104
+    medium:
+      path: ${images.core}/sport_category/medium
+      size: 32x32
+    large:
+      path: ${images.core}/sport_category/large
+      size: 96x96
+    icon:
+      small:
+        path: ${images.core}/sport_category/small_icon
+        size: 20x20
+      medium:
+        path: ${images.core}/sport_category/medium_icon
+        size: 32x32
+      large:
+        path: ${images.core}/sport_category/large_icon
+        size: 96x96
+    svg: ${images.core}/sport_category
+
+  lnquicklinks:
+    small:
+      path: ${images.core}/ln_quick_links/small
+      size: 1x1
+    medium:
+      path: ${images.core}/ln_quick_links/medium
+      size: 160x160
+    large:
+      path: ${images.core}/ln_quick_links/large
+      size: 480x480
+
+  sports:
+    path: ${images.core}/sport
+    small:
+      path: ${images.sports.path}/small
+      size: 32x32
+    medium:
+      path: ${images.sports.path}/medium
+      size: 96x96
+    large:
+      path: ${images.sports.path}/large
+      size: 104x104
+    icons:
+      small:
+        path: ${images.sports.path}/small_icon
+        size: 20x20
+      medium:
+        path: ${images.sports.path}/medium_icon
+        size: 32x32
+      large:
+        path: ${images.sports.path}/large_icon
+        size: 96x96
+
+  betReceiptBanners:
+    original: ${images.core}/betReceiptBanners/
+    medium:
+      path: ${images.core}/betReceiptBanners/medium
+      size: 640x200
+
+  betReceiptBannersTablet:
+    original: ${images.core}/betReceiptBannersTablet/
+    medium:
+      path: ${images.core}/betReceiptBannersTablet/medium
+      size: 720x170
+
+  3dbanners:
+    original: ${images.core}/3dbanners/
+    medium:
+      path: ${images.core}/3dbanners/medium
+      size: 640x60
+
+  hrquicklinks:
+    original:
+      path: ${images.core}/quick_links
+    medium:
+      path: ${images.core}/quick_links/medium
+      size: 160x160
+
+  footerlogos:
+    original: ${images.core}/footer_logos
+    # as per bma-cms medium images are in the same size as original
+    medium: ${images.core}/footer_logos/medium
+    svg: ${images.core}/footer_logos
+
+  features:
+    medium:
+      path: ${images.core}/features/medium
+      size: 640x200
+
+  wyswig:
+    path: ${images.core}/wysiwyg_uploads
+
+  sportquicklinks:
+    svg: ${images.core}/sport_quick_links
+  oddsboost:
+    svg: ${images.core}/odds_boost
+
+  teamKit:
+    path: ${images.core}/teamKit
+
+  game:
+    blacklist:
+      path: ${images.core}/blacklist
+      uuid: '89b6b858-531e-45ad-8eda-4973c81f6e2a'
+
+  highlightscarousel:
+    svg: ${images.core}/highlights_carousel
+  gamemenu:
+    svg: ${images.core}/game_menu_svg
+    png: ${images.core}/game_menu_png
+  surfacebet:
+    svg: ${images.core}/surfaceBet
+
+  splashpage:
+    svg: ${images.core}/quizSplashPage
+  freeride:
+    png: ${images.core}/freeRideSplashPage
+  endpage:
+    svg: ${images.core}/quizEndPage
+
+  quizUpsellFallback:
+    path: ${images.core}/quizUpsellFallback
+
+  questionEngineImages:
+    path: ${images.core}/questionDetails
+  virtualSport:
+    svg: ${images.core}/virtualSport
+  virtualSportTrack:
+    path: ${images.core}/virtuals
+
+  timelineImages:
+    path: ${images.core}/timeline
+
+  betPackBanner:
+    png: ${images.core}/betPackBanner
+
+  betPackLabel:
+      png: ${images.core}/betPackLabel
+
+  betPackOnboarding:
+    png: ${images.core}/onboarding/betPackOnboarding
+
+
+siteserver:
+  base.url: https://ss-tst2.coral.co.uk/
+  api:
+    version: 2.54
+    latest.version: 2.65
+  logging:
+    level: NONE
+  connection:
+    timeout: 10
+  read:
+    timeout: 10
+  retries:
+    number: 2
+  priceboost:
+    enabled: false
+    simplefilter.key: outcome.hasPriceStream
+    simplefilter.value: isTrue
+
+stats:
+  center:
+    url: https://statscenter-tst0.coralsports.nonprod.cloud.ladbrokescoral.com/
+
+df:
+  base:
+    url: https://cd-dev1.api.datafabric.dev.aws.ladbrokescoral.com
+  api:
+    version: v4
+    key: CD11beae13fa47459ba472e0b743822846
+  logging:
+    level: BASIC # FIXME: do we need this information ? use NONE and rework info logging.
+  connection:
+    timeout: 10
+  read:
+    timeout: 10
+  retries:
+    number: 2
+  ladbrokes:
+    base:
+      url: https://ld-dev1.api.datafabric.dev.aws.ladbrokescoral.com
+    api:
+      key: LDaa2737afbeb24c3db274d412d00b6d3b
+
+api:
+  buildyourbet:
+    ladbrokes:
+      url: https://buildyourbet-dev0.ladbrokesoxygen.dev.cloud.ladbrokescoral.com/
+    bma:
+      url: https://buildyourbet-dev0.coralsports.dev.cloud.ladbrokescoral.com/
+  bppMaintenance:
+    ladbrokes:
+      url: https://bpp-dev0.ladbrokesoxygen.dev.cloud.ladbrokescoral.com/Proxy/maintenance
+      secret: export MAINTENANCE_KEY=VALUE
+    bma:
+      url: https://bpp-dev0.coralsports.dev.cloud.ladbrokescoral.com/Proxy/maintenance
+      secret: export MAINTENANCE_KEY=VALUE
+
+nextRaces:
+    categoryId : 21
+    numberOfNextRaces : 3
+    timePeriodMinutes : 15
+
+siteserve:
+  marketValidation:
+    categoryCodes: MOTOR_CARS,TV_SPECIALS,CYCLING,MOTOR_SPEEDWAY,MOTOR_BIKES,POLITICS,GOLF,MOTOR_SPORTS,MOVIES
+    eventCodes: TNMT,TR01,TR02,TR03,TR04,TR05,TR06,TR07,TR08,TR09,TR10,TR11,TR12,TR13,TR14,TR15,TR16,TR17,TR18,TR19,TR20,MTCH
+    eventCodesForDiffCategories: TNMT,TR01,TR02,TR03,TR04,TR05,TR06,TR07,TR08,TR09,TR10,TR11,TR12,TR13,TR14,TR15,TR16,TR17,TR18,TR19,TR20
+    templates: Win or Each Way,Match Betting,Match Result,Match Results,Extra Time Result,Extra-Time Result,Penalty Shoot-Out Winner,To Qualify,Money Line
+  outright:
+    siteChannel: M # !!! only single channel
+    eventSortCodes: TNMT,TR01,TR02,TR03,TR04,TR05,TR06,TR07,TR08,TR09,TR10,TR11,TR12,TR13,TR14,TR15,TR16,TR17,TR18,TR19,TR20
+  marketfilter:
+    raceTypeTemplateNames:
+      bma: "|Win or Each Way|"
+      ladbrokes: "|Win or Each Way|"
+
+banach:
+  leagues:
+    to-days-param: 5
+
+byb:
+  check-availability:
+    period-millis: 2000
+
+eventhub:
+  max-count: 20
+
+masterlock:
+  enabled: true
+  lease-duration: 15
+  heartbeat-period: 3
+  aws:
+    region: eu-west-2
+
+aem:
+  banners:
+    produce: false
+
+google-cloud:
+  big-query:
+    clientId: 106465041690092141178
+    clientEmail: question-engine@ladbrokes-big-query.iam.gserviceaccount.com
+    privateKeyId: 79872832cb0e9cd28d19271dc0f767bc81cd57eb
+    projectId: ladbrokes-big-query
+    questionEngineDatasetId: Question_Engine
+    timelineDatasetId: Timeline
+    entriesTableId: Entries_DEV
+    timelineChangelogTableId: Change_Log_DEV
+
+otf:
+  url: https://otf-stats-dev0.coralsports.dev.cloud.ladbrokescoral.com/
+
+specialpages:
+  specialpageConfig:
+    ladbrokes:
+      url: https://bpp-dev0.ladbrokesoxygen.dev.cloud.ladbrokescoral.com/Proxy/specialpage
+      secret: export MAINTENANCE_KEY=VALUE
+    bma:
+      url: https://bpp-dev0.coralsports.dev.cloud.ladbrokescoral.com/Proxy/specialpage
+      secret: export MAINTENANCE_KEY=VALUE
+
+freeride:
+    baseUrl: http://localhost:8087/v1/api/
+    secret:
+        ladbrokes: MAINTENANCE_KEY
+        bma: MAINTENANCE_KEY
+ssl:
+  certificates:
+    resource: 'file:/opt/app/ssl'
+#CRM Freebet offerId for showdown
+crm.freebet.offerId: "88647"
+crm.ticket.offerId: "88647"
+showdown:
+  base:
+    url: http://localhost:9090/showdown/api/
+
+# always last few seconds should be sync with featured.cron.expression
+last.view.seconds: 5
+
+
+magicurl:
+  longurl: https://qa2.sports.ladbrokes.com/5-a-side/leaderboard/
+
+topic:
+  active-bet-packs.coral: ${topic.bet-pack.prefix}__active-bet-packs-topic
+
+bpmp:
+  active-betpack-limit: 20
+  active-filter-limit: 8
+
+coral:
+  kafka:
+    bootstrap-servers: "localhost:9092"
+    admin:
+      properties:
+        bootstrap:
+          servers: ${coral.kafka.bootstrap-servers}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      bootstrap-servers: ${coral.kafka.bootstrap-servers}
+    topic:
+      leaderboard-promo-coral: ${promosandbox.distributed.prefix}_promo-config-cr
+      cms-config-map: ${topic.coral.cms-push.prefix}__cms-config-map-topic
+      cms-quiz: ${topic.coral.cms-push.prefix}__cms-quiz
+      cms-sports: ${topic.coral.cms-push.prefix}__cms-sports
+      cms-sportcategories: ${topic.coral.cms-push.prefix}__cms-sportcategories
+      cms-moduleribbontabs: ${topic.coral.cms-push.prefix}__cms-moduleribbontabs
+      cms-homemodules: ${topic.coral.cms-push.prefix}__cms-homemodules
+      cms-sportquicklinks: ${topic.coral.cms-push.prefix}__cms-sportquicklinks
+      cms-ycleagues: ${topic.coral.cms-push.prefix}__cms-ycleagues
+      cms-systemconfigurations: ${topic.coral.cms-push.prefix}__cms-systemconfigurations
+      cms-assetmanagement: ${topic.coral.cms-push.prefix}__cms-assetmanagement
+      cms-fanzones: ${topic.coral.cms-push.prefix}__cms-fanzones
+      cms-sportModules: ${topic.coral.cms-push.prefix}__cms-sportModules
+      cms-homeInplaySport: ${topic.coral.cms-push.prefix}__cms-homeInplaySport
+      cms-sporttabs: ${topic.coral.cms-push.prefix}__cms-sporttabs
+      cms-surfaceBet: ${topic.coral.cms-push.prefix}__cms-surfaceBet
+      cms-surfacebetArchive: ${topic.coral.cms-push.prefix}__cms-surfacebetArchive
+      cms-highlightCarousel: ${topic.coral.cms-push.prefix}__cms-highlightCarousel
+      cms-highlightCarouselArchive: ${topic.coral.cms-push.prefix}__cms-highlightCarouselArchive
+      cms-segments: ${topic.coral.cms-push.prefix}__cms-segments
+      cms-segmentedModules: ${topic.coral.cms-push.prefix}__cms-segmentedModules
+    partitions: 1
+    replicaFactor: 1
+  topic:
+    timeline: timeline
+    active-bet-packs: ${topic.bet-pack.prefix}__active-bet-packs-topic
+    partitions: 1
+    replicaFactor: 1
+    retention:
+      ms: 86400000
+
+ladbrokes:
+  kafka:
+    bootstrap-servers: "localhost:9092"
+    admin:
+      properties:
+        bootstrap:
+          servers: ${ladbrokes.kafka.bootstrap-servers}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      bootstrap-servers: ${ladbrokes.kafka.bootstrap-servers}
+    topic:
+      leaderboard-contest: ${distributed.prefix}-LDRBRD-leaderboard-contest
+      leaderboard-promo: ${promosandbox.distributed.prefix}_promo-config
+      cms-config-map: ${topic.lads.cms-push.prefix}__cms-config-map-topic
+      cms-games: ${topic.lads.cms-push.prefix}__cms-games
+      cms-quiz: ${topic.lads.cms-push.prefix}__cms-quiz
+      cms-season: ${topic.lads.cms-push.prefix}__cms-season
+      cms-qualification-rule: ${topic.lads.cms-push.prefix}__cms-qualification-rule
+      cms-gamification: ${topic.lads.cms-push.prefix}__cms-gamification
+      cms-sports: ${topic.lads.cms-push.prefix}__cms-sports
+      cms-sportcategories: ${topic.lads.cms-push.prefix}__cms-sportcategories
+      cms-moduleribbontabs: ${topic.lads.cms-push.prefix}__cms-moduleribbontabs
+      cms-homemodules: ${topic.lads.cms-push.prefix}__cms-homemodules
+      cms-sportquicklinks: ${topic.lads.cms-push.prefix}__cms-sportquicklinks
+      cms-ycleagues: ${topic.lads.cms-push.prefix}__cms-ycleagues
+      cms-systemconfigurations: ${topic.lads.cms-push.prefix}__cms-systemconfigurations
+      cms-assetmanagement: ${topic.lads.cms-push.prefix}__cms-assetmanagement
+      cms-fanzones: ${topic.lads.cms-push.prefix}__cms-fanzones
+      cms-sportModules: ${topic.lads.cms-push.prefix}__cms-sportModules
+      cms-homeInplaySport: ${topic.lads.cms-push.prefix}__cms-homeInplaySport
+      cms-sporttabs: ${topic.lads.cms-push.prefix}__cms-sporttabs
+      cms-surfaceBet: ${topic.lads.cms-push.prefix}__cms-surfaceBet
+      cms-surfacebetArchive: ${topic.lads.cms-push.prefix}__cms-surfacebetArchive
+      cms-highlightCarousel: ${topic.lads.cms-push.prefix}__cms-highlightCarousel
+      cms-highlightCarouselArchive: ${topic.lads.cms-push.prefix}__cms-highlightCarouselArchive
+      cms-segments: ${topic.lads.cms-push.prefix}__cms-segments
+      cms-segmentedModules: ${topic.lads.cms-push.prefix}__cms-segmentedModules
+    partitions: 1
+    replicaFactor: 1
+  topic:
+    timeline: timeline
+
+promoleaderboard:
+  max:
+    count: 25
+  aws:
+    s3:
+      region: ${aws.s3.region}
+      coral:
+        bucket: promosandbox-coral-dev0
+      ladbrokes:
+        bucket: promosandbox-ladbrokes-dev0
+luckyDip:
+  enableTypeIdsValidation: true
+
+trending-bets:
+  type: bet-slip,bet-receipt

@@ -1,0 +1,17 @@
+<modal #betslipLimitationDialog>
+  <div class="page-container">
+    <ng-template #modalHeader>
+      <header class="container-header">
+        <span [i18n]="'bs.notice'"></span>
+      </header>
+    </ng-template>
+    <ng-template #modalBody>
+      <div class="container-content">
+        <span [i18n]="'bs.betslipLimitationMessage'"></span>
+      </div>
+      <div class="btn-list">
+        <button class="btn btn-style2" (click)="closeDialog()" [i18n]="'bs.ok'"></button>
+      </div>
+    </ng-template>
+  </div>
+</modal>

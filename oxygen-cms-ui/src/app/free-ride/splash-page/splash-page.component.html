@@ -1,0 +1,202 @@
+<div class="card">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Splash Screen
+    </h2>
+  </div>
+</div>
+<div class="card">
+  <div class="body">
+    <form [formGroup]="splashFormGroup">
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Launch Banner*
+          </span>
+        </div>
+        <div class="col-md-5">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Launch Image" formControlName="launchBannerName">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <div style="display:none;"><input id="upload-launch-banner" (change)="prepareToUploadFile($event)" type="file"
+              value="upload" /></div>
+          <button type="button" (click)="handleUploadImageClick($event)"
+            class="change-launch-image-btn btn bg-teal waves-effect">Change File</button>
+          <button type="button" (click)="removeMainImage($event)"
+            class="launch-image-btn btn bg-red waves-effect">Remove File</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Background Image*
+          </span>
+        </div>
+        <div class="col-md-5">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Splash Image" formControlName="splashPageName">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <div style="display:none;"><input id="upload-splash-page" (change)="prepareToUploadFile($event)" type="file"
+              value="upload" /></div>
+          <button type="button" (click)="handleUploadImageClick($event)"
+            class="change-splash-image-btn btn bg-teal waves-effect">Change File</button>
+          <button type="button" (click)="removeMainImage($event)"
+            class="splash-image-btn btn bg-red waves-effect">Remove File</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Free Ride Logo*
+          </span>
+        </div>
+        <div class="col-md-5">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Free Ride Image" formControlName="freeRideImg">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <div style="display:none;"><input id="upload-free-ride" (change)="prepareToUploadFile($event)" type="file"
+              value="upload" /></div>
+          <button type="button" (click)="handleUploadImageClick($event)"
+            class="change-free-ride-image-btn btn bg-teal waves-effect">Change File</button>
+          <button type="button" (click)="removeMainImage($event)"
+            class="free-ride-image-btn btn bg-red waves-effect">Remove File</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Splash Page Welcome Message*
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Message" formControlName="welcomeMsg">
+            <mat-hint class="col-red"
+              *ngIf="splashFormGroup.get('welcomeMsg').dirty && splashFormGroup.get('welcomeMsg').value?.length === 0">
+              This Property Should be filled</mat-hint>
+            <mat-hint class="col-red"
+              *ngIf="splashFormGroup.get('welcomeMsg').value && splashFormGroup.get('welcomeMsg').value?.length > 80">
+              This Property Should not exceed 80 characters</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-md-2 text-length">
+          {{splashFormGroup.get('welcomeMsg')?splashFormGroup.get('welcomeMsg').value?.length : 0}} / 80
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Terms and Conditions Text
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Link" formControlName="termsAndConditionHyperLinkText">
+            <mat-hint class="col-red"
+              *ngIf="splashFormGroup.get('termsAndConditionHyperLinkText').value && splashFormGroup.get('termsAndConditionHyperLinkText').value?.length > 150">
+              This Property Should not exceed 150 characters</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-md-2 text-length">
+          {{splashFormGroup.get('termsAndConditionHyperLinkText')?splashFormGroup.get('termsAndConditionHyperLinkText').value?.length : 0}} / 150
+        </div>
+      </div>
+
+      
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Terms and Conditions Link
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Link" formControlName="termsAndConditionLink">
+            <mat-hint class="col-red"
+              *ngIf="splashFormGroup.get('termsAndConditionLink').value && splashFormGroup.get('termsAndConditionLink').value?.length > 150">
+              This Property Should not exceed 150 characters</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-md-2 text-length">
+          {{splashFormGroup.get('termsAndConditionLink')?splashFormGroup.get('termsAndConditionLink').value?.length : 0}} / 150
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Button*
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Button value"
+              formControlName="buttonText">
+            <mat-hint class="col-red"
+              *ngIf="splashFormGroup.get('buttonText').dirty && splashFormGroup.get('buttonText').value?.length === 0">
+              This Property Should be filled</mat-hint>
+            <mat-hint class="col-red"
+              *ngIf="splashFormGroup.get('buttonText').value && splashFormGroup.get('buttonText').value?.length > 15">
+              This Property Should not exceed 15 characters</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-md-2 text-length">
+          {{splashFormGroup.get('buttonText')?splashFormGroup.get('buttonText').value?.length : 0}} / 15
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Promo Url
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Promo Url"
+              formControlName="promoUrl">
+            <mat-hint class="col-red"
+              *ngIf="splashFormGroup.get('promoUrl').value && splashFormGroup.get('promoUrl').value?.length > 15">
+              This Property Should not exceed 15 characters</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-md-2 text-length">
+          {{splashFormGroup.get('promoUrl')?splashFormGroup.get('promoUrl').value?.length : 0}} / 15
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <mat-checkbox class="mat-label" color="primary" formControlName="isHomePage"> Home Page
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <mat-checkbox class="mat-label" color="primary" formControlName="isBetReceipt"> Bet Reciept
+          </mat-checkbox>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card">
+  <div class="body">
+    <div class="row --m-t-10">
+      <div class="col-md-3 m-b-0">
+        <button [disabled]="disableSave() || disableSaveBtn" mat-button type="button"
+          class="btn bg-teal waves-effect float-left" (click)="saveChanges()">
+          <mat-icon>save</mat-icon>
+          <span>Save Changes</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

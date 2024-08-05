@@ -1,0 +1,12 @@
+<ng-container *ngIf="event.isResulted || event.isStarted || event.isLiveNowEvent || status.title">
+  <svg *ngIf="status.title === racingStatusConstants.result" class="racing-icon" data-crlat="raceGrid.iconRace">
+    <use [attr.xlink:href]="isOverlayResultIcon ? '#event-result-icon-no-fill' : '#event-result-icon'"></use>
+  </svg>
+    <svg *ngIf="event.isLiveNowEvent && event.categoryId !== HORSE_RACING_CATEGORY_ID" class="racing-icon">
+      <use xlink:href="#event-live-icon"></use>
+    </svg>
+    <svg *ngIf="status.title === racingStatusConstants.inPlay" class="inplay-icon" data-crlat="liveLabel">
+      <use xlink:href="#live-icon"></use>
+    </svg>
+  <span [className]="status.class" [textContent]="status.title" [attr.data-crlat]="status.class"></span>
+</ng-container>

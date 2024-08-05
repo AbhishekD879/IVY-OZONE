@@ -1,0 +1,38 @@
+@import 'global.variables.scss';
+
+@import 'generic.scss';
+
+@import 'objects.banner.scss';
+@import 'objects.page.scss';
+@import 'objects.event-panel.scss';
+@import 'objects.inplay-visualization.scss';
+@import 'objects.racing.scss';
+@import 'objects.promotion-footer.scss';
+@import 'objects.video-stream.scss';
+
+@import 'components.your-call-player-stats.scss';
+@import 'components.tabsPanel.scss';
+@import 'components.show-all-button.scss';
+@import 'components.price-odds-button.scss';
+@import 'components.prematch-stats.scss';
+@import 'components.header-panel.scss';
+@import 'components.quick-links';
+@import 'components.correct-score';
+@import 'components.coupons-details';
+@import 'components.game-event-markets';
+@import 'components.game-event-tabs';
+@import 'component.matches-market-selector';
+@import 'components.competitions-outrights-tab';
+@import 'component.accordion.scss';
+@import 'components.cookie-banner.scss'; /* to be removed in vanilla */
+
+@import 'cashout.scss';
+
+@import 'modules/inplayLiveStream/inplayLiveStream.scss';
+@import 'modules/racing/racing.scss';
+
+@import '../../lazy-modules/competitionsSportTab/components/competitionsCategoryList/competitions-category-list.component.scss';
+@import '../../shared/components/oddsCard/odds-card.component.scss';
+@import '../../shared/components/oddsCardHeader/odds-card-header.component.scss';
+
+@import '../../../../app/edp/components/sportEventMain/sport-event-main.component.scss';

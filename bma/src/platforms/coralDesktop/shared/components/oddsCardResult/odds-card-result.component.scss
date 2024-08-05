@@ -1,0 +1,51 @@
+@import 'global.variables.scss';
+
+.odds-card-result {
+  min-height: 56px;
+  border-bottom: 1px solid $color-gray;
+  padding: 10px;
+  @include display-flex();
+  .odds-result-text {
+    margin: 0;
+  }
+  .odds-score,
+  .odds-score-divider {
+    font: bold 16px/1 $base-font-family;
+    color: $color-gray-dark;
+    display: inline-block;
+    vertical-align: top;
+  }
+  .odds-goal-scorers {
+    font-size: 11px;
+    font-weight: normal;
+    color: $color-gray-dark;
+    @include word-break();
+  }
+  .odds-score-divider {
+    color: $color-gray;
+    margin: 0 10px;
+    line-height: 11px;
+  }
+  .odds-team {
+    font: bold 12px/1.2 $base-font-family;
+    color: $color-gray-dark;
+    margin-bottom: 5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block
+  }
+  .odds-content-left,
+  .odds-content-right {
+    @include flex(1,1,calc(50% - 25px));
+    width: calc(50% - 25px);
+    overflow: hidden;
+  }
+  .odds-content-left {
+    padding-right: 8px;
+  }
+  .odds-content-right {
+    padding-left: 8px;
+    text-align: right;
+  }
+}

@@ -1,0 +1,70 @@
+@import 'global.variables.scss';
+@import '../../../../assets/styles/modules/jump-vibrate-animation.scss';
+:host {
+  display: inline;
+}
+.free-bet-notification {
+  @include display-flex();
+  @include align-items();
+  background: $madison;
+  position: relative;
+  height: 45px;
+  box-shadow: 0 2px 3px 0 $box-shadow-gray;
+  margin-bottom: 5px;
+
+  &.reducedHeight{
+    height: 35px;
+  }
+  &.removeMargin{
+    margin-top: -5px;
+  }
+  &.mobile{
+    margin-bottom: 10px;
+  }
+  .free-bet-label{
+    position: absolute;
+    height: 45px;
+    background: $color-yellow;
+    border-radius: 0px;
+    padding: 0px 10px;
+    @include display-flex();
+    @include align-items();
+
+    svg{
+      width: 20px;
+      height: 20px;
+    }
+    &.reducedHeight{
+      height: 35px;
+    }
+  }
+  .notification-content{
+
+    position: absolute;
+    font-family: $base-font-family;
+    font-weight: 700;
+    font-size: $font-size;
+    line-height: 14px;
+    margin: 0 48px 0 51px;
+    color: $lGrayLight;
+
+    .additional{
+      margin-top: 7px;
+      font-weight: 200;
+    }
+  }
+  .close-icon {
+    position: absolute;
+    top: 50%;
+    cursor: pointer;
+    will-change: transform;
+    transform: translate(0, -50%);
+    right: 0;
+    padding: 17px;
+
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+}

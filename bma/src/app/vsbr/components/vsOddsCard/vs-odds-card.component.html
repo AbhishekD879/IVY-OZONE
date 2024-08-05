@@ -1,0 +1,105 @@
+<ng-container [ngSwitch]="template">
+  <!--Win or E/W-->
+  <ng-container *ngSwitchCase="'WinEw'">
+    <div class="odds-card" *ngFor="let market of eventData; trackBy: trackOutcomeById;" data-crlat="outcomeEntity">
+      <div class="odds-content">
+        <div class="odds-left">
+          <strong class="odds-side" *ngIf="showRunnerNumber" [textContent]="market.outcome.runnerNumber"></strong>
+          <virtual-silk class="virtual-silk" *ngIf="showRunnerImages && market.outcome.silkName" [event]="currentEvent.event" [outcome]="market.outcome"></virtual-silk>
+          <div class="odds-names" data-crlat="oddsNames">
+            <b [textContent]="market.outcome.name" data-crlat="horseName"></b><br/>
+            <small class="odds-normal"
+                   *ngIf="market.outcome.jockey"
+                   [textContent]="market.outcome.jockey"
+                   data-crlat="jockeyName">
+            </small>
+          </div>
+        </div>
+        <div class="odds-right">
+          <button class="btn-bet"
+                  [disabled]="eventOngoing"
+                  [ngClass]="{active: isActiveClass(market.outcome.id, market.outcome.children[0].price.priceType)}"
+                  (click)="onPriceOddsButtonClick($event, market.outcome)"
+                  data-crlat="betButton">
+            {{ outputPrice(market.outcome.children[0].price) }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <!--Horizontal-->
+  <ng-container *ngSwitchCase="'Horizontal'">
+    <div class="row row-center row-no-gutter row-panel" data-crlat="containerInnerContent">
+      <div *ngFor="let market of eventData; trackBy: trackOutcomeById;" class="col-xs col-bordered" data-crlat="oddsCard">
+        <div class="col-inner">
+          <strong class="col-name" data-crlat="outcomeEntity.name">{{ market.outcome.name }}</strong>
+          <button class="btn-bet col-btn"
+                  [disabled]="eventOngoing"
+                  [ngClass]="{active: isActiveClass(market.outcome.id, market.outcome.children[0].price.priceType)}"
+                  (click)="onPriceOddsButtonClick($event, market.outcome)"
+                  data-crlat="betButton">
+            {{ outputPrice(market.outcome.children[0].price) }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <!--Column-->
+  <ng-container *ngSwitchCase="'Column'">
+    <div class="row row-center row-no-gutter row-panel odds-card-column"
+         [equal-column]
+         *ngIf="templateMarketName===correctScoreTitle">
+      <div class="col-xs cols-3" *ngFor="let set of getGroupedEventsData(); trackBy: trackGroupedOutcomes;">
+        <div class="odds-card-header">
+          <div class="odds-header-title">{{ filterAlphabetsOnlyTrimUnderscore(set[0].outcome.name ) }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="row row-center row-no-gutter row-panel odds-card-column" [equal-column]>
+      <div class="col-xs col-bordered" *ngFor="let set of getGroupedEventsData(); trackBy: trackGroupedOutcomes;">
+        <div class="col-inner col-vertical" *ngFor="let market of set; trackBy: trackOutcomeById;">
+          <strong class="col-name">
+            <ng-container *ngIf="!(templateMarketName===correctScoreTitle)">
+              <span data-crlat="marketName">{{ filterAlphabetsOnlyTrimUnderscore(market.outcome.name) }}</span><br/>
+            </ng-container>
+            <span class="event-score" data-crlat="marketName">{{ filterNumbersOnly(market.outcome.name) }}</span>
+          </strong>
+          <button class="btn-bet col-btn"
+                  [disabled]="eventOngoing"
+                  [ngClass]="{active: isActiveClass(market.outcome.id, market.outcome.children[0].price.priceType)}"
+                  (click)="onPriceOddsButtonClick($event, market.outcome)"
+                  data-crlat="betButton">
+            {{ outputPrice(market.outcome.children[0].price) }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <!--Vertical-->
+  <ng-container *ngSwitchCase="'Vertical'">
+    <div class="odds-card-header" *ngIf="templateMarketName === totalMatchGoalsTitle">
+      <div class="odds-left">
+        <div class="odds-header-title" [i18n]="'vsbr.headerTitleForGoals'"></div>
+      </div>
+    </div>
+    <div class="odds-card" *ngFor="let market of eventData; trackBy: trackOutcomeById;" data-crlat="outcomeEntity">
+      <div class="odds-content">
+        <div class="odds-left">
+          <div class="odds-names" data-crlat="oddsNames">{{ market.outcome.name }}</div>
+        </div>
+        <div class="odds-right">
+          <button class="btn-bet"
+                  [disabled]="eventOngoing"
+                  [ngClass]="{active: isActiveClass(market.outcome.id, market.outcome.children[0].price.priceType)}"
+                  (click)="onPriceOddsButtonClick($event, market.outcome)"
+                  data-crlat="betButton">
+            {{ outputPrice(market.outcome.children[0].price) }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

@@ -1,0 +1,39 @@
+<div [ngClass]="{'sk-container': !eventQuickSwitch,'sk-loading': !isLoaded, 'quick-switch-holder': eventQuickSwitch}">
+  <loading-screen [displayed]="!isLoaded" [templateType]="'GENERIC'"></loading-screen>
+
+  <lazy-component *ngIf="isLoaded && isMarketSelectorAvailable && isMarketSwitcherConfigured && inner && eventsByCategoryCopy"
+                  [ngClass]="{ 'sticky-market-selector': isMarketSelectorSticky }"
+                  moduleUri="@sharedModule/components/marketSelector/market-selector.module#MarketSelectorModule"
+                  data-crlat="marketSelectorModule" entryComponent="MatchesMarketSelectorComponent" [inputs]="{sportId: sportId,
+                               eventDataSection: eventsByCategoryCopy,
+                              selectorType:'sportCompetition', targetTab: targetTab}" [outputs]="['filterChange']"
+                  (event)="filterEvents($event)">
+  </lazy-component>
+  
+  <ng-container *ngIf="(eventQuickSwitch || isLoadedFilter) && isLoaded && eventsByCategory && filteredMatches.length">
+
+    <lazy-component
+    moduleUri="@lazy-modules-module/twoUpSignpostingBlurbMsg/twoup-signposting-blurbmsg.module#TwoUpSignPostingBlurbMsgModule"
+    [inputs]="{
+      marketName:selectedMarketSwitcher
+    }"
+    entryComponent="TwoUpSignPostingBlurbMsgComponent"  >
+    </lazy-component>
+    <ng-container *ngFor="let groupedBy of filteredMatches; trackBy:trackByTypeId">
+      <div *ngIf="!groupedBy.deactivated && (isMarketSwitcherLoaded || eventQuickSwitch)" class="container-inner-content" data-crlat="competitionLeague.item">
+        <odds-card-header *ngIf="groupedBy.events.length" [events]="groupedBy.events"
+          [sportConfig]="sport?.sportConfig" [selectedMarket]="selectedMarket(eventsByCategory)"
+          [isFilterByTemplateMarketName]="true" [undisplayedMarket]="undisplayedMarket"
+            [isMarketSwitcherConfigured]="isMarketSwitcherConfigured"  [dateTitle]="groupedBy.title">
+        </odds-card-header>
+        <odds-card-component *ngFor="let eventEntity of groupedBy.events" [event]="eventEntity"
+          [sportConfig]="sport?.sportConfig" [selectedMarket]="selectedMarket(eventsByCategory)"
+          [isFilterByTemplateMarketName]="true" [isMarketSwitcherConfigured]="isMarketSwitcherConfigured"
+          [markets]="eventEntity.markets" [eventQuickSwitch]="eventQuickSwitch" (marketUndisplayed)="reinitHeader($event)" data-crlat="eventEntity">
+        </odds-card-component>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <no-events *ngIf="isLoaded && (!(eventsByCategory && filteredMatches.length) || showNoEvents)" [eventQuickSwitch]="eventQuickSwitch"></no-events>
+</div>

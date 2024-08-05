@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+export SPRING_PROFILES_ACTIVE=$1
+
+./gradlew :sports-featured-ms:bootRun

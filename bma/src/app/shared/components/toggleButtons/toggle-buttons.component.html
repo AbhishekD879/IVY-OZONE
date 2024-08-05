@@ -1,0 +1,17 @@
+<div class="group-buttons group-buttons-toggle">
+  <div class="group-btn group-btn-part">
+    <div class="group-col-toggle group-default"
+         *ngFor="let toggleBtn of buttons; trackBy: trackByIndex;">
+      <button class="btn btn-style4"
+              type="button"
+              [ngClass]="{active: selectedBtn === toggleBtn.val}"
+              (click)="toggleBtnOnClick(toggleBtn.val)"
+              data-crlat="digitalFilterButtons">
+        <div [textContent]="toggleBtn.label" data-crlat="filterName"></div>
+        <svg class="check-icon" *ngIf="!hideCheckIcons">
+          <use xlink:href="#check-icon"></use>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>

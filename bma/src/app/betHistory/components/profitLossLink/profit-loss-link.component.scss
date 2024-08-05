@@ -1,0 +1,53 @@
+@import 'global.variables.scss';
+
+.profit-loss-link {
+  box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+  background-color: #fff;
+  margin: 0 0 5px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.profit-loss-link a {
+  font-family: $base-font-family;
+  font-size: 13px;
+  font-weight: normal;
+  color: $color-gray-darkest;
+  padding: 12px;
+  width: 100%;
+  position: relative;
+  &:hover{
+    text-decoration: underline;
+    color:$color-gray-darkest;
+  }
+  &:active{
+    text-decoration: none;
+    color: $lGrayMedium;
+  }
+}
+.profit-loss-link.coral-background a {
+  color:$color-gray-dark;
+  &:hover{
+    text-decoration: underline;
+    color:$color-gray-dark;
+  }
+  &:active{
+    text-decoration: none;
+    color: $lGrayMedium;
+  }
+}
+
+.profit-loss-link:after {
+  position: absolute;
+  content: '';
+  border: solid $lGray;
+  border-width: 0 2px 2px 0;
+  padding: 3px;
+  will-change: transform;
+  transform: rotate(-45deg);
+  top: calc(50% - 5px);
+  right: 15px;
+  pointer-events: none;
+}

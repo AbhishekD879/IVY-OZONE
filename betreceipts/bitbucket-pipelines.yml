@@ -1,0 +1,37 @@
+# FIXME: use JDK 11
+# image: adoptopenjdk:11-openj9
+image: azul/zulu-openjdk:17.0.5
+
+clone:
+  depth: full
+
+pipelines:
+  default:
+    - step:
+        name: sonarqube (test, build)
+        caches:
+          - gradle
+          - gradlewrapper
+          - sonarcloud
+        script:
+          - ./gradlew test build sonarqube --info
+            -Dsonar.coverage.exclusions=**/config/*
+
+  pull-requests:
+    "**":
+      - step:
+          caches:
+            - gradle
+            - gradlewrapper
+            - sonarcloud
+          script:
+            - ./gradlew test build sonarqube
+              -Dsonar.pullrequest.key=$BITBUCKET_PR_ID
+              -Dsonar.pullrequest.base=$BITBUCKET_PR_DESTINATION_BRANCH
+              -Dsonar.pullrequest.branch=$BITBUCKET_BRANCH
+              -Dsonar.coverage.exclusions=**/config/*
+
+definitions:
+  caches:
+    sonarcloud: ~/.sonar/cache
+    gradlewrapper: ~/.gradle/wrapper

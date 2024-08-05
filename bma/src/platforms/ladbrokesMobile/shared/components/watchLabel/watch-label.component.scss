@@ -1,0 +1,29 @@
+@import 'global.variables.scss';
+
+watch-label {
+  @include inline-flex();
+  @include align-items(center);
+  color: $lGray;
+  background: $color-yellow-alt;
+  font-weight: bold;
+  padding: 0 4px;
+  text-transform: uppercase;
+  font-size: $font-size-md;
+  font-family: $base-font-family;
+  line-height: 15px;
+  min-height: 15px;
+  cursor: pointer;
+  &:hover{
+    opacity: 0.85;
+    color: $lGray;
+  }
+  &:active{
+    background-color: $color-orange-light2;
+    opacity: 1;
+    color: $lGray;
+  }
+
+  live-label + & {
+    @include flex-order(-1);
+  }
+}

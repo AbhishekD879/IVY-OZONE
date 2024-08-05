@@ -1,0 +1,90 @@
+<accordion
+  *ngIf="events.length"
+  [card]="true"
+  [headerClass]="'secondary-header'"
+  (function)="sendCollapseGTM()"
+  [isExpanded]="true"
+  data-crlat="accordion">
+  <left-side class="live-accordion" data-crlat="liveAccordion">
+    <span class="live-label" data-crlat="liveLabel">
+      {{ widgetTitle }}
+      <span class="in-play-game-status" data-crlat="inPlayGameStatus">Live</span>
+    </span>
+    <span [textContent]="sportName"></span>
+  </left-side>
+  <accordion-body data-crlat="containerContent">
+    <section class="in-play-widget-carousel"
+             [ngCarousel]
+             [ngCarouselName]="carouselName"
+             [ngCarouselWatch]="events.length"
+             [ngCarouselLoop]="false"
+             (mouseover)="isHovered = true"
+             (mouseleave)="isHovered = false"
+             *ngIf="!isSingleEvent()">
+      <slidecontainer class="carousel-slides in-play-widget-slide-container">
+        <slide class="slide in-play-widget-slide"
+               data-crlat="slideInPlayWidgetSlide"
+               *ngFor="let event of events; trackBy: trackById;">
+          <article class="in-play-card">
+            <header class="in-play-slide-header" data-crlat="inPlaySlideHeader">
+              <span class="in-play-slide-header-title" data-crlat="inPlaySlideHeaderTitle"
+                  [textContent]="event.typeName"></span>
+              <cashout-label *ngIf="isCashOutEnabled(event)" [mode]="'md'"></cashout-label>
+            </header>
+            <inplay-sport-card [event]="event"
+                               [events]="events"
+                               [sportName]="sportName"
+                               *ngIf="!isOutrightEvent(event)">
+            </inplay-sport-card>
+
+            <inplay-outright-card [event]="event"
+                                  *ngIf="isOutrightEvent(event)">
+            </inplay-outright-card>
+          </article>
+        </slide>
+      </slidecontainer>
+      <div class="action-arrow left row-middle"
+           (click)="prevSlide()"
+           *ngIf="isHovered && isPrevActionAvailable()">
+        <svg class="arrow-icon prev-arrow row-center">
+          <use [attr.xlink:href]="'#prev-arrow'"></use>
+        </svg>
+      </div>
+      <div class="action-arrow right row-middle"
+           (click)="nextSlide()"
+           *ngIf="isHovered && isNextActionAvailable()">
+        <svg class="arrow-icon next-arrow">
+          <use [attr.xlink:href]="'#next-arrow'"></use>
+        </svg>
+      </div>
+    </section>
+
+    <section *ngIf="isSingleEvent()">
+      <div class="slide in-play-widget-slide single-event"
+           *ngFor="let event of events; trackBy: trackById;">
+        <article class="in-play-card">
+          <header class="in-play-slide-header">
+            <span class="in-play-slide-header-title" [textContent]="event.typeName"></span>
+            <cashout-label *ngIf="isCashOutEnabled(event)" [mode]="'md'"></cashout-label>
+          </header>
+          <inplay-sport-card [event]="event"
+                             [events]="events"
+                             [sportName]="sportName"
+                             *ngIf="!isOutrightEvent(event)">
+          </inplay-sport-card>
+
+          <inplay-outright-card [event]="event"
+                                *ngIf="isOutrightEvent(event)">
+          </inplay-outright-card>
+        </article>
+      </div>
+    </section>
+    <show-more-link
+      (function)="sendViewAllGTM()"
+      [link]="widgetMoreLink"
+      [title]="widgetMoreTitle"
+      data-crlat="showMore">
+    </show-more-link>
+  </accordion-body>
+</accordion>
+<div *ngIf="!events.length" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>

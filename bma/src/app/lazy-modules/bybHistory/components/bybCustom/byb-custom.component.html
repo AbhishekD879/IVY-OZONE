@@ -1,0 +1,21 @@
+<div class='switchers-container'>
+    <div class="switchers switchers-1" *ngIf="displaySwitchers">
+        <a class="switch-btn" id='switch-custom'
+            *ngFor="let switcher of switchers; trackBy: trackBySwitchers; index as i;"
+             [ngClass]="{'switch-btn-coral': isCoral, 'switch-btn-lads': !isCoral, 'active': isActiveGroup(i) && isCoral, 'active-lads': isActiveGroup(i) && !isCoral, 'switch-custom-truncate': isInitial}" (click)="selectGroup(i)">
+            <span class='switcher-name' [i18n]="switcher.name?.toLowerCase()"></span>
+        </a>
+    </div>
+</div>
+<div *ngIf='isInitial' class="partition"></div>
+<p class='select-name' *ngIf="selectedGroupMarket?.isGroup" [textContent]="selectedGroupMarket?.val[0]?.name"></p>
+<byb-custom-component *ngIf="selectedGroupMarket?.isGroup" [marketGroupArr]='selectedGroupMarket.val'
+    [parentSelectionInput]='parentSelection' [groupName]='groupName' [key]='key'
+    [isInitial]="false">
+</byb-custom-component>
+<div class='btn-group-parent'>
+    <button class='btn-group btn' [ngClass]="{'btn-active': (selectedGroup != -1 && isLoaded) && isCoral, 'btn-active-lads': (selectedGroup != -1 && isLoaded) && !isCoral}"
+        *ngIf='!isInitial && checkCurrentStatus()' (click)="isLoaded && selectedValue()" [textContent]="addToSlipText">
+    </button>
+</div>
+<div class="partition"></div>

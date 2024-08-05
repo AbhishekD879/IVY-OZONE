@@ -1,0 +1,52 @@
+#$ gradle bootBuildImage && docker-compose up | tee boot.log
+
+version: '3.8'
+
+services:
+
+  zookeeper:
+    container_name: cashout_zoo
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+
+  kafka:
+    container_name: cashout_kafka
+    image: wurstmeister/kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    # volumes:
+      # - /var/run/docker.sock:/var/run/docker.sock
+
+  redis:
+    container_name: cashout_redis
+    image: redis
+    ports:
+     - "6379:6379"
+    # volumes:
+    #  - $PWD/redis-data:/var/lib/redis
+    #  - $PWD/redis.conf:/usr/local/etc/redis/redis.conf
+    # environment:
+    #  - REDIS_REPLICATION_MODE=master
+
+  cashout:
+    container_name: cashout
+    # build: .
+    image: oxygen-cashout-microservice:latest
+    depends_on:
+      - kafka
+      - redis
+    expose:
+      - 8080
+    environment:
+      internal.kafka.bootstrap-servers: kafka:9092
+      spring.redis.host: redis
+      logging.level.root: info
+      logging.level.org.apache.kafka: error
+      application.profiles.brand: lb
+      application.profiles.environment: LOCAL

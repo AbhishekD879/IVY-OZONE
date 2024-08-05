@@ -1,0 +1,29 @@
+<div class="sk-container" [ngClass]="{'sk-loading': state.loading}" >
+  <outlet-status [skeletonType]="'GENERIC_FULL'" [state]="state">
+    <request-error (reloadFn)="reloadComponent()"></request-error>
+  </outlet-status>
+  <ng-container *ngIf="!state.loading && !state.error">
+    <top-bar [title]="titleTranslation" [iconId]="vsIconId"></top-bar>
+
+    <ng-container *ngIf="parentMenuItems?.length">
+      <virtual-carousel-menu
+        [activeMenuItemUri]="parentMenuItems[activeParent]?.targetUriSegment"
+        [menuElements]="parentMenuItems"
+        data-crlat="virtualMenuCarousel">
+      </virtual-carousel-menu>
+
+      <div class="virtual-class-container" *ngIf="parentMenuItems[activeParent]?.childMenuItems?.length" data-crlat="tabContent">
+        <router-outlet></router-outlet>
+      </div>
+    </ng-container>
+
+    <no-events *ngIf="!parentMenuItems || !parentMenuItems[activeParent]?.childMenuItems?.length"
+               [message]="'vsbr.noEventsAvailable'"
+               class="no-events item-inner"
+               data-crlat="errorMessageText">
+    </no-events>
+
+  </ng-container>
+</div>
+
+<svg-list id="iconsSprite_cmsVirtual" *ngIf="virtualIcons" [list]="virtualIcons"></svg-list>

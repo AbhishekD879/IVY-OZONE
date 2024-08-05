@@ -1,0 +1,5 @@
+<button *ngIf="noBetsMessage.length === 0" [i18n]="'bethistory.goToSports'" class="go-to-sports-button" 
+(click)="goToSportsClick()"></button>
+
+<leaving-casino-info-dialog [showLeavingCasinoDialog]="showLeavingCasinoDialog"
+    (userAction)="confirmationDialogClick($event)"></leaving-casino-info-dialog>

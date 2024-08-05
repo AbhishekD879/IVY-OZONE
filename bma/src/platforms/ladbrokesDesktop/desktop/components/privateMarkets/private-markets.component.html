@@ -1,0 +1,33 @@
+<header class="header-panel" *ngIf="events?.length" [i18n]="'sbdesktop.yourEnhanceMarkets'"></header>
+<div class="private-markets" *ngIf="events?.length" data-crlat="tab.showPrivateMarketsModule">
+  <div *ngIf="!events.length" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+  <div *ngFor="let event of events; trackBy: trackByEvents" data-crlat="privateMarkets">
+    <ng-container *ngFor="let market of event.markets; trackBy: trackByMarkets">
+      <accordion [accordionTitle]="market.marketName" [isExpanded]="isExpanded" [card]="true" data-crlat="pmAccordion" *ngIf="market.outcomes.length">
+        <accordion-body>
+          <div class="odds-card" *ngFor="let outcome of limitTo(market, market.outcomes); trackBy: trackByOutcomes;"
+            data-crlat="oddsCard">
+            <div class="odds-content">
+              <div class="odds-left" data-crlat="oddsLeft">
+                <svg class="private-market-icon" data-crlat="privateMarketIcon">
+                  <use xlink:href="#private-market"></use>
+                </svg>
+                <div class="odds-names" [textContent]="outcome.name" data-crlat="outcome.name"></div>
+              </div>
+              <div class="odds-right" data-crlat="oddsRight">
+                <price-odds-button [event]="event" [market]="market" [outcome]="outcome"
+                                   [gtmModuleTitle]="'private markets'" data-crlat="marketsGroup.eventEntity"></price-odds-button>
+              </div>
+            </div>
+          </div>
+          <show-all-button (click)="market.allShown = !market.allShown" *ngIf="market.outcomes.length > maxElements"
+            [allShown]="market.allShown" data-crlat="showAllButton">
+          </show-all-button>
+        </accordion-body>
+      </accordion>
+    </ng-container>
+  </div>
+  <div class="term-conditions-link">
+    <a [routerLink]="['/private-markets/terms-conditions']" [i18n]="'sb.termsAndConditionsLabel'" data-crlat="termsAndConditions"></a>
+  </div>
+</div>

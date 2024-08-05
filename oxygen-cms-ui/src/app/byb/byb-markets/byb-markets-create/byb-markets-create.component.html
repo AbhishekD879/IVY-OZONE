@@ -1,0 +1,90 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>Create a New BuildYourBet Market</h1>
+  <form [formGroup]="form" novalidate>
+    <div mat-dialog-content>
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Market Title" formControlName="name" required trim="blur">
+            <mat-hint class="col-red" *ngIf="name.invalid && (name.dirty || name.touched)">
+              <div *ngIf="name.errors.required">
+                Market Title should be entered
+              </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Market Group Name" formControlName="bybMarket" required trim="blur">
+            <mat-hint class="col-red" *ngIf="marketGroupName.invalid && (marketGroupName.dirty || marketGroupName.touched)">
+              <div *ngIf="marketGroupName.errors.required">
+                Market Group Name should be entered
+              </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Incident Grouping" formControlName="incidentGrouping" trim="blur">
+            <mat-hint class="col-red" *ngIf="incidentGrouping.invalid && (incidentGrouping.dirty || incidentGrouping.touched)">
+              <div *ngIf="incidentGrouping.errors.pattern">
+                Incident Grouping Id should should be a number
+              </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Market Grouping" formControlName="marketGrouping" trim="blur">
+            <mat-hint class="col-red" *ngIf="marketGrouping.invalid && (marketGrouping.dirty || marketGrouping.touched)">
+              <div *ngIf="marketGrouping.errors.pattern">
+                Market Grouping Id should be a number
+              </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <mat-select (selectionChange)="setStat($event.value)" placeholder="Market Type" formControlName="marketType">
+              <mat-option *ngFor="let type of market_type" [value]="type">{{type}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix" *ngIf="form.value.marketType === 'Player Bet'">
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Stat" formControlName="stat" required>
+              <mat-option *ngFor="let type of stat_type" [value]="type">{{type}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Market Description" formControlName="marketDescription" trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <mat-checkbox color="primary" formControlName="popularMarket"> Popular Market
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+      <button mat-button class="btn btn-sm bg-teal float-right" [disabled]="form.invalid" [mat-dialog-close]="getBybMarket()">Save</button>
+    </div>
+  </form>
+</div>

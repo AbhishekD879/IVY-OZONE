@@ -1,0 +1,25 @@
+<div class="sk-container" [ngClass]="{'sk-loading': !isLoaded}">
+  <loading-screen [displayed]="!isLoaded" [templateType]="'GENERIC'"></loading-screen>
+
+  <div *ngIf="isLoaded && !isResponseError && eventsBySections.length"
+      class="heuristic-container">
+    <accordion *ngFor="let eventsBySection of eventsBySections; trackBy: trackById;"
+              data-crlat="accordion"
+              [accordionTitle]="eventsBySection.sectionTitle">
+      <accordion-body data-crlat="eventEntity">
+        <list-card *ngFor="let eventEntity of eventsBySection.events; trackBy: trackById;"
+                  [item]="eventEntity"
+                  [link]="eventURL(eventEntity)"
+                  [attr.data-eventid]="eventEntity.id"
+                  data-crlat="oddsCard.outrightsTemplate"></list-card>
+      </accordion-body>
+    </accordion>
+  </div>
+
+<request-error *ngIf="isLoaded && isResponseError"
+               (reloadFn)="loadOutrightData()"
+               [loadFailed]="isResponseError">
+</request-error>
+<no-events *ngIf="isLoaded && !isResponseError && !eventsBySections.length"></no-events>
+
+</div>

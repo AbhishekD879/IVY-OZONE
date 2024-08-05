@@ -1,0 +1,36 @@
+<div class='betpack-slider-container' [ngStyle]="{'background':'url(' + betpackCmsService?.sliderBackgroundImg + ')'}"
+  *ngIf="filteredBetPack?.length">
+  <div *ngIf="!isPromptDisplay" class='featured-message' [textContent]="betpackLabels.featuredBetPackBackgroundLabel">
+  </div>
+  <div class="bp-bets-container">
+    <div class="ng-carousel bp-bets-carousel" *ngIf="filteredBetPack?.length" [class.one-card-mode]="true" [ngCarousel]
+      [ngCarouselName]="carouselName" [ngCarouselActiveClass]="'swiper-slide-active'" [ngCarouselLoop]="false"
+      [ngCarouselWatch]="isPromptDisplay" [ngCarouselFluid]="false" [ngStopSlideOnHover]="true" [slidesToScroll]="1"
+      [ngCarouselMoveThresholdPercentage]="15" [ngCenterMode]="false" [ngAdditionalCopyAdd]="true"
+      (activeSlideIndex)="handleActiveSlide($event)">
+
+      <slidecontainer class="carousel-slides"
+        [ngClass]="{'carousel-slides-single' : filteredBetPack?.length === 1 ,'carousel-slides-double' : filteredBetPack?.length === 2 ,'carousel-slides-triple' : filteredBetPack?.length === 3 }">
+        <ng-container *ngFor="let bp of filteredBetPack">
+          <slide class="slide" *ngIf="filteredBetPack.length">
+            <betpack-card [isMaxPurchaseLimitOver]="isMaxPurchaseLimitOver" [bp]='bp' [getLimitsData]="getLimitsData"
+              [getFreeBets]="getFreeBets" [isInCarousel]="true" [accLimitFreeBets]="accLimitFreeBets"></betpack-card>
+          </slide>
+        </ng-container>
+      </slidecontainer>
+    </div>
+    <ng-container *ngIf="filteredBetPack?.length > 3">
+      <div class="lc-carousel__prev arrow-chevron betpack-chevron betpack-chevron-left bp-chevron-marker"
+        *ngIf="isSlided" (click)="prevSlide()"  [ngClass]="{'margin-adj': isPromptDisplay}"></div>
+      <div class="lc-carousel__next arrow-chevron betpack-chevron betpack-chevron-right bp-chevron-marker"
+        (click)="nextSlide()"  [ngClass]="{'margin-adj': isPromptDisplay}"></div>
+    </ng-container>
+
+    <ul class="slide-dots bellow" id='gap-dots' *ngIf="filteredBetPack?.length > 1">
+      <li *ngFor="let slide of filteredBetPack; index as ind; trackBy: trackByPosition">
+        <button type="button" class='btn-dots' [ngStyle]="slide.active && {'background': '#fff','border-color': '#fff'}"
+          (click)="gotToSlide(ind)"></button>
+      </li>
+    </ul>
+  </div>
+</div>

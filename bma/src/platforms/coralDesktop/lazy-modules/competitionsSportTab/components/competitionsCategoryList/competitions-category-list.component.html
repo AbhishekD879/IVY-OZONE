@@ -1,0 +1,54 @@
+<div class="competition-category">
+
+
+
+<ng-container *ngFor="let category of categories; trackBy: trackByIndex; let i = index">
+
+    <ng-container>
+      <ng-template *ngTemplateOutlet="VirtualBanner; context :{ index : i} "></ng-template>
+    </ng-container>
+
+
+  <accordion [isHeaderHidden]="isTennis()" [accordionTitle]="category.class?.name" [isExpanded]="isExpanded[i]"
+     (function)="goToTypes(i)">
+    <accordion-body>
+      <div *ngIf="category.loading" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+
+      <div *ngIf="!category.loading && category?.types?.length" class="competition-category-tiles">
+        <div *ngFor="let typeItem of category.types; trackBy: trackByIndex;" [ngClass]="{'third-cell':typeItem.type.grid === '3','fourth-cell':typeItem.type.grid === '4'}"
+          class="competition-category-tile-wrapper">
+          <ng-container *ngIf="typeItem?.type">
+            <div class="competition-category-tile">
+              <a data-crlat="linkListItem" *ngIf="!typeItem.type.grid" class="league-link" [routerLink]="competitionsLink(typeItem, category.class.originalName)">
+                <span class="league-name"  data-crlat="event.name" [textContent]="typeItem.type.name"></span>
+                <lazy-component moduleUri="@yourCallModule/your-call.module#YourCallModule"
+                  [inputs]="{typeId: typeItem.type.id, display: 'general'}"
+                  *ngIf="typeItem.type.id"
+                  entryComponent="YourCallIconComponent">
+                </lazy-component>
+              </a>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <no-events *ngIf="!category.loading && !(category.types && category.types.length)"></no-events>
+    </accordion-body>
+  </accordion>
+
+  <ng-container *ngIf="( i ===categories?.length-1)">
+    <ng-template *ngTemplateOutlet="VirtualBanner; context :{ index:  (categories?.length)} "></ng-template>
+  </ng-container>
+
+</ng-container>
+</div>
+
+<ng-template #VirtualBanner let-index="index">
+  <ng-container *ngIf="targetTab?.interstitialBanners?.bannerEnabled">
+    <lazy-component
+      moduleUri="@lazy-modules-module/virtualEntryPointBanner/virtual-entry-point-banner.module#VirtualEntryPointBannerModule"
+      entryComponent="VirtualEntryPointBannerComponent"
+      [inputs]="{targetTab: targetTab, eventsBySections: categories , index: index,sportName : sportName}">
+    </lazy-component>
+  </ng-container>
+  
+</ng-template>

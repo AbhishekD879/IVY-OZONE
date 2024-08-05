@@ -1,0 +1,258 @@
+@import 'global.variables.scss';
+
+.container {
+  &.padding-bottom-5 {
+    padding-bottom: 5px;
+  }
+}
+
+.meetings-tabs-panel {
+  ul.scroll-inner {
+    > li {
+      @include inline-flex();
+      @include align-items(center);
+    }
+  }
+}
+.racing-post-media-btns-container{
+  padding:0px 12px 12px 10px;
+}
+.race-details-container {
+  display: block;
+}
+
+.dividends {
+  white-space: nowrap;
+
+  .section-header {
+    font-size: $font-size-md;
+    @include display-flex();
+  }
+
+  .result-card {
+    font-size: $font-size;
+    @include display-flex();
+  }
+
+  .name-col {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    @include flex(1, 1, auto);
+  }
+
+  .value-col {
+    text-align: center;
+    width: 56px;
+    min-width: 56px;
+    margin-left: 30px;
+    display: inline-block;
+  }
+
+  .dividend-result-col {
+    text-align: center;
+    width: 60px;
+    min-width: 60px;
+    display: inline-block;
+  }
+}
+
+
+.section-container {
+  background-color: $color-gray;
+
+  .section-header {
+    background-color: $color-gray-light;
+    padding: 4px 12px 5px 12px;
+    font-size: $font-size-md;
+    @include display-flex();
+    @include justify-content(space-between);
+
+    .result-odds-col {
+      width: 36px;
+      text-align: center;
+    }
+  }
+
+  .result-card {
+    padding: 12px 17px 13px 12px;
+    border-top: 1px solid $color-gray;
+    background-color: $color-white;
+  }
+
+
+  .result-section {
+    height: $line-height-md;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 12px;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid $color-gray;
+    padding-left: 12px;
+    background: $color-white;
+  }
+
+  .unplaced {
+    border-top: 2px solid $color-gray;
+  }
+
+  .unplaced-section {
+    height: $line-height-md;
+  }
+
+  .unplaced-button {
+    padding: $font-size-sm;
+    cursor: pointer;
+    font-style: normal;
+    font-weight: 700;
+    font-size: $font-size-tablet;
+    line-height: 16px;
+    text-align: center;
+    letter-spacing: 0.0009625px;
+    color: $color-blue-dark;
+    background: $color-white;
+    text-transform: uppercase;
+    border-top: 1px solid $color-gray;
+  }
+
+  .a-result{
+    padding:$font-size-sm;
+    pointer-events: none;
+    color: rgba(7, 41, 75, 0.4);
+  }
+  
+  .results-supplied {
+    height: $line-height-xs;
+    text-transform: none;
+    font-style: normal;
+    font-weight: 500;
+    font-size: $font-size-md;
+    line-height: $line-height-xs;
+    letter-spacing: 0.00075625px;
+    color: $color-gray-darkest;
+    padding: $font-size;
+    border-top: 1px solid $color-gray;
+  }
+
+  .logo{
+    width: 88px;
+    height: $font-size-pre-xs;
+    vertical-align: baseline;
+    padding-left: 4px;
+  }
+
+  .rules-deduction.result-card {
+    @include display-flex();
+    padding-right: 28px;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: $font-size;
+  }
+
+  &.each-way-text {
+    color: $color-gray-dark;
+
+    .result-card {
+      min-height: 30px;
+      padding: 2px 2px 2px 12px;
+      @include display-flex();
+      @include align-items(center);
+      @include justify-content(space-between);
+
+      .racing-result-icons {
+        @include display-flex();
+        @include align-items();
+        @include justify-content(flex-end);
+      }
+    }
+
+    .term-value,
+    .class-value {
+      display: inline-block;
+      line-height: 30px;
+    }
+  }
+
+  &.space-top {
+    margin-top: 5px;
+    &.watchreplayenabled{
+      margin-top: 0px;
+    }
+  }
+}
+
+.section-container.dividends {
+  .result-card {
+    padding: 11px 12px;
+  }
+}
+.racing-post-media-btns-container .replaybtn {
+  border-radius: 2px;
+  background:$color-yellow;
+  display: flex;
+  padding: 7px 8px;
+  align-items: center;
+  gap: 4px;
+  color:$color-blue-dark;
+  &.replayvideo{
+    padding: 0px 12px 12px 12px;
+    &.active{
+      padding: 10px 10px 10px 12px;
+    }
+  }
+}
+
+.race-details-container.race-result {
+  color: $color-gray-darkest;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+  padding: 12px;
+  height: auto;
+  min-height: 45px;
+  margin-bottom: 0;
+  .race-event-container {
+    font-size: $font-size-lg;
+    color: $color-gray-dark;
+
+    .race-event-time {
+      padding-right: 5px;
+    }
+  }
+
+  .race-title {
+    font-size: $font-size;
+    font-weight: bold;
+    color: $color-gray-dark;
+    margin: 2px 0 0;
+  }
+
+  .race-details-container-l {
+    line-height: normal;
+  }
+  .value {
+    font-weight: normal;
+    padding: 0;
+    color: $color-gray-darkest;
+    font-family: $alt-font-family;
+  }
+
+  .oval {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    background-color: $color-orange;
+    margin: 0 8px 1px 0;
+
+    &.green {
+      background-color: $color-green;
+    }
+  }
+
+  &::ng-deep .race-details-container-l {
+    line-height: normal;
+  }
+
+}

@@ -1,0 +1,119 @@
+@import '../../../assets/styles/global.variables.scss';
+
+
+top-bar:host {
+  background: $brand-color-dark;
+  color: $color-white;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  @include user-select();
+  position: relative;
+  top: 0;
+
+  //back button
+  .top-bar-back {
+    height: 100%;
+    width: 40px;
+    min-width: 40px;
+    background: $brand-color-dark;
+    cursor: pointer;
+    flex: 0 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background: rgba(7, 41, 82, 0.85)
+    }
+
+    &:active {
+      background: darken($brand-color-dark, 6%);;
+    }
+
+    &:before {
+      content: '';
+      margin-right: -4px;
+      border: solid #fff;
+      border-width: 2px 0 0 2px;
+      border-radius: 1px;
+      display: inline-block;
+      padding: 3px;
+      transform: rotate(-45deg);
+    }
+
+  }
+
+  .top-bar-title {
+    flex: 1 1 auto;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+
+    .top-bar-view {
+      display: block;
+      font: bold 13px/1.3 $base-font-family;
+      margin: 0;
+      text-transform: uppercase;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .top-bar-content {
+    flex: 0 1 auto;
+    white-space: nowrap;
+    padding: 0 10px;
+    font-size: 11px;
+    line-height: 12px;
+    display: flex;
+    align-items: center;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  ::ng-deep {
+    .dropdown {
+      position: relative;
+      margin-right: -10px;
+    }
+
+    .bet-finder-link {
+      margin-left: 15px;
+      min-width: auto;
+      padding: 0;
+    }
+
+    .odds-fav-icon {
+      display: flex;
+      margin-right: 10px;
+      width: 16px;
+      height: 16px;
+
+      .fav-icon-svg {
+        width: 16px;
+        height: 16px;
+        stroke: $color-white;
+      }
+    }
+  }
+}
+
+top-bar:host(.racing-top-bar) {
+  .top-bar-title {
+    flex: 0 1 auto;
+  }
+
+  .top-bar-content {
+    flex: 1 1 auto;
+  }
+
+  ::ng-deep {
+    .date-info {
+      flex: 1 1 auto;
+    }
+  }
+}

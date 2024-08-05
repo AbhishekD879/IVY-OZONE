@@ -1,0 +1,19 @@
+<div class="antepost-container" data-crlat="race.antepost">
+  <switchers data-crlat="switchers"
+             [filter]="filter"
+             [switchers]="sortSwitchers">
+  </switchers>
+  <accordion *ngFor="let type of eventsMap[filter].typeNames; trackBy: trackById; let index = index"
+             [accordionTitle]="type.typeName"
+             [isExpanded]="isExpanded[index]"
+             (function)="accordionHandler(index, type)"
+             data-crlat="outerAccordion">
+    <right-side>
+      <cashout-label *ngIf="type.cashoutAvail === 'Y'"></cashout-label>
+    </right-side>
+    <accordion-body>
+      <list-card *ngFor="let event of type.typeNameEvents; trackBy: trackById;" (click)="closeOverlay(event)" data-crlat="race.antepost.event"
+                 [item]="event" [link]="event.link" [date]="event.date + ' ' + type.typeName"></list-card>
+    </accordion-body>
+  </accordion>
+</div>

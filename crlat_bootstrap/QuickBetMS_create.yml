@@ -1,0 +1,29 @@
+---
+- name: Create QuickBetMS mock loqd balancer EC2 node
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    instance_type: t2.large
+    security_group: crlat
+    image_name: ubuntu_1604_ansible
+    subnet_name: private
+    volume_size: 20
+    action: create
+    node_type: SingleNode
+    assign_public_ip: yes
+    tags:
+      DNSrecords: quickbet-ms
+      team: Automation
+      nodeType: "{{ node_type }}"
+      Name: QuickBetMSSingle
+      class: private
+      packages: docker
+      dockers: telegraf,Redis,QuickBetMS
+      ClusterName: QuickBetLoadTest
+      ClusterNodeType: QuickBetMSSingle
+    num_nodes: 1
+  tasks:
+  - name: crlat.vpc
+    include_role:
+      name: crlat.vpc

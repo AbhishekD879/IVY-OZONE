@@ -1,0 +1,49 @@
+<div *ngIf="footerLogos" class="card">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Footer Logos Page
+      <small *ngIf="footerLogos.length">Total Footer Logos Amount: {{footerLogos.length}}</small>
+      <small *ngIf="!footerLogos.length">No Footer Logos Found</small>
+    </h2>
+  </div>
+</div>
+
+<div class="card">
+  <div class="body">
+    <!-- search and download button.-->
+    <div *ngIf="footerLogos" class="row clearfix">
+      <div class="col-md-3">
+        <button (click)="createFooterLogo()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create Footer Logo</span>
+        </button>
+      </div>
+      <div class="col-md-3">
+        <download-cvs [cvsData]="footerLogos" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Footer Logo" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="footerLogos">
+      <cms-data-table
+        [customTableData]="footerLogos"
+        [customTableColumns]="dataTableColumns"
+        [actions]="['remove', 'edit']"
+        [filterString]="searchField"
+        [filterProperties]="searchableProperties"
+        [reorder]="true"
+        (onElementsOrder)="reorderHandler($event)"
+        (onRemoveTableElement)="removeHandler($event)">
+      </cms-data-table>
+    </div>
+    <div *ngIf="error">
+      Request Error
+    </div>
+  </div>
+</div>

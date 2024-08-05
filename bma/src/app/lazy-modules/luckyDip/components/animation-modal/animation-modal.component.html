@@ -1,0 +1,10 @@
+<modal #dialog>
+    <ng-template #modalBody>
+      <div class="container">
+        <div class="animation-svg">
+          <div class="path"  [ngStyle]="{'margin-top': isIOSsafari() ? '0px' : '10%'}" [innerHtml]="svg"></div>
+          <button *ngIf="animationData.cmsConfig.gotItCTAButton" class="button btn-secondary lucky-dip" (click)="closeAnimationDialog()" [textContent]="animationData.cmsConfig.gotItCTAButton"></button>
+        </div>
+      </div>
+    </ng-template>
+</modal>

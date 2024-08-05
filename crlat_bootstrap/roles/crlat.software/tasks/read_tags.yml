@@ -1,0 +1,77 @@
+##### Stage #1: build install_list
+- name: read "packages" tag and set variable
+  set_fact:
+    os_packages: "{{ ec2_tag_packages | regex_findall('([A-z0-9_-]+),?') }}"
+  when: ec2_tag_packages is defined
+
+- name: Reset installation list variable
+  set_fact:
+    install_list: "{{ def_install_list }}"
+
+- name: Add package items from EC2 tags
+  set_fact:
+    install_list: "{{ install_list + package_deps[install_item] }}"
+  with_items: "{{ os_packages }}"
+  loop_control:
+    loop_var: install_item
+
+##### Stage #2: build mountpoints list
+- name: read "s3mounts" tag and set variable
+  set_fact:
+    s3mountpoints: "{{ ec2_tag_s3mounts | regex_findall('([A-z0-9_-]+),?') }}"
+  when: ec2_tag_s3mounts is defined
+
+- name: Add s3fs to installation if it is not in install_list
+  set_fact:
+    install_list: "{{ (package_deps['s3fs'] + install_list) | unique }}"
+  when: (s3mountpoints.0 is defined) and ("s3fs" not in os_packages)
+
+##### Stage #3: build list of dockers to deploy
+- name: read "dockers" tag and set variable
+  set_fact:
+    dockers: "{{ ec2_tag_dockers | regex_findall('([A-z0-9_-]+),?') }}"
+  when: ec2_tag_dockers is defined
+
+- name: Add docker to installation if it's not in install_list
+  set_fact:
+    install_list: "{{ (package_deps['docker'] + install_list) | unique }}"
+  when: ("docker" not in os_packages)
+
+- name: Add Telegraf if it was missed
+  set_fact:
+    dockers: "{{ (['telegraf'] + dockers) | unique }}"
+  when: ("telegraf" not in dockers)
+
+##### Stage #4: display final action list
+- name: OS packages install list
+  debug:
+    msg: "{{ install_list }}"
+
+- name: S3 mountpoints list
+  debug:
+    msg: "{{ s3mountpoints }}"
+
+- name: Dockers list
+  debug:
+    msg: "{{ dockers }}"
+
+
+
+##### Stage #5: Packages preconfiguration, install and postconfiguration
+- name: Update APT cache
+  apt:
+    update_cache: yes
+
+- name: sleep for 15 seconds waiting for releasing apt lock
+  wait_for: timeout=5
+
+- name: Install packages
+  include_tasks: install_os_package.yml
+  with_items: "{{ install_list }}"
+  loop_control:
+    loop_var: package_to_install
+
+##### Stage #6: Mountpoints preconfiguration, install and postconfiguration
+
+##### Stage #7: Docker preconfiguration, deploy and postconfiguration
+

@@ -1,0 +1,51 @@
+@import 'global.variables.scss';
+
+.player-stat {
+  height: 38px;
+  line-height: 38px;
+  position: relative;
+  &::after {
+    content: '';
+    width: calc(100% - 37px);
+    height: 1px;
+    position: absolute;
+    left: 37px;
+    bottom: 0;
+    background: $color-gray-ghost;
+  }
+  svg {
+    display: inline-block;
+    vertical-align: middle;
+    width: 23px;
+    height: 23px;
+    margin-right: 14px;
+    opacity: 0.86;
+  }
+}
+.card-yellow,
+.card-red {
+  color: $color-matterhorn;
+}
+.player-label,
+.player-value {
+  font-size: $font-size-tablet;
+  font-family: $alt-font-family;
+  opacity: 0.86;
+}
+.player-label {
+  font-weight: normal;
+  &.card-yellow {
+    margin-left: 12px;
+  }
+  &.card-red {
+    margin-left: 8px;
+  }
+}
+.player-value {
+  font-weight: bold;
+  &.card-yellow,
+  &.card-red {
+    font-weight: normal;
+  }
+}
+

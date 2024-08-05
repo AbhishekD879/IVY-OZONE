@@ -1,0 +1,19 @@
+- name: Remove any existing docker BackOfficeMock
+  docker_container:
+    name: BackOfficeMock
+    state: absent
+
+- name: Restart docker BackOfficeMock
+  docker_container:
+    name: BackOfficeMock
+    image: docker-registry.crlat.vpc/crlat_backoffice_mock:latest
+    state: started
+    restart_policy: always
+    restart: yes
+    dns_servers:
+      - "{{ dns_server_ip }}"
+    env:
+      VERBOSE: False
+      DELAY: 0
+    ports:
+    - "80:8888"

@@ -1,0 +1,23 @@
+.padding-top-12 {
+  padding-top: 12px;
+}
+
+.select-all {
+  margin: 0px 16px;
+  line-height: 3em;
+  ::ng-deep .mat-checkbox {
+    .mat-checkbox-layout {
+      margin-bottom: 0;
+      .mat-checkbox-inner-container {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+}
+::ng-deep {
+  .fanzone-inactive-item span.mat-option-text::after {
+    content: '(In-active)';
+    color: red;
+  }
+}

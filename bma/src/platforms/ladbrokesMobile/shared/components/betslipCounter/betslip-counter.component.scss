@@ -1,0 +1,42 @@
+@import 'global.variables.scss';
+
+:host {
+  display: block;
+  margin: 0 auto;
+  height: 23px;
+  width: 23px;
+  line-height: 23px;
+  font-size: 18px;
+  background: $color-white;
+  border-radius: 100%;
+  text-align: center;
+  color: $color-gray-dark;
+  font-weight: bold;
+
+  &.counter-flash {
+    @include animation(flash .5s both);
+  }
+}
+
+
+@-webkit-keyframes flash {
+  0%,100%,50% {
+    opacity: 1;
+    @include transform(scale3d(1,1,1));
+  }
+  25%,75% {
+    opacity:.5;
+    @include transform(scale3d(1.2,1.2,1.2));
+  }
+}
+
+@keyframes flash {
+  0%,100%,50% {
+    opacity: 1;
+    @include transform(scale3d(1,1,1));
+  }
+  25%,75% {
+    opacity:.5;
+    @include transform(scale3d(1.2,1.2,1.2));
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "cashoutOfferRequests": [
+    {
+      "cashoutOfferReqRef": "1",
+      "bet": {
+        "stakeAmount": "500",
+        "betType": "DBL",
+        "legs": [
+          {
+            "legNo": "1",
+            "parts": [
+              {
+                "partNo": "1",
+                "type": "2.0",
+                "ladder": "STABLE",
+                "result": "-",
+                "spotPrice": {
+                  "num": "6",
+                  "den": "1"
+                }
+              }
+            ]
+          },
+          {
+            "legNo": "2",
+            "parts": [
+              {
+                "partNo": "1",
+                "type": "2.0",
+                "ladder": "STABLE",
+                "result": "-",
+                "spotPrice": {
+                  "num": "4",
+                  "den": "10"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

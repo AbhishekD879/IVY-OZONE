@@ -1,0 +1,43 @@
+<div class="bet-promotions" *ngIf="promoIcons?.length">
+  <div class="icon-stake" *ngFor="let icon of promoIcons" >
+    <div class="svg-wrapper" [ngClass]="icon.name">
+      <svg class="icon-svg" [ngClass]="icon.svgId">
+        <use [attr.xlink:href]="'#' + icon.svgId"></use>
+      </svg>
+    </div>
+    <div class="icon-text" [i18n]="icon.label"></div>
+  </div>
+</div>
+<!--Lucky 15/31/63 sign posting -->
+<div *ngIf="luckyTypes.includes(betEventSource.betType) && luckyBet">
+  <div class="regular-bet-content">
+    <div [ngClass]="isBrandLadbrokes ? 'flower-img' : 'flower-img-coral'">
+    </div>
+    <div *ngIf="betEventSource.settled === 'N'" [ngClass]="isBrandLadbrokes ? 'flower-text' : 'flower-text-coral'" >
+      <div class="betinfo-icon">
+        <p [textContent]="fullBetType"></p>
+      </div>
+      <ng-container *ngFor="let lucky of luckyBet;">
+        <span *ngIf="!lucky.isShown" [ngClass]="{'luckysettled': 'AllWinner' === betTypeStatus(), 'lucky-unsettled': 'AllWinner' !== status}" [i18n]="'bs.allWinners'"
+        data-crlat="estReturn.label"></span>
+      </ng-container>
+      <ng-container *ngFor="let lucky of luckyBet;">
+        <span *ngIf="lucky.isShown" [ngClass]="{'luckysettled': lucky.num_win == betTypeStatus(),'oneWinner':lucky.num_win == '1','fourWinner':lucky.num_win== '4'|| lucky.num_win=='5'}" [textContent]="addWinnerLabel(lucky.num_win, lucky.isShown)"></span>
+      </ng-container>
+    </div>
+    <div *ngIf="betEventSource.settled === 'Y'"  [ngClass]="isBrandLadbrokes ? 'flower-text' : 'flower-text-coral'" >
+      <div class="betinfo-icon">
+        <p [textContent]="fullBetType"></p>
+      </div>
+      <ng-container *ngIf="'AllWinner' !== betTypeStatus() && luckyCheck; else elseBlock">
+        <span class="luckysettled" *ngFor="let lucky of luckyBet;"  [textContent]="addWinnerLabel(lucky.num_win, true)"></span>
+      </ng-container>
+      <ng-template #elseBlock>
+        <span class="luckysettled" [i18n]="'bs.allWinners'" data-crlat="estReturn.label"></span>
+      </ng-template>
+      <div [ngClass]="isBrandLadbrokes ? 'more-info-text-lads' : 'more-info-text'" *ngIf="isShownInfo">
+        <a (click)="openSelectionMultiplesDialog(betEventSource.betType, fullBetType)">MORE INFO</a>
+      </div>
+    </div>
+  </div>
+</div>

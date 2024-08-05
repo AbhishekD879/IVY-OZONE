@@ -1,0 +1,65 @@
+<div class="tab-content">
+  <!--- Racing Page -->
+  <div class="container sk-container heuristic-container" [ngClass]="{'sk-loading': applyingParams || (displayNextRaces && !nextRacesLoaded) || (!displayNextRaces ? (!featuredLoaded && display === 'featured') :  !nextRacesLoaded)}">
+    <loading-screen [displayed]="applyingParams || (displayNextRaces && !nextRacesLoaded) || (!displayNextRaces ? (!featuredLoaded && display === 'featured') :  !nextRacesLoaded)"
+                    [templateType]="'GENERIC'"></loading-screen>
+
+    <div class="horseracing-tabs" *ngIf="!applyingParams" data-crlat="accordionsList">
+
+      <div *ngIf="display === 'future'">
+        <racing-antepost-tab [defaultAntepostTab]="defaultAntepostTab"
+                             [racing]="racing"
+                             [isFromOverlay]="isFromOverlay"
+                             *ngIf="racing.events?.length">
+        </racing-antepost-tab>
+
+        <!-- Show only when no events -->
+        <no-events *ngIf="!responseError && !racing.events?.length"></no-events>
+      </div>
+
+      <lazy-component *ngIf="display === 'featured'"
+                      moduleUri="@lazy-modules-module/racingFeatured/racing-featured.module#RacingFeaturedModule"
+                      [inputs]="{
+                        sportId: categoryId,
+                        racing: racing,
+                        sectionTitle: sectionTitle,
+                        sportName: sportName,
+                        eventsOrder: eventsOrder,
+                        filter: filter,
+                        responseError: responseError,
+                        displayNextRaces: nextRacesComponentEnabled,
+                        sportModule: sportModule,
+                        isExtraPlaceAvailable: isExtraPlaceAvailable,
+                        offersAndFeaturedRacesTitle: offersAndFeaturedRacesTitle,
+                        hostContext: 'featured-races',
+                        compName: 'horseracing'
+                      }"
+                      [outputs]="['featuredLoaded', 'nextRacesLoaded']"
+                      (event)="onFeaturedEvents($event)">
+      </lazy-component>
+
+      <!-- YourCall tab  -->
+      <racing-tab-yourcall *ngIf="display === 'yourcall'" [racing]="racing"></racing-tab-yourcall>
+
+      <!-- Special tab -->
+      <racing-specials-tab *ngIf="display === 'specials'"
+                           [racing]="racing"
+                           [eventsOrder]="eventsOrder"
+                           [responseError]="responseError">
+      </racing-specials-tab>
+
+      <racing-yourcall-specials *ngIf="racingSpecials.length && (display === 'featured') && featuredLoaded" [type]="'widget'" [data]="racingSpecials"></racing-yourcall-specials>
+
+      <!-- enhanced multiples carousel -->
+      <racing-enhanced-multiples *ngIf="!responseError && display === 'featured' && sportName === 'horseracing' && featuredLoaded" [isRacingFeatured]="true"></racing-enhanced-multiples>
+    
+      <ng-container *ngIf="!responseError && targetTab?.interstitialBanners?.bannerEnabled && (!!lastBannerEnabled)">
+        <lazy-component
+          moduleUri="@lazy-modules-module/virtualEntryPointBanner/virtual-entry-point-banner.module#VirtualEntryPointBannerModule"
+          entryComponent="VirtualEntryPointBannerComponent"
+          [inputs]="{targetTab: targetTab,isUnTiedSport:true,sportName : sportName}">
+        </lazy-component>
+      </ng-container>
+    </div>
+  </div>
+</div>

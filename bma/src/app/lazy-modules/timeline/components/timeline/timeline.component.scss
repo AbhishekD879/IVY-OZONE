@@ -1,0 +1,75 @@
+@import 'global.variables.scss';
+
+$badge-size: 3px;
+$bottom-offset: $timeline-bottom-offset;
+$bubble-blue: #072b4f;
+
+.timeline-bar-container {
+  width: 100%;
+  position: fixed;
+  bottom: $bottom-offset;
+  z-index: 1002;
+  &:after{
+      display:none;
+      content: url(/assets/images/phone_tlt.png);
+    }
+}
+
+.lads-bar-background{
+  background: $lGray;
+}
+
+.coral-bar-background{
+  background: $bubble-blue;
+}
+
+.timeline-bar {
+  @include display-flex();
+  @include align-items(center);
+  @include justify-content(center);
+
+  cursor: pointer;
+  width: 138px;
+  height: 27px;
+  border-radius: 14px;
+  margin: 0 auto;
+  text-transform: uppercase;
+  color: $color-white;
+
+  .title {
+    font-weight: bold;
+    font-size: $font-size-md;
+    margin: 0px !important;
+  }
+
+  .new-badge {
+    width: $badge-size;
+    height: $badge-size;
+    margin-left: 5px;
+    border-radius: 50%;
+  }
+
+  .lads-badge-background{
+    background-color: $red;
+  }
+
+  .coral-badge-background{
+    background-color: $color-yellow;
+  }
+}
+
+
+// fix to not overlap with Iphone X bottom software button.
+@supports (bottom: constant(safe-area-inset-bottom)) {
+  .timeline-bar-container {
+    --safe-area-inset-bottom: env(safe-area-inset-bottom);
+    bottom: calc(#{$bottom-offset} + var(--safe-area-inset-bottom));
+  }
+}
+
+@supports (bottom: env(safe-area-inset-bottom)) {
+  .timeline-bar-container {
+    --safe-area-inset-bottom: env(safe-area-inset-bottom);
+    bottom: calc(#{$bottom-offset} + var(--safe-area-inset-bottom));
+  }
+}

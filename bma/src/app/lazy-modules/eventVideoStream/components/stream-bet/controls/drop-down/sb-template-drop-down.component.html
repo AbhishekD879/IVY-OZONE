@@ -1,0 +1,10 @@
+<div class="snb-rectangle">
+  <custom-select>
+    <select (change)="onValueChange($event.target.value)">
+      <option class="snb-option" *ngFor="let outcome of outcomes" value="{{outcome}}">
+        {{outcome}}
+      </option>
+    </select>
+  </custom-select>
+</div>
+  

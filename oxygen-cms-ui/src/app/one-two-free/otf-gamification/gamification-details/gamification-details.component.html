@@ -1,0 +1,217 @@
+<breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="gamificationData && !isCreate">
+  <div class="header">
+    <h2 class="waves-effect waves-block has-activity-badge">
+      Gamification
+      <create-updated-at-by [collection]="gamificationData"></create-updated-at-by>
+    </h2>
+  </div>
+</div>
+
+<div class="card">
+  <div class="body">
+    <form *ngIf="gamificationData">
+      
+      <!-- Teams Section -->
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="'Season Name*'">
+          </span>
+        </div>
+        <div class="col-md-9">
+          <mat-form-field>
+            <mat-select (selectionChange)="onSelectSeason($event)" [(value)]="selectedSeason" required name="seasonId"
+              [(ngModel)]="gamificationData.seasonId" [disabled]="isActive" placeholder="Select Season">
+              <mat-option *ngFor="let season of seasons" [value]="season.id">
+                {{ season.seasonName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="!selectedSeasonisValid">Please select a valid Season*</mat-error>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <button class="btn btn-sm bg-teal" (click)="addTeams()" [disabled]="isActive || gamificationData.seasonId == undefined || !selectedSeasonisValid||
+      (gamificationData.teams.length > 0 && editRowIndex == gamificationData.teams.length-1)">
+            <i class="material-icons">add_box</i>
+            <span>Add Teams*</span></button>
+        </div>
+      </div>
+      <div class="row col-md-12">
+
+        <div *ngIf="gamificationData.teams && gamificationData.teams.length > 0">
+          <table class="custom-table table table-hover table-condensed table-bordered m-b-0">
+            <thead>
+              <tr>
+                <th class="font-bold table-col-3">Team Name</th>
+                <th class="font-bold table-col-3">Jersey Image</th>
+                <th *ngIf="!isActive" class="font-bold table-col-2">remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let team of gamificationData.teams;let i = index">
+                <ng-container *ngIf="editRowIndex != i">
+                  <td>{{team.displayName}}</td>
+                  <td class="shortened-view">
+                    <span class="svg-icon">
+                      <svg-list *ngIf="team.svg" [list]="team.svg"></svg-list>
+                      <svg *ngIf="team.svg">
+                        <use [attr.xlink:href]="'#'+getSvgId(team.svg)"></use>
+                      </svg>
+                    </span>
+                  </td>
+                  <td *ngIf="!isActive" class="align-center">
+                    <a (click)="removeTeams(i)"><i class="material-icons col-red">remove_circle</i></a>
+                  </td>
+                </ng-container>
+                <ng-container *ngIf="editRowIndex == i" #editableRow>
+                  <td>
+                    <mat-form-field>
+                      <mat-select (selectionChange)="onSelectTeams(selectedTeam,i)" [(value)]="selectedTeam" required
+                        placeholder="Select Team">
+                        <mat-option *ngFor="let teamName of teams" [value]="teamName">
+                          {{teamName.displayName}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="nextDisplayName">This Field is required*</mat-error>
+                  </td>
+                  <td class="width-svg">
+                    <div class="col-md-12 m-t-15">
+                      <span class="svg-icon">
+                        <svg-list *ngIf="team.svg" [list]="team.svg"></svg-list>
+                        <svg *ngIf="team.svg">
+                          <use [attr.xlink:href]="'#'+getSvgId(team.svg)"></use>
+                        </svg>
+                      </span>
+                    </div>
+                  </td>
+                  <td class="align-center">
+                    <a (click)="removeTeams(i)"><i class="material-icons col-red">remove_circle</i></a>
+                  </td>
+
+                </ng-container>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- MY badges Section  -->
+
+      <div class="card">
+        <div class="header">
+          <h2>Badges Rewarding</h2>
+        </div>
+
+        <div *ngFor="let badge of gamificationData.badgeTypes;let i = index">
+          <div class="row col-md-12">
+            <div class="col-md-3">
+              <span class="mat-label">{{badge.name}} Badges*
+              </span>
+            </div>
+            <div class="col-md-9">
+              <mat-form-field class="full-width">
+                <input matInput type="text" [(ngModel)]="badge.numberOfBadges" [name]="'numberOfBadges'+i"
+                  #numberOfBadges="ngModel" placeholder="Badge Count" required pattern="^[0-9]{1,3}$"
+                  [readonly]="isActive">
+              </mat-form-field>
+              <ng-container *ngIf="numberOfBadges.errors">
+                <mat-error *ngIf="numberOfBadges.touched && numberOfBadges.errors.required">
+                  This fiels is required*
+                </mat-error>
+                <mat-error *ngIf="numberOfBadges.touched && numberOfBadges.errors.pattern">
+                  Badge count can only be Numeric with max length 3
+                </mat-error>
+              </ng-container>
+            </div>
+          </div>
+          <div class="row col-md-12">
+            <div class="col-md-3">
+              <span class="mat-label">{{badge.name}} Predictions Congratulations Message*
+              </span>
+            </div>
+            <div class="col-md-9">
+              <mat-form-field class="full-width">
+                <input matInput type="text" [(ngModel)]="badge.congratsMsg" [name]="'congratsMsg'+i"
+                  #congratsMsg="ngModel" placeholder="Message" required [readonly]="isActive">
+              </mat-form-field>
+              <ng-container *ngIf="congratsMsg.errors">
+                <mat-error *ngIf="congratsMsg.touched && congratsMsg.errors.required">This
+                  field is required*
+                </mat-error>     
+              </ng-container>
+              <mat-error *ngIf="congratsMsg.value?.length>100">
+                Congratulations Message can be max 100 characters long
+              </mat-error>
+              
+            </div>
+          </div>
+
+          <div class="row col-md-12">
+            <span class="col-md-3 mat-label">Reward*</span>
+            <div class="col-md-5">
+              <mat-radio-group class="mat-label" [(ngModel)]="badge.prizeType" [name]="'prizeType'+i"
+                #prizeType="ngModel" [disabled]="isActive">
+                <span class="m-r-10">Prize type:</span>
+                <mat-radio-button class="m-r-10" color="primary" [value]="'credit'">
+                  Credit
+                </mat-radio-button>
+                <mat-radio-button class="m-r-10" color="primary" [value]="'freeBet'">
+                  FreeBets
+                </mat-radio-button>
+              </mat-radio-group>
+              <ng-container *ngIf="prizeType.errors">
+                <mat-error *ngIf="prizeType.touched && prizeType.errors.required">
+                  Please select one Reward type *
+                </mat-error>
+              </ng-container>
+            </div>
+            <div class="col-md-2">
+              <mat-form-field class="full-width form-inline">
+                <input matInput placeholder="Amount" [(ngModel)]="badge.amount" [name]="'amount'+i" #amount="ngModel"
+                  type="number" min="0" required [readonly]="isActive" />
+              </mat-form-field>
+              <ng-container *ngIf="amount.errors">
+                <mat-error *ngIf="amount.touched && amount.errors.required">
+                  This field is required*
+                </mat-error>
+              </ng-container>
+            </div>
+            <div class="col-md-1">
+              <span class="mat-label">£</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Button Card Section -->
+
+<div class="card">
+  <div class="body">
+    <div class="row --m-t-10">
+
+      <div class="col-md-5" *ngIf="isCreate;else updateFlow">
+        <button mat-button type="button" class="btn bg-teal waves-effect" (click)="createEditGamification('create')"
+          [disabled]="!isValidModel(gamificationData)">
+          <mat-icon>save</mat-icon>
+          <span>Create Gamification</span>
+        </button>
+      </div>
+    </div>
+
+    <ng-template #updateFlow>
+      <div class="col-md-12">
+        <action-buttons *ngIf="formDataLoaded" #actionButtons [validateHandler]="isValidModel"
+          [fieldOrItemName]="'Gamification'" [collection]="gamificationData" [showRemoveButton]="!isActive"
+          (actionsEmitter)="actionsHandler($event);">
+        </action-buttons>
+      </div>
+    </ng-template>
+  </div>

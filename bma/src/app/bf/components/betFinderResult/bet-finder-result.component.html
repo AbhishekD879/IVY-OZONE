@@ -1,0 +1,79 @@
+<div data-crlat="betFinderResults">
+  <top-bar [title]="'bf.betFinderResults'"
+           [innerContent]="true">
+    <top-bar-body class="top-bar-side" data-crlat="topBarContent">
+      <div class="bf-results-header">
+        <span class="" [i18n]="'bf.sortBy'"></span>
+        <span>&nbsp;</span>
+        <span
+          class="bf-results-filter"
+          [ngClass]="{active: sortingOrder === 'time'}"
+          [i18n]="'bf.time'"
+          (click)="sortResults('time')"
+          data-crlat="sortByTime">
+        </span> /
+        <span
+          class="bf-results-filter"
+          [ngClass]="{active: sortingOrder === 'decimalOdds'}"
+          [i18n]="'bf.odds'"
+          (click)="sortResults('decimalOdds')"
+          data-crlat="sortByOdds">
+        </span>
+      </div>
+    </top-bar-body>
+  </top-bar>
+  <request-error *ngIf="state.error" [loadFailed]="state.error" (reloadFn)="reloadComponent()"></request-error>
+  <div *ngIf="state.loading" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+  <div class="bf-results" *ngIf="!state.loading && !state.error">
+    <div class="bf-results-number" [textContent]="foundResult" data-crlat="resultsNumber"></div>
+    <div *ngFor="let runner of runners; trackBy: trackByIndex; let runnerIndex = index;" data-crlat="runner">
+      <div class="bf-results-container">
+        <div class="odds-card race-card" [ngClass]="{'race-card-grey': runnerIndex % 2 === 0}">
+          <div class="odds-content">
+            <div class="odds-left">
+
+              <div class="odds-side" data-crlat="number">
+                <strong [textContent]="runner.number"></strong><br/>
+              </div>
+              <div class="silk-img" *ngIf="!runner.silkID"></div>
+
+              <div class="silk-img bet-finder-silk" *ngIf="runner.silkID" data-crlat="silk">
+                <div [ngStyle]="runner.silkStyle" data-crlat="imageSilk"></div>
+              </div>
+              <div class="odds-names odds-names-list">
+                <strong [textContent]="runner.horseName" data-crlat="horseName"></strong>
+                <span class="odds-normal" data-crlat="jockeyAndTrainer">
+                  <span *ngIf="runner.jockeyName" [textContent]="'J: '" class="text-bold"></span>
+                  <span *ngIf="runner.jockeyName" [textContent]="runner.jockeyName" data-crlat="jockeyName"></span>
+                  <span *ngIf="(runner.jockeyName && runner.trainerName)"> / </span>
+                  <span *ngIf="runner.trainerName" [textContent]="'T: '" class="text-bold"></span>
+                  <span *ngIf="runner.trainerName" [textContent]="runner.trainerName" data-crlat="trainerName"></span>
+                </span>
+                <span class="odds-small"  data-crlat="form">
+                  <span [i18n]="'bf.form'"></span>
+                  <span>&nbsp;</span>
+                  <span class="text-bold" [textContent]="runner?.formString ||'-'"></span>
+                </span>
+                <span class="odds-small">
+                  <span *ngIf="runner.time" [textContent]="runner.time" data-crlat="time"></span>
+                  <span>&nbsp;</span>
+                  <span *ngIf="runner.course" [textContent]="runner.course" data-crlat="course"></span>
+                </span>
+              </div>
+            </div>
+            <div class="odds-right odds-right-vertical">
+              <button class="btn-bet"
+                      [disabled]="!runner.bookmakerCompetitorId"
+                      [ngClass]="applyButtonClasses(runner.bookmakerCompetitorId)"
+                      last-made-bet
+                      (click)="addToBetSlip($event, runner.bookmakerCompetitorId)"
+                      data-crlat="betButton">
+                <span [textContent]="runner.oddsToDisplay" data-crlat="odds"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

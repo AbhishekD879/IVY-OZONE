@@ -1,0 +1,210 @@
+<div class="card">
+  <div class="header">
+    <h2 class="waves-effect waves-block" [textContent]=ARCCONFIG.labels.arcconfguration></h2>
+  </div>
+</div>
+<div [formGroup]="form">
+  <div class="card ng-star-inserted">
+    <div class="body">
+      <div class="ng-star-inserted">
+        <div class="card ng-star-inserted">
+          <div class="header bg-teal edit-config-group">
+            <h2 [textContent]="'ARC Configs'"></h2>
+            <ul class="header-dropdown">
+              <li *ngIf="!isAddingItem && !isDataChanged">
+                <button (click)="toggleTableEdit()" type="button"
+                  class="btn btn-xs bg-teal waves-effect header-edit-btn">
+                  <i class="material-icons" [textContent]=ARCCONFIG.labels.ModeEdit></i>
+                  <span *ngIf="!isEditOn" [textContent]=ARCCONFIG.labels.EditTable></span>
+                  <span *ngIf="isEditOn" [textContent]=ARCCONFIG.labels.EndEditTable></span>
+                </button>
+              </li>
+              <li *ngIf="!isAddingItem && !isEditOn && !isDataChanged">
+                <button (click)="startAddingNewItem()" type="button"
+                  class="btn btn-xs bg-teal waves-effect header-edit-btn">
+                  <i class="material-icons" [textContent]=ARCCONFIG.labels.AddCircle></i>
+                  <span [textContent]=ARCCONFIG.labels.AddProperty></span>
+                </button>
+              </li>
+              <li *ngIf="isDataChanged">
+                <button [disabled]="isEmpty()" (click)="saveConfigGroupChanges()" type="button"
+                  class="btn btn-xs bg-teal waves-effect header-edit-btn">
+                  <i class="material-icons" [textContent]=ARCCONFIG.actions.Save></i>
+                  <span [textContent]=ARCCONFIG.labels.SaveChanges></span>
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div class="body edit-config-group">
+            <div class="tableContainer table table-hover table-condensed table-bordered">
+              <div class="tableHeader">
+                <div class="tableRow">
+                  <div class="tableTh font-bold table-col-1" [textContent]=ARCCONFIG.labels.SRNo></div>
+                  <div class="tableTh font-bold table-col-2" [textContent]=ARCCONFIG.labels.modelandrisk></div>
+                  <div class="tableTh font-bold table-col-2" [textContent]=ARCCONFIG.labels.MOH></div>
+                  <div class="tableTh font-bold table-col-1" [textContent]=ARCCONFIG.labels.profile></div>
+                  <div class="tableTh font-bold table-col-2" [textContent]=ARCCONFIG.labels.sportsActions></div>
+                  <!-- <div class="tableTh font-bold table-col-2" [textContent]=ARCCONFIG.labels.Frequency></div> -->
+                  <div class="tableTh font-bold table-col-1" [textContent]=ARCCONFIG.labels.Toggle></div>
+                  <div class="tableTh font-bold table-col-2" *ngIf="!isEditOn">
+                  </div>
+                </div>
+              </div>
+              <div class="tableBody" *ngIf="!isEditOn">
+                <div class="tableRow" *ngFor="let configItem of configGroup.items;let configItemIndex = index">
+                  <div class="tableCol" [textContent]="configItemIndex + 1"></div>
+                  <div class="tableCol" [textContent]=configItem.modelRiskLevel></div>
+                  <div class="tableCol" [textContent]=configItem.reasonCode></div>
+                  <div class="tableCol" [textContent]=configItem.profile></div>
+                  <div class="tableCol" [textContent]=joinActions(configItem.sportsActions)></div>
+                  <!-- <div class="tableCol" [textContent]=configItem.frequency></div> -->
+                  <div class="tableCol">
+                    <mat-checkbox color="primary" [disabled]="true" [checked]="configItem.enabled"></mat-checkbox>
+                  </div>
+                  <div class="tableCol align-center">
+                    <a (click)="removeConfig(configItem)">
+                      <i class="material-icons col-red" [textContent]=ARCCONFIG.labels.RemoveCircle></i>
+                    </a>
+                  </div>
+                </div>
+                <!--ADDING NEW EPROPERTY FORM -->
+                <div class="tableRow" *ngIf="isAddingItem">
+                  <div class="tableCol">
+                    <mat-form-field>
+                      <input matInput [placeholder]=ARCCONFIG.placeholders.SRNo formControlName="SRNo"
+                        [(ngModel)]="newItem.index" required trim="blur">
+                    </mat-form-field>
+                  </div>
+                  <div class="tableCol">
+                    <mat-form-field>
+                      <mat-select [placeholder]=ARCCONFIG.placeholders.modelRiskLevel formControlName="modelRiskLevel"
+                        [(ngModel)]="newItem.modelRiskLevel" required>
+                        <mat-option *ngFor="let type of MROptions" [value]="type">{{type}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="!(newItem.modelRiskLevel.length>0)" [textContent]=ARCCONFIG.errors.CheckAction>
+                    </mat-error>
+                  </div>
+                  <div class="tableCol">
+                    <mat-form-field>
+                      <mat-select [placeholder]=ARCCONFIG.placeholders.reasonCode formControlName="reasonCode"
+                        [(ngModel)]="newItem.reasonCode" required>
+                        <mat-option *ngFor="let type of MOHOptions" [value]="type">{{type}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="!(newItem.reasonCode.length>0)" [textContent]=ARCCONFIG.errors.CheckAction>
+                    </mat-error>
+                  </div>
+                  <div class="tableCol">
+                    <mat-form-field>
+                      <input matInput [placeholder]=ARCCONFIG.placeholders.profile formControlName="profile"
+                        [ngModel]="autoProfile()" required trim="blur" readonly>
+                    </mat-form-field>
+                    <mat-error *ngIf="isUnique()" [textContent]=ARCCONFIG.errors.ProfileError>
+                    </mat-error>
+                  </div>
+                  <div class="tableCol">
+                    <button #sportArc (click)="openSportConfig(newItem.sportsActions)" type="button"
+                      class="btn bg-teal waves-effect">
+                      Configure
+                    </button>
+                  </div>
+                  <!-- <div class="tableCol">
+                    <mat-form-field>
+                      <input type="number" min="0" matInput [placeholder]=ARCCONFIG.placeholders.frequency
+                        formControlName="frequency" [(ngModel)]="newItem.frequency" required trim="blur">
+                    </mat-form-field>
+                  </div> -->
+                  <div class="tableCol">
+                    <mat-checkbox color="primary" [checked]="newItem.enabled"
+                      (change)="newItem.enabled=!newItem.enabled"></mat-checkbox>
+                  </div>
+                  <div class="tableCol align-center">
+                    <button [disabled]="!isValidConfigProperty(newItem)" (click)="submitNewProperty()" type="submit"
+                      class="btn btn-xs bg-teal">
+                      <i class="material-icons" [textContent]=ARCCONFIG.labels.CheckCircle></i>
+                    </button>
+                    <button type="button" (click)="finishAddingNewItem()" class="btn btn-xs bg-red">
+                      <i class="material-icons" [textContent]=ARCCONFIG.labels.RemoveCircle></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!--table view with all fields editing-->
+              <div class="tableBody" *ngIf="isEditOn">
+                <div class="tableRow" *ngFor="let configItem of configGroup.items;let configItemIndex = index">
+                  <div class="tableCol" [textContent]="configItemIndex + 1">
+                  </div>
+                  <div class="tableCol">
+                    <mat-form-field>
+                      <mat-select [(value)]="configItem.modelRiskLevel" [disabled]="true"
+                        [(ngModel)]="configItem.modelRiskLevel" (selectionChange)="isDataChanged = true;"
+                        [ngModelOptions]="{standalone: true}" required>
+                        <mat-option *ngFor="let type of MROptions" [value]="type">{{type}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="!(configItem.modelRiskLevel.length>0)" [textContent]=ARCCONFIG.errors.CheckAction>
+                    </mat-error>
+                  </div>
+                  <div class="tableCol">
+                    <mat-form-field>
+                      <mat-select [(value)]="configItem.reasonCode" [disabled]="true"
+                        [(ngModel)]="configItem.reasonCode" (selectionChange)="isDataChanged = true;"
+                        [ngModelOptions]="{standalone: true}" required>
+                        <mat-option *ngFor="let type of MOHOptions" [value]="type">{{type}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="!(configItem.reasonCode.length>0)" [textContent]=ARCCONFIG.errors.CheckAction>
+                    </mat-error>
+                  </div>
+                  <div class="tableCol">
+                    <mat-form-field class="example-full-width">
+                      <input matInput [(value)]="configItem.profile" [(ngModel)]="configItem.profile" [disabled]="true"
+                        [placeholder]=ARCCONFIG.placeholders.profile (input)="isDataChanged = true;"
+                        [ngModelOptions]="{standalone: true}" required trim="blur" readonly>
+                    </mat-form-field>
+                    <!-- <mat-error *ngIf="!isUnique(configItem.profile,configItem.modelRiskLevel,configItem.reasonCode)"
+                      [textContent]=ARCCONFIG.errors.ProfileError>
+                    </mat-error> -->
+                  </div>
+                  <div class="tableCol">
+                    <button #sportArc (click)="openSportConfig(configItem.sportsActions);isDataChanged = true;"
+                      type="button" class="btn bg-teal waves-effect">
+                      Edit configurations
+                    </button>
+                  </div>
+                  <!-- <div class="tableCol">
+                    <mat-form-field class="example-full-width">
+                      <input type="number" min="0" matInput [(value)]="configItem.frequency" [(ngModel)]="configItem.frequency"
+                        (input)="isDataChanged = true;" value="0" [ngModelOptions]="{standalone: true}"
+                        [placeholder]=ARCCONFIG.placeholders.frequency required trim="blur">
+                    </mat-form-field>
+                    <mat-error *ngIf="!configItem.frequency.length" [textContent]=ARCCONFIG.errors.CheckAction>
+                    </mat-error>
+                  </div> -->
+                  <div class="tableCol">
+                    <mat-checkbox color="primary" [checked]="configItem.enabled"
+                      (change)="configItem.enabled=!configItem.enabled;isDataChanged = true;"></mat-checkbox>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="body">
+    <div class="row">
+      <div class="col-4 col-md-7 p-b-0 m-b-0">
+        <button mat-button [disabled]="!addArc" type="button" class="btn bg-teal waves-effect float-left"
+          (click)="saveChanges();">
+          <mat-icon>save</mat-icon>
+          <span>Save Changes</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

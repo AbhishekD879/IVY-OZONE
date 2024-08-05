@@ -1,0 +1,81 @@
+<div>
+  <div class='loading-v3' *ngIf="applyingParams" data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+  <div class="page-inner" data-crlat="accordionsList">
+    <!--- Sorting Panel -->
+
+    <div class="page-segment">
+      <switchers *ngIf="!applyingParams && isRacingPanel && display === 'future'" [filter]="filter" data-crlat="switchers"
+        [switchers]="switchers"></switchers>
+
+      <!-- Today/Tomorrow events -->
+      <ng-container *ngIf="display === 'today'">
+        <ng-template *ngTemplateOutlet="RacingFeaturedLazy"></ng-template>
+      </ng-container>
+
+      <ng-container *ngIf="display === 'tomorrow'">
+        <ng-template *ngTemplateOutlet="RacingFeaturedLazy "></ng-template>
+      </ng-container>
+
+      <!-- Future events -->
+      <div *ngIf="!applyingParams && display === 'future'" data-crlat="racing.future">
+        <div *ngIf="!responseError && racing.events?.length" data-crlat="racing.futureEvents">
+          <greyhound-future-tab [filter]="filter"
+                                [isExpanded]="isExpanded"
+                                [orderedEvents]="orderedEvents"
+                                [orderedEventsByTypeNames]="orderedEventsByTypeNames"
+                                [filteredTypeNames]="filteredTypeNames"
+                                [racingEvents]="racing.events"
+                                [isEventOverlay]="isEventOverlay">
+          </greyhound-future-tab>
+        </div>
+
+        <request-error *ngIf="responseError"
+                       [loadFailed]="responseError"
+                       (reloadFn)="reloadComponent()"></request-error>
+
+        <!-- Show only when no events -->
+        <no-events *ngIf="!responseError && !racing.events?.length"></no-events>
+      </div>
+
+      <!--- Daily Racing Specials GH -->
+      <daily-racing-module *ngIf="!applyingParams && display === 'today' && filter === 'by-meeting'"
+                           [eventsBySections]="racing.modules.dailyRacing.eventsBySections"
+                           [collapsedSections]="racing.modules.dailyRacing.collapsedSections"
+                           [sportName]="sportName" [isRacingFeatured]="true" ></daily-racing-module>
+       
+      <ng-container *ngIf="!responseError && targetTab?.interstitialBanners?.bannerEnabled && (!!lastBannerEnabled)">
+        <lazy-component
+          moduleUri="@lazy-modules-module/virtualEntryPointBanner/virtual-entry-point-banner.module#VirtualEntryPointBannerModule"
+          entryComponent="VirtualEntryPointBannerComponent"
+          [inputs]="{targetTab: targetTab,isUnTiedSport:true,sportName : sportName}">
+        </lazy-component>
+      </ng-container>
+    </div>
+
+    <div class="widget-column" *ngIf="!applyingParams && !responseError && display === 'today'">
+      <!--- Next 4 race module -->
+      
+      <ng-container *ngIf="nextRacesWidgetVisible">
+        <lazy-component moduleUri="@lazy-modules-module/nextRaces/next-races.module#NextRacesModule"
+        [inputs]="{moduleType: sportModule, headerVisible: true,widget: true, fluid: true,trackGaDesktop: true, compName:'greyhounds'}"
+        entryComponent="NextRacesModuleComponent">
+        </lazy-component>
+    </ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #RacingFeaturedLazy>
+  <lazy-component moduleUri="@lazy-modules-module/racingFeatured/racing-featured.module#RacingFeaturedModule"
+    [hidden]="applyingParams" [inputs]="{
+    sportId: categoryId,
+    racing: racing,
+    sectionTitle: sectionTitle,
+    sportName: sportName,
+    eventsOrder: eventsOrder,
+    filter: filter,
+    responseError: responseError,
+    display: display
+  }" data-crlat="racing.greyhound">
+  </lazy-component>
+</ng-template>

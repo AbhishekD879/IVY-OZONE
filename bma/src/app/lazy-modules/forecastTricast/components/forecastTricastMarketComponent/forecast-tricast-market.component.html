@@ -1,0 +1,62 @@
+<div *ngIf="outcomes" class="forecast-tricast-market labels-mode" [ngClass]="[poolCssClass, marketDescriptionClass]" 
+ data-crlat="marketOutcomes">
+  <lazy-component *ngIf="isMarketDescriptionEnabled" moduleUri="@lazy-modules-module/market-description/market-description.module#MarketDescriptionModule"
+    [inputs]="{ eventEntity: event, selectedMarket: selectedPoolType, marketEntity: marketEntity }"
+    entryComponent="MarketDescriptionComponent">
+  </lazy-component>
+  <div class="terms-before-market row row-no-gutter"
+       *ngIf="marketEntity.isEachWayAvailable || marketEntity.isGpAvailable"
+       data-crlat="racingPostContainer">
+    <div *ngIf="!isVirtual" class="col-xs-8" data-crlat="terms">
+        <div *ngIf="marketEntity.isEachWayAvailable"
+             class="term-value"
+             [textContent]="marketEntity.terms"
+             data-crlat="eachWayContainer">
+        </div>
+      <span class="class-value"
+            [textContent]="event.uiClass"
+            *ngIf="event.uiClass"
+            data-crlat="termsClass">
+      </span>
+    </div>
+
+    <div *ngIf="marketEntity.isEachWayAvailable && !isVirtual" class="horse-racing-icons col-xs-4">
+      <!-- Promotional signposting -->
+      <promotion-icon [type]="'market'"
+                      [display]="marketEntity.drilldownTagNames"
+                      [cashoutAvailable]="marketEntity.cashoutAvail === 'Y' || marketEntity.viewType === 'handicaps'"
+                      [mode]="'md'"
+                      data-crlat="promotionIcons"></promotion-icon>
+    </div>
+
+    <div *ngIf="marketEntity.isEachWayAvailable && isVirtual && forTriMsg" class="term-value col-xs-12"
+           [textContent]="forTriMsg">
+    </div>
+  </div>
+  <!--- Market Container -->
+  <ng-container *ngFor="let outcomeEntity of outcomes; trackBy: trackByOutcomes; index as i;">
+    <forecast-tricast-race-card data-crlat="outcomeEntity"
+                                [eventEntity]="event"
+                                [marketEntity]="marketEntity"
+                                [outcomeEntity]="outcomeEntity"
+                                *ngIf="!outcomeEntity.isFavourite">
+      <forecast-tricast-checkbox-matrix (click)="$event.stopPropagation();"
+                                        (mapUpdate)="onMapUpdate($event)"
+                                        [map]="checkboxesMap"
+                                        *ngIf="!isSuspended(outcomeEntity)"
+                                        [outcomesMap]="outcomesMap"
+                                        [outcome]="outcomeEntity">
+      </forecast-tricast-checkbox-matrix>
+      <div class="odds-right" *ngIf="isSuspended(outcomeEntity)">
+        <span class="suspended-label">SUSP</span>
+      </div>
+    </forecast-tricast-race-card>
+  </ng-container>
+  <button class="btn-bet add-to-betslip-btn"
+          [ngClass]="{'active': isBetAvailable}"
+          (click)="addToBetslip()"
+          [disabled]="!isBetAvailable"
+          [i18n]="'racing.addToBetslip'"
+          data-crlat="addToBetslipButton">
+  </button>
+</div>

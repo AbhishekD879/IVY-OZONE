@@ -1,0 +1,54 @@
+<!--- Event by Time -->
+<!--- ToDo: need to refactor this template -->
+<div class="race-list">
+  <div class="container-inner-content" *ngIf="events.length" data-crlat="accordionsList">
+    <a *ngFor="let eventEntity of orderedEvents"
+       class="odds-card"
+       [attr.data-eventid]="eventEntity.id"
+       [routerLink]="getLink(sportName, eventEntity)"
+       data-crlat="raceList.eventEntity">
+      <div class="odds-content">
+        <div class="odds-content-wrapper">
+          <svg class="odds-icon" data-crlat="oddsIcon">
+            <use [attr.xlink:href]="getIconName()"></use>
+          </svg>
+          <div class="odds-info-wrapper odds-names"
+               [ngClass]="{'odds-normal': !isLpAvailable(eventEntity),
+                           'race-resulted': eventEntity.isResulted}"
+               data-crlat="raceList.raceTime">
+            <span class="race-time">{{ getRaceTime(eventEntity) }}</span>
+            <svg class="race-icon" *ngIf="eventEntity.isResulted">
+              <use xlink:href="#result-post"></use>
+            </svg>
+          </div>
+          <!--<div oc-lazy-load="['promotions']">-->
+          <promotion-icon
+            [type]="'event'"
+            [display]="eventEntity.drilldownTagNames"
+            data-crlat="promotionIcons">
+          </promotion-icon>
+          <!-- </div>-->
+        </div>
+      </div>
+      <div class="odds-content" data-crlat="oddsContent">
+        <div class="odds-left" *ngIf="eventEntity.liveStreamAvailable">
+          <svg class="odds-icon-stream small-icon">
+            <use xlink:href="#stream"></use>
+          </svg>
+          <span class="odds-small" [i18n]="'sb.watchLive'"></span>
+        </div>
+        <div class="odds-right">
+          <div class="odds-small race-card-link" data-crlat="linkRaceCard">Go To Race Card</div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <button class="show-all-button"
+          data-crlat="raceList.buttonShowAll"
+          *ngIf="events.length && events.length > limited"
+          (click)="showMore()"
+          [i18n]="'sb.showMore'">
+  </button>
+  <!-- Show only when no events -->
+  <no-events *ngIf="!events.length"></no-events>
+</div>

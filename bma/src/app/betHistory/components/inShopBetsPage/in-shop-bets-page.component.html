@@ -1,0 +1,25 @@
+<ng-container *ngIf="!state.loading && !state.error">
+  <lazy-component 
+    moduleUri="@retail-lazy-load/retail.module#RetailModule" 
+    entryComponent="BetTrackerComponent" 
+    [inputs]="{
+              mode: 'BET_HISTORY',
+              betType: betType,
+              fromDate: fromDate,
+              toDate: toDate
+            }">
+  </lazy-component>
+</ng-container>
+
+<outlet-status [state]="state">
+  <request-error [errorMsg]="errorMsg"
+                 [loginNeed]="!userStatus"
+                 [insertedPlace]="'in-shop-bets'"
+                 [reloadMethods]="['SUCCESSFUL_LOGIN']"
+                 (reloadFn)="reloadComponent()">
+  </request-error>
+</outlet-status>
+
+<lazy-component *ngIf="!!isMyBetsInCasino && !isBrandLadbrokes"
+moduleUri="@lazy-modules-module/casinoMyBetsIntegration/casino-my-bets-integration.module#CasinoMyBetsIntegrationModule"
+entryComponent="CasinoGoToSportsComponent"></lazy-component>

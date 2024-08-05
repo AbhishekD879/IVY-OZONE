@@ -1,0 +1,44 @@
+<div class="sk-container lotto-container" [ngClass]="{'sk-loading': state.loading}">
+  <loading-screen
+    [displayed]="state.loading" 
+    [templateType]="'GENERIC_FULL'"
+    [skeletonOnly]="true">
+  </loading-screen>
+  <top-bar class="lotto-top-bar"
+    [title]="isLinesummaryPage ?'Line Summary':'Lotto'"
+    [iconId]="svgId"
+    [iconSvg]="svg">
+  </top-bar>
+  <div *ngIf="!isLinesummaryPage && lottoCmsBanner">
+    <div class="container">
+    <img class="banner" [src]="lottoCmsBanner.globalBannerLink">
+    <div class="banner-text coral-banner-text-mobile">
+      <span class="text" [textContent]="lottoCmsBanner.globalBannerText"></span>
+    </div>
+  </div>
+  </div>
+
+  <loading-screen [displayed]="state.loading" [onlySpinner]="true"></loading-screen>
+  <ng-container *ngIf="!state.loading && !state.error">
+    <div *ngIf="!isLinesummaryPage && menuItems && menuItems.length">
+      <lazy-component moduleUri="@lazy-modules-module/carouselMenu/carousel-menu.module#CarouselMenuModule"
+      [inputs]="{menuItems: menuItems, activeMenuItem: activeUrl, isTopScroll: true,
+        carouselClass: 'lotto-carousel', carouselId: 'lotto-menu'}"
+      entryComponent="CarouselMenuComponent">
+    </lazy-component>
+    </div>
+      <ng-info-panel 
+        [message]="lottoMessage.msg"
+        [type]="lottoMessage.type">
+      </ng-info-panel>
+    <div id="lotto" data-crlat="tabContent">
+
+      <router-outlet></router-outlet>
+    </div>
+  </ng-container>
+  
+  <outlet-status *ngIf="state.error">
+    <request-error (reloadFn)="reloadComponent()"></request-error>
+  </outlet-status>
+
+</div>

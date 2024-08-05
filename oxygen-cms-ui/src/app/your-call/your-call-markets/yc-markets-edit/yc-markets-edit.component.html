@@ -1,0 +1,47 @@
+<breadcrumbs *ngIf="yourCallMarket" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="yourCallMarket">
+  <div class="header">
+    <h2>Edit YourCall Market: <span class="font-italic">{{yourCallMarket.name}}</span></h2>
+    <create-updated-at-by [collection]="yourCallMarket"></create-updated-at-by>
+  </div>
+</div>
+<div class="card" *ngIf="yourCallMarket">
+  <div class="body">
+    <div class="row clearfix">
+      <div class="col-md-2">
+        <span class="mat-label">Market Title</span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !yourCallMarket.name}">
+          <input matInput placeholder="Market Title" [(ngModel)]="yourCallMarket.name" [value]="yourCallMarket.name" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!yourCallMarket.name">Market Title should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-2">
+        <span class="mat-label">DS Market</span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="DS Market" [(ngModel)]="yourCallMarket.dsMarket" [value]="yourCallMarket.dsMarket" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="getDataError">
+  <div class="body">
+    Failed to load YourCall Market data
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="yourCallMarket"
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'name'"
+  [collection]="yourCallMarket"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

@@ -1,0 +1,14 @@
+extends ../layouts/default
+
+block intro
+	.container
+		h1 staticBlock
+	
+block content
+	.container
+		if staticBlocks.length
+			each staticBlock in staticBlocks
+				h2= staticBlock.imageTitle
+
+		else
+			h3.text-muted There are no staticBlocks yet.

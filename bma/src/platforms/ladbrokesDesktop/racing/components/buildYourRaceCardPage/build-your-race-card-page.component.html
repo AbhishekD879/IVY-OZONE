@@ -1,0 +1,39 @@
+<top-bar [title]="'sb.horseracing'" data-crlat="topBar" [path]="racingDefaultPath"
+  [innerContent]="true" (titleFunc)="goToDefaultPage()">
+  <top-bar-body class="top-bar-side" data-crlat="topBarContent">
+    <a [routerLink]="'/bet-finder'" class="bet-finder-link" data-crlat="betFinderLink">
+      <svg class="bet-finder-icon">
+        <use xlink:href="#bet-finder-icon"></use>
+      </svg>
+      <span class="bet-finder-title" data-crlat="betFinderTitle" [i18n]="'bf.betFinder'"></span>
+    </a>
+  </top-bar-body>
+</top-bar>
+<breadcrumbs [sportName]="sport"></breadcrumbs>
+
+<div class="tab-content racing-content" data-crlat="tabContent">
+  <div class="container">
+
+    <!--- Event Top Container -->
+    <div class="top-event-panel" data-crlat="eventTopContainer">
+      <div class="page-inner" data-crlat="accordionsList">
+        <div class="page-segment">
+          <lazy-component *ngIf="events?.length > 0" [inputs]="{ events, isRaceCard: true  }" [outputs]="['tabUpdated']"
+            (event)="handleRacingMybetsUpdates($event)"
+            moduleUri="@lazy-modules-module/racingMyBets/racing-mybets.module#RacingMybetsModule"
+            entryComponent="RacingMyBetsComponent">
+          </lazy-component>
+          <!--RACING DETAILS-->
+          <!-- removed the toggleShowOptions as it is not used for strict mode issue -->
+          <ng-container *ngIf="activeUserTab === HR_TABS.MARKETS">
+            <lazy-component moduleUri="@lazy-modules-module/racingEventModel/racing-event-model.module#RacingEventModelModule"
+              [inputs]="{onExpand:onExpand,sport:sport,eventEntity:event, delta: event.delta}"
+              [ngClass]="{'antepost-event' : isAntepostMarket(event)}" *ngFor="let event of events; trackBy: trackById"
+              entryComponent="LadbrokesDesktopRacingEventModelComponent"></lazy-component>
+          </ng-container>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

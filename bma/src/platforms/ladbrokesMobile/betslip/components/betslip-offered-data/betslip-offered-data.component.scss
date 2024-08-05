@@ -1,0 +1,26 @@
+@import "../../../../../app/betslip/components/betslipOfferedData/betslip-offered-data.component.scss";
+
+.stake-odd-number-prev {
+  color: $color-gray-disabled;
+  font-size: 12px;
+}
+
+.stake-offered .bs-stake-number,
+.price-offered .stake-odd-number {
+  background-color: $color-yellow-alt;
+}
+
+.bs-stake-body {
+  .bs-stake-number,
+  .stake-odd-number {
+    color: $lGray;
+  }
+}
+
+.bs-stake-each-way {
+  color: $lBlack-light;
+
+  .bs-stake-check {
+    top: 2px;
+  }
+}

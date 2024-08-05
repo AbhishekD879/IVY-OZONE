@@ -1,0 +1,30 @@
+<div class="dropdown"
+     [ngClass]="{'expanded': showMenu}"
+     tabindex="-1"
+     (blur)="menuToggle(false)"
+     data-crlat="dropdown">
+  <div (click)="menuToggle()" class="dropdown-header" [ngClass]="{'dropdown-header-not-coupon': !isFromCoupon}">
+    <span *ngIf="!isFromCoupon" class="label" [textContent]="selectedListItem" data-crlat="selected-item"></span> 
+    <span *ngIf="isFromCoupon" class="toggle" [textContent]="toggleTitle" data-crlat="item-selected"></span> 
+        
+        <div data-crlat="open-menu-button" [ngClass]=" {'change-btn':!isFromCoupon,'change-button':isFromCoupon}">
+          <span *ngIf="!isFromCoupon" [i18n]="'app.change'"></span>
+          <span *ngIf="isFromCoupon" class="of-coupon" [textContent]="selectedListItem"></span>
+          <svg [ngClass]="isFromCoupon ? 'dropdown-down-arrow-coupon coupon' : 'dropdown-down-arrow coup'">
+        <use [attr.xlink:href]="'#down-arrow'"></use>
+      </svg>
+    </div>
+  </div>
+
+  <div class="overlay" (click)="clickHandler($event)"></div>
+
+  <ul class="dropdown-menu" data-crlat="dropdown-menu">
+    <li class="menu-item"
+        *ngFor="let item of menuList; trackBy: trackByFn; index as itemIndex"
+        (click)="clickItem(item)"
+        [ngClass]="{'active': item[nameKey] === selectedListItem}"
+        data-crlat="dropdown.menuItem">
+      <span class="menu-title" [textContent]="item[nameKey]" data-crlat="item-title"></span>
+    </li>
+  </ul>
+</div>

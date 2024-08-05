@@ -1,0 +1,486 @@
+@import 'global.variables.scss';
+@import './../../assets/styles/modules/arrowed-item.scss';
+
+$lostLabelWidth: 27px;
+$removedBgColor: rgba(65, 73, 78, 0.07);
+
+:host {
+  display: flex;
+  font-family: $event-card-font;
+  cursor: default;
+  flex-direction: column;
+}
+
+.bet-leg-inner {
+  display: flex;
+}
+
+.single-item-inner {
+  position: relative;
+  padding: $event-card-padding;
+  min-height: 70px;
+  background: #fff;
+  color: $color-gray-dark;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  .rule-four-message {
+    font-size: $font-size-sm;
+    color: $color-gray-dark;
+    margin-top: 7px;
+    .highlight {
+      color: $color-green;
+      font-weight: bold;
+    }
+    .link {
+      font-weight: bold;
+      color: inherit;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    &::before {
+      content: 'i';
+      width: 12px;
+      height: 12px;
+      background-color: $color-gray-dark;
+      display: inline-block;
+      border-radius: 100%;
+      color: $color-white;
+      text-align: center;
+      line-height: 13px;
+      margin-right: 6px;
+    }
+  }
+
+  &.suspended, &.void {
+    .single-selection-name,
+    .single-market-name,
+    .single-selection-odds {
+      opacity: $cashout-odds-opacity;
+      color: $suspended-color;
+    }
+
+    .single-market-name > .single-selection-odds {
+      opacity: 1;
+    }
+
+    .single-selection-odds {
+      color: $single-selection-odds-suspended;
+    }
+    .single-market-name {
+      color: $single-market-name-suspended;
+    }
+  }
+
+  &.lost {
+    .leg-status {
+      background: $color-gray-dark;
+      width: $lostLabelWidth;
+    }
+  }
+
+  &.removed {
+    background: $removedBgColor;
+
+    .select-market-header {
+      margin-bottom: 5px;
+    }
+  }
+
+  &.is-acca-undo {
+    padding-right: 65px;
+  }
+
+  &.is-acca-remove {
+    padding-right: 30px;
+
+    .single-market-name {
+      display: none;
+    }
+
+    .select-market-header {
+      margin-bottom: 5px;
+    }
+  }
+
+  &.is-virtual {
+    cursor: default;
+  }
+
+  &.byb-list {
+    padding: 0;
+    .event-info {
+      border-top: 1px solid $color-gray;
+      padding: 12px 22px 12px 12px;
+      display: flex;
+    }
+  }
+}
+
+.silk-container {
+  display: inline-block;
+  vertical-align: middle;
+  &.single {
+    padding-left: 12px;
+    @include display-flex();
+    @include align-items();
+    @include justify-content(center);
+    @include flex-direction(column);
+  }
+
+  & + .single-item-inner {
+    padding-left: 0;
+  }
+
+  &.removed {
+    background: $removedBgColor;
+  }
+  .odds-side {
+    width: 30px;
+    min-width: 30px;
+    font-size: $font-size-md;
+    text-align: center;
+    margin-right: 10px;
+    margin-left: -8px;
+    @include align-items();
+    @include display-flex();
+    @include justify-content(center);
+    .label-text {
+      font-size: 9px;
+      color: inherit;
+      padding-left: 3px;
+    }
+  }
+}
+.runner-number {
+  font-size: 11px;
+  padding-top: 2px;
+}
+
+.selection-names {
+  width: 100%;
+}
+
+.selection-name {
+  @include display-flex();
+  @include align-items();
+
+  & + & {
+    margin-top: 5px;
+  }
+}
+
+.leg-remove-marker {
+  font-weight: bold;
+  text-transform: uppercase;
+  display: block;
+  padding-right: 10px;
+  font-size: 14px;
+  line-height: 14px;
+}
+
+// Winning/losing indicators
+.leg-indicator {
+  width: 26px;
+  position: relative;
+  &.losing {
+    .arrow-icon {
+      width: $arrow-icon-width;
+      background-color: $losing-color;
+    }
+    .arrow-icon::after {
+      right: $losing-indentation;
+      will-change: transform;
+      transform: rotate(-45deg);
+      background-color: $losing-color;
+    }
+    .arrow-icon::before {
+      right: $losing-indentation;
+      will-change: transform;
+      transform: rotate(45deg);
+      background-color: $losing-color;
+    }
+  }
+
+  &.removing {
+    background: $removedBgColor;
+  }
+
+  .icon {
+    position: absolute;
+    top: 50%;
+    left: 68%;
+    width: $arrow-icon-width;
+    height: 12px;
+    transform: rotate(-90deg);
+    will-change: transform;
+    margin-top: -6px;
+  }
+
+  .arrow-icon {
+    height: 2px;
+    background-color: $color-green;
+  }
+
+  .arrow-icon::before, .arrow-icon::after {
+    content: '';
+    position: absolute;
+    width: $arrow-top-width;
+    height: 2px;
+    background-color: $color-green;
+  }
+
+  .arrow-icon::after {
+    top: -2px;
+    right: -2px;
+    transform: rotate(45deg);
+    will-change: transform;
+  }
+
+  .arrow-icon::before {
+    top: 2px;
+    right: -2px;
+    transform: rotate(-45deg);
+    will-change: transform;    
+  }
+}
+
+// Suspended/void/won/lost status
+.leg-status-container {
+  width: 40px;
+  padding-left: 12px;
+  @include display-flex();
+  @include align-items();
+  @include justify-content(center);
+  .leg-status {
+    @include leg-status();
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  &.won,
+  &.lost {
+    max-width: 26px;
+    position: relative;
+    .leg-status {
+      display: none;
+    }
+  }
+  &.won {
+    &:after {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 12px;
+      position: absolute;
+      right: 50%;
+      top: 50%;
+      margin-top: -6px;
+      margin-right: -8px;
+      border: solid $color-green;
+      border-width: 0 2px 2px 0;
+      @include transform(rotate(45deg));
+    }
+  }
+  &.lost {
+    &:before, &:after {
+      position: absolute;
+      content: ' ';
+      height: 13px;
+      width: 2px;
+      right: 50%;
+      top: 50%;
+      margin-top: -6px;
+      margin-right: -6px;
+      background-color: $color-red;
+    }
+    &:before {
+      @include transform(rotate(45deg));
+    }
+    &:after {
+      @include transform(rotate(-45deg));
+    }
+  }
+}
+
+.single-selection-name {
+  vertical-align: middle;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: normal;
+  word-break: break-word;
+  max-width: 100%;
+  color: $single-selection-name;
+  font-size: $single-selection-name-font-size;
+  font-weight: bold;
+  line-height: 1;
+  display: inline-block;
+  padding: 1px 5px 1px 0;
+  & + & {
+    margin-top: 10px;
+  }
+}
+
+.single-selection-name-ld{
+  font-size: $font-size-bit-lgr !important;
+  font-weight: 700 !important;
+  color:$color-gray-darkest !important;
+}
+
+.single-selection-odds-ld{
+  font-size: $font-size-bit-lgr !important;
+  font-weight: 700 !important;
+  color:$color-gray-darkest !important;
+}
+
+.single-selection-odds {
+  font-weight: $single-selection-odds-font-weight;
+  font-size: $font-size;
+  color: $single-selection-odds;
+  white-space: nowrap;
+
+  &-plain:before {
+    content: '@ ';
+  }
+
+  &-crossed {
+    text-decoration: line-through;
+    color: $single-selection-odds-crossed;
+  }
+
+  &-bog {
+    color: $color-gray-dark;
+  }
+}
+
+.selection-odds-separator {
+  display: inline-block;
+  content: "";
+  width: 9px;
+}
+
+.single-market-name {
+  margin: $event-market-name-margin;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: $font-size;
+  line-height: $line-height-xs;
+  color: $single-selection-odds;
+  min-height: 15px;
+  word-break: break-word;
+
+  .single-selection-odds {
+    margin-left: 2px;
+  }
+}
+
+.silk-img, .silk-img.has-img {
+  height: 20px;
+  width: 28px;
+  min-width: auto;
+  background-size: contain !important;
+  margin-right: $event-card-silk-margin;
+  @include align-self(inherit);
+  &.has-img div, &.with-default div, &.inter-silk div {
+    width: inherit;
+    height: inherit;
+  }
+  &.inter-silk,
+  &.with-default {
+    background-position: 1px 0 !important;
+  }
+}
+
+.silk-space {
+  margin-left: $event-card-silk-space;
+}
+
+::ng-deep {
+  .bog-block {
+      margin: 0 0 2px 0;
+      padding-top: 6px;
+      line-height: 1;
+  }
+}
+
+.my-bets-promo-labels-row {
+  flex: 1 0 100%;
+}
+
+.byb-list {
+  .single-market-name {
+    margin: 0 0 6px;
+  }
+  &.suspended {
+    .event-info {
+      position: relative;
+      padding-left: 52px;
+    }
+    .byb-suspended-label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 52px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.racing-post-media-btns-container {
+  @include display-flex;
+  @include justify-content(space-between);
+  padding: 6px 0px;
+  box-shadow: none;
+  background: none;
+}
+
+.done-btn{
+  padding: 8px 11px 8px 10px;
+}
+
+.fiveASideIcon {
+  padding-right: 12px;
+  @include display-flex();
+  @include align-items(center);
+  @include justify-content(center);
+
+  svg {
+    width: 18px;
+    height: 21px;
+  }
+}
+
+.fctc-place {
+  margin-right: 3px;
+}
+.sports-icon {
+  position: absolute;
+  right: 9%;
+  z-index: 0;
+  fill: $lGrayLight;
+  &-position {
+    width: 52.8px;
+    height: 52.8px;
+    padding-top: 1.1px;
+    padding-left: 1.1px;
+  }
+  &-byb {
+    margin-top: -9px;
+    z-index: -1
+  }
+  &-totepool {
+    position: absolute;
+    right: 2%;
+    z-index: 0;
+    fill: $lGrayLight;
+    padding-top: 12px;
+  }
+} 

@@ -1,0 +1,42 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>Create a Static Text</h1>
+  <div mat-dialog-content>
+    <div class="row">
+      <div class="col-md-2">
+        <mat-checkbox color="primary"
+                      [checked]="newStaticTextOtf.enabled"
+                      (change)="newStaticTextOtf.enabled = !newStaticTextOtf.enabled">
+          Active
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row clearfix">
+          <div class="col-md-10">
+              <mat-form-field class="full-width">
+                  <mat-select placeholder="Page Name" [(value)]="newStaticTextOtf.pageName">
+                    <mat-option *ngFor="let pageName of selectPageNames" [value]="pageName.name">
+                      {{pageName.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-10">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !newStaticTextOtf.title}">
+          <input matInput placeholder="Title" [(ngModel)]="newStaticTextOtf.title" [value]="newStaticTextOtf.title" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+  <button mat-button class="btn btn-sm bg-teal float-right"
+          [disabled]="!isValidModel()"
+          [mat-dialog-close]="newStaticTextOtf">Create</button>
+</div>

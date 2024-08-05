@@ -1,0 +1,7 @@
+<div *ngIf="(isUnTiedSport || (!this.isUnTiedSport && isBannerPositionEnabled(index))) && targetTab?.interstitialBanners?.bannerEnabled && selectedVirtualBanner?.imgUrl"
+    class="virtual-Img-container-coral-desk" (click)="onBannerClick(selectedVirtualBanner,targetTab)" [ngClass]="{'pointer': !targetTab?.interstitialBanners?.ctaButtonLabel}">
+    <img style="width: 100%" [attr.src]="selectedVirtualBanner?.imgUrl"
+        [attr.fetchpriority]="selectedVirtualBanner?.fetchpriority" [alt]="selectedVirtualBanner?.altText" />
+    <button class="btn" *ngIf="targetTab?.interstitialBanners?.ctaButtonLabel"
+        (click)="onCtaButtonClick(selectedVirtualBanner, targetTab)">{{targetTab?.interstitialBanners?.ctaButtonLabel}}</button>
+</div>

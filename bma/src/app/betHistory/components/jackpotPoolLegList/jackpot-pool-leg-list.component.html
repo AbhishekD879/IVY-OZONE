@@ -1,0 +1,33 @@
+<div>
+  <div class="item-inner item-top-pad">
+    <div class="row bordered-row"
+         *ngFor="let leg of pool.legs; trackBy: trackById">
+      <div *ngIf="isSportIconEnabled" class="sports-icon sports-icon-pool">
+        <svg class="sports-icon-position">
+          <use [attr.xlink:href]="'#'+leg.svgId"></use>
+        </svg>
+      </div>
+      <div class="leg-z-index-lotto">
+        <div class="adjusted-result" [textContent]="leg.adjustedResult"></div>
+        <div class="leg-info single-left" [ngClass]="{'not-resulted': !leg.isResulted}">
+          <span class="leg-name" [textContent]="leg.name"></span>
+          <span class="full-time" *ngIf="leg.isResulted">FT</span>
+          <span class="start-time"
+                *ngIf="!leg.isResulted"
+                [textContent]="getEventStartTime(leg)">
+          </span>
+        </div>
+        <div class="text-result single-right">
+          <span *ngIf="!leg.isVoid"
+                [ngClass]="leg.outcomeClass"
+                data-crlat="bs.betType">
+          </span>
+          <svg *ngIf="leg.isVoid"
+              class="tote-leg-status">
+            <use [attr.xlink:href]="'#icon-void'"></use>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

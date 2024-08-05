@@ -1,0 +1,30 @@
+<ng-container *ngIf="!state.loading && !state.error">
+  <div *ngIf="!ssError && !wsError.reconnectFailed" data-crlat="tabContent">
+    <switchers [filter]="filter"
+               [switchers]="switchers"
+               data-crlat="switcher.filter.sport"
+               [detectGTMLocation]="'location'">
+    </switchers>
+
+    <div *ngIf="!dataReady && !wsError.reconnectFailed" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+
+    <single-sport-section
+      *ngIf="dataReady && sportSectionData"
+      [filter]="filter"
+      [inner]="false"
+      [expandedLeaguesCount]="expandedLeaguesCount"
+      [eventsBySports]="sportSectionData"
+      (reloadData)="updateSportData($event)"
+      data-crlat="accordionsList">
+    </single-sport-section>
+  </div>
+  <no-events *ngIf="showNoEventsSection(viewByFilters[0])" [message]="'sb.noLiveEventsFound'" data-crlat="label.noLiveEvents"></no-events>
+  <no-events *ngIf="showNoEventsSection(viewByFilters[1])" [message]="'sb.noUpcomingEventsFound'" data-crlat="label.noUpcomingEvents"></no-events>
+
+  <request-error *ngIf="ssError && !showNoEventsSection(filter)"
+                 [loadFailed]="ssError && !showNoEventsSection(filter)"
+                 [reloadMethods]="['RELOAD_IN_PLAY']"
+                 (reloadFn)="reloadComponent()"
+                 data-crlat="errorField">
+  </request-error>
+</ng-container>

@@ -1,0 +1,332 @@
+@import 'global.variables.scss';
+
+/* Button style*/
+.btn {
+  background: $full-cashout-normal-color;
+  border: none;
+  border-radius: $border-radius;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.2), inset 0 15px 15px rgba(255,255,255,.15), 0 1px 0 rgba(0,0,0,.2);
+  color: $color-white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 12px;
+  min-width: 40px;
+  outline: none;
+  padding: 8px 10px;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 0 1px 2px rgba(0,0,0,.4);
+  vertical-align: top;
+  white-space: nowrap;
+
+  &.half-width {
+    min-width: 47%;
+  }
+
+  &.btn-medium {
+    min-width: 80px;
+  }
+
+  &:hover {
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), inset 0 25px 25px rgba(255,255,255,.3), 0 1px 0 rgba(0,0,0,.2);
+    text-decoration: none;
+  }
+
+  &.active {
+    box-shadow: inset 0 1px 0 rgba(0, 0, 0, .3), inset 0 15px 10px rgba(0, 0, 0, .1);
+  }
+
+  &.btn-small {
+    border-radius: $border-radius;
+    font-size: 11px;
+    line-height: 18px;
+    padding: 3px 10px;
+  }
+
+  &.btn-style1 {
+    background: $color-green-shade;
+    box-shadow: none;
+    @media #{$mqTabletAndDesktop} {
+      &:hover {
+        background: $color-green-light-leaf;
+        color: $color-white;
+      }
+    }
+    &:active {
+      background: $color-green-dark-leaf;
+      color: $color-white;
+    }
+  }
+
+  &.btn-style2 {
+    background: $color-green-shade !important;
+    padding-left: 5px;
+
+    &:hover {
+      background: $color-green-light-leaf !important;
+      color: $color-white;
+    }
+
+    &:active {
+      background: $color-green-dark-leaf !important;
+      color: $color-white;
+    
+    }
+  }
+
+  &.btn-style3 {
+    background: $color-orange;
+  }
+
+  &.btn-style4 {
+    background: $color-gray-light;
+    box-shadow: inset 0 1px 1px rgba(255,255,255,.9), inset 0 15px 15px rgba(255,255,255,.25), 0 1px 0 rgba(0,0,0,.2);
+    color: $color-black;
+    text-shadow: none;
+  }
+
+  &.btn-style5 {
+    background: $color-red;
+   }
+
+  &.btn-style6 {
+    background: $color-white;
+  }
+}
+
+.btn-group {
+  padding: 15px 10px;
+  @include clearfix();
+
+  &.w-group {
+    background: $page-bg;
+  }
+
+  .group-col {
+    float: left;
+    padding: 0 5px;
+    width: 50%;
+
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+/* Button V2 style*/
+
+.button {
+  color: $color-white;
+  cursor: pointer;
+  min-width: 40px;
+  outline: none;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: top;
+  white-space: nowrap;
+  display: inline-block;
+  padding: 11px;
+  border-radius: $border-radius;
+  border: 0;
+  line-height: 13px;
+  font-size: 13px;
+  text-transform: uppercase;
+  font-weight: bold;
+  position: relative;
+  background: $brand-color-main;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &.btn-primary {
+    background: $color-green-shade;
+    &:hover{
+      background: $color-green-light-leaf;
+    }
+    &:active{
+      background: $color-green-dark-leaf;
+    }
+  }
+  &.full-width {
+    width: 100%;
+  }
+
+  &.btn-default {
+    background: $color-gray-light;
+    color: $color-black;
+  }
+
+  &.btn-secondary {
+    background: $color-yellow;
+    color: $color-gray-dark;
+    &:hover{
+      background: $color-yellow-alt2;
+     }
+     &:active{
+      background: $color-orange-peel;
+      color: $color-white;
+     }
+  }
+
+
+  &.btn-lg {
+    font-size: 11px;
+    padding: 13px 5px;
+    min-width: 120px;
+  }
+
+  &.btn-text {
+    text-transform: none;
+  }
+
+  @media #{$mqMobile} {
+    line-height: 11px;
+    padding: 7px 5px;
+    font-size: 11px;
+  }
+
+  @media #{$mqTablet} {
+    line-height: 12px;
+    padding: 11px 15px;
+    font-size: 12px;
+  }
+}
+
+.link-btn {
+  font: bold $font-size-sm $base-font-family;
+  color: $color-white;
+  text-decoration: underline;
+  text-transform: uppercase;
+  padding: 5px 0;
+}
+
+.flat-btn {
+  height: 35px;
+  min-width: 100px;
+  width: 100px;
+  background: $color-green-shade;
+  border: none;
+  border-radius: $border-radius-sm;
+  color: $color-white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 11px;
+  line-height: 35px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0 10px;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  
+  &.btn-coral {
+    &:hover {
+      background: $color-green-light-leaf;
+    }
+    &:active {
+      background: $color-green-dark-leaf;
+    }
+  }
+
+  &:hover {
+    background: $color-green-light-leaf;
+    color: $color-white;
+    text-decoration: none;
+  }
+  &:active {
+    background: $color-green-dark-leaf;
+    color: $color-white;
+  }
+
+}
+.flat-btn-lads{
+  background: $color-light-green-leaf;
+  &:hover {
+    background: $color-green-light2;
+    color: $color-white;
+    text-decoration: none;
+  }
+  &:active {
+    background: $color-green-shine;
+    color: $color-white;
+  }
+}
+
+/* STYLES FOR BUTTON ELEMENT
+ * Reusable classes for the new styles of the button element.
+ *
+ * `<button class="button-normal button-yellow button-full-width">Click</button>`
+*/
+.button-normal {
+  border: none;
+  padding: 10px;
+  margin: 0;
+  text-transform: uppercase;
+  color: $color-gray-dark;
+  font-weight: 700;
+}
+
+/* Button for toggle show/hide password */
+.button-password-vis {
+  padding: 8px;
+  border: 1px solid #e0e2eb;
+  border-left: 0;
+  font-size: 10px;
+  color: #a5a5a5;
+}
+
+.button-full-width {
+  width: 100%;
+}
+
+.button-yellow {
+  background-color: $color-yellow;
+
+  &:hover {
+    background-color: $color-yellow-dark;
+  }
+}
+
+.button-white {
+  background-color: $color-white;
+
+  &:hover {
+    color: $brand-color-main;
+  }
+}
+
+.flat-btn-cashout {
+  height: 35px;
+  min-width: 100px;
+  width: 100px;
+  background: $color-yellow-medium;
+  border: none;
+  border-radius: $border-radius-sm;
+  color: $color-black;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 11px;
+  line-height: 35px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0 10px;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-left: 60%;
+
+  &:hover {
+    opacity: 0.8;
+    text-decoration: none;
+  }
+  &:active {
+    background: $color-orange-peel;
+    text-decoration: none;
+    color: $color-black;
+  }
+}

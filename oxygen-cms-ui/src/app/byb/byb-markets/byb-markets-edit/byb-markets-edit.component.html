@@ -1,0 +1,122 @@
+<breadcrumbs *ngIf="bybMarket" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="bybMarket">
+  <div class="header">
+    <h2>Edit BuildYourBet Market: <span class="font-italic">{{bybMarket.name}}</span></h2>
+    <create-updated-at-by [collection]="bybMarket"></create-updated-at-by>
+  </div>
+</div>
+<div class="card" *ngIf="bybMarket">
+  <form [formGroup]="form" novalidate>
+    <div class="body">
+      <div class="row clearfix">
+        <div class="col-md-2">
+          <span class="mat-label">Market Title</span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Market Title" formControlName="name" required trim="blur">
+            <mat-hint class="col-red" *ngIf="name.invalid && (name.dirty || name.touched)">
+              <div *ngIf="name.errors.required">
+                Market Title should be entered
+              </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-2">
+          <span class="mat-label">Market Group Name</span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Market Group Name" formControlName="bybMarket" required trim="blur">
+            <mat-hint class="col-red" *ngIf="marketGroupName.invalid && (marketGroupName.dirty || marketGroupName.touched)">
+              <div *ngIf="marketGroupName.errors.required">
+                Market Group Name should be entered
+              </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-2">
+          <span class="mat-label">Incident Grouping</span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Incident Grouping" formControlName="incidentGrouping" trim="blur">
+            <mat-hint class="col-red" *ngIf="incidentGrouping.invalid && (incidentGrouping.dirty || incidentGrouping.touched)">
+              <div *ngIf="incidentGrouping.errors.pattern">
+                Incident Grouping Id should should be a number
+              </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-2">
+          <span class="mat-label">Market Grouping</span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Market Grouping" formControlName="marketGrouping" trim="blur">
+            <mat-hint class="col-red" *ngIf="marketGrouping.invalid && (marketGrouping.dirty || marketGrouping.touched)">
+              <div *ngIf="marketGrouping.errors.pattern">
+                Market Grouping Id should be a number
+              </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-2">
+          <span class="mat-label">Market Type</span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select (selectionChange)="setStat($event.value)" placeholder="Market Type" formControlName="marketType">
+              <mat-option *ngFor="let type of market_type" [value]="type">{{type}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix" *ngIf="form.value.marketType === 'Player Bet'">
+        <div class="col-md-2">
+          <span class="mat-label">Stat</span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Stat" formControlName="stat" required>
+              <mat-option *ngFor="let type of stat_type" [value]="type">{{type}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-2">
+          <span class="mat-label">Market Description</span>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Market Description" formControlName="marketDescription" trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-6">
+          <mat-checkbox color="primary" formControlName="popularMarket"> Popular Market
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<action-buttons
+  *ngIf="bybMarket"
+  #actionButtons
+  [form]="form"
+  [fieldOrItemName]="'name'"
+  [collection]="getBybMarket()"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

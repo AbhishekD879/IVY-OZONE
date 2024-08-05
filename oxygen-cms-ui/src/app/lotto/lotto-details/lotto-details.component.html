@@ -1,0 +1,128 @@
+<breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="!isLoading && lotto">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-2">
+          <mat-checkbox color="primary"
+          [checked]="lotto.enabled"
+                      (change)="lotto.enabled = !lotto.enabled">
+            Active
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Title
+          </span>
+        </div>
+        <div class="col-md-5">
+          <mat-form-field class="full-width" >
+            <input matInput placeholder="Enter title here" required
+                   trim="blur" [(ngModel)]="lotto.label">
+              <mat-hint class="col-red" *ngIf="lotto.label.length > 50">*The CTA button Label Should be filled with max
+                    of 50 characters</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <form *ngIf="lotto" [formGroup]="lottoForm">
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Info text*
+          </span>
+        </div>
+          <div class="col-md-8">
+            <tinymce-editor class="tinymce-layout" [minEditorStyles]=true
+            [pageName]="'infoMessage'" [pageItemId]="lotto.id"
+            (outputEditorData)="updateBlurb($event, 'infoMessage' , 'infoTitle')"
+            [initialEditorContent]="lotto.infoMessage">
+            </tinymce-editor>
+            <mat-hint class="col-red" *ngIf="valid.length > 500">
+              This field is <strong>required of 500 char</strong></mat-hint>
+          </div>
+        
+      </div>
+    </form>
+    
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Lotto Game ID
+          </span>
+        </div>
+        <div class="col-md-5">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Enter id here" required trim="blur"
+              [(ngModel)]="lotto.ssMappingId">
+    
+            <mat-hint class="col-red" *ngIf="lotto.ssMappingId.length > 20">*The lotto game i'd Should be filled with max
+              of 20 characters</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    
+      <div class="row">
+        <ng-container *ngIf="isIMActive; else cmsUpload">
+          <div class="col-md-2">
+            <span class="mat-label">SVG ID*</span>
+          </div>
+          <div class="col-md-5">
+            <svg-icon-select-input [formFieldsModels]="lotto" [externalForm]="form">
+            </svg-icon-select-input>
+          </div>
+        </ng-container>
+        <ng-template #cmsUpload>
+          <div class="col-md-5">
+            <cms-upload [label]="'SVG File'" [filename]="lotto.svgFilename" (onImageUpload)="uploadSvgHandler($event)"
+              (onImageRemove)="removeSvgHandler()">
+            </cms-upload>
+          </div>
+        </ng-template>
+      </div>
+    
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Next link URI
+          </span>
+        </div>
+        <div class="col-md-5">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Enter url here" required trim="blur" [(ngModel)]="lotto.nextLink">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Max Pay Out*
+          </span>
+        </div>
+        <div class="col-md-5">
+          <mat-form-field class="full-width">
+            <input matInput #maxPayOut="ngModel" type="number" placeholder="Enter Max PayOut" [(ngModel)]="lotto.maxPayOut">
+            <mat-hint class="col-red" *ngIf="maxPayOut.touched && !(lotto.maxPayOut > 0)">
+              *Max PayOut field should be filled with greatar than 0
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="card" *ngIf="!isLoading && pageType === 'add'">
+  <div class="body">
+    <div class="row footer-buttons-row">
+      <div class="col-md-7">
+        <button mat-button type="button" [disabled]="!isNewLottoValid()" class="btn bg-teal waves-effect float-left" (click)="createSegment();">
+          <mat-icon>save</mat-icon>
+          <span>Create Lotto</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<action-buttons *ngIf="!isLoading && pageType === 'edit' && lotto" #actionButtons
+  (actionsEmitter)="actionsHandler($event)" [validateHandler]="isValidModel" [fieldOrItemName]="'lotto'" [collection]="lotto">
+</action-buttons>

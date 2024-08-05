@@ -1,0 +1,43 @@
+<div class="card" *ngIf="widgetsData">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Widgets Page
+      <small *ngIf="widgetsData">Total active widgets: {{widgetsAmount.active}}, inactive widgets: {{widgetsAmount.inactive}}</small>
+    </h2>
+  </div>
+</div>
+<div class="card" *ngIf="widgetsData">
+  <div class="body">
+    <!-- search and download button.-->
+    <div *ngIf="widgetsData" class="row clearfix">
+      <div class="col-md-3 m-t-5">
+        <download-cvs [cvsData]="widgetsData" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div class="col-md-3"></div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Widget" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <!-- main content, config groups list-->
+    <div *ngIf="widgetsData">
+      <cms-data-table
+        [customTableData]="widgetsData"
+        [customTableColumns]="dataTableColumns"
+        [reorder]="true"
+        [filterString]="searchField"
+        [filterProperties]="filterProperties"
+        (onElementsOrder)="reorderWidgetsHandler($event)">
+      </cms-data-table>
+    </div>
+
+    <div *ngIf="getDataError">
+      Request Error
+    </div>
+  </div>
+</div>

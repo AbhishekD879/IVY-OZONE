@@ -1,0 +1,6 @@
+FROM alpine:latest
+{% if install_web_root %}
+ADD certificates/crlat-web-root.crt /usr/local/share/ca-certificates/crlat-web-root.crt
+RUN apk add --no-cache ca-certificates && /usr/sbin/update-ca-certificates
+{% endif %}
+CMD {{ command }}

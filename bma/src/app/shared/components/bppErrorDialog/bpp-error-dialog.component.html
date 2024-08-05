@@ -1,0 +1,19 @@
+<modal #bppErrorDialog class="bpp-error-dialog" data-crlat="d.bppError">
+  <ng-template #modalHeader>
+    <span [i18n]="getHeaderTitle()" data-crlat="dTitle" data-uat="popUpTitle"></span>
+    <a data-uat="popUpCloseButton" class="btn-close" (click)="closeDialog()">
+      <svg>
+        <use xlink:href="#close-icon"></use>
+      </svg>
+    </a>
+  </ng-template>
+  <ng-template #modalBody>
+    <p class="text-center logged-tittle">
+      <span [i18n]="getBodyMessage()"></span>
+    </p>
+    <p class="text-center" [i18n]="'app.errorPopupMessage'"></p>
+    <div class="text-center logged-tittle">
+      <a [routerLink]="'/contact-us'" [i18n]="'app.errorPopupLink'"></a>
+    </div>
+  </ng-template>
+</modal>

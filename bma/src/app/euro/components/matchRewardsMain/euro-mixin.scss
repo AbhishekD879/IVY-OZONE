@@ -1,0 +1,30 @@
+@mixin body-mixin($top, $right, $bottom, $left, $color) {
+    padding: $top $right $bottom $left;
+    background-color: $color;
+}
+
+@mixin how-it-works-mixin($bg-color, $tb, $rl, $color, $width, $border-radius, $padding, $line-height, $vertical-align ,$font-size, $font-weight) {
+    background-color: $bg-color;
+    margin: $tb $rl;
+    color: $color;
+    width: $width;
+    border-radius: $border-radius;
+    padding: $padding;
+    line-height: $line-height;
+    vertical-align: $vertical-align;
+    font-size: $font-size;
+    font-weight: $font-weight;
+}
+
+@mixin height-width-mixin($height, $width) {
+    height: $height;
+    width: $width;
+}
+
+@mixin relative-positioning-mixin($position, $top, $right, $bottom, $left) {
+    position: $position;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left
+}

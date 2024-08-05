@@ -1,0 +1,11 @@
+@mixin setFonts($font-family,$font-size,$font-weight, $text-align) {
+  font-family: $font-family;
+  font-size: $font-size;
+  font-weight: $font-weight;
+  text-align: $text-align;
+}
+@mixin logo-mixin($width, $height, $margin) {
+  width: $width;
+  height: $height;
+  margin: $margin;
+}

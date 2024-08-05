@@ -1,0 +1,40 @@
+
+ <div [ngClass]="{'sk-loading': !isOverlayVisible}">
+  <loading-screen [displayed]="!isOverlayVisible" [templateType]="'GENERIC_BET'" ></loading-screen>
+
+  <div [ngStyle]="{'display':isOverlayVisible ? 'block' : 'none'}">
+
+   <switchers id="{{ deviceService.isDesktop ? 'desktop-switcher' : ''}}"
+    [filter]="filter" 
+    [switchers]="switchers"
+    [isOverlay]="isEventOverlay">
+   </switchers>
+   <div class="overlay-content">
+
+   <div [ngClass]="{'sk-loading': !isOverlayVisible}">
+    <loading-screen
+      [displayed]="!isOverlayVisible"
+      [templateType]="'GENERIC_BET'">
+    </loading-screen>
+
+    <racing-events *ngIf="isOverlayVisible && !noEvents"
+    [racing]="raceMeetings"
+    [sectionTitle]="sectionTitle"
+    [byTimeEvents]="allEvents"
+    [sportName]="sportName"
+    [moduleTitle]="''"
+    [eventsOrder]="eventsOrder"
+    [filter]="filter"
+    [display]="display"
+    [quickNavigationTitles]="quickNavigationTitles"
+    [showSwitcher]="false"
+    [filterDay]="switcherFilter"
+    [isEventOverlay]="isEventOverlay"
+    (gaTracking)="trackModule($event[0], $event[1], $event[2], $event[3])">
+    </racing-events>
+    </div>
+   </div>
+  <!-- Show only when no events -->
+  <no-events *ngIf="noEvents" [message]="'sb.noEventsFound'"></no-events>
+  </div>
+</div>

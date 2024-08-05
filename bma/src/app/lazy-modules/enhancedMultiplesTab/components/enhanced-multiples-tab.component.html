@@ -1,0 +1,28 @@
+<div class="heuristic-container sk-container" [ngClass]="{'sk-loading': showLoader}">
+  <loading-screen [displayed]="showLoader" [templateType]="'GENERIC'"></loading-screen>
+  <div *ngIf="!eventsCategories || !eventsCategories.length">
+    <request-error *ngIf="isRequestError()"
+                   [loadFailed]="ssDown"
+                   (reloadFn)="reloadComponent()">
+    </request-error>
+    <no-events *ngIf="isNoEvents()"></no-events>
+  </div>
+
+  <div *ngIf="eventsCategories && eventsCategories.length"
+      class="tab-content heuristic-container" data-crlat="tabContent">
+    <div data-crlat="tab.showEnhancedMultiplesModule">
+      <accordion [accordionTitle]="category.name"
+                [card]="true"
+                data-crlat="emAccordion"
+                *ngFor="let category of eventsCategories; trackBy: trackByIndex;">
+        <accordion-body>
+          <odds-card-component data-crlat="eventEntity"
+                              *ngFor="let eventEntity of category.events; trackBy: trackByIndex;"
+                              [event]="eventEntity"
+                              [gtmModuleTitle]="category.name">
+          </odds-card-component>
+        </accordion-body>
+      </accordion>
+    </div>
+  </div>
+</div>

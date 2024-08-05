@@ -1,0 +1,236 @@
+@import 'global.variables.scss';
+
+$switch-border-color    : $color-gray-rich;
+$switch-border-color-act: $brand-color-dark;
+$switch-background      : $brand-color-main;
+$switch-font-family     : $base-font-family;
+$switch-font-style      : uppercase;
+$switch-font-size       : $font-size-md;
+$switch-font-color      : $brand-color-dark;
+
+$switch-btn-font-size   : $font-size-sm;
+$switch-btn-font-color  : lighten($color-gray-dark, 10%);
+$slider-line-height: 3px;
+
+.switchers {
+  background: $color-white;
+  padding: 5px 10px 15px;
+  margin-bottom: 5px;
+
+  &.no-paddings {
+    padding: 0;
+    margin: 0 0 7px;
+  }
+  @include display-flex();
+
+  .switcher-wrapper {
+    @include display-flex();
+    @include flex(1,1,50%);
+    @include align-items();
+    @include justify-content();
+  }
+
+  .switch-btn {
+    border: none;
+    background: transparent;
+    outline: none;
+    color: $switch-font-color;
+    text-transform: $switch-font-style;
+    font-family: $switch-font-family;
+    font-size: $switch-font-size;
+    border-bottom: $slider-line-height solid $switch-border-color;
+    padding: 5px 3px;
+    min-height: 30px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    @include display-flex();
+    @include flex(1,1,50%);
+    @include align-items();
+    @include justify-content();
+    box-sizing: border-box;
+    height: 40px;
+
+    &:hover {
+      text-decoration: none;
+      background: $IGreyLightDark;
+    }
+
+    &.active {
+      text-shadow: none;
+      font-weight: bold;
+      background: transparent;
+      &:after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: $slider-line-height;
+        background: $switch-border-color-act;
+        bottom: -$slider-line-height;
+        left: 0;
+      }
+    }
+
+    &.filled {
+      position: relative;
+      &:before {
+        content: '';
+        display: block;
+        width: 6px;
+        height: 10px;
+        border: solid $color-green;
+        border-width: 0 2px 2px 0;
+        @include transform(rotate(45deg));
+        position: absolute;
+        right: 10%;
+        top: 11px;
+      }
+    }
+
+    &.overlay {
+      color: $switch-font-color!important;
+    }
+
+    .switch-btn-bind {
+      padding-left: 3px;
+    }
+
+    &[disabled] {
+      pointer-events: none;
+    }
+    &.disabled {
+      opacity: 1;
+      pointer-events: none;
+    }
+  }
+}
+
+.switchers-buttons {
+  border-radius: 4px;
+
+  @include display-flex();
+
+  .switcher-wrapper .switch-btn,
+  .switch-btn {
+    border: none;
+    background: transparent;
+    outline: none;
+    color: $switch-btn-font-color;
+    text-transform: $switch-font-style;
+    font: bold #{$switch-btn-font-size}/12px $switch-font-family;
+    border: 1px solid $color-gray;
+    border-left: none;
+    padding: 3px;
+    min-height: 20px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    @include display-flex();
+    @include flex(1,1,50%);
+    @include align-items();
+    @include justify-content();
+    height: auto;
+    transition: none;
+
+    &.disabled {
+      opacity: 1;
+      pointer-events: none;
+    }
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    &.active {
+      text-shadow: none;
+      border: none;
+      background-color: $switch-background;
+      color: $color-white;
+      z-index: 1;
+    }
+
+    + .switch-btn.active {
+      margin-left: -1px;
+    }
+
+    &[disabled] {
+      pointer-events: none;
+    }
+  }
+
+  .switch-btn {
+    &:first-child {
+      border-left: 1px solid $color-gray;
+      border-radius: 4px 0 0 4px;
+    }
+
+    &:last-child {
+      border-radius: 0 4px 4px 0;
+    }
+  }
+
+  .switcher-wrapper {
+    @include display-flex();
+    @include flex(1,1,50%);
+    @include align-items();
+    @include justify-content();
+    & + .switcher-wrapper {
+      width: 100%;
+      .switch-btn.active {
+        margin-left: -1px;
+      }
+    }
+    &:first-child .switch-btn{
+      border-left: 1px solid $color-gray;
+      border-radius: 4px 0 0 4px;
+    }
+
+    &:last-child .switch-btn{
+      border-radius: 0 4px 4px 0;
+    }
+  }
+}
+
+.scrollable-switchers  {
+  .scroll-container {
+    width: 100%;
+  }
+  .scroll-inner {
+    @include display-flex();
+    @include flex(1, 1, 50%);
+
+    li {
+      @include flex(1, 1, 50%);
+    }
+
+    &.auto-sizable-switchers li {
+      @include flex(1);
+    }
+
+    .switch-btn {
+      padding: 5px 10px;
+      &:hover {
+        background: $IGreyLightDark;
+      }
+      &.active {
+        background: transparent;
+      }
+    }
+  }
+  &.no-paddings {
+    .scroll-inner {
+      padding: 0;
+    }
+  }
+}
+.replay {
+  .switchers {
+  margin-bottom: 0px!important;
+ // padding: 0px;
+  border-top: 1px solid #E0E2EB;
+ }
+ .switch-btn {
+  color: #252835;
+  border-bottom: none;
+}
+}

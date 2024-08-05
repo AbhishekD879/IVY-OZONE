@@ -1,0 +1,53 @@
+<div *ngIf="expandable">
+  <accordion [isExpanded]="isExpanded"
+             (click)="visualize()"
+             *ngIf="isVisualizationAvailable"
+             class="vis-container-{{eventId}}">
+    <left-side>
+      <span class="left-title-text" [i18n]="'sb.visualisation'" data-crlat="headerTitle.leftMessage"></span>
+    </left-side>
+    <accordion-body>
+      <div
+        visIframeDimensions
+        [hidden]="isHidden"
+        [dimensionMultiplier]="dimensionMultiplier"
+        [visDelta]="delta"
+        [visType]="visType">
+        <iframe
+          (load)="loadHandler()"
+          class="vis-iframe-{{eventId}}"
+          delta="delta"
+          name="visWidget"
+          frameborder="0"
+          scrolling="no"
+          width="100%"
+          [src]="iframeURL"
+          data-crlat="iframe">
+        </iframe>
+      </div>
+    </accordion-body>
+  </accordion>
+</div>
+
+<div *ngIf="!expandable">
+  <div
+    visIframeDimensions
+    [hidden]="isHidden"
+    [dimensionMultiplier]="dimensionMultiplier"
+    [visDelta]="delta"
+    [visType]="visType"
+    *ngIf="isVisualizationAvailable"
+    class="vis-container">
+    <iframe
+      (load)="loadHandler()"
+      class="vis-iframe-{{eventId}}"
+      delta="delta"
+      name="visWidget"
+      frameborder="0"
+      scrolling="no"
+      width="100%"
+      [src]="iframeURL"
+      data-crlat="iframe">
+    </iframe>
+  </div>
+</div>

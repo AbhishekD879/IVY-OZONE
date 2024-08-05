@@ -1,0 +1,63 @@
+@import 'global.variables.scss';
+$IGraySemiMediumLightB:  #efefef;
+.outer-div{
+  width: 100%;
+  height: 65px;
+}
+
+.text-title{
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  color: #FFFFFF;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  top: 20px;
+}
+
+.header-color{
+  background: radial-gradient(41.58% 419.28% at 52.4% -3.99%, #970506 10%, #890405 30%, #670302 60%, #5A0302 70%, #480204 100%);
+  height:65px;
+  width:100%;
+  position: absolute;
+  z-index: -1;
+}
+:host ::ng-deep .flag,
+:host ::ng-deep .flag-icon {
+  display: inline;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 0.5px solid $IGraySemiMediumLightB;
+}
+:host ::ng-deep .surface-bets-container {
+  .surface-bet-title {
+    color: $color-white;
+  }
+  .left-side {
+    margin-left: -1px;
+    margin-top: -1px;
+  }
+  .surface-bet-header, .header-background {
+    background-color: $color-surfacebet-title-bg !important;
+  }
+  .price-odd-container .btn-bet,
+  .surface-bet-bg-image {
+    border: 1px solid $color-surfacebet-title-bg;
+  }
+}
+:host ::ng-deep .show-all-button {
+  background: $color-white;
+  span {
+    color: $color-blue-alt;
+    &:hover{
+     text-decoration: underline;
+     text-decoration-color: $color-blue-alt;
+   }
+   &:active{
+     text-decoration: none;
+     color: darken($color-blue-alt, 25%);
+   }
+  }
+}

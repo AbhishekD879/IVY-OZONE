@@ -1,0 +1,53 @@
+<div class="card" *ngIf="yourCallStaticBlockData">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      BYB Static Blocks Page
+      <small *ngIf="yourCallStaticBlockData.length">Total Active BYB Static Blocks: {{staticBlocksAmount.active}}, Inactive Static Blocks: {{staticBlocksAmount.inactive}}</small>
+      <small *ngIf="!yourCallStaticBlockData.length">No BYB Static Blocks Found</small>
+    </h2>
+  </div>
+</div>
+
+<div class="card" *ngIf="yourCallStaticBlockData">
+  <div class="body">
+    <!-- search and download button.-->
+    <div class="row clearfix">
+      <div class="col-md-3">
+        <button (click)="createStaticBlock()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create BYB Static Block</span>
+        </button>
+      </div>
+      <div class="col-md-3">
+        <download-cvs [cvsData]="yourCallStaticBlockData" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For BYB Static Block" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <!-- main content, config groups list-->
+    <div *ngIf="yourCallStaticBlockData && yourCallStaticBlockData.length > 0">
+      <cms-data-table
+        [customTableData]="yourCallStaticBlockData"
+        [customTableColumns]="dataTableColumns"
+        [reorder]="false"
+        [actions]="['remove','edit']"
+        [filterString]="searchField"
+        [filterProperties]="filterProperties"
+        (onRemoveTableElement)="removeStaticBlock($event)">
+      </cms-data-table>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="getDataError">
+  <div class="body">
+    Request Error
+  </div>
+</div>

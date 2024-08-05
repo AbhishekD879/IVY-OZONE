@@ -1,0 +1,26 @@
+::ng-deep {
+  modal .modal {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+::ng-deep {
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    background-color: rgba(0, 0, 0, 0.15);
+    z-index: 42;
+  }
+}
+
+::ng-deep {
+  .modal.in {
+    opacity: 1;
+  }
+}

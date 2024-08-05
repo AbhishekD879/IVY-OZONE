@@ -1,0 +1,33 @@
+@import 'global.variables.scss';
+
+.container {
+
+    .space-around {
+        padding:  0 15px;
+    }
+    .background-element {
+        height: 5px;
+        border-radius: 2px;
+    }
+
+    .content-left {
+        padding: 0 !important;
+    }
+
+    .dot {
+        height: 15px;
+        width: 15px;
+        background-color: $color-white;
+        border-radius: 50%;
+        display: inline-block;
+        margin-top: -5px;
+        position: absolute;
+        transition: margin-left 1s ease-in;
+    }
+    .boarder-color-white {
+        border: solid 2px $color-grey;
+    }
+    .boarder-color-green {
+        border: solid 2px $color-green;
+    }
+}

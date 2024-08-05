@@ -1,0 +1,15 @@
+<ng-container *ngIf ="potNumbers">
+  <mat-form-field appearance="fill" style="width:100%">
+      <mat-label>Select Pot</mat-label>
+      <mat-select [(ngModel)] ="selectedPot">
+        <mat-option *ngFor="let pot of potNumbers;let i=index" [value]="pot" (click)="filterPot(i)">       
+              {{pot}}
+        </mat-option>
+      </mat-select>
+  </mat-form-field>
+</ng-container>
+<ng-container *ngIf="filteredPotsData">
+  <cms-data-table  [customTableData] ="filteredPotsData" [customTableColumns]="columns">
+  </cms-data-table>
+</ng-container>
+

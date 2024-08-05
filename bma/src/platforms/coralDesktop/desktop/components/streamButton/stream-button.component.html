@@ -1,0 +1,14 @@
+<span [ngClass]="{'available': activeEvent.id !== event.id}"
+      (click)="setActiveEvent(event)">
+  <svg *ngIf="activeEvent.id === event.id && isLoggedIn()">
+    <use xlink:href="#live-stream-active"></use>
+  </svg>
+  <svg class="odds-icon-stream"
+       *ngIf="activeEvent.id !== event.id || !isLoggedIn()">
+    <use xlink:href="#stream"></use>
+  </svg>
+  <span class='label'>
+    {{ activeEvent.id === event.id && isLoggedIn() ? 'Active' : 'Watch' }}
+  </span>
+</span>
+

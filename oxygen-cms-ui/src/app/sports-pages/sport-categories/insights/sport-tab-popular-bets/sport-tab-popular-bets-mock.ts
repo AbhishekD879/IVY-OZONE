@@ -1,0 +1,40 @@
+import { INSIGTHTS_CONSTANTS } from "./sport-tab-popular-bets-filter.constants";
+
+export const POPULAR_BETS_DEFAULT_DATA = [
+  {
+    trendingTabName: INSIGTHTS_CONSTANTS.popularBets,
+    headerDisplayName: INSIGTHTS_CONSTANTS.headerDisplayName,
+    enabled: true,
+    href: INSIGTHTS_CONSTANTS.insightsPopular,
+    popularTabs: [
+      {
+        enabled: true,
+        showNewFlag: true,
+        popularTabName: INSIGTHTS_CONSTANTS.popularTab ,
+        headerDisplayName: "",
+        startsInText: "",
+        backedInLastText: "",
+        showMoreText: "",
+        showLessText: "",
+        backedUpTimesText: "",
+        informationTextDesc: "",
+        numbOfDefaultPopularBets: null,
+        numbOfShowMorePopularBets: null,
+        priceRange: "",
+        noPopularBetsMsg: "",
+        lastUpdatedTime: "",
+        betSlipBarBetsAddedDesc: "",
+        betSlipBarCTALabel: "",
+        betSlipBarDesc: "",
+        betSlipBarRemoveBetsCTALabel: "",
+        suspendedBetsAddedText: "",
+        suspendedBetsDesc: "",
+        enableBackedUpTimes: true,
+        enableArrowIcon: true,
+        backedInLastFilter: [],
+        eventStartsFilter: [],
+        enableAddToBetSlipBar : true,
+      },
+    ],
+  },
+];

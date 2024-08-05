@@ -1,0 +1,12 @@
+@import '../../../../ladbrokesMobile/assets/styles/components/racing-event.scss';
+
+svg.bpg-icon, .cashout-label-wrapper {
+  margin: 0 0 0 2px;
+}
+
+.uk-tote-event .page-container.page-inner-container .new-race-card .odds-content .odds-left .odds-side {
+  @media (min-width: $tabletPoint) {
+    width: 20px;
+    min-width: auto;
+  }
+}

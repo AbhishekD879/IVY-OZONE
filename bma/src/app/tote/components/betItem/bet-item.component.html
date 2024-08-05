@@ -1,0 +1,30 @@
+<div class="odds-card"
+     [ngClass]="{'active' : expanded}">
+  <div class="odds-content"
+       (click)="expanded = !expanded">
+    <div class="odds-left">
+      <div class="toggle-icon" data-crlat="toggleIcon">
+        <div class="plus-minus-icon icon-plus"
+             [ngClass]="{'icon-plus': !expanded, 'icon-minus': expanded}">
+        </div>
+      </div>
+      <div class="odds-names">
+        <div [textContent]="bet.poolTitle" data-crlat="betReceipt.betPoolTitle"></div>
+      </div>
+    </div>
+    <div class="odds-right" data-crlat="betReceipt.Stake">
+      <span class="stake-label" [i18n]="'tt.stakeTitle'" data-crlat="betReceipt.stakeName"></span>
+      <strong [textContent]="(bet.stakeAmount | currency:poolCurrencySymbol: 'code')" data-crlat="betReceipt.stakeAmount"></strong>
+    </div>
+  </div>
+</div>
+<div class="details-content" *ngIf="expanded" data-crlat="betReceipt.expandedSummary">
+  <div *ngFor="let part of bet.legParts">
+    <div class="event-title" [textContent]="part.outcomeName" data-crlat="betReceipt.outcomeName"></div>
+  </div>
+  <span class="details-label" [i18n]="'tt.legTitle'" data-crlat="label.betReceipt.betLeg"></span>
+  <span class="details-info" [textContent]="bet.leg" data-crlat="betReceipt.betLeg"></span>
+  <br>
+  <span class="details-label" [i18n]="'tt.betIdTitle'" data-crlat="label.betReceipt.betID"></span>
+  <span class="details-info" [textContent]="bet.betId" data-crlat="betReceipt.betID"></span>
+</div>

@@ -1,0 +1,52 @@
+
+@import '../../../../app/shared/components/priceOddsButton/price-odds-button.component.scss';
+@import '../../../../app/shared/components/accordion/accordion.component.scss';
+@import '../../../../app/shared/components/oddsCard/odds-card.component.scss';
+
+@import '../../../../app/lazy-modules/banners/bannersSection/styles/banners-section.component.scss';
+@import '../../../../app/lazy-modules/banners/bannersSection/styles/lc-carousel.scss';
+
+//Modules styles
+@import 'modules/tabs-panel.scss';
+@import 'modules/switchers.scss';
+@import 'modules/links-list-panel.scss';
+@import 'modules/spinner.scss';
+@import 'modules/showAllButton.scss';
+@import 'modules/objects.page.scss';
+@import 'modules/widget-column.scss';
+@import 'modules/freebets.scss';
+@import 'modules/sidebars/sidebar.scss';
+@import 'modules/sidebars/sidebar-right-menu.scss';
+@import 'modules/race-card.scss';
+@import 'modules/favourites/main.scss';
+@import 'modules/icons.scss';
+@import 'modules/inplay-header-counter.scss';
+@import 'modules/odds-boost.scss';
+accordion.is-expanded {
+    box-shadow: none;
+}
+.bet-finder-link {
+    font-size: 11px;
+    color: $color-white;
+    padding-right: 5px;
+    min-width: 95px;
+    &:hover {
+      text-decoration: none;
+    }
+  
+    .bet-finder-icon {
+      fill: $color-white;
+      width: 17px;
+      height: 17px;
+      vertical-align: middle;
+      margin-right: 5px;
+      z-index: 1;
+    }
+  
+    .bet-finder-title {
+      text-decoration: none;
+    }
+  }
+
+//General styles
+@import '../../../../assets/styles/style.scss';

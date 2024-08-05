@@ -1,0 +1,25 @@
+<div class="row" *ngIf="bgImage && bgImage.length">
+  <div class="col-md-2 text-left">
+    Theme Preview
+  </div>
+  <div class="col-md-8">
+    <ng-container>
+      <div [class]="rightTopClass">
+        <img [attr.src]="bgImage" class="img" alt="bgImage">
+          <div class="right-alignment">
+            <div class="row description" [ngClass]="{'description-alignment' : type == 'create'}">
+              <div class="main-description">
+                <div class="sub-description">~{{defaultFormConfig?.config?.description?.maxLength || 0}} characters</div>
+                <span>This section will fit approximately {{this.isBrandLads ==
+                  true?defaultFormConfig?.config?.shortDescription?.lads?.maxLength:defaultFormConfig?.config?.shortDescription?.coral?.maxLength
+                  || 0}} characters</span>
+              </div>
+              <button [class]="rightBtnClass">
+                ~{{defaultFormConfig?.config?.title?.maxLength || 0}} CHARACTER
+              </button>
+            </div>
+          </div>
+    </div>
+    </ng-container>
+  </div>
+</div>

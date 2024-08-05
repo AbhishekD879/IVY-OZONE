@@ -1,0 +1,13 @@
+---
+- name: Terminate QuickBetLoadTest ClusterName EC2 node
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    action: terminate
+    node_type: cluster
+    tag_ClusterName: QuickBetLoadTest
+  tasks:
+  - name: crlat.vpc
+    include_role:
+      name: crlat.vpc

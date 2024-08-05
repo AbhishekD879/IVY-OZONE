@@ -1,0 +1,35 @@
+{
+  "cashoutOfferRequests": [
+    {
+      "cashoutOfferReqRef": "1",
+      "bet": {
+        "stakeAmount": "1.0",
+        "betType": "SGL",
+        "cashoutProfile":"NO_LOSS",
+        "legs": [
+          {
+            "legNo": "1",
+            "parts": [
+              {
+                "partNo": "1",
+                "type": "2.0",
+                "ladder": "STABLE",
+                "result": "-",
+                "categoryId":"1",
+                "isOff":"Y",
+                "strikePrice": {
+                  "num": "10",
+                  "den": "1"
+                },
+                "spotPrice": {
+                  "num": "2",
+                  "den": "1"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

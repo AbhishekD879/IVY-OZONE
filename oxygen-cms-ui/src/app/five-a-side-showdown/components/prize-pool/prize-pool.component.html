@@ -1,0 +1,98 @@
+<form [formGroup]="form">
+    <div class="body">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Prize Pool</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <span class="mat-label">Cash</span>
+            </div>
+            <div class="col-md-7">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Cash" type="number" min="1"
+                    (keyup)="blockSpecialChars($event)"
+                    formControlName="cash"
+                        [(ngModel)]="prizePool.cash" trim="blur">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <span class="mat-label">First Place</span>
+            </div>
+            <div class="col-md-7">
+                <mat-form-field class="full-width">
+                    <input matInput type="number" min="1"
+                    (keyup)="blockSpecialChars($event)"
+                    placeholder="First Place" formControlName="firstPlace"
+                        [(ngModel)]="prizePool.firstPlace" trim="blur">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <span class="mat-label">Tickets</span>
+            </div>
+            <div class="col-md-7">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Tickets" type="number" min="1"
+                    (keyup)="blockSpecialChars($event)"
+                    formControlName="tickets"
+                        [(ngModel)]="prizePool.tickets" trim="blur">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <span class="mat-label">Free Bets</span>
+            </div>
+            <div class="col-md-7">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Free Bets" type="number" min="1"
+                    (keyup)="blockSpecialChars($event)"
+                    formControlName="freeBets"
+                        [(ngModel)]="prizePool.freeBets" trim="blur">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <span class="mat-label">Vouchers</span>
+            </div>
+            <div class="col-md-7">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Vouchers" type="number" min="1" 
+                    (keyup)="blockSpecialChars($event)"
+                    formControlName="vouchers"
+                        [(ngModel)]="prizePool.vouchers" trim="blur">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <span class="mat-label">Total Prizes</span>
+            </div>
+            <div class="col-md-7">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Total Prizes" type="number" min="1"
+                    (keyup)="blockSpecialChars($event)"
+                    formControlName="totalPrizes"
+                        [(ngModel)]="prizePool.totalPrizes" trim="blur">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <span class="mat-label">Summary</span>
+            </div>
+            <div class="col-md-7">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Summary e.g. 100 Amazon Vouchers GTD" formControlName="summary"
+                        [(ngModel)]="prizePool.summary" trim="blur">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</form>

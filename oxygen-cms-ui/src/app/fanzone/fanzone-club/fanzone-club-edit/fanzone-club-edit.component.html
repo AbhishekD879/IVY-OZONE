@@ -1,0 +1,73 @@
+<div *ngIf="isReady">
+  <breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+  <div class="card">
+    <div class="header">
+      <h2 class="waves-effect waves-block has-activity-badge">
+        <span [textContent]="FANZONE_CLUB.club"></span>: <span [textContent]="club.title"></span>
+        <create-updated-at-by [collection]="club"></create-updated-at-by>
+      </h2>
+      <header-activity-badge [state]="!club.active"></header-activity-badge>
+    </div>
+  </div>
+  <div>
+    <div class="card">
+      <div class="body">
+        <div class="row">
+          <div class="col-md-2 mb-0">
+            <mat-checkbox color="primary" [checked]="club.active" (change)="club.active = !club.active">
+              <span [textContent]="FANZONE_CLUB.active"></span>
+            </mat-checkbox>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 m-b-0 m-t-20">
+            <date-range [isSetDateButtons]="true" [startDate]="club.validityPeriodStart"
+              [endDate]="club.validityPeriodEnd" [startPlaceholder]="'Validity Period Start Date *'"
+              [endPlaceholder]="'Validity Period End Date *'" [placeholderColumn]="true"
+              (onDateUpdate)="handleDateUpdate($event)">
+            </date-range>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FANZONE_CLUB.title"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Club Title" [(ngModel)]="club.title" [value]="club.title" required
+                trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FANZONE_CLUB.bannerLink"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Club Image Link" [(ngModel)]="club.bannerLink" [value]="club.bannerLink"
+                required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FANZONE_CLUB.description"></span>
+          </div>
+          <div class="col-md-10">
+            <tinymce-editor [pageName]="'promotion'" [pageItemId]="club.id"
+              (outputEditorData)="updatePromotion($event)" [initialEditorContent]="club.description">
+            </tinymce-editor>
+            <input type="text" hidden [(ngModel)]="club.description">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <action-buttons #actionButtons [validateHandler]="validationHandler" [fieldOrItemName]="'title'" [collection]="club"
+    [showRemoveButton]="true" (actionsEmitter)="actionsHandler($event);">
+  </action-buttons>
+</div>

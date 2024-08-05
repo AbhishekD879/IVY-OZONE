@@ -1,0 +1,137 @@
+<div class="card">
+  <div class="header bg-teal">
+    <h2>Types/Events loading</h2>
+  </div>
+  <div class="body">
+    <!-- Select by id type field -->
+    <div class="row">
+      <div class="col-md-3 mat-label">
+        Select by
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="full-width">
+          <mat-select [value]="dataSelection.selectionType"
+                      [(ngModel)]="dataSelection.selectionType"
+                      (selectionChange)="clearUsedIdStates()"
+                      placeholder="Select by" required>
+            <mat-option *ngFor="let option of selectIdTypesOptions" [value]="option">
+              {{selectIdTypesEnum[option]}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Id" (ngModelChange)="clearUsedIdStates()"
+                 [(ngModel)]="dataSelection.selectionId" [value]="dataSelection.selectionId">
+          <mat-hint class="col-red" *ngIf="!dataSelection.selectionId">Please type ids separated by comma</mat-hint>
+          <mat-hint class="col-red" *ngIf="isIdUsed()">Id already used, duplicated ids not allowed</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Events loaded from OB for validation -->
+      <div class="col-md-6 items-block">
+        <div class="header bg-teal event-items-header">
+          <h2>Loaded from OpenBet</h2>
+          <ul class="header-dropdown">
+            <li>
+              <button (click)="applyDataByUser(dataSelection.selectionId, dataSelection.selectionType)"
+                      [disabled]="!canReloadEvents()"
+                      type="button" class="btn btn-xs bg-teal waves-effect header-edit-btn">
+                <i class="material-icons">refresh</i>
+                <span>Reload</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" (click)="applyOpenBetData()"
+                      [disabled]="duplicateLoadedIds.length || !eventsSelection.length"
+                      class="btn btn-xs bg-teal waves-effect header-edit-btn">
+                <i class="material-icons">trending_flat</i>
+                <span>Apply</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <!--Duplicate ids were detected-->
+        <div class="full-width mat-label col-red" *ngIf="duplicateLoadedIds.length">
+          <b>Events in red already applied. Duplicate event ID's are not allowed:</b>
+          <span *ngFor="let event of duplicateLoadedIds; let isLast=last">
+            {{ event.id }}{{ isLast ? '' : ', ' }}
+          </span>
+        </div>
+        <ol class="m-t-30">
+          <li *ngFor="let event of eventsSelection; let i = index;">
+            <span [ngClass]="{'col-red': isIdAlreadyApplied(event.id)}">{{event.name}}</span>
+          </li>
+        </ol>
+
+        <!-- Typed invalid Events ids -->
+        <div class="full-width mat-label col-red" *ngIf="invalidEventIds.length">
+          <b>Invalid ID's:</b>
+          <span>{{ invalidEventIds }}</span>
+        </div>
+      </div>
+      <!-- Events loaded in module -->
+      <div class="col-md-6 items-block">
+        <div class="header bg-teal event-items-header">
+          <h2>Events in Module</h2>
+          <ul class="header-dropdown">
+            <li>
+              <button (click)="removeModuleEvents()"
+                      [disabled]="!appliedSelection.length"
+                      type="button" class="btn btn-xs bg-teal waves-effect header-edit-btn">
+                <i class="material-icons">clear</i>
+                <span>Remove all</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="m-t-30">
+          <b>Loaded Type ID's:</b>
+          <span *ngFor="let id of loadedTypeIds; let i = index">
+            <span>{{id}}</span>
+            <span><a (click)="removeEventId(id);">
+              <i class="material-icons col-red pos-relative mat-top-5 font-21">remove_circle</i>
+            </a></span>
+          </span>
+        </div>
+
+        <div>
+          <b>Loaded Event ID's:</b>
+          <span *ngFor="let id of loadedEventIds; let i = index">
+            <span>{{id}}</span>
+            <span><a (click)="removeEventId(id);">
+              <i class="material-icons col-red pos-relative mat-top-5 font-21">remove_circle</i>
+            </a></span>
+          </span>
+        </div>
+
+        <div class="mat-label" *ngIf="!appliedSelection.length">
+          <b>No events found</b>
+        </div>
+
+        <ol class="m-t-30">
+          <li *ngFor="let event of appliedSelection; let i = index;" class="full-width m-t-15 m-b-15">
+            <span>{{event.name}}</span>
+          </li>
+        </ol>
+         <!--Invalid Events ids loaded in module previously-->
+        <div class="full-width mat-label col-red" *ngIf="invalidEventIdsOnLoad.length">
+          <b>Invalid ID's. Please remove all.</b><br>
+          <span>{{ invalidEventIdsOnLoad }}</span>
+        </div>
+
+        <div class="full-width mat-label p-b-0 m-b-0" *ngIf="invalidEventIdsOnLoad.length">
+          <button mat-button type="button" class="btn bg-red waves-effect" (click)="removeInvalidIds();">
+            <mat-icon>delete_forever</mat-icon>
+            <span>Remove Invalid Ids</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

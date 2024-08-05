@@ -1,0 +1,25 @@
+<div class="quickbet-info-spot" [ngClass]="quickdepositClass">
+  <p class="qb-stake-info" data-crlat="totalStake">
+    <span [i18n]="'quickbet.stakeLabel'" data-crlat="label"></span>
+    <span *ngIf="!selection.freebetValue" class="stake-info-value" [textContent]="getTotalStake()" data-crlat="value"></span>
+    <span class="freebet-stake" data-crlat="combinedStake" *ngIf="selection.freebetValue">
+      <free-bet-label 
+                      [freeBetLabelText]="selection.freeBetOfferCategory" 
+                      [selected]="selection.freebetValue"
+                      [jump]="'jump'"
+                      [plusSuffix]="selection.stakeAmount >= 0">
+      </free-bet-label>
+      <span *ngIf="selection.stakeAmount >= 0" [textContent]="getStake()"></span>
+    </span>
+  </p>
+  <p class="qb-return-info">
+    <span [i18n]="'quickbet.potentialReturns'" data-crlat="estReturnsLabel"></span>
+    <span class="stake-info-value" [textContent]="isCapped()" data-crlat="totalEstReturns"></span>
+  </p>
+</div>
+<p class="qb-fee"
+   data-crlat="taxMessage"
+   *ngIf="isGermanUser"
+   [i18n]="'quickbet.tax5'">
+</p>
+  

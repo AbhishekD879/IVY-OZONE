@@ -1,0 +1,95 @@
+<div *ngIf="showLoader" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+<div class="content" *ngIf="leaderboardData">
+  <div class="outer-layout"*ngIf="lbConfigData && lbConfigData.genericTxt">
+    <div class="generic-text">
+      <label class="generic-text-label" [textContent]="lbConfigData.genericTxt"></label>
+      <!--Need to handle strcuture for place a minimum and max entries-->
+    </div>
+  </div>
+  <ng-container *ngIf="checkUserRank()">
+    <div class="outer-layout">
+      <div class="header-leaderBoard">
+        <label class="header-leaderBoard-label header-leaderboard-entry-label"
+          [textContent]="LEADERBOARD_CONSTANTS.YOUR_ENTRY_LABEL"></label>
+        <label [textContent]="getLastModified()" class="updated-date"></label>
+      </div>
+      <section>
+        <header class="header-row-heading">
+          <ng-container *ngFor="let col of lbConfigData.columns; let hindex = index">
+            <div class="table-col-header non-name-column" [attr.id]="col.originalName"
+            [ngClass]="{'four-column' : lbConfigData.columns.length ===4, 'five-column' : lbConfigData.columns.length ===5}"	
+            *ngIf="!((col.displayName && col.displayName.toUpperCase().includes('NAME') || col.originalName && col.originalName.toUpperCase().includes('NAME')))"
+            [textContent]="col.displayName? col.displayName : col.originalName">
+            </div>
+            <div class="table-col-header name-column" [attr.id]="col.originalName"
+            [ngClass]="{'name-three-column' : lbConfigData.columns.length ===3, 'name-four-column' : lbConfigData.columns.length ===4}"	
+            *ngIf="((col.displayName && col.displayName.toUpperCase().includes('NAME') || col.originalName && col.originalName.toUpperCase().includes('NAME')))"
+            [textContent]="col.displayName? col.displayName : col.originalName">
+            </div>
+          </ng-container>
+        </header>
+        <div class="table-flex header-row">
+          <ng-container  *ngFor="let col of lbConfigData.columns let cindex =index">
+          <div class="table-col non-name-column"
+          [ngClass]="{'four-column' : lbConfigData.columns.length ===4, 'five-column' : lbConfigData.columns.length ===5}"	
+          *ngIf="!((col.displayName && col.displayName.toUpperCase().includes('NAME') || col.originalName && col.originalName.toUpperCase().includes('NAME')))">
+            <span [ngStyle]="getColorStyle()" [ngClass]="getCssClass(col.style)"
+              [textContent]="checkIfMaskingAvailable(col.applyMasking, leaderboardData?.userRank[lbConfigData.columns[cindex].originalName])"></span>
+          </div>
+          <div class="table-col name-column"
+          [ngClass]="{'name-three-column' : lbConfigData.columns.length ===3, 'name-four-column' : lbConfigData.columns.length ===4}"	
+          *ngIf="((col.displayName && col.displayName.toUpperCase().includes('NAME') || col.originalName && col.originalName.toUpperCase().includes('NAME')))">
+          <span class="name-description" [ngStyle]="getColorStyle()" [ngClass]="getCssClass(col.style)"
+            [textContent]="checkIfMaskingAvailable(col.applyMasking, leaderboardData?.userRank[lbConfigData.columns[cindex].originalName])"></span>
+          <span *ngIf="lbConfigData.columns[cindex].subtitle" [ngStyle]="getColorStyle()" [ngClass]="'subtitle'"
+            [textContent]="leaderboardData?.userRank[lbConfigData.columns[cindex]?.subtitle]"></span>
+          </div>
+          </ng-container>
+        </div>
+      </section>
+    </div>
+  </ng-container>
+  <div class="outer-layout">
+    <div class="header-leaderBoard">
+      <label class="header-leaderBoard-label" [textContent]="LEADERBOARD_CONSTANTS.LEADERBOARD_LABEL"></label>
+      <!--Not present as per figma-->
+      <label [textContent]="getLastModified()" class="updated-date" *ngIf="!checkUserRank()"></label>
+    </div>
+    <section>
+      <header class="header-row-heading">
+        <ng-container *ngFor="let col of lbConfigData.columns; let hindex = index">
+          <div class="table-col-header non-name-column"
+          [ngClass]="{'four-column' : lbConfigData.columns.length ===4, 'five-column' : lbConfigData.columns.length ===5}"	
+          *ngIf="!((col.displayName && col.displayName.toUpperCase().includes('NAME') || col.originalName && col.originalName.toUpperCase().includes('NAME')))"
+          [textContent]="col.displayName? col.displayName : col.originalName">
+          </div>
+          <div class="table-col-header name-column"
+          [ngClass]="{'name-three-column' : lbConfigData.columns.length ===3, 'name-four-column' : lbConfigData.columns.length ===4}"	
+          *ngIf="((col.displayName && col.displayName.toUpperCase().includes('NAME') || col.originalName && col.originalName.toUpperCase().includes('NAME')))" 
+          [textContent]="col.displayName? col.displayName : col.originalName">
+          </div>
+        </ng-container>
+      </header>
+      <div class="table-flex header-row" *ngFor="let item of leaderboardData?.topXRank;">
+        <ng-container *ngFor="let col of lbConfigData.columns; let dindex =index">
+          <div class="table-col non-name-column"
+          [ngClass]="{'four-column' : lbConfigData.columns.length ===4, 'five-column' : lbConfigData.columns.length ===5}"	
+          *ngIf="!((col.displayName && col.displayName.toUpperCase().includes('NAME') || col.originalName && col.originalName.toUpperCase().includes('NAME')))">
+            <span [ngClass]="getCssClass(col.style)" [ngStyle]="getColorStyle()"
+              [textContent]="checkIfMaskingAvailable(col.applyMasking ,item[lbConfigData.columns[dindex].originalName])">
+            </span>
+          </div>
+          <div class="table-col name-column"
+          [ngClass]="{'name-three-column' : lbConfigData.columns.length ===3, 'name-four-column' : lbConfigData.columns.length ===4}"	
+          *ngIf="(col.displayName && col.displayName.toUpperCase().includes('NAME') || col.originalName && col.originalName.toUpperCase().includes('NAME'))">
+            <span class="name-description" [ngClass]="getCssClass(col.style)" [ngStyle]="getColorStyle()"
+              [textContent]="checkIfMaskingAvailable(col.applyMasking ,item[lbConfigData.columns[dindex].originalName])">
+            </span>
+            <span *ngIf="lbConfigData.columns[dindex].subtitle" [ngClass]="'subtitle'" [ngStyle]="getColorStyle()"
+              [textContent]="item[lbConfigData.columns[dindex]?.subtitle]"></span>
+          </div>
+        </ng-container>
+      </div>
+    </section>
+  </div>
+</div>

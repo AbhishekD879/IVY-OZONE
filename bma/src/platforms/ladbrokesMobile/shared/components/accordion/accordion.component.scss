@@ -1,0 +1,241 @@
+@import 'global.variables.scss';
+
+.hr-accordion-header {
+  .icons-area .race-next-link {  
+    padding-left:0px !important;    
+    margin: 0 -25px 0 30px; 
+    color: $color-blue-cornflower;
+    padding-left: 30px;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: bold;
+    @include display-flex();
+    @include align-items();
+    span {
+      font-size: $font-size-sm;
+    }
+    svg {
+      margin-left: 5px;
+      height: 8px;
+      width: 5px;
+      fill: $color-blue-cornflower;
+    } 
+  }  
+  &.race-header {  
+    padding: 0px;  
+  }  
+}
+/* Container */
+accordion, aggregated-markets {
+  display: block;
+  overflow: hidden;
+  @include user-select();
+
+  &.is-expanded {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 -1px 2px 0 rgba(0, 0, 0, 0.05);
+
+    & > .accordion-header:not(.inner-header):not(.byb-header):after {
+      display: none;
+    }
+
+    & > .byb-header:after {
+      will-change: transform;
+      transform: rotate(-135deg);
+      margin-top: -3px;
+    }
+
+    .hr-header-section {
+      padding: 10px;
+    }
+
+    // & > .accordion-header:after {
+    //   transform : rotate(-135deg);
+    //   margin-top: -3px;
+    // }
+    & > .inner-header:after {
+      @include transform(rotate(-135deg));
+      margin-top: -3px;
+    }
+
+    & > .forced-chevron-up-and-styles {
+      &:before {
+        position: absolute;
+        content: '';
+        border: solid $color-blue-selected;
+        border-width: 0 2px 2px 0;
+        padding: 3px;
+        top: 50%;
+        margin-top: -6px;
+        right: 15px;
+        @include transform(rotate(-135deg));
+      }
+    }
+  }
+
+
+  &.accordion-margin {
+    box-shadow: none;
+    border-bottom: none;
+    overflow: visible;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+
+  .accordion-header {
+    font-family: $base-font-family;
+    font-size: $font-size-tablet;
+    line-height: 14px;
+    color: $lGray;
+    background: $lGrayLight;
+    font-weight: bold;
+    position: relative;
+    border-top: 1px solid $lGrayDark;
+    border-bottom: 1px solid $lGrayDark;
+    min-height: 36px;
+    padding: 10px 36px 10px 12px;
+    text-transform: uppercase;
+    @include display-flex();
+    @include align-items();
+
+    &:active {
+      background: $IGreyLightDark;
+    }
+
+    &:after {
+      position: absolute;
+      content: '';
+      border: solid $lGray;
+      border-width: 0 2px 2px 0;
+      padding: 3px;
+      will-change: transform;
+      transform: rotate(45deg);
+      top: 50%;
+      margin-top: -6px;
+      right: 15px;
+    }
+
+    &.forced-chevron-up-and-styles {
+      border: 0px;
+      font-size: 15px;
+      font-weight: bold;
+      color: $lGrayLighter;
+      background-color: $color-blue-charcoal;
+      &:after {
+        border-color: $color-blue-selected;
+      }
+    }
+
+    &.inner-header {
+      padding: 0 0 0 32px;
+      font-family: $alt-font-family;
+      font-size: $font-size-lg;
+      line-height: 16px;
+      color: $color-gray-darkest;
+      font-weight: normal;
+      text-transform: none;
+      .header-title{
+        display: inline-block;
+        font-size: $font-size-base;
+        font-family: $alt-font-family;
+        font-weight: 400;
+      }
+
+      &:after {
+        border-color: $color-gray-darkest;
+        right: initial;
+        left: 15px;
+      }
+    }
+
+    .header-title {
+      display: inline-block;
+      font-size: $font-size-tablet;
+      font-family: $base-font-family;
+      font-weight: 700;
+      margin-block: auto;
+    }
+  }
+
+  .seo-content-show {
+    display: block;
+  }
+
+  .seo-content-hide {
+    display: none;
+  }
+}
+
+.outer-rectangle {
+  .accordion-header {
+   max-height: 87px;
+   background: $color-white;
+   border-bottom: none;
+   cursor: pointer;
+   .byb-stats{
+     color: $blue;
+     font-weight: bold;
+   }
+  }
+}
+
+.byb-showcard-market {
+  .accordion-header {
+    cursor: auto;
+    &:after {
+      display: none;
+  }
+  }
+}
+
+.chevron-byb {
+  position: absolute;
+  width: 11px;
+  height: 6px;
+  right: 12px;
+  will-change: transform;
+  transform: rotate(180deg);
+}
+
+.chevron-svg {
+  position: absolute;
+  width: 11px;
+  height: 6px;
+  right: 12px;
+
+  &.left {
+    width: 12px;
+    height: 8px;
+    left: 10px;
+    top: 13px;
+
+    &.chevron-up {
+      visibility: visible;
+    }
+
+    &.chevron-down {
+      will-change: transform;
+      transform: rotate(-180deg);
+    }
+    &.chevron-byb {
+      will-change: transform;
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.hr-header {
+  width: 100%;
+}
+
+.luckyDipSignposting{
+  height: 10px;
+  width: 20px;
+  display: block;
+  padding-left: 2px;
+}

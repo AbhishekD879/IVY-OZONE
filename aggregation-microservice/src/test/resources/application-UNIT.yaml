@@ -1,0 +1,13 @@
+spring:
+  cache:
+    redis:
+      use-key-prefix: false
+      cache-null-values: false
+      time-to-live: 5m
+  redis:
+    host: localhost
+    port: 6379
+image-providers:
+  endpoints:
+    racingpost: https://racingpost/url/
+    teamtalk: http://teamtalk/url/

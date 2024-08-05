@@ -1,0 +1,16 @@
+@Library(value='jenkins-pipeline-lib@master', changelog=false)
+
+def agentLabel     = "dev-slave"
+def entityService  = lcgCommonFunctions.getConstantsParameters("services.buildVoltronFlake8")
+def numToKeep      = 20
+
+def param = [:]
+param = [
+    "agentLabel"      : agentLabel,
+    "entityService"   : entityService,
+    "entityDeploy"    : [
+        "none"
+    ],
+]
+
+lcgJobVoltonFlake8_v1(param)

@@ -1,0 +1,34 @@
+<configuration>
+    <springProfile name="LOCAL">
+        <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+        <appender name="STDOUT_LOCAL" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(%X{user}){blue} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}</pattern>
+            </encoder>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="STDOUT_LOCAL"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="!LOCAL">
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%d{HH:mm:ss.SSS} [%-5level] %X{user} %logger{60} - %message%replace(%xException){"\n",
+                    "\\n"}%nopex%n
+                </pattern>
+            </encoder>
+        </appender>
+
+        <appender name="STDOUT_DEV" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%d{HH:mm:ss.SSS} %-5level [%-30thread] %X{user} %-60logger{60} - %message%n</pattern>
+            </encoder>
+        </appender>
+        <root level="INFO">
+            <appender-ref ref="${LOGBACK_APPENDER:-STDOUT}"/>
+        </root>
+    </springProfile>
+</configuration>

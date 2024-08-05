@@ -1,0 +1,61 @@
+- name: "Create config directories on S3"
+  file:
+    path: "{{ dnsmasq_dir }}"
+    state: directory
+  with_items:
+    - "/mnt/{{ s3mountpoints.0 }}/dnsmasq"
+    - "/mnt/{{ s3mountpoints.0 }}/dnsmasq/dnsmasq.conf.d"
+  loop_control:
+    loop_var: dnsmasq_dir
+
+- name: "Delete /mnt/{{ s3mountpoints.0 }}/dnsmasq/dnsmasq.conf"
+  file:
+    path: "/mnt/{{ s3mountpoints.0 }}/dnsmasq/dnsmasq.conf"
+    state: absent
+
+- name: Provision dnsmasq.conf
+  lineinfile:
+    path: "/mnt/{{ s3mountpoints.0 }}/dnsmasq/dnsmasq.conf"
+    create: yes
+    regexp: "^{{ dnsmasq_line }}"
+    line: "{{ dnsmasq_line }}"
+    state: present
+  with_items:
+    - "#log-queries"
+    - "server=8.8.8.8"
+    - "no-resolv"
+    - "conf-dir=/etc/dnsmasq.d"
+  loop_control:
+    loop_var: dnsmasq_line
+
+- name: Delete crlatDNSMasq Container
+  docker_container:
+    name: crlatDNSMasq
+    image: jpillora/dnsmasq
+    state: absent
+
+- name: Provision crlatDNSMasq Container
+  docker_container:
+    name: crlatDNSMasq
+    image: jpillora/dnsmasq
+    state: started
+    restart: yes
+    restart_policy: always
+    log_driver: none
+    env:
+      USER: "admin"
+      PASS: "secret#1"
+    ports:
+     - "53:53/udp"
+     - "5380:8080"
+    volumes:
+      - "/mnt/{{ s3mountpoints.0 }}/dnsmasq/dnsmasq.conf.d:/etc/dnsmasq.d"
+      - "/mnt/{{ s3mountpoints.0 }}/dnsmasq/dnsmasq.conf:/etc/dnsmasq.conf"
+- name: Wait crlatDNSMasq port accessible
+  wait_for:
+    port: 5380
+    delay: 10
+    timeout: 320
+    state: started
+
+#TODO: Add conf creation

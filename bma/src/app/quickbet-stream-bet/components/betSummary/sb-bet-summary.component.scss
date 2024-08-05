@@ -1,0 +1,156 @@
+//Global styles
+@import 'global.variables.scss';
+
+$qb-content-side-padding: 12px;
+
+/* Quickbet info section */
+.quickbet-info-spot {
+  background: $color-gray-light;
+  position: relative;
+
+  .qb-stake-info,
+  .qb-return-info {
+    color: $color-gray-dark;
+    width: 100%;
+    text-transform: capitalize;
+    letter-spacing: -0.1px;
+    @include display-flex();
+    @include justify-content(space-between);
+  }
+
+  .free-bet {
+    width: 85px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+    margin-right: 2px;
+  }
+
+  .snb-fb-border {
+    border: 1px solid $color-yellow;
+  }
+
+  .qb-stake-info.qb-overlay-stakes {
+    color: $color-white;
+    display: flex;
+    flex-direction: column;
+    margin-right: 2px;
+    background: rgba(0, 0, 0, 0.4);
+    height: 40px;
+    font-weight: 400;
+    font-size: 13px;
+    padding: 6px;
+    width: 100px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2px;
+    .stake-value-entered {
+      font-weight: 700;
+    }
+    .snb-fb-stake {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .qb-stake-info.qb-overlay-stakes-receipt {
+    color: $color-white;
+    display: flex;
+    flex-direction: row;
+    margin-right: 2px;
+    margin-bottom: 0px;
+    font-weight: 400;
+    font-size: 12px;
+    justify-content: flex-end;
+    align-items: center;
+    .snb-fb-stake {
+      display: flex;
+      flex-direction: row;
+      font-weight: 700;
+      height: 15px;
+    }
+    .snb-stake-text {
+      margin-right: 2px;
+      font-size: 12px;
+    }
+  }
+
+  .qb-stake-info {
+    font-size: 12px;
+    line-height: 15px;
+    margin-bottom: 5px;
+    .free-bet-label{
+      height: 18px;
+      vertical-align: text-top;
+    }
+  }
+
+  .qb-return-info {
+    line-height: 17px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+
+  .qb-return-info.qb-overlay-stakes-receipt {
+    color: $color-white;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    font-size: 12px;
+    .stake-label {
+      font-weight: 400;
+      // font-size: 11px;
+      line-height: 14px;
+      text-align: right;
+      margin-right: 2px;
+    }
+    .stake-returns {
+      font-weight: 700;
+      // font-size: 12px;
+      line-height: 14px;
+      text-align: right;
+    }
+  }
+
+  .qb-return-info.qb-overlay-stakes {
+    color: $color-white;
+    display: flex;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.4);
+    height: 40px;
+    padding: 6px 10px;
+    width: 100px;
+    border-radius: 2px;
+    .stake-label {
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 13px;
+      text-align: right;
+    }
+    .stake-returns {
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 14px;
+      text-align: right;
+    }
+  }
+}
+
+.receipt-summary {
+  background: transparent;
+  // bottom: 6px;
+}
+
+.qb-on-overlay {
+  background: transparent;
+  width: 202px;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2px;
+}
+.qb-with-fb {
+  width: 290px;
+}

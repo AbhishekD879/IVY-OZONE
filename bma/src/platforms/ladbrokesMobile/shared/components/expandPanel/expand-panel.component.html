@@ -1,0 +1,11 @@
+<section class="expand-panel" data-crlat="panelExpand">
+  <header class="expand-panel-heading"
+          (click)="openPanel = !openPanel"
+          [ngClass]="{'active': openPanel}"
+          data-crlat="panelHeader">
+    <div [textContent]="(openPanel? hideCashoutHistory : showCashoutHistory)" data-crlat="title"></div>
+  </header>
+  <div class="expand-panel-body cashout-history" *ngIf="openPanel" data-crlat="panelBody">
+    <ng-content></ng-content>
+  </div>
+</section>

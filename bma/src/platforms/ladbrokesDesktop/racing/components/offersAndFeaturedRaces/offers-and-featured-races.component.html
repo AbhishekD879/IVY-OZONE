@@ -1,0 +1,32 @@
+<accordion *ngIf="allEvents?.length"
+           [accordionTitle]="sectionTitle"
+           [isExpanded]="true"
+           (function)="sendCollapseGTM()"
+           data-crlat="outerAccordion">
+  <accordion-body>
+    <ng-container *ngFor="let key of raceKeys">
+      <ng-container *ngIf="groupedEvents[key]?.events?.length">
+        <div class="label-panel">
+          <div class="racing-label">
+            <svg class="racing-icon" [attr.data-crlat]="'promotionIcon.' + key">
+              <use [attr.xlink:href]="groupedEvents[key].svgId"></use>
+            </svg>
+            {{ groupedEvents[key].name }}
+          </div>
+        </div>
+        <list-card *ngFor="let event of groupedEvents[key].events; trackBy: trackById"
+                   [link]="event.link"
+                   [title]="event.originalName"
+                   [item]="event"
+                   (clickFunction)="goToEvent(event)" class="epr">
+                   <lazy-component *ngIf="event"
+                   moduleUri="@lazy-modules-module/extraPlaceSignposting/extra-place-signposting.module#ExtraPlaceSignpostingModule"
+                   [inputs]="{marketData: event.markets[0],origin:'offers',changeStrategy: changeStrategy}" 
+                   entryComponent="ExtraPlaceSignpostingComponent">
+                 </lazy-component>
+          <span *ngIf="event.odds" class="list-card-odds" [innerHTML]="event.odds"></span>
+        </list-card>
+      </ng-container>
+    </ng-container>
+  </accordion-body>
+</accordion>

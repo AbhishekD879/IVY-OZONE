@@ -1,0 +1,33 @@
+<div [ngClass]="{'active': isActive, 'quick-switch-mobile': isMobile}" class="quick-switch">
+  <div class="quick-switch-holder quick-switch-section" [ngClass]="{'quick-switch-holder-mobile': isMobile, 'quick-switch-holder-desktop': !isMobile}" data-crlat="quickSwitchHolder">
+    <header [ngClass]="{'quick-switch-title': isCoral, 'quick-switch-title-lads': isLadbrokes}" data-crlat="quickSwitchTitle">
+      <strong>Matches</strong>
+      <button class="close-menu" (click)="closeMenu(true)">
+        <svg class="close-icon">
+          <use xlink:href="#close-icon"></use>
+        </svg>
+      </button>
+    </header>
+    <div class="quick-switch-frame" [ngClass]="{'quick-switch-frame-mobile':isMobile, 'quick-switch-frame-lads': isLadbrokes, 'quick-switch-frame-coral': isCoral, 'quick-switch-frame-mobile-ios-coral' : isIosWrapper && isCoral}" data-crlat="quickSwitchFrame">
+      <switchers *ngIf="isLoaded || showNoEvents" class="tab-switchers" [type]="'scrollable'" [switchers]="switchers" [activeTab]="activeTab"
+        (switchAction)="selectTab($event)" [noPaddings]="true" [noMargin]="true" [detectGTMLocation]="'location'" [preventReload]="true">
+      </switchers>
+      <div *ngIf="!(isLoaded && showNoEvents)" [ngClass]="{'sk-loading': !isLoaded}">
+        <loading-screen [displayed]="!isLoaded" [templateType]="'GENERIC'"></loading-screen>
+      </div>
+      <lazy-component *ngIf="isLoaded" [inputs]="{ eventsByCategory: eventsByCategory,
+        sport: sport,
+        isLoaded: isLoaded,
+        sportId: sportId,
+        competitionPage: true,
+        inner: true,
+        eventQuickSwitch: true,
+        filteredQuickSwitchEvents: filteredQuickSwitchEvents}" (init)="initLazyHandler()" data-crlat="accordionsList"
+        moduleUri="@lazy-modules-module/competitionsSportTab/competitionsSportTab.module#CompetitionsTabModule"
+        entryComponent="{{!isMobile ? 'DesktopCompetitionsMatchesTabComponent' : 'CompetitionsMatchesTabComponent'}}">
+      </lazy-component>
+      <no-events *ngIf="showNoEvents" [eventQuickSwitch]="true"></no-events>
+    </div>
+  </div>
+  <span class="close-panel" (click)="closeMenu()"></span>
+</div>

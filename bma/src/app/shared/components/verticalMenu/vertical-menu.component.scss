@@ -1,0 +1,25 @@
+@import 'global.variables.scss';
+
+@mixin links-list-panel {
+  .list-item-link {
+    .item-name {
+      width: 100%;
+      white-space: nowrap;
+    }
+    .item-description {
+      display: block;
+      text-overflow: ellipsis;
+      white-space: normal;
+    }
+  }
+}
+.noHeaderMargin {  
+  margin: 0 0 2px;
+  padding: 0;
+  list-style: none;
+  box-shadow: none;
+  @include links-list-panel();
+}
+.vertical-menu {
+  @include links-list-panel();
+}

@@ -1,0 +1,14 @@
+- name: docker sevice should be start and enabled on boot
+  service:
+    name: docker
+    enabled: yes
+
+- name: Ensure "docker" group present
+  group:
+    name: docker
+    state: present
+
+- name: add ubuntu user to docker group
+  user:
+    name: ubuntu
+    groups: docker

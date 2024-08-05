@@ -1,0 +1,90 @@
+@import 'global.variables.scss';
+
+.scorecast-container {
+  margin: 2px 0 0;
+}
+
+.scorecast-subcontainer {
+  margin-top: 5px;
+  background-color: $color-white;
+  border-radius: 3px;
+}
+
+.switchers-buttons.switchers-buttons--scorecast {
+  padding: 10px 10px 0;
+}
+
+.scorecast-select-scorer-label {
+  padding: 10px 10px 0;
+  margin-bottom: 0;
+  font: bold $font-size-md $base-font-family;
+  color: $color-gray-dark;
+}
+
+.custom-select--scorecast-goalscorer {
+  padding: 10px;
+  .custom-select {
+    margin: 0;
+    select {
+      border: 1px solid $color-gray;
+      border-radius: 4px;
+    }
+  }
+}
+
+.custom-select--scorecast-score,
+.team-col.custom-select--scorecast-score {
+  .custom-select {
+    margin: 0;
+  }
+}
+.event-arrow-icon {
+  width: 27px;
+  height: 10px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -6px;
+  fill: $color-gray-dark;
+  opacity: .85;
+}
+.odds-names-sc {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.cashout-popup-headerD{
+  font-size: $cash-out-popup-header-font-size;
+  font-weight: bold;
+  color: $cash-out-popup-header-color;
+}
+.sc-show {
+  flex-grow: 0;
+  padding: 9px;
+  background-color: $color-white;
+  text-align: center;
+  font-family: $switch-stats-font-family;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 0px;
+  color: $switch-show-color;
+  border: none;
+  width: 100%;
+  height: 33px;
+  text-decoration: none;
+  &:hover{
+    text-decoration: underline;
+    text-decoration-color: $color-blue-alt;
+  }
+  &:active{
+    text-decoration: none;
+    color: darken($color-blue-alt, 25%);
+  }
+}
+
+.container-inner-content-sc {
+  box-shadow: none;
+  background: $color-white;
+}
+

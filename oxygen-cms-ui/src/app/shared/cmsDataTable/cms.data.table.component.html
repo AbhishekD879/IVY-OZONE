@@ -1,0 +1,284 @@
+<table matSort (matSortChange)="sortData($event)"
+  class="custom-table table table-hover table-condensed table-bordered m-b-0"
+  [ngClass]="reorder ? tableUniqueClass : ''">
+  <thead>
+    <tr [ngClass]="background">
+      <ng-container *ngIf="showMarketSwitcher; else nonMarketSwitcher">
+      <th class="table-col-1"></th>
+      <th *ngFor="let column of customTableColumns; let i = index"
+        [ngClass]="{'text-center': (column.alignment === 'center')}" mat-sort-header="{{column.property}}"
+        [attr.colspan]="1" class="table-col-{{column.width || 1}}" scope="col">
+        {{column.name}}
+      </th>
+    </ng-container>
+    <ng-template #nonMarketSwitcher>
+      <th *ngFor="let column of customTableColumns; let i = index"
+        [ngClass]="{'text-center': (column.alignment === 'center')}" mat-sort-header="{{column.property}}"
+        [attr.colspan]="(i == 0 ? 2 : 1)" class="table-col-{{column.width || 1}}" scope="col">
+        {{column.name}}
+      </th>
+    </ng-template>
+      <th *ngFor="let action of actions" scope="col" class="table-col-1">
+        <ng-container *ngIf="action=== 'onPageEdit'">Edit</ng-container>
+        <ng-container *ngIf="action!== 'onPageEdit'">{{action}}</ng-container>
+      </th>
+      <th style="width:1%;" *ngIf="multyRemove" scope="col">
+        <a (click)="removeDataElements();" *ngIf="selectedRows.length > 0">
+          <i class="material-icons col-red">remove_circle</i>
+        </a>
+      </th>
+      <th *ngIf="isAddRowValue" class="table-col-1"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngIf="!cmsDatatable">
+    <tr *ngFor="let dataElement of dataElementsList | async; let i = index;"
+      [ngClass]="{'disabled': dataElement?.disabled, 'not-valid': (dataElement?.isValid === false) }"
+      [class.highlighted]="dataElement?.highlighted">
+
+      <!--drag handler element-->
+      <td *ngIf="reorder" class="drag-handler" [ngClass]="{'disabled': (isSorted || isFiltered)}"><i
+          class="material-icons">swap_vert</i></td>
+
+      <td *ngIf="!reorder" class="number-cell">{{i + 1 + paginationStart}}</td>
+      <!--main table columns-->
+      <td *ngFor="let column of customTableColumns" [ngClass]="{'text-center': (column.alignment === 'center')}"
+        class="shortened-view">
+        <a *ngIf="column.type === 'link'" [routerLink]="getLink(dataElement, column.link)"
+          matTooltip="{{dataElement[column.property]}}">
+          {{dataElement[column.property]}}
+        </a>
+        <a *ngIf="column.type === 'mappingLink'" [routerLink]="getLinkMapping(dataElement, column.link)"
+        matTooltip="{{dataElement[column.property]}}">
+        {{dataElement[column.property]}}
+      </a>
+
+        <i *ngIf="column.type === 'boolean'"
+          class="material-icons col-{{isActiveColumn(dataElement, column) ? 'light-blue' : 'blue-grey'}}">
+          {{isActiveColumn(dataElement, column) ? 'check_circle' : 'cancel'}}
+        </i>
+
+        <span *ngIf="column.type === 'date' && isValidDate(dataElement[column.property])"
+          matTooltip="{{dataElement[column.property] | date : 'yyyy-MM-dd HH:mm:ss a'}}">
+          {{dataElement[column.property] | date : 'yyyy-MM-dd HH:mm:ss a'}}
+        </span>
+
+        <span *ngIf="column.type === 'date' && !isValidDate(dataElement[column.property])"
+          matTooltip="{{dataElement[column.property]}}">
+          {{dataElement[column.property]}}
+        </span>
+
+        <span *ngIf="column.type === 'date-no-time' && isValidDate(dataElement[column.property])"
+          matTooltip="{{dataElement[column.property] | date : 'yyyy-MM-dd HH:mm:ss a'}}">
+          {{dataElement[column.property] | date : 'yyyy-MM-dd'}}
+        </span>
+
+        <span *ngIf="column.type === 'html'">
+          {{getHtmlString(dataElement[column.property])}}
+        </span>
+
+        <span *ngIf="column.type === 'text'">
+          <mat-form-field
+            *ngIf="isLineEdit.show && (isLineEdit.title === dataElement[column.property]) && column.name === 'Display Name'; else line">
+            <input matInput placeholder="Display name" required value="{{dataElement[column.property]}}"
+              [(ngModel)]="updatedName">
+          </mat-form-field>
+          <ng-template #line>
+            {{dataElement[column.property]}}
+          </ng-template>
+        </span>
+
+        <span *ngIf="column.type === 'custom'" class="custom" [innerHTML]="dataElement[column.property]"
+          (click)="column.customOnClickHandler(dataElement, $event, i)">
+        </span>
+        <a *ngIf="column.type === 'autoseo'" class="autoseo" href="javascript:void(0);"
+          (click)="column.customOnClickHandler(dataElement, $event)"
+          matTooltip="{{dataElement[column.property]}}">{{dataElement[column.property]}}
+        </a>
+
+        <span *ngIf="column.type === 'svgIcon'" class="svg-icon highlight-svg">
+          <svg>
+            <use [attr.xlink:href]="'#' + dataElement['svgId']"></use>
+          </svg>
+        </span>
+
+        <span *ngIf="column.type === 'array'">
+          {{ dataElement[column.property] | arrayNoNull }}
+        </span>
+
+        <span *ngIf="column.type === 'nested'">
+          {{getNestedValue(dataElement, column.property)}}
+        </span>
+
+        <span *ngIf="column.type === 'array/link'">
+          <ng-container *ngFor="let item of dataElement[column.property]; let isLast = last">
+            <a [routerLink]="getLink(item, column.link)">{{item[column.link.nameProperty]}}</a><span *ngIf="!isLast">,
+            </span>
+          </ng-container>
+        </span>
+
+        <div *ngIf="column.type === 'select'">
+          <mat-select disableRipple [value]="dataElement[column.activeValue]"
+            (selectionChange)="dataElement.onSelectChangeHandler($event, dataElement.id)">
+            <mat-option *ngFor="let option of dataElement['select']" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-select>
+        </div>
+
+        <span *ngIf="!column.type" matTooltip="{{dataElement[column?.property]}}">
+          {{dataElement[column?.property]}}
+        </span>
+      </td>
+
+      <!--actions column-->
+      <td *ngFor="let action of actions" class="text-center">
+        <a *ngIf="action === 'clone'" (click)="cloneDataElement(dataElement);"><span
+          class="material-icons col-light-blue-grey">content_copy</span></a>
+        <a *ngIf="action === 'remove'" (click)="removeDataElement(dataElement);"><span
+            class="material-icons col-red">remove_circle</span></a>
+        <a *ngIf="action === 'edit'" [routerLink]="getLink(dataElement)"><span
+            class="material-icons col-light-blue-grey">mode_edit</span></a>
+            <a *ngIf="action === 'editMapping'" [routerLink]="getLinkMapping(dataElement)"><span
+              class="material-icons col-light-blue-grey">mode_edit</span></a>
+        <a *ngIf="action === 'onPageEdit'" (click)="editDataElement(dataElement);"><span
+            class="material-icons col-red">mode_edit</span></a>
+        <a *ngIf="action === 'in Line Edit'">
+          <ng-container *ngFor="let column of customTableColumns">
+            <span *ngIf="column.type === 'text' && column.property === 'title'">
+              <span (click)="editInLine(dataElement, false);" class="material-icons col-light-blue-grey"
+                *ngIf="isLineEdit.title !== dataElement[column.property]; else line1">mode_edit</span>
+              <ng-template #line1>
+                <span (click)="editInLine(dataElement, true);" class="material-icons col-green"
+                  *ngIf="isLineEdit.title === dataElement[column.property];">check_circle</span>
+              </ng-template>
+            </span>
+          </ng-container>
+        </a>
+      </td>
+      <td *ngIf="multyRemove">
+        <mat-checkbox color="primary" [disabled]="isRemoveCheckboxEnabled && isRemoveCheckboxEnabled(dataElement)"
+          [checked]="dataElement.multyRowSelected"
+          (change)="dataElement.multyRowSelected = !dataElement.multyRowSelected">
+        </mat-checkbox>
+      </td>
+    </tr>
+  </ng-container>
+    <!--Add new inline row-->
+    <tr *ngIf="addTable">
+      <td></td>
+      <td>
+        <mat-form-field>
+          <input matInput placeholder="Market name" required [(ngModel)]="marketName">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput placeholder="Display name" required [(ngModel)]="displayName">
+        </mat-form-field>
+      </td>
+      <td class="text-center">
+        <a (click)="addMarket(marketName,displayName,aggregated)"><span
+            class="material-icons col-green">check_circle</span></a>
+      </td>
+      <td class="text-center">
+        <a (click)="removeNewMarket()"><span class="material-icons col-red">remove_circle</span></a>
+      </td>
+    </tr>
+    <ng-container *ngIf="potTableData">
+      <tr *ngFor="let data of potTableData.horses; let i=index">
+        <td>
+          {{i+1}}
+        </td>
+        <td>
+          {{data.horseName}}
+        </td>
+        <td>
+          {{data.raceName}}
+        </td>
+        <td>
+          {{data.raceTime}}
+        </td>
+        <td>
+          {{data.rating}}
+        </td>
+        <td>
+          {{data.weight}}
+        </td>
+        <td>
+          {{data.odds}}
+        </td>
+      </tr>
+    </ng-container>
+
+    <ng-container *ngIf="cmsDatatable">
+      <tr *ngFor=" let row of expandedDetails;let i=index">
+        <td *ngIf="!validateNumberOrder" class="drag-handler">
+          <i class="material-icons dragIcon">swap_vert</i>
+        </td>
+        <td *ngIf="validateNumberOrder" class="number-cell number-order" [textContent]="i + 1"></td>
+        <td [ngClass]="row.saved ? 'disabledFileds': ''" class="bybClass1">
+          <mat-form-field>
+            <input matInput required [matTooltip]="row.title" [(ngModel)]="row.title">
+          </mat-form-field>
+        </td>
+        <td [ngClass]="row.saved ? 'disabledFileds': ''" class="bybClass1">
+          <mat-form-field>
+            <input matInput required [matTooltip]="row.eventId" [(ngModel)]="row.eventId">
+          </mat-form-field>
+        </td>
+        <td [ngClass]="row.saved ? 'disabledFileds': ''" class="bybClass1">
+          <mat-form-field>
+            <input matInput required [matTooltip]="row.marketId" [(ngModel)]="row.marketId">
+          </mat-form-field>
+        </td>
+        <td  [ngClass]="{'disabledFileds': row.saved, 'date_align': !row.showDate }" class="bybClass selectDate dateSelection">
+          <mat-form-field class="datePicker" *ngIf="row.showDate">
+            <input type="datetime-local" matInput [matTooltip]="row.displayFrom" required (ngModelChange)="getdata(row,$event,'from')"
+              [(ngModel)]="row.displayFrom">
+          </mat-form-field>
+          <span class="dateAlign dateAlignto" [ngClass]="orderCheck ? 'date_pick' : 'time_pick'" *ngIf="!row.showDate"> {{row.displayFrom1 | date : 'yyyy-MM-dd hh:mm:ss a' }} </span>
+         </td>
+
+        <td [ngClass]="{'disabledFileds': row.saved, 'date_align': !row.showDate }" class="bybClass selectDate">
+          <mat-form-field *ngIf="row.showDate">
+            <input type="datetime-local" matInput [matTooltip]="row.displayTo" required (ngModelChange)="getdata(row,$event,'to')"
+            [(ngModel)]="row.displayTo">
+          </mat-form-field>
+          <span class="dateAlign" *ngIf="!row.showDate"> {{row.displayTo1 | date : 'yyyy-MM-dd hh:mm:ss a' }} </span>
+        </td>
+        <td class="locationTd" [ngClass]="row.saved ? 'disabledFileds': ''" class="bybClass">
+          <mat-form-field class="full-width">
+            <mat-select [matTooltip]="showtoolTip" (ngModelChange)="getCheckList(row)" [(ngModel)]="row.locations"
+              multiple>
+              <mat-option *ngFor="let eventHub of competionList1;let i=index" [value]="eventHub.id">
+                {{ eventHub.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+        <td class="text-center">
+          <a (click)="removeBybRowRecord(row,i)"><span class="material-icons col-red">remove_circle</span></a>&nbsp;
+          <a (click)="saveNewBybMarket(row,'save')" *ngIf="!row.saved"><i class="material-icons">save</i></a>
+          <span (click)="saveNewBybMarket(row,'edit')" *ngIf="row.saved"
+            class="material-icons col-light-blue-grey">mode_edit</span>
+        </td>
+      </tr>
+    
+    </ng-container>
+  </tbody>
+</table><br>
+<div class="col-md-6 addbtn" id="addbtn" *ngIf="!disableButtons">
+  <button *ngIf="(expandedDetails?.length == 0 || showaddButton) && cmsDatatable" (click)="addRow(0)" [disabled]="isAddTable"
+    type="button" class="btn bg-teal waves-effect float-left">
+    <span>Add New</span>
+  </button>
+  <button *ngIf="(expandedDetails?.length > 0 && !showaddButton) && cmsDatatable" (click)="addRow(1)" [disabled]="isAddTable"
+    type="button" class="btn bg-teal waves-effect float-left">
+    <span>Save & Add</span>
+  </button>
+</div>
+
+<cms-data-table-pagination *ngIf="paginationLimit" (goToPage)="goToPage($event)" [range]="paginationRange"
+  [currentIndex]="paginationIndex">
+</cms-data-table-pagination>

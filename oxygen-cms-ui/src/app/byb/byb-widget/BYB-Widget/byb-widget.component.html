@@ -1,0 +1,129 @@
+<div class="card">
+    <div class="header">
+        <h1 mat-dialog-title>BYB Widget</h1>
+        <span><b>General Configuration</b></span>
+    </div>
+    <form [formGroup]="bybForm" *ngIf="dataLoaded">
+        <div class="body">
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">
+                        Display On
+                    </span>
+                </div>
+                <div class="displaList">
+                    <div class="checkBoxList">
+                        <div [ngClass]="i != 0 ? 'checkBoxAdjust': ''" *ngFor="let list of checkBox;let i=index">
+                            <div class="checkContent">
+                                <div>
+                                    <mat-checkbox class="mat-label checkBox" color="primary" [checked]="list.bybVisble"
+                                        [(ngModel)]="list.bybVisble"
+                                        [ngModelOptions]="{standalone: true}"></mat-checkbox>
+                                </div>
+                                <div class="checkLabell">
+                                    <span class="checkLabel" (click)="goToHomepage(list.routerId,i)"><a>{{list.title}}</a>  </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="bybLabel">
+                        <a (click)="gotoBigCompetion()">
+                            <span> >> Big Competition</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">
+                        Widget Title
+                    </span>
+                </div>
+                <div class="col-md-5">
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="title" [(ngModel)]="intialData.title" required trim="blur" />
+                        <mat-hint class="col-red" *ngIf="bybForm?.get('title').invalid && bybForm?.get('title')?.value?.length < 50 && bybForm?.get('title')?.touched">
+                            <div>Widget Title should be entered</div>
+                        </mat-hint>
+                        <mat-hint class="col-red" *ngIf="bybForm?.get('title')?.value?.length > 50">
+                            <div>Widget Title Name should be max 50 characters</div>
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="mat-label">
+                        Market Card Visible Selections
+                    </span>
+                </div>
+                <div class="col-md-2">
+
+                    <mat-form-field class="full-width">
+                        <input matInput type="number" min="2" max="5" trim="blur"
+                            onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                            (focusout)="(intialData.marketCardVisibleSelections = +intialData.marketCardVisibleSelections)"
+                            formControlName="marketCardVisibleSelections" (input)="marketVisibleSelection($event)"
+                            [(ngModel)]="+intialData.marketCardVisibleSelections"
+                            (blur)="onMarketCardSelectionsChange(intialData.marketCardVisibleSelections)" />
+                        <mat-hint class="col-red"
+                            *ngIf="(bybForm?.get('marketCardVisibleSelections').invalid && bybForm?.get('marketCardVisibleSelections').touched) && (bybForm?.get('marketCardVisibleSelections').hasError('min'))">
+                            *Min Selections should not be less than 2
+                        </mat-hint>
+                        <mat-hint class="col-red"
+                            *ngIf="(bybForm?.get('marketCardVisibleSelections').invalid && bybForm?.get('marketCardVisibleSelections').touched) && bybForm?.get('marketCardVisibleSelections').hasError('max') || showMaxError">
+                            *Max Selections should not be greater than 5
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-checkbox class="mat-label" color="primary" [(ngModel)]="intialData.showAll"
+                            formControlName="showAll">Show
+                            All (Enable Pagination)</mat-checkbox>
+                    </div>
+                </div>
+            </div>
+            <div class="header headerLabel">
+                <b> <span [textContent]="BYB_HEAD.activeMarketHeading"></span></b>
+            </div>
+            <div class="cmsDataTable" *ngIf="showCmsDataTable">
+                <cms-data-table [expandedDetails]="marketsData" [savedSuccessFully]="savedSuccessFully" [competionList1]="competionList1" [cmsDatatable]="cmsDatatable"
+                    [customTableColumns]="dataTableColumns" [reorder]="true" [isAddTable]="isAddTable" [disableButtons]="false"
+                    [isAddRowValue]="isAddRowValue" (addNewBybToList)="addNewBybRow($event)" (addList)="addList($event)"
+                    (removeBybRow)="removeBybRow($event)" (onElementsOrder)="reorderHandler($event)"
+                    [showaddButton]="showaddButton">
+                </cms-data-table>
+            </div>
+
+            <br>
+
+            <!-- <div class="col-md-6">
+                <button (click)="addRow();" [disabled]="isAddTable" type="button" class="btn bg-teal waves-effect float-left">
+                    <i class="material-icons">add_box</i>
+                    <span *ngIf="!isAddRowValue">Add</span>
+                    <span *ngIf="isAddRowValue" (click)="saveAndAdd()">Save & Add</span>
+                </button>
+            </div> -->
+            <br><br>
+
+            <div class="header headerLabel">
+                <b> <span [textContent]="BYB_HEAD.expiredMarketHeading"></span></b>
+            </div>
+            <div class="cmsDataTable" *ngIf="showExpiredDataTable">
+                <cms-data-table [expandedDetails]="expiredData" [savedSuccessFully]="savedSuccessfully"
+                    [competionList1]="competionList1" [cmsDatatable]="cmsDatatable" [disableButtons]="true"
+                    [customTableColumns]="dataTableColumns" [isAddTable]="isAddTable" [validateNumberOrder]="true"
+                    [isAddRowValue]="isAddRowValue" (addNewBybToList)="addNewBybRow($event)" (addList)="addList($event)"
+                    (removeBybRow)="removeExpiredData($event)" [background]="'bg-orange'"></cms-data-table>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="dataLoaded">
+    <action-buttons #actionButtons [collection]="bybForm.value" (actionsEmitter)="actionsHandler($event);"
+        [validateHandler]="isValidForm" [fieldOrItemName]="'byb Widget Details'" [showRemoveButton]="false"></action-buttons>
+</div>

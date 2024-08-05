@@ -1,0 +1,67 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="!isLoading">
+  <div class="header">
+    <h2>View Purge Data: <span class="font-italic">{{purge.purgeID}}</span></h2>
+    <create-updated-at-by [collection]="purge"></create-updated-at-by>
+  </div>
+</div>
+<div class="card" *ngIf="!isLoading">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <label>File Names:</label>
+      </div>
+      <div class="col-md-10">
+        <span>{{purge.domains}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <label>HTTP Status</label>
+      </div>
+      <div class="col-md-10">
+        <span>{{purge.status}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <label>Submission Time</label>
+      </div>
+      <div class="col-md-10">
+        <span>{{purge.createdAt | date:'yyyy-MM-dd HH:mm:ss a'}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <label>Estimated Time (sec)</label>
+      </div>
+      <div class="col-md-10">
+        <span>{{purge.estimatedTime}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <label>Progress URI</label>
+      </div>
+      <div class="col-md-10">
+        <a href="{{processUrlSrc}}" target="_blank">{{purge.progressURI}}</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <label>Request Type</label>
+      </div>
+      <div class="col-md-10">
+        <span>{{purge.type}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <label>Support ID</label>
+      </div>
+      <div class="col-md-10">
+        <span>{{purge.supportID}}</span>
+      </div>
+    </div>
+  </div>
+</div>

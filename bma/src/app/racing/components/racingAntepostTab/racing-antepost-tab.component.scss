@@ -1,0 +1,13 @@
+@import 'global.variables.scss';
+
+racing-antepost-tab:host list-card::ng-deep {
+  font-weight: bold;
+
+  .list-card-name {
+    font-size: $font-size;
+  }
+
+  .list-card-date {
+    font-size: $font-size-md;
+  }
+}

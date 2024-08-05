@@ -1,0 +1,19 @@
+<modal #yourCallTabDialog id="yourCallTabDialog"
+       class="yourcall-tab-dialog dialog-container page-container styled-one-box"
+       data-crlat="d.yourCallTab">
+  <ng-template #modalHeader>
+    <span class="container-header" data-uat="popUpTitle">
+      <div class="cross-wrap" (click)="closeDialog(); params.decline();">
+      </div>
+      <span class="header-title" [i18n]="'yourCall.yourcallTabDialogTitle'"></span>
+    </span>
+  </ng-template>
+  <ng-template #modalBody>
+    <div data-uat="popUpText" class="container-content text-section">
+      <div class="alert-desc" [i18n]="'yourCall.yourcallTabDialogDesc'"></div>
+      <div class="buttons-container">
+        <button class="ok-btn" [i18n]="'yourCall.ok'" (click)="closeDialog(); params.leave()"></button>
+      </div>
+    </div>
+  </ng-template>
+</modal>

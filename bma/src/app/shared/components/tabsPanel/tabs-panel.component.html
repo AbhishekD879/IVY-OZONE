@@ -1,0 +1,25 @@
+<div class="tabs-panel" data-crlat="panel.tabs">
+  <div class="scroll-container" scrollable [rescrollOnChange] ="tpActiveTab?.id">
+    <ul *ngIf = "tpTabs.length"
+        [ngClass]="{'flex-tabs': tbClass}"
+        class="scroll-inner"
+        data-crlat="tabs">
+      <ng-container *ngFor="let tab of tpTabs">
+        <li *ngIf="!tab.hidden"
+            [ngClass]="{'active': setActiveClass(tab), 'disabled': tab.disabled}"
+            data-crlat="tab.tpTabs">
+          <a class="tab"
+             (click)="clickFunction(tab, $event)"
+             [attr.href]="tab.url"
+             data-crlat="tab">
+            <span *ngIf="tab.isFiveASideNewIconAvailable" class="badge-new">NEW</span>
+            <svg class="tab-icon" *ngIf="tab.iconId">
+              <use [attr.xlink:href]="tab.iconId"></use>
+            </svg>
+            <span [textContent]="tab.title"></span>
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</div>

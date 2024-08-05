@@ -1,0 +1,349 @@
+@import 'global.variables.scss';
+
+.content {
+  position: relative;
+}
+
+.video_overlays {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+body { margin: 0; }
+
+video::backdrop{
+  background-color: brown;
+}
+
+.vo-question {
+    background-color: rgba(252, 250, 250, 0.85);
+    margin-right: 5px !important;
+    display: flex;
+    flex-flow: column;   
+}
+.markets-container {
+  display: flex;
+  width: 100%;
+  padding-left: 28px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+.markets-container::-webkit-scrollbar {
+  display: none;
+}
+.overlay-header-container {
+  position: absolute;
+  top: 12.5px;
+  left: 28px;
+  display: flex;
+  justify-content: space-between;
+  width: calc(100% - 56px);
+  @media screen and (min-width: 1026px) {
+    top: 12.5px;
+  }
+  .left-data {
+    display: flex;
+    .show-hide-btn {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 6px 8px;
+      width: 40px;
+      height: 24px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 2px;
+      font-family: $base-font-family;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 10px;
+      line-height: 12px;
+      letter-spacing: -0.0061px;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      margin-right: 12px;
+    }
+    .event-details {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 6px 8px;
+      height: 24px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 2px;
+  
+      .event-name {
+        height: 12px;
+        font-family: $base-font-family;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 10px;
+        line-height: 12px;
+        letter-spacing: -0.0061px;
+        text-transform: uppercase;
+        color: #FFFFFF;
+        margin-right: 6px;
+      }
+      .inplay-icon {
+        height: 11px;
+        width: 11px;
+        margin-right: 6px;
+        vertical-align: middle;
+      }
+      .live-text {
+        height: 11px;
+        width: 20px;
+        font-family: $base-font-family;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 10px;
+        line-height: 12px;
+        letter-spacing: -0.004575px;
+        text-transform: uppercase;
+        color: #FFFFFF;
+      }
+    }
+  }
+  .right-data {
+    .balance-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 3px 6px;
+      // width: 70px;
+      height: 24px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 2px;
+      svg {
+        width: 22px;
+        height: 18px;
+        margin-right: 4px;
+      }
+      .balance {
+        font-family: $base-font-family;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 10px;
+        line-height: 12px;
+        letter-spacing: -0.0061px;
+        color: #FFFFFF;
+      }
+    }
+  }
+}
+
+.overlay-wrapper {
+    position: absolute;
+    width: 100%;
+    // margin-left: 10px !important;
+    bottom: 45px;
+    display: flex;
+    transition: bottom 0.2s linear;
+
+    &.hide-markets {
+      bottom: -90px;
+      transition: bottom 0.2s linear;
+    }
+}
+.show-quickBet{
+  display: inline-block;
+}
+.hide-quickBet{
+  display: none;
+}
+.odd-selection {
+  top: 100px !important;
+  position: fixed;
+  @media screen and (min-width: 1026px) {
+    top: 360px !important;
+    position: fixed;
+  }
+}
+.overlay-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.vo-question-mw {
+  position: absolute;   
+  background-color: rgba(252, 250, 250, 0.85);
+  width: 40%;
+  margin-left: 10px;
+  top: 100px;
+}
+
+.container-inner-content {
+  margin: 0 0 5px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.col-bordered .col-inner .col-name {  
+  font-weight: normal;
+  text-transform: uppercase;
+  font-size: 10px;
+  padding: 0 0 5px 0;
+}
+
+.row {
+  margin-left: 10px;
+}
+
+.stake-input {
+  width: 50px !important;
+}
+
+
+.outcome-selected {
+  color: black;
+  font-size: 12px;
+}
+
+.secondary-btn {
+  background-color: red;
+  color: white;
+  padding: 15px;
+}
+
+.primary-btn {
+  background-color: green;
+  color: white;
+  padding: 15px;
+}
+
+.outcome-align{
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 5px;
+}
+
+
+.Rectangle {
+  //width: 250px;
+  height: 100px;
+  margin: 0 8px 0 0;
+  border-radius: 2px;
+  background-color: rgb(215, 224, 224); //#8b8889; // rgb(156 143 143 / 20%);
+  display:flex;
+  flex-direction: column;
+  padding: 5px;
+  width: 300px;
+}
+
+span {
+  width: 30px;
+  height: 16px;
+  margin: 0 0 1px;
+  font-family: $alt-font-family;
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.01px;
+  text-align: center;
+  color: #fff;
+}
+.Bitmap {
+  width: 42px;
+  height: 30px;
+  margin: 5px 6px 5px 0;
+  background-color: rgba(0, 2.2, 2.2, 0.2);
+}
+.Horse-Name {
+  width: 100px;
+  height: 16px;
+  margin: 12px 12px 12px 6px;
+  font-family: $alt-font-family;
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #fff;
+  //background-color: rgba(0, 0.2, 0.2, 0.2);
+}
+.Odds {
+  width: 50px;
+  height: 14px;
+  font-family: $alt-font-family;
+  font-size: 12px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.01px;
+  text-align: center;
+  color: #fff;
+  //background-color: rgba(0, 1.2, 1.2, 1.2);
+  margin: 15px;
+}
+.span-hr {
+  width: 30px;
+  height: 11px;
+  margin: 1px 0 0;
+  font-family: $alt-font-family;
+  font-size: 9px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.01px;
+  text-align: center;
+  color: #fff;
+}
+.hr-position {
+display:flex;
+    flex-direction: column;
+	margin: 5px;
+
+}
+.Rectangle-odds {
+  width: 50px;
+  //height: 40px;
+  margin: 0 0 0 12px;
+  padding: 13px 0;
+  background-color: rgba(0, 0, 0, 0.4);
+      display: flex;
+    align-items: center;
+}
+.hr-item-odds
+{
+
+display: flex;
+    justify-content: space-between;
+    height: 50px;
+}
+.col-hr-odds {
+background-color: #EDEFF5;
+    width: 200px;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    margin-right: 5px;
+}
+.col-inner-odds {
+display: flex;
+    flex-direction: column;
+}
+.col-name-odds {
+    font-size: 8px !important;
+    //margin-bottom: 10px;
+	margin-top: 5px;
+}
+.ww-temp {
+margin-left: 10px;
+}
+button {
+margin: auto;
+color: green;
+}

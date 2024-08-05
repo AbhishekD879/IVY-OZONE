@@ -1,0 +1,37 @@
+<ng-container *ngIf="isTimelineAvailable">
+  <slider-panel
+    (stateChange)="onStateChange($event)"
+    (reloadTimeline)="onTimelineReload($event)"
+    (loadMore)="loadMore()"
+    [displayedPosts]="posts"
+    [visible]="timelineOpened"
+    [allPostsLoaded]="allPostsLoaded"
+    [showSkeleton]="showSkeleton"
+    [isReconectedFailedMsg]="isReconectedFailedMsg"
+    [priceButtonClasses]="priceButtonClasses"
+    [isBrandLadbrokes]="isBrandLadbrokes"
+    [gtmModuleBrandName]="gtmModuleBrandName"
+  ></slider-panel>
+
+  <timeline-tutorial-overlay
+    [timelineSettings]="timelineSettings"
+    [isBrandLadbrokes]="isBrandLadbrokes"
+  ></timeline-tutorial-overlay>
+
+  <div class="timeline-bar-container" *ngIf="this.tutorialReady && !this.timelineOpened && !this.bybShown">
+    <div class="timeline-bar" [ngClass]="isBrandLadbrokes ? 'lads-bar-background' : 'coral-bar-background'" 
+    (click)="onStateChange(true)">
+      <div class="title" [i18n]="isBrandLadbrokes ? 'timeline.ladbrokesTitle' : 'timeline.coralTitle'"></div>
+      <div class="new-badge" [ngClass]="isBrandLadbrokes ? 'lads-badge-background' : 'coral-badge-background'" 
+      *ngIf="isNewPostIconDisplayed"></div>
+    </div>
+  </div>
+
+  <svg-list
+    id="iconsSprite_cmsTimeline"
+    *ngIf="timelineIcons"
+    [list]="timelineIcons"
+    [keepStyles]="true"
+  ></svg-list>
+
+</ng-container>

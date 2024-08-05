@@ -1,0 +1,4 @@
+export const IGM_CONSTANT = {
+  FAILURE_ERROR: ['8502', '4104'],
+  INACTIVE_ERROR: ['4105']
+};

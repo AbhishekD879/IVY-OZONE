@@ -1,0 +1,51 @@
+@import 'global.variables.scss';
+
+:host {
+
+  .free-bet-label {
+    height: 15px;
+
+    .plus {
+      @include display-flex();
+      @include align-items();
+    }
+
+    .free-bet-label-content {
+      &.sb-fb {
+        background: #FAC031;
+        border-radius: 2px;
+        height: 15px;
+      }
+
+      .free-bet-icon {
+        background: $color-yellow-alt;
+
+        svg {
+          margin: 1px 2px 0px 3px;
+          padding-top: 1px;
+          width: 12px;
+          height: 12px;
+        }
+      }
+      .free-bet-text {
+        background: $lGrayLight;
+        border: 1px solid $color-yellow-alt;
+
+        .free-bet-value {
+          font-size: $font-size-md;
+          font-family: $base-font-family;
+          color: $lGray;
+          font-weight: 700;
+          letter-spacing: 0px;
+          margin: 0.5px 3px 1px;
+          height: 11px;
+          line-height: 13px;
+        }
+        
+        &.sb-fb-background {
+          background: #FAC031;
+        }
+      }
+    }
+  }
+}

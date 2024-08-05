@@ -1,0 +1,15 @@
+<accordion *ngIf="data.verdict"
+           [isExpanded]="true"
+           [headerClass]="'secondary-header'">
+  <left-side>
+    <lazy-component moduleUri="@lazy-modules-module/racingPostVerdict/racing-post-verdict.module#RacingPostVerdictModule"
+      entryComponent="LadbrokesRacingPostVerdictLabelComponent">
+    </lazy-component>
+  </left-side>
+  <accordion-body>
+    <lazy-component
+      moduleUri="@lazy-modules-module/racingPostVerdict/racing-post-verdict.module#RacingPostVerdictModule"
+      [inputs]="{ data: data, eventEntity: eventEntity, showMap: true }" entryComponent="LadbrokesRacingPostVerdictComponent">
+    </lazy-component>
+  </accordion-body>
+</accordion>

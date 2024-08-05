@@ -1,0 +1,171 @@
+# todo:     VOL-4858 [SiteServe] Get constants from SS response
+from collections import namedtuple
+
+from voltron.environments.constants.base.siteserve import SiteServe
+
+
+class LadbrokesSiteServe(SiteServe):
+
+    # America football league name
+    NCCA = 'NCAA'
+    NCCA_BOWLS = 'NCAA BOWLS'
+
+    # countries
+    ENGLAND = 'ENGLISH'
+    SPAIN = 'SPANISH'
+
+    # Sport tabs
+    TENNIS_TAB = 'Tennis'
+    FOOTBALL_TAB = 'Football'
+    HANDBALL_TAB = 'Handball'
+    BEACH_VOLLEYBALL = 'Beach Volleyball'
+    IN_PLAY_TAB = 'IN-PLAY'  # todo VOL-4885
+
+    _expected_market_tab_keys = namedtuple('expected_market_tab_keys',
+                                           ['all_markets', 'main', 'main_markets', 'goal_markets', 'game',
+                                            'other_markets', 'autotest_collection', 'build_your_bet',
+                                            'current_game_1st_point', 'set_1_game_1_deuce', 'five_a_side', 'get_a_price'])
+
+    EXPECTED_MARKET_TABS = _expected_market_tab_keys(all_markets='ALL MARKETS',
+                                                     main='MAIN',
+                                                     main_markets='MAIN MARKETS',
+                                                     goal_markets='GOAL MARKETS',
+                                                     game='GAME',
+                                                     other_markets='OTHER MARKETS',
+                                                     autotest_collection='AUTOTEST COLLECTION',
+                                                     build_your_bet='BET BUILDER',
+                                                     current_game_1st_point='CURRENT GAME 1ST POINT',
+                                                     set_1_game_1_deuce='SET 1 GAME 1 DEUCE',
+                                                     five_a_side='5-A-SIDE',
+                                                     get_a_price='#GETAPRICE')
+
+    _expected_markets = namedtuple('expected_markets', ('main_markets', 'match_result', 'both_teams_to_score', 'next_team_to_score',
+                                                        'total_goals_over_under_1_5', 'over_under_total_goals',
+                                                        'score_goal_in_both_halves', 'draw_no_bet',
+                                                        'match_result_and_both_teams_to_score',
+                                                        'first_half_result', 'to_win_to_nil', 'to_win_not_to_nil',
+                                                        'extra_time_result', 'penalty_shoot_out_winner', 'to_qualify',
+                                                        'match_betting', 'total_goals_over_under_2_5',
+                                                        'total_goals_over_under_3_5', 'total_goals_over_under_4_5',
+                                                        'match_result_default', 'three_ball_betting', 'two_ball_betting',
+                                                        'money_line', 'sixty_minutes_betting', 'puck_line',
+                                                        'total_goals_2_way', 'total_points', 'handicap_2_way', 'spread',
+                                                        'home_team_total_points', 'away_team_total_points',
+                                                        'half_total_points', 'quarter_total_points',
+                                                        'most_180s', 'total_180s_over_under', 'handicap',
+                                                        'match_set_handicap', 'total_match_points', 'fight_betting',
+                                                        'total_frames', 'rugby_handicap', 'total_sixes',
+                                                        'next_over_runs', 'team_runs', 'runs_at_fall_of_next_wicket',
+                                                        'total_runs', 'run_line', 'sixty_minute_betting', 'half_time_full_time','two_up_Instant_Win',
+                                                        'no_draw_handicap_1', 'no_draw_handicap_2', 'no_draw_handicap_3', 'Handicap_Betting',
+                                                        'Lucky_Dip', 'twoUpWin_early_payout','twoUp_Win_early_payout', 'over_under_total_goals_3_5'))
+    EXPECTED_MARKETS_NAMES = _expected_markets(match_result='Match Betting',
+                                               match_result_default='Match Result',
+                                               both_teams_to_score='Both Teams to Score',
+                                               next_team_to_score='Next Team to Score',
+                                               extra_time_result='Extra Time Result',
+                                               total_goals_over_under_1_5='Total Goals Over/Under 1.5',
+                                               total_goals_over_under_2_5='Total Goals Over/Under 2.5',
+                                               total_goals_over_under_3_5='Total Goals Over/Under 3.5',
+                                               total_goals_over_under_4_5='Total Goals Over/Under 4.5',
+                                               over_under_total_goals='Total Goals Over/Under 1.5',
+                                               score_goal_in_both_halves='Score Goal in Both Halves',
+                                               match_result_and_both_teams_to_score='Match Result & Both Teams To Score',
+                                               draw_no_bet='Draw No Bet',
+                                               first_half_result='1st Half Result',
+                                               to_win_to_nil='To Win To Nil',
+                                               to_win_not_to_nil='To Win Not to Nil',
+                                               penalty_shoot_out_winner='Penalty Shoot-Out Winner',
+                                               to_qualify='To Qualify',
+                                               main_markets='Main Markets',
+                                               match_betting='Match Betting',
+                                               three_ball_betting='3 Ball Betting',
+                                               two_ball_betting='2 Ball Betting',
+                                               money_line='Money Line',
+                                               sixty_minutes_betting='60 Minutes Betting',
+                                               sixty_minute_betting='60 Minute Betting',
+                                               puck_line='Puck Line',
+                                               total_goals_2_way='Total Goals 2-way',
+                                               total_points='Total Points',
+                                               handicap_2_way='Handicap 2-way',
+                                               spread='Spread',
+                                               home_team_total_points='Home Team Total Points',
+                                               away_team_total_points='Away Team Total Points',
+                                               half_total_points='Current Half Total Points',
+                                               quarter_total_points='Current Quarter Total Points',
+                                               most_180s='Most 180s',
+                                               total_180s_over_under='Total 180s', handicap='Handicap',
+                                               match_set_handicap='Set Handicap',
+                                               total_match_points='Total Points',
+                                               fight_betting='Fight Betting',
+                                               total_frames='Total Frames',
+                                               rugby_handicap='Handicap 2-way',
+                                               total_sixes='Total Sixes',
+                                               next_over_runs='Next Over Runs',
+                                               team_runs='Team Runs',
+                                               runs_at_fall_of_next_wicket='Runs at Fall of Next Wicket',
+                                               total_runs='TOTAL RUNS',
+                                               run_line='RUN LINE',
+                                               half_time_full_time='Half-time/Full-time',
+                                               two_up_Instant_Win='2Up - Instant Win',
+                                               no_draw_handicap_1='No Draw Handicap 1',
+                                               no_draw_handicap_2='No Draw Handicap 2',
+                                               no_draw_handicap_3='No Draw Handicap 3',
+                                               Handicap_Betting='Handicap Betting',
+                                               Lucky_Dip='Lucky Dip',
+                                               twoUpWin_early_payout='2Up&Win - Early Payout',
+                                               twoUp_Win_early_payout='2Up&Win Early Payout',
+                                               over_under_total_goals_3_5='Over/Under Total Goals 3.5')
+
+    EXPECTED_MARKET_SECTIONS_TITLE = SiteServe._expected_market_section_keys(
+        match_result=SiteServe.EXPECTED_MARKET_SECTIONS.match_betting.title(),
+        # there's no 'match result' market on ladbrokes ui by default
+        outright=SiteServe.EXPECTED_MARKET_SECTIONS.outright.title(),
+        correct_score=SiteServe.EXPECTED_MARKET_SECTIONS.correct_score.title(),
+        first_half_correct_score=SiteServe.EXPECTED_MARKET_SECTIONS.first_half_correct_score.title(),
+        second_half_correct_score=SiteServe.EXPECTED_MARKET_SECTIONS.second_half_correct_score.title(),
+        scorecast=SiteServe.EXPECTED_MARKET_SECTIONS.scorecast.title(),
+        handicap_results=SiteServe.EXPECTED_MARKET_SECTIONS.handicap_results.title(),
+        popular_goalscorer_markets=SiteServe.EXPECTED_MARKET_SECTIONS.popular_goalscorer_markets.title(),
+        other_goalscorer_markets=SiteServe.EXPECTED_MARKET_SECTIONS.other_goalscorer_markets.title(),
+        yourcall_specials_football=SiteServe.EXPECTED_MARKET_SECTIONS.yourcall_specials_football.title(),
+        yourcall_specials=SiteServe.EXPECTED_MARKET_SECTIONS.yourcall_specials_football.title(),
+        yourcall=SiteServe.EXPECTED_MARKET_SECTIONS.yourcall.title(),
+        extra_time_result=SiteServe.EXPECTED_MARKET_SECTIONS.extra_time_result.title(),
+        over_under_goals=SiteServe.EXPECTED_MARKET_SECTIONS.over_under_goals.title(),
+        over_under_total_goals=SiteServe.EXPECTED_MARKET_SECTIONS.over_under_total_goals.title(),
+        match_betting=SiteServe.EXPECTED_MARKET_SECTIONS.match_betting.title(),
+        player_bets=SiteServe.EXPECTED_MARKET_SECTIONS.player_bets.title(),
+        player_total_passes=SiteServe.EXPECTED_MARKET_SECTIONS.player_total_passes.title(),
+        player_total_goals=SiteServe.EXPECTED_MARKET_SECTIONS.player_total_goals.title(),
+        both_teams_to_score=SiteServe.EXPECTED_MARKET_SECTIONS.both_teams_to_score.title(),
+        over_under_corners=SiteServe.EXPECTED_MARKET_SECTIONS.over_under_corners.title(),
+        over_under_booking_points=SiteServe.EXPECTED_MARKET_SECTIONS.over_under_booking_points.title(),
+        player_to_be_carded=SiteServe.EXPECTED_MARKET_SECTIONS.player_to_be_carded.title(),
+        anytime_goalscorer=SiteServe.EXPECTED_MARKET_SECTIONS.anytime_goalscorer.title(),
+        double_chance=SiteServe.EXPECTED_MARKET_SECTIONS.double_chance.title(),
+        to_win_not_to_nil=SiteServe.EXPECTED_MARKET_SECTIONS.to_win_not_to_nil.title(),
+        to_qualify=SiteServe.EXPECTED_MARKET_SECTIONS.to_qualify.title(),
+        both_teams_to_score_in_both_halves=SiteServe.EXPECTED_MARKET_SECTIONS.both_teams_to_score_in_both_halves.title(),
+        player_to_score_2plus_goals=SiteServe.EXPECTED_MARKET_SECTIONS.player_to_score_2plus_goals.title(),
+        money_line=SiteServe.EXPECTED_MARKET_SECTIONS.money_line.title(),
+        to_win_to_nil=SiteServe.EXPECTED_MARKET_SECTIONS.to_win_to_nil.title(),
+        goals_to_be_scored=SiteServe.EXPECTED_MARKET_SECTIONS.goals_to_be_scored.title(),
+        first_and_second_half_result=SiteServe.EXPECTED_MARKET_SECTIONS.first_and_second_half_result.title(),
+        draw_no_bet=SiteServe.EXPECTED_MARKET_SECTIONS.draw_no_bet.title(),
+        match_result_and_both_teams_to_score=SiteServe.EXPECTED_MARKET_SECTIONS.match_result_and_both_teams_to_score.title(),
+        spread=SiteServe.EXPECTED_MARKET_SECTIONS.spread.title(),
+        sixty_minute_betting=SiteServe.EXPECTED_MARKET_SECTIONS.sixty_minute_betting.title(),
+        total_points=SiteServe.EXPECTED_MARKET_SECTIONS.total_points.title(),
+        handicap=SiteServe.EXPECTED_MARKET_SECTIONS.handicap.title(),
+        total_frames=SiteServe.EXPECTED_MARKET_SECTIONS.total_frames.title(),
+        total_runs=SiteServe.EXPECTED_MARKET_SECTIONS.total_runs.title(),
+        run_line=SiteServe.EXPECTED_MARKET_SECTIONS.run_line.title(),
+        total_goals=SiteServe.EXPECTED_MARKET_SECTIONS.total_goals.title(),
+        total_goals_odd_even=SiteServe.EXPECTED_MARKET_SECTIONS.total_goals_odd_even.title(),
+        frame_x_winner=SiteServe.EXPECTED_MARKET_SECTIONS.frame_x_winner.title(),
+        two_up_Instant_Win=SiteServe.EXPECTED_MARKET_SECTIONS.two_up_Instant_Win.title(),
+        no_draw_handicap_1=SiteServe.EXPECTED_MARKET_SECTIONS.no_draw_handicap_1.title(),
+        no_draw_handicap_2=SiteServe.EXPECTED_MARKET_SECTIONS.no_draw_handicap_2.title(),
+        no_draw_handicap_3=SiteServe.EXPECTED_MARKET_SECTIONS.no_draw_handicap_3.title(),
+        Handicap_Betting=SiteServe.EXPECTED_MARKET_SECTIONS.Handicap_Betting.title(),)

@@ -1,0 +1,103 @@
+<top-bar [title]="'fs.fiveASideHeader'" class="overlayTopbar"></top-bar>
+<div class="service-wrapper" *ngIf="showServiceMessage">
+    <p class="service-msg" [textContent]='contestInfo?.serviceMsg'></p>
+</div>
+<div class="leaderboard-container ">
+    <div class="slide-content">
+        <div class="cards-content" id="custom-scroll">
+            <div class="force-overflow">
+                <div>
+                    <div class="leader-board-header">
+                        <div class="contest-description">
+                            <span class="description-name" [innerHtml]="contestInfo?.description"></span>
+                            <live-clock class="clock-time" [event]="event"
+                                *ngIf="event && event.clock && !isHalfTime && !(event?.regularTimeFinished)">
+                            </live-clock>
+                            <span class="clock-time" *ngIf="isHalfTime" [textContent]="halfTime"></span>
+                            <span class="clock-time" *ngIf="isFullTime" [textContent]='fullTime'></span>
+                        </div>
+                        <div class="country-flags">
+                            <div class="home-flag">
+                                <fiveaside-crest-image *ngIf="teamColors && teamColors.length"
+                                    [hasTeamImage]="hasTeamImage" [widthHeight]="'41'" [team]="teamColors[0]">
+                                </fiveaside-crest-image>
+                            </div>
+                            <div class="away-flag">
+                                <fiveaside-crest-image *ngIf="teamColors && teamColors.length > 0"
+                                    [hasTeamImage]="hasTeamImage" [widthHeight]="'41'" [team]="teamColors[1]">
+                                </fiveaside-crest-image>
+                            </div>
+                        </div>
+                        <div class="country-names">
+                            <span class="home-name" *ngIf="homeName" [textContent]="homeName"></span>
+                            <span class="away-name" *ngIf="awayName" [textContent]="awayName"></span>
+                        </div>
+                        <div class="country-scores">
+                            <span class="home-score" [textContent]="homeScore"></span>
+                            <span class="away-score" [textContent]="awayScore"></span>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <fiveaside-welcome-overlay (clearOverlay)="showLiveOverlay = false"
+                            [currentOverlay]="'LIVE-EVENT'" [liveTutorial]="liveManualTutorial"
+                            [tutorialData]="welcomeCard" *ngIf="showLiveOverlay && welcomeCard">
+                        </fiveaside-welcome-overlay>
+                        <div class="my-entries-tutorial" *ngIf="contestInfo && myEntries.length>0">
+                            <div class="my-entry-title" *ngIf="myEntries?.length === 1" [i18n]="'fs.entryinfo.myentry'">
+                            </div>
+                            <div class="my-entry-title" *ngIf="myEntries?.length > 1" [i18n]="'fs.entryinfo.entries'">
+                            </div>
+                            <span class="tutorial-btn" [i18n]="'fs.entryinfo.tutorial'"
+                                *ngIf="welcomeCard?.overlayEnabled" (click)="triggerLiveTutorial()"></span>
+                        </div>
+                        <fiveaside-myentry-widget *ngIf="isMyEntriesLoaded && contestInfo && myEntries.length>0"
+                            [myEntriesList]="myEntries" [leaderboardData]="leaderboardData" [contestId]="contestId" [contestInfo]="contestInfo"
+                            [teamColors]="teamColors" [hasTeamImage]="hasTeamImage">
+                        </fiveaside-myentry-widget>
+                        <div class="leader-board" id="live-leaderboard-title">
+                            <span *ngIf="leaderboardVal.length === 0" class="leader-board-title" [i18n]="'fs.emptyLeaderboard'"></span>
+                            <span *ngIf="leaderboardVal.length>0" class="leader-board-title" [i18n]="'fs.fiveasideLeaderboard'" [i18nArgs]="[leaderboardVal]"></span>
+                            <span class="leader-board-rules" [i18n]="'fs.fiveasideRules'"
+                                (click)="showOverlayFunction()"></span>
+                            <fiveaside-terms-rules *ngIf="showOverlay" (clearOverlay)="showOverlay = false"
+                                [leaderboardData]="leaderboardData" [hasTeamImage]="hasTeamImage" [teams]="teamColors" [showDown]="contestInfo"
+                                [baseClass]="'fiveaside-live-leader-board'">
+                            </fiveaside-terms-rules>
+                        </div>
+                        <ng-container *ngIf="dataLoading">
+                            <fiveaside-spinner [isLeaderBoard]=true [marginTop]="'50'"></fiveaside-spinner>
+                        </ng-container>
+                        <ng-container *ngIf="!dataLoading && initialRecordsCopy.length > 0" >
+                            <div class="content-wrapper">
+                                <div class="content content-leaderboard" [transition-group]="'flip-list'" id="live-leaderboard-data">
+                                    <div *ngFor="let entry of initialRecordsCopy; let i= index;" id="live-leaderboard-item" [attr.class]="'leaderboard-item_'+updateState"
+                                            [transition-group-item]>
+                                            <ng-container *ngIf="entry && !entry.hidden">
+                                             <!-- Removed isOpened for strict mode issue -->
+                                            <fiveaside-entry-summary [index]="i"
+                                                [teamColors]="teamColors" [hasTeamImage]="hasTeamImage" [entryInfo]="entry"
+                                                [isLeaderboard]=true [attr.id]="'entry_'+entry.id" [prizePoolData]="entry"
+                                                [entryIdList]="entryIdList">
+                                            </fiveaside-entry-summary>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <div *ngIf="userEntries?.length > 0" class="team-col-divider"></div>
+                        <ng-container *ngIf="isMyEntriesLoaded && !dataLoading && userEntries?.length > 0"
+                            class="leader-board-entries">
+                            <div *ngFor="let entry of userEntries; let i=index">
+                                 <!-- Removed isOpened for strict mode issue -->
+                                <fiveaside-entry-summary [attr.id]="'entry_'+entry.id" [teamColors]="teamColors"
+                                    [hasTeamImage]="hasTeamImage" [prizePoolData]="entry" [isLeaderboard]=true [index]="i" [entryInfo]="entry"
+                                    [entryIdList]="entryIdList">
+                                </fiveaside-entry-summary>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

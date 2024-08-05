@@ -1,0 +1,26 @@
+<div class="timeform-selection-summary" data-crlat="timeform.selectionSummary">
+  <div class="item-inner summary-header">
+    <div class="row">
+      <div class="col-xs-6">
+        <span [i18n]="'racing.timeformSummary'" data-crlat="label"></span>
+      </div>
+      <div class="col-xs-6 rating">
+        <div *ngIf="outcome.timeformData.starRating" data-crlat="greyhoundRating">
+          <span class="rating-text" [i18n]="'racing.rating'" data-crlat="label"></span>
+          <svg class="rating-stars" *ngFor="let i of outcome.timeformData.stars; trackBy:trackByIndex" data-crlat="value">
+            <use xlink:href="#star"></use>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="item-inner timeform-selection-content">
+    <div *ngIf="outcome.timeformData.oneLineComment">
+      <div class="row">
+        <div class="timeform-description">
+          <span [textContent]="outcome.timeformData.oneLineComment"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

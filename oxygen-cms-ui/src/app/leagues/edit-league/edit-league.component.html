@@ -1,0 +1,145 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="!isLoading">
+  <div class="header">
+    <h2>League: <span class="font-italic">{{league.name}}</span></h2>
+    <create-updated-at-by [collection]="league"></create-updated-at-by>
+  </div>
+</div>
+
+<div class="card" *ngIf="!isLoading">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          League Name*
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !league.name}">
+          <input matInput placeholder="League Name"  [(ngModel)]="league.name" [value]="league.name" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!league.name">Title should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Type Id
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Type id" [(ngModel)]="league.typeId" [value]="league.typeId" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Category Id
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Category id" type="number"  [(ngModel)]="league.categoryId" [value]="league.categoryId" trim="blur" onkeypress="return event.charCode >= 48 && event.charCode <= 57" step="1" min="0">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Category Code
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Category Code"  [(ngModel)]="league.ssCategoryCode" [value]="league.ssCategoryCode" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          BetBuilder Url
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="BetBuilder Url"  [(ngModel)]="league.betBuilderUrl" [value]="league.betBuilderUrl">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          League Url
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="League Url"  [(ngModel)]="league.leagueUrl" [value]="league.leagueUrl">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Redirection Url
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Redirection Url"  [(ngModel)]="league.redirectionUrl" [value]="league.redirectionUrl">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="!isLoading">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Mobile Banner
+        </span>
+      </div>
+      <div class="col-md-4">
+        <banners-autocomplete
+          [type]='"Mobile"'
+          (onBannerSelected)="league.banner = $event"
+          [selected]='league.banner'>
+        </banners-autocomplete>
+      </div>
+      <div class="col-md-2">
+        <a class="mat-label" *ngIf="league.banner" [routerLink]="getLink('mobile')">View</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Tablet Banner
+        </span>
+      </div>
+      <div class="col-md-4">
+        <banners-autocomplete
+          [type]='"Tablet"'
+          (onBannerSelected)="league.tabletBanner = $event"
+          [selected]='league.tabletBanner'>
+        </banners-autocomplete>
+      </div>
+      <div class="col-md-2">
+        <a class="mat-label" *ngIf="league.tabletBanner" [routerLink]="getLink('tablet')">View</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="!isLoading"
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'name'"
+  [collection]="league"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

@@ -1,0 +1,48 @@
+@import 'global.variables.scss';
+
+:host {
+  display: block;
+}
+
+.header-container {
+  @include display-flex();
+  @include align-items(center);
+  padding: 14px 12px;
+  background-color: $color-gray-light;
+  @media #{$mqMobile} {
+    margin: 0 5px 3px;
+  }
+}
+
+.left {
+  flex: 1;
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+
+.primary-header {
+  font-size: 14px;
+  font-weight: bold;
+  color: $color-blue-dark;
+}
+.secondary-header {
+  display: flex;
+  align-items: center;
+  color: $color-gray-dark;
+  font-size: 13px;
+  > span {
+    display: inline-block;
+  }
+}
+
+.info-mark {
+  display: inline-flex;
+  margin: 0 8px;
+  svg {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+  }
+}

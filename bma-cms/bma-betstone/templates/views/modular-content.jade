@@ -1,0 +1,208 @@
+extends ../layout/base
+
+block intro
+  .page-header
+    div(class="item-toolbar item-toolbar--header")
+      div(class="ToolbarToggle-wrapper")
+        ul(class="item-breadcrumbs")
+          li
+            a(ng-href="/keystone/modular-content/", href="/keystone/modular-content/")
+              span(class="mr-5 ion-arrow-left-c")
+              span Featured Tab Modules
+      ul(class="item-toolbar-info")
+        li
+          a(ng-href="/keystone/modular-content/new", href="/keystone/modular-content/new", class="item-toolbar-create-button")
+            span(class="mr-5 ion-plus")
+            span New module
+    h1 Featured Tab Module Editor
+
+block content
+  script(src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js")
+  script(src="/keystone/js/lib/angular/bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.js")
+  script(src="/keystone/js/lib/angular/bower_components/moment/min/moment.min.js")
+  script(src="/keystone/js/lib/angular/bower_components/ngDialog/js/ngDialog.min.js")
+  link(href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css", rel="stylesheet")
+  link(href="/keystone/js/lib/angular/bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.css", type="text/css", rel="stylesheet")
+  link(href="/keystone/js/lib/angular/bower_components/ngDialog/css/ngDialog.css", type="text/css", rel="stylesheet")
+  link(href="/keystone/js/lib/angular/bower_components/ngDialog/css/ngDialog-theme-default.css", type="text/css", rel="stylesheet")
+  link(href="/keystone/styles/bmaBetstone.css", type="text/css", rel="stylesheet")
+  script(src="/keystone/js/lib/angular/modular-content.js")
+    
+  div(ng-app="cmsModularContent")
+    div(ng-controller="homeModules")
+      div(ng-controller="moduleEditor", id="moduleEditorContainer")
+        form(name="homeModulesForm", method="POST", action="/keystone/modular-content", novalidate)
+
+          div(class="field field-type-text field-has-label")
+            label(class="field-label") Module Title *
+            div(class="field-ui field-size-large")
+              input(name="moduleTitle", placeholder='Module title', type="text", ng-model="moduleSettings.title", class="form-control", required)
+
+          div.row
+            .col-lg-6
+              div(class="field field-type-text field-has-label")
+                label(class="field-label col-lg-4") Max Events to Display
+                div(class="field-ui field-size-large")
+                  div(class="input-group col-lg-6")
+                    input(type="number", min="1", style="width: 80px;", ng-model="moduleSettings.maxRows" class="form-control")
+                    span(class="input-group-btn")
+                      a(ng-click="moduleSettings.maxRows = ''", class="btn btn-info btn-small", type="button") Show all events
+
+            .col-lg-6
+              div(class="field field-type-text field-has-label")
+                label(class="field-label col-lg-5") Max Selections to Display
+                div(class="field-ui field-size-large")
+                  div(class="input-group col-lg-7")
+                    input(type="number", min="1", style="width: 80px;", ng-model="moduleSettings.maxSelections" class="form-control")
+                    span(class="input-group-btn")
+                      a(ng-click="moduleSettings.maxSelections = ''", class="btn btn-info btn-small", type="button") Show all selections
+
+          div(class="field field-type-text field-has-label")
+            label(class="field-label") Module Order (less is more)
+            div(class="field-ui field-size-large")
+              input(type="number", style="width: 80px;", ng-model="moduleSettings.displayOrder" class="form-control")
+
+          div(class="field field-type-text field-has-label")
+            label(class="field-label") Expanded by default
+            div(class="field-ui field-size-small")
+              input(type="checkbox", ng-model="moduleSettings.showExpanded")
+            label(class="field-label") Enabled
+            div(class="field-ui field-size-small")
+              input(type="checkbox", ng-model="moduleSettings.visibility.enabled")
+
+
+          div(class="field field-type-text field-has-label")
+            label(class="field-label") Footer link text
+            div(class="field-ui field-size-small")
+              input(type="text", ng-model="moduleSettings.footerLink.text" class="form-control")
+            label(class="field-label") Footer link URL
+            div(class="field-ui field-size-small")
+              input(type="text", ng-model="moduleSettings.footerLink.url" class="form-control")
+
+          publish-to-channels(model="moduleSettings.publishToChannels", published-devices="moduleSettings.publishedDevices" show-heading="true")
+
+          div(class="field field-type-select field-has-label")
+            label(class="field-label") Visible from 
+              div
+                a(ng-click="setModuleTime('today', 'displayFrom')", class="btn btn-primary") Today
+                a(ng-click="setModuleTime('tomorrow', 'displayFrom')", class="btn btn-primary") Tomorrow
+
+            div(class="field-ui field-size-small")
+              module-ribbon-datetimepicker(model="moduleSettings.visibility.displayFrom", do-not-use-min-date="true")
+
+            label(class="field-label") Visible to
+              div
+                a(ng-click="setModuleTime('today', 'displayTo')", class="btn btn-primary") Today
+                a(ng-click="setModuleTime('tomorrow', 'displayTo')", class="btn btn-primary") Tomorrow
+            div(class="field-ui field-size-small")
+              module-ribbon-datetimepicker(model="moduleSettings.visibility.displayTo", from="moduleSettings.visibility.displayFrom")
+
+          section
+            h2 Events loading
+            div(class="field field-type-select field-has-label")
+              label(class="field-label") Select Events by
+              div(class="field-ui field-size-small")
+                select(required ng-model="moduleSettings.dataSelection.selectionType" class="form-control" ng-change="checkSelectionType();")
+                  option Type
+                  option(value="RaceTypeId") Race Type id
+                  option(value="RacingGrid") Racing Grid
+                  option Selection
+                  option Enhanced Multiples
+                  option(disabled="disabled") Category
+                  option(disabled="disabled") Event
+                  option(disabled="disabled") Class
+                  option(disabled="disabled") Market
+
+              label(class="field-label") ID
+              div(class="field-ui field-size-small")
+                input(type="text", class="form-control", required ng-disabled="additionalOptionsDisabled", ng-model="moduleSettings.dataSelection.selectionId")
+                
+            div(class="field field-type-select field-has-label")
+              label(class="field-label")
+                span Badge (for Events by Selection ID)
+              div(class="field-ui field-size-small")
+                select(
+                ng-model="moduleSettings.badge"
+                ng-disabled="!badgeInputEnabled"
+                class="form-control"
+                )
+                  option(value="") None
+                  option(value="specials") Specials
+                  option(value="enhanced") Enhanced
+                  
+              //- h3 additionally:
+              //-
+              //- span Live
+              //- input(type="checkbox")
+              //- label Now
+              //- input(type="checkbox")
+              //- label Later
+              //-
+              //- input(type="checkbox")
+              //- label Only if stream is available
+
+            br
+            br
+            br
+            div(ng-if="!additionalOptionsDisabled", class="alert alert-info", role="alert") Set the date range within which the events occur (skip this in case selecting events by Selection ID):
+            div(class="field field-type-select field-has-label", ng-if="!additionalOptionsDisabled")
+              label(class="field-label") Events from 
+                div
+                  a(ng-click="setEventsTime('today', 'from')", class="btn btn-primary") Today
+                  a(ng-click="setEventsTime('tomorrow', 'from')", class="btn btn-primary") Tomorrow
+
+              div(class="field-ui field-size-small")
+                module-ribbon-datetimepicker(model="eventsSelectionSettings.from", do-not-use-min-date="true")
+
+              label(class="field-label") Events to 
+                div
+                  a(ng-click="setEventsTime('today', 'to')", class="btn btn-primary") Today
+                  a(ng-click="setEventsTime('tomorrow', 'to')", class="btn btn-primary") Tomorrow
+              div(class="field-ui field-size-small")
+                module-ribbon-datetimepicker(model="eventsSelectionSettings.to", from="eventsSelectionSettings.from", do-not-use-min-date="true")
+            div(ng-if="!additionalOptionsDisabled")
+              a(href="javascript://", ng-click="loadEvents()" class="btn btn-save", ng-disabled="homeModulesForm.$invalid") Load selection
+
+            div(id="lh-col", ng-if="!additionalOptionsDisabled")
+              h2 Loaded from OpenBet
+              div(class="preview-pane", ng-if="eventsSelection.length")
+                div(ng-repeat="item in eventsSelection | limitRows:moduleSettings.maxRows")
+                  span(class="preview-pane-index") {{$index+1}}.
+                  input(type="text", class="form-control", ng-model="item.nameOverride")
+              div(class="preview-pane", ng-if="outcomeSelection.length")
+                div(ng-repeat="item in outcomeSelection | limitRows:moduleSettings.maxRows")
+                  span(class="preview-pane-index") {{$index+1}}.
+                  input(type="text", class="form-control", ng-model="item.nameOverride")
+              p(ng-if="!eventsSelection.length && !outcomeSelection.length") No data
+              a(href="javascript://", ng-click="confirmEventSelection()", class="btn btn-save", ng-disabled="homeModulesForm.$invalid") Confirm Selection
+            div(id="rh-col", ng-if="!additionalOptionsDisabled")
+              h2 Events in Module
+              div(class="preview-pane")
+                div(ng-repeat="item in moduleSettings.data")
+                  span(class="preview-pane-index") {{$index+1}}.
+                  span {{item.nameOverride}}
+              a(href="javascript://", ng-click="moduleSettings.data = []", class="btn btn-save") Clear Events
+            br
+            br
+
+          div(class="toolbar-wrapper")
+            div(class="toolbar")
+              a(class="btn btn-save", ng-click="saveModule()", ng-disabled="homeModulesForm.$invalid") Save Module
+              //- a(href="javascript://", class="btn btn-link btn-cancel") reset changes
+              a(href="javascript://", class="btn btn-link btn-cancel delete", ng-click="deleteModule()") Delete Module
+
+
+          //- div(class="ordering-controls")
+          //-   span Order by:
+          //-   select
+          //-     option start time
+          //-     option alphabetically
+          //-   span then by:
+          //-   select
+          //-     option start time
+          //-     option alphabetically
+
+          br
+          br
+          h3(ng-if="!additionalOptionsDisabled") To be saved down:
+          pre(ng-if="!additionalOptionsDisabled") {{moduleSettings | json}}

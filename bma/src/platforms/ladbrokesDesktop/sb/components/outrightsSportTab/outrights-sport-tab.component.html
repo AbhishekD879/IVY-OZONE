@@ -1,0 +1,20 @@
+<div *ngIf="!isLoaded" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+
+<ng-container *ngIf="isLoaded && !isResponseError && eventsBySections.length">
+  <accordion class="capitalized" data-crlat="accordion" *ngFor="let eventsBySection of eventsBySections; trackBy: trackById;"
+             [accordionTitle]="eventsBySection.sectionTitle">
+    <accordion-body data-crlat="eventEntity">
+      <list-card *ngFor="let eventEntity of eventsBySection.events; trackBy: trackById;"
+                 [item]="eventEntity"
+                 [link]="eventURL(eventEntity)"
+                 [attr.data-eventid]="eventEntity.id"
+                 data-crlat="oddsCard.outrightsTemplate"></list-card>
+    </accordion-body>
+  </accordion>
+</ng-container>
+
+<request-error *ngIf="isLoaded && isResponseError"
+               (reloadFn)="loadOutrightData()"
+               [loadFailed]="isResponseError">
+</request-error>
+<no-events *ngIf="isLoaded && !isResponseError && !eventsBySections.length"></no-events>

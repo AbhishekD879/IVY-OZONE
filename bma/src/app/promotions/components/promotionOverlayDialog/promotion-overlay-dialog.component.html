@@ -1,0 +1,55 @@
+<modal #dialog
+  class="new-dialog dialog-no-overlay promotion-overlay-dialog"
+  [overscrollFix] ="'always'"
+  data-crlat="d.promoOver">
+  <ng-template #modalHeader>
+    <div data-crlat="header">
+      <a class="dialog-close"
+        (click)="closeDialog()"
+        data-crlat="closeButton">
+      </a>
+      <span data-crlat="title">{{ promo?.title }}</span>
+    </div>
+  </ng-template>
+  <ng-template #modalBody>
+    <div class="container" *ngIf="promo" data-crlat="details">
+      <div class="text-center">
+        <img *ngIf="promo.uriMedium" [attr.src]="promo.uriMedium" class="promotion-overlay-img" data-crlat="image"/>
+      </div>
+      <div *ngIf="promo.shortDescription"
+        class="promotion-overlay-short-description"
+        data-crlat="shortDescription">
+        {{ promo.shortDescription }}
+      </div>
+      <div class="promotion-overlay-inner">
+        <div *ngIf="promoDescription"
+          class="promotion-overlay-description"
+          [innerHTML]="promoDescription"
+          data-crlat="promoDescription">
+        </div>
+        <div class="clearfix">
+          <a class="btn btn-style1 dialog-btn"
+             [i18n]="'promotions.betNow'"
+             (click)="!promo.overlayBetNowUrl && closeDialog()"
+             [routerLink]="promo.overlayBetNowUrl"
+             data-crlat="betNow">
+          </a>
+        </div>
+        <accordion class="promotion-overlay-tc"
+          [render]="true"
+          [isExpanded]="true"
+          [pcTextBlock]="true">
+          <left-side>
+            <span class="left-title-text" [i18n]="'promotions.termsAndConditionsLabel'"  data-crlat="headerTitle.leftMessage"></span>
+          </left-side>
+          <accordion-body>
+            <div [innerHTML]="promoHtmlMarkup"></div>
+          </accordion-body>
+        </accordion>
+      </div>
+    </div>
+    <div class="item-inner text-center" *ngIf="loaded && !promo">
+      <strong [i18n]="'promotions.noPromo'" data-crlat="noPromo"></strong>
+    </div>
+  </ng-template>
+</modal>

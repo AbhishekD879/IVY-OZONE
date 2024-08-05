@@ -1,0 +1,2 @@
+<byb-label *ngIf="isBybAvailable" (click)="iconAction($event)" [mode]="'big'"></byb-label>
+<your-call-label *ngIf="isYcAvailable && !isBybAvailable" (click)="iconAction($event)"></your-call-label>

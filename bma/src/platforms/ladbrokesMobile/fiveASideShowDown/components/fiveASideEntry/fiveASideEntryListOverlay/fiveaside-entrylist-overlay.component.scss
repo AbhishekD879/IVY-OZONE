@@ -1,0 +1,68 @@
+@import 'global.variables.scss';
+
+.container {
+  .my-entries {
+    color: $color-gainsboro;
+    @include setFontProps($alt-font-family, $font-size-bit-lgr, bold, $color-light-white-grey);
+    height: 35px;
+    margin: 65px 9px 0px 9px;
+  }
+
+  .content {
+    padding: 0px 4px;
+    width: 100%;
+    position: relative;
+    display: inline-block;
+    transition: top 2s ease-in;
+  }
+}
+
+.close-icon {
+  top: 15px;
+  left: 15px;
+
+  svg {
+    fill: $color-white;
+    height: 15px;
+    width: 15px;
+  }
+}
+
+.align-text {
+  text-align: right;
+}
+
+::ng-deep .fiveasideentry-content-overlay {
+  /* disable scrolling on mobile devices */
+  overflow: hidden;
+  /* required thing for ios */
+  position: relative;
+  max-height: 100%;
+  height: auto;
+
+  body {
+    /* disable scrolling on mobile devices */
+    overflow: hidden;
+    /* required thing for ios */
+    position: relative;
+    max-height: 100%;
+    height: auto;
+  }
+}
+
+#fiveaside-entry-overlay {
+  display: none;
+  background-color: $color-black-background;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1030;
+  overflow: scroll;
+
+  &.active {
+    display: block;
+    overflow-x: hidden;
+  }
+}

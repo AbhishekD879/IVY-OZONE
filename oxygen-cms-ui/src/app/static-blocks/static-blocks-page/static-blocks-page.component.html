@@ -1,0 +1,44 @@
+<div class="card">
+  <div class="header">
+    <h2>Static Blocks List</h2>
+    <small>This is the List of Static Blocks Used by Currently Selected Brand</small>
+  </div>
+</div>
+<div class="card" *ngIf="!isLoading">
+  <div class="body">
+      <div class="row clearfix">
+        <div class="col-md-3">
+          <button mat-button type="button" class="btn bg-teal waves-effect float-left" (click)="addStaticBlock();">
+            <mat-icon>add_box</mat-icon>
+            <span>Create New Static Block</span>
+          </button>
+        </div>
+        <div class="col-md-3">
+          <download-cvs [cvsData]="staticBlocks" [cvsDataTable]="dataTableColumns"></download-cvs>
+        </div>
+        <div class="col-md-6 m-b-0">
+          <div class="input-with-icon m-b-0">
+            <i class="material-icons">search</i>
+            <mat-form-field>
+              <input matInput placeholder="Search For Static Block" [(ngModel)]="searchField" [value]="searchField">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="!isLoading && (!staticBlocks || !staticBlocks.length)">
+        <div class="col-md-12">
+          <h3>No Static Blocks Found <span class="font-italic font-underline"></span></h3>
+        </div>
+      </div>
+      <div *ngIf="staticBlocks">
+        <cms-data-table
+          [customTableData]="staticBlocks"
+          [customTableColumns]="dataTableColumns"
+          [filterString]="searchField"
+          [filterProperties]="filterProperties"
+          [actions]="['remove', 'edit']"
+          (onRemoveTableElement)="removeStaticBlock($event)">
+        </cms-data-table>
+      </div>
+  </div>
+</div>

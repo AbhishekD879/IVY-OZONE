@@ -1,0 +1,76 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="editFilter">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Edit Filter: {{editFilter.name}}
+      <create-updated-at-by [collection]="editFilter"></create-updated-at-by>
+    </h2>
+  </div>
+</div>
+
+<div class="card" *ngIf="editFilter">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-checkbox color="primary" [checked]="editFilter.filterActive"
+          (change)="editFilter.filterActive = !editFilter.filterActive">
+          Active
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Filter Name:
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !editFilter.filterName}">
+          <input matInput placeholder="Filter Name" maxlength="30" [(ngModel)]="editFilter.filterName" name="filterName"
+            #filterName="ngModel" [value]="editFilter.filterName" (keyup)="filterCheck($event.target.value)" required
+            trim="blur">
+          <mat-error *ngIf="filterName.invalid && (filterName.dirty || filterName.touched)">
+            Filter Name should be entered</mat-error>
+          <mat-hint class="redcolor" *ngIf="isHaveAll">All Filter not allowed</mat-hint>
+          <mat-hint class="redcolor" *ngIf="isSpecialCar">Special Charactors were not allowed</mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-md-2 text-length">{{editFilter.filterName.length || 0}} /30</div>
+    </div>
+    
+  </div>
+</div>
+<div class="card" *ngIf="editFilter">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-checkbox color="primary" [checked]="editFilter.isLinkedFilter"
+        [(ngModel)]="editFilter.isLinkedFilter"
+          (change)="editFilter.linkedFilterWarningText = editFilter.isLinkedFilter? editFilter.linkedFilterWarningText: null">
+          Linked Filter
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row" *ngIf="editFilter.isLinkedFilter">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Warning Text:
+        </span>
+      </div>
+      <div class="col-md-8" >
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !editFilter.linkedFilterWarningText}">
+          <input matInput placeholder="Warning Text" maxlength="100" rows="5" [(ngModel)]="editFilter.linkedFilterWarningText" name="linkedFilterWarningText"
+            #warning="ngModel" [value]="editFilter.linkedFilterWarningText" required
+            trim="blur">
+          <mat-error *ngIf="warning.invalid && (warning.dirty || warning.touched)">
+            Warning text should be entered</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-2 text-length">{{editFilter.linkedFilterWarningText?.length || 0}} /100</div>
+    </div>
+    
+  </div>
+</div>
+
+<action-buttons #actionButtons *ngIf="editFilter" [validateHandler]="isValidForm" [fieldOrItemName]="'Filter'"
+  [collection]="editFilter" (actionsEmitter)="actionsHandler($event);"></action-buttons>

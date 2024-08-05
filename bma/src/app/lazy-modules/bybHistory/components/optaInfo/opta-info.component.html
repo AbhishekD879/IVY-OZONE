@@ -1,0 +1,11 @@
+<div *ngIf="optaDisclaimer" class="wrapper">
+  <div class="logo">
+    <svg class="opta-logo">
+      <use xlink:href="#opta-logo"></use>
+    </svg>
+  </div>
+  <div class="static-text" [innerHtml]="optaDisclaimer"></div>
+  <a class="see-more" data-crlat="moreLink"
+     [i18n]="'sb.seeMore'"
+     (click)="openSeeMorePopUp()"></a>
+</div>

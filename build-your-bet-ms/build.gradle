@@ -1,0 +1,115 @@
+// base build v1.2
+// https://bitbucket.org/symphonydevelopers/codebase-main/src/master/tools/gradle/build.gradle
+
+// Limitations of the plugins DSL
+// https://docs.gradle.org/5.2.1/userguide/plugins.html#plugins_dsl_limitations
+
+plugins {
+  id 'org.springframework.boot' version '2.7.1'
+  id 'com.coral.tools' version '3.0-SNAPSHOT'
+  id 'org.asciidoctor.jvm.convert' version '3.3.2'
+}
+
+apply plugin: "io.spring.dependency-management"
+
+group = 'com.ladbrokescoral.oxygen'
+
+//sourceCompatibility = 1.8
+//targetCompatibility = 1.8
+
+def nexusRepo = System.getenv("NEXUS_HOST") ?: 'https://nexus-vie.coral.co.uk/repository/maven-public/'
+def nexusUser = System.getenv("NEXUS_USER") ?: project.properties.nexusUser
+def nexusPass = System.getenv("NEXUS_PASS") ?: project.properties.nexusPass
+
+repositories {
+  maven {
+    credentials {
+      username = nexusUser
+      password = nexusPass
+    }
+    url nexusRepo
+  }
+  mavenCentral()
+}
+
+configurations {
+  all {
+    exclude module: 'spring-boot-starter-logging'
+    // exclude module: 'joda-time'
+  }
+  compileOnly {
+    extendsFrom annotationProcessor
+  }
+}
+
+ext {
+  set('springCloudVersion', '2021.0.3')
+  set('spockBomVersion', '2.0-groovy-3.0')
+}
+
+dependencies {
+
+  //Development only
+  developmentOnly 'org.springframework.boot:spring-boot-devtools'
+  annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+  // Spring Cloud
+  implementation platform("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
+  implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+  implementation 'com.github.ben-manes.caffeine:caffeine:3.0.4'
+
+  // implementation 'org.springframework.cloud:spring-cloud-starter-config'
+
+  // Spring Boot
+  implementation 'org.springframework.boot:spring-boot-starter-webflux'
+  implementation 'org.springframework.boot:spring-boot-starter-actuator'
+  implementation 'org.springframework.boot:spring-boot-starter-aop'
+  implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+
+  // Project Dependecies
+  implementation 'com.ladbrokescoral.oxygen:banach-api:2.53-RELEASE'
+  implementation 'com.newrelic.agent.java:newrelic-api:latest.release'
+
+  // Testing
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testImplementation 'org.mock-server:mockserver-junit-jupiter:5.11.2'
+  testImplementation "org.spockframework:spock-spring:$spockBomVersion"
+  testImplementation 'org.springframework.restdocs:spring-restdocs-webtestclient'
+  testImplementation 'org.junit.vintage:junit-vintage-engine:5.9.0'
+}
+
+jacocoTestReport.reports.xml.enabled = true
+jar{
+  enabled=false
+}
+test {
+  systemProperty 'spring.profiles.active', 'UNIT'
+  useJUnitPlatform()
+  finalizedBy asciidoctor
+}
+
+springBoot {
+  buildInfo()
+}
+
+bootBuildImage {
+  imageName = "${rootProject.name}"
+}
+
+asciidoctor {
+
+  dependsOn test
+
+  sourceDir file("$buildDir/generated-snippets")
+  outputDir file("$buildDir/resources/main/static/docs")
+
+  attributes 'snippets': file("$sourceDir")
+
+  doFirst {
+    copy {
+      from 'src/docs/asciidoc'
+      into "$sourceDir"
+    }
+  }
+
+}

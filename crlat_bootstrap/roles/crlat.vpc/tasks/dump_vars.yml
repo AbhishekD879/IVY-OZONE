@@ -1,0 +1,6 @@
+- name: Dump Variables
+  debug:
+    msg: "{{action}} {{exact_count}} {{tag_name}} instances of {{tag_type}} in {{tag_group}}"
+#- name: Print variables
+#  debug:
+#    msg: "{{ vars | to_nice_json }}"

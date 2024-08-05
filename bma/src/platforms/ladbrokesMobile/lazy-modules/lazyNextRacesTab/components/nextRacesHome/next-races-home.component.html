@@ -1,0 +1,20 @@
+<lazy-component
+  *ngIf="showFilter && nextRacesGroupedData?.groupedRacing?.length && (raceEvent === 'Horse Racing' || raceEvent === 'Greyhounds') && nextRacesGroupedData?.showFilter"
+  moduleUri="@lazy-modules-module/customFlagFiltertoggle/custom-flag-filter-toggle.module#CustomFlagFilterToggleModule"
+  [inputs]="{filters: nextRacesGroupedData?.groupedRacing, selectedFilter: selectedFilter, compName: compName,isNxtTabEnabled: isNxtTabEnabled }"
+  [outputs]="['filterChange']"
+  (event)="onFilterChange($event)" entryComponent="CustomFlagFilterToggleComponent">
+</lazy-component>
+
+<race-card-home *ngIf="!showLoader && nextRacesModule?.storedEvents?.length" [trackGa]="trackGa" data-crlat="raceCard"
+  [raceIndex]="'next-races'" [raceOrigin]="'next-races'" [raceData]="nextRacesGroupedData?.storedEvents"
+  [raceMaxSelections]="nextRacesModule.limitOutcomesCount" [raceNewStyleCard]="true"
+  [showTimer]="showTimer" [gtmModuleTitle]="'next races'"
+  [moduleType]="moduleType"
+  [isNextRacesModule]="true">
+</race-card-home>
+<div class="page-inner" *ngIf="!showLoader && !nextRacesModule?.storedEvents?.length">
+  <div class="page-segment">
+    <no-events></no-events>
+  </div>
+</div>

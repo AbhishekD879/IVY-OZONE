@@ -1,0 +1,180 @@
+<form #NetworkIndiForm="ngForm">
+<div class ="card">
+<div class="body">
+    <div class="row mb-2">
+        <div class="header">
+            <h4 class="waves-effect waves-block">Network Indicator</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <span class="mat-label">Enable</span>
+        </div>
+        <div class="col-md-7">
+            <mat-slide-toggle name = "networkIndicatorEnabled"
+            [color]="'primary'"
+            [disabled]="false"
+            [(ngModel)]="networkIndicator.networkIndicatorEnabled">
+            </mat-slide-toggle>
+        </div>
+    </div>
+    <div class="header pl-0">
+      <h2 class="waves-effect waves-block">Red - Poor Connection</h2>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-3">
+            <span class="mat-label">Indicator Display Text</span>
+        </div>
+        <div class="col-md-7">
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Offline" name="displayText" required #displayText="ngModel"
+                  trim="blur"
+                [(ngModel)]="networkIndicator.networkSpeed.offline.displayText" maxlength="30"/>
+                <ng-container *ngIf="displayText.errors">
+                    <mat-error *ngIf="displayText.errors.required && displayText.touched">This field is required
+                    </mat-error>
+                </ng-container>
+            </mat-form-field>
+        </div>
+    </div>    
+    <div class="header pl-0">
+      <h2 class="waves-effect waves-block">Orange - Slow Connection</h2>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-3">
+            <span class="mat-label">Indicator Display Text</span>
+        </div>
+        <div class="col-md-7">
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Connection Interrupted" required name="slowdisplayText"
+                #slowdisplayText="ngModel"
+                     trim="blur" [(ngModel)]="networkIndicator.networkSpeed.slow.displayText" maxlength="30"/>
+                <ng-container *ngIf="slowdisplayText.errors">
+                    <mat-error *ngIf="slowdisplayText.errors.required && slowdisplayText.touched">This field is required
+                    </mat-error>
+                </ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+            <span class="mat-label">Indicator Information Message</span>
+        </div>
+        <div class="col-md-7">
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Add the network indicator popup message"  required 
+                name="infoMsg" #infoMsg="ngModel" trim="blur" [(ngModel)]="networkIndicator.networkSpeed.slow.infoMsg"/>
+                <ng-container *ngIf="infoMsg.errors">
+                    <mat-error *ngIf="infoMsg.errors.required && infoMsg.touched">This field is required
+                    </mat-error>
+                </ng-container>
+            </mat-form-field>
+        </div>
+    </div> 
+
+    <div class="header pl-0">
+      <h2 class="waves-effect waves-block">Green- Stable Connection</h2>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-3">
+            <span class="mat-label">Indicator Display Text</span>
+        </div>
+        <div class="col-md-7">
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Online" name = "onlineDispMsg" required
+                #onlineDispMsg="ngModel"
+                     trim="blur" [(ngModel)]="networkIndicator.networkSpeed.online.displayText" maxlength="30"/>
+                <ng-container *ngIf="onlineDispMsg.errors">
+                    <mat-error *ngIf="onlineDispMsg.errors.required && onlineDispMsg.touched">This field is required
+                    </mat-error>
+                </ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+            <span class="mat-label">Indicator Display Time</span>
+        </div>
+        <div class="col-md-7">
+            <mat-form-field
+            class="full-width">
+            <input type="number"
+                matInput required #timeout="ngModel"
+                placeholder="Enter time in milliseconds" trim="blur" name = "timeout"
+                [(ngModel)]="networkIndicator.networkSpeed.online.timeout"/>
+            <ng-container *ngIf="timeout.errors">
+                <mat-error *ngIf="timeout.errors.required && timeout.touched">This field is required
+                </mat-error>
+            </ng-container>
+            </mat-form-field>
+        </div>
+    </div>
+      <div class="header pl-0">
+        <h2 class="waves-effect waves-block">Threshold Configuration</h2>
+      </div>
+      <div class="row mt-3">
+          <div class="col-md-3">
+              <span class="mat-label">Polling Interval</span>
+          </div>
+          <div class="col-md-7">
+            <mat-form-field class="full-width">
+              <input type="number" matInput required #pollingInterval name  = "pollingInterval"
+                placeholder="Enter time in milliseconds" trim="blur"
+                [(ngModel)]="networkIndicator.pollingInterval"/>
+                <ng-container *ngIf="pollingInterval.errors">
+                    <mat-error *ngIf="pollingInterval.errors.required && pollingInterval.touched">This field is required
+                    </mat-error>
+                </ng-container>
+            </mat-form-field>
+          </div>
+          <!-- <div class="col-md-3">
+              <span class="mat-label">Threshold Time (Unused)</span>
+          </div>
+          <div class="col-md-7">
+            <mat-form-field class="full-width">
+                <input type="number" matInput name = "threshold"
+                  placeholder="Enter some seconds" trim="blur"
+                  [(ngModel)]="networkIndicator.thresholdTime"/>
+              </mat-form-field>
+          </div> -->
+         <div class="col-md-3">
+            <span class="mat-label">Threshold Time</span>
+         </div>
+         <div class="col-md-7">
+          <mat-form-field class="full-width">
+            <input type="number" matInput required #slowTimeout name = "slowTimeout"
+                placeholder="Enter time in milliseconds" trim="blur"
+                [(ngModel)]="networkIndicator.slowTimeout"/>
+                <ng-container *ngIf="slowTimeout.errors">
+                    <mat-error *ngIf="slowTimeout.errors.required && slowTimeout.touched">This field is required
+                    </mat-error>
+                </ng-container>
+            </mat-form-field>
+         </div>
+         <div class="col-md-3">
+            <span class="mat-label">Image URL</span>
+         </div>
+         <div class="col-md-7">
+            <mat-form-field class="full-width">
+                <input matInput required #imgurl placeholder="Enter the Image URL"  name = "imgurl"
+                     trim="blur" [(ngModel)]="networkIndicator.imageURL"/>
+                     <ng-container *ngIf="imgurl.errors">
+                        <mat-error *ngIf="imgurl.errors.required && imgurl.touched">This field is required
+                        </mat-error>
+                    </ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+            <span class="mat-label">Log Enabled (For Developers)</span>
+        </div>
+        <div class="col-md-7">
+            <mat-slide-toggle name = "debugLogEnabled"
+            [color]="'primary'"
+            [disabled]="false"
+            [(ngModel)]="networkIndicator.debugLogEnabled">
+            </mat-slide-toggle>
+        </div>
+      </div>
+
+</div>
+</div>
+
+<action-buttons #actionButtons [collection]="networkIndicator" (actionsEmitter)="actionsHandler($event);"
+  [fieldOrItemName]="'Network Indicator'" [showRemoveButton]="false">
+</action-buttons>

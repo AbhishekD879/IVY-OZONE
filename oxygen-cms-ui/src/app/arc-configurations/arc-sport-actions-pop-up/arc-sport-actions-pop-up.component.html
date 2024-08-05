@@ -1,0 +1,14 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>Configure Sport Actions for ARC</h1>
+  <div mat-dialog-content>
+    <div class="row" *ngFor="let item of data.sportsArray">
+      <div class="col-md-9">
+        <mat-checkbox color="primary" [checked]="item.enabled" (change)="item.enabled=!item.enabled;addSport(item)">
+          {{item.action}}</mat-checkbox>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button class="btn btn-sm bg-teal float-right" [mat-dialog-close]="true">Save</button>
+  </div>
+</div>

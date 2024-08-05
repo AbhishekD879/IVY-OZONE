@@ -1,0 +1,73 @@
+<div class="horseracing">
+  <div class="sp-container">
+    <accordion *ngFor="let eventsGroup of eventsByType; trackBy: trackByOrder; index as typeIndex"
+               [accordionTitle]="eventsGroup.typeName"
+               [isExpanded]="isExpandedType"
+               [headerClass]="'secondary-header'"
+               data-crlat="outerAccordion">
+      <accordion-body>
+        <div *ngFor="let eventEntity of eventsGroup.events; trackBy: trackById; index as eventIndex">
+          <accordion [accordionTitle]="eventEntity.originalName"
+                     [isExpanded]="eventEntity.isExpandedEvent"
+                     class="sp-inner-header">
+            <right-side>
+              <span [textContent]="eventEntity.startTimeFiltered"
+                    class="competition-date" data-crlat="eventDate"></span>
+            </right-side>
+            <accordion-body>
+              <div class="container-inner-content">
+                <div class="each-way-container"
+                     *ngIf="eventEntity.markets[0].isEachWayAvailable"
+                     data-crlat="terms">
+              <span class="odds-small"
+                    [innerHtml]="formatSpecialTerms(eventEntity.markets[0].terms)"
+                    data-crlat="eachWayContainer"></span>
+                </div>
+                <div class="sp-card-wrapper">
+                  <ng-container *ngFor="let outcome of eventEntity.markets[0].outcomes; trackBy: trackById; index as outcomeIndex">
+                    <div *ngIf="outcomeIndex < outcomeLimitNum || eventEntity.showAll"
+                         [ngClass]="{'two-cell': outcome?.type?.grid === '2',
+                    'three-cell': outcome?.type?.grid === '3',
+                    'smart-boosts': eventEntity.markets[0].isSmartBoosts,
+                    'odds-card-two-outcome': eventEntity.markets[0].outcomes.length < 3}"
+                         class="odds-card"
+                         data-crlat="outcomeEntity">
+                      <div class="odds-content">
+                        <div class="odds-left">
+                          <div class="odds-names odds-names-wrap" data-crlat="outcomeName"
+                               [textContent]="(eventEntity.nameOverride ? eventEntity.name : outcome.name)"></div>
+                        </div>
+                        <div class="odds-right">
+                          <ng-container *ngIf="!outcome.type">
+                            <price-odds-button [event]="eventEntity"
+                                               [market]="eventEntity.markets[0]"
+                                               [outcome]="outcome"
+                                               [ngClass]="{'old-btn-bet': eventEntity.markets[0].outcomes.length < 3}">
+                            </price-odds-button>
+                          </ng-container>
+                          <div class="was-price-container" *ngIf="eventEntity.markets[0].isSmartBoosts && outcome.wasPrice">
+                            <div class="was-price">
+                              <span [i18n]="'sb.wasPrice'"></span>
+                              <strike [textContent]="outcome.wasPrice"></strike>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+                <show-all-button
+                  *ngIf="eventEntity.markets[0].outcomes.length > outcomeLimitNum"
+                  (click)="eventEntity.showAll = !eventEntity.showAll"
+                  [spinnerVisible]="false"
+                  [allShown]="eventEntity.showAll">
+                </show-all-button>
+              </div>
+            </accordion-body>
+          </accordion>
+        </div>
+      </accordion-body>
+    </accordion>
+    <no-events *ngIf="!eventsByType?.length"></no-events>
+  </div>
+</div>

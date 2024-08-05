@@ -1,0 +1,45 @@
+<div class="sk-container" [ngClass]="{'sk-loading': isLoading}" >
+  <loading-screen [displayed]="isLoading" [templateType]="'GENERIC'"> </loading-screen>
+  <ng-container *ngIf="isTierOne">
+    <div class="competitions-categories heuristic-container"  [ngClass]="{'tennis-competitions' : categoryId === '34'}" *ngIf="isLoaded && !isResponseError && (currentMatchCategories.length || allCategories.length)">
+      <!--- Initial categories -->
+      <competitions-categories data-crlat="compCats"
+                               [competitionsClasses]="'competitions-categories-accordion'"
+                               [categories]="currentMatchCategories"
+                               [isAzCategories]="false"
+                               [showLoader]="false"
+                               [targetTab]="targetTab"
+                               [sportName]="categoryName"
+                               [allAccorditions]="allAccorditions"
+                               (pageLoaded)="childComponentLoadedHandler()"
+                               [categoryId]="categoryId"></competitions-categories>
+
+      <competitions-categories data-crlat="azCompCats"
+                               [competitionsClasses]="'competitions-categories-accordion'"
+                               *ngIf="allCategories?.length"
+                               [categories]="allCategories"
+                               [isAzCategories]="true"
+                               [showLoader]="false"
+                               [allAccorditions]="allAccorditions"
+                               [targetTab]="targetTab"
+                               [sportName]="categoryName"
+                               [categoryId]="categoryId"></competitions-categories>
+    </div>
+  </ng-container>
+  <div class="heuristic-container" *ngIf="!isTierOne">
+    <competitions-future-sport-tab (updateLoadingState)="updateLoadingState($event)" [sport]="sport" [sportTabs]="sportTabs" [sportName]="categoryName"></competitions-future-sport-tab>
+  </div>
+  <request-error *ngIf="isLoaded && isResponseError"
+                 (reloadFn)="loadCompetitionsData(categoryName)"
+                 [loadFailed]="isResponseError">
+  </request-error>
+  <no-events *ngIf="isLoaded && !isResponseError && (!eventsBySectionsLength && isNoCategories)"></no-events>
+  <ng-container *ngIf="targetTab?.interstitialBanners?.bannerEnabled && isLoaded && isTierOne && (!allCategories.length || !currentMatchCategories.length)">
+    <lazy-component
+      moduleUri="@lazy-modules-module/virtualEntryPointBanner/virtual-entry-point-banner.module#VirtualEntryPointBannerModule"
+      entryComponent="VirtualEntryPointBannerComponent"
+      [inputs]="{targetTab: targetTab, eventsBySections: allAccorditions, index: -1,sportName : categoryName}">
+    </lazy-component>
+  </ng-container>
+</div>
+

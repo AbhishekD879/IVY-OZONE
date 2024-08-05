@@ -1,0 +1,31 @@
+<accordion [accordionTitle]="moduleConfig.name"
+           [isExpanded]="true"
+            *ngIf="checkForData()"
+           (function)="loadData()"
+           [isBCH]="true"
+           [isChevronToLeft]="true"
+           >
+  <accordion-body>
+
+    <div [ngClass]="{'view-padd': i>0, 'lads-view': moduleConfig.brand.brand === 'Lads', 'mob-view': moduleConfig.brand.device === 'Mobile',
+      'coral-mob-view': (moduleConfig.brand.brand === 'Coral' && moduleConfig.brand.device === 'Mobile')}" *ngFor="let market of moduleConfig.markets; index as i; trackBy: trackByFn">
+        <!-- Several markets template -->
+        <accordion *ngIf="checkForInnerData(market) && moduleConfig?.markets?.length > 1"
+                   [accordionTitle]="(market.nameOverride || market.data?.markets[0].name)"
+                   [isExpanded]="!market.collapsed"
+                   [inner]="true"
+                   (function)="loadData(i)">
+          <accordion-body>
+            <view-type-container
+                  *ngIf="!loadingData"
+                  [market]="market"
+                  [gtmModuleTitle]="[moduleConfig.name, (market.nameOverride || market.data?.markets[0].name)].join('. ')">
+            </view-type-container>
+          </accordion-body>
+        </accordion>
+
+      <!-- One market template -->
+      <view-type-container *ngIf="moduleConfig.markets.length === 1 && !loadingData" [market]="market" ></view-type-container>
+    </div>
+  </accordion-body>
+</accordion>

@@ -1,0 +1,24 @@
+spring:
+  redis:
+    host: localhost
+    port: 6379
+
+siteServer:
+  baseUrl: https://ss-aka-ori.coral.co.uk/
+
+df:
+  baseUrl: https://sb-api.coral.co.uk
+  apiKey: CD3379a055da1148cfb0c73febba93f547
+  loggingLevel: BASIC
+
+masterlock:
+  aws:
+    dynamo.lock-table-name: CR-MSLOCKTABLE-DEV
+  partitionKey: LOCAL
+  enabled: false
+
+bpp.url: https://bp-hl.coral.co.uk/Proxy
+
+app:
+  nextRaces:
+    timePeriodMinutes: 15

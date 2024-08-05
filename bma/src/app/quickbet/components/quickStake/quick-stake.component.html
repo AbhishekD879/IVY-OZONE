@@ -1,0 +1,21 @@
+<div class="quickbet-quick-stake" [ngClass]="{'disabled': disabled}" *ngIf="isStakesAvailable" data-crlat="quickStakePanel">
+  <div class="qb-quick-stake-item price-button-{{stakeIndex}}"
+       *ngFor="let item of quickStakeItems; trackBy: trackByIndex; let stakeIndex=index"
+       (click)="setQuickStake(item,stakeIndex)"
+       data-crlat="quickStake.key">
+       <span>
+        <span [textContent]="quickStakePrefix"></span><span [innerHTML]="item"></span>
+       </span>
+    
+  </div>
+   <!-- Use Free Bet -->
+   <div class="qb-quick-stake-item" [ngClass]="selectedFreeBet? 'qb-free-bet-sel' : 'qb-fb-toggle fb-ripple'" *ngIf="quickStakeVisible && (freebetsList && freebetsList.length > 0 || betPackList && betPackList.length > 0)">
+    <lazy-component
+      moduleUri="@freebetsModule/freebets.module#FreebetsModule"
+      [inputs]="{freeBets: freebetsList, selected: selectedFreeBet, freebetsConfig, isBoostEnabled, isSelectionBoosted, canBoostSelection, showOnDigitKeyborad: true, betPackList, fanzoneList}"
+      [outputs]="['selectedChange']"
+      (event)="onFreebetChange($event)"
+      entryComponent="FreeBetToggleComponent">
+    </lazy-component>
+  </div>
+</div>

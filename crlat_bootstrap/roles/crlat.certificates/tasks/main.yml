@@ -1,0 +1,20 @@
+---
+- name: Create temporary directory for certificates
+  tempfile:
+    state: directory
+    prefix: cert_dir
+  register: cert_tmp_dir
+
+- name: "Create root certificate"
+  include_tasks: gen_root.yml
+
+- name: Provision device certificates
+  include_tasks: gen_device.yml
+  with_items: "{{ domains }}"
+  loop_control:
+    loop_var: domain_name
+
+- name: "Delete tmp folder {{ cert_tmp_dir.path }}"
+  file:
+    path: "{{ cert_tmp_dir.path }}"
+    state: absent

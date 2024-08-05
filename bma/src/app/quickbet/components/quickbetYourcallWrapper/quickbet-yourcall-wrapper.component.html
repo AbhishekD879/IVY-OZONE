@@ -1,0 +1,30 @@
+<ng-container *ngIf="selection && selection.selections.length">
+  <quickbet-panel [title]="title"
+                  [isFiveASideBet]="isFiveASideBet"
+                  [showCloseIcon]="true"
+                  [bodyClass]="bodyClass"
+                  [selection]="selection"
+                  [leftBtnLocale]="leftBtnLocale"
+                  [ycOddsValue]="ycOddsValue"
+                  (placeBetFn)="placeBet()"
+                  (closeFn)="closePanel($event)"
+                  (addToBetslipFn)="reuseSelection()"
+                  (reuseSelectionFn)="reuseSelection()"
+                  data-crlat="quickbetPanel"
+                  [betslipType]="betslipType">
+    <your-call-body>
+      <ng-container *ngFor="let item of selection.selections; trackBy: trackById">
+        <p class="yourcall-selection" *ngIf="item">
+          <span [innerHtml]="item?.betslipTitle" data-crlat="yourcallSelection"></span>
+        </p>
+      </ng-container>
+    </your-call-body>
+    <your-call-receipt>
+      <ng-container *ngFor="let item of selection.selections; trackBy: trackById">
+        <p class="yourcall-selection" *ngIf="item">
+          <span [innerHtml]="item?.betslipTitle" data-crlat="yourcallSelection"></span>
+        </p>
+      </ng-container>
+    </your-call-receipt>
+  </quickbet-panel>
+</ng-container>

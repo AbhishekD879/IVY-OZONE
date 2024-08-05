@@ -1,0 +1,990 @@
+@import 'global.variables.scss';
+@import '../../../../../app/racing/assets/styles/racing-event.scss';
+$tabs-height: 40px;
+
+$tote-checkbox-bg-color: #f8f8f9;
+$tote-checkbox-border-color: #e4e4e8;
+$tabs-panel-box-shadow-color: rgba(0, 0, 0, .25);
+$open-close-icon-color: #3c3c3c;
+$active-checkbox-border-color: #588a00;
+$pool-sub-header-boder-color: #aeaeae;
+$odds-names-line-height: 15px;
+
+.racing-content {
+  accordion {
+    padding: 0;
+    margin: 0;
+  }
+
+  .horse-racing-icons {
+    position: absolute;
+    right: 4px;
+    top: 0;
+    bottom: 0;
+  }
+
+  .terms-label + .horse-racing-icons {
+    position: static;
+  }
+
+  .tabs-panel.markets-panel {
+    border-bottom: 1px solid $light-grey;
+  }
+  .btn.btn-bet,
+  .btn-bet {
+    width: 65px;
+    height: 38px;
+  }
+  &.greyhounds-event-page {
+    .page-inner-container .new-race-card {
+      padding: 7px 12px 4px 12px;
+      .odds-content {
+        .odds-left {
+          @include align-items(center);
+          .odds-names-list.has-no-silk {
+            margin-left: 0;
+          }
+          .silk-img {
+            width: 32px;
+            margin: 0;
+
+            div {
+              width: 40px;
+            }
+
+            &.grouped-silk {
+              width: 69px;
+              background: none;
+            }
+          }
+        }
+        .odds-right .previous-prices.has-no-previous-price {
+          margin-top: 3px;
+        }
+      }
+    }
+    .btn.btn-bet,
+    .btn-bet {
+      &.not-show-historic-prices {
+        margin-bottom: 3px;
+      }
+    }
+  }
+  .tabs-panel {
+    .scroll-container .scroll-inner li {
+      @include inline-flex();
+      & > span {
+        @include inline-flex();
+        @include align-items();
+      }
+
+      .tab.time-ribbon {
+        font-size: $font-size-tablet;
+      }
+    }
+  }
+
+  .sort-by-enabled {
+    margin-top: 0;
+  }
+
+  .markets-tabs .switchers.no-paddings {
+    margin: 0;
+    border-bottom: 1px solid #dcdcdc;
+
+    .scroll-container .scroll-inner li {
+      @include flex(1,0,auto);
+
+      .switch-btn span {
+        /* autoprefixer: off */
+        -webkit-box-orient: vertical;
+        /* autoprefixer: on */
+        display: -webkit-box;
+        margin: 0 auto;
+        max-width: 110px;
+        width: auto;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        max-height: 28px;
+        line-height: 14px;
+        -webkit-line-clamp: 2;
+      }
+    }
+  }
+
+  .coupons-list {
+    margin-top: 0;
+  }
+
+  .horseracing-info-icon {
+    width: 12px;
+    height: 12px;
+    fill: $color-gray-dark;
+    position: relative;
+    top: 2px;
+    margin-right: 3px;
+  }
+
+  .horse-racing-icons {
+    @include inline-flex();
+  }
+}
+
+.page-inner-container {
+  @media (min-width: $tabletPoint) {
+    margin-top: 0;
+  }
+  .terms-before-market {
+    padding: 0 12px;
+    min-height: 40px;
+    font-family: $alt-font-family;
+    color: $color-gray-dark2;
+    div {
+      align-self: center;
+    }
+    .term-value, .class-value {
+      font-size: $font-size-md;
+      min-height: 12px;
+      text-transform: capitalize;
+    }
+    svg.bpg-icon, .cashout-label-wrapper {
+      margin: 0 0 0 10px;
+    }
+    @media (min-width: $tabletPoint) {
+      .term-value, .class-value {
+        text-transform: uppercase;
+      }
+    }
+    .terms-label {
+      flex: 1;
+    }
+  }
+  .inner-container {
+    > div:first-of-type {
+      .odds-card {
+        border-top: none;
+      }
+      .odds-card.tote-card {
+        border-top: 2px solid $color-gray;
+      }
+    }
+  }
+}
+
+.page-inner-container,
+.race-market {
+  .new-race-card {
+    padding: 8px 12px 8px 6px;
+    &.active {
+      background-color: transparent;
+    }
+    &.type-tote {
+      padding: 0 0 0 12px;
+    }
+    .odds-content {
+      .odds-left {
+        .odds-side {
+          width: 23px;
+          font-family: $base-font-family;
+          font-size: $font-size-lg;
+          line-height: 16px;
+
+          .label-text {
+            margin-top: 0;
+            font-size: $font-size;
+            line-height: 14px;
+            color: $color-gray-darkest;
+          }
+          @media (min-width: $tabletPoint) {
+            width: 50px;
+            margin-right: -10px;
+          }
+        }
+        .odds-names-list {
+          font-family: $alt-font-family;
+          line-height: $odds-names-line-height;
+          margin-left: 10px;
+          font-size: $font-size-md;
+          &.has-no-silk {
+            margin-left: 6px;
+          }
+          @media (min-width: $tabletPoint) {
+            margin-left: 15px;
+            font-size: 11px;
+
+            &.has-no-silk {
+              margin-left: 16px;
+            }
+          }
+          .odds-names {
+            font-size: $font-size-tablet;
+            font-weight: 700;
+            line-height: $odds-names-line-height;
+            color: $color-gray-darkest;
+
+            @media (min-width: $tabletPoint) {
+              font-size: $font-size-tablet;
+            }
+          }
+          .odds-normal {
+            line-height: $odds-names-line-height;
+            color: $color-gray-darkest;
+          }
+          .odds-small {
+            color: $color-gray-darkest;
+            .racing-form {
+              margin-right: 4px;
+            }
+            .course-distance {
+              margin-left: 5px;
+              padding: 0 5px;
+              letter-spacing: 1px;
+              color: $color-white;
+              font-size: 9px;
+              background-color: $color-green;
+              border-radius: 2px;
+            }
+          }
+        }
+      }
+      .odds-right {
+        uk-tote-checkbox-matrix {
+          @include display-flex();
+          @include align-items(stretch);
+        }
+        @include display-flex(true);
+        @include align-items(stretch !important);
+        .previous-prices {
+          color: $color-gray-dark2;
+          font-family: $alt-font-family;
+          font-size: $font-size-md;
+          margin-top: 4px;
+          &.has-no-previous-price {
+            margin-top: 8px;
+          }
+        }
+      }
+
+      .toggle-icon {
+        height: 14px;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: $font-size-md;
+        color: $color-blue-alt;
+        font-family: $base-font-family;
+        &:active{
+          color: darken($color: $color-blue-alt, $amount: 25%);
+        }
+        svg {
+          fill: $color-blue-alt;
+          position: relative;
+          width: 10px;
+          margin-left: 4px;
+          height: 8px;
+          margin-top: 0;
+          top: 0;
+        }
+        &.active svg {
+          @include transform(rotateX(180deg));
+        }
+      }
+    }
+  }
+}
+
+.horse-racing-icons {
+  text-align: right;
+  @include display-flex();
+  @include align-items();
+  @include justify-content(flex-end);
+
+  svg, .cashout-label-wrapper {
+    margin: 0 0 0 0; 
+  }
+}
+
+.racing-content {
+  &.top-padding {
+    @media screen and (max-width: $landscapeTabletPoint) {
+      padding-top: 45px;
+    }
+  }
+
+  .stream-link {
+    top: 15px;
+  }
+
+  .top-title {
+    background-color: $brand-color-secondary;
+    position: relative;
+    color: $color-white;
+    z-index: 7;
+    transition: 0s;
+
+    @media screen and (max-width: $landscapeTabletPoint) {
+      position: fixed;
+      margin-top: -45px;
+    }
+
+    .event-title {
+      color: $color-white;
+
+      .filtered-time {
+        font-weight: normal;
+        line-height: normal;
+        font-size: $font-size-sm;
+      }
+
+      .meeting-title {
+        line-height: normal;
+      }
+    }
+
+    .coupon-selector {
+      .coupon-selector-icon {
+        width: 15px;
+      }
+
+      .coupon-selector-arrow {
+        width: 6px;
+      }
+    }
+  }
+
+  .timeform-trainer {
+    font-size: $font-size-md;
+    width: 160px;
+
+    span {
+      font-weight: normal;
+    }
+  }
+
+  .timeform-odds-small {
+    margin-right: 4px;
+    font-size: $font-size-md;
+    color: $color-gray-darkest;
+    font-weight: normal;
+    .timeform-label {
+      margin-right: 3px;
+    }
+  }
+
+  .coupon-selector-title {
+    margin-top: -3px;
+  }
+  .race-card {
+    .odds-right {
+      align-items: stretch;
+    }
+  }
+
+  .list-item-link {
+    margin: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 46px;
+    font-size: $font-size;
+
+    svg.item-next-arrow {
+      height: 6px;
+      margin-top: -3px;
+      margin-right: 10px;
+    }
+  }
+
+  .checkboxes-mode {
+    .race-card {
+      .uk-tote {
+        .check-area {
+          @media(min-width: 450px) {
+            width: 60px;
+          }
+          width: 42px;
+
+          .checkbox {
+            background: $tote-checkbox-bg-color;
+          }
+          &.checked {
+            background: $color-white;
+
+            .checkbox {
+              background: $color-green-alt;
+            }
+          }
+        }
+      }
+    }
+  }
+  .labels-mode {
+    .checkbox-area {
+      width: 50px;
+    }
+  }
+}
+
+.racing-content {
+  .specials-event {
+    .top-event-panel {
+      .race-details-container {
+        padding: 12px;
+        margin-bottom: 8px;
+        -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,.15);
+        -moz-box-shadow: 0 2px 4px 0 rgba(0,0,0,.15);
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,.15);
+        border-top: 1px solid $light-grey;
+        background: $color-white;
+      }
+    }
+    .sort-by-enabled {
+      margin-top: 0;
+    }
+    .new-race-card {
+      padding: 8px 12px;
+      .odds-content {
+
+        min-height: 38px;
+        .odds-left .odds-names-list{
+          margin: 0;
+          .odds-names {
+            font-weight: normal;
+          }
+        }
+        .btn-bet {
+          width: 71px;
+          min-height: 38px;
+          &.not-show-historic-prices {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+.top-event-panel {
+  .race-details-container {
+    @include display-flex();
+    @include justify-content(space-between);
+    @include flex-direction(column);
+
+    padding: 13px 12px 0 12px !important;
+    background: $color-white;
+    font-family: $alt-font-family;
+
+    .race-event-container {
+      @include display-flex();
+      @include flex-direction(row);
+      font-size: $font-size-lg;
+      color: $lBlack-medium;
+
+      div {
+        margin-right: 5px;
+      }
+      .race-event-time {
+        padding-top: 1px;
+      }
+      .race-event-name {
+        font-weight: bold;
+      }
+    }
+
+    .race-title {
+      margin: 5px 0;
+      font-size: $font-size;
+      color: $color-gray-darkest;
+      font-weight: normal;
+      text-transform: none;
+    }
+
+    .event-title {
+      color: $color-gray-darkest;
+      font-size: $font-size-lg;
+      margin-bottom: 6px;
+    }
+    .event-time {
+      font-weight: normal;
+      margin-right: 3px;
+    }
+
+    .race-details-container-l {
+      @include display-flex();
+    }
+    .specials-greyhounds-event-date {
+      margin-top: 7px;
+    }
+    .label {
+      margin: 0 0 3px;
+      color: $color-gray-dark;
+      font-size: $font-size-md;
+    }
+    .value {
+      color: $color-gray-darkest;
+      font-size: $font-size;
+      font-weight: normal;
+      margin-right: 5px;
+      padding-left: 0;
+    }
+    .race-timer {
+      .label,
+      .value {
+        display: block;
+        color: $color-gray-dark;
+        text-align: right;
+      }
+    }
+
+    @media (min-width: $tabletPoint) {
+      .race-details-container-r {
+        @include display-flex();
+        @include align-items(center);
+      }
+      .value,
+      .label {
+        display: inline-block;
+      }
+      .label {
+        margin: 0 2px 0 0;
+      }
+      .race-timer {
+        .label,
+        .value {
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  .racing-post-media-btns-container,
+  .racing-post-container {
+    background: $color-white;
+    @include display-flex();
+    @include flex-direction(row);
+    @include align-items(center);
+    padding: 12px 12px 12px 10px;
+  }
+
+  .racing-post-media-btns-container {
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.15);
+    @media (max-width: $mobileSmallPoint) {
+      .btn-wrapper{
+        min-width: 150px;
+        .watch-btn {
+          margin-right: 3px;
+        }
+        .livesim-btn {
+          margin-right: 0;
+        }
+      }
+      .racing-post-container {
+        padding-left: 2px;
+        .verdict {
+          margin-left: 3px;
+        }
+      }
+    }
+
+    .watch-btn,
+    .livesim-btn {
+      padding: 8px 7px;
+      margin-right: 8px;
+      background-color: $color-yellow-alt;
+      text-transform: uppercase;
+      color: $lGray;
+      text-shadow: none;
+      box-shadow: none;
+      @media #{$mqTabletAndDesktop} {
+      &:hover{
+        background-color: $color-yellow-alt;
+        opacity: 0.85;
+        color: $lGray;
+      }
+      }
+      &:active{
+        background-color: $color-orange-light2;
+        color: $IGrayPremium;
+      }
+      .btn-spinner.quantum-leap {
+        top: 0;
+      }
+    }
+
+    .watch-btn {
+
+      &.active {
+        background-color: $lGray;
+        color: $color-yellow-alt;
+        svg {
+          display: none;
+        }
+      }
+
+      &.disabled {
+        background-color: #e1e1e1;
+        color: $lBlack-light;
+        svg {
+          display: none;
+        }
+      }
+    }
+
+    .video-stream-icon {
+      width: 9px;
+      height: 9px;
+      margin: 0 3px 0 0;
+    }
+
+    .livesim-btn {
+      background-color: $color-white;
+      padding: 8px 10px;
+      border: 1px solid $lGray;
+      border-radius: 3px;
+      line-height: 10px;
+      &:active{
+        background-color: $color-gray-darkest !important;
+        color: $color-white !important;
+        opacity: 1;
+      }
+
+      &.active {
+        background-color: $color-white;
+        color: $lGray;
+      }
+    }
+    .replaybtn, .done-a-btn{
+      display: flex;
+      padding: 7px 12px;
+      align-items: center;
+      gap: 4px;
+      border-radius: 3px;  
+      &.active{
+        background:$lGray;
+        color:$color-yellow;
+      }
+  }
+   
+  &.replay-done-btn{
+    padding: 12px;
+  }
+  }
+
+  .racing-post-full-screen-container {
+    margin-bottom: $font-size-xs;
+  }
+  
+  .full-screen-available-container {
+    @include display-flex();
+    @include align-items(center);
+    background: $color-white;
+    padding: 2px 0px 10px 12px;
+  }
+  
+  .full-screen-svg {
+    width: 16px;
+    height: 21px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin-right: 5px;
+  }
+  
+  .full-screen-text {
+    width: 93px;
+    height: 12px;
+    font-family: 'Helvetica Neue';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    letter-spacing: 0.00075625px;
+    color: $color-increment;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+  }
+
+  .racing-post-container {
+    width: 154px;
+    padding: 0;
+    margin-left: auto;
+
+    .racing-chevron {
+      width: 9px;
+      height: 10px;
+      transform: rotate(-90deg);
+      fill: $color-gray-darkest;
+    }
+
+    .r-post-text {
+      font: $font-size-md $base-font-family;
+      color: $color-gray-dark;
+      line-height: $line-height-sm;
+      padding: 10px 10px 15px;
+
+      .r-post-btn {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .media-area-container {
+    border: 0;
+
+    .media-area-space {
+      padding: 10px 0;
+
+      .error-message {
+        padding-left: 12px;
+      }
+    }
+  }
+
+  .snb-sticky{
+    position: -webkit-fixed;
+    position: fixed;
+    width: 100%;
+    top: 98px;
+    z-index: 1010;
+  }
+}
+.uk-tote-event {
+  .silk-img {
+    &.has-img {
+      div {
+        width: 40px;
+      }
+    }
+  }
+  .new-race-card {
+    padding: 12px 12px 12px 0;
+
+    .odds-content {
+      @include align-items(stretch);
+      min-height: 40px !important;
+    }
+  }
+  .pool-header {
+    @include align-items(center);
+    height: 35px;
+    padding: 4px 12px;
+    background: $lGray-bg;
+    color: $color-gray-darkest;
+
+    .pool-size-label {
+      font: $font-size $alt-font-family;
+    }
+    .pool-size-value {
+      font: $font-size $alt-font-family;
+      font-weight: bold;
+    }
+  }
+  accordion {
+    background: $color-gray-light;
+    box-shadow: 0 2px 3px 0 $tabs-panel-box-shadow-color;
+  }
+  .race-card {
+    &.odds-card {
+      color: $color-gray-darkest;
+      margin: 0;
+    }
+  }
+  .odds-left {
+    width: 100%;
+    position: relative;
+    padding-left: 8px;
+
+    .odds-names-list {
+      margin-left: 12px;
+    }
+    .odds-names {
+      line-height: $odds-names-line-height;
+      color: $color-gray-darkest;
+
+      .odds-names {
+        font-size: $font-size-tablet !important;
+        margin: 0 !important;
+        line-height: 17px !important;
+      }
+    }
+    .odds-side {
+      font: $font-size $alt-font-family !important;
+      line-height: 17px !important;
+      margin-left: -6px;
+
+      .label-text {
+        font-size: $font-size !important;
+        line-height: 17px !important;
+      }
+    }
+  }
+  .page-inner-container {
+    .new-race-card {
+      .odds-content {
+        .odds-names-list {
+          padding: 11px 0;
+          margin: 0 !important;
+          flex: 1;
+        }
+        .toggle-icon {
+          svg {
+            position: static;
+            fill: #4a90e2;
+            width: 10px;
+            height: 6px;
+            margin: 0;
+            display: block;
+            margin: 0 0 0 3px
+          }
+          &.active svg {
+            @include transform(rotateX(180deg));
+          }
+        }
+        .odds-left {
+          .toggle-icon {
+            position: relative;
+            margin-top: -3px;
+            height: 6px;
+            padding: 0px 0px 0px 5px;
+          }
+          .toggle-icon.toggle-cd-flag.toggles{
+            padding: 0px!important;
+          }
+          .odds-side {
+            width: 23px;
+            min-width: auto;
+            @media (min-width: $tabletPoint) {
+              width: 50px;
+            }
+          }
+          .silk-img {
+            width: 40px;
+            margin-left: 0;
+          }
+        }
+        .odds-right {
+          position: relative;
+
+          .toggle-icon {
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            margin-top: -3px;
+            height: 6px;
+            margin-right: 8px;
+          }
+        }
+      }
+    }
+  }
+  .switchers {
+    padding: 0;
+
+    .switch-btn {
+      text-transform: none;
+      font: $font-size $alt-font-family;
+
+      &.active {
+        font-weight: bold;
+      }
+    }
+    .scroll-inner {
+      padding: 0;
+    }
+  }
+  .type-tote {
+    .check-area {
+      width: 50px;
+      height: auto;
+      background: $lGrayLight;
+      border-left-color: $tote-checkbox-border-color;
+
+      .checkbox {
+        border-color: $input-border-color;
+
+        &:after {
+          font: $font-size $alt-font-family;
+          color: $lGray;
+        }
+      }
+      &.checked {
+        background-color: $color-green-alt;
+      }
+    }
+  }
+  .pool-headers {
+    border-top-color: $light-grey;
+    background: $color-white;
+
+    .pool-sub-header {
+      font: $font-size $alt-font-family;
+      color: $color-gray-darkest;
+    }
+    li {
+      font: $font-size $alt-font-family;
+      text-transform: none;
+      color: $color-gray-darkest;
+
+      &.any {
+        text-transform: uppercase;
+      }
+    }
+    .gp-cls {
+      text-transform: capitalize;
+      color: $lGray;
+      font-family: $alt-font-family;
+      font-size: 10px;
+      width: 45px;
+      height: 23px;
+      margin-right: 1px;
+      text-align: center;
+    }
+    .gp-cls.pool-size-gp {
+      margin-right: 0px;
+    }
+    .pool-leg-gp {
+      margin-right: 66px;
+    }
+    .gp-is-mobile {
+      margin-right: 46px;
+    }
+  }
+  .silk-img {
+    margin-right: 12px !important;
+  }
+}
+
+// TODO: hidden (BMA-45310 ) until not redesigned
+.page-inner-container svg.bpg-icon,
+body svg.bpg-icon {
+  display: none !important;
+}
+
+.racing-event-tabs {
+  margin-bottom: 4.2px;
+  background: $lGray !important;
+  .tabs-list ul>li {
+    .show-signposting {
+      height: 7px;
+      width: 7px;
+      background: $show-signPosting-color;
+      border-radius: 20px;
+      margin-bottom: $racing-signPosting-margin;
+    }
+  }
+  
+}
+
+.horse-racing-icons promotion-icon {
+svg{
+  margin: 0px;
+}
+}
+
+.market-tooltip {
+  position: relative;
+}
+.eprSection{
+  justify-content: space-between;
+  align-content: space-around;
+}

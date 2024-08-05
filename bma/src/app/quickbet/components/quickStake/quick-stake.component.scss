@@ -1,0 +1,46 @@
+//Global styles
+@import 'global.variables.scss';
+@import '../../../../assets/styles/modules/jump-vibrate-animation.scss';
+
+/* Quick state section */
+.quickbet-quick-stake {
+  @include display-flex();
+  height: 40px;
+  background: $color-white;
+  margin: 0 13px 15px;
+  position: relative;
+
+  .qb-quick-stake-item {
+    flex: 1;
+    background: $lGray;
+    text-align: center;
+    padding-top: 10px;
+    color: $color-white;
+
+    &:before {
+      content: attr(data-currency);
+    }
+    & + .qb-quick-stake-item {
+      margin-left: 2px;
+    }
+
+    span {
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    span:first-child {
+      letter-spacing: 1px;
+    }
+    &.qb-fb-toggle{
+      background-color: $color-yellow;
+      padding-top: 0;
+    }
+
+    &.qb-free-bet-sel{
+      border: 1px solid $color-yellow;
+      background: $color-gray-light;
+      padding: 0;
+    }
+  }
+}

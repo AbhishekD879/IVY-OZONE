@@ -1,0 +1,15 @@
+cms:
+    brand: ladbrokes
+logging:
+    level:
+        com:
+            amazonaws:
+                request: INFO
+promosandbox:
+    distributed:
+        prefix: PRD0
+    topic:
+        promo-config:
+            concurrency: 1
+            groupId: PROMO_CONFIG
+            name: ${promosandbox.distributed.prefix}_promo-config

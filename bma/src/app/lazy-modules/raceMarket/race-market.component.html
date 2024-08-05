@@ -1,0 +1,123 @@
+<div class="race-market">
+  <div class="race-market-content">
+    <div *ngIf="marketEntity?.outcomes && isGroupedRaceMarket(marketEntity)" data-crlat="marketOutcomes">
+      <div class="race-market-header" data-crlat="raceMarketHeader">
+        <ul class="header-wrapper">
+          <li *ngFor="let title of getHeader(marketEntity, eventEntity); trackBy: trackByIndex;"
+              [textContent]="title" data-crlat="title"></li>
+        </ul>
+      </div>
+      <race-cards-controls class="sort-by-container race-cards-controls"
+                    [sortBy]="sortBy"
+                    [market]="marketEntity"
+                    [isGreyhoundEdp]="isGreyhoundEdp"
+                    [isInfoHidden]="isInfoHidden"
+                    [sortOptionsEnabled]="sortOptionsEnabled"
+                    (toggleShowOptions)="toggleShowOptions(expandedSummary, $event)"
+                    (toggleShowOptionsGATracking) = "toggleShowOptionsGATracking($event)"
+                    *ngIf="showRaceControls">
+      </race-cards-controls>
+
+      <ng-container>
+        <div *ngFor="let outcomeEntity of uniqOutcomes; trackBy: trackById; let oIndex = index"
+            data-crlat="outcomeEntity">
+        <div class="odds-card race-card new-race-card"
+        [ngClass]="{
+                'active' : expandedSummary[0][oIndex]
+              }"
+             *ngIf="!outcomeEntity.isFavourite"
+              data-crlat="raceCard.odds" (click)="onExpandSection(expandedSummary,oIndex)">
+          <div class="odds-content">
+            <div class="odds-left">
+              <div class="odds-side"
+                   *ngIf="isNumber(outcomeEntity) && !outcomeEntity.nonRunner">
+                <strong [textContent]="outcomeEntity.runnerNumber" data-crlat="runnerNumber"></strong><br/>
+                <div class="label-text"
+                     *ngIf="outcomeEntity.racingFormOutcome?.draw" data-crlat="outcomeDraw">
+                  (<span [textContent]="outcomeEntity.racingFormOutcome.draw"></span>)
+                </div>
+              </div>
+              <div class="silk-img" *ngIf="isGenericSilk(eventEntity, outcomeEntity) || getDefaultSilk(eventEntity, outcomeEntity)"
+                   data-crlat="imageSilk">
+              </div>
+              <gh-silk *ngIf="isGreyhoundSilk(eventEntity, outcomeEntity) && !hideSilk"
+                [event]="eventEntity"
+                [outcome]="outcomeEntity"></gh-silk>
+              <div class="silk-img" [ngClass]="(eventEntity.isUKorIRE ? 'with-default': 'inter-silk') + ' ' + (!outcomeEntity.nonRunner ? 'has-img' : '')" *ngIf="outcomeEntity.racingFormOutcome?.silkName" data-crlat="sectionSilkImg">
+                <div *ngIf="!outcomeEntity.nonRunner" [ngStyle]="getSilkStyle(marketEntity, outcomeEntity)" data-crlat="imageSilk"></div>
+              </div>
+              <div class="odds-names odds-names-list" [ngClass]="{'odds-disabled' : outcomeEntity.nonRunner}"
+                   data-crlat="horseInfoContainer">
+                   <strong class="odds-names odds-names-wrap" [textContent]="(eventEntity.categoryCode === 'GREYHOUNDS') ? getFilteredName(outcomeEntity.name): nameWithoutNonRunner(outcomeEntity.name)"
+                        data-crlat="horseName">
+                </strong>
+                <span *ngIf="!outcomeEntity.nonRunner" class="odds-normal" data-crlat="jockeyAndTrainer">
+                  <span *ngIf="outcomeEntity.racingFormOutcome?.jockey">
+                    <span [textContent]="'J: '" class="text-bold"></span>
+                    <span [textContent]="raceOutcomeData.formatJockeyWeight(outcomeEntity.racingFormOutcome)"
+                      data-crlat="jockeyName"></span>
+                  </span>
+                  <span *ngIf="raceOutcomeData.isJockeyAndTrainer(outcomeEntity.racingFormOutcome)"> / </span>
+                  <span *ngIf="outcomeEntity.racingFormOutcome?.trainer">
+                    <span [textContent]="'T: '" class="text-bold"></span>
+                    <span [textContent]="outcomeEntity.racingFormOutcome.trainer" data-crlat="trainerName"></span>
+                  </span>
+                </span>
+                <span class="non-runner" *ngIf="outcomeEntity.nonRunner && !(eventEntity.categoryCode === 'GREYHOUNDS')" [i18n]="'racing.nonRunner'" data-crlat="nr">
+                </span>
+                
+                  <span class="odds-small" *ngIf="!outcomeEntity.nonRunner">
+                    <span class="racing-form form-guide-color" *ngIf="outcomeEntity.racingFormOutcome" data-crlat="racingForm">
+                      <span [i18n]="'racing.form_colon'"></span>
+                      <span class="text-bold" [textContent]="outcomeEntity.racingFormOutcome?.formGuide || '-'"></span>
+                    </span>
+                    <span
+                    *ngIf="(outcomeEntity.racingFormOutcome && !outcomeEntity.isFavourite &&
+                    (!this.isGreyhoundEdp || outcomeEntity.racingFormOutcome.overview)) || outcomeEntity.timeformData"
+                      class="toggle-icon" 
+                      [ngClass]="{'active' : expandedSummary[0][oIndex], 'cd-flag-style' : isGreyhoundEdp,
+                       'cd-more-link-hide':groupedMarket?.length > 2 && isCoralDesktop, 'cd-coral-desktop-hr': (groupedMarket?.length) && (!isGreyhoundEdp)}"
+                      data-crlat="toggleIcon">
+                      <span *ngIf="expandedSummary[0][oIndex]" [ngClass]="{'showMoreLess': outcomeEntity.racingFormOutcome?.formGuide}" [textContent]="'Show less'"></span>
+                      <span *ngIf="!expandedSummary[0][oIndex]" [ngClass]="{'showMoreLess': outcomeEntity.racingFormOutcome?.formGuide}" [textContent]="'Show more'"></span>
+                      <svg>
+                        <use xlink:href="#down-arrow"></use>
+                      </svg>
+                    </span>
+                    <div class="odds-small" [ngClass]="{'cd-flag-sameline':(groupedMarket?.length < 3) && isCoralDesktop}"  *ngIf="(outcomeEntity.racingFormOutcome?.formGuide || outcomeEntity.racingFormOutcome?.courseDistanceWinner) && !outcomeEntity.nonRunner">
+                      <span class="course-distance"
+                            *ngIf="outcomeEntity.racingFormOutcome.courseDistanceWinner" data-crlat="courseDistanceWinner"
+                            [textContent]="outcomeEntity.racingFormOutcome.courseDistanceWinner">
+                      </span>
+                    </div>
+                  </span>
+              </div>
+            </div>
+            <div class="odds-right odds-right-horizontal" data-crlat="oddsPriceButtons">
+              <div class="price-odds-wrapper" *ngFor="let marketEntity of groupedMarket; trackBy: trackById;">
+                <div *ngIf="displayMarketPanel(marketEntity) && marketEntity.outcomes" data-crlat="marketEntity.outcomes">
+                  <price-odds-button *ngIf="getOutcomeForRaceMarket(marketEntity.outcomes, outcomeEntity.name)"
+                                     (click)="$event.stopPropagation();"
+                                     [event]="eventEntity"
+                                     [market]="marketEntity"
+                                     [nonRunner]="outcomeEntity.nonRunner"
+                                     [outcome]="getOutcomeForRaceMarket(marketEntity.outcomes, outcomeEntity.name)"
+                                     [isFavourite]="getOutcomeForRaceMarket(marketEntity.outcomes, outcomeEntity.name)"
+                                     [priceType]="defPriceType(marketEntity, outcomeEntity)"
+                                     [disabled]="outcomeEntity?.nonRunner">
+                  </price-odds-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <lazy-component *ngIf="outcomeEntity.racingFormOutcome && expandedSummary[0][oIndex] && !outcomeEntity.nonRunner"
+          moduleUri="@lazy-modules-module/runnerSpotlight/runner-spotlight.module#RunnerSpotlightModule"
+          [inputs]='{ outcome: outcomeEntity, isUKorIRE: eventEntity.isUKorIRE, isGreyhoundEdp: isGreyhoundEdp }'>
+        </lazy-component>
+        </div>
+      </ng-container>
+
+    </div>
+  </div>
+</div>

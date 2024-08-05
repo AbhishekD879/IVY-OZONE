@@ -1,0 +1,47 @@
+
+
+@import 'global.variables.scss';
+ 
+ .virtual-Img-container-lad-mobile {
+   position: relative;
+   width: calc(100% + 8px);
+   margin-left: -4px;
+ }
+ 
+ .virtual-Img-container-lad-mobile img {
+  width: calc(100% + 8px);
+   height: auto;
+ }
+
+ .pointer
+ {
+  cursor : pointer;
+ }
+ 
+ .virtual-Img-container-lad-mobile .btn {
+  position: absolute;
+  top: 58%;
+  left: 27%;
+  cursor: pointer;
+  align-items: center;
+  color: #FFF;
+  text-align: center;
+  font-family: Roboto Condensed;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  display: flex;
+  width: 100px;
+  height: 35px;
+  flex-direction: column;
+  border-radius: 2px;
+  background: #8BBD22;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+ }
+ 
+ .virtual-Img-container-lad-mobile .btn:hover {
+  background-color: #a8ce5a;
+ }

@@ -1,0 +1,48 @@
+<ng-container *ngIf="!state.loading && !state.error">
+  <top-bar [title]="competitionName"></top-bar>
+  <div class="outer-div">
+    <svg [class.header-color]="competition.background" viewBox="0 0 1100 120" preserveAspectRatio="none">
+    <use [attr.xlink:href]="'#' + competition.svgBgId"></use>
+    </svg>
+    <div class="text-title" [textContent]="competitionName"></div>
+    </div>
+  <div class="banner-block" *ngIf="aemBanner?.length">
+    <lazy-component
+      class="bigc-banner"
+      moduleUri="@lazy-modules-module/banners/banners.module#BannersModule"
+      [inputs]="{ page: aemBanner[0]?.aemPageName }" data-crlat="bannersSection"
+    >
+    </lazy-component>
+  </div>
+
+<action-arrows *ngIf="competitionTabs">
+  <action-arrows-content>
+    <switchers
+      [type]="'scrollable'"
+      [switchers]="competitionTabs"
+      [activeTab]="activeTab"
+      [noPaddings]="true"
+      [preventReload]="true"
+    ></switchers>
+  </action-arrows-content>
+</action-arrows>
+<svg-list *ngIf="participantsFlags"
+          [list]="participantsFlags"
+          [keepStyles]="true">
+</svg-list>
+<lazy-component *ngIf="surfaceBets || highlightCarousels" moduleUri="@featuredModule/featured.module#FeaturedModule" [inputs]="{
+  sportId: competition?.sportId,
+  sportName: competition?.name,
+  showOnlyBigCompetitionData: true,
+  participants: participantsService.participants,
+  surfaceBetIds: surfaceBets,
+  highlightCarouselIds: highlightCarousels
+      }" entryComponent="FeaturedModuleComponent">
+</lazy-component>
+<big-competition-tabs *ngIf="defaultTabName === activeTabName" [tab]="defaultTabName"></big-competition-tabs>
+<router-outlet></router-outlet>
+</ng-container>
+
+<outlet-status [state]="state">
+<request-error [loadFailed]="true" (reloadFn)="reloadComponent()"></request-error>
+</outlet-status>

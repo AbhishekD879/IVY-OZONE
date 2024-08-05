@@ -1,0 +1,8 @@
+<div *ngIf="message" class="cashout-error-message">
+  <span class="info-container" data-crlat="info-icon">
+    <svg>
+      <use xlink:href="#Icon_Info"></use>
+    </svg>
+  </span>
+  <span [textContent]="message" data-crlat="cashoutErrorMessage"></span>
+</div>

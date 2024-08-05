@@ -1,0 +1,10 @@
+.sticky-market-selector {
+  position: relative;
+}
+:host {
+  ::ng-deep {
+    .dropdown {
+      top: -50px !important;
+    }
+  }
+}

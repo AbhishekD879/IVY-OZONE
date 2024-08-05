@@ -1,0 +1,42 @@
+<nav data-uat="footer" *ngIf="footerLinks" id="footer-menu-nav" class="footer-menu" [ngClass]="{'hide': !showFooterMenu, 'hidden': !footerMenuVisible}">
+
+  <!-- TO DO  - change the container to single lazy component and add componentToLoad -->
+<ng-container *ngIf="environments === 'bma' else lads" >
+  <lazy-component *ngIf="onBoardingData?.tutorialEnabled"
+    moduleUri="@lazy-modules-module/onBoardingTutorial/firstBetPlacement/first-bet-placement.module#OnBoardingFirstBetModule"
+    entryComponent="OnBoardingFirstBetComponent"
+    [inputs]="{onBoardingData: onBoardingData}">
+  </lazy-component>
+  </ng-container>
+
+ <ng-template  #lads> 
+  <lazy-component *ngIf="onBoardingData?.tutorialEnabled"
+    moduleUri="@lazy-modules-module/onBoardingTutorial/firstBetPlacement/first-bet-placement.module#LadbrokesOnBoardingFirstBetModule"
+    entryComponent="LadbrokesOnBoardingFirstBetComponent" 
+    [inputs]="{onBoardingData: onBoardingData}">
+  </lazy-component>
+</ng-template>
+
+  <ul class="menu-items">
+    <li (touchstart)="iconPressedState(link)" (touchend)="iconDefaultState(link)"  *ngFor="let link of footerLinks; trackBy: trackByIndex;"
+        [ngClass]="{'active': link.isActive}">
+      <a id="{{link.linkTitle}}" (touchstart)="iconPressedState(link)" (touchend)="iconDefaultState(link)" (click)="customRedirect($event, link)"
+         [attr.href]="link.redirectUrl"
+         [attr.target]="!link.inApp ? '_blank' : ''"
+         [attr.title]="link.linkTitle"
+         class="menu-item"
+         data-crlat="menuItem">
+        <svg id="{{link.id}}" class="menu-item-icon" data-crlat="menuItemIcon">
+          <use [attr.xlink:href]="'#' + (link.svgId || 'icon-generic')"></use>
+        </svg>
+        <span class="menu-item-title" [textContent]="link.linkTitle" data-crlat="menuItemTitle"></span>
+        <span *ngIf="link.targetUri.indexOf('open-bets') !== -1 && openBetsCounter"
+          class="menu-item-sub-icon"
+          data-crlat="itemText"
+          [textContent]="openBetsCounter"
+          [ngClass]="{ 'pulse': animate, 'plus': moreThanTwenty }">
+        </span>
+      </a>
+    </li>
+  </ul>
+</nav>

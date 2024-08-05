@@ -1,0 +1,194 @@
+@media (max-width: $odds-button-small-size) {
+  .btn-bet {
+    min-width: $price-odd-btn-max-width-1599;
+  }
+}
+@media (min-width: $odds-button-big-size) {
+  .btn-bet {
+    min-width: $price-odd-btn-min-width-1600;
+  }
+}
+
+.btn-bet {
+  font: bold 13px/13px $base-font-family;
+  color: $color-gray-dark;
+  padding: 8px 1px;
+  min-height: 40px;
+  cursor: pointer;
+  text-align: center;
+  outline: none;
+  word-wrap: break-word;
+  display: block;
+  border-radius: 3px;
+  background-image: linear-gradient(-188deg, #F7F8FB 0%, #DBDEE7 100%);
+  color: $color-gray-dark;
+  border: 1px solid $color-gray-darker;
+
+  &:hover {
+    background: $color-gray;
+  }
+
+  &.btn-with-header {
+    @include display-flex();
+    @include flex-direction(column);
+    @include align-items(stretch);
+    background: none;
+    border-radius: 2px;
+    text-align: center;
+    color: $color-white;
+    padding: 0;
+
+    .odds-head {
+      background: rgba(255,255,255,.4);
+      border-top-right-radius: 2px;
+      border-top-left-radius: 2px;
+      font-weight: normal;
+      font-size: 9px;
+      line-height: 11px;
+      padding: 2px;
+      margin-bottom: 1px;
+      text-transform: uppercase;
+      height: 15px;
+      width: 100%;
+      color: $color-white;
+    }
+
+    .odds-price {
+      background: rgba(255,255,255,.4);
+      border-bottom-right-radius: 2px;
+      border-bottom-left-radius: 2px;
+      height: 30px;
+      line-height: 30px;
+    }
+
+    //disabled
+    &[disabled], &.active[disabled], &.bet-up[disabled],
+    &.bet-down[disabled], &.bet-dis[disabled] {
+      background: none;
+      color: $color-white;
+      opacity: .4;
+
+      .odds-head, .odds-price {
+        background:  rgba-color($color-gray-light, .4);;
+      }
+    }
+
+    // active
+    &.active, &.active:hover {
+      background: none;
+
+      .odds-head, .odds-price {
+        background: rgba-color($color-green, .6);
+      }
+    }
+
+    // hover
+    &:hover {
+      .odds-head, .odds-price {
+        background: rgba(255,255,255,.5);
+      }
+    }
+
+    //live bet update
+    &.bet-up .odds-head, &.bet-up .odds-price {
+      @include bet-animation(up-button);
+    }
+
+    &.bet-down .odds-head, &.bet-down .odds-price {
+      @include bet-animation(down-button);
+    }
+  }
+
+  &.bet-modified {
+    padding-bottom: 1px;
+
+    .bet-changed {
+      padding-top: 2px;
+      font-size: 8px;
+      display: block;
+      color: $color-red;
+
+      &:before {
+        content: "WAS\00a0";
+        font-stretch: condensed;
+      }
+    }
+
+    &.active .bet-changed {
+      color: $color-white;
+    }
+  }
+
+  &.active {
+    background: $color-green;
+    color: $color-white;
+    pointer-events: auto;
+    cursor: pointer;
+
+    &.active:hover {
+      border: 1px solid $color-green;
+    }
+  }
+
+  //live bet update
+  &.bet-up:not([disabled]) {
+    @include bet-animation(up-button);
+  }
+
+  &.bet-down:not([disabled]) {
+    @include bet-animation(down-button);
+  }
+
+  //disabled
+  &.active[disabled], &.bet-up[disabled],
+  &.bet-down[disabled], &.bet-dis[disabled],
+  &[disabled] {
+    background-image: linear-gradient(-188deg, #F7F8FB 0%, #DBDEE7 100%);
+    pointer-events: auto;
+    font-size: 13px;
+
+    &:hover {
+      background: $color-gray;
+      border: 1px solid lighten($color-gray-dark, 50%);
+    }
+  }
+}
+
+@mixin bet-animation($animation-name){
+  animation-duration: 2s;
+  animation-name: $animation-name;
+  animation-iteration-count: 1;
+  animation-fill-mode: backwards;
+}
+
+@keyframes up-button {
+  from {
+    background: inherit;
+    color: $color-gray-dark;
+  }
+
+  to {
+    background: $color-pink;
+    color: $color-white;
+  }
+}
+
+@keyframes down-button {
+  from {
+    background: inherit;
+    color: inherit;
+  }
+
+  to {
+    background: $color-tealish;
+    color: $color-white;
+  }
+}
+
+.enhanced-multiples-carousel-section .btn-bet,
+.enhanced-carousel-container-many-slides .btn-bet {
+  min-height: 50px;
+  min-width: 60px;
+  font-size: 13px;
+  line-height: 13px;
+}

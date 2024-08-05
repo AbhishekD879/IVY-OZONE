@@ -1,0 +1,56 @@
+@import 'global.variables.scss';
+
+.leagues {
+  .table-panel{
+    th {
+    background: $brand-color-main;
+    color: $color-white;
+    text-shadow: none;
+    }
+
+    th, td {
+      border: none;
+      padding: 5px;
+      &:first-child {
+        text-align: right;
+      }
+    }
+
+    td {
+      &:first-child {
+        min-width: initial;
+      }
+      &:nth-child(2) {
+        max-width: 79px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        @media (min-width: $tabletPoint) and (max-width: $landscapeTabletPoint) {
+          max-width: 59px;
+        }
+      }
+    }
+
+    tr {
+      background-color: $color-gray-light;
+      &:nth-child(even) {
+        background-color: $color-gray-light;
+      }
+    }
+  }
+
+  .matches-sub-menu {
+    border-bottom: none;
+    box-shadow: none;
+    max-height: none;
+  }
+
+  .text {
+    padding: 0 15px;
+  }
+
+  .text-section .btn.full-width {
+    margin: 0;
+  }
+
+}

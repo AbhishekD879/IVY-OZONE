@@ -1,0 +1,115 @@
+@import 'global.variables.scss';
+
+:host {
+  ::ng-deep .modal-dialog {
+    width: 295px;
+    .modal-content {
+      .modal-header {
+        border-radius: 2px;
+        background-color: $color-white-light;
+        padding: 25px 5px 5px 18px;
+      }
+      .modal-body {
+        padding: 0px;
+      }
+    }
+  }
+}
+.SYC-Popup {
+  &-text {
+    margin: 15px 18px;
+    @include setFanzoneSYTText(Helvetica, 12px, normal, left, normal, normal, 1.2, normal);
+    color: $lBlack-light;
+  }
+  &-title {
+    @include setFanzoneSYTText(Helvetica, 13px, bold, left, normal, normal, normal, normal);
+    text-transform: uppercase;
+    color:  $lGray;
+  }
+
+  &-img {
+    padding: 12px;
+  }
+
+  &__ctaButton {
+    display: flex;
+    justify-content: flex-end;
+    &--ctaPrimaryBtn, &--ctaSecondaryBtn {
+      @include setFanzoneSYTText(Roboto, 12px, bold, right, condensed, normal, normal, normal);
+      border: $fanzone-syt-border;
+      white-space: nowrap;
+    }
+    &--ctaPrimaryBtn {
+      background-color: $fanzone-transparent-color;
+      color: $color-gray-darkest;
+      margin: 2vh 0vw 2vh 1vw;
+      padding: 10px 12px 10px 15px;
+      &:hover{
+        text-decoration: underline;
+      }
+      &:active{
+        color: $lGrayMedium;
+      }
+    }
+    &--ctaSecondaryBtn {
+      background-color: $color-yellow-alt;
+      color: $lGray;
+      height: 35px;
+      margin: 2vh 1.5vw 2vh 0vw;
+      padding: 10px 15px;
+      text-align: center;
+      &:hover{
+        background-color: $color-yellow-alt;
+        opacity: 0.85;
+      }
+      &:active{
+        background-color: $color-orange-light2;
+        opacity: 1;
+      }
+    }
+  }
+  &__input-container {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  &__input{
+    @include setFanzoneSYTText(Roboto, 12px, bold, center, condensed, normal, normal, normal);
+    border: none;
+    text-decoration: none;
+    color: $color-black;
+    &:focus {
+      outline:none;
+    }
+  }
+
+  &__input {
+    &--error {
+      border-radius: 0px;
+      border-bottom: 1px solid $red;
+    }
+    &--no-error {
+      border-radius: 0px;
+      border-bottom: 1px solid $color-black;
+    }
+  }
+}
+
+@media (max-width: $mobilePoint) {
+  .SYC-Popup {
+    &-text {
+      font-size: $font-size-tablet;
+    }
+    &-title {
+      font-size: $font-size-bit-lgr;
+      color: $lGray;
+    }
+    &__ctaButton {
+      &--ctaSecondaryBtn {
+        margin-right: 4vw;
+      }
+      &--ctaPrimaryBtn, &--ctaSecondaryBtn {
+        font-size: $font-size-tablet;
+      }
+    }
+  }
+}

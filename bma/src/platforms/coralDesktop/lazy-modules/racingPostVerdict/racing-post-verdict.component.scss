@@ -1,0 +1,149 @@
+@import 'global.variables.scss';
+
+:host {
+  font-size: 12px;
+}
+
+.r-p-verdict__info {
+  padding: 12px 15px;
+  margin: 0;
+  font-family: $base-font-family;
+  font-size: $font-size-tablet;
+  line-height: 12px;
+  color: $color-gray-dark;
+  font-weight: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+}
+
+.header-section {
+  display: inline-block;
+  width: 100%;
+  height: 40px;
+  font-family: $base-font-family;
+  color: $color-white;
+  background: $color-blue-dark;
+  text-transform: uppercase;
+  font-weight: bold;
+  line-height: 40px;
+  padding: 0 15px;
+  margin: 0;
+  font-size: $font-size;
+  border: none !important;
+}
+
+section {
+  & > div {
+    display: flex;
+    @include flex();
+    @include justify-content(space-between);
+    @include align-items(center);
+    padding: 0 15px;
+  }
+}
+
+.r-p-verdict__tips-section {
+  color: $color-gray-darkest;
+  font-size: $font-size-lg;
+  div {
+    border-bottom: 1px solid $color-gray-darker-two;
+    height: 60px;
+  }
+  div:first-of-type {
+    margin-top: 10px;
+  }
+  div:last-of-type {
+    margin-bottom: 10px;
+    border: none !important;
+    letter-spacing: -0.34px;
+  }
+  span {
+    font-family: $base-font-family;
+  }
+  .tip_name {
+    font-weight: bold;
+    width: 40%;
+    font-family: $base-font-family;
+    letter-spacing: -0.34px;
+    @include flex();
+    @include align-items(center);
+    @include justify-content(start);
+    &:first-of-type {
+      font-weight: bold;
+    }
+  }
+  .tip_value{
+    width: 60%;
+    font-family: $base-font-family;
+    font-size: $font-size-tablet;
+    letter-spacing: -0.34px;
+    @include flex();
+  }
+}
+
+.r-p-verdict__rating-section {
+  color: $color-gray-darkest;
+  div {
+    border-bottom: 1px solid $color-gray;
+    height: 40px;
+  }
+  div:first-of-type {
+    margin-top: 0px;
+  }
+  div:last-of-type {
+    margin-bottom: 10px;
+    border: none !important;
+  }
+  .item_name{
+    line-height: 26px;
+    font-family: $alt-font-family;
+  }
+}
+
+
+.r-p-verdict__most-tipped {
+  color: $color-gray-darkest;
+  font-size: $font-size-lg;
+
+  div:first-of-type {
+    margin-top: 10px;
+  }
+  div:last-of-type {
+    margin-bottom: 10px;
+    border-bottom: none;
+  }
+  div {
+    border-bottom: 1px solid $lGrayLight;
+    height: 60px;
+  span {
+    font-family: $base-font-family;
+  }
+  .horse_name {
+    word-wrap: break-word;
+    line-height: normal;
+    width: 35%;
+  }
+  .number_of_tips {
+   font-weight: bold;
+   width: 20%;
+   font-family: $base-font-family;
+   font-size: $font-size-lg;
+   letter-spacing: -0.34px;
+   text-align: right;
+  }
+  
+  .tipster_names {
+      width: 40%;
+      line-height: 14px;
+      @include align-items(center);
+  }
+ }
+}
+
+img {
+  display: block;
+  width: calc(100% - 30px);
+  margin: 0 auto 15px;
+  border: 1px solid $lGrayLight;
+}

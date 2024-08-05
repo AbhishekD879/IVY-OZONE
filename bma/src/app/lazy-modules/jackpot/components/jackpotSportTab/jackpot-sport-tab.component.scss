@@ -1,0 +1,33 @@
+@import 'global.variables.scss';
+
+.message {
+  color: $color-red;
+  font-size: $font-size-sm;
+  padding: 5px;
+  text-align: center;
+}
+
+.info-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.stake-panel {
+  padding: 0 0 10px;
+}
+
+.error-msg {
+  color: $color-white;
+  font-weight: bold;
+  padding: 10px 15px;
+  margin: 10px 0 0;
+  background: $color-red;
+  a {
+    color: $color-white;
+    text-decoration: underline;
+  }
+}
+
+.odds-names{
+  padding: 0 5px 0 0;
+}

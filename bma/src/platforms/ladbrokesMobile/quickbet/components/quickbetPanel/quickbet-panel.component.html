@@ -1,0 +1,115 @@
+<div class="quickbet-panel" id="quickbet-panel" data-crlat="quickbetPanel"
+     [ngClass]="{'disable-trans': isLuckyDip, 'enable-trans' :!isLuckyDip, 'quickbet-slide-up': slideUpAnimation, 'quickbet-panel-receipt': isState('receipt')}">
+  <lazy-component *ngIf="onBoardingData?.tutorialEnabled"
+    moduleUri="@lazy-modules-module/onBoardingTutorial/firstBetPlacement/first-bet-placement.module#LadbrokesOnBoardingFirstBetModule"
+    entryComponent="LadbrokesOnBoardingFirstBetComponent" [inputs]="{onBoardingData: onBoardingData}">
+  </lazy-component>
+  <div class="show-iframe" [ngClass]="{'hidden': showIFrame}">
+    <header class="quickbet-header" data-crlat="header" *ngIf="!isState('deposit')">
+      <div class="title-section">
+        <svg *ngIf="isFiveASideBet" class="qb-header-5-a-side-logo">
+          <use xlink:href="#icon-logo-five-a-side"></use>
+        </svg>
+        <span class="qb-header-title" [textContent]="title" data-crlat="header.title"></span>
+      </div>
+      <div *ngIf="showCloseIcon" class="qb-header-close-btn" (click)="closePanel($event)" data-crlat="closeButton">
+        <svg>
+          <use xlink:href="#close-icon"></use>
+        </svg>
+      </div>
+    </header>
+
+  <!-- Quickbet MS unavailable panel -->
+  <div *ngIf="selection && selection.error">
+    <request-error *ngIf="!selection.error.selectionUndisplayed"
+                   [loadFailed]="selection.error"
+                   (reloadFn)="reuseSelection()">
+    </request-error>
+    <div class="selection-undisplayed-error"
+         *ngIf="selection.error.selectionUndisplayed"
+         [i18n]="'quickbet.betPlacementErrors.' + selection.error.selectionUndisplayed"
+         data-crlat="selectionUndisplayed"></div>
+    <div class="quickbet-controls">
+      <button *ngIf="!isLuckyDip" class="qb-left-cta-btn"
+              [disabled]="selection.error.selectionUndisplayed"
+              (click)="addToBetslipFnHandler()"
+              [i18n]="'quickbet.buttons.addToBetslip'"
+              data-crlat="addToBetslipButton">
+      </button>
+      <button class="qb-right-cta-btn" [ngClass]="{'qb-right-cta-btn-ld':isLuckyDip}"
+      [disabled]="true"
+              [i18n]="'quickbet.buttons.placeBet'"
+              data-crlat="placeBetButton">
+      </button>
+    </div>
+  </div>
+  <!-- Quick Bet Information Panel -->
+  <quickbet-info-panel *ngIf="isState('initial')"
+                       [qdIsShown]="true"
+                        data-crlat="infPan.msg"
+                       (externalLinksFn)="closeFnHandler()">
+  </quickbet-info-panel>
+
+  <div *ngIf="!isLuckyDip && serviceClosureService.userServiceClosureOrPlayBreak" class='closure-message-container' [textContent]='serviceClosureService.userAccountInfo || "undefined"'>
+  </div>
+  
+    <quickbet-selection *ngIf="isState('initial') && !showIFrame"
+                        [isLogAndQuickBetPending]="loginAndPlaceBets"
+                        [selection]="selection"
+                        [isFiveASideBet] = "isFiveASideBet"
+                        [placeBetPending]="placeBetPending"
+                        [ycOddsValue]="ycOddsValue"
+                        [quickDepositFormExpanded]="quickDepositFormExpanded"
+                        [showIFrame]="showIFrame"
+                        (placeBetFn)="placeBet()"
+                        (closeFn)="closePanel()"
+                        [getFreeBetName]="sysConfig.FiveASide && sysConfig.FiveASide.freeBetName"
+                        (addToBetslipFn)="addToBetslipFnHandler()"
+                        [leftBtnLocale]="leftBtnLocale"
+                        (openQuickDepositFn)="quickDepositFormExpanded = true"
+                        data-crlat="quickbet.selection"
+                        (firstBetBoostEmit)="firstBetBoostEmit($event)"  
+                        [isLuckyDip]="isLuckyDip"
+                        [luckyDipCmsData]="luckyDipCmsData"
+                        [luckyDipMarketName]="luckyDipMarketName"
+                        [isWSdisabled]="isWSdisabled"
+                        [betslipType]="betslipType">
+      <ng-content select="your-call-body" ngProjectAs="your-call-body-details"></ng-content>
+    </quickbet-selection>
+
+    <quickbet-receipt-ld *ngIf="isState('receipt') && isLuckyDip"
+                      [winAlertsEnabledLD] = "sysConfig.winAlerts && sysConfig.winAlerts.enabled && device.isWrapper">
+    </quickbet-receipt-ld>
+
+    <quickbet-receipt *ngIf="isState('receipt') && !isLuckyDip"
+                      [selection]="selection"
+                      [betReceipt]="betReceipt"
+                      [ycOddsValue]="ycOddsValue"
+                      [racingPostToggle]="sysConfig.racingPostTip"
+                      [nextRacesToBetslipToggle]="sysConfig.nextRacesToBetslip?.enabled"
+                      [winAlertsEnabled]="sysConfig.winAlerts && sysConfig.winAlerts.enabled && device.isWrapper"
+                      (closeQuickbetPanel)="closePanel()"
+                      (reuseSelectionFn)="reuseSelection()"
+                      data-crlat="quickbetReceipt" >
+      <ng-content select="your-call-receipt" ngProjectAs="your-call-body-receipt-details"></ng-content>
+    </quickbet-receipt>
+  </div>
+
+  <lazy-component *ngIf="quickDepositFormExpanded"
+                  class="qb-quick-deposit-iframe"
+                  moduleUri="@quickDepositModule/quick-deposit.module#QuickDepositModule"
+                  [inputs]="{
+                        showPriceChangeNotification: showPriceChangeMessage,
+                        priceChangeBannerMsg: priceChangeText,
+                        estimatedReturnAfterPriceChange: estimatedReturnAfterPriceChange,
+                        placeSuspendedErr: placeSuspendedErr,
+                        showSuspendedNotification: showSuspendedNotification,
+                        stake: getTotalStake(),
+                        estimatedReturn: +selection.potentialPayout
+                        }"
+                  [outputs]="['openIframeEmit', 'closeWindow', 'closeIframeEmit']"
+                  (event)="onQuickDepositEvents($event)"
+                  entryComponent="QuickDepositIframeComponent"
+                  data-crlat="quickDepositPanel">
+  </lazy-component>
+</div>

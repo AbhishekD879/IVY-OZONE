@@ -1,0 +1,86 @@
+@import 'global.variables.scss';
+
+:host {
+  width: 100%;
+  padding: 0 3px 0 4px;
+
+  &.col-12 {
+    width: 50%;
+    flex: 1 0;
+  }
+}
+.ox-datepicker-container {
+  font-family: $alt-font-family;
+  border: 0;
+
+  label {
+    font-size: $font-size-tablet;
+    line-height: $line-height-xs;
+    color: $lGray;
+    display: block;
+    padding: 0 0 6px;
+  }
+
+  input[type="date"]::-webkit-clear-button {
+    -webkit-appearance: none;
+    display: none;
+  }
+
+  input[type="date"]::-ms-clear {
+    display: none;
+  }
+  input[type=date].ox-datepicker {
+    opacity: 0;
+    height: $date-picker-height;
+    margin: 0 auto;
+    width: 100%;
+    height: 45px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    outline: none;
+    &::-webkit-clear-button,
+    &::-webkit-inner-spin-button,
+    &::-webkit-datetime-edit-month-field,
+    &::-webkit-datetime-edit-day-field,
+    &::-webkit-datetime-edit-year-field {
+      display: none;
+    }
+    &::-webkit-calendar-picker-indicator {
+      opacity: 0;
+      width: 100%;
+      height: 45px;
+    }
+  }
+  .ox-datepicker-info {
+    padding: 0 15px 0 42px;
+    height: $date-picker-height;
+    line-height: $date-picker-height;
+    font-size: $font-size-tablet;
+    color: $lBlack-light;
+    border: 1px solid $color-gray-alt2;
+    position: relative;
+
+    .displayed-date {
+      font-size: $font-size-tablet;
+      position: relative;
+    }
+
+    .calendar-icon {
+      width: 18px;
+      height: 18px;
+      margin-top: -9px;
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      fill: $date-picker-icon-color;
+    }
+  }
+
+  .ox-datepicker-fallback {
+    width: 100%;
+    font-size: $font-size-tablet;
+    height: 15px;
+    outline: none;
+  }
+}

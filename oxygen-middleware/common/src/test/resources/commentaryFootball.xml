@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SSResponse xmlns="http://schema.openbet.com/SiteServer/2.26/SSResponse.xsd">
+    <event id="4618290" name="Brighton vs Hull" eventStatusCode="A" isActive="true" displayOrder="0" siteChannels="P,Q,C,D,T,U,G,I,J,M," eventSortCode="MTCH" startTime="2017-10-26T17:00:00Z" rawIsOffCode="Y" isStarted="true" classId="97" typeId="442" sportId="16" liveServChannels="sEVENT0004618290," liveServChildrenChannels="SEVENT0004618290," categoryId="16" categoryCode="FOOTBALL" categoryName="Football" categoryDisplayOrder="-32767" className="Football England" classDisplayOrder="-98" classSortCode="FB" classFlagCodes="SP,LI," typeName="Premier League" typeDisplayOrder="-9999" typeFlagCodes="FI,GVA,IVA,UK,PVA,EP,IE,SP,FE," isOpenEvent="true" isLiveNowEvent="true" isLiveNowOrFutureEvent="true" drilldownTagNames="EVFLAG_FE,EVFLAG_FI,EVFLAG_BL,EVFLAG_SP," isAvailable="true" cashoutAvail="Y">
+        <eventPeriod id="189156" eventId="4618290" periodCode="ALL" description="Total Duration of the game/match" startTime="2017-10-26T13:31:37Z">
+            <eventPeriodClockState id="148638" eventPeriodId="189156" offset="0" lastUpdate="2017-10-26T13:31:37Z" state="S"/>
+            <eventFact id="281776" eventId="4618290" eventParticipantId="45282" eventPeriodId="189156" fact="2" factCode="SCORE" name="Score of the match/game"/>
+            <eventFact id="281777" eventId="4618290" eventParticipantId="45283" eventPeriodId="189156" fact="0" factCode="SCORE" name="Score of the match/game"/>
+            <eventPeriod id="189157" eventId="4618290" parentEventPeriodId="189156" periodCode="FIRST_HALF" description="First half of a match/game" startTime="2017-10-26T13:31:37Z">
+                <eventPeriodClockState id="148639" eventPeriodId="189157" offset="7894" lastUpdate="2017-10-26T15:41:00Z" state="S"/>
+                <eventFact id="281775" eventId="4618290" eventParticipantId="45283" eventPeriodId="189157" fact="0" factCode="SCORE" name="Score of the match/game"/>
+                <eventFact id="281774" eventId="4618290" eventParticipantId="45282" eventPeriodId="189157" fact="2" factCode="SCORE" name="Score of the match/game"/>
+                <eventIncident id="1292307" eventId="4618290" eventPeriodId="189157" eventParticipantId="45282" incidentCode="SCORE" description="Scoring Incident" relativeTime="1720" createDate="2017-10-26T13:59:55Z">
+                    <eventIncidentComment id="1285542" eventIncidentId="1292307" text="Goal for Brighton" lang="en"/>
+                </eventIncident>
+                <eventIncident id="1292290" eventId="4618290" eventPeriodId="189157" eventParticipantId="45282" incidentCode="SCORE" description="Scoring Incident" relativeTime="4" createDate="2017-10-26T13:33:40Z">
+                    <eventIncidentComment id="1285525" eventIncidentId="1292290" text="Goal for Brighton" lang="en"/>
+                </eventIncident>
+                <eventIncident id="1292289" eventId="4618290" eventPeriodId="189157" eventParticipantId="45283" incidentCode="SCORE" description="Scoring Incident" relativeTime="0" createDate="2017-10-26T13:31:37Z">
+                    <eventIncidentComment id="1285524" eventIncidentId="1292289" text="Goal for Hull" lang="en"/>
+                </eventIncident>
+                <eventIncident id="1292288" eventId="4618290" eventPeriodId="189157" eventParticipantId="45282" incidentCode="SCORE" description="Scoring Incident" relativeTime="0" createDate="2017-10-26T13:31:37Z">
+                    <eventIncidentComment id="1285523" eventIncidentId="1292288" text="Goal for Brighton" lang="en"/>
+                </eventIncident>
+                <eventIncident id="1292287" eventId="4618290" eventPeriodId="189157" eventParticipantId="45282" incidentCode="PERIOD_START" description="Period start" relativeTime="0" createDate="2017-10-26T13:31:37Z">
+                    <eventIncidentComment id="1285522" eventIncidentId="1292287" text="Period start" lang="en"/>
+                </eventIncident>
+            </eventPeriod>
+        </eventPeriod>
+        <eventParticipant id="45283" eventId="4618290" name="Hull" type="T" roleCode="AWAY" role="Away Team"/>
+        <eventParticipant id="45282" eventId="4618290" name="Brighton" type="T" roleCode="HOME" role="Home Team"/>
+    </event>
+    <responseFooter cost="37" creationTime="2017-10-27T11:44:31.393Z"/>
+</SSResponse>

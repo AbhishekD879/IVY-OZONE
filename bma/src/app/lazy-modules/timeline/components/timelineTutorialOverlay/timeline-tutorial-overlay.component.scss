@@ -1,0 +1,236 @@
+@import 'global.variables.scss';
+
+$body-bg: #00142c;
+
+@mixin splash-img-properties() {
+  background-size: contain;
+  width: 100%;
+  height: 100%;
+  min-width: 190px;
+  min-height: 392px;
+}
+
+#timeline-tutorial-overlay {
+  @include display-flex();
+  @include justify-content(center);
+  @include align-items(center);
+  background: rgba-color($body-bg, .75);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2009;
+  overflow: scroll;
+  color: $color-white;
+}
+
+.ladbrokes-background {
+  background-color: $top-bar-wrap-bg;
+}
+.coral-background {
+  background-color: $color-blue-rich;
+}
+
+.tlt {
+  @include display-flex();
+  @include flex-direction(column);
+  @include align-items(center);
+  @include justify-content(center);
+  position: relative;
+  border-radius: 3px;
+  width: 100%;
+  height: 90vh;
+  margin: 0 16px;
+  font-family: $alt-font-family;
+  @media #{$mqIphoneX} {
+    max-height: 600px;
+  }
+
+  &-header {
+    @include display-flex();
+    @include flex-direction(column);
+    @include align-items(center);
+    padding: 0px 10px 20px;
+    box-sizing: border-box;
+    position: absolute;
+    top: 35px;
+    text-align: center;
+
+    .title {
+      margin: 0;
+      line-height: 24px;
+      font-size: $font-size-lgr;
+      span {
+        font-weight: bold;
+        color: $color-yellow-alt;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  &-img {
+    &.ladbrokes-splash-img {
+      background: url("/assets/images/phone_tlt.png") no-repeat center;
+      @include splash-img-properties();
+    }
+    &.coral-splash-img {
+      background: url("/assets/images/phone_tlt_cl.png") no-repeat center;
+      @include splash-img-properties();
+    }
+  }
+
+  &-main {
+    @include display-flex();
+    @include flex-direction(row);
+    padding: 0 8px;
+    position: absolute;
+  }
+
+  &-item {
+    @include inline-flex();
+    @include flex-direction(column);
+
+    &:nth-of-type(2n + 1) {
+      @include flex-grow(1);
+      width: 20%;
+    }
+
+    &:nth-of-type(2) {
+      @include flex-grow(2);
+      width: 60%;
+      img {
+        min-width: 190px;
+        min-height: 385px;
+        width: 100%;
+      }
+    }
+  }
+
+  &-arr {
+    @include display-flex();
+    @include flex-direction(column);
+    width: 100%;
+    h6 {
+      font-size: $font-size-md;
+      margin: 0;
+      padding: 0;
+      font-weight: normal;
+    }
+    svg {
+      width: 30px;
+      height: 60px;
+      @include align-self(flex-end);
+    }
+  }
+
+  .top-arr {
+    padding-top: 30px;
+  }
+  .bottom-arr {
+    position: absolute;
+    bottom: 15px;
+    width: 19%;
+    svg {
+      @include transform(rotate(190deg) scale(-1, 1));
+    }
+
+    &--right {
+      bottom: 45px;
+      text-align: right;
+      svg {
+        @include transform(rotate(170deg));
+        @include align-self(flex-start);
+      }
+    }
+  }
+
+  &-btn.btn {
+    background: $btn-bg-green-color;
+    border-radius: 2px;
+    width: 170px;
+    height: 44px;
+    font-size: $font-size-bit-lgr;
+    font-family: $base-font-family;
+    box-shadow: none;
+    text-shadow: none;
+    &:active {
+      background: $color-green-shine;
+      color: $color-white
+    }
+    &.coral-btn{
+      &:active {
+        background-color: $color-green-dark-leaf;
+      }
+    }
+  }
+
+  &-close {
+    @include display-flex();
+    @include align-self(flex-end);
+    top: 16px;
+    right: 16px;
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    svg {
+      fill: $color-white;
+    }
+  }
+
+  &-footer {
+    position: absolute;
+    bottom: 40px;
+  }
+}
+
+/* MEDIA STYLES  [ 767px - 1279px] */
+@media #{$mqTablet} {
+  .tlt {
+    width: 80%;
+    min-height: 800px;
+
+    &-header {
+      .title {
+        // depends from cms configuration
+        div, p, span, h4 {
+          font-size: 20px;
+        }
+      }
+    }
+
+    &-close {
+      width: 16px;
+      height: 16px;
+    }
+
+    &-img.ladbrokes-splash-img, &-img.coral-splash-img {
+      background-size: contain;
+      min-width: 270px;
+      min-height: 577px;
+    }
+
+    &-main {
+      padding: 0 20px;
+    }
+
+    &-arr {
+      svg {
+        width: 40px;
+      }
+    }
+  }
+}
+
+/* For small devices from 320px - 374px */
+@media screen and (max-width: 374px) {
+ .tlt {
+   &-img.ladbrokes-splash-img, &-img.coral-splash-img {
+     min-width: 150px;
+     min-height: 315px;
+   }
+   &-arr svg { width: 25px; }
+   &-footer { bottom: 25px;}
+   &-btn.btn { font-size: 13px; }
+ }
+}

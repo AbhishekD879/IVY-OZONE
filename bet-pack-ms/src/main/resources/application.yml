@@ -1,0 +1,151 @@
+bet-pack:
+    cron:
+        expression: 0 0/1 * * * *
+bpp:
+    api:
+        path: /Proxy
+        url: ${bpp.url}${bpp.api.path}
+    connect:
+        timeout: 2000
+    pool:
+        keep:
+            alive: false
+        size: 2000
+        timeout: 30000
+    read:
+        timeout: 3000
+    retry:
+        number: 0
+        timeout: 0
+    url: http://localhost:9090/Proxy
+    write:
+        timeout: 2000
+cms:
+    base:
+        url: http://localhost:8083
+    brand: bma
+    connect:
+        timeout: 2000
+    pool:
+        keep:
+            alive: false
+        size: 2000
+        timeout: 30000
+    read:
+        timeout: 3000
+    retry:
+        number: 0
+        timeout: 0
+    write:
+        timeout: 2000
+df:
+    kafka:
+        admin:
+            properties:
+                bootstrap:
+                    servers: ${df.kafka.bootstrap-servers}
+        bootstrap-servers: df-app-kafka-test.ladbrokescoral.com:9092
+        consumer:
+            auto-commit-interval: 1s
+            auto-offset-reset: latest
+            bootstrap-servers: ${df.kafka.bootstrap-servers}
+            group-id: BET-PACK-CONSUMER-PROMOTION-${spring.profiles.active}
+            #group-id: "bet-pack-updates-{{ bet_pack_mp_build_number }}-{{ ansible_default_ipv4.address }}"
+            key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+            security:
+                protocol: SSL
+            ssl:
+                key-password: changeit
+                key-store-location: classpath:ssl/dev/oxygen-dev.keystore-dev.jks
+                key-store-password: changeit
+                key-store-type: JKS
+                trust-store-location: classpath:ssl/dev/oxygen-dev.truststore-dev.jks
+                trust-store-password: changeit
+                trust-store-type: JKS
+            value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+        listenersConcurrency: 1
+        properties:
+            security:
+                protocol: SSL
+    paf:
+        topic:
+            name: df-reward-streamer-paf
+    brand: cd
+
+distributed:
+    prefix: ${spring.profiles.active}
+internal:
+    active:
+        bet-pack-ids:
+            kafka:
+                groupId: ${distributed.prefix}-internal-active-bet-pack-ids
+                listenersConcurrency: 1
+    bet-pack:
+        kafka:
+            groupId: ${distributed.prefix}-internal-bet-packs
+            listenersConcurrency: 1
+kafka:
+    bet-pack-live-updates:
+        listeners:
+            number: 1
+        partition:
+            default: 1
+        replica:
+            factor: 1
+    bet-pack-subscription:
+        listeners:
+            number: 1
+        partition:
+            default: 1
+        replica:
+            factor: 1
+management:
+    endpoint:
+        health:
+            show-details: always
+    endpoints:
+        web:
+            base-path: /actuator
+            exposure:
+                include: '*'
+            path-mapping:
+                health: /health
+                info: /info
+masterlock:
+    aws:
+        dynamo:
+            create-if-missing: true
+            lock-table-name: CR-MSLOCKTABLE-DEV
+            url: https://dynamodb.eu-west-2.amazonaws.com
+        region: eu-west-2
+    enabled: false
+    heartbeat-period: 3
+    lease-duration: 15
+    partitionKey: LOCAL
+max:
+    poll:
+        interval:
+            ms: 500000
+spring:
+    aop:
+        proxy-target-class: true
+    application:
+        name: bet-pack-marketplace
+    cloud:
+        discovery:
+            enabled: false
+    config:
+        discovery:
+            enabled: true
+    kafka:
+        bootstrap-servers: localhost:9092
+    redis:
+        host: localhost
+ssl:
+    certificates:
+        resource: classpath:/opt/betpackmp/ssl
+topic:
+    prefix: LOCAL
+    active-bet-packs: ${topic.prefix}__active-bet-packs-topic
+    bet-pack-live-updates: ${topic.prefix}__bet-pack-updates-topic
+    bet-pack-subscription: ${topic.prefix}__bet-pack-subscription-topic

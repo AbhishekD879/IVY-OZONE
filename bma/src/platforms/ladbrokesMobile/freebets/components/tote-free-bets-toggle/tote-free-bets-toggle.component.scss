@@ -1,0 +1,137 @@
+@import 'global.variables.scss';
+@import '../../../../../assets/styles/modules/jump-vibrate-animation.scss';
+.free-bet-toggle {
+
+  .add-free-bet-label-mobile{
+
+    .container{
+
+      line-height: 15px;
+      svg {
+        margin-top: 6px;
+        width: 15px;
+        height: 15px;
+      }
+    }
+    
+    .text{
+      font-family: $alt-font-family;
+      font-weight: 700;
+      font-size: 8px;
+      line-height: 11px;
+      color: $color-gray-darkest;
+      white-space: nowrap;
+      padding: 0 7px;
+    }
+  }
+
+  .dk-add-free-bet{
+    .text{
+      margin: 3.5px;
+    }
+  }
+
+  .remove-free-bet-label-mobile{
+    margin: 4px 0;
+
+    .container{
+      background: $color-yellow-alt;
+      height: 19px;
+      width: 19px;
+      border-radius: 50%;
+      line-height: 19px;
+      svg {
+        width: 13px;
+        height: 13px;
+        margin: 3px;
+      }
+    }
+    .text{
+      font-family: $base-font-family;
+      font-weight: 700;
+      font-size: 8px;
+      line-height: 11px;
+      margin-top: 1px;
+      white-space: nowrap;
+      color: $color-gray-darkest;
+      @media (max-width: $mobileSmallPoint) {
+        min-width: 64px;
+      }
+    }
+    .dk-remove-free-bet{
+      font-size: 9px;
+    }
+  }
+
+  .add-free-bet-label {
+    margin-top: 9px;
+    height: 18px;
+    @include inline-flex();
+    background-color: $color-yellow;
+    border-radius: 2px;
+    &:hover{
+      background: $color-yellow-alt2;
+    }
+    &:active{
+      background: $color-orange-peel;
+    }
+  
+    cursor: pointer;
+    &.inactive {
+      color: $color-black-light-medium-rgb;
+      cursor: not-allowed;
+    }
+  
+    svg {
+      width: 12px;
+      height: 12px;
+      margin: 3px 4px;
+    }
+
+    .text{
+      color: $lGray;
+      font-family: $base-font-family;
+      font-weight: 700;
+      font-size: 11px;
+      line-height: 13px;
+      margin: 4px 4px 1px 0px;
+      @include display-flex();
+      @include align-items();
+
+    }
+  }
+  
+  .remove-free-bet-label{
+    background: $lGrayLight;
+    border-radius: 2px;
+    border: 0.5px solid $color-yellow-alt;
+    height: 18px;
+    @include inline-flex();
+    margin-top: 8px;
+    
+    .close-icon{
+      padding: 0px 3px 0px 3px;
+      line-height: 17px;
+      border-right: 0.5px solid $color-yellow-alt;
+      cursor: pointer;
+      &.inactive {
+        color: $color-black-light-medium-rgb;
+        cursor: not-allowed;
+      }
+      svg{
+        width: 8px;
+        height: 8px;
+      }
+    }
+  
+    .text{
+      font-family: $base-font-family;
+      font-weight: 700;
+      font-size: 11px;
+      @include align-items();      
+      line-height: 13px;
+      color: $lGray;
+      margin: 2px 2px 2px 3px;
+    }
+  }
+}

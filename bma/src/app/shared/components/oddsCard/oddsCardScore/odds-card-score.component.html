@@ -1,0 +1,28 @@
+<div class="score-table" data-crlat="scoreTable" [ngClass]="{'only-two-odds-space-lad': !isHomeDrawAwayType}">
+  <ng-container *ngIf="!boxScore">
+    <div *ngIf="showServingTeam" class="score-column serving-team">
+      <div class="ball-icon" [class.active]="servingTeams[0]"></div>
+      <div class="ball-icon" [class.active]="servingTeams[1]"></div>
+    </div>
+    <div *ngFor="let item of score; trackBy: trackByIndex" class="score-column" data-crlat="scoreColumn">
+      <div *ngIf="isHeaderShown" class="column-header" [textContent]="item[0]"></div>
+      <div class="column-values" [ngClass]="scoreClass? platform: 'scoreH'" [textContent]="item[1]" data-crlat="scoreH"></div>
+      <div class="column-values" [ngClass]="scoreClass? '': 'scoreA'" [textContent]="item[2]" data-crlat="scoreA"></div>
+      <div class="column-values emptyScore" *ngIf="emptyScore"></div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="boxScore">
+    <div class="score-column" data-crlat="scoreColumn">
+      <div *ngIf="scoreHeaders" [textContent]="scoreHeaders[0]" class="column-header"
+           [attr.data-crlat]="scoreHeaders[0]"></div>
+      <div [textContent]="boxScore.home.inn1" data-crlat="scoreH"></div>
+      <div [textContent]="boxScore.away.inn1" data-crlat="scoreA"></div>
+    </div>
+    <div class="score-column" data-crlat="scoreColumn">
+      <div *ngIf="scoreHeaders" [textContent]="scoreHeaders[0]" class="column-header"
+           [attr.data-crlat]="scoreHeaders[0]"></div>
+      <div [textContent]="boxScore.home.inn2" data-crlat="scoreH"></div>
+      <div [textContent]="boxScore.away.inn2" data-crlat="scoreA"></div>
+    </div>
+  </ng-container>
+</div>

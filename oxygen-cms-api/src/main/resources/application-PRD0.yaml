@@ -1,0 +1,168 @@
+spring:
+  jmx.enabled: false
+
+management:
+  # TODO: actuator is disabled on prod for now.
+  # BMA-57624: add roles and actuator user.
+  endpoints:
+    enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true
+    info:
+      enabled: true
+
+akamai:
+  # deprecated, should be replaced with brand.configs
+  root-path: /328873/CORAL/bet.coral.co.uk
+  cms:
+    path: ${akamai.root-path}/cms/
+  root-url: https://bet.coral.co.uk/,https://oxynative.coral.co.uk/
+  url: https://bet.coral.co.uk/cms/,https://oxynative.coral.co.uk/cms/
+  brand.configs:
+    bma:
+      enabled: true
+      storeType: FileStore
+      basePath: ${akamai.root-path}
+      url: ${akamai.root-url}
+    ladbrokes:
+      enabled: true
+      storeType: FileStore
+      basePath: /328873/CORAL/msports.ladbrokes.com
+      url: https://msports.ladbrokes.com,https://sports-red.ladbrokes.com
+
+
+homeModule:
+  removeExpired:
+    cron: 0 0/5 * 1/1 * ?
+dashboard:
+  removeExpired:
+    cron: 0 0/5 * 1/1 * ?
+
+siteserver:
+  base:
+    url: https://ss-aka-ori.coral.co.uk/
+
+stats:
+  center:
+    url: https://stats-centre.coral.co.uk/
+
+api:
+  buildyourbet:
+    ladbrokes:
+      url: https://buildyourbet-prd0.ladbrokesoxygen.prod.cloud.ladbrokescoral.com/
+    bma:
+      url: https://buildyourbet-prd0.coralsports.prod.cloud.ladbrokescoral.com/
+
+fastpurge:
+  cp_code: 473772,501519,479239,821654
+
+masterlock:
+  aws:
+    dynamo:
+      url: https://dynamodb.eu-west-2.amazonaws.com
+      lock-table-name: CR-MSLOCKTABLE-PROD
+
+df:
+  base:
+    url: https://sb-api.coral.co.uk
+  api:
+    key: CD9eed783e6f474d2c9a0bfd5a627ebd5a
+
+otf:
+  url: https://otf-stats.coralsports.prod.cloud.ladbrokescoral.com/
+
+
+google-cloud:
+  big-query:
+    entriesTableId: Entries_PRD
+    timelineChangelogTableId: Change_Log_PRD
+
+specialpages:
+  specialpageConfig:
+    ladbrokes:
+      url: https://bpp-prd0.ladbrokesoxygen.prod.cloud.ladbrokescoral.com/Proxy/specialpage
+      secret: export MAINTENANCE_KEY=VALUE
+    bma:
+      url: https://bpp-prd0.coralsports.prod.cloud.ladbrokescoral.com/Proxy/specialpage
+      secret: export MAINTENANCE_KEY=VALUE
+
+magicurl:
+  longurl: https://sports.ladbrokes.com/5-a-side/leaderboard/
+
+# always last few seconds should be sync with featured.cron.expression
+last.view.seconds: 5
+
+cfcache:
+  tags:
+    bma: CSP-prd0-coral
+    ladbrokes : CSP-prd0-ladbrokes
+
+coral:
+  kafka:
+    admin:
+      properties:
+        bootstrap:
+          servers: ${coral.kafka.bootstrap-servers}
+    bootstrap-servers:
+      10.130.48.67:9092,10.130.48.68:9092,10.140.48.67:9092,10.140.48.68:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      bootstrap-servers: ${coral.kafka.bootstrap-servers}
+      ssl:
+        key-store-location: classpath:ssl/prod/coral/ozone-publisher.keystore.jks
+        trust-store-location: classpath:ssl/prod/coral/ozone-publisher.truststore.jks
+        key-store-password: changeit
+        key-password: changeit
+        trust-store-password: changeit
+        trust-store-type: JKS
+        key-store-type: JKS
+      security:
+        protocol: SSL
+    properties:
+      security:
+        protocol: SSL
+    topic:
+      ladbrokes: timeline
+      coral: timeline-cr
+    partitions: 4
+    replicaFactor: 3
+  topic:
+    timeline: timeline
+    active-bet-packs: ${topic.bet-pack.prefix}__active-bet-packs-topic
+    partitions: 4
+    replicaFactor: 3
+
+topic:
+  bet-pack:
+    prefix: PRD
+
+ladbrokes:
+  kafka:
+    bootstrap-servers: 10.130.49.16:9092,10.130.49.17:9092,10.140.49.16:9092,10.140.49.17:9092
+    admin:
+      properties:
+        bootstrap:
+          servers: ${ladbrokes.kafka.bootstrap-servers}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      bootstrap-servers: ${ladbrokes.kafka.bootstrap-servers}
+      ssl:
+        key-store-location: classpath:ssl/prod/ladbrokes/ozone-publisher.keystore.jks
+        trust-store-location: classpath:ssl/prod/ladbrokes/ozone-publisher.truststore.jks
+        key-store-password: changeit
+        key-password: changeit
+        trust-store-password: changeit
+        trust-store-type: JKS
+        key-store-type: JKS
+      security:
+        protocol: SSL
+    properties:
+      security:
+        protocol: SSL
+    topic:
+      leaderboard-contest: ${distributed.prefix}-LDRBRD-leaderboard-contest
+    partitions: 1
+    replicaFactor: 1
+  topic:
+    timeline: timeline

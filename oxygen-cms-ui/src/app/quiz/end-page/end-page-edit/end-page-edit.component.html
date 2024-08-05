@@ -1,0 +1,257 @@
+<breadcrumbs *ngIf="endPage" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="endPage">
+  <div class="header">
+    <div class="row">
+      <div class="col-md-10">
+        <h2 class="waves-effect waves-block has-activity-badge">
+          End Page: {{endPage.title}}
+          <create-updated-at-by [collection]="endPage"></create-updated-at-by>
+        </h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="endPage">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Title
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Title" [(ngModel)]="endPage.title" [value]="endPage.title"
+                 required trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Game Description
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Game Description" [(ngModel)]="endPage.gameDescription"
+                 [value]="endPage.gameDescription"
+                 trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Submit Message
+        </span>
+      </div>
+      <div class="col-md-8">
+        <tinymce-editor
+          [pageName]="'submitMessage'"
+          [pageItemId]="'submitMessage'"
+          (outputEditorData)="updateSubmitMessage($event)"
+          [initialEditorContent]="endPage.submitMessage || ''">
+        </tinymce-editor>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          No Latest Round Message
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="No Latest Round Message" [(ngModel)]="endPage.noLatestRoundMessage"
+                 [value]="endPage.noLatestRoundMessage" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          No Previous Round Message
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="No Previous Round Message" [(ngModel)]="endPage.noPreviousRoundMessage"
+                 [value]="endPage.noPreviousRoundMessage" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Add To Betslip CTA Upsell Text
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Add To Betslip CTA Upsell Text" [(ngModel)]="endPage.upsellAddToBetslipCtaText"
+                 [value]="endPage.upsellAddToBetslipCtaText" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Bet In Play CTA Upsell Text
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Bet In Play CTA Upsell Text" [(ngModel)]="endPage.upsellBetInPlayCtaText"
+                 [value]="endPage.upsellBetInPlayCtaText" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Submit CTA
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Submit CTA Text" [(ngModel)]="endPage.submitCta"
+                 [value]="endPage.submitCta" trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Background image
+        </span>
+      </div>
+      <div class="col-md-8">
+        <div style="display:none;">
+          <input id="upload-background-image"
+                 (change)="prepareToUploadFile($event)"
+                 type="file" value="upload"/>
+        </div>
+        <button type="button" (click)="handleUploadImageClick($event)"
+                class="main-image-btn btn bg-teal waves-effect">
+          {{((backgroundImageToUpload && backgroundImageToUpload.name) || (endPage.backgroundSvgImage && endPage.backgroundSvgImage.originalname)) || 'Upload Image'}}
+        </button>
+        <button type="button" (click)="removeImage()"
+                class="main-image-btn btn bg-red waves-effect">
+          Remove Image
+        </button>
+      </div>
+    </div>
+    <ng-container *ngIf="!isBrandLads">
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Success Message
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput [(ngModel)]="endPage.successMessage" [value]="endPage.successMessage" type="text" trim="blur">
+            <mat-hint class="col-red" *ngIf="endPage.successMessage?.length > 40">*This property should not exceed 40 characters</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Failure Message
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput [(ngModel)]="endPage.errorMessage" [value]="endPage.errorMessage" trim="blur">
+            <mat-hint class="col-red" *ngIf="endPage.errorMessage?.length > 75">*This property should not exceed 75 characters</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Redirection Button
+          </span>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Label" [(ngModel)]="endPage.redirectionButtonLabel" [value]="endPage.redirectionButtonLabel" trim="blur">
+            <mat-hint class="col-red" *ngIf="endPage.redirectionButtonLabel?.length > 35">*This property should not exceed 35 characters</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="URL" [(ngModel)]="endPage.redirectionButtonUrl" [value]="endPage.redirectionButtonUrl" trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Banner Sitecore ID
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput [(ngModel)]="endPage.bannerSiteCoreId" [value]="endPage.bannerSiteCoreId" trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+    </ng-container>
+    <br>
+
+    <div class="row toggle">
+      <div class="col-md-2">
+        <mat-slide-toggle [(ngModel)]="endPage.showUpsell"
+                          [color]="'primary'"
+                          [checked]="endPage.showUpsell"
+                          [disabled]="false">
+          Show Upsell
+        </mat-slide-toggle>
+      </div>
+      <div class="col-md-2">
+        <mat-slide-toggle [(ngModel)]="endPage.showAnswersSummary"
+                          [color]="'primary'"
+                          [checked]="endPage.showAnswersSummary"
+                          [disabled]="false">
+          Show Answers Summary
+        </mat-slide-toggle>
+      </div>
+      <div class="col-md-2">
+        <mat-slide-toggle [(ngModel)]="endPage.showPrizes"
+                          [color]="'primary'"
+                          [checked]="endPage.showPrizes"
+                          [disabled]="false">
+          Show Prizes
+        </mat-slide-toggle>
+      </div>
+      <div class="col-md-2">
+        <mat-slide-toggle [(ngModel)]="endPage.showResults"
+                          [color]="'primary'"
+                          [checked]="endPage.showResults"
+                          [disabled]="false">
+          Show Results
+        </mat-slide-toggle>
+      </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="endPage"
+  [validateHandler]="isValidModel"
+  [fieldOrItemName]="'title'"
+  [collection]="endPage"
+  (actionsEmitter)="actionsHandler($event);">
+</action-buttons>

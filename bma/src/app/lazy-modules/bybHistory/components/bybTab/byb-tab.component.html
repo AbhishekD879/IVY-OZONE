@@ -1,0 +1,6 @@
+<div class="tab-wrapper"
+    [class.active]="tab.active && isCoral" 
+    [class.active-lads]="tab.active && !isCoral"
+     (click)="onTabSelect(tab)">
+  <p class="tab" [ngClass]="isCoral ? 'coral-background': 'lads-background'" [textContent]="tab.market"></p>
+</div>

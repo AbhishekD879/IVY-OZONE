@@ -1,0 +1,19 @@
+td.disabled {
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+tr.disabled {
+  background: #ececec;
+}
+
+span.mat-label {
+  display: inline-block;
+  margin: 15px 0 0 0;
+}
+
+@for $i from 1 through 12 {
+  .table-col-#{$i} {
+    width: ($i / 12) * 100%;
+  }
+}

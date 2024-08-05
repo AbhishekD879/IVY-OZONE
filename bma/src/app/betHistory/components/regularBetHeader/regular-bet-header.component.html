@@ -1,0 +1,53 @@
+<div class="select-market-header regular-bet-header" 
+  [ngClass]="{'widget-container': hasFiveASideWidget}"
+  [class.edited-acca-bet-header]="bet.eventSource.accaHistory">
+  <span class="regular-bet-item-header-text"
+      [ngClass]="{'single-left': !hasFiveASideWidget, 'display-header-block': hasFiveASideWidget}"
+        data-crlat="cashout.item.header">
+    <span class="bet-type-container">
+      <span [textContent]="fullBetType" data-crlat="betType"></span>
+
+      <span *ngIf="bet.eventSource.accaHistory" class="bet-history-label">
+        <span
+          [i18n]="bet.eventSource.accaHistory.isOriginal ? 'ema.history.originalBet' : 'ema.history.editedBet'" data-crlat="histLbl"></span>
+        &nbsp;
+        <span [textContent]="accaTime" data-crlat="time"></span>
+      </span>
+
+      <span *ngIf="bet.eventSource.sortType">&nbsp;- <span [textContent]="bet.eventSource.sortType"></span></span>
+    </span>
+
+    <!-- Each Way label-->
+    <span *ngIf="bet.eventSource.legType === 'E'"
+          class="each-way-label">
+      (<span [i18n]="'bethistory.EWE'"
+             data-crlat="label.EW"></span>)
+    </span>
+  </span>
+  <div class="mybet-buttons-wrapper">
+    <button class="reuse-button" *ngIf="!isLdipBetTag(bet) && checkIfAnyEventDisplayed() && checkIfAnyEventActive() && bet.eventSource.settled !== 'Y' && checkEdpPage()" (click)="reuse()"> 
+      <span class="reuse-text" [i18n]="'bs.reuseSelection'"></span> 
+    </button>
+  </div>
+
+  <div *ngIf="bet.eventSource.totalStatus && !bet.eventSource.accaHistory && showStatus"
+       class="regular-bet-item-header-text regular-bet-item-status">
+      <span
+        [textContent]="bet.eventSource.totalStatus"
+        data-crlat="cashout.totalStatus"></span>
+  </div>
+  <lazy-component *ngIf="hasFiveASideWidget && bet.eventSource.contestId && bet.eventSource.contestId !== 'NA' && !isMyBetsInCasino"
+    moduleUri="@lazy-modules-module/fiveASideShowDown/fiveaside-entry-confirmation.module#FiveASideEntryConfirmationModule"
+    [inputs]="{bet: bet.eventSource}"
+    entryComponent="FiveasideBetHeaderComponent">
+  </lazy-component>
+
+  <lazy-component *ngIf="hasFiveASideWidget && bet.eventSource.contestId && bet.eventSource.contestId !== 'NA' && !!isMyBetsInCasino"
+    moduleUri="@lazy-modules-module/casinoMyBetsIntegration/casino-my-bets-integration.module#CasinoMyBetsIntegrationModule"
+    [inputs]="{bet: bet.eventSource, isMyBetsInCasino: isMyBetsInCasino}"
+    entryComponent="CasinoMyBetsFiveasideBetHeaderComponent">
+  </lazy-component>
+
+  <div *ngIf="showArrow" class="chevron chevron-down"></div>
+  <edit-my-acca-button *ngIf="showEditAccaButton()" [bet]="bet.eventSource" [gtmLocation]="gtmLocation"></edit-my-acca-button>
+</div>

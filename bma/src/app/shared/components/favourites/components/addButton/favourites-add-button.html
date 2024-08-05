@@ -1,0 +1,7 @@
+<span class="odds-fav-icon" *ngIf="!isDisabled" (click)="$event.preventDefault(); $event.stopPropagation(); add()"
+  [ngClass]="{ 'fav-match': event?.eventSortCode === 'MTCH' }">
+  <svg class="fav-icon-svg" data-crlat="favouriteIcon"
+       [ngClass]="{ 'active': isFavourite }">
+    <use xlink:href="#star"></use>
+  </svg>
+</span>

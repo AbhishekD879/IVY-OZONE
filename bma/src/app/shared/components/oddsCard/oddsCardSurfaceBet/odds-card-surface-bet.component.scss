@@ -1,0 +1,124 @@
+@import './global.variables.scss';
+
+:host {
+  display: flex;
+  flex: 1 1 auto;
+}
+
+.surface-bet-card {
+  white-space: normal;
+  border-radius: 10px;
+  box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+  background-color: $color-white;
+  letter-spacing: 0;
+  font-stretch: normal;
+  font-family: $base-font-family;
+  flex: 1 1 auto;
+  min-height: 95px;
+  @include word-break();
+  @include display-flex();
+  @include flex-direction(row);
+  @include justify-content(space-between);
+
+  #disabledImg{
+    display: none;
+   }
+
+  .left-side {
+    min-width: 0;
+    @include display-flex();
+    @include flex-direction(column);
+    @include align-items(start);
+  }
+
+  .surface-bet-header {
+   padding: 0 8px 0 2px;
+   min-height: 18px;
+   position: relative;
+   border-top-left-radius: 9px;
+   font-weight: 900;
+   background-color: $color-yellow-alt;
+    @include display-flex();
+    @include justify-content(start);
+
+    .bet-img-container {
+      width: 18px;
+      height: 18px;
+      margin: 0 2px 0 0;
+      @include display-flex();
+      @include justify-content(center);
+      @include align-items(center);
+
+      > svg {
+        display: block;
+        max-height: 10px;
+      }
+
+      .brand-color{
+        fill: $brand-color-main;
+      }
+    }
+
+    .surface-bet-title {
+      text-transform: uppercase;
+      color: $brand-color-main;
+      line-height: 18px;
+      font-family: $lato-black-font-family;
+      font-size: $font-size-sm;
+      max-width: 160px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .image-cls-container .brand-title-color{
+      text-shadow: 0 0 $brand-color-main;
+    }
+
+    .header-background {
+      position: absolute;
+      right: 0;
+      width: 4px;
+      height: 100%;
+      background-color: $color-yellow-alt;
+
+      @include transform(skewX(-12deg));
+      @include transform-origin(bottom left);
+    }
+  }
+
+  .surface-bet-content {
+    font-size: 12.5px;
+    color:$color-gray-darkest;
+    padding-left: 12px;
+    line-height: normal;
+    margin:12px 0px;
+
+    .surface-bet-contentHeader {
+      font-weight: 600;
+    }
+  }
+
+  .price-odd-container {
+    padding: 21px 12px 0;
+  }
+
+  .was-price {
+    font-family: $base-font-family;
+    color: $color-gray-dark;
+    font-size: $font-size;
+    font-weight: bold;
+  }
+
+  .image-cls-container .content-color{
+    color: $color-white;
+  }
+}
+
+.surface-bet-bg-image {
+  background-size:     cover;
+  background-repeat:   no-repeat;
+  background-position: center center;
+}
+
+

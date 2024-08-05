@@ -1,0 +1,202 @@
+<breadcrumbs [breadcrumbsData]="breadcrumbsData" *ngIf="!isLoading && breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="!isLoading && popularAccaWidgetCardsData">
+  <div class="header">
+    <h2 class="has-activity-badge">
+      <span [innerText]="pageTitle"></span>
+      <span class="font-italic">{{popularAccaWidgetCardsData.title}}</span>
+      <create-updated-at-by [collection]="popularAccaWidgetCardsData" [class.invisible]="!betId"></create-updated-at-by>
+    </h2>
+  </div>
+</div>
+<div class="card" *ngIf="dateRangeError">
+  <div class="alert alert-danger m-b-0" [innerHTML]="dateRangeError">
+  </div>
+</div>
+<form [formGroup]="popularAccaWidgetCardsForm" *ngIf="!isLoading && popularAccaWidgetCardsForm">
+  <div class="card" >
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Title
+        </span>
+      </div>
+      <div class="col-md-5">
+        <mat-form-field class="full-width">
+          <input matInput formControlName="title" trim="blur" placeholder="Card title" aria-placeholder="card title"/>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          SubTitle
+        </span>
+      </div>
+      <div class="col-md-5">
+        <mat-form-field class="full-width">
+          <input matInput formControlName="subTitle" trim="blur"  placeholder="Card sub title" aria-placeholder="card sub title"/>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label" [textContent]="'Sports Svg Icon'"></span>
+        </div>
+        <div class="col-md-6">
+          <svg-icon-select-input [formFieldsModels]="popularAccaWidgetCardsData" [externalForm]="popularAccaWidgetCardsForm">
+          </svg-icon-select-input>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <date-range [isSetDateButtons]="true" [startDate]="popularAccaWidgetCardsData.displayFrom" [endDate]="popularAccaWidgetCardsData.displayTo"
+          [startPlaceholder]="'Display from'" [endPlaceholder]="'Display to'" [placeholderColumn]="true"
+          (onDateUpdate)="handleDateUpdate($event)">
+        </date-range>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label" [textContent]="'Locations'"></span>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width">
+          <mat-select placeholder="Locations" formControlName="locations" multiple required>
+            <mat-option *ngFor="let sport of sportCategoriesList; trackBy: trackSportByTitle" [value]="sport.imageTitle">
+              {{ sport.imageTitle }}
+            </mat-option>
+          </mat-select>
+          <mat-error class="col-red"
+          *ngIf="!popularAccaWidgetCardsForm.get('locations').value?.length">
+          <div>Locations should be selected</div>
+        </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Number of Times backed Message
+        </span>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="full-width">
+          <input matInput formControlName="numberOfTimeBackedLabel" trim="blur"  maxLength="40"  placeholder="Backed {n} times" aria-placeholder="Backed {n} times"/>
+        </mat-form-field>
+      </div>
+      <div class="col-md-2 text-length">{{popularAccaWidgetCardsForm.get('numberOfTimeBackedLabel').value.length || 0}} /40</div>
+      <div class="col-md-4">
+        <mat-form-field>
+          <input matInput formControlName="numberOfTimeBackedThreshold" placeholder="Threshold" aria-placeholder="threshold" trim="blur" type="number" min="0" />
+          <mat-hint>
+            Note: Message displays when value exceeds threshold
+          </mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2"> 
+        <span class="mat-label"> Acca Combination Logic (Array of ID's) </span>
+     </div>
+      <div class="col-md-7">
+        <mat-radio-group class="mat-label" name="sprite" formControlName="accaIdsType">
+          <mat-radio-button class="m-r-20" color="primary" *ngFor="let key of arrayIdTypes" [value]="key.id"
+            (click)="selectTypeId(key.id)">
+            {{key.label}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          List of IDs
+        </span>
+      </div>
+      <div class="col-md-5">
+        <number-list-input
+        formControlName="listOfIds" 
+        [placeholder]="'List of IDs'"
+        [isDisabled]="isListIdDisabled">
+        </number-list-input>
+        <mat-hint class="col-red listOfIdsErrorLayout"
+        *ngIf="hasduplicates('listOfIds')">
+          <div>List of IDs has duplicates</div>
+        </mat-hint>
+        <mat-hint class="col-red listOfIdsErrorLayout"
+        *ngIf="!isListIdDisabled && !formControls.listOfIds.value?.length">
+          <div>List of IDs should be entered</div>
+        </mat-hint>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Market Template Names
+        </span>
+      </div>
+      <div class="col-md-5">
+        <mat-form-field class="full-width">
+          <input matInput formControlName="marketTemplateIds" placeholder="Market Template Names" trim="blur"/>
+          <mat-hint class="col-red"
+          *ngIf="hasduplicates('marketTemplateIds')">
+          <div>Template market name has duplicates</div>
+        </mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <label class="mat-label">
+          Selection Range
+        </label>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Min" formControlName="accaRangeMin"
+            (focusout)="changeToNumber($event,'accaRangeMin')" required type="number" min="2"
+            trim="blur" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+            <mat-hint class="col-red"
+            *ngIf="(!formControls.accaRangeMin.value)">
+            <div>Min selection should be entered</div>
+          </mat-hint>
+          <mat-hint class="col-red"
+          *ngIf="formControls.accaRangeMin.value && formControls.accaRangeMax.value">
+            <div *ngIf="(formControls.accaRangeMin.value <2)  && (formControls.accaRangeMin.value > formControls.accaRangeMax.value)">Min selection should be 2 or above and less than Max Selection range</div>
+            <div *ngIf="(formControls.accaRangeMin.value <2)  && !(formControls.accaRangeMin.value > formControls.accaRangeMax.value)">Min selection should be 2 or above</div>
+            <div *ngIf="(formControls.accaRangeMin.value >2)  && (formControls.accaRangeMin.value > formControls.accaRangeMax.value)">Min selection should be less than Max Selection range</div>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Max" formControlName="accaRangeMax"
+          (focusout)="changeToNumber($event,'accaRangeMax')" required type="number" min="2"
+            trim="blur" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+            <mat-hint class="col-red"
+            *ngIf="(!formControls.accaRangeMax.value)">
+            <div>Max selection should be entered</div>
+          </mat-hint>
+          <mat-hint class="col-red"
+            *ngIf="(formControls.accaRangeMax.value && formControls.accaRangeMax.value <2)">
+            <div>Max selection should be 2 or above</div>
+          </mat-hint>
+          <mat-hint class="col-red"
+          *ngIf="formControls.accaRangeMax.value">
+            <div *ngIf="(formControls.accaRangeMax.value <2) && (formControls.accaRangeMax.value < formControls.accaRangeMin.value)">Max selection should be 2 or above and greater than Min Selection range</div>
+            <div *ngIf="(formControls.accaRangeMax.value <2) && !(formControls.accaRangeMax.value < formControls.accaRangeMin.value)">Max selection should be 2 or above</div>
+            <div *ngIf="(formControls.accaRangeMax.value >2) && (formControls.accaRangeMax.value < formControls.accaRangeMin.value)">Max selection should be greater than Min Selection range</div>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  </div>
+</form>
+
+<div *ngIf="!isLoading && popularAccaWidgetCardsForm">
+  <action-buttons #actionButtons [collection]="popularAccaWidgetCardsForm.value" [form]="popularAccasWidgetForm" (actionsEmitter)="actionsHandler($event);"
+    [validateHandler]="validationHandler" [fieldOrItemName]="'Popular Acca Widget Card Details'"
+    [showRemoveButton]="popularAccaWidgetCardsData.id"></action-buttons>
+</div>

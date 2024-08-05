@@ -1,0 +1,53 @@
+@import 'global.variables.scss';
+
+.container {
+    .all-entries {
+       padding: 5px 5px 10px 5px;
+       margin-top: 5px;
+       @media #{$mqDesktop} {
+        margin-top: 15px;
+       }
+       border: 1px solid;
+       border-right-color: $color-border-bottom-dark-black;
+       border-left-color: $color-border-bottom-dark-black;
+       border-bottom-color: $color-bluecharcoal;
+       border-top-color: $color-bluecharcoal;
+   }
+    .view-text {
+        padding: 2px 10px 0px;
+        @include setFontProps($alt-font-family, $font-size, 700, $color-blue-selected);
+    }
+
+    .background-element {
+        height: 5px;
+        border-radius: 5px;
+    }
+    .space-around {
+      padding: 12px 15px
+  }
+    .content-left {
+        padding: 0;
+    }
+
+    .dot {
+        height: 15px;
+        width: 15px;
+        background-color: $color-white;
+        border-radius: 50%;
+        display: inline-block;
+        margin-top: -5px;
+        position: absolute;
+        transition: margin-left 1s ease-in;
+    }
+
+    .boarder-color-white {
+        border: solid 2px $color-grey;
+    }
+
+    .boarder-color-green {
+        border: solid 2px $color-green;
+    }
+}
+.pointer {
+    cursor: pointer;
+}

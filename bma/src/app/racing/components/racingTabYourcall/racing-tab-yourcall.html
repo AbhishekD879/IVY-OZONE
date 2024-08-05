@@ -1,0 +1,7 @@
+<div (click)="trackGa($event)">
+    <lazy-component moduleUri="@yourCallModule/your-call.module#YourCallModule"
+      [inputs]="{staticType: staticBlockType, trustAsHtml: true}" entryComponent="YourCallStaticBlockComponent">
+    </lazy-component>
+</div>
+<racing-yourcall-specials [data]="accumulatedMarkets" *ngIf="accumulatedMarkets?.length"></racing-yourcall-specials>
+<no-events *ngIf="!accumulatedMarkets?.length"></no-events>

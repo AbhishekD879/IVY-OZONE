@@ -1,0 +1,325 @@
+<div class="card" >
+    <div class="header">
+        <h2 class="has-activity-badge">Create BetPack
+            <create-updated-at-by [collection]="betPackCreateData"></create-updated-at-by>
+        </h2>
+    </div>
+</div>
+<form [formGroup]='betPackCreateData'>
+<div class="card">
+    <div class="body">
+        <div class="row">
+            <div class="col-md-2">
+                <span class="mat-label">
+                    Bet Pack ID:
+                </span>
+            </div>
+            <div class="col-md-8">
+                <mat-form-field class="full-width">
+                    <input matInput formControlName="betPackId" required
+                        trim="blur" name="betPackId"  placeholder="Bet Pack ID" maxlength="25">
+                        <mat-hint class="col-red" *ngIf="betpackDataControls.betPackId.errors?.required && (betpackDataControls?.betPackId?.dirty || betpackDataControls?.betPackId?.touched)"
+                        [textContent]="'This BetPack Id Should be filled with max of 25 characters'">
+                    </mat-hint> 
+                </mat-form-field>
+                <mat-error *ngIf="betpackDataControls.betPackId.errors?.pattern"
+                    [textContent]="'Enter only integer value'">
+                </mat-error>
+            </div>
+            <div class="col-md-2 text-length">{{betPackCreateData?.value.betPackId?.length || 0}} /25</div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <span class="mat-label">
+                    Trigger ID:
+                </span>
+            </div>
+            <div class="col-md-8">
+                <mat-form-field class="full-width">
+                    <input matInput formControlName="triggerID"
+                        trim="blur" name="triggerID" placeholder="Trigger ID">
+                    <mat-hint class="col-red" *ngIf="betpackDataControls.triggerID.errors?.required  && (betpackDataControls?.triggerID?.dirty || betpackDataControls?.triggerID?.touched)">This
+                        Property Should be filled</mat-hint>
+                </mat-form-field>
+                <mat-error *ngIf="betpackDataControls.triggerID.errors?.pattern"
+                    [textContent]="'Enter only integer value'">
+                </mat-error>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <span class="mat-label">
+                    Bet Pack Title:
+                </span>
+            </div>
+            <div class="col-md-8">
+                <mat-form-field class="full-width">
+                    <input matInput formControlName="betPackTitle" maxlength="50"
+                        required trim="blur" name="betPackTitle" placeholder="Bet Pack Title">
+                    <mat-error *ngIf="betpackDataControls.betPackTitle.errors?.required  && (betpackDataControls?.betPackTitle?.dirty || betpackDataControls?.betPackTitle?.touched)">
+                        This BetPack Title Should be filled</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-2 text-length">{{betPackCreateData?.value.betPackTitle.length || 0}} /50</div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <span class="mat-label">
+                    Bet Pack Purchase Amount:
+                </span>
+            </div>
+            <div class="col-md-8">
+                <mat-form-field class="full-width">
+                    <input matInput  formControlName="betPackPurchaseAmount" required trim="blur" name="betPackPurchaseAmount"
+                    placeholder="Bet Pack Purchase Amount" maxlength="4">
+                    <mat-hint class="col-red"
+                        *ngIf="betpackDataControls.betPackPurchaseAmount.errors?.required  && (betpackDataControls?.betPackPurchaseAmount?.dirty || betpackDataControls?.betPackPurchaseAmount?.touched)">
+                        This BetPack Purchase Amount Should be filled with max of 3 digits</mat-hint>
+                </mat-form-field>
+                <mat-error *ngIf="betpackDataControls.betPackPurchaseAmount.errors?.pattern"
+                [textContent]="'Please enter valid numeric value'">
+            </mat-error>
+            </div>
+            <div class="col-md-2 text-length">{{betPackCreateData.value.betPackPurchaseAmount?.toString().length || 0}} /4</div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <span class="mat-label">
+                    Bet Pack Free Bets Amount:
+                </span>
+            </div>
+            <div class="col-md-8">
+                <mat-form-field class="full-width">
+                    <input matInput  formControlName="betPackFreeBetsAmount"
+                         required trim="blur" name="betPackFreeBetsAmount" placeholder="Bet Pack Free Bets Amount" maxlength="4">
+                    <mat-hint class="col-red"
+                        *ngIf="betpackDataControls.betPackFreeBetsAmount.errors?.required  && (betpackDataControls?.betPackFreeBetsAmount?.dirty || betpackDataControls?.betPackFreeBetsAmount?.touched)">
+                        This BetPack FreeBet Amount Should be filled with max of 3 digits</mat-hint>
+                </mat-form-field>
+                <mat-error *ngIf="betpackDataControls.betPackFreeBetsAmount.errors?.pattern"
+                [textContent]="'Please enter valid numeric value'">
+            </mat-error>
+            </div>
+            <div class="col-md-2 text-length">{{betPackCreateData.value.betPackFreeBetsAmount?.toString().length || 0}} /4</div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <span class="mat-label">
+                    Max Claims:
+                </span>
+            </div>
+            <div class="col-md-8">
+                <mat-form-field class="full-width">
+                    <input matInput type="number" min="1" formControlName="maxClaims" name="maxClaims"
+                        placeholder="Max Claims" required>
+                    <mat-hint class="col-red"
+                        *ngIf="betpackDataControls.maxClaims.errors?.required  && (betpackDataControls?.maxClaims?.dirty || betpackDataControls?.maxClaims?.touched)">
+                        Please select Max Claims for this betpack
+                    </mat-hint>
+                    <mat-hint class="col-red" *ngIf="betpackDataControls.maxClaims.errors?.min">Invalid value</mat-hint>
+                    <mat-hint class="col-red" *ngIf="betpackDataControls.maxClaims.errors?.pattern">
+                        Enter only integer value
+                    </mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+       <div class="row">
+            <div class="col-md-2">
+                <span class="mat-label">Bet Pack (Show on Sports):</span>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="full-width">
+                    <mat-select placeholder="Select any 4 Sports Categories" formControlName="sportsTag"
+                        multiple name="sportsTag" required>
+                        <mat-option *ngFor="let sport of sportCategories"
+                          [disabled]="betPackCreateData.value.sportsTag.length >= 4 && !betPackCreateData.value.sportsTag.includes(sport.imageTitle)"
+                          [value]="sport.imageTitle">
+                          {{ sport.imageTitle }}
+                        </mat-option>
+                    </mat-select>
+
+                    <mat-error *ngIf="betpackDataControls.sportsTag.errors?.required  && (betpackDataControls?.sportsTag?.dirty || betpackDataControls?.sportsTag?.touched)">
+                        This Sports Tag Should be selected</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+         <div class="row">
+            <div class="col-md-8">
+                <date-range [startDate]="betPackCreateData && betPackCreateData.value.betPackStartDate"
+                    [endDate]="betPackCreateData && betPackCreateData.value.betPackEndDate" [startPlaceholder]="'Start Date'"
+                    [endPlaceholder]="'End Date'" [placeholderColumn]="true"
+                    (onDateUpdate)="handleDisplayDateUpdate($event)">
+                </date-range>
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-7">
+                        <mat-hint class="col-red" *ngIf="isEndDateValid()">
+                            End date should be greater than start date
+                        </mat-hint>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <date-time-inputs class="full-width" [placeholderColumn]="true" [isSetDateButtons]="false"
+                    [initialDate]="betPackCreateData && betPackCreateData.value.maxTokenExpirationDate"
+                    [placeholder]="'Max Token Expiry Date'" (outputIsoTime)="handleDisplayTokenDateUpdate($event)"
+                    [min]="betPackCreateData && betPackCreateData.value.betPackStartDate">
+                </date-time-inputs>
+                 <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-7">
+                        <mat-hint class="col-red" *ngIf="isTokenEndDateValid()">
+                            Max Token Expiry date should be greater than start date
+                        </mat-hint>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <span class="mat-label">
+                    Bet Pack Front Display Description:
+                </span>
+            </div>
+            <div class="col-md-8">
+                <mat-form-field class="full-width">
+                    <input matInput formControlName="betPackFrontDisplayDescription" required trim="blur"
+                        name="betPackFrontDisplayDescription" placeholder="Bet Pack Front Display Description" maxlength="50">
+                    <mat-error
+                        *ngIf="betpackDataControls.betPackFrontDisplayDescription.errors?.required  && (betpackDataControls?.betPackFrontDisplayDescription?.dirty || betpackDataControls?.betPackFrontDisplayDescription?.touched)">
+                        This BetPack Front Display Description Should be filled</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-2 text-length">{{betPackCreateData.value.betPackFrontDisplayDescription.length || 0}} /50</div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <span class="mat-label">
+                    Bet Pack More Info Text:
+                </span>
+            </div>
+            <div class="col-md-8">
+                <tinymce-editor [pageName]="'betPackMoreInfoText'" [pageItemId]="betPackCreateData.value.id"
+                    (outputEditorData)="setInfoText($event)"
+                    [initialEditorContent]="betpackDataControls.betPackMoreInfoText.value || ''">
+                </tinymce-editor>
+            <mat-hint class="col-red" *ngIf="betpackDataControls.betPackMoreInfoText.value?.length === 0">
+                This BetPack More Info Description Should be filled</mat-hint>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <mat-checkbox class="mat-label" color="primary" [checked] ="betPackCreateData.value.betPackSpecialCheckbox" formControlName="betPackSpecialCheckbox">
+                    BetPack Special Checkbox
+                </mat-checkbox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <mat-checkbox class="mat-label" color="primary" formControlName="futureBetPack">
+                    Featured BetPack
+                </mat-checkbox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <mat-checkbox class="mat-label" color="primary" (click)="onFilterChange()" formControlName="filterBetPack">
+                    Filtered BetPack
+                </mat-checkbox>
+                <div *ngIf="betPackCreateData.value.filterBetPack" class="text-warning d-flex align-items-center">
+                    <mat-icon class="mr-3">info</mat-icon>
+                    <span> Below filters must be selected </span>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="betPackCreateData.value.filterBetPack">
+            <div class="col-md-2">
+                <span class="mat-label">Filters:</span>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="full-width">
+                    <mat-select [disabled]="!betPackCreateData.value.filterBetPack" formControlName="filterList"
+                        (selectionChange)="setFilters($event)" multiple name="filterList"
+                        required>
+                        <mat-option *ngFor="let data of filters;" [value]="data.filterName">
+                            {{ data.filterName }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="betpackDataControls.filterList.errors?.required  && (betpackDataControls?.filterList?.dirty || betpackDataControls?.filterList?.touched)">
+                        This filters Should be selected</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <mat-checkbox class="mat-label" color="primary" formControlName="isLinkedBetPack"
+              (change)="betPackCreateData.value.linkedBetPackWarningText = betPackCreateData.value.isLinkedBetPack? betPackCreateData.value.linkedBetPackWarningText : null">
+              Linked BetPack
+            </mat-checkbox>
+            <div *ngIf="betPackCreateData.value.isLinkedBetPack" class="text-warning d-flex align-items-center">
+              <mat-icon class="mr-3">info</mat-icon>
+              <span> Below BetPack Linked Message Should be filled </span>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="betPackCreateData.value.isLinkedBetPack">
+          <div class="col-md-2">
+            <span class="mat-label">
+              Bet Pack Linked Message:
+            </span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput formControlName="linkedBetPackWarningText"
+                [disabled]="!betPackCreateData.value.isLinkedBetPack" required
+                trim="blur" name="isLinkedBetPack" placeholder="Bet Pack Linked Message"  maxlength="100">
+              <mat-error *ngIf="betpackDataControls.linkedBetPackWarningText.errors?.required  && (betpackDataControls?.linkedBetPackWarningText?.dirty || betpackDataControls?.linkedBetPackWarningText?.touched)">
+                Below BetPack linked message Should be filled</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 text-length">{{betPackCreateData.value.linkedBetPackWarningText.length || 0}} /100</div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <mat-checkbox class="mat-label" color="primary" formControlName="betPackActive">
+                    BetPack Active :
+                </mat-checkbox>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-md-3">
+                <button type="button" (click)="createToken()" [disabled]="betPackCreateData.value.betPackTokenList.length>=15"
+                    class="btn bg-teal waves-effect float-left">
+                    <i class="material-icons">add_box</i>
+                    <span>Add Token</span>
+                </button>
+            </div>
+        </div>
+        <div>
+            <cms-data-table class="test" [customTableData]="betPackCreateData.value.betPackTokenList"
+                [customTableColumns]="dataTableColumns" [multyRemove]="true" [actions]="['onPageEdit', 'remove']"
+                [filterString]="searchField" [filterProperties]="filterProperties"
+                (onRemoveTableElement)="removeTokenTable($event)" (onMultyRemove)="removeHandlerMulty($event)"
+                (onPageEditTableElement)="editPageRoute($event)">
+            </cms-data-table>
+        </div>
+
+    </div>
+</div>
+</form>
+<div class="card">
+    <div class="body">
+        <div class="row --m-t-10">
+            <div class="col-md-3 m-b-0">
+                <button mat-button type="button" class="btn bg-teal waves-effect" [disabled]="!bpIsValid() || hideAction"
+                    (click)="saveBetPackChanges()">
+                    <mat-icon>save</mat-icon>
+                    <span>Create BetPack</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

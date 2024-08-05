@@ -1,0 +1,179 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<form [formGroup]="form" *ngIf="form && oddsBoost" autocomplete="off">
+    <div class="card">
+        <div class="body m-l-20">
+            <div class="row">
+                <div class="col-md-12">
+                    <h6 [textContent]="BSLABELS.ODDS_BOOST_MSG_SIGNPOSTINGS"></h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <mat-checkbox class="mat-label" color="primary" [checked]="oddsBoost.oddsBoostMsgEnabled"
+                        (change)="oddsBoost.oddsBoostMsgEnabled = !oddsBoost.oddsBoostMsgEnabled">
+                        <span [textContent]="BSLABELS.ENABLED"></span>
+                    </mat-checkbox>
+                </div>
+            </div>     
+        </div>
+    </div>
+    <div class="card">
+        <div class="body">
+            <div class="header">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6 [textContent]="'Odds Boost messages'"></h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <ng-container *ngIf="isIMActive; else cmsUpload">
+                        <div class="col-md-2">
+                            <span class="mat-label" [textContent]="BSLABELS.ICON"></span>
+                        </div>
+                        <div class="col-md-5">
+                            <svg-icon-select-input [formFieldsModels]="oddsBoost" [externalForm]="form">
+                            </svg-icon-select-input>
+                        </div>
+                    </ng-container>
+                    <ng-template #cmsUpload>
+                        <div class="col-md-5">
+                            <cms-upload [label]="'SVG File'" [filename]="oddsBoost.icon"
+                                (onImageUpload)="uploadSvgHandler($event)" (onImageRemove)="removeSvgHandler()">
+                            </cms-upload>
+                        </div>
+                    </ng-template>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label" [textContent]="BSLABELS.BETSLIP_HEADER"></span>
+                    </div>
+                    <div class="col-md-5">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Betslip Header" [(ngModel)]="oddsBoost.bsHeader"
+                                formControlName="bsHeader" required trim="blur">
+                            <mat-hint class="col-red" *ngIf="(form.get('bsHeader').invalid)">
+                                <div *ngIf="form.get('bsHeader').errors.required"
+                                    [textContent]="'Please enter Betslip Header'"></div>
+                                <div *ngIf="form.get('bsHeader').value.length > 20"
+                                    [textContent]="'Betslip Header should be filled with max of 20 characters'"></div>
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label" [textContent]="BSLABELS.BETSLIP_DESCRIPTION"></span>
+                    </div>
+                    <div class="col-md-5">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Betslip Description" [(ngModel)]="oddsBoost.bsDesc"
+                                formControlName="bsDesc" required trim="blur">
+                            <mat-hint class="col-red" *ngIf="(form.get('bsDesc').invalid)">
+                                <div *ngIf="form.get('bsDesc').errors.required"
+                                    [textContent]="'Please enter Betslip Description'"></div>
+                                <div *ngIf="form.get('bsDesc').value.length > 50" [textContent]="'Betslip Description should be filled with max
+                                of 50 characters'"></div>
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <!-- <div class="col-md-2">
+                    <mat-checkbox class="mat-label" color="primary" [checked]="oddsBoost.infoIcon" (change)="oddsBoost.infoIcon = !oddsBoost.infoIcon">
+                        <span [textContent]="BSLABELS.INFO_ICON"></span>
+                    </mat-checkbox>
+                </div> -->
+                </div>
+            </div>
+            <div class="header">
+                <div class="row">
+                    <div class="col-md-2">
+                        <mat-checkbox class="mat-label" color="primary" [checked]="oddsBoost.brspEnabled"
+                            (change)="oddsBoost.brspEnabled = !oddsBoost.brspEnabled">
+                            <span [textContent]="BSLABELS.ENABLED"></span>
+                        </mat-checkbox>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label" [textContent]="BSLABELS.BET_RECEIPT_SIGNPOSTING"></span>
+                    </div>
+                    <div class="col-md-5">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Bet Receipt Signposting" [(ngModel)]="oddsBoost.brsp"
+                                formControlName="brsp" required trim="blur">
+                            <mat-hint class="col-red" *ngIf="(form.get('brsp').invalid)">
+                                <div *ngIf="form.get('brsp').errors.required"
+                                    [textContent]="'Please enter Betreceipt Signposting it should contain {icon}'">
+                                </div>
+
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2">
+                        <mat-checkbox class="mat-label" color="primary" [checked]="oddsBoost.brDispBoostedPrice"
+                            (change)="oddsBoost.brDispBoostedPrice = !oddsBoost.brDispBoostedPrice">
+                            <span [textContent]="BSLABELS.DISPLAY_BOOSTED_PRICE"></span>
+                        </mat-checkbox>
+                    </div>
+                </div>
+            </div>
+            <div class="p-l-20 p-t-20">
+                <div class="row">
+                    <div class="col-md-2">
+                        <mat-checkbox class="mat-label" color="primary" [checked]="oddsBoost.mbspEnabled"
+                            (change)="oddsBoost.mbspEnabled = !oddsBoost.mbspEnabled">
+                            <span [textContent]="BSLABELS.ENABLED"></span>
+                        </mat-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label" [textContent]="BSLABELS.MYBETS_SIGNPOSTING"></span>
+                    </div>
+                    <div class="col-md-5">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="My Bets Signposting" [(ngModel)]="oddsBoost.mbsp"
+                                formControlName="mbsp" required trim="blur">
+
+                            <mat-hint class="col-red" *ngIf="(form.get('mbsp').invalid)">
+                                <div *ngIf="form.get('mbsp').errors.required"
+                                    [textContent]="'Please enter My Bets signposting it should contain {icon}'"></div>
+
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2">
+                        <mat-checkbox class="mat-label" color="primary" [checked]="oddsBoost.mbDispBoostedPrice"
+                            (change)="oddsBoost.mbDispBoostedPrice = !oddsBoost.mbDispBoostedPrice">
+                            <span [textContent]="BSLABELS.DISPLAY_BOOSTED_PRICE"></span>
+                        </mat-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="mat-label" [textContent]="BSLABELS.PROFIT_INDICATOR"></span>
+                    </div>
+                    <div class="col-md-5">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Profit Indicator" [(ngModel)]="oddsBoost.profitIndicator"
+                                formControlName="profitIndicator" required trim="blur">
+
+                            <mat-hint class="col-red" *ngIf="(form.get('profitIndicator').invalid)">
+                                <div *ngIf="form.get('profitIndicator').errors.required"
+                                    [textContent]="'Please enter Profit indicator it should contain {icon} and {value}'">
+                                </div>
+
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<action-buttons #actionButtons *ngIf="oddsBoost" [fieldOrItemName]="'Odds Boost Messages'"
+    [validateHandler]="validationHandler" [collection]="oddsBoost" [showRemoveButton]="false"
+    (actionsEmitter)="actionsHandler($event);">
+</action-buttons>

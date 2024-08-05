@@ -1,0 +1,94 @@
+<div class="sk-container" [ngClass]="{'sk-loading': state.loading}">
+  <div *ngIf="!state.loading && !state.error"
+       class="container bet-history-page open-bets"
+       data-crlat="accordionsList">
+      <div class="date-picker-wrapper-open-bets">
+        <switchers data-crlat="switchers"
+                [filter]="filter"
+                class="my-bets-switchers"
+                [switchers]="betTypes">
+        </switchers>
+        <div class="datepickers-section" *ngIf="filter == regularType.viewByFilters">
+          <date-picker [date]="startDate" [minDate]="minDate" [maxDate]="maxDate" dateType="startDate" label="From" 
+          (errorStateData)="processDateRangeData($event)" class="col-12"></date-picker>
+          <date-picker [date]="endDate" [minDate]="minDate" [maxDate]="maxDate" dateType="endDate" label="To" 
+          (errorStateData)="processDateRangeData($event)" class="col-12"></date-picker>
+        </div>
+      </div>
+    <div class="sk-container" [ngClass]="{'sk-loading': isLoading}">
+      <loading-screen [displayed]="isLoading" [isUsedFromWidget]="isUsedFromWidget"
+                      [templateType]="'GENERIC_BET'"></loading-screen>
+
+      <ng-container *ngIf="!isLoading && !isDatePickerError()" [ngSwitch]="filter">
+        <regular-bets *ngSwitchCase="regularType.viewByFilters"
+                      [isBetHistoryTab]="false"
+                      [regularBets]="bets"
+                      [origin]="'openbets'"
+                      [isUsedFromWidget]="isUsedFromWidget"
+                      [area]="area"
+                      [isMyBetsInCasino]="isMyBetsInCasino"
+                      [isSportIconEnabled]="isSportIconEnabled"
+                      data-crlat="betType.regular"
+                      [section]="MYBETS_WIDGET"
+                      [startDate]="startDate"
+                      [endDate]="endDate"
+                      [lazyLoadedBets]="lazyLoadedBets">
+        </regular-bets>
+
+        <lotto-bets *ngSwitchCase="lottoType.viewByFilters"
+                    [settled]="'N'"
+                    [lottoBets]="bets"
+                    [isUsedFromWidget]="isUsedFromWidget"
+                    [isMyBetsInCasino]="isMyBetsInCasino"
+                    [isSportIconEnabled]="isSportIconEnabled"
+                    data-crlat="betType.lotto">
+        </lotto-bets>
+
+        <pool-bet-history *ngSwitchCase="poolType.viewByFilters"
+                          [poolBets]="bets"
+                          [isUsedFromWidget]="isUsedFromWidget"
+                          [isMyBetsInCasino]="isMyBetsInCasino"
+                          [isSportIconEnabled]="isSportIconEnabled"
+                          data-crlat="betType.pool">
+        </pool-bet-history>
+        <div class="shop-bets" *ngIf="shopType">
+          <lazy-component *ngSwitchCase="shopType.viewByFilters" data-crlat="betType.inshop"
+            moduleUri="@betHistoryModule/bet-history.module#BetHistoryModule"
+            entryComponent="InShopBetsPageComponent" [inputs]="{betType: BETHISTORYCONFIG.open}">
+          </lazy-component>
+        </div>
+        <div class="container loader-spinner-container"
+             *ngIf="betsLazyLoading.isLoadingMore">
+          <div class='loading-v3'><div class='dot-flashing' data-crlat="flashing.loader"></div></div>
+        </div>
+      </ng-container>
+      <div class="history-errors error-template container-content" *ngIf="isDatePickerError()">
+        <svg class="alert-icon">
+          <use xlink:href="#alert"></use>
+        </svg>
+        <div *ngIf="!datePickerErrors.moreThanFourYears">
+          <p class="center-text" data-crlat="textMsg" [i18n]="'bethistory.incorrectDateRange'"></p>
+        </div>
+        <div *ngIf="datePickerErrors.moreThanFourYears">
+          <p class="error-template-message center-text" data-crlat="textMsg" [innerHTML]="contactUsMsg"
+             [attr.data-help-support-url]="helpSupportUrl"></p>
+        </div>
+      </div>
+      <terms-conditions
+        *ngIf="!isLoading && !isDatePickerError() && (filter !== (shopType && shopType.viewByFilters) ? bets.length > 0 : isRetailBetAvailable)">
+      </terms-conditions>
+
+      <lazy-component *ngIf="!!isMyBetsInCasino"
+      moduleUri="@lazy-modules-module/casinoMyBetsIntegration/casino-my-bets-integration.module#CasinoMyBetsIntegrationModule"
+      entryComponent="CasinoGoToSportsComponent"></lazy-component>
+    </div>
+  </div>
+  <outlet-status [state]="state" [isUsedFromWidget]="isUsedFromWidget" [skeletonType]="'GENERIC_BET'">
+    <request-error [errorMsg]="errorMsg"
+                   [loginNeed]="!userStatus"
+                   [insertedPlace]="'open-bets'"
+                   [reloadMethods]="['SUCCESSFUL_LOGIN', 'EDIT_MY_ACCA']"
+                   (reloadFn)="reloadComponent()">
+    </request-error>
+  </outlet-status>
+</div>

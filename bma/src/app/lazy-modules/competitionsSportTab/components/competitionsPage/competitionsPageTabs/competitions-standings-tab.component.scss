@@ -1,0 +1,166 @@
+@import 'global.variables.scss';
+
+$table-menu-height: 50px;
+$color-row-even: #f4f4f4;
+$table-head-height: 40px;
+$table-row-height: 35px;
+
+.table-widget {
+  margin: 0 4px;
+  .no-events {
+    pointer-events: none;
+    svg {
+      display: none;
+    }
+  }
+  .table-menu {
+    border-bottom: 1px solid $color-gray;
+    border-top: 1px solid $color-gray;
+    position: relative;
+    text-align: center;
+    padding: 0 10px;
+    height: $table-menu-height;
+    background: $color-white;
+    font: bold 13px/1.3em $base-font-family;
+    margin-bottom: 5px;
+    color: $brand-color-dark;
+    @include display-flex();
+    @include justify-content(space-between);
+    @include align-items(center);
+
+    .table-name {
+      margin: 0 13px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      .year {
+        font-weight: normal;
+        font-size: 12px;
+      }
+    }
+
+    .page-arr {
+      width: 20%;
+      @include justify-content(flex-start);
+      @include align-items(center);
+      height: 100%;
+      @include display-flex();
+    }
+    .page-arr:last-child {
+      @include justify-content(flex-end);
+    }
+    svg {
+      width: 8px;
+      height: 12px;
+      fill: $color-gray-dark;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  ::ng-deep .tabs-panel {
+    box-shadow: none;
+    margin: 0;
+    .action-arrow {
+      top: 0;
+      padding-top: 0;
+    }
+    .scroll-container .scroll-inner {
+      margin: 0;
+      border-bottom: 1px solid $color-gray;
+      li.active {
+        background: $color-white;
+        &:after {
+          content: none;
+        }
+        .tab {
+          color: $color-gray-dark;
+          border-bottom: 3px solid $brand-color-secondary;
+        }
+      }
+      .tab {
+        padding: 9px 15px;
+        min-width: 75px;
+        font-size: 10px;
+        &:hover {
+          background: none;
+          color: $color-gray-dark;
+        }
+      }
+    }
+  }
+
+  .table-panel-widget {
+    margin-bottom: 10px;
+    table-layout: fixed;
+    width: 100%;
+    background-color: $color-white;
+    box-shadow: 0 2px 4px rgba(162,162,162, .5), 0 0 2px rgba(162,162,162, .26);
+
+    col {
+      width: 34px;
+      &:first-child {
+        width: auto;
+      }
+      &:last-child {
+        width: 38px;
+      }
+    }
+
+    thead tr {
+      height: $table-head-height;
+      background-color: $color-gray-light;
+    }
+
+    tbody tr {
+      height: $table-row-height;
+      &:nth-child(even) {
+        background-color: $color-row-even;
+      }
+    }
+
+    tfoot tr {
+      height: $table-row-height;
+    }
+
+    .opta-logo {
+      width: 27px;
+      height: 12px;
+      float: right;
+    }
+
+    th {
+      color: $color-gray-dark;
+      font: bold 13px $base-font-family;
+      padding: 4px;
+      border-bottom: 1px solid $color-gray;
+      &:first-child {
+        text-align: left;
+        padding-left: 12px;
+      }
+      &:last-child {
+        padding-right: 12px;
+      }
+    }
+
+    td {
+      border-bottom: 1px solid $color-gray;
+      padding: 6px;
+      font-size: 13px;
+      text-align: center;
+      &:first-child {
+        text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding-left: 12px;
+      }
+      &:last-child {
+        padding-right: 12px;
+        font-weight: bold;
+      }
+    }
+  }
+
+}

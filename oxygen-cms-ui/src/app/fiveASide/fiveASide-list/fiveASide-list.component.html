@@ -1,0 +1,47 @@
+<breadcrumbs *ngIf="fiveASideFormations" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div *ngIf="fiveASideFormations" class="card">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      5 A Side Page
+      <small *ngIf="fiveASideFormations.length">Total Formations Amount: {{fiveASideFormations.length}}</small>
+      <small *ngIf="!fiveASideFormations.length">No Formations Found</small>
+    </h2>
+  </div>
+</div>
+
+<div class="card">
+  <div class="body">
+    <!-- search and download button.-->
+    <div *ngIf="fiveASideFormations" class="row clearfix">
+      <div class="col-md-3">
+        <button (click)="createFormation()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Add new formation</span>
+        </button>
+      </div>
+      <div class="col-md-3">
+        <download-cvs [cvsData]="fiveASideFormations" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For formation" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="fiveASideFormations?.length > 0">
+      <cms-data-table
+        [customTableData]="fiveASideFormations"
+        [customTableColumns]="dataTableColumns"
+        [actions]="['remove', 'edit']"
+        [filterString]="searchField"
+        [filterProperties]="searchableProperties"
+        [reorder]="true"
+        (onElementsOrder)="reorderHandler($event)"
+        (onRemoveTableElement)="removeHandler($event)">
+      </cms-data-table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+- name: Remove any existing docker AccountsSharing
+  docker_container:
+    name: AccountsSharing
+    state: absent
+
+- name: Create AccountsSharing Container
+  docker_container:
+    name: AccountsSharing
+    image: docker-registry.crlat.net/crlat_accounts_sharing:latest
+    state: started
+    restart: yes
+    pull: yes
+    restart_policy: always
+    dns_servers:
+      - "{{ dns_server_ip }}"

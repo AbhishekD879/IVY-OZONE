@@ -1,0 +1,27 @@
+<lazy-component *ngIf="!isEventAntePost && items && items.length && !loading"
+  moduleUri="@lazy-modules-module/racesMeetingsOverlay/racing-meetings.module#RacingOverlayModule"
+  entryComponent="LadbrokesDesktopRacingOverlayContentComponent" [inputs]="{
+                         items: items,
+                         allEvents: sportEventsData,
+                         offersAndFeaturedRacesTitle: offersAndFeaturedRacesTitle,
+                         isEventOverlay:true,
+                         racing:races,
+                         sectionTitle:sectionTitle,
+                         sportName:sportName,
+                         moduleTitle:'',
+                         eventsOrder:eventsOrder,
+                         filter:filter,
+                         display:display,
+                         quickNavigationTitles:titlesMap,
+                         showSwitcher:false,
+                         showMenu: showMenu,
+                         eventEntity: eventEntity,
+                         isEntityChanged: isEntityChanged,
+                         sportModule: sportModule,
+                         overlayContentData: overlayContentData
+                        }" (event)="onRaceModuleEventsChange($event)">
+</lazy-component>
+<lazy-component *ngIf="isEventAntePost && showMenu"
+  moduleUri="@lazy-modules-module/racesMeetingsOverlay/racing-meetings.module#RacingOverlayModule"
+  entryComponent="LadbrokesDesktopRacingAntepostContentComponent" [inputs]="{ isEventOverlay:true, sportName: sportName }">
+</lazy-component>

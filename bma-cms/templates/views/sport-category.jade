@@ -1,0 +1,14 @@
+extends ../layouts/default
+
+block intro
+	.container
+		h1 sportCategory
+	
+block content
+	.container
+		if sportCategorys.length
+			each sportCategory in sportCategorys
+				h2= sportCategory.imageTitle
+
+		else
+			h3.text-muted There are no sportCategorys yet.

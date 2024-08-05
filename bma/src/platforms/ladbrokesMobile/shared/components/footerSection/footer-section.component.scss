@@ -1,0 +1,101 @@
+@import 'global.variables.scss';
+
+/*page footer text*/
+$footHeightIphoneX: 80px;
+$notificationHeightMobile: 51px;
+
+.footer-wrapper {
+  background: $footer-bg;
+}
+
+#footer {
+  width: auto;
+  max-width: $desktopLargePoint;
+  background: $footer-bg;
+  overflow: hidden;
+  margin: 0 auto;
+  position: relative;
+  font-family: $alt-font-family;
+
+  &.with-rel-menu {
+    padding-bottom: 0;
+  }
+
+  .time-panel {
+    padding: 10px 15px;
+    font-weight: bold;
+    color: lighten($color-blue-light, 55%);
+    background: $color-black-hard;
+    font-size: 11px;
+    line-height: 11px;
+    margin: 0 0 15px;
+    display: flex;
+
+    @media #{$mqSmallMobile} {
+      text-align: center;
+    }
+
+    .time-logged {
+      padding: 0 0 0 5px;
+    }
+  }
+
+  .session-timer {
+    display: inline-block;
+
+    .ico-time-svg {
+      width: 11px;
+      height: 11px;
+    }
+  }
+
+  .footer-notification {
+    position: fixed;
+    width: 100%;
+    z-index: 1001;
+    left: 0;
+    bottom: $notificationHeightMobile;
+
+    @media #{$mqMobile} {
+      bottom: $notificationHeightMobile;
+    }
+
+    @media #{$mqMobileAndPortrait} {
+      bottom: $notificationHeightMobile;
+    }
+    &.hide{
+      display: none;
+    }
+  }
+  
+  // fix to not overlap with Iphone X bottom software button.
+  @supports (padding-bottom: constant(safe-area-inset-bottom)) {
+    .footer-notification {
+      --safe-area-inset-bottom: constant(safe-area-inset-bottom);
+      padding-bottom: calc(#{$footHeightIphoneX} + (var(--safe-area-inset-bottom)));
+
+      @media #{$mqMobile} {
+        bottom: calc(#{$notificationHeightMobile} + (var(--safe-area-inset-bottom)));
+      }
+
+      @media #{$mqMobileAndPortrait} {
+        bottom: calc(#{$notificationHeightMobile} + (var(--safe-area-inset-bottom)));
+      }
+    }
+  }
+
+  @supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .footer-notification {
+      --safe-area-inset-bottom: env(safe-area-inset-bottom);
+      bottom: calc(#{$notificationHeightMobile} + (var(--safe-area-inset-bottom)));
+
+      @media #{$mqMobile} {
+        bottom: calc(#{$notificationHeightMobile} + (var(--safe-area-inset-bottom)));
+      }
+
+      @media #{$mqMobileAndPortrait} {
+        bottom: calc(#{$notificationHeightMobile} + (var(--safe-area-inset-bottom)));
+      }
+    }
+  }
+}

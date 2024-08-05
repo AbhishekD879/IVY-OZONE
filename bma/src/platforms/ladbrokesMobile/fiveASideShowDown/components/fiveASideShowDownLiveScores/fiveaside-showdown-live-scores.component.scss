@@ -1,0 +1,41 @@
+@import 'global.variables.scss';
+
+:host {
+  &.suspended {
+    opacity: 0.4;
+  }
+
+  .cashout-odds-score li {
+    margin-right: 0px;
+  }
+
+  .live-score-points {
+    @include setFontProps($base-font-family, $font-size-bit-lgr, bold, $color-amount-green);
+    font-stretch: condensed;
+    color: $color-light-white-grey;
+    padding: 1px;
+  }
+
+  .live-score-points-finished {
+    @include setFontProps($base-font-family, $font-size, normal, $color-light-white-grey);
+    font-stretch: condensed;
+    padding: 1px;
+  }
+
+  .second-inning {
+    margin-right: 8px;
+    color: $lBlack-light;
+    font-family: $base-font-family;
+    font-size: $font-size-md;
+  }
+
+  .cashout-odds-score {
+    display: block;
+
+    li {
+      &:last-child {
+        @include setFontProps($base-font-family, $font-size-bit-lgr, normal, $color-light-white-grey);
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+<div *ngIf="eventsBySports">
+  <lazy-component *ngIf="isMarketSelectorVisible() && isMarketSwitcherConfigured" class="sticky-market-selector"
+    [hidden]="!eventsBySports.eventsByTypeName?.length"
+    moduleUri="@sharedModule/components/marketSelector/market-selector.module#MarketSelectorModule"
+    data-crlat="marketSelectorModule" entryComponent="InplayMarketSelectorDesktopComponent" [inputs]="{sportId: eventsBySports.categoryId, 
+                          eventDataSection: eventsBySports,
+                          resetDropdown: resetDropdown,
+                          marketSelectorOptions: eventsBySports.marketSelectorOptions,sticky:false,
+                          selectorType:'sportInplay'}" [outputs]="['reloadData']"
+                          (init)= "initMarketSelector()" (event)="handleSportData($event)">
+  </lazy-component>
+  <ng-container *ngIf="!isHR">
+  <accordion *ngFor="let competitionSection of eventsBySports.eventsByTypeName; trackBy: trackByTypeId;  let i = index;"
+    [accordionTitle]="getSectionTitle(competitionSection)" [inner]="inner" [card]="true"
+    [isExpanded]="expandedFlags[competitionSection.typeId]"
+    (function)="toggleCompetitionSection(competitionSection, eventsBySports.eventsByTypeName)">
+    <accordion-body>
+        <odds-card-header *ngIf="competitionSection.events && competitionSection.events.length"
+        [sportConfig]="sport?.sportConfig" [events]="competitionSection.events" data-crlat="section.header.league"
+        [isMarketSwitcherConfigured]="isMarketSelectorVisible() && isMarketSelectorVisibleisMarketSwitcherConfigured" [selectedMarket]="getSelectedMarket(competitionSection)">
+        </odds-card-header>
+        <odds-card-component
+          *ngFor="let eventEntity of competitionSection.events; trackBy: trackByEventId; let i = index;"
+          [showLocalTime]="true" [sportConfig]="sport?.sportConfig" [event]="eventEntity"
+          [isMarketSwitcherConfigured]="isMarketSelectorVisible() && isMarketSwitcherConfigured"
+          [selectedMarket]="(eventEntity.markets[0] ? eventEntity.markets[0].name : '')" [gtmModuleTitle]="'event card'"
+          data-crlat="eventEntity">
+        </odds-card-component>  
+    </accordion-body>
+  </accordion>
+</ng-container>
+
+<ng-container *ngIf="isHR">
+  <accordion *ngFor="let eventEntity of HREvents; trackBy: trackByEventId;  let i = index; let last = last"
+      [accordionTitle]="eventEntity.name" 
+      [eventEntity]="eventEntity"
+      [inner]="inner" [card]="true"
+      [isCustomElement]="true"
+      [isExpanded]="expandedFlags[eventEntity.id]"
+      class="hr-accordion"
+      (function)="toggleCompetitionSection(null, eventEntity)">
+      <accordion-body>
+        <race-card-inplay *ngIf="eventEntity" data-crlat="raceCard"
+            [showHeader]="false"  
+            [trackGa]="trackGa" 
+            [trackGaDesktop]="trackGaDesktop"
+            [raceData]="[eventEntity]"
+            [raceWidget]="widget"
+            [raceMaxSelections]="3"
+            [showBriefHeader]="true"
+            [hostContext]="hostContext"
+            [fluid]="fluid"
+            [showTimer]="true"
+            [viewFullRaceText]="viewFullRaceText"
+            [gtmModuleTitle]="'next races'"
+            [hideNonRunners]="true"
+          ></race-card-inplay>
+    </accordion-body>
+  </accordion>
+     
+  </ng-container>
+</div>

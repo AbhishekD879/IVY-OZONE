@@ -1,0 +1,48 @@
+@import 'global.variables.scss';
+
+.extra-place-section {
+  margin: 0 0 8px;
+  a:hover {
+    color: $color-gray-dark;
+    text-decoration: none;
+  }
+  .extra-place-item {
+    margin-bottom: 5px;
+    font-family: $base-font-family;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .extra-place-item-body {
+    @include display-flex();
+    @include align-items();
+    @include justify-content(space-between);
+    min-height: 60px;
+    padding: 10px;
+    background-color: $color-white;
+    border-radius: 0 0 $border-radius-sm $border-radius-sm;
+  }
+  .meeting-name {
+    @include word-break();
+    font-size: 12px;
+  }
+  .odds {
+    margin-top: 10px;
+    color: $color-gray-dark;
+    font-size: 10px;
+  }
+  .item-next-arrow {
+    color: $brand-color-dark;
+    height: 100%;
+  }
+  .extra-place-view {
+    margin-right: 5px;
+    font-size: 11px;
+    text-transform: uppercase;
+  }
+  .next-arrow {
+    width: 6px;
+    height: 8px;
+  }
+}
+

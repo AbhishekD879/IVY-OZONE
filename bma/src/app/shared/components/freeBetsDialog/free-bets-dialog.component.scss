@@ -1,0 +1,64 @@
+@import 'global.variables.scss';
+
+::ng-deep #free-bet-dialog {
+  .modal {
+    overflow: auto;
+
+    .modal-body {
+      overflow-y: auto;
+      max-height: 380px;
+    }
+
+    .modal-footer {
+      padding: 12px;
+      background: #fff;
+      text-align :right;
+    }
+
+    .modal-dialog {
+      padding-top: 60px;
+      margin: 0 auto;
+    }
+
+    .table-panel {
+      line-height: 18px;
+
+      span {
+        display: block;
+      }
+      span:first-child {
+        padding-right: 4px;
+      }
+    }
+  }
+    .btn {
+      height: 38px;
+      border-radius: 0;
+      border-radius: initial;
+      font-size: 12px;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-transform: uppercase;
+      text-shadow: none;
+      box-shadow: none;
+      font-weight: 700;
+    }
+  
+    .btn-style2 {
+      background: #FFCD00 !important;
+      color: #07294B;
+      width: 100px;
+      height: 35px;
+      left: 0%;
+      top: 0%;
+      bottom: 0%;
+      right: 0%;
+      &:hover {
+        background: $color-yellow-alt2 !important;
+      }
+      &:active {
+        background: $color-orange-peel !important;
+        color: $color-white;
+      }
+    }
+}

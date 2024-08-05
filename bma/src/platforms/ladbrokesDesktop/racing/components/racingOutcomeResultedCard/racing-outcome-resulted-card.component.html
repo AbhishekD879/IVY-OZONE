@@ -1,0 +1,42 @@
+<div *ngIf="eventEntity && marketEntity && outcomeEntity">
+  <div class="odds-card racing-result-card" data-crlat="raceCard.odds">
+    <div class="odds-content">
+      <div class="odds-left">
+        <div class="odds-side" *ngIf="!outcomeEntity.nonRunner && outcomeEntity.results.position || !outcomeEntity.results.position">
+          <strong *ngIf="!outcomeEntity.nonRunner" [textContent]="outcomePositionSufx"></strong><br/>
+        </div>
+        <gh-silk *ngIf="isGreyhoundSilk"
+          [event]="eventEntity"
+          [outcome]="outcomeEntity"></gh-silk>
+        <div class="silk-img has-img" *ngIf="outcomeEntity.racingFormOutcome?.silkName" data-crlat="sectionSilkImg">
+          <div *ngIf="!outcomeEntity.nonRunner" [ngStyle]="silkStyle" data-crlat="imageSilk"></div>
+          <svg *ngIf="outcomeEntity.nonRunner">
+            <use xlink:href="#horse_unknown_icn"></use>
+          </svg>
+        </div>
+        <div class="odds-names odds-names-list"
+             data-crlat="horseInfoContainer">
+          <strong class="odds-names odds-names-wrap" [textContent]="runnerName" data-crlat="horseName"></strong>
+          <span class="odds-normal" data-crlat="jockeyAndTrainer"
+                *ngIf="outcomeEntity.racingFormOutcome">
+            <span *ngIf="outcomeEntity.racingFormOutcome.jockey" [textContent]="'J: '" class="text-bold"></span>
+            <span *ngIf="outcomeEntity.racingFormOutcome.jockey" [textContent]="outcomeEntity.racingFormOutcome.jockey"
+                  data-crlat="jockeyName"></span>
+            <span *ngIf="outcomeEntity.racingFormOutcome.jockey && outcomeEntity.racingFormOutcome.trainer"
+                  data-crlat="jockeyName&trainerName"> / </span>
+            <span *ngIf="outcomeEntity.racingFormOutcome.trainer" [textContent]="'T: '" class="text-bold"></span>
+            <span *ngIf="outcomeEntity.racingFormOutcome.trainer"
+                  [textContent]="outcomeEntity.racingFormOutcome.trainer" data-crlat="trainerName"></span>
+          </span>
+        </div>
+      </div>
+      <div class="odds-right" *ngIf="!outcomeEntity.nonRunner">
+        <div *ngIf="outcomeEntity.results?.priceNum" [textContent]="oddsPrice"></div>
+        <div class="odds-favourite text-bold" *ngIf="outcomeEntity.favourite" [textContent]="outcomeEntity.favourite"></div>
+      </div>
+      <div class="odds-right" *ngIf="outcomeEntity.nonRunner">
+        <span class="label-void">V</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+<accordion [isExpanded]="isExpanded" [isChevronToLeft]="true" [headerClass]="'secondary-header'" [memoryId]="memoryId"
+  [memoryLocation]="memoryLocation" (function)="changeAccordionState($event)" [accordionTitle]="market.name">
+  <right-side>
+    <cashout-label *ngIf="market.cashoutAvail === 'Y'"></cashout-label>
+  </right-side>
+
+  <accordion-body *ngIf="isExpanded">
+    <div class="correct-score">
+      <div class="correct-score-container" *ngIf="eventEntity.categoryId === '16' || eventEntity.categoryId === '22'">
+        <div class="teams-group">
+          <div class="team-col">
+            <div class="correct-score-team-label" [textContent]="teamsObg.teams.teamH.name"></div>
+            <custom-select>
+              <select class="form-control ng-pristine ng-valid" id="odd-value" [disabled]="isMarketOrEventSuspended()"
+                (change)="onScoreChange($event.target.value, 'teamH')">
+                <option *ngFor="let score of teamHScores; trackBy: trackByIndex">{{ score }}</option>
+              </select>
+            </custom-select>
+          </div>
+          <div class="team-col"><span class="team-col-divider"></span></div>
+          <div class="team-col">
+            <div class="correct-score-team-label" [textContent]="teamsObg.teams.teamA.name"></div>
+            <custom-select>
+              <select class="form-control ng-pristine ng-valid" id="odd-value" [disabled]="isMarketOrEventSuspended()"
+                (change)="onScoreChange($event.target.value, 'teamA')">
+                <option *ngFor="let score of teamAScores; trackBy: trackByIndex">{{ score }}</option>
+              </select>
+            </custom-select>
+          </div>
+          <div class="team-col odd-right">
+            <button *ngIf="isButtonDisabled()" [disabled]="true" class="btn col-btn btn-bet" id="na-value">
+              <span>N/A</span>
+            </button>
+            <price-odds-button *ngIf="!isButtonDisabled()" [event]="eventEntity" [market]="market"
+              [outcome]="combinedOutcome.outcome" class="col-btn">
+            </price-odds-button>
+          </div>
+        </div>
+      </div>
+      <div class="container-slide container-inner-content">
+        <div class="team-name" *ngIf="filterValueType === 'all' || showDefault">
+          <span *ngFor="let outcomes of groupedOutcomes"
+            [ngClass]="{'team-name-order': groupedOutcomes?.length === 2,'team-name-order-one': groupedOutcomes?.length === 1,'team-label': eventEntity.categoryId !== '16' && eventEntity.categoryId !== '22'}"
+            [textContent]="outcomes[0]?.name.split(' ').slice(0,-1).join(' ')"></span>
+        </div>
+        <div [equal-column] class="row row-center row-no-gutter row-col-last row-pad row-top"
+          *ngIf="filterValueType === 'all' || showDefault">
+          <div class="col-xs col-bordered" id="border" *ngFor="let set of groupedOutcomes; trackBy: trackByIndex">
+            <div *ngFor="let outcomeEntity of set | slice:0: filterValueType === 'all' ? set.length : 4; trackBy: trackByIndex" class="col-inner col-vertical cs-button"
+              id="lads-high">
+              <price-odds-button class="col-name" [event]="eventEntity" [market]="market" [outcome]="outcomeEntity"
+                [correctName]="filteredName(outcomeEntity)">
+              </price-odds-button>
+            </div>
+          </div>
+        </div>
+        <hr *ngIf="otherSingleSelection" class="no-cs-margin">
+        <div class="row row-center row-no-gutter row-col-last row-pad"
+          *ngIf="filterValueType === scoreType && otherSingleSelection">
+          <div class="col-xs col-bordered col-border-none">
+            <div class="other-cs-align col-inner col-vertical">
+              <strong class="col-name">
+                <span *ngIf="otherSingleSelection?.prices[0]?.rawHandicapValue">
+                  (<span [textConent]="otherSingleSelection?.prices[0].rawHandicapValue"></span>)
+                </span>
+                <br *ngIf="otherSingleSelection?.prices[0]?.rawHandicapValue" />
+                <span class="col-name-other-txt" [textContent]="filteredName(otherSingleSelection)"></span>
+              </strong>
+              <price-odds-button class="cs-score-o-add" [event]="eventEntity" [market]="market"
+                [outcome]="otherSingleSelection">
+              </price-odds-button>
+            </div>
+          </div>
+          <div class="col-xs"></div>
+          <div class="col-xs" *ngIf="groupedOutcomes?.length === 3"></div>
+        </div>
+
+      </div>
+      <show-all-button
+        *ngIf="groupedOutcomes?.length && (groupedOutcomes[0]?.length > 4 || groupedOutcomes[1]?.length>4 || groupedOutcomes[2]?.length>4)"
+        (click)="toggleShow()" [allShown]="allShown">
+      </show-all-button>
+    </div>
+  </accordion-body>
+</accordion>

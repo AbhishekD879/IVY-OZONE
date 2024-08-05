@@ -1,0 +1,337 @@
+@import 'global.variables.scss';
+
+/* button container  */
+.btn-div {
+  display: inline-block;
+}
+
+.stream-div {
+  margin-top: 10px;
+}
+
+/*button container*/
+.btn-container {
+  margin: 10px 0 0;
+  text-align: center;
+
+  .btn {
+    margin: 0 3px 10px;
+  }
+}
+
+/*currency text padding*/
+.cur-padding {
+  padding: 4.7px 5px;
+}
+
+/*black link*/
+.open-link {
+  color: $color-black;
+  cursor: pointer;
+
+  &:hover {
+    color: $brand-color-main;
+    text-decoration: none;
+  }
+}
+
+/*Title panel*/
+.title-panel {
+  background: $event-bar-bg;
+  box-shadow: 0 0 2px 2px $event-bar-bg;
+
+  .title-wrapper {
+    font-family: $base-font-family;
+    color: $color-white;
+    padding: 8px 10px 7px;
+    text-shadow: 0 1px 0 rgba(0,0,0,.4);
+    position: relative;
+
+    .event-title {
+      font-size: 11px;
+      font-weight: bold;
+      margin: 0;
+      padding: 0 10px 0 0;
+    }
+
+    .event-date-time {
+      font-size: 10px;
+      position: relative;
+      padding-right: 31px;
+      color: $color-gray;
+      display: inline-block;
+    }
+
+    .live-label {
+      width: 26px;
+      height: 12px;
+      margin-left: 5px;
+      position: absolute;
+      right: 0;
+      top: 1px;
+    }
+  }
+}
+
+/* Visualisation container */
+#scoreboard-panel {
+  width: 100%;
+  overflow: hidden;
+  background: $body-bg;
+}
+
+/*BPG icon*/
+.bpg-icon {
+  display: inline-block;
+  height: 12px;
+  margin: 2px 0 -5px 0;
+  width: 23px;
+  fill: $color-yellow;
+}
+
+.terms-after-market .terms-before-market {
+  padding: 5px 10px;
+  background: $color-gray;
+  color: $color-black-soft;
+  margin: 0;
+  .term-title {
+    font-weight: bold;
+    font-size: 12px;
+  }
+  .term-value, .class-value {
+    font-size: 11px;
+  }
+}
+
+.terms-before-market {
+  padding: 10px;
+  border-bottom: 1px solid $color-gray;
+  min-height: 36px;
+  background: $color-white;
+  position: relative;
+
+  .term-value, .class-value {
+    display: inline;
+    font-size: 11px;
+  }
+
+  .class-value {
+    padding-left: 5px;
+  }
+
+  .bpg-icon {
+    right: 30px;
+  }
+}
+
+/*Scoreboard*/
+#gp-scoreboard,
+#gp-scoreboard .gp-scoreboard,
+#gp-scoreboard .scoreboard  {
+  max-width: 100%;
+  background-size: 100% 100%;
+
+  .event_score {
+    border-collapse: separate;
+
+    .pla.active:before {
+      height: 100%;
+      top: 23%;
+    }
+
+    .pla.second_team_name.active:before {
+      top: 10%;
+    }
+  }
+
+  #tennis-board .tennis-board,
+  #tennis-statistic .tennis-board {
+    margin: 0 auto;
+  }
+}
+
+.toggle-icon {
+  display: inline-block;
+  min-width: 10px;
+  height: 30px;
+  cursor: pointer;
+  position: relative;
+
+  svg {
+    position: relative;
+    top: 0px;
+    left: 0;
+    width: 10px;
+    height: 6.2px;
+    fill: $color-blue;
+    margin: 0px 0px 0px 3px;
+  }
+}
+
+.item-legend {
+  background: $color-gray-light;
+  padding: 10px 15px;
+}
+
+.events-tabs {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  position: relative;
+  @include display-flex();
+
+  > li {
+    @include flex(1,1,50%);
+    width: 50%;
+    text-align: center;
+    background: $brand-color-main;
+    color: $color-white;
+    padding: 9px 0;
+    font-size: 11px;
+    border-right: 1px solid $color-white;
+    list-style: none;
+    cursor: pointer;
+    &:hover {
+      background-color: lighten($brand-color-main, 25%);
+    }
+    &:active {
+      background-color: darken($brand-color-main, 10%);
+    }
+
+    &.active {
+      color: $color-black;
+      background: $color-yellow;
+    }
+  }
+}
+
+/*Matches sub-tabs(Daily slider)*/
+.matches-sub-menu {
+  position: relative;
+  text-align: center;
+  border-bottom: 1px solid rgba(0,0,0,.2);
+  box-shadow: 0 1px 1px rgba(0,0,0,.2);
+  @include user-select();
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+  height: 40px;
+  font-weight: bold;
+  line-height: 35px;
+  font-size: 14px;
+  color: $color-black;
+  text-transform: capitalize;
+
+  .page-arr {
+    z-index: 5;
+    cursor: pointer;
+    min-width: 70px;
+    min-height: 100%;
+    position: absolute;
+  }
+
+  .next-arr {
+    right: 0;
+
+    svg {
+      position: absolute;
+      top: 11px;
+      right: 10px;
+      height: 14px;
+      width: 10px;
+      fill: $color-blue-light;
+    }
+
+    &.arr-disabled {
+      svg {
+        fill: lighten($color-gray-dark, 50%);
+      }
+    }
+  }
+
+  .prev-arr {
+    left: 0;
+
+    svg {
+      position: absolute;
+      left: 10.5px;
+      top: 11px;
+      height: 14px;
+      width: 10px;
+      z-index: 5;
+      fill: $color-blue-light;
+    }
+
+    &.arr-disabled {
+      color: lighten($color-gray-dark, 50%);
+
+      svg {
+        fill: lighten($color-gray-dark, 50%);
+      }
+    }
+  }
+}
+
+/* Favourite page */
+.favourite-buttons {
+  width: 100%;
+  position: relative;
+  display: block;
+  padding: 15px;
+  text-align: center;
+
+  button{
+    width: 100%;
+    padding: 15px;
+
+  }
+  a {
+    width: 48%;
+    padding: 15px 10px;
+    margin-bottom: 15px;
+
+    &.left {
+      float: left;
+    }
+    &.right {
+      float: right;
+    }
+  }
+}
+
+.disabled {
+  box-shadow: none;
+  text-shadow: none;
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+  .btn-status-info, .btn-label {
+    opacity: 1;
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+.quantum-leap {
+  top: -3px;
+}
+
+.competitions-wrapper
+  .custom-select {
+    &.select-top-margin {
+      margin-top: 0;
+  }
+
+  .market-selector-sticky-margin {
+    padding-top: 0;
+  }
+}
+/* TODO is that block above ^^ works at all (wrong syntax) ?? */
+
+.correct-score-odds-btn {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+}

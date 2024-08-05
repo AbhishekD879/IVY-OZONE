@@ -1,0 +1,11 @@
+<modal #bppErrorDialog class="bpp-error-dialog" data-crlat="d.bppError">
+  <ng-template #modalHeader>
+    <span [i18n]="getHeaderTitle()" data-crlat="dTitle" data-uat="popUpTitle"></span>
+  </ng-template>
+  <ng-template #modalBody>
+    <p [i18n]="getBodyMessage()"></p>
+    <div class="btn-list">
+      <button class="btn btn-style2" [i18n]="'bpp.ok'" (click)="closeDialog()"></button>
+    </div>
+  </ng-template>
+</modal>

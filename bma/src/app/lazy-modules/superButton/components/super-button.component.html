@@ -1,0 +1,58 @@
+<div class="nav-point" *ngIf="isShowNavPoint && !navPoint?.ctaAlignment" data-crlat="quickLink.section">
+  <div *ngIf="navPoint.description" class="desctription" [innerHtml]="navPoint.description" data-crlat="description"></div>
+  <button *ngIf="!isAndroidExternalUrl" class="button btn-secondary" (click)="goToUrl()" [innerHtml]="navPoint.title" data-crlat="button"></button>
+  <a *ngIf="isAndroidExternalUrl" [attr.href]="navPoint.targetUri" [innerHtml]="navPoint.title" class="button btn-secondary" data-crlat="button"></a>
+</div>
+
+<div [ngSwitch]="navPoint?.ctaAlignment">
+  <div *ngSwitchCase="'center'" class="generic-center-theme">
+    <div [ngSwitch]="navPoint.themes">
+      <ng-container *ngFor="let theme of themeArray">
+        <div *ngSwitchCase="theme.caseVal">
+          <div [ngClass]="theme.classVal" *ngIf="isShowNavPoint" data-crlat="quickLink.section">
+            <div *ngIf="navPoint.description" class="description" 
+                  data-crlat="description">
+                  {{navPoint?.description}}  
+              </div>
+            <button *ngIf="!isAndroidExternalUrl" [class]="theme.descVal" (click)="goToUrl()"
+                     data-crlat="button">
+                  {{navPoint?.title}}
+            </button>
+            <a *ngIf="isAndroidExternalUrl" [attr.href]="navPoint.targetUri" 
+            class="btn-alignment" [class]="theme.descVal" data-crlat="button" (click)="gtaTracking()">
+                  {{navPoint?.title}}
+            </a>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div *ngSwitchCase="'right'"  class="generic-right-theme">
+    <div [ngSwitch]="navPoint.themes">
+      <ng-container *ngFor="let themes of themeArray">
+        <div *ngSwitchCase="themes.caseVal">
+          <div [class]="themes.classVal" data-crlat="quickLink.section">
+            <div class="right-desc-shortdesc">
+              <span class="text-center right-top-desc" [ngClass]="{'right-top-desc-without-short': navPoint?.shortDescription?.length == 0}" data-crlat="description">
+                {{navPoint?.description}}
+              </span>
+              <span class="right-bottom-desc" [ngClass]="{'right-bottom-desc-without-desc': navPoint?.description?.length == 0}" data-crlat="shortDescription">
+                {{navPoint?.shortDescription}}
+              </span>
+            </div>
+            <div class="right-button">
+              <button *ngIf="!isAndroidExternalUrl" [class]="themes.descVal" (click)="goToUrl()"
+                 data-crlat="button">
+                    {{navPoint?.title}}
+              </button>
+              <a *ngIf="isAndroidExternalUrl" [attr.href]="navPoint.targetUri" 
+                class="btn-alignment" [class]="themes.descVal" data-crlat="button" (click)="gtaTracking()">
+                    {{navPoint?.title}}
+              </a>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

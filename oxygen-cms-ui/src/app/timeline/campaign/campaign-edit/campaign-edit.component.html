@@ -1,0 +1,104 @@
+<breadcrumbs *ngIf="campaign" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="campaign">
+  <div class="header">
+    <div class="row">
+      <div class="col-md-10">
+        <h2 class="waves-effect waves-block has-activity-badge">
+          Campaign: {{campaign.name}}
+          <create-updated-at-by [collection]="campaign"></create-updated-at-by>
+        </h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="campaign">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-4 offset-md-2">
+        <button (click)="goToPostsPage()" mat-button class="btn bg-teal full-width">
+          Go to Posts
+        </button>
+      </div>
+      <div class="col-md-4">
+        <button (click)="goToSpotlightPostsPage()" mat-button class="btn bg-teal full-width">
+          Spotlights
+        </button>
+      </div>
+      <div class="col-md-2">
+        <button (click)="republishPosts()" mat-button class="btn bg-red full-width">
+          Republish Posts
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Title
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Title" [(ngModel)]="campaign.name" [value]="campaign.name"
+                 required trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Initial number of messages to display
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput type="number" min="1" placeholder="Initial number of messages to display"
+                 [(ngModel)]="campaign.messagesToDisplayCount" [value]="campaign.messagesToDisplayCount" required trim="blur">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <date-range
+          [startDate]="campaign && campaign.displayFrom"
+          [endDate]="campaign && campaign.displayTo"
+          [startPlaceholder]="'Display from'"
+          [endPlaceholder]="'Display to'"
+          [placeholderColumn]="true"
+          (onDateUpdate)="handleDisplayDateUpdate($event)"
+        >
+        </date-range>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Manually set status
+        </span>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <mat-select [(value)]="campaign.status" (selectionChange)="setStatus($event)" placeholder="Status">
+            <mat-option *ngFor="let status of campaignStatuses()" [value]="status">{{status}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <br>
+  </div>
+</div>
+<action-buttons
+  #actionButtons
+  *ngIf="campaign"
+  [validateHandler]="isValidModel"
+  [fieldOrItemName]="'name'"
+  [collection]="campaign"
+  (actionsEmitter)="actionsHandler($event);">
+</action-buttons>
+
+

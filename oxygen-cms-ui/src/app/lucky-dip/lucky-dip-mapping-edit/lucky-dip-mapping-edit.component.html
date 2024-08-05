@@ -1,0 +1,59 @@
+<div *ngIf="isReady">
+  <breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+  <div class="card">
+    <div class="header">
+      <h2 class="waves-effect waves-block has-activity-badge">
+        <span [textContent]="LUCKYDIP_MAPPING_CONST.luckyDipMappingPage"></span>: <span
+          [textContent]="luckyDipMapping.categoryId"></span>
+        <create-updated-at-by [collection]="luckyDipMapping"></create-updated-at-by>
+      </h2>
+      <header-activity-badge [state]="!luckyDipMapping.active"></header-activity-badge>
+    </div>
+  </div>
+  <form [formGroup]="form">
+    <div class="card">
+      <div class="body">
+        <div class="row">
+          <div class="col-md-2 mb-0">
+            <mat-checkbox color="primary" formControlName="active" [checked]="luckyDipMapping.active"
+              (change)="luckyDipMapping.active = !luckyDipMapping.active">
+              <span [textContent]="LUCKYDIP_MAPPING_CONST.active"></span>
+            </mat-checkbox>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="LUCKYDIP_MAPPING_CONST.categoryId"></span>
+          </div>
+          <div class="col-md-6">
+              <mat-form-field class="full-width">
+                  <mat-select placeholder="Select Sports Categories" [(ngModel)]="luckyDipMapping.categoryId"
+                        formControlName="categoryId">
+                      <mat-option *ngFor="let sport of sportCategories"
+                        [value]="sport.imageTitle">
+                        {{ sport.imageTitle }}
+                      </mat-option>
+                  </mat-select>
+                </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="LUCKYDIP_MAPPING_CONST.typeIds"></span>
+          </div>
+          <div class="col-md-6">
+            <vip-levels-input [(ngModel)]="luckyDipMapping.typeIds" formControlName="typeIds" 
+            [placeholder]="'Type IDs'">></vip-levels-input>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <action-buttons #actionButtons [validateHandler]="validationHandler"
+    [fieldOrItemName]="luckyDipMapping.categoryId" [collection]="luckyDipMapping" [showRemoveButton]="true"
+    (actionsEmitter)="actionsHandler($event);">
+  </action-buttons>
+</div>

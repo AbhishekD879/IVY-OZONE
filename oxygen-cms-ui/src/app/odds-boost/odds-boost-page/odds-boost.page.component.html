@@ -1,0 +1,213 @@
+<div class="card" *ngIf="oddsBoost">
+  <div class="header">
+    <h2 class="has-activity-badge">
+      Odds Boost
+      <create-updated-at-by [collection]="oddsBoost"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="!oddsBoost.enabled"></header-activity-badge>
+  </div>
+</div>
+
+<div [formGroup]="form"
+     *ngIf="oddsBoost">
+  <div class="card">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-12">
+          <mat-checkbox class="mat-label" color="primary"
+                        [checked]="oddsBoost.enabled"
+                        (change)="oddsBoost.enabled = !oddsBoost.enabled">
+            Active
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <ng-container *ngIf="isIMActive; else cmsUpload">
+          <div class="col-md-2">
+            <span class="mat-label">SVG Icon</span>
+          </div>
+          <div class="col-md-6">
+            <svg-icon-select-input
+              [formFieldsModels]="oddsBoost"
+              [externalForm]="form"
+            ></svg-icon-select-input>
+          </div>
+        </ng-container>
+        <ng-template #cmsUpload>
+          <div class="col-md-8">
+            <cms-upload
+              [label]="'SVG File'"
+              [filename]="oddsBoost.svgFilename"
+              (onImageUpload)="uploadSvgHandler($event)"
+              (onImageRemove)="removeSvgHandler()">
+            </cms-upload>
+          </div>
+        </ng-template>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">Logged Out Header Text</span>
+        </div>
+        <div class="col-md-10" *ngIf="oddsBoost">
+          <tinymce-editor
+            [pageName]="'odds-boost.logged-out-text'"
+            [pageItemId]="'odds-boost.logged-out-text'"
+            (outputEditorData)="updateText($event, 'logged-out-text')"
+            [initialEditorContent]="oddsBoost.loggedOutHeaderText">
+          </tinymce-editor>
+          <input type="text"
+                 hidden
+                 formControlName="loggedOut"
+                 [(ngModel)]="oddsBoost.loggedOutHeaderText">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">Logged In Header Text</span>
+        </div>
+        <div class="col-md-10" *ngIf="oddsBoost">
+          <tinymce-editor
+            [pageName]="'odds-boost.logged-in-text'"
+            [pageItemId]="'odds-boost.logged-in-text'"
+            (outputEditorData)="updateText($event, 'logged-in-text')"
+            [initialEditorContent]="oddsBoost.loggedInHeaderText">
+          </tinymce-editor>
+          <input type="text"
+                 hidden
+                 formControlName="loggedIn"
+                 [(ngModel)]="oddsBoost.loggedInHeaderText">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" *ngIf="isLadbrokes">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">Count Down Timer</span>
+        </div>
+        <div class="col-md-10" *ngIf="oddsBoost">
+          <mat-form-field class="count-down-time-input">
+            <input matInput formControlName="hours"
+                  (input)="validateTime($event)" type="number" min="1" max="23" 
+                   placeholder="HH">
+          </mat-form-field>
+          <span class="mat-label-mr">: </span>
+          <mat-form-field class="count-down-time-input">
+            <input matInput formControlName="minutes" 
+                  (input)="validateTime($event)" type="number" min="0" max="59"
+                  placeholder="MM">
+          </mat-form-field>
+          <span class="mat-label-mr">: </span>
+          <mat-form-field class="count-down-time-input">
+            <input matInput formControlName="seconds" 
+                  (input)="validateTime($event)" type="number" min="0" max="59"
+                  placeholder="SS">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">Terms And Conditions</span>
+        </div>
+        <div class="col-md-10" *ngIf="oddsBoost">
+          <tinymce-editor
+            [pageName]="'odds-boost.terms-and-conditions'"
+            [pageItemId]="'odds-boost.terms-and-conditions'"
+            (outputEditorData)="updateText($event, 'terms-and-conditions')"
+            [initialEditorContent]="oddsBoost.termsAndConditionsText">
+          </tinymce-editor>
+          <input type="text"
+                 hidden
+                 [(ngModel)]="oddsBoost.termsAndConditionsText"
+                 formControlName="termsAndConditions">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" *ngIf="isLadbrokes">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">No Tokens Available</span>
+        </div>
+        <div class="col-md-10" *ngIf="oddsBoost">
+          <tinymce-editor [pageName]="'odds-boost.no-tokens-text'" 
+                          [pageItemId]="'odds-boost.no-tokens-text'"
+                          (outputEditorData)="updateText($event, 'no-tokens-text')"
+                          [initialEditorContent]="oddsBoost.noTokensText">
+          </tinymce-editor>
+          <input type="text"
+                 hidden 
+                 formControlName="noTokens" 
+                 [(ngModel)]="oddsBoost.noTokensText">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">More Link</span>
+        </div>
+        <div class="col-md-10" *ngIf="oddsBoost">
+          <mat-form-field class="full-width">
+            <input matInput
+                   placeholder="More Link"
+                   [(ngModel)]="oddsBoost.moreLink"
+                   formControlName="moreLink">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-12" *ngIf="oddsBoost">
+          <mat-checkbox color="primary" [(ngModel)]="oddsBoost.allowUserToToggleVisibility" formControlName="allowUserToToggleVisibility">
+            Allow User To Toggle Visibility
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row" *ngIf="oddsBoost">
+        <div class="col-md-2">
+          <span class="mat-label">Days To Keep Popup Hidden</span>
+          <span></span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width">
+            <input matInput type="number" [(ngModel)]="oddsBoost.daysToKeepPopupHidden"
+              formControlName="daysToKeepPopupHidden">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<action-buttons
+  *ngIf="oddsBoost"
+  #actionButtons
+  [showRemoveButton]="false"
+  [form]="form"
+  [fieldOrItemName]="'Odds Boost'"
+  [collection]="oddsBoost"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

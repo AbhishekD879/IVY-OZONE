@@ -1,0 +1,75 @@
+<drawer (hide)="backHandler()"
+        [show]="true"
+        [showCloseButton]="false"
+        [showOverlay]="false"
+        [position]="false"
+        [removeBodyClassOnClose]="false"
+        [contentClass]="'five-a-side player'"
+        [background]="gradient"
+        [showFallbackMessage]="!optaStatisticsAvailable">
+  <div header header="true" class="head text-left">
+    <button class="btn-back" [i18n]="'bma.back'" (click)="backHandler()"></button>
+    <div class="title">
+      <span class="title-text" [textContent]="player.name"></span>
+      <span class="player-team" [textContent]="player.teamName.toLowerCase()"></span>
+      <span *ngIf="player.position?.long" class="delimeter"></span>
+      <span class="player-position" [textContent]="player.position?.long"></span>
+    </div>
+    <div class="subheader">
+      <div class="left-info">
+        <div class="titles">
+          <stats-drop-down [eventEntity]="eventEntity"
+                           [formation]="item"
+                           [player]="player"
+                           (statChange)="changeStat($event)">
+          </stats-drop-down>
+          <span class="subtitle">
+            <span [textContent]="player.name"></span>
+            <span [i18n]="'yourcall.playerSubTitles.'+item.stat"></span>
+            <span *ngIf="!isNoButtonsMarket" class="value">{{ value ? value + '+' : value }} </span>
+            <span *ngIf="isNoButtonsMarket" [i18n]="'yourCall.yes'" class="value"></span>
+            <span [textContent]="subtitleEnding"></span>
+          </span>
+        </div>
+        <div *ngIf="!isNoButtonsMarket" class="right-buttons">
+          <div class="round-button minus"
+               [ngClass]="{'disabled': value === buttonsModel?.minValue}"
+               (click)="changeValue('Minus')"></div>
+          <div class="value" [textContent]="value"></div>
+          <div class="round-button plus"
+               [ngClass]="{'disabled': value === buttonsModel?.maxValue}"
+               (click)="changeValue('Plus')"></div>
+        </div>
+      </div>
+      <div class="remove-container" *ngIf="fiveASideService.isEditMode">
+        <b class="remove-button" (click)="removeSelection()" [i18n]="'yourCall.removeSel'"></b>
+      </div>
+    </div>
+  </div>
+  <div fallbackMessage class="stats-unavailable">
+    <span class="stats-unavailable-text" [i18n]="'yourcall.statsUnavailableText'"></span>
+  </div>
+  <div body class="content">
+    <div class="player-stats">
+      <five-a-side-player-stat [mainStat]="item.stat" [statLabel]="'main-stat'" [statValue]="player[marketsMap[item.stat]]" [cards]="{
+        cardsYellow: player.cardsYellow,
+        cardsRed: player.cardsRed
+      }">
+      </five-a-side-player-stat>
+      <five-a-side-player-stat *ngFor="let st of playerStatMap"
+                               [mainStat]="item.stat"
+                               [statLabel]="st.statLabel"
+                               [statValue]="st.statValue">
+      </five-a-side-player-stat>
+    </div>
+    <div class="btn-odds-container">
+      <btn-odds
+          [template]="betButtonTitle"
+          [price]="fiveASideBet.formattedPrice"
+          [isLoading]="fiveASideBet.loadingOdds"
+          [oddsFormat]="oddsFormat"
+          (click)="addPlayer()"
+          data-crlat="addPlayerBtn"></btn-odds>
+    </div>
+  </div>
+</drawer>

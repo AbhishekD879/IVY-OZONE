@@ -1,0 +1,89 @@
+  @mixin country-flags-mixin($border-radius, $width, $height, $box-shadow) {
+    border-radius: $border-radius;
+    width: $width;
+    height: $height;
+    box-shadow: $box-shadow;
+  }
+  @mixin country-name-mixin($width, $height, $color, $font-size, $text-align, $font-family, $letter-spacing, $font-weight, $overflow) {
+    width: $width;
+    height: $height;
+    color: $color;
+    font-size: $font-size;
+    text-align: $text-align;
+    font-family: $font-family;
+    letter-spacing: $letter-spacing;
+    font-weight:  $font-weight;
+    overflow: $overflow;
+  }
+  @mixin contest-mixin($hight, $bg-color, $padding, $color, $display, $justify-content, $font-family, $font-size, $font-weight) {
+    height: $hight;
+    background-color: $bg-color;
+    padding: $padding;
+    color: $color;
+    display: $display;
+    justify-content: $justify-content;
+    font-family: $font-family;
+    font-size: $font-size;
+    font-weight: $font-weight;
+  }
+  @mixin contest-detail-mixin($max-width, $height, $overflow) {
+    max-width: $max-width;
+    height: $height;
+    overflow: $overflow;
+  }
+  @mixin leader-board-mixin($height, $margin, $background, $bg-size, $bg-repeat) {
+    height: $height;
+    margin: $margin;
+    background: $background;
+    background-size: $bg-size;
+    background-repeat: $bg-repeat;
+    }
+  @mixin country-detail-mixin($padding, $txt-trans, $display, $justify) {
+    padding: $padding;
+    text-transform: $txt-trans;
+    display: $display;
+    justify-content: $justify;
+    }
+  @mixin country-name-mixins($width, $height, $color, $font-size, $text-align, $float, $font-family, $letter-spacing, $font-weight) {
+    width: $width;
+    height: $height;
+    color: $color;
+    font-size: $font-size;
+    text-align: $text-align;
+    float: $float;
+    font-family: $font-family;
+    letter-spacing: $letter-spacing;
+    font-weight:  $font-weight;
+  }
+  @mixin country-flags-mixins($border-radius, $border, $width, $height, $box-shadow) {
+    border-radius: $border-radius;
+    border: $border;
+    width: $width;
+    height: $height;
+    box-shadow: $box-shadow;
+  }
+  @mixin leader-board-mixins($width, $height, $margin, $background, $bg-size, $bg-repeat) {
+    width: $width;
+    height: $height;
+    margin: $margin;
+    background: $background;
+    background-size: $bg-size;
+    background-repeat: $bg-repeat;
+  }
+  @mixin contest-desc-p-mixin($font-size, $font-family, $font-weight) {
+      font-size: $font-size;
+      font-family: $font-family;
+      font-weight: $font-weight;
+    }
+  @mixin live-board-entries-mixin($width, $height, $font-family, $font-size, $font-weight, $font-stretch, $font-style, $line-height, $letter-spacing, $color) {
+    width: $width;
+    height: $height;
+    font-family: $font-family;
+    font-size: $font-size;
+    font-weight: $font-weight;
+    font-stretch: $font-stretch;
+    font-style: $font-style;
+    line-height: $line-height;
+    letter-spacing: $letter-spacing;
+    color: $color;
+  }

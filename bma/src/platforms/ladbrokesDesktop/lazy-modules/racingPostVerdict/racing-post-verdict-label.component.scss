@@ -1,0 +1,25 @@
+@import 'global.variables.scss';
+
+:host {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  line-height: 26px;
+  height:26px;
+}
+
+.logo {
+  width: 88px;
+  height: 9px;
+  vertical-align: baseline;
+}
+
+.verdict {
+  margin-left: 5px;
+  text-transform: uppercase;
+  font-family: $base-font-family;
+  font-weight: bold;
+  font-size: $font-size;
+  line-height: $font-size;
+  color: $color-gray-darkest;
+}

@@ -1,0 +1,17 @@
+@import 'global.variables.scss';
+
+.big-icon {
+  @include big-icon-styles();
+}
+
+.small-icon {
+  @include small-icon-styles();
+}
+
+.middle-icon {
+  @include middle-icon-styles();
+}
+
+.mini-icon {
+  @include mini-icon-styles();
+}

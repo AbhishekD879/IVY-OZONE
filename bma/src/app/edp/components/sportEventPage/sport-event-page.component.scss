@@ -1,0 +1,77 @@
+@import 'global.variables.scss';
+
+.competition-filters {
+  display: flex;
+
+  .filter-wrapper {
+    background-color: $color-white;
+    border-radius: 21px;
+    box-shadow: $quick-filter-box-shadow;
+    margin: 0 5px;
+    min-width: 35px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    .filter {
+      color: $market-pills-color;
+      font-size: 12px;
+      border-radius: 21px;
+      font-family: Lato;
+      letter-spacing: $quick-filter-letter-spacing;
+      margin: 0;
+      padding: 8px 15px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    &.active { 
+      .filter {
+        color: $color-white;
+        border-radius: 21px;
+        background: $color-blue;
+        padding: 8px 15px;
+      }
+    }
+
+    .filter:active {
+      background-color: $color-blue-rich-heavy;
+      border-radius: 21px;
+      color: $color-white;
+      padding: 8px 15px;
+    }
+  }
+}
+
+:host {
+  display: block;
+
+  &.market-selector-sticky-margin {
+    padding-top: 47px;
+  }
+  
+  switchers, tabs-panel {
+    position: -webkit-sticky;
+    position: sticky;
+    top: $app-header-height + $top-bar-height;
+    z-index: 6;
+    display: block;
+  }
+}
+
+.sk-container {
+  .scroll-container {
+    position: sticky;
+    top: $app-header-height + $top-bar-height;
+    z-index: 7;
+    background-color: $market-pills-bg;
+  }
+
+  .pill-height {
+    top: $app-header-height + $top-bar-height + 40px !important;
+  }
+}
+
+
+:host ::ng-deep .surface-bets-container {
+  padding: 4px;
+}

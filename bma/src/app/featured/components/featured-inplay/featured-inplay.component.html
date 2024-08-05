@@ -1,0 +1,28 @@
+<section *ngIf="eventsCount" class="inplay-module-container" data-crlat="inplayModule">
+  <header class="in-play-header" data-crlat="inPlayHeader">
+    <div class="in-play-label" data-crlat="inPlayLabel" [textContent]="title"></div>
+    <a [routerLink]="buildInplayUrl()" (click)="sendGTM()" data-crlat="seeAllLink">
+      <div class="see-all-count" [textContent]="seeAllTitle"></div>
+      <svg class="next-arrow">
+          <use xlink:href="#next-arrow"></use>
+      </svg>
+    </a>
+  </header>
+  <ng-container *ngFor="let trackingKey of trackingKeys; trackBy: trackByKey">
+    <article class="inplay-group-container" data-crlat="inPlayGroupContainer" 
+             *ngIf="renderData[trackingKey] && this.sports[trackingKey]">
+      <odds-card-header
+        [events]="renderData[trackingKey]"
+        [sportConfig]="sports[trackingKey]"
+        [isHeaderAlwaysVisible]="true"
+        [dateTitle]="trackingKey">
+      </odds-card-header>
+      <odds-card-component data-crlat="eventEntity" *ngFor="let eventEntity of renderData[trackingKey]; trackBy: trackById"
+                           [event]="eventEntity"
+                           [sportConfig]="sports[trackingKey]"
+                           [gtmModuleTitle]="'in-play module'"
+                           [selectedMarket]="getSelectedMarket(eventEntity)">
+      </odds-card-component>
+    </article>
+  </ng-container>
+</section>

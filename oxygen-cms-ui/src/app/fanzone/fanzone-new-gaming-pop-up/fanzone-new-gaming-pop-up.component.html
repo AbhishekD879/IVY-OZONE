@@ -1,0 +1,66 @@
+<div *ngIf="isReady">
+  <breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+  <form [formGroup]="form">
+    <div class="card">
+      <div class="header">
+        <h2 [textContent]="FZ_POPUP_CONST.fzPopUpHeading"></h2>
+      </div>
+      <div class="body">
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FZ_POPUP_CONST.title"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="FZ_POPUP_CONST.title" formControlName="title"
+                [(ngModel)]="fanzoneNewGamingPopUp.title" [value]="fanzoneNewGamingPopUp.title" required trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FZ_POPUP_CONST.description"></span>
+          </div>
+          <div class="col-md-8">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="FZ_POPUP_CONST.description" formControlName="description"
+                [(ngModel)]="fanzoneNewGamingPopUp.description" [value]="fanzoneNewGamingPopUp.description" required
+                trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FZ_POPUP_CONST.closeCTA"></span>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="FZ_POPUP_CONST.closeCTA" formControlName="closeCTA"
+                [(ngModel)]="fanzoneNewGamingPopUp.closeCTA" [value]="fanzoneNewGamingPopUp.closeCTA" required
+                trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label" [textContent]="FZ_POPUP_CONST.playCTA"></span>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="FZ_POPUP_CONST.playCTA" formControlName="playCTA"
+                [(ngModel)]="fanzoneNewGamingPopUp.playCTA" [value]="fanzoneNewGamingPopUp.playCTA" required
+                trim="blur">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <action-buttons #actionButtons [validateHandler]="validationHandler" [fieldOrItemName]="'New Gaming Pop Up Details'"
+    [collection]="fanzoneNewGamingPopUp" [showRemoveButton]="false" (actionsEmitter)="actionsHandler($event);">
+  </action-buttons>
+</div>

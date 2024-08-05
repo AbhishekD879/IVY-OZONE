@@ -1,0 +1,17 @@
+@import 'global.variables.scss';
+
+// *** Base ***
+
+/* Variables, mixins, reset, typography, etc. */
+
+/* Fonts */
+$bs-default-font-size: 11px;
+$bs-title-font-size: 12px;
+$bs-sub-title-font-size: 10px;
+
+/* Mixins */
+
+@mixin bs-remove-outline() {
+  outline: transparent 0;
+  box-shadow: none;
+}

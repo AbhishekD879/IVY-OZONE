@@ -1,0 +1,138 @@
+<breadcrumbs *ngIf="!isLoading" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="stat-content-edit" *ngIf="statContentInfo">
+  <div class="card" *ngIf="pageType === 'edit'">
+    <div class="header">
+      <h2 class="waves-effect waves-block has-activity-badge">
+        Statistical Content Information: {{statContentInfo.title}}
+        <create-updated-at-by [collection]="statContentInfo"></create-updated-at-by>
+      </h2>
+      <header-activity-badge [state]="!statContentInfo.enabled"></header-activity-badge>
+    </div>
+  </div>
+    <div class="card">
+      <div class="body">
+        <div class="row">
+          <div class="col-md-2">
+            <mat-checkbox color="primary" [checked]="statContentInfo.enabled"
+              (change)="statContentInfo.enabled = !statContentInfo.enabled">
+              Active
+            </mat-checkbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">
+              Title
+            </span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !statContentInfo.title}">
+              <input matInput placeholder="Title" [(ngModel)]="statContentInfo.title" required
+                [value]="statContentInfo.title" required>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">
+              Type
+            </span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <mat-select [value]="statContentInfo.marketType" [(ngModel)]="statContentInfo.marketType"
+                placeholder="Type" [disabled]="isDisabled" required>
+                <mat-option *ngFor="let statInfo of StatInfoOptions"
+                  [value]="statInfo.value">{{statInfo.text}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">
+              Event ID
+            </span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !statContentInfo.eventId}">
+              <input matInput placeholder="Event Id" [(ngModel)]="statContentInfo.eventId" [disabled]="isDisabled"
+                (blur)="getEventTitle($event)" [value]="statContentInfo.eventId" appNumberOnly required>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">
+              Market ID
+            </span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !statContentInfo.marketId}">
+              <input matInput placeholder="Market Id" [(ngModel)]="statContentInfo.marketId" [disabled]="isDisabled"
+                [value]="statContentInfo.marketId" appNumberOnly required>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+            <date-range [isSetDateButtons]="true" [startDate]="statContentInfo.startTime"
+              [endDate]="statContentInfo.endTime" [startPlaceholder]="'Validity Period Start Date & Time'"
+              [endPlaceholder]="'Validity Period End Date & Time'" [placeholderColumn]="true"
+              (onDateUpdate)="handleVisibilityDateUpdate($event)">
+            </date-range>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="body">
+        <div class="row">
+          <div class="col-md-2">
+            <span class="mat-label">Statistical content
+            </span>
+          </div>
+          <div class="col-md-10">
+            <tinymce-editor #htmlMarkup [pageName]="'Statical Content'" [pageItemId]="statContentInfo.id"
+              (outputEditorData)="update($event, 'htmlMarkup')" [initialEditorContent]="statContentInfo.content">
+            </tinymce-editor>
+            <input type="text" hidden [(ngModel)]="statContentInfo.content">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="body">
+        <div class="row">
+          <div class="col-3 col-md-5 p-b-0 m-b-0">
+            <button mat-button [disabled]="!isValidModel()" type="button" class="btn bg-teal waves-effect float-left"
+              (click)="saveChanges();">
+              <mat-icon>save</mat-icon>
+              <span>Save Changes</span>
+            </button>
+          </div>
+          <div class="col-3 {{pageType != 'edit'? 'col-md-4' : 'col-md-2' }} p-b-0 m-b-0 ">
+            <button mat-button type="button" class="btn bg-cean float-right" (click)="cancleChanges()">
+              <span>Cancel</span>
+            </button>
+          </div>
+          <div class="col-3 col-md-3 p-b-0 m-b-0">
+            <button mat-button type="button" [disabled]="!isValidModel()" class="btn bg-teal waves-effect float-right"
+              (click)="saveCreateNew(true)">
+              <mat-icon>undo</mat-icon>
+              <span>Save & Create Another</span>
+            </button>
+          </div>
+          <div class="col-3 col-md-2 p-b-0 m-b-0" *ngIf="pageType == 'edit'">
+            <button mat-button type="button" class="btn bg-red waves-effect float-right" (click)="removeContent()">
+              <mat-icon>delete_forever</mat-icon>
+              <span>Remove</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+</div>

@@ -1,0 +1,147 @@
+<ng-container *ngFor="let receipt of multiReceipts; trackBy:trackByIndex; let multiIndex = index;">
+  <div data-crlat="isMultiples" class="bs-scrolling-fix-ios bs-container">
+    <div class="stakes-wrapper bs-multiple-receipt" data-crlat="declinedMultBet">
+      <div class="bs-stake bs-single-receipt" [ngClass]="{'is-canceled': isStakeCanceled(receipt)}">
+        <div *ngIf="isStakeCanceled(receipt)" class="bs-canceled-stake-message" data-crlat="stakeMsg"
+             [i18n]="'bs.overaskMessages.betIsDeclined'"></div>
+        <div class="bs-stake-boost" *ngIf="receipt.oddsBoosted" data-crlat="boostSect">
+          <svg class="boost-icon" data-crlat="boostIcon">
+            <use xlink:href="#odds-boost-icon-dark"></use>
+          </svg>
+          <span [i18n]="'bs.boostedMsg'" data-crlat="boostText"></span>
+        </div>
+        <div class="stake-row">
+          <div class="stake-column multiple-column">
+            <div class="bs-single-receipt-odds bs-stake-info" data-crlat="betType">
+              <strong class="selection-type" [i18n]="'bs.' + (receipt.betType)" data-crlat="multipleType"></strong>&nbsp;
+              <strong class="selection-type" [textContent]="'(x' + (receipt.numLines) + ')'" data-crlat="multiplier"></strong>&nbsp;
+              <span *ngIf="showOddsAcca(receipt)">
+                <strong class="bs-receipt-odds" [textContent]="'@'"></strong>
+                <strong class="bs-receipt-odds" [textContent]="oddsACCA(receipt)"></strong>
+              </span>
+              <div class="bet-id-number">
+                <span class="bet-id" [i18n]="'bs.betId'"></span>
+                <span class="bet-id" [textContent]="receipt.receipt" data-uat="betId" data-crlat="betId.value"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="stake-row" *ngFor="let item of receipt.leg; trackBy:trackByIndex;" data-crlat="receiptLeg">
+          <div class="stake-column">
+            <div class="bs-stake-header">
+              <div class="bs-stake-info">
+                <span class="eprmessage">
+                  <strong class="bs-stake-title" [textContent]="item.part[0].description"
+                  data-uat="selectionName"></strong>
+                          <lazy-component *ngIf="item.part[0].event.markets[0].templateMarketName === 'Win or Each Way' || item.part[0].event.markets[0].templateMarketName === 'Outright'"
+                          moduleUri="@lazy-modules-module/extraPlaceSignposting/extra-place-signposting.module#ExtraPlaceSignpostingModule"
+                          [inputs]="{marketData:item.part[0].event.markets[0],origin:'betreceipts'}" 
+                          entryComponent="ExtraPlaceSignpostingComponent">
+                        </lazy-component></span>
+                <span class="stake-type" [textContent]="item.part[0].eventMarketDesc + ' / ' "
+                  data-uat="marketName"></span>
+                <span class="stake-description" [textContent]="item.part[0].eventDesc" data-uat="eventName"></span>
+                <div class="eachway-terms-block" *ngIf="receipt.legType === 'E'" data-crlat="eachWay">
+                  <span class="eachway-terms" [textContent]="getEWTerms(item.part[0])"></span>
+                </div>
+                <div class="promotion-icon-label">
+                  <ng-container *ngIf="item.part?.length">
+                    <promotion-icon
+                      [type]="'market'"
+                      [mode]="'sm'"
+                      [display]="appendDrillDownTagNames(item.part[0])"
+                      [marketName]="item.part[0].eventMarketDesc"
+                      [sport]="'sport'"
+                      data-crlat="promotionIcons"
+                      [disablePopUp]="true">
+                    </promotion-icon>
+                  </ng-container> 
+                </div>
+                <!-- Promo labels -->
+                <promo-labels
+                  [mode]="'betslip'"
+                  [event]="item.part[0].event"
+                  [marketId]="item.part[0].marketId"
+                  [isBogEnabled]="item.part[0].isBog"
+                  [exclude]="item.excludedDrillDownTagNames">
+                </promo-labels>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="isSportIconEnabled" class="sports-icon" [ngClass]="{'sports-icon-wrapper':winAlertsEnabled}">
+            <svg class="sports-icon-position">
+              <use [attr.xlink:href]="'#'+item.svgId"></use>
+            </svg>
+          </div>
+        </div>
+        <span *ngIf="receipt.legType === 'E'" class="eachway-terms eachway-terms-multiple"
+          [textContent]="getLinesPerStake(receipt)"></span>
+        <div class="promo-multiples" [ngClass]="betReceiptService.isLuckySignType(receipt) ? 'lucky-signpost-section' : ''">
+           <div [ngClass]="isCashoutAvailable(receipt.cashoutValue) ? 'has-cashout-lads' : ''"  *ngIf="betReceiptService.isLuckySignType(receipt)" class="luckynewbonus-lads ">
+            <span class="luckyflower"  [textContent]="receipt.betTypeName"></span>
+           
+           </div>
+          <!-- Promo labels -->
+          <promo-labels *ngIf="!isStakeCanceled(receipt)"
+                        [mode]="'betslip'"
+                        [cashoutValue]="receipt.cashoutValue">
+          </promo-labels>
+          <!-- has-cashout-lads -->
+          <!--  -->
+          <svg *ngIf="betReceiptService.isLuckySignType(receipt) && betReceiptService.isBetReceiptShown" [ngClass]=" isCashoutAvailable(receipt.cashoutValue) ? 'lucky-info-icon-cashout' : 'lucky-info-icon'" class="infolabel-lads">
+            <use (click)="openSelectionMultiplesDialog(receipt.betType, receipt.betTypeName)" xlink:href="#icn_info-icon-bg"></use>
+          </svg>
+        </div>
+        <div class="alerts-wrapper" *ngIf="winAlertsEnabled">
+          <div class="notification-icon-wrapper">
+          </div>
+          <div class="bs-win-alerts-wrapper">
+            <div class="bs-win-alerts-content">
+              <div class="bs-win-alerts-info">
+                <svg class="win-alerts-info-icon" data-crlat="infoButton" [tooltip]="'winAlerts'"
+                  [showTooltip]="showWinAlertsTooltip() && !multiIndex" (click)="handleAlertInfoClick(receipt)">
+                  <use xlink:href="#win-alert-icon"></use>
+                </svg>
+                <span [i18n]="'bs.winAlerts'"></span>
+                <toggle-switch [initialState]="winAlertsActive" [componentId]="setToggleSwitchId(receipt)"
+                  [disabled]="!nativeBridge.pushNotificationsEnabled"
+                  (switcherControl)="toggleWinAlerts(receipt, $event)"
+                  (clickIfDisabled)="nativeBridge.showNotificationSettings()" data-crlat="allowQuickBetSwitc">
+                </toggle-switch>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bs-stake-footer" data-crlat="singleStakeFooter">
+          <div class="line">
+            <span [i18n]="'bs.stakeForThisBet'"></span>
+            <span *ngIf="receipt.stakeValue >= 0" [textContent]="receipt.stakeValue | currency:currencySymbol:'code'"
+              data-crlat="receiptStakePerLineMulti"></span>
+            <span *ngIf="receipt.tokenValue > 0"
+              [ngClass]="{'fanzone-fb-lable':fbService?.isFanzone(receipt.freebetOfferCategory)}">
+              <free-bet-label *ngIf="receipt.tokenValue > 0" [freeBetLabelText]="receipt.freebetOfferCategory"
+                [selected]="receipt.tokenValue" [plusPrefix]="receipt.stakeValue >= 0">
+              </free-bet-label>
+            </span>
+          </div>
+        <!--Lucky 15/31/63 sign posting -->
+        <!--Calculate All winner bonus-->
+        <span *ngIf="betReceiptService.isLuckySignType(receipt) && !betReceiptService.isSP(receipt) && isShownAllWinner()" 
+        class="stake-est-return">
+          <span class="allWinnerBonus allbonustext allbonustext-lads" [i18n]="'bs.allWinnerBonus'" data-crlat="estReturn.label"></span>
+          <span class="stake-est-return-number allWinnerBonus allbonustext-lads"
+                [textContent]="bonusValue"
+                data-crlat="estReturn">
+          </span>
+        </span>
+          <div class="line">
+            <strong [i18n]="'bs.potentialReturns'"></strong>
+            <strong
+              [textContent]="(+receipt.potentialPayout && receipt.potentialPayout | currency:currencySymbol:'code') || 'N/A'"
+              data-uat="estReturns"></strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

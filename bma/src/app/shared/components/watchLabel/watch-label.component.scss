@@ -1,0 +1,35 @@
+@import 'global.variables.scss';
+
+:host {
+  display: inline-flex;
+  align-items: center;
+  text-transform: uppercase;
+  line-height: 15px;
+  min-height: 15px;
+  color: $color-orange;
+  font-size: 9px;
+  font-weight: 700;
+  position: relative;
+  padding-left: 16px;
+  cursor: pointer;
+  &:hover{
+    opacity: 0.85;
+  }
+  &:active{
+    color:$color-orange-premium;
+    opacity: 1;
+  }
+}
+
+.watch-icon-stream {
+  width: 11px;
+  height: 11px;
+  position: absolute;
+  left: 0;
+  fill: $color-orange;
+  &:active{
+    opacity: 0.6;
+  }
+}
+
+

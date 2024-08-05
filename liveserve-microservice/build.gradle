@@ -1,0 +1,113 @@
+// base build v1.0
+// https://bitbucket.org/symphonydevelopers/codebase-main/src/master/tools/gradle/build.gradle
+
+// Limitations of the plugins DSL
+// https://docs.gradle.org/5.2.1/userguide/plugins.html#plugins_dsl_limitations
+
+plugins {
+  id 'java'
+  id 'jacoco'
+
+  id 'idea'
+  id 'eclipse'
+
+  id 'org.springframework.boot' version '2.7.1'
+  id 'com.coral.tools' version '3.0-SNAPSHOT'
+}
+
+apply plugin: "io.spring.dependency-management"
+
+
+def nexusMavenRepo = System.getenv("NEXUS_HOST") ?: 'https://nexus-vie.coral.co.uk/repository/maven-public/'
+ext.nexusUser = System.getenv("NEXUS_USER") ?: project.properties.nexusUser
+ext.nexusPass = System.getenv("NEXUS_PASS") ?: project.properties.nexusPass
+
+repositories {
+  maven {
+    credentials {
+      username = "${nexusUser}"
+      password = "${nexusPass}"
+    }
+    url nexusMavenRepo
+  }
+  mavenCentral()}
+
+configurations {
+  all {
+    exclude module: 'spring-boot-starter-tomcat'
+    // exclude module: 'junit-vintage-engine'
+  }
+  compileOnly {
+    extendsFrom annotationProcessor
+  }
+}
+
+ext {
+  set('springCloudVersion', '2021.0.3')
+}
+
+dependencies {
+
+  // Development
+  developmentOnly 'org.springframework.boot:spring-boot-devtools'
+  annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+  // Project Libs
+  implementation "com.ladbrokescoral.lib:master-slave-lock-starter:1.5"
+  implementation 'com.newrelic.agent.java:newrelic-api:latest.release'
+
+  // Spring Cloud
+  implementation platform("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
+  implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+  // implementation 'org.springframework.cloud:spring-cloud-starter-config'
+
+  // Spring Boot
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+  implementation 'org.springframework.boot:spring-boot-starter-jetty'
+  implementation 'org.springframework.boot:spring-boot-starter-actuator'
+  implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+  // Spring Kafka
+  implementation 'org.springframework.kafka:spring-kafka'
+
+  // Tools
+  implementation 'com.newrelic.agent.java:newrelic-api:5.10.0'
+  //implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+  implementation 'com.fatboyindustrial.gson-jodatime-serialisers:gson-jodatime-serialisers:1.3.0'
+  implementation 'com.google.guava:guava:22.0'
+  implementation 'commons-io:commons-io:2.6'
+  implementation 'javax.json:javax.json-api:1.1.4'
+  implementation 'org.apache.johnzon:johnzon-core:1.2.8'
+
+  // retrofit2
+  implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+  implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+  implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+  // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
+  // Liveserver api produces Socket is closed exceptions when never version of okhttp is used (3.14.x and up)
+  // Setting old here untill issue is fixed
+  implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.9.0'
+  implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+
+  // Testing
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testImplementation 'org.junit.vintage:junit-vintage-engine:5.9.0'
+}
+
+jacocoTestReport.reports.xml.enabled = true
+
+test.doFirst {
+  systemProperty 'spring.profiles.active', 'UNIT'
+  useJUnitPlatform()
+}
+
+springBoot {
+  buildInfo()
+}
+
+bootBuildImage {
+  imageName = "${rootProject.name}"
+}
+jar{
+  enabled=false
+}

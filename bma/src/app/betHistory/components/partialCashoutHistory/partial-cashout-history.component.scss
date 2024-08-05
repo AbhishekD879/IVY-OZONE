@@ -1,0 +1,35 @@
+@import 'global.variables.scss';
+@import './../../assets/styles/modules/show-history-button.scss';
+
+.partial-cashout-history-container {
+  border-top: 1px solid $color-gray;
+  ::ng-deep {
+    .expand-panel {
+      margin: 0;
+    }
+    .expand-panel-heading {
+      @include show-history-button();
+      border: 0;
+      &:hover{
+        text-decoration: underline;
+      }
+      &:active{
+        text-decoration: none;
+        color: darken($color: $show-history-button-color, $amount: 25%)
+      }
+      svg {
+        display: none;
+      }
+      &.active {
+        svg {
+          display: inline-block;
+        }
+      }
+    }
+
+    .expand-panel-body {
+      background: none;
+      border: none;
+    }
+  }
+}

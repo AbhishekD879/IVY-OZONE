@@ -1,0 +1,203 @@
+@import '../../../assets/styles/general.scss';
+
+$rightColWidth: 320px;
+
+.questions-carousel {
+  margin: 0 -16px;
+
+  .swiper-container {
+    height: calc(100% - 190px);
+    max-height: 100%;
+    padding-top: 0;
+    box-sizing: border-box;
+
+    .carousel-slides {
+      position: initial;
+      .slide {
+        max-height: 625px !important;
+      }
+    }
+  }
+
+  .slide {
+    text-align: center;
+
+    &-wrap {
+      padding: 0 24px 2px 16px;
+    }
+  }
+
+  &-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-top: 0;
+    white-space: normal;
+    text-align: center;
+    font-weight: bold;
+    display: block;
+    line-height: 22px;
+  }
+
+  &-signposting {
+    white-space: normal;
+    text-transform: uppercase;
+  }
+
+  &-text {
+    white-space: normal;
+    font-size: 11px;
+    margin-bottom: 20px;
+    text-align: center;
+    display: block;
+    font-weight: 500;
+    line-height: 12.1px;
+    margin-top: 20px;
+  }
+
+  &-btn {
+    min-height: 44px;
+    border-radius: 1px;
+    background-color: $color-blue-light;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 13px;
+    white-space: normal;
+
+    &.active {
+      color: $color-blue;
+      background-color: $color-yellow;
+    }
+  }
+}
+
+
+.qe-progress-bar {
+  position: relative;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding-bottom: 25px;
+
+  &-list {
+    padding: 0;
+    height: 2px;
+    width: 100%;
+    background-color: rgba(92, 148, 184, 0.3);
+    position: absolute;
+  }
+
+  &-item {
+    display: inline-block;
+    height: 2px;
+    position: absolute;
+    left: 0;
+    transition: all .3s;
+
+    &:before {
+      content: "";
+      position: absolute;
+      background-color: hsla(0, 0%, 100%, .1);
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+
+    &.qe-progress-status {
+      &:before {
+        background-color: $color-yellow;
+      }
+    }
+  }
+}
+
+/*
+* Style for swipeTutorialDialog
+*/
+.qe-swipe-tutorial {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 80px;
+  box-sizing: border-box;
+  margin: auto;
+  margin-top: 280px;
+
+  &-overlay {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+    right: 0;
+    left: 0;
+    top: 0;
+    display: flex;
+  }
+
+  &-svg {
+    display: block;
+    margin: 0 auto 20px;
+    fill: white;
+    width: 100%;
+    height: 76px;
+  }
+
+  &-text {
+    color: white;
+    text-align: center;
+    font-size: 14px;
+  }
+}
+
+/* MEDIA STYLES */
+@media #{$mqTabletAndDesktop} {
+  .qe-swipe-tutorial {
+    margin-top: 300px;
+    justify-content: normal;
+
+    &-svg {
+      margin: 0 auto 48px;
+      height: 90px;
+    }
+
+    &-text {
+      font-size: 18px;
+      line-height: 25px;
+    }
+  }
+  .questions-carousel {
+
+    &-title {
+      font-size: 25px;
+      display: block;
+      line-height: 22px;
+    }
+    &-signposting {
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    &-text{
+      display: block;
+      font-weight: 500;
+      line-height: 12.1px;
+      margin-top: 20px;
+    }
+  }
+}
+
+@media #{$mqDesktop}{
+  .questions-carousel {
+    &-btn:hover {
+      color: $color-blue;
+      background-color: $color-yellow;
+    }
+  }
+}

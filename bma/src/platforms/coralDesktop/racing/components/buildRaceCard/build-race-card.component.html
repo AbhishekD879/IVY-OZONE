@@ -1,0 +1,40 @@
+<div>
+  <div class="build-card" data-crlat="buildCardContainer">
+    <div class="build-card-top">
+      <div class="build-card-description" data-crlat="buildCardTextBlock">
+        <p class="build-card-text"><span [i18n]="'racing.beginTo'"></span>&nbsp;
+          <span [i18n]="'racing.buildYourOwnRaceCard'"
+                class="build-card-text-highlighted"></span></p>
+        <p [i18n]="'racing.selectFromMeetings'" class="build-card-additional-text"></p>
+      </div>
+      <button [i18n]="'racing.buildRaceCard'"
+              *ngIf="!isEnabledCardState"
+              (click)="toggleBuildCardState()"
+              class="build-card-button" data-crlat="buildRacecardButton"></button>
+      <button *ngIf="isEnabledCardState"
+              (click)="toggleBuildCardState()"
+              class="build-card-button exit-builder" data-crlat="exitBuilderButton">
+        <span [i18n]="'racing.exitBuilder'"></span>
+        <svg>
+          <use xlink:href="#close-icon" data-crlat="closeIcon"></use>
+        </svg>
+      </button>
+    </div>
+    <div [sticky-build-card] *ngIf="isEnabledCardState" class="build-card-bottom">
+      <div class="build-card-buttons-bottom">
+        <button [i18n]="'racing.clearSelections'"
+                (click)="clearBuildCard()"
+                [ngClass]="{active: isBuildCardButtonActive}"
+                class="build-card-button-bottom" data-crlat="clearAllSelectionsButton"></button>
+        <button [i18n]="'racing.buildYourRaceCard'"
+                (click)="buildCard()"
+                [ngClass]="{active: isBuildCardButtonActive}"
+                class="build-card-button-bottom build-card-button-bottom-right" data-crlat="buildYourRacecardButton"></button>
+      </div>
+      <div [i18n]="'racing.buildYourRaceCardLimitMessage'"
+           *ngIf="cardState.isLimitReached"
+           class="build-card-limit-message" data-crlat="buildCardLimitError"></div>
+    </div>
+  </div>
+  <ng-content></ng-content>
+</div>

@@ -1,0 +1,44 @@
+<div [class]="'cashout-odds-card id-' + componentId">
+  <div class="cashout-odds-content"
+       [ngClass]="{ active: isLiveEvent,
+                    suspended: isSuspendedEvent,
+                    void: totalStatus === 'void'}"
+       data-crlat="cashout.oddsContent">
+    <span class="cashout-odds-names" [ngClass]="{'cashout-odds-names-ld':isLd}"
+          [textContent]="eventName | eventName"
+          data-crlat="eventName"
+          data-uat="eventName"></span>
+    <div class="cashout-odds-date" *ngIf="event.clock || isLabelShown"
+         data-crlat="cashout.eventDate">
+      <live-clock
+        *ngIf="event.clock"
+        [event]="event"
+        data-crlat="liveClock">
+      </live-clock>
+      <span *ngIf="isLabelShown"
+            class="odds-label"
+            [textContent]="timerLabel"
+            data-crlat="timerLabel"
+            data-uat="eventStartTime"></span>
+    </div>
+
+    <!-- for Each Way -->
+    <span *ngIf="legType === 'E' && place"
+          class="each-way-place"
+          [i18n]="placeWithFormat"
+    ></span>
+
+    <live-scores [ngClass]="{ suspended: isSuspendedEvent }"
+                 [animatingComponentId]="componentId"
+                 [homeScore]="homeScore"
+                 [awayScore]="awayScore"
+                 [event]="event"></live-scores>
+
+    <!-- Live label -->
+    <div class="label-container">
+      <watch-label *ngIf="isStreamLabelShown && !isHRLiveLabel"></watch-label>
+      <live-label *ngIf="event.isStarted && !hasScores && isLiveLabelShown && !isHRLiveLabel"></live-label>
+      <live-label-updated *ngIf="(event.isStarted && !hasScores && isLiveLabelShown && isHRLiveLabel) || isOff"></live-label-updated>
+    </div>
+  </div>
+</div>

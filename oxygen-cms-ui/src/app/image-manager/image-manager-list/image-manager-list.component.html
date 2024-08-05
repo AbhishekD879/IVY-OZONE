@@ -1,0 +1,49 @@
+<div class="card">
+  <div class="header">
+    <h2 class="waves-effect waves-block has-activity-badge">Image Manager List</h2>
+  </div>
+</div>
+<div class="card">
+  <div class="body">
+    <ng-container *ngIf="tableDataList">
+      <div class="row">
+        <div class="col-3 m-b-0">
+          <a routerLink="add" mat-button class="btn btn-sm bg-teal">
+            <mat-icon>add_box</mat-icon>
+            <span>Add Image</span>
+          </a>
+        </div>
+        <div class="col-3 m-b-0 search-block">
+          <mat-icon class="m-r-5">format_list_numbered</mat-icon>
+          <mat-form-field class="pagination-select">
+            <mat-select placeholder="Rows per page" [(ngModel)]="paginationLimit">
+              <mat-option *ngFor="let option of paginationLimitOptions"
+                          [textContent]="option || 'No pagination'"
+                          [value]="option">
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-6 m-b-0 search-block">
+          <mat-icon class="m-r-5">search</mat-icon>
+          <mat-form-field class="full-width">
+            <!--TODO: do not trigger filtering every hit, add either click emitter with debounce either updateOn: 'blur'-->
+            <input matInput placeholder="Search image by name" [(ngModel)]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <svg-list  *ngIf="svgList" [list]="svgList"></svg-list>
+
+      <cms-data-table
+        [customTableData]="tableDataList"
+        [customTableColumns]="tableColumns"
+        [filterString]="searchField"
+        [filterProperties]="['svgId']"
+        [paginationLimit]="paginationLimit"
+        (onRemoveTableElement)="removeHandler($event)"
+        [actions]="actions">
+      </cms-data-table>
+    </ng-container>
+  </div>
+</div>

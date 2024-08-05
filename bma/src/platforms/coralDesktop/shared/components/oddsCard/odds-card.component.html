@@ -1,0 +1,106 @@
+<ng-container *ngIf="!isListTemplate && !isMultiMarketTemplate">
+<!-- Sport Card -->
+<odds-card-sport *ngIf="!isOutrightsCard && !isFeaturedOffer"
+                 [event]="event"
+                 [eventStartedOrLive]="eventStartedOrLive"
+                 [sportType]="sportType"
+                 [eventQuickSwitch]="eventQuickSwitch"
+                 [sportConfig]="sportConfig"
+                 [extensionName]="extensionName"
+                 [selectedMarketObject]="selectedMarketObject"
+                 [selectedMarket]="selectedMarket"
+                 [featured]="featured"
+                 [gtmDataLayer]="gtmDataLayer"
+                 [gtmModuleTitle]="gtmModuleTitle"
+                 [isFilterByTemplateMarketName]="isFilterByTemplateMarketName"
+                 [eventType]="eventType"
+                 [widget]="widget"
+                 [isFootballCoupon]="isFootballCoupon"
+                 (marketUndisplayed)="changeCardView($event)">
+</odds-card-sport>
+
+<!--coupon stat widget -->
+<ng-container *ngFor="let market of event.markets; trackBy: trackById">
+  <div
+    *ngIf="isFootballCoupon && !isOutrightsCard && event.isShowStatsEnabled && eventDisplayed(market) && !market.hidden && isSportCard(market)"
+    class="show-hide-stats-desktop" (click)=" onExpand()">
+    <span *ngIf="showBoard" class="hide-stats" [i18n]="'HIDE STATS'"></span>
+    <span *ngIf="!showBoard" class="show-stats" [i18n]="'SHOW STATS'"></span>
+    <svg *ngIf="showBoard">
+      <use xlink:href="#up-arrow"></use>
+    </svg>
+    <svg *ngIf="!showBoard">
+      <use xlink:href="#down-arrow"></use>
+    </svg>
+  </div>
+</ng-container>
+
+<div class="coupon-stat">
+<lazy-component moduleUri="@lazy-modules-module/coupon-stat-widget/coupon-stat-widget.module#CouponStatWidgetModule"
+[inputs]="{couponIndex:couponIndex,eventIndex:eventIndex,dateIndex:dateIndex,event:event}" 
+entryComponent="CouponStatWidgetComponent" *ngIf="showBoard && isFootballCoupon">
+</lazy-component>
+</div>
+
+<!-- Outrights -->
+<list-card *ngIf="isOutrightsCard"
+           [item]="event"
+           [link]="goToEvent(true,'')"
+           [title]="eventName"
+           (clickFunction)="goToEvent(false, $event);goToSeo();"
+           (goToEventCallback)="callGoToEventCallback()"
+           [attr.data-eventid]="event.id"
+           [gtmModuleTitle]="gtmModuleTitle"
+           data-crlat="oddsCard.outrightsTemplate">
+  <div class="live-card-label" *ngIf="eventStartedOrLive">
+    <live-label data-crlat="liveLabel"></live-label>
+  </div>
+</list-card>
+
+<!-- Enhanced Multiples Card-->
+<odds-card-enhanced *ngIf="isEnhancedMultiplesCard"
+                    [gtmModuleTitle]="gtmModuleTitle"
+                    [attr.data-eventid]="event.id"
+                    [event]="event"
+                    data-crlat="oddsCard.enhancedMultiplesTemplate">
+</odds-card-enhanced>
+
+<!--Specials Card-->
+<odds-card-specials *ngIf="isSpecialCard"
+                    [gtmModuleTitle]="gtmModuleTitle"
+                    [event]="event"
+                    data-crlat="oddsCard.specialsTemplate"></odds-card-specials>
+
+<!--Featured Offer Card-->
+<odds-card-featured-offer *ngIf="isFeaturedOffer"
+                          [event]="event"
+                          [isStream]="isStream"
+                          [featuredModule]="featuredModule"
+                          [gtmModuleTitle]="gtmModuleTitle"
+                          [isOutright]="isOutrightsCard || template.name === 'outrightsWithSelection'">
+</odds-card-featured-offer>
+</ng-container>
+
+<ng-container *ngIf="isListTemplate">
+  <!-- List template -->
+  <lazy-component moduleUri="@lazy-modules-module/listTemplate/list-template.module#ListTemplateModule"
+    [inputs]="{event: event, eventStartedOrLive: eventStartedOrLive, 
+    sportType: sportType, sportConfig: sportConfig, selectedMarketObject: selectedMarketObject,
+    selectedMarket: selectedMarket, featured: featured, isFilterByTemplateMarketName: isFilterByTemplateMarketName,
+    eventType: eventType, widget: widget, gtmModuleTitle: gtmModuleTitle}"
+     (goToEventCallback)="callGoToEventCallback()" (marketUndisplayed)="changeCardView($event)"
+    entryComponent="ListTemplateComponent">
+  </lazy-component>
+</ng-container>
+<ng-container *ngIf="isMultiMarketTemplate">
+  <!-- List template -->
+  <lazy-component moduleUri="@lazy-modules-module/multiMarketTemplate/multi-market-template.module#MultiMarketTemplateModule"
+            [inputs]="{event: event, eventStartedOrLive: eventStartedOrLive, 
+            sportType: sportType, sportConfig: sportConfig, selectedMarketObject: selectedMarketObject,
+            selectedMarket: selectedMarket, featured: featured, isFilterByTemplateMarketName: isFilterByTemplateMarketName,
+            eventType: eventType, widget: widget, gtmModuleTitle: gtmModuleTitle}"
+            [outputs]="['goToEventCallback','marketUndisplayed']"
+            (event)="handleOutput($event)"
+            entryComponent="MultiMarketTemplateComponent">
+          </lazy-component>
+</ng-container>

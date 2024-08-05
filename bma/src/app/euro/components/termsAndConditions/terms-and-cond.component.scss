@@ -1,0 +1,32 @@
+@import 'global.variables.scss';
+@import './../matchRewardsMain/euro-mixin.scss';
+
+.termsAndConditions {
+    @include body-mixin(20px,10px,20px,10px,$color-blue);
+    width: 100%;
+    color: $color-white;
+    font-size: 10px;
+    font-weight: 400;
+    overflow-wrap: break-word;
+    
+    .tcHeader {
+      height: 35px;
+      font-size: $font-size;
+    }
+    
+    .tcContent {
+      margin-bottom: 10px;
+      font-weight: 200;
+    }
+  }
+
+  a { 
+    text-decoration: underline;
+    color: $color-white;
+  }
+  
+  a:hover { 
+    text-decoration: none;
+    cursor: pointer;
+    color: $color-white;
+  }

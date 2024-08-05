@@ -1,0 +1,123 @@
+<div>
+  <div *ngIf="applyingParams" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+
+  <div class="page-inner" data-crlat="accordionsList">
+    <!--- Sorting Panel -->
+
+    <div class="page-segment">
+      <switchers *ngIf="!applyingParams && isRacingPanel && display === 'future'" [filter]="filter" data-crlat="switchers" [switchers]="switchers"></switchers>
+
+      <!-- Today/Tomorrow events -->
+      <ng-container *ngIf="display === 'today'">
+        <ng-template *ngTemplateOutlet="RacingFeaturedLazy"></ng-template>
+      </ng-container>
+
+      <ng-container *ngIf="display === 'tomorrow'">
+        <ng-template *ngTemplateOutlet="RacingFeaturedLazy "></ng-template>
+      </ng-container>
+
+      <!-- Future events -->
+      <div *ngIf="!applyingParams && display === 'future'" data-crlat="racing.future">
+        <div *ngIf="!responseError && racing.events?.length" data-crlat="racing.futureEvents">
+          <accordion *ngIf="filter === 'by-time'"
+                     [isExpanded]="isExpanded"  (function)="toggleByMeetingAccordion(0, 'Events')"
+                     [card]="true">
+            <left-side>
+              <span class="left-title-text" [i18n]="'sb.events'" data-crlat="headerTitle.leftMessage"></span>
+            </left-side>
+            <accordion-body>
+              <a [attr.data-eventid]="eventEntity.id" class="odds-card" [routerLink]="formEdpUrl(eventEntity, $event)"
+                 *ngFor="let eventEntity of orderedEvents; trackBy: trackById;" (click) = "overlayContentHandler(eventEntity)"
+                 data-crlat="racing.futureEvent">
+                <div class="odds-content">
+                  <div class="odds-names">
+                    <div data-crlat="racing.futureEventName" [textContent]="eventEntity.localTime+' '+eventEntity.name"></div>
+                    <div class="odds-small" data-crlat="racing.futureEventTime"
+                         [textContent]="filteredTime(eventEntity.startTime, 'EEEE d\'th\' LLLL yyyy')"></div>
+                  </div>
+                  <promotion-icon [type]="'event'"
+                                  [display]="eventEntity.drilldownTagNames"
+                                  data-crlat="promotionIcons">
+                  </promotion-icon>
+                </div>
+              </a>
+              <div [hidden]="!itemLoad" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+            </accordion-body>
+          </accordion>
+
+          <div *ngIf="filter === 'by-meeting' && loadAccordion">
+            <accordion [accordionTitle]="classesTypeName.name"
+                       [isExpanded]="classesTypeName.isExpanded"
+                       [card]="true"
+                       *ngFor="let classesTypeName of filteredTypeNames; trackBy: trackById; let index = index;"
+                       (function)="toggleByMeetingAccordion(index, classesTypeName.name)">
+              <accordion-body>
+                <a [attr.data-eventid]="eventEntity.id" class="odds-card" [routerLink]="formEdpUrl(eventEntity)" (click) = "overlayContentHandler(eventEntity)"
+                   *ngFor="let eventEntity of orderedEventsByTypeNames[index]; trackBy: trackById;"
+                   data-crlat="racing.futureEvent">
+                  <div class="odds-content">
+                    <div class="odds-names">
+                      <div data-crlat="racing.futureEventName">{{ eventEntity.localTime }} {{ eventEntity.name }}</div>
+                      <div class="odds-small" data-crlat="racing.futureEventTime"
+                           [textContent]="filteredTime(eventEntity.startTime, 'EEEE d\'th\' LLLL yyyy')"></div>
+                    </div>
+                    <promotion-icon [type]="'event'"
+                                    [display]="eventEntity.drilldownTagNames"
+                                    data-crlat="promotionIcons"></promotion-icon>
+                  </div>
+                </a>
+              </accordion-body>
+            </accordion>
+          </div>
+        </div>
+
+        <request-error *ngIf="responseError"
+                       [loadFailed]="responseError"
+                       (reloadFn)="reloadComponent()"></request-error>
+
+        <!-- Show only when no events -->
+        <no-events *ngIf="!responseError && !racing.events?.length"></no-events>
+      </div>
+
+      <!-- Special tab -->
+      <greyhound-specials-tab *ngIf="!applyingParams && !responseError && display === 'specials'"
+                              [racing]="racing"
+                              [eventsOrder]="eventsOrder"
+                              [responseError]="responseError">
+      </greyhound-specials-tab>
+    
+      <ng-container *ngIf="!responseError && targetTab?.interstitialBanners?.bannerEnabled && (!!lastBannerEnabled)">
+        <lazy-component
+          moduleUri="@lazy-modules-module/virtualEntryPointBanner/virtual-entry-point-banner.module#VirtualEntryPointBannerModule"
+          entryComponent="VirtualEntryPointBannerComponent"
+          [inputs]="{targetTab: targetTab,isUnTiedSport:true,sportName : sportName}">
+        </lazy-component>
+      </ng-container>
+    </div>
+
+    <div class="widget-column" *ngIf="!applyingParams && !responseError && display === 'today'">
+      <!--- Next 4 race module -->
+      <ng-container *ngIf="nextRacesWidgetVisible && nextRacesComponentEnabled">
+        <lazy-component moduleUri="@lazy-modules-module/nextRaces/next-races.module#NextRacesModule"
+        [inputs]="{moduleType: sportModule, fluid: true, headerVisible: true, compName: 'greyhounds'}"
+        entryComponent="LadbrokesNextRacesModuleComponent">
+        </lazy-component>
+    </ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #RacingFeaturedLazy>
+  <lazy-component moduleUri="@lazy-modules-module/racingFeatured/racing-featured.module#RacingFeaturedModule"
+    [hidden]="applyingParams" [inputs]="{
+                        sportId: categoryId,
+                        racing: racing,
+                        sectionTitle: sectionTitle,
+                        sportName: sportName,
+                        eventsOrder: eventsOrder,
+                        filter: filter,
+                        responseError: responseError,
+                        display: display
+                      }" data-crlat="racing.greyhound">
+  </lazy-component>
+</ng-template>

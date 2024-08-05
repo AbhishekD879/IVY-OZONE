@@ -1,0 +1,85 @@
+@keyframes showdown-box-shadow-animation {
+    0% {
+      box-shadow: 0 0 0 707px $color-overlay-background;
+    }
+    100% {
+      box-shadow: 0 0 0 707px $color-overlay-background;
+    }
+}
+@keyframes showdown-box-non-shadow {
+  0% {
+    box-shadow: 0 0 0 707px $color-overlay-background;
+  }
+  100% {
+    box-shadow: 0 0 0 707px $color-overlay-background;
+  }
+}
+@keyframes showdown-box-desktop {
+    0% {
+      box-shadow: 0 0 4px 3px $color-overlay-background, 0 -25px 0 850px $color-overlay-background, 0 250px 0 0 $color-overlay-background;
+    }
+    100% {
+      box-shadow: 0 0 4px 3px $color-overlay-background, 0 -25px 0 850px $color-overlay-background, 0 250px 0 0 $color-overlay-background;
+    }
+}
+@keyframes showdown-box-shadow-mobile-another {
+    0% {
+      box-shadow: 0px -195px 0px 150px $color-overlay-background;
+    }
+    100% {
+      box-shadow: 0px -195px 0px 150px $color-overlay-background;
+    }
+}
+@keyframes showdown-box-shadow-animation-another {
+    0% {
+      box-shadow: -10px 0 0 28px $color-overlay-background, 0 -85px 0 125px $color-overlay-background;
+    }
+    100% {
+      box-shadow: -10px 0 0 28px $color-overlay-background, 0 -85px 0 125px $color-overlay-background;
+    }
+}
+@keyframes showdown-box-mobile-animation {
+    0% {
+      box-shadow: 0 260px 0 270px $color-overlay-background;
+    }
+    100% {
+      box-shadow: 0 260px 0 160px $color-overlay-background;
+    }
+  }
+@keyframes showdown-box-shadow-animation-user {
+    0% {
+      box-shadow: 0 75px 0 20px $color-overlay-background, 0 215px 0 68px $color-overlay-background;
+    }
+    100% {
+      box-shadow: 0 75px 0 20px $color-overlay-background, 0 215px 0 68px $color-overlay-background;
+    }
+}
+@keyframes showdown-box {
+    0% {
+      will-change: transform;
+      transform: scale(6);
+      border-radius: 0%;
+    }
+    100% {
+      will-change: transform;
+      transform: scale(1);
+      border-radius: 50%;
+    }
+}
+@keyframes showdown-box-shadow-animation-rules {
+    0% {
+      box-shadow: 0 0 0 850px $color-overlay-background;
+    }
+
+    100% {
+      box-shadow: 0 0 0 850px $color-overlay-background;
+    }
+}
+@keyframes showdown-box-shadow-animation-prize {
+    0% {
+      box-shadow: 0 0 0 850px $color-overlay-background;
+    }
+    100% {
+      box-shadow: 0 0 0 850px $color-overlay-background;
+    }
+}

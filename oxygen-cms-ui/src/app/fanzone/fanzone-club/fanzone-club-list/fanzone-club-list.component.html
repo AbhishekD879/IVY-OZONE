@@ -1,0 +1,39 @@
+<div class="card">
+	<div class="header">
+		<h2 class="waves-effect waves-block">
+			<span [textContent]="FANZONE_CLUB.club"></span>
+			<small *ngIf="clubData">Total active Clubs: {{clubsAmount.active}}, inactive Clubs: {{clubsAmount.inactive}}</small>
+		</h2>
+	</div>
+</div>
+<div class="card">
+	<div class="body">
+		<div class="row clearfix">
+			<div class="col-md-3">
+				<button (click)="createClub()" type="button" class="btn bg-teal waves-effect float-left">
+					<i class="material-icons">add_box</i>
+					<span [textContent]="FANZONE_CLUB.createClubPromotion"></span>
+				</button>
+			</div>
+			<div *ngIf="clubData" class="col-md-3">
+				<download-cvs [cvsData]="clubData" [cvsDataTable]="dataTableColumns"></download-cvs>
+			</div>
+			<div *ngIf="clubData" class="col-md-6 m-b-0">
+				<div class="input-with-icon m-b-0">
+					<i class="material-icons">search</i>
+					<mat-form-field>
+						<input matInput placeholder="Search For Fanzone" [(ngModel)]="searchField" [value]="searchField">
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+
+		<div *ngIf="clubData">
+			<cms-data-table class="test" [customTableData]="clubData" [customTableColumns]="dataTableColumns"
+				[multyRemove]="true" [actions]="['remove','edit']" [filterString]="searchField"
+				[filterProperties]="filterProperties"
+				(onRemoveTableElement)="removeFanzoneClub($event)" (onMultyRemove)="removeHandlerMulty($event)">
+			</cms-data-table>
+		</div>
+	</div>
+</div>

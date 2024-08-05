@@ -1,0 +1,18 @@
+<div>
+  <!-- Error msg -->
+  <div class="outer-info" *ngIf="isAmountNeeded()"
+       data-crlat="neededAmountForPlaceBet">
+    <svg class="info_icon">
+      <use xlink:href="#icn_info"></use>
+    </svg>
+    <ng-info-panel class="container"
+                   [message]="errorMsg"
+                   [type]="errorType"
+                   [quickDepositPanel]="true"
+                   [align]="'center'"
+                   [noHide]="true"
+                   [noScroll]="true"
+                   data-crlat="betslipDeposit.textMsg">
+    </ng-info-panel>
+  </div>
+</div>

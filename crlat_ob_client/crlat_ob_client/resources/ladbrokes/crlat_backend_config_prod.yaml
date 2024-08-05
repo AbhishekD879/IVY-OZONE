@@ -1,0 +1,140 @@
+prod:
+  admin:
+    hostname: not_active
+
+  siteserve:
+    general_info:
+      hostname: 'https://ss-aka-ori.ladbrokes.com/'
+      timeout: 45
+
+  ti:
+    general_info:
+      hostname: not_active
+    football:
+      category_id: 16
+      class_ids: 826,739,735,734,733,731,730,749,748,747,746,745,744,743,742,741,740,715,724,602,87,86,89,88,94,93,96,95,90,92,91,98,97,99,69,68,67,2022,72,71,74,73,70,79,76,75,78,77,83,82,85,84,81,80,1007,139,138,137,136,135,134,497,133,132,131,130,493,149,148,147,146,145,144,143,142,141,140,119,118,117,116,115,114,113,112,111,595,110,592,591,129,128,127,126,125,124,123,122,121,120
+      default_market_name: '|Match Betting|'
+      perf_england:
+        class_id: 755
+
+    tennis:
+      category_id: 34
+      class_ids: 2018,267,266,649
+      default_market_name: '|Match Betting|'
+
+    baseball:
+      category_id: 5
+
+    american_football:
+      category_id: 1
+      default_market_name: '|Money Line|'
+      american_football_usa:
+        class_id: 2
+        nfl:
+          type_id: 4
+          market_template_id: 302
+          market_name: '|Money Line|'
+          outright_id: 303
+          outright_name: '|Outright|'
+
+      american_football_canada:
+        class_id: null
+        cfl:
+          type_id: null
+          market_template_id: null
+          market_name: null
+
+    beach_volleyball:
+      category_id: 52
+
+    darts:
+      category_id: 13
+
+    boxing:
+      category_id: 9
+
+    volleyball:
+      category_id: 36
+
+    basketball:
+      category_id: 6
+
+    handball:
+      category_id: 20
+
+    badminton:
+      category_id: 51
+
+    snooker:
+      category_id: 32
+
+    rugby_union:
+      category_id: 31
+
+    rugby_league:
+      category_id: 30
+
+    ice_hockey:
+      category_id: 22
+
+    cricket:
+      category_id: 10
+
+    gaelic_football:
+      category_id: 53
+
+    esports:
+      category_id: 148
+
+    horse_racing:
+      category_id: 21
+      class_ids: 603,492,534,228,227,226,225,224,223,553
+      default_market_name: '|Win or Each Way|'
+      horse_racing_live:
+        class_id: null
+      daily_racing_specials:
+        class_id: null
+
+    golf:
+      category_id: 18
+
+    greyhound_racing:
+      category_id: 19
+      class_ids: 706,509,713,199,198,536,201,200
+      greyhounds_live:
+        class_id: 198
+        hove:
+          type_id: 1865
+
+    tote:
+      category_id: 151
+      horse_intl_thoroughbred_pools:
+        class_id: 802
+
+    your_call: {}
+
+    virtuals:
+      category_id: 39
+      class_ids: 287,289,285,286,288,290,890,291
+      virtual_football:
+        class_id: 287
+      virtual_speedway:
+        class_id: 289
+      virtual_horseracing:
+        class_id: 285
+      virtual_greyhounds:
+        class_id: 286
+      virtual_motorsport:
+        class_id: 288
+      virtual_cycling:
+        class_id: 290
+      virtual_grand_national:
+        class_id: 890
+      virtual_tennis:
+        class_id: 291
+
+    formula_1:
+      category_id: 24
+
+    motor_bikes:
+      category_id: 23

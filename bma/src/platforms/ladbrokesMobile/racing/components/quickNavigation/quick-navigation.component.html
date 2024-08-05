@@ -1,0 +1,53 @@
+<aside class="quick-nav"
+     [ngClass]="{'active': showMenu}" data-crlat="racingEventPage.subheader">
+  <div class="quick-nav-holder" data-crlat="racingMeetingsContainer">
+    <header class="quick-title">
+      <strong *ngIf="!isEventAntePost" [i18n]="'racing.meetings'" data-crlat="meetingsHeader"></strong>
+      <strong *ngIf="isEventAntePost" [i18n]="'racing.futureMeetings'" data-crlat="meetingsHeader"></strong>
+
+      <button class="close-menu"
+         (click)="closeMenu()" data-crlat="closeMenuButton">
+        <svg class="item-next-arrow">
+          <use xlink:href="#close-icon-thin"></use>
+        </svg>
+      </button>
+    </header>
+    <div class="quick-nav-frame" id="nav-frame" data-crlat="racingMeetingBody">
+        <div class="quick-section">
+          <lazy-component *ngIf="!isEventAntePost && items && items.length && !loading"
+            moduleUri="@lazy-modules-module/racesMeetingsOverlay/racing-meetings.module#RacingOverlayModule" 
+            entryComponent="LadbrokesRacingOverlayContentComponent"
+            [inputs]="{
+                         items: items,
+                         allEvents: sportEventsData,
+                         offersAndFeaturedRacesTitle: offersAndFeaturedRacesTitle,
+                         isEventOverlay:true,
+                         racing:races,
+                         sectionTitle:sectionTitle,
+                         sportName:sportName,
+                         moduleTitle:'',
+                         eventsOrder:eventsOrder,
+                         filter:filter,
+                         display:display,
+                         quickNavigationTitles:titlesMap,
+                         showSwitcher:false,
+                         showMenu: showMenu,
+                         eventEntity: eventEntity,
+                         isEntityChanged: isEntityChanged,
+                         sportModule: sportModule,
+                         overlayContentData: overlayContentData
+                        }"
+              (event)="onRaceModuleEventsChange($event)"
+              >
+          </lazy-component>
+          <lazy-component *ngIf="isEventAntePost && showMenu"
+            moduleUri="@lazy-modules-module/racesMeetingsOverlay/racing-meetings.module#RacingOverlayModule" 
+            entryComponent="LadbrokesRacingAntepostContentComponent"
+            [inputs]="{ isEventOverlay:true, sportName: sportName }"
+            >
+          </lazy-component>
+        </div>
+    </div>
+  </div>
+  <span class="overlay" (click)="closeMenu()"></span>
+</aside>

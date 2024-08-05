@@ -1,0 +1,68 @@
+<div [ngClass]="pageCssClasses"
+     data-crlat="marketOutcomes" id="uk-tote-event">
+  <!-- Bet types switcher -->
+  <switchers class="tote-switchers"
+             [filter]="betFilter"
+             [type]="'scrollable'"
+             [switchers]="poolSwitchers">
+  </switchers>
+
+  <pool-size
+    [currentPool]="chosenPoolBet"
+    [currencyCalculator]="currencyCalculator"></pool-size>
+
+  <!--Placepot, Quadpot, Jackpot and Scoop6 bets-->
+  <multiple-events-tote-bet *ngIf="isMultipleLegsToteBet"
+                            [poolBetVal]="chosenPoolBet"
+                            [isUKorIRE]="isUKorIRE"
+                            data-crlat="multipleEventsUKToteBet"></multiple-events-tote-bet>
+
+  <!--Win, Place, Exacta, Trifecta -->
+  <div *ngIf="!isMultipleLegsToteBet"
+       data-crlat="UKTote.pool">
+    <!--- Pool Headers -->
+    <ul *ngIf="!isLabelsMode" class="pool-headers" data-crlat="raceMarketHeader">
+      <li data-crlat="title" class="gp-cls">
+        <span>Guide Price</span>
+      </li>
+      <li *ngFor="let key of poolHeaders; trackBy: trackByPoolHeader;"
+          data-crlat="title"
+          [ngClass]="{any: key === 'any'}">
+        <span>{{ key }}</span>
+      </li>
+    </ul>
+    <!--- Market Container -->
+    <section class="page-container page-inner-container"
+             *ngIf="marketEntity?.outcomes">
+      <div class="inner-container"
+           data-crlat="raceMarketHeader">
+        <div *ngFor="let outcomeEntity of marketEntity.outcomes; trackBy: trackByOutcomes; index as i;"
+             data-crlat="outcomeEntity">
+             <racing-outcome-card [eventEntity]="event"
+                                            [marketEntity]="marketEntity"
+                                            [outcomeEntity]="outcomeEntity"
+                                            [showSummary]="expandedSummary[i]"
+                                            [outcomIndex]="i"
+                                            [toteTabName]="betFilter"
+                                            raceType="tote"
+                                            [isNotRacingSpecials]="true"
+                                            (expand)="onExpand($event);">
+                               <div class="tote-odds-style" *ngIf="outcomeEntity?.totePrices?.length>0 && !outcomeEntity.nonRunner">
+                                {{fracToDec(outcomeEntity?.totePrices[0]['priceNum'], outcomeEntity?.totePrices[0]['priceDen'])}}
+                               </div>
+            <uk-tote-checkbox-matrix (click)="$event.stopPropagation();"
+                                     (mapUpdate)="onMapUpdate($event)"
+                                     [map]="checkboxesMap"
+                                     [outcomesMap]="outcomesMap"
+                                     [outcome]="outcomeEntity"
+                                     [currentPool]="chosenPoolBet"
+                                     [isSuspended]="outcomeEntity.isSuspended"
+                                     [guide]="guideValues[i]">
+            </uk-tote-checkbox-matrix>
+          </racing-outcome-card>
+        </div>
+      </div>
+    </section>
+  </div>
+  <bet-builder [msg]="betBuilderMsg" [eventEntity]="event" [channelIds]="ids" [currentPool]="chosenPoolBet" [betslipType]="betslipType"></bet-builder>
+</div>

@@ -1,0 +1,96 @@
+@import 'global.variables.scss';
+
+// TOP BAR
+$top-bar-size: $top-bar-height; // Top Bar Height
+$top-bar-back-height: 40px; // Top Bar Back Button Height
+$top-bar-border: none;
+$top-bar-title-pad: 10px;
+$top-bar-back-width: 40px; // Back Button Width
+$tabs-font-weight: bold;
+
+top-bar {
+  display: block;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 12;
+  top: $app-header-height;
+  width: 100%;
+}
+
+.top-bar {
+  height: $top-bar-size;
+  background: $top-bar-wrap-bg;
+  overflow: hidden;
+  padding: 0 10px 0;
+  z-index: 7;
+  @include display-flex();
+  @include align-items();
+  @include user-select();
+
+  @media #{$mqTablet} {
+    z-index: 100;
+  }
+
+  .top-bar-title {
+    color: $top-bar-color;
+    font: $font-size-lg $alt-font-family;
+    text-transform: capitalize;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    padding-left: $top-bar-title-pad;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: $top-bar-size;
+    height: $top-bar-size;
+    @include flex();
+
+    h1{
+      font-size: 14px;
+      line-height: 0.7px;
+      font-weight: 400;
+      line-height: 42px;
+      text-transform: capitalize;
+      display: inline;
+    }
+    .title-icon {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 5px;
+      width: 17px;
+      height: 17px;
+      fill: $title-icon-color;
+    }
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+
+  .top-bar-side {
+    @include display-flex();
+    @include justify-content(flex-end);
+    @include align-items();
+    height: $top-bar-size;
+    padding-left: 10px;
+  }
+}
+
+:host {
+  &.header-bar .top-bar .top-bar-title h1{
+      text-transform: none;
+  }
+
+  &.edp-top-bar {
+    .top-bar-title {
+        padding-left: 0px;
+        text-transform: none;
+        opacity: .9;
+    h1{
+        text-transform: none;
+      }
+    }
+  }
+}
+

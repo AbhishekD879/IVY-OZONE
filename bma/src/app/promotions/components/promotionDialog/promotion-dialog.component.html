@@ -1,0 +1,31 @@
+<modal #dialog [overscrollFix]="'always'" data-crlat="d.promo" [ngStyle]="{'display': loaded?'block':'none'}">
+  <ng-template #modalHeader>
+    <div data-uat="popUpTitle">
+      <span [textContent]="promo?.popupTitle" data-crlat="dTitle"></span>
+    </div>
+  </ng-template>
+  <ng-template #modalBody>
+    <div class="container" *ngIf="promo">
+      <static-block [cmsContent]='cmsContent' data-crlat="promoText"></static-block>
+      <div class="group-buttons btn-align-right">
+        <div class="group-btn">
+          <div class="group-col group-default">
+            <button class="btn btn-style4"
+                    (click)="openOverlay()"
+                    [i18n]="'promotions.more'"
+                    data-crlat="moreButton"></button>
+          </div>
+          <div class="group-col group-default">
+            <button class="btn btn-style2 btn-ok-text"
+                    (click)="closeThisDialog()"
+                    [i18n]="'promotions.ok'"
+                    data-crlat="okButton"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="item-inner text-center" *ngIf="loaded && !promo">
+      <strong [i18n]="'promotions.noPromo'" data-crlat="noPromoText"></strong>
+    </div>
+  </ng-template>
+</modal>

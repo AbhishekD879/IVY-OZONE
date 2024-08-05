@@ -1,0 +1,190 @@
+<breadcrumbs *ngIf="offer" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="offer">
+  <div class="header">
+    <h2 class="waves-effect waves-block has-activity-badge">
+      Offer: {{offer.name}}
+      <create-updated-at-by [collection]="offer"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="offer.disabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="offer">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-10">
+        <mat-checkbox class="mat-label" color="primary"
+                    (change)="offer.disabled = !offer.disabled"
+                    [checked]="!offer.disabled">
+          Active
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Name
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !offer.name}">
+          <input matInput required placeholder="Name"  [(ngModel)]="offer.name" [value]="offer.name" trim="blur">
+          <mat-hint class="col-red" *ngIf="!offer.name">Name should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="offer">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-12 m-b-0 m-t-20">
+        <date-range
+          [isSetDateButtons]="true"
+          [startDate]="offer.displayFrom"
+          [endDate]="offer.displayTo"
+          [startPlaceholder]="'Display From Date'"
+          [endPlaceholder]="'Display To Date'"
+          [placeholderColumn]="true"
+          (onDateUpdate)="handleDateUpdate($event)">
+        </date-range>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="offer">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-3">
+        <mat-radio-button
+          class="mat-label"
+          color="primary"
+          (change)="offer.useDirectImageUrl = !offer.useDirectImageUrl"
+          [checked]="!offer.useDirectImageUrl"
+        >
+          Use Uploaded image
+        </mat-radio-button>
+      </div>
+      <div class="col-md-8">
+        <cms-upload
+          [disabled]="offer.useDirectImageUrl"
+          [filename]="offer.image"
+          (onImageUpload)="uploadFile($event)"
+          (onImageRemove)="removeFile()"
+          [withoutLabel]="true">
+        </cms-upload>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <mat-radio-button
+          class="mat-label"
+          color="primary"
+          (change)="offer.useDirectImageUrl = !offer.useDirectImageUrl"
+          [checked]="offer.useDirectImageUrl"
+         >
+            Use Image URL
+        </mat-radio-button>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Image URL"  [(ngModel)]="offer.directImageUrl" [value]="offer.directImageUrl" [disabled]="!offer.useDirectImageUrl">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="offer">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Target Uri
+        </span>
+      </div>
+      <div class="col-md-10">
+        <mat-form-field class="full-width"
+                        [ngClass]="{ 'mat-form-field-invalid': !offer.targetUri}">
+          <input matInput placeholder="Target Uri" [(ngModel)]="offer.targetUri" [value]="offer.targetUri" required trim="blur">
+          <mat-hint class="col-red" *ngIf="!offer.targetUri">Name should be entered</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Show Offer On
+        </span>
+      </div>
+      <div class="col-md-10">
+        <customer-variants-select
+          [optionsType]="'device'"
+          [placeholder]="'Show Offer On'"
+          [customerType]="offer.showOfferOn"
+          (onChange)="onShowOnCustomerChange($event)">
+        </customer-variants-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Show Offer To
+        </span>
+      </div>
+      <div class="col-md-10">
+        <customer-variants-select
+          [optionsType]="'existing'"
+          [placeholder]="'Show Offer To'"
+          [customerType]="offer.showOfferTo"
+          (onChange)="onShowToCustomerChange($event)">
+        </customer-variants-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Include VIP Levels
+        </span>
+      </div>
+      <div class="col-md-10">
+          <vip-levels-input [(ngModel)]="offer.vipLevelsInput"></vip-levels-input>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <span class="mat-label">
+          Module
+        </span>
+      </div>
+      <div class="col-md-10">
+          <mat-form-field class="full-width"
+                          [ngClass]="{ 'mat-form-field-invalid': !offer.module}">
+            <mat-select [(ngModel)]="offer.module"
+                        [value]="offer.module"
+                        placeholder="Module"
+                        required>
+              <mat-option *ngFor="let module of offerModulesData" [value]="module.id">
+                {{ module.name }}
+              </mat-option>
+            </mat-select>
+            <mat-hint class="col-red" *ngIf="!offer.module">Module should be chosen</mat-hint>
+          </mat-form-field>
+          <div *ngIf="offer.module">
+            <a [routerLink]="getLink()">View Offer Module</a>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="offer"
+  [validateHandler]="isValidModel"
+  [fieldOrItemName]="'name'"
+  [collection]="offer"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>

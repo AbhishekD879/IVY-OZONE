@@ -1,0 +1,40 @@
+<ng-container *ngIf="!state.loading && !state.error">
+  <top-bar [title]="'stats.leagues'"></top-bar>
+
+  <div class="container-content leagues">
+    <div class="item-inner">
+      <a [routerLink]="['/search-leagues']"
+         class="btn btn-style1 full-width "
+         [i18n]="'stats.searchLeagues'"
+         data-crlat="statsSearchLeagues"></a>
+    </div>
+  </div>
+
+  <div class="container-content leagues" *ngIf="!state.loading && !state.error">
+    <div class="item-inner">
+      <strong [textContent]="area" data-crlat="area"></strong>
+    </div>
+    <div class="matches-sub-menu" *ngIf="competitions?.length" data-crlat="competitions">
+      <span class="prev-arr page-arr" (click)="goToPrev()"
+            [ngClass]="{'arr-disabled': index === 0}"
+            data-crlat="goToPrev">
+        <svg>
+          <use xlink:href="#prev-arrow"></use>
+        </svg>
+      </span>
+      <span class="next-arr page-arr" (click)="goToNext()"
+            [ngClass]="{'arr-disabled': index === competitions.length - 1}"
+            data-crlat="goToNext">
+        <svg>
+          <use xlink:href="#next-arrow"></use>
+        </svg>
+      </span>
+      <span [textContent]="competition.name" data-crlat="competitionName"></span>
+    </div>
+    <router-outlet></router-outlet>
+  </div>
+</ng-container>
+
+<outlet-status [state]="state">
+  <request-error (reloadFn)="reloadComponent()"></request-error>
+</outlet-status>

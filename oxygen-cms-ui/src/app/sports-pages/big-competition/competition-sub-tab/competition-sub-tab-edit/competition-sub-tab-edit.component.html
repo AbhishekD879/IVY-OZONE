@@ -1,0 +1,76 @@
+<breadcrumbs *ngIf="subTab" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+
+<div class="card" *ngIf="subTab">
+  <div class="header">
+    <h2 class="has-activity-badge">Competition Sub Tab: <span class="font-italic">{{ subTab.name }}</span></h2>
+    <create-updated-at-by class="has-activity-badge" [collection]="subTab"></create-updated-at-by>
+    <header-activity-badge [state]="!subTab.enabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="subTab">
+  <div class="body">
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-md-2">
+          <mat-checkbox class="mat-label" color="primary" formControlName="enabled"
+                        [checked]="subTab.enabled"
+                        (change)="subTab.enabled = !subTab.enabled">
+            Active
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Sub Tab Name
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !subTab.name}">
+            <input matInput placeholder="Sub Tab Name" type="text" formControlName="name" (change)="onNameChanged()"
+                   [(ngModel)]="subTab.name" [value]="subTab.name" trim="blur" required>
+            <mat-hint class="col-red" *ngIf="!subTab.name">Sub Tab Name should be entered</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            URL
+          </span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !subTab.uri}">
+            <input matInput placeholder="URL" type="text" formControlName="uri"
+                   [(ngModel)]="subTab.uri" [value]="subTab.uri" trim="blur" readonly>
+             <mat-hint class="col-red" *ngIf="!subTab.uri">URL should be entered</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<competition-modules-list [container]="'subtub'"
+                              [modulesList]="modulesList"></competition-modules-list>
+
+<action-buttons
+  *ngIf="subTab"
+  #actionButtons
+  [validateHandler]="isValidForm"
+  [fieldOrItemName]="'name'"
+  [collection]="subTab"
+  (actionsEmitter)="actionsHandler($event);"
+></action-buttons>
+
+<div class="card" *ngIf="subTabNotFound">
+  <div class="header">
+    <h2>Failed to Load Sub Tab Data</h2>
+  </div>
+  <div class="body">
+    <a href="/sports-pages/big-competition">
+      <span>Back to Competitions Page</span>
+    </a>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+@import 'global.variables.scss';
+
+@mixin show-history-button() {
+  border-top: 1px solid $color-gray;
+  padding: 12px;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: $color-white;
+  font-weight: bold;
+
+  color: $show-history-button-color;
+  font-size: $font-size-tablet;
+  letter-spacing: $show-history-button-letter-spacing;
+  font-stretch: $show-history-button-font-stretch;
+}

@@ -1,0 +1,25 @@
+<aside data-uat="leftColumn"
+       [attr.id]="sideId"
+       class="sidebar cookie-top cookie-padding-bottom"
+       [ngClass]="classList"
+       (click)="handleOuterClick($event)"
+       [overscrollFix] = "'always'">
+  <div class="sidebar-inner" data-crlat="sidebarInner">
+    <a href="javascript:void(0)"
+       class="sidebar-close"
+       data-crlat="sidebarClose">
+      <svg class="close-icon" *ngIf="sidePosition === 'bottom'">
+        <use xlink:href="#close-icon"></use>
+      </svg>
+      <span [i18n]="'bma.closeBtn'" *ngIf="sidePosition !== 'bottom'"></span>
+    </a>
+    <ng-content class="sidebar-content" data-crlat="sidebarContent"></ng-content>
+    <!-- Below lazymodule taken from bma-main -->
+    <div class="bs-lazy-container">
+      <lazy-component
+          moduleUri="@betslipModule/betslip.module#BetslipModule"
+          entryComponent="SlideOutBetslipComponent">
+      </lazy-component>
+    </div>
+  </div>
+</aside>

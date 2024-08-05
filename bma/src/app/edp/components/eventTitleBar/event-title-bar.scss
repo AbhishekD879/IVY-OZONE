@@ -1,0 +1,157 @@
+// Global styles
+@import 'global.variables.scss';
+
+.event-title-bar {
+  @include display-flex();
+  @include align-items();
+  @include flex(1, 1, 100%);
+  background: $event-bar-bg;
+  box-shadow: 0 0 2px 2px $event-bar-bg;
+  color: $color-white;
+  font-family: $base-font-family;
+  padding: 5px 10px 8px;
+  position: relative;
+
+  &.fallback-paddings {
+    padding: 5px 2px 8px 4px; 
+  }
+  .event-name {
+    font-size: $font-size-md;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px 10px 0 0;
+    display: block;
+    line-height: 12.1px;
+  }
+
+  .event-date-time {
+    color: $color-gray;
+    display: inline-block;
+    font-size: $font-size-sm;
+    padding-right: 31px;
+    position: relative;
+  }
+
+  .match-info {
+    @include flex(1, 1, 100%);
+    padding-right: 10px;
+  }
+
+  .live-label {
+    height: 12px;
+    margin-left: 5px;
+    position: absolute;
+    right: 0;
+    top: 1px;
+    width: 26px;
+  }
+
+  .icon-wrapper {
+    @include display-flex();
+    @include align-items(center);
+  }
+
+  .notification-icon-wrapper {
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 10px;
+    position: relative;
+    vertical-align: middle;
+    width: 36px;
+    z-index: 1;
+
+    .notification-icon-svg {
+      display: block;
+      fill: none;
+      height: 22px;
+      stroke: $color-yellow;
+      width: 22px;
+
+      &.active {
+        fill: $color-yellow;
+      }
+    }
+  }
+
+  .free-bet-ico {
+    top: 5px;
+    right: 10px;
+  }
+
+  &.switch-to-outright-styles {
+    margin: 4px;
+    background: $color-white;
+    color: $brand-color-dark;
+    box-shadow: none;
+
+    .reverse-flex-items {
+      @include display-flex();
+      @include flex-direction(column-reverse);
+    }
+
+    .event-date-time {
+      @include display-flex();
+      @include justify-content(center);
+      @include flex-direction(row-reverse);
+      font-size: 12px;
+      color: $brand-color-dark;
+      padding-right: 0;
+
+      .live-label {
+        position: relative;
+        margin-right: 5px;
+        margin-left: 0;
+        top: 2px;
+      }
+    }
+
+    .event-name {
+      font-size: 13px;
+      text-align: center;
+      display: block;
+      line-height: 14.3px;
+    }
+  }
+  fallback-scoreboard {
+    width: 100%;
+  }
+}
+
+.event-title-bar.football-events {
+  @include justify-content(center);
+
+  .event-date-container {
+    @include display-flex();
+    @include justify-content(center);
+    font-size: 11px;
+
+    .live-label {
+      position: relative;
+      margin-right: 5px;
+      margin-left: 0;
+      top: 2px;
+    }
+  }
+
+  .event-name {
+    font-family: $base-font-family;
+    font-size: 13px;
+    font-weight: normal;
+    text-align: center;
+    letter-spacing: 0;
+    padding: 5px 0 0;
+    line-height: 14.3px;
+    display: block;
+  }
+
+  &.switch-to-outright-styles {
+    .event-date-container {
+      font-size: 12px;
+    }
+
+    .event-name {
+      font-weight: bold;
+    }
+  }
+
+}

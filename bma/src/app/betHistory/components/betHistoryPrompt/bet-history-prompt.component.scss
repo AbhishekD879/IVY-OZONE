@@ -1,0 +1,20 @@
+@import 'global.variables.scss';
+
+.ema-promt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 13px;
+
+  .ema-edit-attempt-icon {
+    width: 14px;
+    height: 14px;
+    margin-right: 6px;
+    margin-top: 1px;
+  }
+
+  .ema-promt-text {
+    color: $color-gray-saturated;
+    font-size: 12px;
+  }
+}

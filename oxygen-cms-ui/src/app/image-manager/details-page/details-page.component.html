@@ -1,0 +1,101 @@
+<breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+
+<form *ngIf="!isLoading" #imageForm="ngForm">
+  <div class="card">
+    <div class="body">
+
+      <div class="row clearfix">
+        <div class="col-md-10">
+          <mat-checkbox color="primary" name="active" [(ngModel)]="image.active">Active</mat-checkbox>
+          <br>
+          <mat-hint>{{formNotes.active}}</mat-hint>
+        </div>
+      </div>
+
+      <div *ngIf="image.svg as svg" class="row clearfix">
+        <div class="col-md-3">
+          <div class="mat-label">Preview</div>
+        </div>
+        <div class="col-md-7">
+          <span class="icon-preview highlight-svg">
+            <svg-list [list]="svg"></svg-list>
+            <svg class="image-preview">
+              <use [attr.xlink:href]="svgFragmentId"></use>
+            </svg>
+          </span>
+        </div>
+      </div>
+
+      <div class="row clearfix">
+        <div class="col-md-3">
+          <div class="mat-label">Name (svgId)</div>
+        </div>
+        <div class="col-md-7">
+          <mat-form-field class="full-width">
+            <input matInput
+                   type="text"
+                   name="svgId"
+                   #imageField="ngModel"
+                   [(ngModel)]="image.svgId"
+                   placeholder="unique image name"
+                   pattern="{{idPattern}}"
+                   required>
+            <mat-hint>{{formNotes.nameUpdate}}</mat-hint>
+          </mat-form-field>
+          <ng-container *ngIf="imageField.errors">
+            <mat-error *ngIf="imageField.errors.required && imageField.touched">{{errors.required}}</mat-error>
+            <mat-error *ngIf="imageField.errors.pattern">{{errors.pattern}}</mat-error>
+            <mat-error *ngIf="imageField.errors.unique">{{errors.unique}}</mat-error>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="row clearfix">
+        <div class="col-md-3">
+          <div class="mat-label">Load in sprite</div>
+        </div>
+        <div class="col-md-7">
+          <mat-radio-group class="mat-label" name="sprite" [(ngModel)]="image.sprite">
+            <mat-radio-button class="m-r-20" color="primary" *ngFor="let key of appSprites" [value]="key">
+              {{key}}
+            </mat-radio-button>
+          </mat-radio-group>
+          <br>
+          <mat-hint [ngSwitch]="image.sprite">
+            <span *ngSwitchCase="'initial'">{{formNotes.initial}}</span>
+            <span *ngSwitchCase="'featured'">{{formNotes.featured}}</span>
+            <span *ngSwitchCase="'additional'">{{formNotes.additional}}</span>
+            <span *ngSwitchCase="'timeline'">{{formNotes.timeline}}</span>
+            <span *ngSwitchDefault>{{formNotes.module}}"{{image.sprite}}"</span>
+          </mat-hint>
+        </div>
+      </div>
+
+      <div class="row clearfix">
+        <div class="col-md-3">
+          <div class="mat-label">File</div>
+        </div>
+        <div class="col-md-7">
+          <label>
+            <span hidden><input type="file" (change)="validateAndUpdateFileFields($event)"></span>
+            <mat-form-field>
+              <input matInput name="originalname" #originalnameField="ngModel" [(ngModel)]="image.svgFilename.originalname" readonly required>
+            </mat-form-field>
+            <a mat-button class="bg-teal">{{ image.svgFilename.originalname ? 'Change' : 'Add'}}</a>
+          </label>
+          <ng-container *ngIf="originalnameField.errors">
+            <mat-error *ngIf="originalnameField.errors.size">{{errors.size}}</mat-error>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <action-buttons *ngIf="imageForm.controls?.sprite"
+                  [form]="imageForm.form"
+                  [fieldOrItemName]="image.svgId"
+                  [showRemoveButton]="!!image.id"
+                  [collection]="image"
+                  (actionsEmitter)="actionsHandler($event)">
+  </action-buttons>
+</form>

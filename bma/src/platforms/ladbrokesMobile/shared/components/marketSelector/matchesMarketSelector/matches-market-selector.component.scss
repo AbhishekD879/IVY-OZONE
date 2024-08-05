@@ -1,0 +1,45 @@
+@import 'global.variables.scss';
+
+.market-selector {
+
+  .select-value {
+    display: inline-block;
+    padding-top: 7px;
+    font-weight: bold;
+    max-width: 53vw;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .select-title {
+    position : absolute;
+    right: 35px;
+    top: 18px;
+    z-index: 1;
+    color:  #5e95c9;
+    font-weight: bold;
+    font-size: 12px;
+    pointer-events: none;
+  }
+
+  ::ng-deep  .custom-select {
+    select {
+      width : 130px;
+      float: right;
+      padding: 10px;
+      color: white;
+      border-color:  #5e95c9;
+      height: 30px;
+    }
+
+    .select-arrow {
+      top: 25px;
+      fill:  #5e95c9;
+    }
+
+    &:before {
+      content: none;
+    }
+  }
+}

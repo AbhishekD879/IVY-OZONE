@@ -1,0 +1,18 @@
+<div class="free-bet-notification" 
+[ngClass]="{'mobile': !isDesktop, 'removeMargin': !isNoSelections, 
+'reducedHeight': (!isNoSelections && isDesktop && !(hasFreeBets && hasBetTokens && hasFanzones))}"
+data-crlat="fbNtf">
+  <span class="free-bet-label"  [class.reducedHeight]="!isNoSelections && isDesktop && !(hasFreeBets && hasBetTokens && hasFanzones)" data-crlat="freeBetIcon">
+    <svg [class.fb-jump-vibrate-fbNtf]="!isDesktop">
+      <use [attr.href]="'#' + getSvgImgName()"></use>
+    </svg>
+  </span> 
+  <div class="notification-content">
+    <span [textContent]="bannerMsg()" data-crlat="text"></span>
+    <span *ngIf="isNoSelections" [class.additional]="isNoSelections" [textContent]="freebetsConfig.addSelections" data-crlat="add-text"></span>
+    <span *ngIf="isMobile && !isNoSelections" [class.additional]="!isNoSelections || isMobile" [textContent]="freebetsConfig.useFreeBetText" data-crlat="tap-text"></span>
+  </div>
+  <span class="close-icon" (click)="closeNotification()" data-crlat="closeIcon">
+    <svg><use xlink:href="#close_qb"></use></svg>
+  </span>
+</div>

@@ -1,0 +1,33 @@
+@import './tools.mixins.scss';
+
+// IE 11 fix
+.cashout-odds-content {
+  & > * {
+    @include flex-shrink(0);
+  }
+
+  .cashout-odds-names {
+    @include flex-shrink(1);
+  }
+}
+.allWinnerBonus-value-Cashout{
+  font-weight: 700;
+  font-size: 12px;
+}
+.allWinnerBonus-value-Cashout-lads{
+  color:#4A90E2;
+  font-weight: 700;
+  font-size: 12px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.allWinnerBonus-mybets-lads-cashout{
+  color: #4a90e2;
+   font-weight: 400;
+   font-size: 12px;
+   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+   display: flex;
+   justify-content: end;
+   width: 100%;
+   padding: 0 12px;
+   align-items: baseline;
+}

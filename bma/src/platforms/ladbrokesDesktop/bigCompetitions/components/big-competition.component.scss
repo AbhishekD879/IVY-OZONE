@@ -1,0 +1,79 @@
+@import 'global.variables.scss';
+$IGraySemiMediumLightB:  #efefef;
+
+.outer-div {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  zoom: normal;
+  aspect-ratio: 100/10;
+}
+
+.text-title {
+  font-weight: 700;
+  font-size: 2.25em;
+  position: absolute;
+  width: 100%;
+  color: $color-white;
+  text-align: center;
+}
+
+.header-color {
+  background: radial-gradient(
+    41.58% 419.28% at 52.4% -3.99%,
+    #970506 10%,
+    #890405 30%,
+    #670302 60%,
+    #5a0302 70%,
+    #480204 100%
+  );
+  width: calc(100% - 10px);
+  position: absolute;
+  height: auto;
+}
+
+:host ::ng-deep featured-module .header-panel {
+  display: none;
+}
+:host ::ng-deep .flag,
+:host ::ng-deep .flag-icon {
+  display: inline;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 0.5px solid $IGraySemiMediumLightB;
+}
+:host ::ng-deep .surface-bets-container {
+  padding: 4px;
+  .surface-bet-title {
+    color: $color-white;
+  }
+  .left-side {
+    margin-left: -1px;
+    margin-top: -1px;
+  }
+  .surface-bet-header, .header-background {
+    background-color: $color-surfacebet-title-bg !important;
+  }
+  .price-odd-container .btn-bet,
+  .surface-bet-bg-image {
+    border: 1px solid $color-surfacebet-title-bg;
+  }
+}
+:host ::ng-deep .show-all-button {
+  background: $color-white;
+  span {
+    color: $color-blue-alt;
+    &:hover{
+     text-decoration: underline;
+     text-decoration-color: $color-blue-alt;
+   }
+   &:active{
+     text-decoration: none;
+     color: darken($color-blue-alt, 25%);
+   }
+  }
+}

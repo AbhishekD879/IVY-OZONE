@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-md-2">
+    <span class="mat-label">
+      Max Display
+    </span>
+  </div>
+  <div class="col-md-10">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Max Display" type="number"
+             [(ngModel)]="module.maxDisplay" [value]="module.maxDisplay" onkeypress="return event.charCode >= 48 && event.charCode <= 57" step="1" min="1" required>
+      <mat-hint class="col-red" *ngIf="!module.maxDisplay">Max display should be entered</mat-hint>
+    </mat-form-field>
+  </div>
+</div>
+
+<!-- Available Seasons -->
+<div class="row" *ngIf="!seasonsNotFound">
+  <div class="col-md-2">
+    <span class="mat-label">
+      Available Seasons
+    </span>
+  </div>
+  <div class="col-md-3">
+    <mat-form-field class="full-width">
+      <mat-select placeholder="Show seasons"
+                  (selectionChange)="onSelectSeasonChanged($event.value)"
+                  [(ngModel)]="currentSeasonName">
+        <mat-option *ngFor="let season of seasonsNames" [value]="season">
+          {{ season }}
+        </mat-option>
+      </mat-select>
+      <mat-hint class="col-red" align="end" *ngIf="!currentSeasonName">Please select available season</mat-hint>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row" *ngIf="seasonsNotFound">
+  <div class="col-md-12">
+    <span class="mat-label">
+      No seasons available for this competition
+    </span>
+  </div>
+</div>

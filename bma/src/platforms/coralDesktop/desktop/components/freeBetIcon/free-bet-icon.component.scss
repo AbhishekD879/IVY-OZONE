@@ -1,0 +1,17 @@
+@import 'global.variables.scss';
+
+free-bet-icon:host a {
+  margin: 0 10px 0 0;
+  display: block;
+  overflow: hidden;
+  height: 18px;
+  width: 18px;
+  line-height: 18px;
+  border-radius: 100%;
+  font-style: italic;
+  text-align: center;
+  text-decoration: none;
+  font-size: $font-size-md;
+  background: $color-red;
+  color: $color-white;
+}

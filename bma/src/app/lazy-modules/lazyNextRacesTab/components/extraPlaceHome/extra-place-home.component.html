@@ -1,0 +1,43 @@
+<section *ngIf="events?.length" class="extra-place-section">
+  <ng-container *ngFor="let eventEntity of events; trackBy: trackById">
+    <div class="extra-place-item" data-crlat="raceCard.event">
+      <a (click)="goToEvent(eventEntity)"
+         [linkHref]
+         [link]="formEdpUrl(eventEntity)">
+        <div class="extra-place-item-body">
+          <div class="extra-place-item-right">
+            <promotion-icon class="race-card-promotion-icon"
+                            [type]="'market'"
+                            [display]="eventEntity.markets[0]?.drilldownTagNames"
+                            [eventDrillDownTags]="eventEntity.drilldownTagNames"
+                            [marketName]="eventEntity.markets[0]?.name"
+                            [mode]="'sm'"
+                            data-crlat="promotionIcons">
+            </promotion-icon>
+            <section class="odds">
+              <span class="meeting-name text-bold" [textContent]="eventEntity.originalName" data-crlat="raceCard.eventName"></span>
+              <ng-container *ngIf="eventEntity?.racingFormEvent?.going">
+                <span>&nbsp;</span>
+                <span [textContent]="parseGoing(eventEntity)" data-crlat="raceCard.eventName"></span>
+              </ng-container>
+              <ng-container *ngIf="eventEntity?.racingFormEvent?.distance">
+                <span [textContent]="parseDistance(eventEntity)" data-crlat="raceCard.eventName"></span>
+              </ng-container>
+              <ng-container *ngIf="eventEntity.markets[0] && eventEntity.markets[0].isEachWayAvailable && showEchWayTerms(eventEntity.markets[0])">
+                <span>&nbsp;(</span>
+                <span [textContent]="eventEntity.markets[0].terms"></span>
+                <span>)</span>
+              </ng-container>
+            </section>
+          </div>
+          <div class="item-next-arrow" data-crlat="nextArrow">
+            <span class="extra-place-view text-bold" [i18n]="'racing.view'"></span>
+            <svg class="next-arrow">
+              <use xlink:href="#next-arrow"></use>
+            </svg>
+          </div>
+        </div>
+      </a>
+    </div>
+  </ng-container>
+</section>

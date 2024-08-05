@@ -1,0 +1,39 @@
+<loading-screen [displayed]="isLoading" [templateType]="'GENERIC_BET'"></loading-screen>
+<ng-container *ngIf="!isLoading">
+    <div class="slideOverlay">
+        <!-- Dynamic onboarding container -->
+        <div class="lc-carousel">
+            <div *ngIf="onboardingInfo && onboardingInfo.images?.length" class="swiper-container ng-carousel"
+                [ngCarousel] [ngCarouselName]="carouselName" [ngCarouselLoop]="false"
+                [ngCarouselWatch]="onboardingInfo.images.length" [ngCarouselFluid]="false"
+                [ngCarouselTimer]="timePerSlide" [ngStopSlideOnHover]="true" [slidesToScroll]="1"
+                [ngCarouselMoveThresholdPercentage]="5">
+                <slidecontainer class="carousel-slides"
+                    [ngClass]="{'carousel-no-scroll': onboardingInfo.images.length === 1}">
+                    <ng-container *ngFor="let bpImg of onboardingInfo.images; let i=index;">
+                        <slide style="max-height:100%;position: relative;" class="slide">
+                            <div class="img-container">
+                                <img style="width: 100vw;" [attr.src]="getImageSrc(bpImg)" />
+                                <div class="close-content" (click)="onCloseOnboardingOverlay($event, bpImg)">
+                                    <svg class="close-icon">
+                                        <use xlink:href="#close_qb"></use>
+                                    </svg>
+                                </div>
+                                <div class="btnAlign">
+                                    <button class="cta-btn" (click)="nextSlide(bpImg, i)">
+                                        <span class="btnText">{{bpImg.nextCTAButtonLabel}}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </slide>
+                    </ng-container>
+                </slidecontainer>
+            </div>
+
+            <ng-container *ngIf="onboardingInfo && onboardingInfo.images?.length > 1">
+                <div class="lc-carousel__prev arrow-chevron" (click)="prevSlide()"></div>
+                <div class="lc-carousel__next arrow-chevron" (click)="nextSlide()"></div>
+            </ng-container>
+        </div>
+    </div>
+</ng-container>

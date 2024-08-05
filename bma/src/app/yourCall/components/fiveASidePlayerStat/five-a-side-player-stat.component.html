@@ -1,0 +1,13 @@
+<div *ngIf="isAvailable" class="player-stat">
+  <svg>
+    <use [attr.xlink:href]="'#' + statIcon | lowercase"></use>
+  </svg>
+  <span class="player-label" [i18n]="label"></span>
+  <span class="player-value" [textContent]="statValue"></span>
+  <ng-container *ngIf="isToBeCarded">
+    <span class="player-label card-yellow" [i18n]="'yourCall.playerStats.cardsYellow'"></span>
+    <span class="player-value card-yellow" [textContent]="cards?.cardsYellow"></span>
+    <span class="player-label card-red" [i18n]="'yourCall.playerStats.cardsRed'"></span>
+    <span class="player-value card-red" [textContent]="cards?.cardsRed"></span>
+  </ng-container>
+</div>

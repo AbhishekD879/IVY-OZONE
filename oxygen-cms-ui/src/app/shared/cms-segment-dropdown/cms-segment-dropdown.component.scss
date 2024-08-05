@@ -1,0 +1,26 @@
+.segment {
+    margin-left: 0px;
+    .mat-label {
+        white-space: nowrap;
+    }
+
+    .segment-dropdown {
+        ::ng-deep .mat-form-field {
+            .mat-form-field-flex {
+                background-color: white;
+                padding-top: 0em;
+                padding-left: 0em;
+                width: 220px;
+            }
+            .mat-icon {
+                margin-right: -15px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+::ng-deep .segment-panel {
+    min-width: 220px !important;
+    max-width: 450px !important;
+}

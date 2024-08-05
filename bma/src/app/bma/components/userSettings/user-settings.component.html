@@ -1,0 +1,98 @@
+<div class="sk-container" [ngClass]="{'sk-loading': state.loading}">
+  <outlet-status [state]="state"></outlet-status>
+
+  <ng-container *ngIf="!state.loading && !state.error">
+    <!--- Page Header -->
+    <top-bar [title]="'bma.userSettingsHeading'" data-crlat="topBar"></top-bar>
+
+    <div class="container">
+      <!-- Odds Format -->
+      <div class="item-inner">
+        <div class="settings-row">
+          <div class="lh-col">
+            <label [i18n]="'bma.userSettingsOddsFormatLabel'" data-crlat="oddsFormatLabel"></label>
+          </div>
+          <div class="rh-col">
+            <switchers [filter]="oddsFormat"
+                       [switchers]="switchers"
+                       data-crlat="switchers">
+            </switchers>
+          </div>
+        </div>
+      </div>
+
+      <!-- Touch ID Login -->
+      <div class="item-inner item-bordered-top" *ngIf="touchIDConfiguredShow">
+        <div class="settings-row">
+          <div class="lh-col">
+            <label [i18n]="'bma.userSettingsTouchIdLogin'" *ngIf="!isAndroid"></label>
+            <label [i18n]="'bma.userSettingsFingerprintLogin'" *ngIf="isAndroid"></label>
+          </div>
+          <div class="rh-col">
+            <div class="group-buttons">
+              <div class="group-btn" data-crlat="buttonGroup">
+                <div class="group-col">
+                  <a [routerLink]="'/settings'" class="btn"
+                     [ngClass]="{active: (touchIdLogin === 'enabled')}"
+                     (click)="setTouchIdLogin('enabled')"
+                     [i18n]="'bma.userSettingsTouchIdLoginEnabled'"></a>
+                </div>
+                <div class="group-col">
+                  <a [routerLink]="'/settings'" class="btn"
+                     [ngClass]="{active: (touchIdLogin === 'disabled')}"
+                     (click)="setTouchIdLogin('disabled')"
+                     [i18n]="'bma.userSettingsTouchIdLoginDisabled'"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Timeline -->
+      <div class="item-inner settings-block" *ngIf="config?.FeatureToggle?.Timeline && !isTabletOrDesktop">
+        <div class="settings-row">
+          <div>
+            <label class="settings-title" [i18n]="'bma.userSettingsTimeline'"></label>
+          </div>
+          <div class="rh-col">
+            <toggle-switch [initialState]="timelineObj.status" (switcherControl)="changeTimelineSetting($event)"
+              [componentId]="'toggle-switch-timeline'" data-crlat="allowTimelineSwitch">
+            </toggle-switch>
+          </div>
+        </div>
+        <div class="settings-sub-title" [i18n]="'bma.userSettingsTimelineDescription'"></div>
+      </div>
+
+      <!-- Send report -->
+      <div class="item-inner item-bordered-top" *ngIf="showDiagnostics">
+        <div class="settings-row">
+          <div class="lh-col">
+            <label [i18n]="'bma.userSettingsDiagnostics'"></label>
+          </div>
+          <div class="rh-col report-btn">
+            <a [routerLink]="'/settings'" class="btn"
+               (click)="sendReport()"
+               [i18n]="'bma.userSettingsSendReport'"></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Bet -->
+      <div class="item-inner" *ngIf="allowQuickBetNotifications && !isTabletOrDesktop && !arcUserService.quickbet">
+        <div class="settings-row">
+          <div class="lh-col">
+            <label [i18n]="'bma.userSettingsQuickBet'"></label>
+          </div>
+          <div class="rh-col">
+            <toggle-switch [initialState]="quickBetNotificationObj.status"
+                           (switcherControl)="changeQuickBetSetting($event)"
+                           [componentId]="'toggle-switch-quick-bet'"
+                           data-crlat="allowQuickBetSwitch">
+            </toggle-switch>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+

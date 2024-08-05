@@ -1,0 +1,36 @@
+<drawer [show]="true"
+        [showCloseButton]="false"
+        (hide)="hide()"
+        [position]="false"
+        [removeBodyClassOnClose]="false"
+        [showOverlay]="false"
+        [contentClass]="'five-a-side'"
+        [showFallbackMessage]="!optaStatisticsAvailable">
+  <div header header="true" class="head text-left">
+    <button class="btn-back" [i18n]="'bma.back'" (click)="hide()"></button>
+    <div class="title">
+      <span class="title-text"><span [i18n]="'yourcall.add'"></span> {{ playerFormation.position || 'Player' }}</span>
+      <stats-drop-down [eventEntity]="eventEntity"
+                        [formation]="playerFormation"
+                        [player]="player"
+                        (statChange)="changeStat($event)">
+      </stats-drop-down>
+    </div>
+  </div>
+  <div fallbackMessage class="stats-unavailable">
+    <span class="stats-unavailable-text" [i18n]="'yourcall.statsUnavailableText'"></span>
+  </div>
+  <div body class="five-a-side-body">
+    <switchers
+        class="five-a-side-switcher"
+        [filter]="filter"
+        [switchers]="switchers"
+        [noPaddings]="true"
+    ></switchers>
+    <div class="event-name text-center" [textContent]="eventEntity.name"></div>
+    <div class="player-list" data-crlat="playerList">
+      <player-card *ngFor="let player of playersList; trackBy: trackById"
+         [playerFormation]="playerFormation" [player]="player" [eventEntity]="eventEntity"></player-card>
+    </div>
+  </div>
+</drawer>

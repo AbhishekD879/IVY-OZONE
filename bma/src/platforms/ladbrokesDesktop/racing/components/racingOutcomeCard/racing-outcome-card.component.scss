@@ -1,0 +1,168 @@
+@import 'global.variables.scss';
+
+.course-distance {
+  margin-left: 2px;
+  padding: 0 5px;
+  letter-spacing: 1px;
+  color: $color-green-racing;
+  border: 1px solid $color-green-racing;
+  border-radius: 2px;
+  height: 15px;
+  line-height: 14px;
+  font-family: $base-font-family;
+  font-size: $font-size-md;
+  background: none;
+}
+
+.odds-card {
+  border-bottom: 1px solid $lGrayLight;
+  &.active{
+    background: $color-white;
+  }
+  .odds-content {
+    min-height: auto;
+    .odds-names.odds-names-list > div {
+      overflow: hidden;
+    }
+    .odds-left {
+      @include display-flex();
+      @include align-items();
+      @include flex();
+      overflow: hidden;
+      align-items: center;
+      padding-right: calc(1% + 1px);
+
+      &.no-wrap {
+        overflow: visible;
+      }
+      .odds-side {
+        margin: 0px 8px 0px 0px;
+        line-height: 17px;
+      }
+
+      .runner-number {
+        font-family: $base-font-family;
+        font-size: $font-size-lg;
+      }
+
+      .label-text {
+        color: $color-gray-darkest;
+      }
+    }
+  }
+
+  .silk-img.has-img {
+    margin-right: 10px;
+  }
+  gh-silk {
+    margin: 0 12px 0 0;
+  }
+}
+
+.odds-names {
+  margin-right: 5px;
+}
+
+.odds-small {
+  .toggle-icon {
+    height: auto;
+    padding-left: 0px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 11px;
+    color: $color-blue-alt;
+    font-family: $base-font-family;
+    @media #{$mqTabletAndDesktop} {
+    &:hover{
+      text-decoration: underline;
+    }
+    }
+    &:active{
+      text-decoration: none;
+      color: darken($color-blue-alt, 25%); 
+    }
+    svg {
+      fill: $color-blue-alt;
+      position: relative;
+      width: 10px;
+      height: 8px;
+      margin-top: 0;
+      top: 0;
+    }
+  }
+  .toggle-icon.toggle-cd-flag{
+    padding: 0px;
+  }
+  .toggle-icon.toggle-cd-flag.toggles{
+    padding: 0px!important;
+  }
+}
+
+.start-rating {
+  margin-left: 8px;
+  padding: 0 5px;
+  letter-spacing: 1px;
+  color: $color-yellow-alt;
+  border: 1px solid $color-yellow-alt;
+  border-radius: 2px;
+  height: 15px;
+  line-height: 14px;
+  font-family: $base-font-family;
+  font-size: $font-size;
+  vertical-align: baseline;
+  display: inline-block;
+
+  .star-icon {
+    width: 10px;
+    height: 9px;
+    fill: $color-yellow-alt;
+  }
+}
+
+.silk-img {
+  margin-right: 10px;
+}
+
+.odds-right {
+  font-size: $font-size-md;
+  color: $color-gray-dark-alt;
+}
+
+.greyhound-card {
+  .odds-names {
+    color: $lGray;
+
+    &.text-normal {
+      font-weight: normal;
+    }
+  }
+
+  .odds-card {
+    border-bottom: 1px solid $lGrayLight;
+  }
+
+  .name-container{
+    .odds-names {
+      font-size: $font-size-xl;
+    }
+  }
+}
+
+:host ::ng-deep {
+  .toggle-icon {
+    padding-left: 0px !important;
+  }
+  .form-guide-color {
+      margin-right: 4px;
+    }
+  .showMoreLess {
+    padding-right: 4px;
+  }
+  .toggle-icon svg {
+    margin-left: 0px;
+  }
+}
+
+.inline-block {
+  display: inline-block;
+}

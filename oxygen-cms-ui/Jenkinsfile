@@ -1,0 +1,6 @@
+@Library(value='jenkins-pipeline-lib@SDO-7552', changelog=false)
+
+def arguments = [
+	angularVersion: "9"
+]
+lcgJobCmsUi(arguments)

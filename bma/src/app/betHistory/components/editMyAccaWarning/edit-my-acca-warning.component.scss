@@ -1,0 +1,14 @@
+@import 'global.variables.scss';
+
+$bg-color: #f1f1f2;
+
+.message {
+  margin: 12px 8px;
+  background-color: $bg-color;
+  padding: 10px 12px;
+  .message-text {
+    vertical-align: middle;
+    font-size: 12px;
+    font-family: $alt-font-family;
+  }
+}

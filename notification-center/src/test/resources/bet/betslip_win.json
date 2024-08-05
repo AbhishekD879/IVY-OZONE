@@ -1,0 +1,62 @@
+{
+  "betChannel": "I",
+  "betslipDateTime": "2019-01-21T10:16:42.000+0000",
+  "customerID": "229182",
+  "username": "Koko54464",
+  "isSettled": true,
+  "settleMethod": "S",
+  "bets": {
+    "bet": [
+      {
+        "betKey": "595111",
+        "betType": "SGL",
+        "stake": 1.0,
+        "leg": [
+          {
+            "legNo": "0",
+            "part": [
+              {
+                "betPrice": {
+                  "priceType": "LP",
+                  "num": 5,
+                  "den": 3,
+                  "isEarlyPrice": false,
+                  "decimalPrice": 2.66666666666667
+                },
+                "rawHandicapValue": "0",
+                "selectionKey": 522885001,
+                "marketKey": 140129578,
+                "eventKey": 9427388,
+                "handicapValue": "0",
+                "winPlace": "WIN",
+                "isInRunning": true
+              }
+            ],
+            "legSort": "--"
+          }
+        ],
+        "freebetAmount": 0.0,
+        "betReceipt": "O/0229182/0000027",
+        "createDateTime": "2019-01-21T10:16:42.000+0000",
+        "winningAmount": 2.60,
+        "refundAmount": 0.0,
+        "stakePerLine": 1.0,
+        "fundedAmount": 1.0,
+        "currencyCode": "GBP",
+        "pending": false,
+        "poolbet": false
+      }
+    ],
+    "numLines": 1,
+    "numVoidLines": 0,
+    "numWinLines": 1,
+    "numLoseLines": 0
+  },
+  "meta": {
+    "messageType": "Settlement",
+    "source": "OB-kafka"
+  },
+  "settlementStatus": "FullSettled",
+  "cancelled": false,
+  "paid": true
+}

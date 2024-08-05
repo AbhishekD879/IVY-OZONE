@@ -1,0 +1,159 @@
+@import 'global.variables.scss';
+
+.betnow-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .spinner-loader {
+    margin: 0 15px 0;
+    @include transform(translateX(-50%));
+  }
+  .bs-countdown-timer {
+    bottom: 0;
+    margin: 0;
+  }
+}
+
+betslip:host {
+  .sk-container {
+    height: 100%;
+  }
+}
+
+.icon-layout {
+  margin-left: 22px;
+}
+
+.restricted-HR-msg-container {
+  border: 1px solid #FFCD00;
+  box-shadow: 0px 1px 0px #EFEFF3;
+  margin-bottom: 5px;
+  position: relative;
+
+  .restricted-horse-content {
+    padding: 15px;
+    left: 80.06%;
+    right: 0%;
+    top: 8.78%;
+    bottom: 88.5%;
+    background: #FFCD00;
+
+    .restricted-horse-msg {
+      left: 1296.75px;
+      top: calc(50% - 28px/2 - 703.5px);
+      font-family: 'Lato';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 14px;
+      color: #41494E;
+    }
+  }
+
+  .horse-info {
+    padding: 15px;
+    left: 80.06%;
+    right: 0%;
+    top: 8.78%;
+    bottom: 88.5%;
+    background: white;
+
+    .horse-name {
+      left: 1297px;
+      top: 211px;
+      font-family: 'Lato';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 14px;
+      display: flex;
+      align-items: center;
+      letter-spacing: -0.156923px;
+      color: #41494E;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.isMobile {
+  font-size: 11.5px;
+}
+
+.info-mark {
+  position: absolute;
+  display: inline-flex;
+  margin: 0 5px;
+  svg {
+    width: 14px;
+    height: 18px;
+    cursor: pointer;
+  }
+}
+
+// fix to not overlap with Iphone X bottom software button.
+@supports (padding-bottom: constant(safe-area-inset-top)) {
+  .bs-buttons-wrapper {
+    --safe-area-inset-bottom: constant(safe-area-inset-bottom);
+    padding-bottom: var(--safe-area-inset-bottom);
+  }
+}
+
+@supports (padding-bottom: env(safe-area-inset-top)) {
+  .bs-buttons-wrapper {
+    --safe-area-inset-bottom: env(safe-area-inset-bottom);
+    padding-bottom: var(--safe-area-inset-bottom);
+  }
+}
+ 
+.luckynewbonus{
+  margin-top: 10px;
+  width: 45px;
+  height: 17px;
+  text-align: center;
+  padding-top: 2px;
+  span {
+    background-color: $color-yellow;
+    padding: 4px;
+    color: $color-blue;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 12.89px;
+    font-size: 8px;
+    border-radius: 2px;
+    letter-spacing: -0.04px; 
+    font-family: $lato-font-family;
+}
+ 
+    }
+  
+    .infolabel {
+      width: 14px;
+      height: 14px;
+      position: relative;
+      left: 33px;
+      top: -97%;
+    }
+  .allWinnerBonusText {
+    color: $color-blue;
+    font-weight: 700;
+    font-size: 10px;
+    min-width: auto;
+    height: 12px;
+    max-width: 80px;
+    display: inline-block;
+    letter-spacing: -0.05px;
+  }
+  .allWinnerBonus{
+    color: $color-blue;
+    font-weight: 700;
+    font-size: 10px;
+  }
+  ::ng-deep modal {
+    .modal-dialog .modal-content .modal-body .more-link-lucky{
+      padding-right: 20px;
+      display: inline-block;
+      height: 35px;
+      width: 100px;   
+    }
+
+  }

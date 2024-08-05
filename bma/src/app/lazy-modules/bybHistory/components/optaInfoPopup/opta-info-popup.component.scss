@@ -1,0 +1,45 @@
+@import 'global.variables.scss';
+
+.opta-info-popup {
+  .modal-dialog {
+    width: 295px;
+  }
+  .modal-header {
+    padding: 24px 12px 12px 24px;
+    background: $color-white;
+    margin-bottom: 0;
+  }
+  .modal-body {
+    padding: 0 24px 24px;
+    .dialog-content {
+      .container {
+        p {
+          font-family: $alt-font-family;
+          font-size: 13px;
+          color: $lBlack-light;
+          line-height: 16px;
+        }
+      }
+    }
+  }
+  .dialog-title {
+    font-size: 15px;
+    text-transform: capitalize;
+  }
+  .right-side {
+    margin-top: 16px;
+    text-align: end;
+
+    .btn {
+      &.btn-style2 {
+        height: 35px;
+        width: 100px;
+        font-size: 13px;
+        color: $lGray;
+        background-color: $color-yellow-alt;
+        padding: 0;
+        font-family: $base-font-family;
+      }
+    }
+  }
+}

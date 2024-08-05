@@ -1,0 +1,294 @@
+@import 'global.variables.scss';
+
+/* Standart icon */
+$prom-icon-size: 17px;
+$prom-icon-pad: 10px 6px;
+/* Small icon */
+$small-prom-icon-size: 12px;
+$small-prom-icon-pad: 6px 4px;
+
+/* Mid icon */
+$mid-prom-icon-pad: 9px 4px;
+
+:host {
+  .promotion-icons-wrapper, .prom-icons {
+    @include display-flex();
+    @include align-items(center);
+  }
+  .prom-icon {
+    float: right;
+    text-align: center;
+    padding: $prom-icon-pad;
+    cursor: pointer;
+    margin: -10px 2px;
+    &.big-icon {
+      height: 38px;
+      width: 35px;
+      margin: 0 0 0 1px;
+      border-radius: 2px;
+      background: $color-yellow-alt;
+      &:active{
+        background: $color-orange-light2;
+        opacity: 1;
+      }
+    }
+
+    .prom-icon-container {
+      @include display-flex();
+      @include align-items(center);
+      height: 100%;
+    }
+
+    svg {
+      width: $prom-icon-size;
+      height: $prom-icon-size;
+      margin: 0 auto;
+      fill: $color-cobalt;
+
+      &.PB {
+        width: 20px;
+        height: 18px;
+      }
+      &.two-up {
+        width: 23px;
+        height: 22px;
+      }
+    }
+  }
+  
+  .promotion-icon-margin {
+     margin-right: 8px !important;
+  }
+}
+
+:host.odds-card-promotions-icon {
+  .promotion-icons-wrapper {
+    margin-right: 3px;
+  }
+  .promotion-icon-container {
+    margin: 0 2px 0 0;
+  }
+  .prom-icon {
+    padding: $small-prom-icon-pad;
+    svg {
+      width: $small-prom-icon-size;
+      height: $small-prom-icon-size;
+    }
+  }
+}
+
+:host.tabs-panel-promotion-icon {
+  .prom-icons {
+    @include display-flex();
+  }
+
+  .prom-icon {
+    padding: $mid-prom-icon-pad;
+    margin: 0px 5px 0 0px;
+    &:first-child {
+      margin-left: -10px;
+    }
+  }
+}
+
+:host.race-card-promotion-icon {
+  .prom-icons {
+    .prom-icon {
+      padding: 6px 2px;
+      margin: 0 5px 0 0;
+
+      svg {
+        width: $small-prom-icon-size;
+        height: $small-prom-icon-size;
+      }
+    }
+  }
+}
+
+:host.racing-event-promotion-icon {
+  position: relative;
+  right: 4px;
+
+  .prom-icon {
+    margin: 3px 5px 0 0;
+    padding: $mid-prom-icon-pad;
+  }
+}
+
+:host.racing-icons-list-promotion-icon {
+  .prom-icons {
+    @include display-flex();
+  }
+
+  .prom-icon {
+    margin: 0;
+    padding: 0;
+
+    svg {
+      margin: 0 0 0 10px;
+    }
+  }
+}
+
+:host.align-left {
+  .event-card-label-wrapper:first-child {
+    margin-left: 0;
+  }
+
+  ::ng-deep.race-label-wrapper {
+    margin-right: 1px;
+  }
+
+  .promotion-icon-container + .prom-icons {
+    .event-card-label-wrapper:first-child {
+      margin-left: 4px;
+    }
+  }
+}
+
+.event-card-label-wrapper {
+  background-color: $color-yellow-alt;
+  fill: $brand-color-main;
+  cursor: pointer;
+  &:not(.gery-two-up):hover{
+    background: $color-yellow-alt;
+    opacity:0.85;
+  }
+  &:not(.gery-two-up):active{
+    background: $color-yellow-darkest;
+    opacity: 1;
+  }
+  .event-card-text {
+    color: $brand-color-main;
+    font-weight: bold;
+  }
+  .event-card-text-grey{
+    color: $color-gray-darkest;
+    font-weight: bold;
+  }
+  &.bog-promotion {
+    width: 24px;
+    height: 26px;
+    margin-left: 1px;
+    border-radius: 2px;
+    @include inline-flex();
+    @include align-items(center);
+    @include justify-content(center);
+  }
+  &.middle-icon, &.bog-promotion {
+    .event-card-label {
+      width: 12px;
+      height: 12px;
+      margin: 0;
+      &.bog-text {
+        width: 18px;
+      }
+
+      &.PB {
+        overflow: visible;
+        width: 15px;
+        height: 20px;
+        will-change: transform;
+        transform: scale(0.7);
+      }
+      &.BBAL {
+        width: 29px;
+        height: 27px;
+      }
+    }
+    .event-card-text {
+      display: none;
+    }
+  }
+
+  &.small-icon {
+
+    &-margin {
+      margin-left: 0;
+    }
+    .event-card-label {
+      width: 10.5px;
+      height: 10.5px;
+    }
+    .event-card-text {
+      height: 16px;
+      line-height: 16px;
+      text-transform: uppercase;
+      font-size: 8px;
+      margin-right: 0;
+      margin-left: 3px;
+    }
+  }
+
+  &.mini-icon {
+    @extend .small-icon;
+    .event-card-text {
+      display: none;
+    }
+  }
+}
+
+.singleSignPost{
+  height: 38px;
+  width: 35px;
+  margin: 0 0 0 1px;
+  border-radius: 3px;
+  background: #FFCD00;
+  padding: 0px;
+  border: none;
+  color: #004696;
+  font-weight: bold;
+  font-size: 19px;
+  font-family: $cash-out-popup-event-font-family;
+}
+
+    .rectangle-green {
+      width: 33.8px;
+      height: 16px;
+      background: $color-light-green-leaf;
+      border-radius: 0px 5px 3px 2px;
+      transform: skew(-35deg);
+      -webkit-transform: skew(-35deg);
+      -moz-transform: skew(-35deg);
+      align-items: center;
+      display: flex;
+      margin: -5px;
+    }
+  
+    .two-up-got-it {
+      transform: skew(35deg);
+      -webkit-transform: skew(35deg);
+      -moz-transform: skew(35deg);
+      font-family: $base-font-family;
+      font-style: normal;
+      font-weight: 700;
+      font-size: $font-size-xs;
+      color: $color-white;
+      margin-left: -3px;
+    }
+  
+    .rectangle-green:before {
+      content: "";
+      position: absolute;
+      width: 12px;
+      height: 100%;
+      background: $color-light-green-leaf;
+      left: -5px;
+      transform: skew(35deg);
+      -webkit-transform: skew(35deg);
+      -moz-transform: skew(35deg);
+    }
+  
+    .rectangle-green-mobile {
+      width: 33.8px;
+      margin: -4px;
+    }
+  
+    .two-up-got-it-mobile {
+      margin-left: -1px;
+    }
+  
+    .gery-two-up {
+      background: #DDDDE4;
+      border-radius: 1px;
+    }

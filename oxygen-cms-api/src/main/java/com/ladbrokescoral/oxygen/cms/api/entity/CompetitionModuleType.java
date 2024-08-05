@@ -1,0 +1,19 @@
+package com.ladbrokescoral.oxygen.cms.api.entity;
+
+public enum CompetitionModuleType {
+  AEM,
+  NEXT_EVENTS,
+  NEXT_EVENTS_INDIVIDUAL,
+  PROMOTIONS,
+  OUTRIGHTS,
+  SPECIALS,
+  SPECIALS_OVERVIEW,
+  GROUP_WIDGET,
+  GROUP_ALL,
+  GROUP_INDIVIDUAL,
+  RESULTS,
+  KNOCKOUTS,
+  SURFACEBET,
+  HIGHLIGHT_CAROUSEL,
+  BYB_WIDGET
+}

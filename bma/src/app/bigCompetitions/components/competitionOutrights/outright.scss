@@ -1,0 +1,271 @@
+.outright-container {
+  padding: 0px;
+  background: $lGray-bg;
+}
+.view-padd .outright-container {
+  padding-top: 0px;
+}
+.competition-view {
+  .page-container.page-inner-container .container-content {
+    overflow: hidden;
+  }
+
+  .all-selections-container {
+    border-top: 1px solid $color-gray;
+    padding: 10px 0;
+    background: $color-white;
+    font-weight: 700;
+    a {
+      text-align: center;
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+  
+  }
+
+  .see-all-selections {
+    font-size: 10px;
+    letter-spacing: -0.4px;
+    color: $color-gray-dark;
+    text-decoration: none;
+    .label {
+      text-decoration: underline;
+    }
+  }
+
+  .competition-term-value {
+    font-size: 11px;
+    height: 11px;
+    display: block;
+    text-transform: none;
+    color: $color-black;
+    font-family: $base-font-family;
+  }
+
+  .competition-terms-before-market {
+    border-bottom: 1px solid $color-gray;
+    border-top: 1px solid $color-gray;
+    min-height: inherit;
+    padding: 7px 10px 6px;
+    background-color: $color-gray-light;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.competition-view-container {
+  @include display-flex();
+  @include flex-wrap(wrap);
+  overflow: hidden;
+
+  .odds-card.competition-view {
+    width: 50%;
+    margin: 0;
+    padding: 0;
+    border-left: 1px solid $color-gray;
+    border-top: 1px solid $color-gray;
+    box-shadow: none;
+    margin-left: -1px;
+    margin-top: -1px;
+    &.list-view {
+      width: 100%;
+      height: 62px;
+    }
+    .odds-content {
+      padding: 10px;
+      min-height: 55px;
+      display: block;
+
+      &.list-view {
+        @include display-flex();
+        align-items: flex-end;
+      }
+
+      .list-view-participants {
+        @include inline-flex();
+        .flag {
+          margin: 0px 8px 0px 0px;
+        }
+        .vs {
+          margin: 8px 10px;
+        }
+      }
+
+      .odds-names {
+        margin-bottom: 9px;
+        font-size: 13px;
+        white-space: nowrap;
+
+      }
+
+      .list-view-participants .odds-names {
+        margin-bottom: 0px;
+        white-space: normal;
+      }
+      .btn-bet {
+        margin: 0 auto;
+        min-width: 45px;
+      }
+    }
+  }
+  &.two-columns {
+    .odds-card.competition-view {
+      width: 50%;
+    }
+    .odds-content {
+      .flag {
+        float: left;
+      }
+      .odds-names {
+        float: left;
+        line-height: 35px;
+      }
+      .odds-btn {
+        position: absolute;
+        right: 10px;
+        .btn-bet {
+          min-width: 45px;
+        }
+      }
+    }
+  }
+}
+.coral-mob-view {
+  & .competition-term-value {
+    color: $color-gray-darkest;
+  }
+  & .odds-names {
+    color: $color-gray-dark !important;
+
+  }
+}
+.mob-view {
+  & .list-view {
+    align-items: center !important;
+  }
+}
+.lads-view {
+  & .all-selections-container{
+    span {
+      color: $color-blue-cornflower;
+    }
+  }
+  & .flag {
+    margin: -2px 8px 1px 0px !important;
+  }
+  & .competition-term-value, .odds-names {
+    font-family: $alt-font-family;
+    font-weight: 400 !important;
+    margin-left: 0px !important;
+  }
+}
+/* styles for outright card view */
+.card-view-container {
+  width: 100%;
+
+  .scroll-container .scroll-inner {
+    background: $color-gray;
+    padding: 0;
+    border: none;
+
+    .card-view {
+      display: inline-block;
+      width: 120px;
+      height: 90px;
+      text-align: center;
+      border-right: 1px solid $color-gray;
+      padding: 15px 10px 10px;
+      background: $color-white;
+
+      price-odds-button {
+        @include align-items(center);
+      }
+      .odds-name {
+        display: block;
+        font-family: $base-font-family;
+        font-size: 12px;
+        font-weight: bold;
+        color: $color-gray-dark;
+        margin-bottom: 10px;
+        text-decoration: none;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      .btn-bet {
+        display: inline-block;
+        min-width: 45px;
+      }
+
+      .next-items {
+        color: lighten($color-gray-dark, 50%);
+        font-size: 11px;
+        line-height: 13px;
+      }
+
+      .next-items,
+      .items {
+        text-transform: uppercase;
+      }
+
+      .next-items,
+      .items-quantity,
+      .items {
+        display: block;
+      }
+
+      .items-quantity,
+      .items {
+        color: $color-gray-dark;
+        font-weight: bold;
+        font-family: $base-font-family;
+      }
+
+      .items-quantity {
+        line-height: 36px;
+        font-size: 30px;
+        margin-bottom: 3px;
+      }
+
+      .items {
+        font-size: 9px;
+        line-height: 11px;
+      }
+    }
+
+    .card-view:first-child {
+      border-radius: 2px 0 0 2px;
+    }
+
+    .card-view:last-child,
+    .show-next-items {
+      border-radius: 0 2px 2px 0;
+    }
+
+    .show-next-items {
+      padding-top: 12px;
+    }
+  }
+}
+
+.outright-accord {
+  margin-top: 10px;
+  .odds-card.competition-view.list-view {
+    height: auto;
+    .odds-content {
+      padding: 10px 10px 10px;
+      .list-view-participants {
+        margin-left: 0px;
+        .flag {
+          margin: 0px 5px 0 0;
+        }
+        .odds-names {
+          padding: 1px 0 0px 0;
+        }
+      }
+    }
+  }
+}

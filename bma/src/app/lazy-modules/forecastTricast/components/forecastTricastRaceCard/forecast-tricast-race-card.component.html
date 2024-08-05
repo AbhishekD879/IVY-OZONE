@@ -1,0 +1,17 @@
+<div class="race-card forecast-tricast-race-card" *ngIf="isOutcomeCardAvailable" data-crlat="raceCard.forTri">
+  <div class="odds-content">
+    <div class="odds-left">
+      <div class="odds-side">
+          <span *ngIf="runnerNumberDisplay">
+            <strong [textContent]="outcomeEntity.runnerNumber" data-crlat="runnerNumber"></strong><br/>
+          </span>
+      </div>
+      <div class="odds-names odds-names-list"
+           [ngClass]="{'odds-disabled' : outcomeEntity.nonRunner}"
+           data-crlat="horseInfoContainer">
+        <strong class="odds-names odds-names-wrap" [textContent]="outcomeName" data-crlat="horseName"></strong>
+      </div>
+    </div>
+    <ng-content></ng-content>
+  </div>
+</div>

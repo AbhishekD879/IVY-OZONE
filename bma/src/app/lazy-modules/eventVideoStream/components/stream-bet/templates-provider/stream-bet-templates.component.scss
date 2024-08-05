@@ -1,0 +1,147 @@
+@import 'global.variables.scss';
+
+.row {
+    margin-left: 10px;
+  }
+  .snb-price-odds-btn{
+    margin-left:22px;
+  }
+  .snb-drop-down{
+    margin-left:5px;
+  }
+  .snb-single-dp-single-odd{
+    display:flex;
+    flex-direction:row ;
+    margin-top:7px;
+  }
+  .Rectangle {
+    height: 100px;
+    margin: 0 8px 0 0;
+    border-radius: 2px;
+    background-color: rgb(215, 224, 224); //#8b8889; // rgb(156 143 143 / 20%);
+    display:flex;
+    flex-direction: column;
+    padding: 5px;
+    width: 300px;
+  }
+  .hr-item-odds {
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    width: 100%;
+}
+.col-bordered .col-inner .col-name {  
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: 10px;
+    padding: 0 0 5px 0;
+  }
+  .col-hr-odds {
+    background-color: #EDEFF5;
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        justify-content: center;
+        margin-right: 5px;
+    }
+    .col-inner-odds {
+    display: flex;
+        flex-direction: column;
+    }
+    .col-name-odds {
+        font-size: 8px !important;
+        margin-top: 5px;
+    }
+
+.plus-minus-template {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px;
+    width: 340px;
+    height: 91px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 2px;
+    margin-right: 8px;
+
+    .market-name {
+        height: 16px;
+        font-family: $alt-font-family;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 13px;
+        line-height: 16px;
+        color: #FFFFFF;
+    }
+    .items-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding: 0px;
+        width: 316px;
+        height: 45px;
+
+        .team-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0px;
+            width: 86px;
+            height: 44px;
+
+            .pm-team-name {
+                height: 14px;
+                font-family: $alt-font-family;
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 14px;
+                display: flex;
+                align-items: center;
+                letter-spacing: -0.0061px;
+                color: #FFFFFF;
+            }
+            .plus-minus-frame {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                margin: 8px 12px 12px 12px;
+                width: 86px;
+                height: 22px;
+
+                .btn-plus-minus{
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 10px;
+                    background: #5D666C;
+                    mix-blend-mode: normal;
+                }
+                .pm-points {
+                    width: 22px;
+                    height: 22px;
+                    font-family: $alt-font-family;
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 18px;
+                    line-height: 22px;
+                    text-align: center;
+                    letter-spacing: -0.00915px;
+                    color: #FFFFFF;
+                    margin: 0px 12px;
+                }
+            }
+        }
+        .odds-button {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 14px 12px;
+            width: 86px;
+            height: 45px;
+            background: rgba(0, 0, 0, 0.4);
+        }
+    }
+    
+}

@@ -1,0 +1,40 @@
+.in-play-header-counter {
+  background: $color-gray;
+  text-transform: uppercase;
+  padding: 10px;
+
+  .in-play-count {
+    color: $color-gray-dark;
+    font-size: 11px;
+  }
+
+  .live-now-label {
+    font-size: 12px;
+    font-weight: bold;
+    padding-left: 2px;
+  }
+}
+
+.more-link {
+  margin: 0 7px 0 7px;
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap;
+  padding-left: 5px;
+  color: $brand-color-dark;
+  text-transform: uppercase;
+
+  &:after {
+    content: '';
+    position: relative;
+    top: -1px;
+    left: 4px;
+    border: solid black;
+    border-width: 0 1px 1px 0;
+    display: inline-block;
+    padding: 2px;
+    @include transform(rotate(-45deg));
+  }
+}

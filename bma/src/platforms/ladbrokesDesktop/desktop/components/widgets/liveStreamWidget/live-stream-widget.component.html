@@ -1,0 +1,76 @@
+<accordion [isExpanded]="isExpanded"
+           [accordionTitle]="widgetTitle"
+           [headerClass]="'secondary-header'"
+           [card]="true"
+           (function)="sendCollapseGTM()"
+           *ngIf="event"
+           data-crlat="accordion.liveStream">
+  <left-side>
+    <svg class="ls-stream-svg">
+      <use [attr.xlink:href]="'#stream'"></use>
+    </svg>
+  </left-side>
+  <accordion-body>
+    <!-- User is logged in -->
+    <div class="ls-widget" *ngIf="isLoggedIn" data-crlat="lsWidget">
+      <div class="ls-type-header">
+        <span class="ls-type" [textContent]="event.typeName"></span>
+        <span class="ls-status" *ngIf="isHalfTime()">HT</span>
+        <live-clock class="ls-status"
+                    [event]="event"
+                    *ngIf="isClock()">
+        </live-clock>
+        <span class="ls-status" *ngIf="!isClock() && isLive()">Live</span>
+        <span class="ls-status" *ngIf="getSetIndex()" [textContent]="getSetIndex()"></span>
+        <span class="ls-cashout" *ngIf="isCashOutEnabled()">
+          <cashout-label [mode]="'mini'"></cashout-label>
+        </span>
+      </div>
+      <div class="ls-teams">
+        <span class="ls-name" [textContent]="event.name" data-crlat="lsName"></span>
+        <span class="ls-score" *ngIf="event.comments?.teams.home" data-crlat="lsScore">
+        <span *ngIf="event.comments.teams.home" [textContent]="getOddsScore()"></span>
+        <span *ngIf="event.comments.teams.home.currentPoints" [textContent]="getCurrentOddsScore()"></span>
+      </span>
+        <span class="ls-score" *ngIf="event.comments?.setsScores && isTennis()">
+        <span *ngFor="let setScores of scores"
+              [textContent]="getSetsScores(setScores)">
+        </span>
+      </span>
+      </div>
+      <a [routerLink]="edpUrl" (click)="sendPlayGTM()" [attr.title]="event.name" class="ls-play">
+        <svg class="ls-play-svg">
+          <use [attr.xlink:href]="'#stream'"></use>
+        </svg>
+      </a>
+      <div class="ls-odds-wrapper" *ngIf="market && outcomes">
+        <ng-container *ngFor="let outcome of outcomes; index as outcomeIndex; trackBy: trackById;">
+          <div class="ls-odds-inner" *ngIf="isShowOddButton(outcomeIndex)">
+            <price-odds-button class="ls-odds-btn"
+                               *ngIf="outcome"
+                               [event]="event"
+                               [market]="market"
+                               [head]="getOddsHeader(outcome.correctedOutcomeMeaningMinorCode, outcomeIndex)"
+                               [outcome]="outcome"
+                               [cssClass]="'btn-with-header'">
+            </price-odds-button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <show-more-link (function)="sendViewAllGTM()"
+                    [link]="widgetMoreLink"
+                    [title]="widgetMoreTitle"
+                    *ngIf="isLoggedIn"
+                    data-crlat="showMore">
+    </show-more-link>
+    <!-- User is not logged in -->
+    <div class="item-inner text-center" *ngIf="!isLoggedIn">
+      <a (click)="openLoginDialog()" [i18n]="'bma.login'"></a>
+      <span [i18n]="'bma.videoStreamRegister.part1'"></span>
+      <a class="signup-anchor" routerLink="/signup" (click)="sendRegisterGTM($event)" [i18n]="'bma.videoStreamRegister.part2'"></a>
+      <span [i18n]="'bma.videoStreamRegister.part3'"></span>
+    </div>
+  </accordion-body>
+</accordion>
+<outlet-status [state]="state"></outlet-status>

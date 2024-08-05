@@ -1,0 +1,186 @@
+@import 'global.variables.scss';
+
+::ng-deep .fb-select-dialog {
+  .modal-body {
+    padding: 0;
+    max-height: 380px;
+  }
+  .modal-header {
+    display: none;
+  }
+}
+
+.wrap {
+  padding: 0;
+
+  .popup-description {
+    padding: 12px 12px 15px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.0009625px;
+    color: $color-nevada;
+  }
+
+  .header {
+    position: relative;
+    padding: 12px;
+    background: $color-gray-light;
+    box-shadow: 0px 1px 0px $color-off-white;
+    @include display-flex;
+    @include justify-content(space-between);
+    @include align-items(center);
+
+    .header-text {
+      font-weight: bold;
+      color: $brand-color-dark;
+      line-height: 17px;
+    }
+
+    .close-icon {
+      width: 12px;
+      height: 12px;
+      fill: $color-blue-dark;
+      cursor: pointer;
+    }
+  }
+
+  .free-bet-group__container {
+    overflow: auto;
+    max-height: 200px;
+  }
+
+  .free-bet-group-both_container{
+    height: 179px;
+  }
+
+  .list {
+    list-style-type: none;
+    margin: 0 18px;
+    padding: 0;
+
+    .option {
+      position: relative;
+      cursor: pointer;
+      padding-left: 27px;
+      display: inline-block;
+      word-break: break-word;
+      font-size: 13px;
+
+      &.selected .option-circle:after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 100%;
+        background-color: $dk-button-color;
+      }
+    }
+
+    .option-circle {
+      position: absolute;
+      top: calc(50% - 10px);
+      left: 0;
+      width: 19px;
+      height: 19px;
+      border: 1px solid $color-gray-silver;
+      border-radius: 100%;
+      background-color: #f8f8f8;
+      padding: 3px;
+    }
+
+    .option-text {
+      color: $color-gray-dark;
+      opacity: 0.75;
+    }
+
+    li {
+      margin-top: 15px;
+
+      &:last-child {
+        margin-bottom: 5px;
+      }
+    }
+  }
+
+  .btn-group {
+    @include display-flex;
+    @include justify-content(flex-end);
+    padding: 12px;
+
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    text-transform: uppercase;
+    color: $color-blue-dark;
+
+    .btn {
+      height: 35px;
+      width: 100px;
+      color: $color-blue-dark;
+      background-color: $color-yellow;
+    }
+
+    .btn-remove {
+      background-color: transparent;
+      display: none;
+    }
+
+  }
+
+  .fb-item__expiration {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: $color-nevada;
+  }
+
+  .fb-item__value {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    margin: 3px 0;
+    color: $color-black-light-medium;
+    text-transform: lowercase;
+  }
+}
+.bet-tabs {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  text-align: center;
+  line-height: 40px;
+  margin: 0 4px;
+
+  .bet-tab {
+    position: relative;
+    height: 100%;
+    font-family: $base-font-family;
+    font-size: 11px;
+    font-weight: 400;
+    text-align: center;
+    text-transform: uppercase;
+
+    &::after {
+      content: '';
+      position: absolute;
+      display: block;
+      bottom: 0;
+      height: 3px;
+      left: 0;
+      right: 0;
+      background: $color-gray-rich;
+    }
+  }
+
+  .bet-tab-selec {
+    font-weight: 700;
+
+  }
+
+  .bet-tab-selec::after {
+    background: $color-blue-rich;
+  }
+}

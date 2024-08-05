@@ -1,0 +1,77 @@
+<ng-container>
+  <div class="yourcall-playermarkets row row-left row-no-gutter row-col-last">
+    <div class="align">
+      <div [ngClass]="cssClass" *ngFor="let teamName of teamNames; index as i">
+        <div class="col-inner col-vertical">
+          <button [ngClass]="{'active': isteamSelected(teamName),'btn-bet-stat-lads' : !isCoral, 'active-lads' : isteamSelected(teamName) && !isCoral}" 
+            class="one-row-btn btn-bet-stat btn-bet-{i}" (click)="teamSelectValue(teamName,market)">
+            {{ teamName.title.toLowerCase() }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <ng-container>
+      <div class="display-players">
+        <div class="outer-rectangle" *ngFor="let player of accPlayers; index as i" (function)="teamLogo(player)" [ngClass]="{'byb-showcard-market':market.stat === 'To Be Shown A Card' || market.grouping === 'To Be Shown A Card'}">
+          <accordion *ngIf="(i<6 || show && !player?.isGK)" [render]="true" [isBybState]= true [isExpanded]="i===enabled" class="inner-accordian"
+            (function)="expanded(player,i)">
+            <left-side>
+              <div class="left-title-text" style="text-align: left;display: inline-block;height: auto;">
+                <img class="player-image" [attr.src]="teamsImage" />
+                <svg class='byb-svg-stats' xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 15 17">
+                  <g fill="none" fill-rule="evenodd">
+                    <path [attr.fill]="player?.teamColors?.secondaryColour" style="opacity: .9"
+                      d="M14.834 1.244L7.617.003A.1.1 0 0 0 7.5.1V17l.136-.016A8.354 8.354 0 0 0 15 8.688V1.441a.2.2 0 0 0-.166-.197z" />
+                    <path [attr.fill]="player?.teamColors?.secondaryColour"
+                      d="M13.839 1.237L7.619.003A.1.1 0 0 0 7.5.1V17A7.528 7.528 0 0 0 14 9.543v-8.11a.2.2 0 0 0-.161-.196z" />
+                    <path [attr.fill]="player?.teamColors?.primaryColour" style="opacity: .9"
+                      d="M.166 1.244L7.383.003A.1.1 0 0 1 7.5.1V17l-.136-.016A8.354 8.354 0 0 1 0 8.688V1.441a.2.2 0 0 1 .166-.197z" />
+                    <path [attr.fill]="player?.teamColors?.primaryColour"
+                      d="M1.161 1.237L7.381.003A.1.1 0 0 1 7.5.1V17A7.528 7.528 0 0 1 1 9.543v-8.11a.2.2 0 0 1 .161-.196z" />
+                  </g>
+                </svg>
+                <span class="byb-player-name" [textContent]="player?.name"></span>
+                <span class="byb-player-position" [textContent]="player?.position?.long"></span>
+                <div class="byb-value-stats">
+                  <span *ngIf="!player[playerMarkets[setStatMarket().toLowerCase()]]" style='text-transform: capitalize'
+                    [textContent]="marketScores[setStatMarket().toLowerCase()]+' : N/A'"></span>
+                  <span *ngIf="player[playerMarkets[setStatMarket().toLowerCase()]]" style='text-transform: capitalize'
+                    [textContent]="marketScores[setStatMarket().toLowerCase()]+' : '+ player[playerMarkets[market.stat.toLowerCase()]]"></span>
+                </div>
+                <div *ngIf="isStatsAvail" class="byb-stats" style="cursor: pointer;" [textContent]="'show stats'" (click)="displayOverlay(player,setStatMarket(),$event)"></div>
+              </div>
+            </left-side>
+            <right-side class="byb-show-right-side" *ngIf="market.stat === 'To Be Shown A Card' || market.grouping === 'To Be Shown A Card'">
+              <div class="player-bets-step done-button-step">                
+                <button (click)="done(player,market)"  [ngClass]="getBackup(player.name)?'byb-added':'byb-add'" class="one-row-btn btn-bet btn-act-bg-builder" [i18n]="getBackup(player.name)? 'ADDED':'ADD'" style="height: 40px;"></button>
+              </div>
+            </right-side>
+            <accordion-body *ngIf="market.stat !== 'To Be Shown A Card' && market.grouping !== 'To Be Shown A Card'">
+              <loading-screen *ngIf="market.key !== 'Goalscorer'" [displayed]="loaded" [templateType]="'GENERIC'"></loading-screen>
+              <div class="outer-rectangle" *ngIf= "!loaded && odds && market.key !== 'Goalscorer'">
+                <div class="inner-rectangle">
+                  <div class='btn-group1'>
+                    <button class="alignment" [disabled]="!iconState" (click)="change(-1,player)">-</button>
+                    <p class="alignment1" [textContent]="odds"> </p>
+                    <button class="alignment" [disabled]="!iconState" (click)="change(+1,player)">+</button>
+                  </div>
+                </div>
+                <div class="byb-increment" *ngIf="market.title !== 'Passes'" [textContent]="'Increments of 1'"></div>
+                <div class="byb-increment" *ngIf="market.title === 'Passes'" [textContent]="'Increments of 5'"></div>
+                <div class="player-bets-step done-button-step">
+                  <button class="one-row-btn btn-act-bg-builder btn-bet " id="add-to-bb" [i18n]="getShowCard(player.name)?'ADDED':'ADD TO BET BUILDER'" (click)="done(player,market)"></button>
+                </div>
+              </div>
+          </accordion-body>
+          <!-- <accordion-body *ngIf= "market.key === 'Goalscorer' && expandCollapseMap[i]">
+            <your-call-goalscorer [expand]="expandCollapseMap[i]" [loaded] = "loaded" [player] = "player" [market]="market" [enabled] = "enabled"
+              [marketsSet] = "marketsSet" [eventEntity]="eventEntity"></your-call-goalscorer>
+          </accordion-body> -->
+          </accordion>
+        </div>
+        <button class="byb-show" *ngIf="!show && odds" [i18n]="'SHOW MORE'" (click)="show=!show"></button>
+        <button class="byb-show-less byb-show" *ngIf="show && odds" [i18n]="'SHOW LESS'" (click)="show=!show"></button>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>

@@ -1,0 +1,10 @@
+<div class="heuristic-container sk-container" [ngClass]="{'sk-loading': showLoader}">
+  <loading-screen [displayed]="showLoader"></loading-screen>
+  <extra-place-home-module [ngClass]="{ 'hidden': showLoader }" [limit]="extraPlaceLimit" data-crlat="extraPlaceHomeMod"></extra-place-home-module>
+
+  <next-races-home  [moduleType]="'horseracing'"
+                    (dataLoaded)="toggleLoader($event)"
+                      data-crlat="tabContent"
+                      compName="home">
+  </next-races-home>
+</div>

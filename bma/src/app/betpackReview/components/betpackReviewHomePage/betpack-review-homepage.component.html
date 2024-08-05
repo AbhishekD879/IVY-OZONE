@@ -1,0 +1,104 @@
+<top-bar *ngIf="!isLoading" [title]="betpackLabels.betPackReview" [innerContent]="true">
+    <top-bar-body
+        *ngIf="userService.status&&
+   !isLoading&&!disableBetPack&&!gamblingControlsCheck()&&
+    !(this.userService.isInShopUser() || !this.betpackCmsService.kycVerified ||this.betpackCmsService.verificationStatus === 'Pending')"
+        class="top-bar-side" data-crlat="topBarContent">
+        <a [i18n]="betpackLabels.goToBetbundleText" [routerLink]="'/betbundle-market'"
+            class="text-decoration-none bpmp-navigation-link"
+            (click)="sendGtmData(betpackLabels.goToBetbundleText,false)" data-crlat="linkDeposit">
+        </a>
+    </top-bar-body>
+</top-bar>
+
+<loading-screen [displayed]="isLoading" [templateType]="'GENERIC_BET'"></loading-screen>
+<div *ngIf="!isLoading" class="empty-token-container" [ngClass]="reviewData.length? 'empty-token-container-data':'empty-token-container-no-data'">
+    <span class="token_value" [textContent]="'Bet Bundles Available ('+reviewData.length+')'"></span>
+    <span class="total_value" [textContent]="'Total: '+totalPrice"></span>
+</div>
+<ng-container *ngIf="bannerData?.bannerActiveInReviewPage&&isExpiresIn&&storageService.get('betPackReviewBanner')" >          
+    <div class="innerDiv" #container [ngStyle]="{'height':getheightFromChild(bannerText,0)}" >
+        <span class="gift_svg" [ngStyle]="{'width':getheightFromChild(bannerText,5)}" #giftSvg>
+            <svg>
+              <use [attr.xlink:href]="'#'+bannerData.reviewPageImageFileName" x="0" y="0"></use>
+            </svg>
+          </span>
+          <span class="innerSVG">
+            <svg>
+                <use [attr.xlink:href]="'#'+bannerData.reviewPageBgImageFileName" x="0" y="0"></use>
+              </svg>
+          </span>
+      <span class="banner-text banner-data text-start mr-5" [ngStyle]="{'margin-left':getSvgWidth(giftSvg)}" [innerHTML]="expiringTokenCount()"  #bannerText></span>
+        
+      <span class="close-icon banner-data" (click)="closeBaner(container)">
+        <svg class="cross_icon">
+          <use xlink:href="#close-icon"></use>
+        </svg>
+      </span>
+    </div>
+  </ng-container>
+<betpack-empty-page *ngIf="!reviewData.length && !isLoading && !disableBetPack"
+    [errorTitle]="betpackLabels.reviewErrorTitle" [errorMessage]="betpackLabels.reviewErrorMessage"
+    [goToBettingLabel]="betpackLabels.reviewGoToBettingLabel" [goBettingURL]="betpackLabels.reviewGoBettingURL"
+    [buttonEnable]="rgyCheck" [isReview]="true"></betpack-empty-page>
+<betpack-empty-page *ngIf="!reviewData.length && !isLoading && disableBetPack" [errorTitle]="betpackLabels.errorTitle"
+    [errorMessage]="betpackLabels.errorMessage" [goToBettingLabel]="betpackLabels.goToBettingLabel"
+    [goBettingURL]="betpackLabels.goBettingURL" [buttonEnable]="rgyCheck" [isReview]="true"></betpack-empty-page>
+<div class="review-betpack-container" *ngIf="(reviewData.length || !disableBetPack)&& !isLoading ">
+    <div class="all_bets" *ngFor="let bet of reviewData">
+        <div class="bet">
+            <div class="bet_header">
+                <span class="price" [textContent]="bet.betPackPurchaseAmount"></span>
+                <div class="header_content" [title]="bet.betPackTitle" [textContent]="bet.betPackTitle"></div>
+            </div>
+            <div class="bet_scroll">
+                <div class="bet_body" *ngFor="let token of bet.betPackTokenList; let i=index">
+                    <span *ngIf="i===0" class="token-header" [textContent]="bet.betPackFrontDisplayDescription"></span>
+                    <div class="token_data">
+                        <div class="token_main">
+                            <span class="token_name" [title]="token.tokenTitle" [textContent]="token.tokenTitle"></span>
+                            <a *ngIf="token.active"
+                                [routerLink]="[token.deepLinkUrl[0] === '/'? token.deepLinkUrl : '/'+token.deepLinkUrl]"
+                                class="bet_data" [textContent]="betpackLabels.useByLabel"
+                                (click)="sendGtmData(getmSendData[2],true,bet.betPackId)"></a>
+                        </div>
+                        <span *ngIf="token.freebetTokenExpiryDate" class="token_expiry"
+                            [textContent]="'Use by '+token.freebetTokenExpiryDate"></span>
+                            <div class="timer" *ngIf="enableExpiresIn && token.isExpiresIn">
+                                <svg class="expiringInfoIcon">
+                                  <use [attr.xlink:href]="'#'+icon"></use>
+                                </svg>
+                                
+                                <betpack-expiresin-timer [timer]="this.timeService.parseDateTime(token.formatDate)" [signPost]="signPost" [utc]="true" [displayTime]="false" (EmitTimer)="ontimerEmits($event,token)"
+                                  [betpackReview]="true" [displayCountdown]="true">
+                                </betpack-expiresin-timer>
+                              </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sports_footer">
+                <div class="sports_content">
+                    <div class="sport_body" *ngFor="let sport of bet.sportsTag" [title]="sport">
+            <span class="sport" *ngFor="let tokenContent of sport.trim().split(' ')" [textContent]="tokenContent"></span>
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="bet_footer">
+                <button class="more_button" (click)="openPopup(bet);sendGtmData(getmSendData[0],true,bet.betPackId)"
+                    [textContent]="betpackLabels.moreInfoLabel"></button>
+                <div class="purcahse">
+                    <span
+                        [textContent]="'Purchased on '+bet.betPackPurchaseDate+' - Use by '+bet.betPackEndDate"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-container *ngIf="reviewData.length > 0 && !isLoading && !onBetReceiptOverlaySeen && isUserLoggedIn && isMobile">
+    <lazy-component moduleUri="@lazy-modules-module/betpackOnboarding/betpack-onboarding.module#BetpackOnBoardingModule"
+        entryComponent="BetpackOnboardingComponent" [inputs]="{storageKey: storageKey, onBoardingType: onBoardingType }"
+        [outputs]="['closeOnboardingEmitter']" (event)="handleOnBoardingEvents($event)">
+    </lazy-component>
+</ng-container>

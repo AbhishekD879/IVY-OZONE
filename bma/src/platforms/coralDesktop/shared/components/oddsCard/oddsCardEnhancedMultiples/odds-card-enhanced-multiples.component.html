@@ -1,0 +1,28 @@
+<div *ngFor="let market of event.markets">
+  <div class="odds-card desktop-sport-card desktop-enhanced-card"
+       (click)="goToEvent(false, $event)"
+       *ngFor="let outcome of market.outcomes | slice:0:limitSelections; trackBy:trackById">
+    <div class="odds-content" data-crlat="oddsContent">
+      <div class="odds-left" data-crlat="oddsLeft">
+        <div class="odds-info-container">
+          <div class="odds-names odds-names-wrap"
+               data-crlat="oddsNames"
+               [textContent]="nameOfEvent(outcome)"></div>
+          <div class="odds-footer" data-crlat="oddsFooter" *ngIf="startTime">
+            <div class="odds-left" data-crlat="oddsLeft">
+              <span [textContent]="eventTime" data-crlat="eventTime"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="odds-right" data-crlat="oddsRight">
+        <div class="odds-btn-wrapper-no-markets">
+          <price-odds-button [event]="event"
+                             [market]="market"
+                             [outcome]="outcome">
+          </price-odds-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

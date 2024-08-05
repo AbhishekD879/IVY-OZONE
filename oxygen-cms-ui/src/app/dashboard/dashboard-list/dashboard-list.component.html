@@ -1,0 +1,56 @@
+<div class="card" *ngIf="!isLoading">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+        Dashboard Pages List
+      <small>Dashboard List(Purges on akamai)</small>
+    </h2>
+  </div>
+</div>
+
+<div class="card" *ngIf="!isLoading">
+  <div class="body">
+    <div class="row clearfix">
+      <div class="col-md-3">
+        <download-cvs [cvsData]="dashboards" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div class="col-md-3">
+          <mat-form-field class="full-width">
+              <input matInput
+                      [matDatepicker]="dpds"
+                      [(ngModel)]="chosenDate"
+                      [value]="chosenDate.value"
+                      (dateChange)="changeDate()"
+                      [max]="maxDate"
+                      placeholder="Choose Date" disabled>
+              <mat-datepicker-toggle matSuffix [for]="dpds"></mat-datepicker-toggle>
+              <mat-datepicker #dpds disabled="false"></mat-datepicker>
+              <mat-hint align="end">Date. format 1/23/2018</mat-hint>
+          </mat-form-field>
+      </div>
+      <div class="col-md-6 m-b-0" *ngIf="dashboards.length">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search Purge" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="!isLoading && (!dashboards || !dashboards.length)">
+      <div class="col-md-12">
+        <h3>No Purge Requests Found <span class="font-italic font-underline"></span></h3>
+      </div>
+    </div>
+    <div *ngIf="dashboards.length" class="row">
+      <div class="col-md-12">
+        <cms-data-table
+          [customTableData]="dashboards"
+          [customTableColumns]="dataTableColumns"
+          [reorder]="false"
+          [filterString]="searchField"
+          [filterProperties]="filterProperties">
+        </cms-data-table>
+      </div>
+    </div>
+  </div>
+</div>

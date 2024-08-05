@@ -1,0 +1,29 @@
+@import 'global.variables.scss';
+:host {
+    price-odds-button {
+        ::ng-deep .btn-bet {
+            min-width: auto;
+            font-size: 14px;
+            line-height: 13px;
+            min-height: 40px;
+            width: 100px;
+        }
+    }
+}
+show-all-button{
+  ::ng-deep .show-all-button {
+    text-decoration: none;
+    background: $color-white;
+    span {
+       color: $blue;
+       &:hover{
+        text-decoration: underline;
+        text-decoration-color: $color-blue-alt;
+      }
+      &:active{
+        text-decoration: none;
+        color: darken($color-blue-alt, 25%);
+      }
+    }
+  }
+}

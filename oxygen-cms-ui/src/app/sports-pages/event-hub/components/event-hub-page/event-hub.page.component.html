@@ -1,0 +1,40 @@
+<ng-container *ngIf="hubData">
+  <breadcrumbs [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+  <div class="card">
+    <div class="header">
+      <h2 class="has-activity-badge">
+        <span class="font-italic">Homepage Event Hub: {{ hubData.title}}</span>
+        <create-updated-at-by [collection]="hubData"></create-updated-at-by>
+      </h2>
+      <header-activity-badge [state]="hubData.disabled"></header-activity-badge>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="body">
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">Title</span>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !hubData.title}">
+            <input matInput placeholder="Title"  [(ngModel)]="hubData.title" [value]="hubData.title">
+            <mat-hint class="col-red" *ngIf="!hubData.title">Title should be entered</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <sport-modules-list
+    [hubIndex]="hubIndex">
+  </sport-modules-list>
+
+  <action-buttons
+    #actionButtons
+    [validateHandler]="validationHandler"
+    [fieldOrItemName]="'title'"
+    [collection]="hubData"
+    (actionsEmitter)="actionsHandler($event);"
+  ></action-buttons>
+</ng-container>

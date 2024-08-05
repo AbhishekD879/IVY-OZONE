@@ -1,0 +1,37 @@
+<div [ngClass]="carouselClass" id="{{carouselId}}">
+<nav data-uat="mainNav" class="carousel-menu" *ngIf="isAvailable">
+  <div class="scroll-container"
+       scrollable scrollonce [scrollonce]="GATrackingModule" [GATrackingObj]="GTMTrackingObj" 
+       [rescrollOnChange]="activeMenuItem">
+    <ul class="scroll-inner">
+      <li (touchstart)="iconPressedState(item)" (touchend)="iconDefaultState($event, item, itemIndex + 1)" (touchmove)="menuScrolled()"  *ngFor="let item of menuItems; let itemIndex = index; trackBy: trackByFn"
+          [ngClass]="{active: (item.targetUriCopy === activeMenuItem && item.targetUri !== '/')}"
+          data-crlat="carouselMenu.item">
+        <a id="{{item.targetUri}}"
+           class="menu-item"
+           [attr.href]="item.targetUri"
+           [attr.title]="item.imageTitle"
+           [attr.target]="!item.inApp ? '_blank' : ''"
+           data-crlat="menu.item"
+           click-link>
+          <svg id="{{item.imageTitle}}" class="submenu-list-icon"
+               data-crlat="submenuListIcon"
+               disable-dragging>
+            <use [attr.xlink:href]="'#' + (item.svgId || 'icon-generic')"></use>
+          </svg>
+          <span class="submenu-list-title"
+                [innerHtml]="item.imageTitle"
+                data-crlat="menuItem.title"
+                disable-dragging>
+          </span>
+          <span *ngIf="isLiveCounter && eventCount(item)"
+                class="count-label"
+                [innerHtml]="eventCount(item)"
+                data-crlat="eventCount">
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+</div>

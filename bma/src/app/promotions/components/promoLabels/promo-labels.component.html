@@ -1,0 +1,28 @@
+<div *ngIf="(isCashoutAvailable && !isQuickbet) || promoLabels.length || isBogEnabled"
+     class="promo-labels {{ mode }}">
+
+  <!-- Cashout label -->
+  <div class="cashout-label-wrapper" *ngIf="isCashoutAvailable && !isQuickbet">
+    <svg class="cashout-icon" width="11px" height="11px">
+      <use xlink:href="#cashout-icon"></use>
+    </svg>
+    <span class="cashout-label" [i18n]="'app.cashout'" data-crlat="labelCashout" ></span>
+  </div>
+
+  <!-- Promo labels -->
+  <ng-container *ngIf="isPromoSignpostingEnabled">
+    <ng-container *ngFor="let label of promoLabels; trackBy: trackByIndex;">
+      <span [ngClass]="label.id.substring(1)" class="promo-label {{label?.eventFlag?.toLowerCase()}}">
+        <svg width="12px" height="12px" class="promo-icon">
+         <use [attr.xlink:href]="label.id" data-crlat="promo.icon"></use>
+        </svg>
+        <span [i18n]="'bma.' + label.name" data-crlat="promo.label"></span>
+      </span>
+    </ng-container>
+  </ng-container>
+
+  <bog-label
+    [bogLabelStyle]="true"
+    *ngIf="isBogEnabled">
+  </bog-label>
+</div>

@@ -1,0 +1,75 @@
+@import 'global.variables.scss';
+
+$icon-top: 0.03em;
+
+#card-signpostings {
+    @include display-flex();
+    max-width: 355px;
+
+    @media (min-width: $desktopPoint) {
+        max-width: 430px;
+    }
+
+    @media (max-width: $mobileSmallPoint) {
+        max-width: 310px;
+    }
+
+    .svg-img {
+        width: 11px;
+        height: 11px;
+        margin-right: 5px;
+
+        &.total {
+            width: 16px;
+            height: 12px;
+            position: relative;
+            top: $icon-top;
+        }
+
+        &.currency {
+            height: 12px;
+            width: 10px;
+        }
+
+        &.vouchers,
+        &.tickets {
+            width: 13px;
+            height: 9px;
+        }
+
+        &.max {
+            height: 12px;
+            position: relative;
+            top: $icon-top;
+        }
+
+        &.freebets {
+            width: 12px;
+            height: 11px;
+        }
+    }
+
+    .prize-info-buttons {
+        @include setFontProps($base-font-family, $font-size-md, bold, $color-light-white-grey);
+        padding: 6px;
+        border-radius: 4px;
+        border: solid 1px $color-grey-sponsor;
+        margin: 0 0 0 6px;
+        font-stretch: condensed;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
+        text-transform: uppercase;
+
+        .signpost-text {
+            position: relative;
+            top: -0.049em;
+
+            &.total,
+            &.max {
+                top: -0.1em;
+            }
+        }
+    }
+}

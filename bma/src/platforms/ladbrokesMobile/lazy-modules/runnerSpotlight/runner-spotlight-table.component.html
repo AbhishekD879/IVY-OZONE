@@ -1,0 +1,18 @@
+<table class="horse-form-table" *ngIf="outcome?.racingFormOutcome?.form?.length > 0 "> 
+  <tr class="table-header">
+    <th><span [i18n]="'racing.formTable.date'"></span></th>
+    <th><span [i18n]="'racing.formTable.conditions'"></span></th>
+    <th><span [i18n]="'racing.formTable.weight'"></span></th>
+    <th><span [i18n]="'racing.formTable.analysis'"></span></th>
+    <th><span [i18n]="'racing.formTable.rpr'"></span></th>
+    <th><span [i18n]="'racing.formTable.officialRating'"></span></th>
+  </tr>
+  <tr *ngFor="let form of outcome.racingFormOutcome.form | slice:0:5; trackBy: trackByValue">
+    <td [textContent]="form.date | date: 'dd/MM/yy'"></td>
+    <td [textContent]="form.condition"></td>
+    <td [textContent]="form.weight"></td>
+    <td [textContent]="form.outcome"></td>
+    <td [textContent]="form.rpr"></td>
+    <td [textContent]="form.officialRating"></td>
+  </tr>
+</table>

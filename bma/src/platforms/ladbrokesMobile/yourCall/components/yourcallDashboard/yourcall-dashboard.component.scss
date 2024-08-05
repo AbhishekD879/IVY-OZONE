@@ -1,0 +1,133 @@
+@import 'global.variables.scss';
+
+$dashboard-odds-background: #8bbd24;
+
+.yourcall-dashboard {
+  header {
+    background-color: $lGray;
+  }
+
+  .alert {
+    background-color: $warning-msg-color;
+    span {
+      font-weight: 500;
+      color: $lGray;
+      width: 100%;
+      font-family: $alt-font-family;
+    }
+  }
+
+  .description {
+    .title {
+      font-size: 13px;
+    }
+    .brief {
+      font-size: 11px;
+      font-weight: normal;
+      color: $color-gray-darker-two;
+    }
+  }
+
+  .odd {
+    background: $dashboard-odds-background;
+    span {
+      font-size: 16px;
+      &.label {
+        font-size: 11px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .selection {
+    .value,
+    .label {
+      font-size: 12px;
+      font-family: $alt-font-family;
+      font-weight: 500;
+    }
+  }
+  .selections {
+    li {
+      .edit-section {
+        .dash-item  {
+          .done {
+            text-transform: capitalize;
+            text-decoration: none;
+            color: $lBlack-medium;
+            font-family: $alt-font-family;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 12px 0 12px 0;
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+        .none-style-list {
+          .player-bets-form {
+            .player-bets-step-list {
+              list-style-type: none;
+              .player-bets-step{
+                custom-select {
+                  margin-top: 4px;
+                }
+              }
+            }
+          }
+        }
+      }
+      background: $color-white;
+      border-bottom: 1px solid $lGrayLight;
+      &:nth-of-type(even) {
+        background: $color-white;
+      }
+    }
+    .selection {
+      .value {
+        text-transform: none;
+        color: #2b2b2b;
+      }
+      #text-value {
+        text-transform: capitalize;
+      }
+      .label {
+        color: $lBlack-light;
+      }
+    }
+    .remove {
+      svg {
+        fill: $lGray;
+      }
+    }
+  }
+
+  .edit-section-text {
+    text-transform: capitalize;
+    text-decoration: none;
+    color: $lBlack-medium;
+    font-family: $alt-font-family;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .open {
+    font-size: 12px;
+    font-weight: bold;
+    span {
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+  }
+
+  .counter {
+    div {
+      background: $fb-home-team-label;
+      height: 15px;
+      width: 15px;
+      border: none;
+      color: $lGray;
+      font-size: 11px;
+    }
+  }
+}

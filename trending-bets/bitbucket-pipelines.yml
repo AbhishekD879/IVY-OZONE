@@ -1,0 +1,57 @@
+clone:
+  depth: full
+pipelines:
+
+  default:
+    - step:
+        name: build
+        image: azul/zulu-openjdk:17.0.5
+        caches:
+          - gradle
+          - gradlewrapper
+        script:
+          - chmod +x ./gradlew
+          - ./gradlew spotlessApply
+          - ./gradlew test build
+    - step:
+        name: test
+        image: azul/zulu-openjdk:17.0.5
+        caches:
+          - sonarcloud
+        script:
+          - chmod +x ./gradlew
+          - ./gradlew spotlessApply
+          - ./gradlew test sonarqube --watch-fs
+            -Daudit.username='$OSSINDEX_USER'
+            -Daudit.password='$OSSINDEX_PASS'
+            -Dsonar.coverage.exclusions=src/main/java/com/ladbrokescoral/oxygen/trendingbets/configuration/*.java,src/main/java/com/ladbrokescoral/oxygen/trendingbets/dto/*.java,com/ladbrokescoral/oxygen/trendingbets/Application.java
+
+
+  pull-requests:
+    '**':
+      - step:
+          name: build
+          image: azul/zulu-openjdk:17.0.5
+          script:
+            - chmod +x ./gradlew
+            - ./gradlew spotlessApply
+            - ./gradlew test build
+
+      - step:
+          name: test
+          image: azul/zulu-openjdk:17.0.5
+          script:
+            - chmod +x ./gradlew
+            - ./gradlew spotlessApply
+            - ./gradlew test sonarqube --watch-fs
+              -Daudit.username='$OSSINDEX_USER'
+              -Daudit.password='$OSSINDEX_PASS'
+              -Dsonar.pullrequest.key=$BITBUCKET_PR_ID
+              -Dsonar.pullrequest.base=$BITBUCKET_PR_DESTINATION_BRANCH
+              -Dsonar.pullrequest.branch=$BITBUCKET_BRANCH
+              -Dsonar.coverage.exclusions=src/main/java/com/ladbrokescoral/oxygen/trendingbets/configuration/*,src/main/java/com/ladbrokescoral/oxygen/trendingbets/dto/*,com/ladbrokescoral/oxygen/trendingbets/Application.java
+
+definitions:
+  caches:
+    sonarcloud: ~/.sonar/cache
+    gradlewrapper: ~/.gradle/wrapper

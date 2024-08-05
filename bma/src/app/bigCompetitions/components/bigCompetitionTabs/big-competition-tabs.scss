@@ -1,0 +1,147 @@
+@import "global.variables.scss";
+.grp-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.grp-grid > div {
+  width: 50%;
+}
+.grp-grid > div:nth-child(odd) {
+  padding-right: 5px;
+}
+
+.grp-grid-col {
+  flex-direction: column;
+  & div {
+    width: 100%;
+    padding-right: 0px !important;
+  }
+  .dis-event .header-title {
+    width: 100%;
+    position: absolute;
+  }
+}
+.grp-grid .full-view {
+  width: 100% !important;
+  padding-right: 0px !important;
+}
+accordion.dis-event .accordion-header,
+accordion.dis-event .container-header {
+  pointer-events: none;
+  & .accordion-title {
+    min-width: 50px;
+  }
+}
+.dis-event .is-expanded .chevron-up {
+  visibility: hidden !important;
+}
+competition-outrights,
+competition-results accordion {
+  & .accordion-header.inner-header,
+  .accordion-header.inner-header .header-title {
+    font-weight: 700;
+    font-family: "Roboto Condensed";
+    font-size: 13px;
+  }
+  & .accordion-header .accordion-title {
+    color: $bch-blue;
+    text-transform: none !important;
+  }
+  & .container-header.forced-chevron-up-and-styles span {
+    color: $bch-blue-1;
+    font-size: 12px !important;
+  }
+}
+competition-outrights accordion {
+  & .accordion-header {
+    padding: 10px 10px 10px 32px !important;
+  }
+  & .chevron-svg {
+    left: 11px !important;   
+  }
+  & .container-content{
+    background: none !important;
+  }
+  .chevron-up {
+    visibility: visible !important;
+    &:before {
+      transform: rotate(35deg);
+      will-change: transform;
+    }
+    &:after {
+      transform: rotate(-35deg);
+      will-change: transform;
+    }
+  }
+  & .chevron:before{
+    background: $color-blue-dark !important;
+  }
+  & .chevron:after{
+    background: $color-blue-dark !important;
+  }
+  & .container-header.inner-header.toggle-header{
+    background: $color-gray-light !important;
+  }
+  & .container-header.inner-header{
+    text-transform : none !important;
+    font-size: 12px !important;
+  }
+  & .container-header .header-title{
+    text-transform : none !important;
+  }
+  & .toggle-header.inner-header{
+    background: $color-gray-light !important;
+  }
+}
+
+competition-outrights accordion accordion-body {
+  & .lads-view   accordion {
+    & .accordion-header {
+      padding: 10px 10px 10px 10px !important;
+    }
+    & .accordion-header .chevron-svg {
+      position: initial;
+      
+    }
+   
+  }
+  & accordion .page-inner-container{
+    border-bottom:none !important;
+  }
+   & .accordion-header .accordion-title{
+    text-transform: none !important;
+   }
+  & .lads-view   accordion.is-expanded {
+  .accordion-header .chevron-up {
+    will-change: transform;
+    transform: rotate(180deg) !important;  
+    transition: 0ms;
+  }
+}
+  & .mob-view   accordion {
+    & .accordion-header {
+      padding: 10px 10px 10px 10px !important;
+    }
+    & .accordion-header .chevron-svg {
+      position: initial;
+      
+    }
+    & .accordion-header.inner-header:after{
+      border-color: $color-gray-darkest;
+      left: auto;
+      right: 15px;
+    }
+  }
+  & .coral-mob-view  accordion {
+    & .accordion-header {
+      padding: 10px 10px 10px 10px !important;
+    }
+    & .accordion-header .chevron-svg {
+      position: initial;
+      
+    }
+  }
+
+}

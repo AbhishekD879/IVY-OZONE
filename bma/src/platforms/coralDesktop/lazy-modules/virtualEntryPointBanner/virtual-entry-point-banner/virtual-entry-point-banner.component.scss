@@ -1,0 +1,44 @@
+.virtual-Img-container-coral-desk {
+        position: relative;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .virtual-Img-container-coral-desk img {
+        width: 100%;
+        height: auto;
+        min-height: 75px;
+    }
+    
+    .pointer
+    {
+     cursor : pointer;
+    }
+    
+    .virtual-Img-container-coral-desk .btn {
+        position: absolute;
+        top: 50%;
+        transform: translate(-28%, -50%);
+        -ms-transform: translate(-28%, -50%);
+        cursor: pointer;
+        height: 35px;
+        width: 100px;
+        color: #FFF;
+        text-align: center;
+        font-family: Lato;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        border-radius: 2px;
+        background: #78BE20;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        right: 0px;
+    }
+    
+    .virtual-Img-container-coral-desk .btn:hover {
+        background-color: #9acf58;
+    }

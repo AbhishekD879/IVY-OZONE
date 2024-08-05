@@ -1,0 +1,129 @@
+.sticky-carousel{
+  .carousel-menu {
+    .scroll-container{
+      .scroll-inner {
+        li {
+          .icon-pressed-state {
+            position: relative;
+            overflow: hidden;
+          }
+          .icon-pressed-state::after{
+            display: none;
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            background-color: #0B427A;
+            
+            width: 100px;
+            height: 100px;
+            margin-top: -50px;
+            margin-left: -50px;
+            
+            /* Center the ripple */
+            top: 50%;
+            left: 50%;
+          
+            animation: ripple 0.6s;
+            opacity: 0;
+          }
+          .icon-pressed-state:active::after {
+            display: block;
+          }
+          .icon-default-state {
+            animation-play-state: paused;
+          }
+    
+          .menu-item{
+            .icon-pressed {
+              transform: scale(0.85);
+            }
+            .icon-default {
+              transform: scale(1);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.sports-ribbon{
+    .carousel-menu {
+      @media (max-width: $mobilePoint) {
+        
+        .scroll-container {
+          background: $color-blue-rich !important;
+  
+          .scroll-inner {
+            
+            .menu-item {
+              padding: 6px 0px !important;
+            }
+  
+            .submenu-list-icon {
+              margin-bottom: -1.5px !important;
+            }
+  
+            .submenu-list-title {
+              display: flex !important;
+              max-width: 56px !important;
+              height: 20px;
+              justify-content: center;
+              align-items: center;
+              line-height: 10px !important;
+              word-break: break-word;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+/*Scrolled panel*/
+.scroll-container {
+  cursor: move;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  position: relative;
+  @include user-select();
+  overflow-y: hidden;
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+   display: none;
+  }
+
+  .scroll-inner {
+    display: inline-block;
+    margin: 0;
+    padding: 5px 0;
+    position: relative;
+    white-space: nowrap;
+
+    &--no-padding {
+      padding: 0;
+    }
+
+    li {
+      @include inline-flex();
+      list-style: none;
+      text-align: center;
+      margin: 0;
+      vertical-align: top;
+    }
+  }
+}
+
+@keyframes ripple {
+  from {
+    opacity: 1;
+    transform: scale(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(10);
+  }
+}

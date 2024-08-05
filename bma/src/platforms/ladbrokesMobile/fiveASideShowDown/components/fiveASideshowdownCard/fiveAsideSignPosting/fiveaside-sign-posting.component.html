@@ -1,0 +1,50 @@
+<div id="card-signpostings">
+    <div class="prize-info-buttons" *ngIf='signPostingsInfo?.summary'>
+        <svg class="svg-img">
+            <use xlink:href="#showdown-card-star"></use>
+        </svg>
+        <span class="signpost-text" [textContent]="contestDetails?.prizePoolSummary"></span>
+    </div>
+    <div class="prize-info-buttons" *ngIf='signPostingsInfo?.size'>
+        <svg class="svg-img total">
+            <use xlink:href="#showdown-card-total"></use>
+        </svg>
+        <span class="signpost-text total" [textContent]="contestDetails?.contestSize"></span>
+    </div>
+    <div class="prize-info-buttons" *ngIf='signPostingsInfo?.totalPrizes'>
+        <svg class="svg-img currency">
+            <use xlink:href="#showdown-card-currency"></use>
+        </svg>
+        <span class="signpost-text" [textContent]="contestDetails?.prizePoolTotalPrizes"></span>
+    </div>
+    <div class="prize-info-buttons" *ngIf='signPostingsInfo?.teams'>
+        <svg class="svg-img max">
+            <use xlink:href="#showdown-card-max"></use>
+        </svg>
+        <span class="signpost-text max" [textContent]="contestDetails?.teamsEntries"></span>
+    </div>
+    <div class="prize-info-buttons" *ngIf='signPostingsInfo?.firstPlace'>
+        <svg class="svg-img">
+            <use xlink:href="#showdown-card-first"></use>
+        </svg>
+        <span class="signpost-text" [textContent]="contestDetails?.firstPlace"></span>
+    </div>
+    <div class="prize-info-buttons" *ngIf='signPostingsInfo?.vouchers'>
+        <svg class="svg-img vouchers">
+            <use xlink:href="#showdown-card-vouchers"></use>
+        </svg>
+        <span class="signpost-text" [textContent]="contestDetails?.vouchers"></span>
+    </div>
+    <div class="prize-info-buttons" *ngIf='signPostingsInfo?.tickets'>
+        <svg class="svg-img tickets">
+            <use xlink:href="#showdown-card-tickets"></use>
+        </svg>
+        <span class="signpost-text" [textContent]="contestDetails?.tickets"></span>
+    </div>
+    <div class="prize-info-buttons" *ngIf='signPostingsInfo?.freeBets'>
+        <svg class="svg-img freebets">
+            <use xlink:href="#showdown-card-prize"></use>
+        </svg>
+        <span class="signpost-text" [textContent]="contestDetails?.freeBets"></span>
+    </div>
+</div>

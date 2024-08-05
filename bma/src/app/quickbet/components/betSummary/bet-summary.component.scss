@@ -1,0 +1,39 @@
+//Global styles
+@import 'global.variables.scss';
+
+$qb-content-side-padding: 12px;
+
+/* Quickbet info section */
+.quickbet-info-spot {
+  padding: $qb-content-side-padding;
+  background: $color-gray-light;
+  position: relative;
+
+  .qb-stake-info,
+  .qb-return-info {
+
+    color: $color-gray-dark;
+    width: 100%;
+    text-transform: capitalize;
+    letter-spacing: -0.1px;
+    @include display-flex();
+    @include justify-content(space-between);
+  }
+
+  .qb-stake-info {
+    font-size: 12px;
+    line-height: 15px;
+    margin-bottom: 5px;
+    .free-bet-label{
+      height: 18px;
+      vertical-align: text-top;
+    }
+  }
+
+  .qb-return-info {
+    line-height: 17px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+}

@@ -1,0 +1,17 @@
+<ul class="custom-table-pagination" *ngIf="range.length > 1">
+  <li>
+    <a class="pagination-prev"
+       [ngClass]="{ 'disabled':  currentIndex === 0 }"
+       (click)="goToPage.emit(currentIndex - 1)"></a>
+  </li>
+  <li *ngFor="let r of range; let i = index;">
+    <a [textContent]="i + 1"
+       [ngClass]="{ 'active': i === currentIndex }"
+       (click)="goToPage.emit(i)"></a>
+  </li>
+  <li>
+    <a class="pagination-next"
+       [ngClass]="{ 'disabled':  currentIndex === range.length - 1 }"
+       (click)="goToPage.emit(currentIndex + 1)"></a>
+  </li>
+</ul>

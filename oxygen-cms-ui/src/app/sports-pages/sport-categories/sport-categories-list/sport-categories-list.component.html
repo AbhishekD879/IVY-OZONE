@@ -1,0 +1,79 @@
+<breadcrumbs *ngIf="sportCategories" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div *ngIf="sportCategories" class="card">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Sport Categories Page
+      <small *ngIf="sportCategories.length">Total Sport Categories Amount: {{sportCategories.length}}</small>
+      <small *ngIf="!sportCategories.length">No Sport Categories Found</small>
+    </h2>
+  </div>
+</div>
+
+<div class="card">
+  <div class="body">
+    <!-- search and download button.-->
+    <div *ngIf="sportCategories" class="row clearfix">
+      <div class="col-md-6">
+        <button (click)="createSportCategory()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create Sport Category</span>
+        </button>      
+
+        <div class="segment-dropdown" class="m-b-0" >
+          <cms-segment-dropdown [activeSegment]='selectedSegment'
+                                (selectedSegment)="segmentHandler($event)"
+                                [disabled]='sportsCategoryFlag'>
+          </cms-segment-dropdown>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <download-cvs [cvsData]="sportCategories" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+
+      <div class="col-md-3">
+        <mat-radio-group [(ngModel)]="sportsCategoryFlag" (change)="onFilterChange(selectedSegment)">
+          <mat-radio-button [value]="true" class="m-r-5">Sports Category</mat-radio-button>
+          <mat-radio-button [value]="false">Show in Sports Ribbon</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field>
+            <input matInput placeholder="Search For Sport Category" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="sportCategories && sportCategories.length">
+      <div *ngIf="orderMessage" class="order-message">
+        {{ orderMessage }}
+      </div>
+      <cms-data-table *ngIf="sportsCategoryFlag && nonSegmented"
+        [customTableData]="sportCategories"
+        [customTableColumns]="sportsCategoryDataTableColumns"
+        [reorder]="true"
+        [actions]="['remove', 'edit']"
+        [filterString]="searchField"
+        [filterProperties]="searchableProperties"
+        (onElementsOrder)="reorderHandler($event)"
+        (onRemoveTableElement)="removeHandler($event)">
+      </cms-data-table>
+      <cms-segment-data-table *ngIf="!sportsCategoryFlag && segmentChanged"
+        [customTableData]="updatedSportCategories"
+        [selectedSegment]="selectedSegment"
+        [customTableColumns]="showInSportsRibbonDataTableColumns"
+        [filterString]="searchField"
+        [sportsCategoryFlag]="sportsCategoryFlag"
+        [filterProperties]="searchableProperties"
+        [reorder]="true"
+        (onElementsOrder)="reorderHandler($event)"
+        (onRemoveTableElement)="removeHandler($event)"
+        (showOnSportsFlagChange)="saveSportsRibbonFlagChange($event,rowIndex)">
+      </cms-segment-data-table>     
+    </div>
+    <div *ngIf="error">
+      Request Error
+    </div>
+  </div>
+</div>

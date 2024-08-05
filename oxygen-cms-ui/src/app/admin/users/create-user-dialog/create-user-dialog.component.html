@@ -1,0 +1,59 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>Create CMS User</h1>
+  <form #createUserForm="ngForm" id="user-form">
+    <div mat-dialog-content>
+      <div class="row">
+        <div class="col-6">
+          <mat-form-field class="full-width">
+            <input matInput [(ngModel)]="user.name.first" #first="ngModel" placeholder="First name" name="first" required>
+          </mat-form-field>
+          <mat-error *ngIf="first.invalid && (first.dirty || first.touched)">
+            This field is <strong>required</strong>
+          </mat-error>
+        </div>
+        <div class="col-6">
+          <mat-form-field class="full-width">
+            <input matInput [(ngModel)]="user.name.last" #last="ngModel" placeholder="Last name" name="last" required >
+          </mat-form-field>
+          <mat-error *ngIf="last.invalid && (last.dirty || last.touched)">
+            This field is <strong>required</strong>
+          </mat-error>
+        </div>
+        <div class="col-12">
+          <mat-form-field class="full-width">
+            <input matInput type="email" [(ngModel)]="user.email" #email="ngModel" email placeholder="Email" name="email" required >
+          </mat-form-field>
+          <mat-error *ngIf="email.errors?.required && (email.dirty || email.touched)">
+            This field is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="email.errors?.email && (email.dirty || email.touched)">
+            Email not valid.
+          </mat-error>
+        </div>
+        <div class="col-6">
+          <mat-form-field class="full-width">
+            <input matInput type="password" [(ngModel)]="user.password" minlength="5" #password="ngModel" name="password" placeholder="Password" required>
+          </mat-form-field>
+          <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
+            This field is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="password.invalid && password.errors.minlength && (password.dirty || password.touched)">
+              This field min length is 5 <strong>required</strong>
+          </mat-error>
+        </div>
+        <div class="col-6">
+          <mat-form-field class="full-width">
+            <input matInput type="password" [(ngModel)]="user.confirmPassword" minlength="5" #confirm="ngModel" name="confirm" placeholder="Confirm Password" validateEqual="password" required trim="blur">
+          </mat-form-field>
+          <mat-error *ngIf="password.value !== confirm.value && (confirm.touched)">
+            Passwords must match
+          </mat-error>
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <button (click)="closeDialog()" mat-button class="btn btn-sm bg-cean m-r-20 float-right">Cancel</button>
+      <button (click)="getUser();" [mat-dialog-close]="user" [disabled]="!isValidUser()" mat-button class="btn btn-sm bg-teal float-right">Save</button>
+    </div>
+  </form>
+</div>

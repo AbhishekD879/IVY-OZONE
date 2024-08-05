@@ -1,0 +1,54 @@
+<div class="custom-dialog">
+  <h1 mat-dialog-title>New Coupon Market Selector</h1>
+  <form [formGroup]="form" novalidate>
+    <div mat-dialog-content>
+      <div class="row">
+        <div class="col-md-12 p-b-20">
+          <mat-form-field class="full-width">
+            <input matInput
+                   [(ngModel)]="marketSelector.title"
+                   placeholder="Title"
+                   formControlName="title"
+                   required trim="blur">
+            <mat-hint class="col-red" *ngIf="!marketSelector.title">Title should be entered</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12 p-b-20">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !marketSelector.templateMarketName || !isTemplateNameFree }">
+            <input matInput type="text" required
+                   aria-label="Market Template Name"
+                   placeholder="Market Template Name"
+                   [(ngModel)]="marketSelector.templateMarketName"
+                   formControlName="templateMarketName"
+                   [matAutocomplete]="auto"
+                  (keyup)="isTemplateNameValid()">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let templateName of marketTemplateNames" [value]="templateName">
+                {{ templateName }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-hint class="col-red" *ngIf="!marketSelector.templateMarketName">Template market name should be entered</mat-hint>
+            <mat-hint class="col-red" *ngIf="marketSelector.templateMarketName && !isTemplateNameFree">Template market name is already in use</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <mat-form-field class="full-width" [ngClass]="{ 'mat-form-field-invalid': !isValidHeaders()}">
+            <input matInput
+                   [(ngModel)]="marketSelector.headerStr"
+                   placeholder="Headers"
+                   formControlName="headers"
+                   trim="blur">
+            <mat-hint class="col-red" *ngIf="!isValidHeaders()">There should be no more then three headers separated by comma</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button class="btn btn-sm bg-cean m-r-20 float-right" (click)="closeDialog()">Cancel</button>
+      <button mat-button class="btn btn-sm bg-teal float-right"
+              [disabled]="!isMarketSelectorValid()"
+              (click)="getMarketSelector();"
+              [mat-dialog-close]="marketSelector">Save</button>
+    </div>
+  </form>
+</div>

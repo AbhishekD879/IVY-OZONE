@@ -1,0 +1,60 @@
+@import 'global.variables.scss';
+
+:host {
+
+  .label-panel {
+    width: 100%;
+    display: flex;
+    padding: 8px 12px 0;
+    position: relative;
+    z-index: 1;
+    margin-bottom: -1px;
+    background: #fff;
+  }
+
+  .list-card-odds {
+    position: relative;
+    width: 100%;
+    font-size: $font-size-md;
+    margin-top: 5px;
+  }
+
+  .racing-label {
+    @include display-flex();
+    @include align-items(center);
+    background: $color-yellow-alt;
+    font-family: $base-font-family;
+    color: $color-black-soft;
+    text-transform: uppercase;
+    font-size: $font-size-sm;
+    font-weight: 700;
+    line-height: 15px;
+    padding: 0 4px;
+    float: right;
+    min-height: 15px;
+    white-space: nowrap;
+    &:hover {
+      opacity: .85;
+      color: $lGray;
+    }
+    &:active {
+      background-color: $color-orange-light2;
+      opacity: 1;
+      color: $lGray;
+    }
+  }
+
+  .racing-icon {
+    width: 14px;
+    height: 14px;
+    fill: $color-black-soft;
+    margin-right: 3px;
+  }
+    .epr {
+      display: flex;
+      align-content: center;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+}

@@ -1,0 +1,75 @@
+@import 'global.variables.scss';
+
+$card-h-font-style: uppercase;
+$card-h-font-weight: 700;
+$card-h-border    : 1px solid $color-gray;
+$card-h-padding   : 0 9px 0 12px;
+$card-h-margin    : 0;
+$card-r-side-width: 50px;
+
+/* ------ODDS-CARD-HEADER------------ */
+.odds-card-header {
+  background: $card-h-bg;
+  padding: $card-h-padding;
+  margin: $card-h-margin;
+  @include display-flex();
+  @include align-items();
+  color: $card-h-font-color;
+  font: #{$font-size-sm}/19px $base-font-family;
+  font-weight: $card-h-font-weight;
+  text-transform: $card-h-font-style;
+  min-height: 22px;
+  border-top: $card-h-border;
+  position: relative;
+  z-index: 1;
+
+  &[hidden] {
+    display: none;
+  }
+
+  .odds-header-title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: $font-size-md;
+    text-transform: capitalize;
+  }
+
+  .odds-header-col {
+    width: $card-r-side-width;
+    margin: 0 3px;
+    text-align: center;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &.odds-header-col-full {
+      width: auto;
+    }
+  }
+  .odds-header-score {
+    margin: 0px 9px 0px 12px;
+    text-align: center;
+    font: $font-size-md $base-font-family;
+    font-weight: 700;
+    color: #a2aaae;
+    & > * {
+      display: inline-block;
+      width: 14px;
+      &:not(:first-child) {
+        margin-left: 5px;
+      }
+      &:last-child {
+        margin-left: 7px;
+      }
+    }
+  }
+}
+
+.matches-card {
+  .odds-card-header {
+    border-bottom: none;
+  }
+}
+

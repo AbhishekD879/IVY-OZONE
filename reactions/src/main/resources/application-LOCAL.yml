@@ -1,0 +1,9 @@
+reactions:
+  cmsBaseUrl: 'http://localhost:8080/'
+  bppBaseUrl: 'http://bpp.internal.tst.coral.co.uk/Proxy'
+
+masterlock:
+  aws:
+    dynamo.lock-table-name: CR-MSLOCKTABLE-DEV
+  partitionKey: LOCAL
+  enabled: false

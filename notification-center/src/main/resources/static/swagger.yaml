@@ -1,0 +1,17 @@
+openapi: 3.0.1
+info:
+  title: Oxygen Notification Ceneter REST API
+  description: >
+    This page contains only public POST/PUT requests available on notification-center API.
+  version: '94.0.0'
+servers:
+- url: /
+  variables: {}
+schemes:
+  - https
+  - http
+produces:
+  - application/json
+paths:
+  /subscribe:
+    $ref: './definitions/paths/subscriptions.yaml'

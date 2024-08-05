@@ -1,0 +1,38 @@
+<div class="fanzone-outrights">
+    <div class="fz-outrights-header">
+        <div *ngIf="eventEntity?.length" class="fz-outrights-title" data-crlat="fzOutrightsTitle">
+            <span [textContent]="fanzoneDetails?.outRightsLbl"></span>
+        </div>
+        <div class="premier-league-table-link" *ngIf="fanzoneDetails?.fanzoneConfiguration?.showCompetitionTable">
+            <a class="premier-league-table" data-crlat="premierLeagueTableLink" (click)="leagueStandingsOpened()">
+                <svg class="premier-league-table-icon" data-crlat="premierLeagueTableIcon">
+                    <use xlink:href="#premier-league-table"></use>
+                </svg>
+                <span data-crlat="premierLeagueTableTitle" [textContent]="fanzoneDetails?.premierLeagueLbl"></span>
+            </a>
+        </div>
+    </div>
+    <ng-container *ngIf="eventEntity?.length">
+        <div *ngFor="let event of eventEntity">
+            <div class="event-title-bar__container">
+                <div class="event-title-bar__default-title" data-crlat="defBar">
+                    <h1 class="event-name"
+                        [textContent]="event.name"
+                        data-crlat="event.name">
+                    </h1>
+                </div>
+            </div>
+            <fanzone-event-markets [eventEntity]="event"
+                [panelType]="'outright'"
+                data-crlat="accordionsList">
+            </fanzone-event-markets>
+        </div>
+    </ng-container>
+</div>
+
+<fanzone-league-table-modal 
+    [ngClass]="leagueTableOpened ? 'league-table-opened' : 'league-table-closed'" 
+    [leagueSrcLink]="leagueSrcLink" 
+    (closeOverlay)="leagueStandingsOpened()">
+</fanzone-league-table-modal>
+

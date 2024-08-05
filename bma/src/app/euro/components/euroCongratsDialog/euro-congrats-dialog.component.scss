@@ -1,0 +1,26 @@
+@import 'global.variables.scss';
+
+:host {
+  ::ng-deep .modal-dialog {
+    width: auto;
+    .modal-content {
+      border-radius: 6px;
+      .modal-header {
+        display: none;
+      }
+
+    }
+  }
+}
+
+.euroCongrats-dialog {
+  .freebet-model {
+    padding-top: 12px;
+  }
+
+  .group-default {
+    .btn {
+      color: $color-black;
+    }
+  }
+}

@@ -1,0 +1,36 @@
+@import 'global.variables.scss';
+@import '../../../../../app/betslip/components/betslipSubheader/betslip-subheader.component.scss';
+
+.bs-subheader {
+  @include display-flex();
+  @include align-items(center);
+  background-color: $lGrayLight;
+  border-bottom: 1px solid $lGrayDark;
+  .bs-count {
+    @include flex(2);
+    text-align: left;
+    color: $color-gray-darkest;
+    font-family: $alt-font-family;
+    font-size: 13px;
+    line-height: 15.34px;
+    padding: 14px 0 12px;
+  }
+  .bs-clear,.bs-clear-mobile {
+    @include flex(1);
+    text-align: right;
+    text-transform: uppercase;
+    color: $color-blue-alt;
+    font-size: 11px;
+    span {
+      cursor: pointer;
+    }
+    font-family: $base-font-family;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 13px;
+  }
+}
+.closure-message-container {
+  line-height: 16px;
+  font-family: $alt-font-family;
+}

@@ -1,0 +1,34 @@
+@import 'global.variables.scss';
+
+.show-more-link {
+  background: $color-gray-light;
+  height: 35px;
+  text-transform: uppercase;
+  padding: 0 10px;
+  @include display-flex();
+  @include align-items();
+  @include justify-content(flex-end);
+  font-size: 11px;
+  cursor: pointer;
+  font-weight: bold;
+  color: $color-gray-dark;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+  &:active {
+    text-decoration: underline;
+  }
+
+  .yourcall-hash {
+    color: $caribbean-green;
+  }
+
+  .arrow-icon {
+    width: 4px;
+    height: 8px;
+    fill: $color-gray-dark;
+    margin-left: 5px;
+  }
+}

@@ -1,0 +1,19 @@
+:host {
+  display: block;
+}
+
+.fctc-outcome {
+  &:first-child {
+    margin-top: 3px;
+  }
+  &:not(:last-child) {
+    margin-bottom: 3px;
+  }
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.fctc-place {
+  margin-right: 3px;
+}

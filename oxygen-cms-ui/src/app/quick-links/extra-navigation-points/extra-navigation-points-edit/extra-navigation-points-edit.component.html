@@ -1,0 +1,224 @@
+<breadcrumbs *ngIf="extraNavigationPoint" [breadcrumbsData]="breadcrumbsData"></breadcrumbs>
+<div class="card" *ngIf="extraNavigationPoint">
+  <div class="header">
+    <h2 class="has-activity-badge">Special Super Button:
+      <span class="font-italic">{{extraNavigationPoint.title}}</span>
+      <create-updated-at-by [collection]="extraNavigationPoint"></create-updated-at-by>
+    </h2>
+    <header-activity-badge [state]="!extraNavigationPoint.enabled"></header-activity-badge>
+  </div>
+</div>
+
+<div class="card" *ngIf="extraNavigationPoint">
+  <form [formGroup]="form" novalidate>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-checkbox color="primary" [checked]="extraNavigationPoint.enabled"
+                        (change)="extraNavigationPoint.enabled = !extraNavigationPoint.enabled">
+            Active
+          </mat-checkbox>
+        </div>
+        <div class="col-md-6">
+          <mat-checkbox color="primary" [checked]="extraNavigationPoint.bgAlignmentEnabled"
+                        (change)="changebgAlignPreferance($event)">
+            Bg Alignment Enabled
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Title
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput [(ngModel)]="extraNavigationPoint.title"
+                   placeholder="Title"
+                   formControlName="title"
+                   required
+                   trim="blur">
+                <mat-hint class="col-red" *ngIf="form.get('title').invalid">
+                    <div *ngIf="form.get('title').value?.length > 25 && !extraNavigationPoint.bgAlignmentEnabled"> Title can be max 25 characters long </div>
+                    <div *ngIf="form.get('title').value?.length > 20 && extraNavigationPoint.bgAlignmentEnabled"> Title can be max 20 characters long</div>
+                </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Background Image URL
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput [(ngModel)]="extraNavigationPoint.bgImageUrl"
+                  placeholder="Background Image URL"
+                  formControlName="bgImageUrl"
+                  required
+                  trim="blur">
+                  <mat-hint class="col-red" *ngIf="form.get('bgImageUrl').invalid">
+                    <div *ngIf="form.get('bgImageUrl').value?.length == 0"> Background Image URL Should be entered </div>
+                </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Destination URL
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput [(ngModel)]="extraNavigationPoint.targetUri"
+                   placeholder="Destination URL"
+                   formControlName="targetUri"
+                   required
+                   trim="blur">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Description
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput [(ngModel)]="extraNavigationPoint.description"
+                   placeholder="Description"
+                   formControlName="description"
+                   trim="blur">
+          </mat-form-field>
+          <mat-error *ngIf="isMaxLengthReached('description')">
+            Description can be max 27 characters long
+          </mat-error>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Short Description
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput [(ngModel)]="extraNavigationPoint.shortDescription"
+                   placeholder="Short Description"
+                   formControlName="shortDescription">
+          </mat-form-field>
+          <mat-error *ngIf="form.get('shortDescription').value?.length > 45 && !extraNavigationPoint.bgAlignmentEnabled">
+            Short Description can be max 45 characters long
+          </mat-error>
+          <mat-error *ngIf="form.get('shortDescription').value?.length > 64 && extraNavigationPoint.bgAlignmentEnabled">
+            Short Description can be max 64 characters long
+          </mat-error>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Show on Home Tabs
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Show on Home Tabs" [(ngModel)]="extraNavigationPoint.homeTabs"
+                        formControlName="homeTabs"
+                        multiple>
+              <mat-option *ngFor="let tab of homeTabs" [value]="tab.url">
+                {{ tab.title }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Show on Sports
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Show on Sports" [disabled]="extraNavigationPoint?.bgAlignmentEnabled" [(ngModel)]="extraNavigationPoint.categoryId"
+                        formControlName="sportCategories"
+                        multiple>
+              <mat-option *ngFor="let sport of sportCategories" [value]="sport.categoryId">
+                {{ sport.imageTitle }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Show on Big Competitions
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Show on Big Competitions" [disabled]="extraNavigationPoint?.bgAlignmentEnabled" [(ngModel)]="extraNavigationPoint.competitionId"
+                        formControlName="competitions"
+                        multiple>
+              <mat-option *ngFor="let competition of bigCompetitions" [value]="competition.id">
+                {{ competition.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-8">
+          <date-range
+            [isSetDateButtons]="true"
+            [startDate]="extraNavigationPoint.validityPeriodStart"
+            [endDate]="extraNavigationPoint.validityPeriodEnd"
+            [startPlaceholder]="'Validity Period Start Date'"
+            [endPlaceholder]="'Validity Period End Date'"
+            (onDateUpdate)="handleDateUpdate($event)">
+          </date-range>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <span class="mat-label">
+            Feature tag
+          </span>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field class="full-width">
+            <input matInput [(ngModel)]="extraNavigationPoint.featureTag"
+                   placeholder="Feature Tag"
+                   formControlName="featureTag"
+                   required
+                   trim="blur">
+          </mat-form-field>
+          <!-- <mat-error *ngIf="isMaxLengthReached('featureTag')">
+            Title can be max 25 characters long
+          </mat-error> -->
+        </div>
+      </div>
+      <special-super-btn-preview 
+        [titleOptions]="titleOptions"
+        [bgImage]="form.controls['bgImageUrl'].value">
+      </special-super-btn-preview>
+    </div>
+  </form>
+</div>
+
+<action-buttons
+  #actionButtons
+  *ngIf="extraNavigationPoint"
+  [validateHandler]="validationHandler"
+  [fieldOrItemName]="'title'"
+  [collection]="extraNavigationPoint"
+  (actionsEmitter)="actionsHandler($event);">
+</action-buttons>

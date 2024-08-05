@@ -1,0 +1,68 @@
+@import 'global.variables.scss';
+:host {
+  ::ng-deep {
+    .inner-container {
+      &myBetsTab {
+        bet-leg-item {
+          .single-selection-name {
+            white-space: normal;
+            overflow: visible;
+          }
+        }
+      }
+    }
+  }
+}
+.allWinnerBonus-edp-mybets{
+  color: $color-blue;
+  font-weight: 400;
+  font-size: 13px;
+  display: flex;
+  justify-content: end;
+  width: 100%;  
+  padding: 0 12px;
+  align-items: baseline;
+}
+.allWinnerBonus-edp-mybets-mobile-coral{
+  color: $color-blue;
+  font-weight: 400;
+  font-size: 13px;
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 12px; 
+  align-items: baseline; 
+}
+.allWinnerBonus-edp-mybets-lads{
+  color:#4A90E2;
+  font-weight: 700;
+  font-size: 12px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  display: flex;
+  justify-content: end;
+  width: 97.4%;  
+}
+.allWinnerBonus-edp-mybets-lads-mobile{
+  color:#4A90E2;
+  font-weight: 400;
+  font-size: 13px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  display: flex;
+  justify-content: end;
+  width: 97.4%;  
+}
+.allWinnerBonus-OpenBets-value{
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.allWinnerBonus-mybets-lads-mybets{
+  color: #4a90e2;
+  font-weight: 700;
+  font-size: 12px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  padding: 0 12px;
+  align-items: baseline;
+}

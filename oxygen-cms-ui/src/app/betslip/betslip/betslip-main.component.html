@@ -1,0 +1,17 @@
+<div class="card">
+    <div class="body">
+        <div class="row">
+            <div class="col-md-12">
+                <h6>{{BSLABELS.BETSLIP_MESSAGE_AND_SIGNPOSTING}}</h6>
+            </div>
+        </div>
+ 
+        <cms-data-table *ngIf="showtabel" 
+            [customTableData]="betslipInitTable"
+            [customTableColumns]="cmsdataTableColumns" 
+            [actions]="['edit']" 
+            [reorder]="false"
+            (onElementsOrder)="reorderHandler($event)">
+        </cms-data-table>
+    </div>
+</div>

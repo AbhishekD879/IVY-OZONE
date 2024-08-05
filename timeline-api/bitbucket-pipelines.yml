@@ -1,0 +1,49 @@
+clone:
+  depth: full
+pipelines:
+
+  default:
+    - step:
+        name: build
+        image: azul/zulu-openjdk:17.0.5
+        caches:
+          - gradle
+          - gradlewrapper
+        script:
+          - ./gradlew test build
+            -Daudit.username='$OSSINDEX_USER'
+            -Daudit.password='$OSSINDEX_PASS'
+    - step:
+        name: test
+        image: azul/zulu-openjdk:17.0.5
+        caches:
+          - sonarcloud
+        script:
+          - ./gradlew sonarqube --scan
+            -Dsonarqube.gradle.plugin.version=4.2.1.3168
+
+
+  pull-requests:
+    '**':
+      - step:
+          name: build
+          image: azul/zulu-openjdk:17.0.5
+          script:
+            - ./gradlew test build
+              -Daudit.username='$OSSINDEX_USER'
+              -Daudit.password='$OSSINDEX_PASS'
+
+      - step:
+          name: test
+          image: azul/zulu-openjdk:17.0.5
+          script:
+            - ./gradlew test sonarqube --scan
+              -Dsonarqube.gradle.plugin.version=4.2.1.3168
+              -Dsonar.pullrequest.key=$BITBUCKET_PR_ID
+              -Dsonar.pullrequest.base=$BITBUCKET_PR_DESTINATION_BRANCH
+              -Dsonar.pullrequest.branch=$BITBUCKET_BRANCH
+
+definitions:
+  caches:
+    sonarcloud: ~/.sonar/cache
+    gradlewrapper: ~/.gradle/wrapper

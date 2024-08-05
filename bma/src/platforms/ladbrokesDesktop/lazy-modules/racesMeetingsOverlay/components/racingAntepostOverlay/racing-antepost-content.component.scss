@@ -1,0 +1,152 @@
+@import 'global.variables.scss';
+
+::ng-deep {
+
+  .racing-event-desktop {
+    .meeting-selector { 
+      .coupons-list {
+        &.desktop-list {
+          &.active {
+            background: $color-gray-dark !important;
+            right: 0px !important;
+            max-width: 351px !important;
+          &.antepost-meetings-layout {
+            max-width: 400px !important;
+          }
+          }
+        }
+      }
+    }
+  }
+
+  .future-meetings {
+  .top-accordion {
+      .list-card-name {
+          color: $color-black-betslip !important;
+      }
+  }
+
+  .switchers {
+      padding: 0px;
+  }
+
+  &.hr-desktop-fm-layout {
+
+    .page-inner {
+      background: $lGrayMediumLight !important;
+    }
+
+    .switchers {
+      &.no-paddings {
+        margin: 0px !important;
+      }
+
+      .scroll-container {
+        background: $lGrayMediumLight;
+      }
+
+      .switch-btn {
+        font-weight: 400;
+        font-size: 12px;
+        color: $switcher-grey-lighter !important;
+        border-bottom: none !important;
+
+        &.active {
+          font-weight: 700;
+          color: $color-white !important;
+          border-bottom: 3px solid $red !important;
+          &:after{
+            background: $red !important;
+          }
+        }
+      }
+    }
+
+    list-card {
+      font-family: 'Roboto Condensed' !important;
+      background-color: $lGrayMediumLight !important;
+      color: $color-white !important;
+      border-bottom: 1px solid $color-white-light-grey-byb !important;
+      border-top: none !important;
+      padding: 12px 17px;
+
+      .list-card-date {
+        font-size: 14px;
+        font-weight: 400 !important;
+        order: 0 !important;
+        margin-top: 9px;
+        text-transform: capitalize;
+      }
+
+      .list-card-name {
+        color: $color-white !important;
+        font-weight: 700 !important;
+      }
+
+      &:last-child {
+        border-bottom: none !important;
+      }
+      &::after {
+        visibility: hidden;
+      }
+
+    }
+    .accordion-header{
+      background: $lGray !important;
+      color: $color-white;
+      border-bottom: 0.5px solid $header-border-grey-dark;
+      border-top: 0.5px solid $header-border-grey-dark;
+    }
+    accordion{
+      margin-bottom: 0px !important;
+      &:last-child{
+        margin-bottom: 0px !important;
+      }
+    }
+    .chevron-svg {
+      &.chevron-up {
+        visibility: visible;
+        fill: $color-white;
+        transform: rotateX(180deg);
+      }
+      &.chevron-down {
+        visibility: visible;
+        fill: $color-white;
+        transform: rotateX(0deg);
+      }
+    }
+
+    &.gh-desktop-fm-layout {
+      .switchers{
+        margin-bottom: 0px !important;
+        .switch-btn {
+          background: $lGrayMediumLight !important;
+        }
+      }
+      .odds-card {
+        font-family: 'Roboto Condensed' !important;
+        background: $lGrayMediumLight !important;
+        box-shadow: none !important;
+        padding: 12px 17px !important;
+        border-bottom: 1px solid $color-white-light-grey-byb !important;
+        .odds-content .odds-names {
+          font-size: 13px !important;
+          color: $color-white !important;
+          padding: 0px !important;
+          .odds-small {
+            margin-top: 9px;
+            font-size: 12px;
+          }
+        }
+        &:last-child {
+          border-bottom: none !important;
+        }
+      }
+      accordion-body {
+        background: $lGrayMediumLight !important;
+        padding: 0px !important;
+      }
+    }
+  }
+  }
+}

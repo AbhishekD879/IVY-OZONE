@@ -1,0 +1,58 @@
+@import 'global.variables.scss';
+
+.quick-links {
+  &.container-content {
+    margin-bottom: 10px;
+    background-color: $color-white;
+    min-height: 70px;
+  }
+  .competition-category-tile-wrapper {
+    @include flex(1,1,20%);
+    overflow: hidden;
+    @media screen and (max-width: ($md-point - 1px)) {
+      @include flex(1,1,calc(100% / 3));
+
+      &:nth-last-child(-n+2) {
+        display: none;
+      }
+    }
+  }
+  .league-link {
+    height: 68px;
+    padding-left: 0;
+    text-transform: uppercase;
+  }
+  .league-wrapper {
+    @include display-flex();
+    @include align-items(center);
+    width: 100%;
+    padding: 0 10px;
+    margin-top: -3px;
+  }
+  .league-info {
+    width: 100%;
+
+  }
+  .go-icon {
+    svg {
+      width: 4px;
+      height: 8px;
+      fill: lighten($color-gray-dark, 50%);
+    }
+  }
+  .league-origin {
+    > svg {
+      width: 15px;
+      height: 10px;
+      margin-right: 2px;
+    }
+  }
+  .league-country {
+    font: 10px/1 $base-font-family;
+    color: $color-gray-dark;
+  }
+  .league-name {
+    padding-right: 35px;
+    margin-top: 5px;
+  }
+}

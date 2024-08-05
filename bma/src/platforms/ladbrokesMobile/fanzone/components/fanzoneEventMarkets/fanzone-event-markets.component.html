@@ -1,0 +1,17 @@
+<accordion [accordionTitle]="market.name"
+           data-crlat="accordion"
+           [isChevronToLeft]="true"
+           [isExpanded]="i <= openMarketTabs"
+           [isHeaderHidden]="false"
+           *ngFor="let market of eventEntity.markets; trackBy: trackByIndex; let i = index">
+    <right-side>
+        <cashout-label *ngIf="market.cashoutAvail === 'Y'"></cashout-label>
+    </right-side>
+    <!-- Each Way terms -->
+    <accordion-body>
+        <div class="market-terms" *ngIf="market.eachWayPlaces !== undefined && showTerms && market.isEachWayAvailable"
+            data-crlat="terms" [textContent]="market.terms"></div>
+        <event-card [event]="eventEntity" data-crlat="oddsCard" [market]="market" [outcome]="outcomeEntity" gtmModuleTitle="Fanzone Outrights"
+                    *ngFor="let outcomeEntity of market.outcomes | slice:0:limit; trackBy: trackByIndex"></event-card>
+    </accordion-body>
+</accordion>

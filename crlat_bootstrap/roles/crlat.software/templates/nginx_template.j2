@@ -1,0 +1,40 @@
+{% for upstream_item in nginx_conf.upstreams %}
+upstream {{ upstream_item.name }} {
+{% for upstream_instance in upstream_item.instances %}
+    server {{ upstream_instance }};
+{% endfor %}
+}
+
+{% endfor %}
+
+server {
+    listen 80;
+    listen [::]:80;
+    return 301 https://$server_name$request_uri;
+}
+
+server {
+    listen 443 ssl;
+
+    ssl on;
+    ssl_certificate         /etc/nginx/ssl/{{ private_domain }}.crt;
+    ssl_certificate_key     /etc/nginx/ssl/{{ private_domain }}.key;
+    ssl_trusted_certificate /etc/nginx/ssl/{{ web_root_cert_filename }}.pem;
+
+    ssl_session_cache shared:SSL:20m;
+    ssl_session_timeout 10m;
+
+    ssl_prefer_server_ciphers       on;
+    ssl_protocols                   TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers                     ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS;
+
+    add_header Strict-Transport-Security "max-age=31536000";
+
+{% for location in nginx_conf.locations %}
+    location {{ location.path }} {
+{% for param in location.params %}
+        {{ param.name }}      {{ param.value }};
+{% endfor %}
+    }
+{% endfor %}
+}

@@ -1,0 +1,37 @@
+@import 'global.variables.scss';
+
+.quick-deposit {
+  background-color: $color-white;
+
+  &__notification {
+    background-color: $quick-deposit-notification-bg;
+    color: $color-gray-dark;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 5px;
+    min-height: 35px;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    box-shadow: 0 2px 5px 1px #41494e;
+  }
+
+  &__header-text {
+    font-size: 20px;
+  }
+
+  &__iframe {
+    width: 100%;
+  }
+
+  &__svg {
+    width: 16px;
+    height: 16px;
+  }
+}

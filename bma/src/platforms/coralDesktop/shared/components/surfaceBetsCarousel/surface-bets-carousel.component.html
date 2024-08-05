@@ -1,0 +1,39 @@
+<div class="surface-bets-container" data-crlat="surfaceBetsCarousel">
+  <div class="ng-carousel surface-bets-carousel"
+       [class.one-card-mode]="isOneCard"
+       [ngCarousel]
+       [ngCarouselWatch]="slides"
+       [ngCarouselName]="carouselName"
+       [ngCarouselFluid]="true"
+       [ngCarouselLoop]="false">
+
+    <!--Carousel prev next buttons for desktop version -->
+    <div class="scroll-buttons" *ngIf="showCarouselButtons">
+      <button class="hc-arrow prev-hc-card"
+              (click)="prevSlide()"
+              [ngClass]="{'hc-arrow-hide': !showPrev}">
+        <svg>
+          <use xlink:href="#prev-arrow"></use>
+        </svg>
+        <span [i18n]="'sb.previousCard'"></span>
+      </button>
+      <button class="hc-arrow next-hc-card"
+              (click)="nextSlide()"
+              [ngClass]="{'hc-arrow-hide': !showNext}">
+        <span [i18n]="'sb.nextCard'"></span>
+        <svg>
+          <use xlink:href="#next-arrow"></use>
+        </svg>
+      </button>
+    </div>
+
+    <!-- slides -->
+    <slidecontainer class="carousel-slides">
+      <ng-container *ngFor="let betData of module.data; let betInd = index; trackBy: trackByCard">
+        <slide class="slide" *ngIf="betData.markets.length">
+          <odds-card-surface-bet [surfaceBet]="betData" [surfaceBetIndex]="betInd + 1"></odds-card-surface-bet>
+        </slide>
+      </ng-container>
+    </slidecontainer>
+  </div>
+</div>

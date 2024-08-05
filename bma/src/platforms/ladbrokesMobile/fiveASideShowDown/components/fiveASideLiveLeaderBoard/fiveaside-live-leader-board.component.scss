@@ -1,0 +1,226 @@
+@import "global.variables.scss";
+@import "../fiveASidePreLeaderBoard/fiveASidePreLeaderBoardMixin/fiveaside-pre-leader-board-mixin.scss";
+$imagesPath: '/assets/images/';
+
+  .flip-list-move {
+    transition: transform 1s;
+  }
+  .service-wrapper {
+    width: 100%;
+    height: 40px;
+    padding: 8px 12px;
+    display: table;
+    background-color: $warning-msg-color !important;
+    .service-msg {
+      text-align: center;
+      display: table-cell;
+      vertical-align: middle;
+      @include live-board-entries-mixin(100%, 16px, $alt-font-family, $font-size-sm, bold, condensed, normal, normal, normal, $lGray);
+    }
+  }
+  .leader-board {
+    display: flex;
+    justify-content: space-between;
+    padding: 3% 3% 0 3%;
+    margin: 0 0 12px 0;
+    .leader-board-title {
+      padding-top: 3px;
+      @include live-board-entries-mixin(100%, 16px, $alt-font-family, $font-size-bit-lgr, bold, condensed, normal, normal, normal, $lGrayLighter);
+      @media (min-width: $mobileSmallPoint) and (max-width: $tabletPoint) {
+        @include live-board-entries-mixin(100%, 17px, $alt-font-family, $font-size-bit-lgr, bold, condensed, normal, normal, normal, $lGrayLighter);
+      }
+    }
+    .leader-board-rules {
+      padding-top: 3px;
+      @include live-board-entries-mixin(37px, 15px, $alt-font-family, $font-size, 500, normal, normal, normal, normal, $color-blue-selected);
+    }
+  }
+
+  .my-entries-tutorial {
+    display: flex;
+    justify-content: space-between;
+    padding: 2% 2% 0;
+    margin: 2px 0 6px;
+    .my-entry-title {
+      @include live-board-entries-mixin(100%, 16px, $alt-font-family, $font-size-bit-lgr, bold, condensed, normal, normal, normal, $lGrayLighter);
+    }
+    .tutorial-btn {
+      cursor: pointer;
+      @include live-board-entries-mixin(38px, 17px, $alt-font-family, $font-size, 500, normal, normal, normal, normal, $color-blue-selected);
+    }
+  }
+
+ .slide-content {
+  border-radius: 9px;
+  background-color: $color-bg-black;
+  overflow-x: hidden;
+  > .over-all-height >.leader-board-header {
+  top: 12%;
+  @include leader-board-mixin(159px, 0px, url('#{$imagesPath}soccerwithgrass.png'), cover, no-repeat);
+  background-position: center;
+  position: relative;
+ @media (min-width: $mobilePoint) and (max-width: $desktopPoint ) {
+    top: 12%;
+    @include leader-board-mixin(159px, 0px, url('#{$imagesPath}soccerwithgrassdesktop.png'), cover, no-repeat);
+    background-position: center;
+    position: relative;
+    }
+    .contest-description {
+      @include contest-mixin(22px, $color-gray-fiveaside, 3px 8px, $color-white, flex, space-between, $base-font-family, $font-size-base, bold);
+           .description-name {
+            @include contest-detail-mixin(70%, 16px, hidden);
+            text-transform: uppercase;
+           }
+           .clock-time {
+            @include contest-detail-mixin(85px, 16px,hidden);
+            text-align: right;
+            font-weight: bold;
+           }
+         }
+         .description-hidden {
+          visibility: hidden;
+         }
+         .country-flags {
+           padding: 23px 34px;
+           text-transform: uppercase;
+           color: $color-white;
+
+           .home-flag {
+             @include country-flags-mixins(25px, solid 0.2px #efefef, 41px, 41px, 0 2px 4px 0 #828282);
+             float: left;
+           }
+           .away-flag {
+             @include country-flags-mixins(25px, solid 0.2px #efefef, 41px, 41px, 0 2px 4px 0 #828282);
+             float: right;
+           }
+         }
+         .country-names {
+           padding: 24px 5px 20px 5px;
+           text-transform: uppercase;
+           .home-name {
+             @include country-name-mixins(100px, 26px, $color-white, 10px, center, left, $base-font-family, 1px, bold );
+           }
+           .away-name {
+             @include country-name-mixins(100px, 26px, $color-white, 10px, center, right, $base-font-family, 1px, bold );
+           }
+         }
+         .country-goals {
+           padding: 9px 48px;
+           height: 28px;
+           .home-goals {
+             @include country-name-mixins(15px, 28px, $color-white, 18px, center, left, $base-font-family, 1, bold );
+           }
+           .away-goals {
+             @include country-name-mixins(15px, 28px, $color-white, 18px, center, right, $base-font-family, 1, bold );
+           }
+         }
+     }
+    }
+
+     .slide-content > .over-all-height > .header-area-scroll {
+       z-index: 1;
+       background: url('#{$imagesPath}collapsedGrass.png') center no-repeat;
+       width: 100%;
+       background-size: cover;
+       height: 80px;
+       position: absolute;
+       display: block;
+       top: -38px;
+       overflow-x: hidden;
+       .contest-description {
+        @include contest-mixin(22px, $color-gray-fiveaside, 3px 8px, $color-white, flex, space-between, $base-font-family, $font-size-base, bold);
+         .description-name {
+          @include contest-detail-mixin(70%, 16px, hidden);
+          text-transform: uppercase;
+         }
+         .clock-time {
+          @include contest-detail-mixin(85px, 16px,hidden);
+          text-align: right;
+         }
+       }
+       .description-hidden {
+        visibility: hidden;
+       }
+       .event-header {
+         @include display-flex();
+         @include justify-content(center);
+         @include align-items(center);
+         width: 100%;
+         height: 55px;
+         padding: 11px 14px;
+         color: $color-white;
+         font-family: $base-font-family;
+         font-size: 10px;
+         font-weight: bold;
+         letter-spacing: 1px;
+         text-transform: uppercase;
+         .team-name-home, .team-name-away {
+           min-width: 45%;
+           padding: 0 12px;
+           white-space: nowrap;
+           overflow: hidden;
+           text-overflow: ellipsis;
+         }
+         .team-name-home {
+           text-align: end;
+         }
+         .team-name-away {
+           text-align: start;
+         }
+         .wrapper-crests {
+           @include display-flex();
+           @include justify-content(center);
+           @include align-items(center);
+           width: 65px;
+           .score1, .score2 {
+             font-size: 18px;
+           }
+           .score1 {
+             margin-left: 10px
+           }
+           .score2 {
+             margin-right: 10px
+           }
+           .oval {
+             @include display-flex();
+             @include justify-content(center);
+             @include align-items(center);
+             width: 22px;
+             height: 22px;
+             border-radius: 25px;
+             background-color: rgba(0, 0, 0, 0.08);
+             margin: 1px 12px 0;
+           }
+           .square {
+             margin: 0 -6px;
+             font-size: 18px;
+           }
+           .delimiter {
+             margin: 0 7px;
+           }
+         }
+       }
+     }
+     .leader-board-entries {
+       padding: 10px 4px 0px 4px;
+     }
+    .team-col-divider {
+      width: 100%;
+      height: 1px;
+      border-top: 1px solid $color-blue-selected;
+      margin: 10px 0;
+      display: inline-block;
+    }
+    .content {
+      padding: 0px 4px;
+      .content-wrapper {
+        overflow: hidden;
+      }
+    }
+     ::ng-deep {
+      .description-name {
+        & > p {
+        @include contest-desc-p-mixin($font-size-base, $base-font-family, bold);
+       }
+       }
+     }

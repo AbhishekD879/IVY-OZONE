@@ -1,0 +1,54 @@
+<ng-container *ngIf = "nextRaceData && nextRaceData.length > 0">
+  <div class="next-races-panel">
+  <header class="race-header row row-no-gutter">
+    <div class="text-area col-xs-10">
+      <strong class="nextraces" [i18n]="'racingposttip.nextRacestoBetslip'"></strong>
+    </div>
+  </header>
+      <ng-container *ngFor="let eventEntity of nextRaceData | slice:0:3; let i = index; trackBy: trackByEvents">
+        <!-- TODO: use race-card-home component as on Ladbrokes! -->
+        <section class="row-panel">
+          <div class="odds-card race-card">
+            <a [attr.id]="eventEntity.typeName + eventEntity.id" (click)="trackEvent(eventEntity)" [linkHref]
+              [link]="formEdpUrl(eventEntity)">
+              <div class="odds-content">
+                <div class="odds-left">
+                  <div class="odds-names odds-names-list" [ngClass]="{'odds-disabled' : eventEntity.nonRunner}">
+                   <div>
+                    <span id="normal" [textContent] = "eventEntity?.localTime"></span>&nbsp;
+                    <span>
+                      <strong class="nextRaceDetails" [textContent]="eventEntity?.name"></strong>
+                    </span>
+                   </div>
+                   <ng-container *ngIf = "getRaceType(eventEntity?.raceType)">
+                    <span *ngIf="eventEntity.raceType" id="next-races"
+                      [textContent]="eventEntity.raceType| callBack: getRaceType : this"></span>
+                  </ng-container>
+                  <ng-container *ngIf = "!getRaceType(eventEntity?.raceType)">
+                    <span *ngIf="eventEntity.raceType" class="race-going" id="next-races"
+                      [textContent]="eventEntity.raceType"></span>
+                  </ng-container>
+                  <span id="race-going" *ngIf = "eventEntity?.raceType && eventEntity.goingCode">&#8208;</span>
+                  <span *ngIf="eventEntity.goingCode" [ngClass]="{goingCode: eventEntity.raceType}" id="next-races"
+                    [textContent]="eventEntity.goingCode| callBack : getGoing : this"></span>
+                  <span *ngIf="eventEntity.yards" id="next-races">&#47;</span>
+
+                    <span *ngIf="eventEntity.yards" id="next-races"
+                      [textContent]="eventEntity.yards| callBack: getDistance : this"></span>
+                  </div>
+                </div>
+                <div class="odds-right odds-right-vertical">
+                  <a class="race-next-link" [attr.id]="eventEntity.typeName + eventEntity.id" (click)="trackEvent(eventEntity)"
+                    [linkHref] [link]="formEdpUrl(eventEntity)">
+                    <svg>
+                      <use xlink:href="#next-arrow"></use>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </a>
+          </div>
+        </section>
+      </ng-container>
+  </div>
+</ng-container>

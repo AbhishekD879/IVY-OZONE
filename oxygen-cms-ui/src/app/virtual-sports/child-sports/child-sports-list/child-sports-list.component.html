@@ -1,0 +1,35 @@
+<div class="card">
+  <div class="body">
+    <div class="row">
+      <div class="col-sm-10">
+        <h5>Child sports</h5>
+      </div>
+    </div>
+    <div *ngIf="childSports">
+      <cms-data-table
+        [customTableData]="childSports"
+        [customTableColumns]="dataTableColumns"
+        [filterString]="searchField"
+        [filterProperties]="searchableProperties"
+        [actions]="['remove', 'edit']"
+        [reorder]="true"
+        (onElementsOrder)="onReorder($event)"
+        (onRemoveTableElement)="onRemove($event)">
+      </cms-data-table>
+    </div>
+
+    <br/>
+
+    <div class="row">
+      <div class="col-md-3">
+        <button (click)="createChildSport()" type="button" class="btn bg-teal waves-effect float-left">
+          <i class="material-icons">add_box</i>
+          <span>Create Child Sport</span>
+        </button>
+      </div>
+    </div>
+    <div *ngIf="error">
+      Request Error
+    </div>
+  </div>
+</div>

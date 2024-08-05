@@ -1,0 +1,41 @@
+@mixin leader-board-mixin($height, $margin, $background, $bg-size, $bg-repeat, $bg-position) {
+    height: $height;
+    margin: $margin;
+    background: $background;
+    background-size: $bg-size;
+    background-repeat: $bg-repeat;
+    background-position: $bg-position;
+}
+@mixin contest-mixin($hight, $bg-color, $padding, $color, $display, $justify-content, $font-family, $font-size, $font-weight) {
+    height: $hight;
+    background-color: $bg-color;
+    padding: $padding;
+    color: $color;
+    display: $display;
+    justify-content: $justify-content;
+    font-family: $font-family;
+    font-size: $font-size;
+    font-weight: $font-weight;
+}
+@mixin contest-detail-mixin($max-width, $height, $overflow) {
+    max-width: $max-width;
+    height: $height;
+    overflow: $overflow;
+}
+@mixin country-name-mixin($width, $height, $color, $font-size, $text-align, $font-family, $letter-spacing, $font-weight, $overflow) {
+    width: $width;
+    height: $height;
+    color: $color;
+    font-size: $font-size;
+    text-align: $text-align;
+    font-family: $font-family;
+    letter-spacing: $letter-spacing;
+    font-weight:  $font-weight;
+    overflow: $overflow;
+}
+@mixin country-flags-mixin($border-radius, $width, $height, $box-shadow) {
+    border-radius: $border-radius;
+    width: $width;
+    height: $height;
+    box-shadow: $box-shadow;
+}

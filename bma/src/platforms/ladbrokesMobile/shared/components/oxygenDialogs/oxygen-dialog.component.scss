@@ -1,0 +1,137 @@
+@import 'global.variables.scss';
+@import '../../../../../app/shared/components/oxygenDialogs/oxygen-dialog.component.scss';
+$dialog-font-size: 13px;
+
+.modal {
+    background-color: rgba($color-black, 0.75) !important;
+  }
+
+.modal .modal-dialog {
+    font-family: $alt-font-family;
+    padding: 0;
+    .modal-content {
+      padding: 0;
+      margin: auto;
+      background: $color-white;
+      border-radius: 2px;
+      .modal-header {
+        background: $color-white;
+        color: $lGray;
+        box-shadow: none;
+        margin-bottom: 0;
+        font-size: 15px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        padding: 24px 24px 12px;
+        font-family: $alt-font-family;
+        .btn-close {
+          display: none;
+          &.visible {
+            display: block;
+            margin: 0;
+            top: 20px;
+            right: 20px;
+          }
+          &.black {
+            svg {
+              fill: $color-black;
+            }
+          }
+        }
+      }
+      .modal-body {
+        padding: 0 24px 24px 24px;
+        color: $lBlack-light;
+        font-size: $dialog-font-size;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        max-height: 450px;
+        overflow-y: auto;
+
+        p {
+          font-size: inherit;
+          line-height: normal;
+        }
+
+        a:not([class]) {
+          color: $color-blue-alt;
+        }
+        .btn, .group-buttons .btn {
+          font-size: $dialog-font-size;
+
+          &.btn-style2 {
+            background: $color-yellow-alt;
+            &:hover{
+              background: $color-yellow-alt;
+              opacity:0.85;
+            }
+            &:active{
+              background: $color-orange-light2;
+              opacity: 1;
+            }
+            &.btn-ok-text {
+              &:hover{
+                color: $color-black;;
+               }
+            }
+          }
+
+          &.button {
+            color: $lGray;
+            display: block;
+            margin: 16px auto 0;
+            width: 100px;
+          }
+        }
+
+        .btn-list {
+          .btn {
+            &.btn-style4 {
+              min-width: 90px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+ .no-body-padding .modal-dialog .modal-content .modal-body {
+    padding: 0;
+    max-height: 425px;
+  }
+
+ .centered-header .modal-dialog .modal-content .modal-header {
+    justify-content: center;
+    padding: 19px 0 16px 0;
+    font-size: $font-size-lgst;
+    font-weight: normal;
+  }
+  .lads-info-title{
+    font-size: 15px;
+}
+  .btn-more{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 0.6;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Lato';
+    color:#07294B;
+    background-color: white;
+     }
+    .btn-morelads{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 0.6;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Roboto Condensed';
+    }

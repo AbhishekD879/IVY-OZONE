@@ -1,0 +1,80 @@
+<div id="spotlight" data-crlat="spotlight">
+  <!--- Sorting Panel -->
+  <div class="switchers" data-crlat="switchers">
+    <a class="switch-btn"
+       *ngIf="outcome.racingFormOutcome.overview"
+       (click)="sView = false"
+       [ngClass]="{'active': !sView}"
+       [i18n]="'sb.summary'"
+       data-crlat="buttonSummary">
+    </a>
+    <a class="switch-btn"
+       *ngIf="!noDetails"
+       (click)="sView = true"
+       [ngClass]="{'active': sView}"
+       [i18n]="'sb.details'"
+       data-crlat="buttonDetails">
+    </a>
+  </div>
+
+  <div *ngIf="!sView" class="item-inner">
+    <span *ngIf="outcome.racingFormOutcome.overview"
+          data-crlat="outcomeOverview"
+          [textContent]="outcome.racingFormOutcome.overview">
+    </span>
+    <span *ngIf="!outcome.racingFormOutcome.overview" [i18n]="'sb.noSummary'"></span>
+  </div>
+
+  <div *ngIf="sView" class="item-inner">
+    <div *ngIf="!noDetails" data-crlat="noDetails">
+      <div class="row">
+        <div class="col-xs-2"><span [i18n]="'sb.horse'"></span>:</div>
+        <div class="col-xs-4"><strong data-crlat="horseNameDetails" [textContent]="outcome.name"></strong></div>
+        <div class="col-xs-2"><span [i18n]="'sb.age'"></span>:</div>
+        <div class="col-xs-4">
+          <strong data-crlat="ageDetails" [textContent]="outcome.racingFormOutcome.age"></strong>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-2"><span [i18n]="'sb.jockey'"></span>:</div>
+        <div class="col-xs-4">
+          <strong data-crlat="jockeyNameDetails" [textContent]="outcome.racingFormOutcome.jockey"></strong>
+        </div>
+        <div class="col-xs-2"><span [i18n]="'sb.weight'"></span>:</div>
+        <div class="col-xs-4">
+          <strong data-crlat="weightDetails" *ngIf="outcome?.racingFormOutcome?.weight"
+                  [textContent]="outcome.racingFormOutcome.weight | callBack : correctingWeight : this">
+          </strong>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-2"><span [i18n]="'sb.trainer'"></span>:</div>
+        <div class="col-xs-4">
+          <strong data-crlat="trainerNameDetails" [textContent]="outcome.racingFormOutcome.trainer"></strong>
+        </div>
+        <div class="col-xs-2"><span [i18n]="'sb.stallNo'"></span>:</div>
+        <div class="col-xs-4">
+          <strong data-crlat="stallDetails" [textContent]="outcome.racingFormOutcome.draw"></strong>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-2"><span [i18n]="'sb.formGuide'"></span>:</div>
+        <div class="col-xs-4">
+          <strong *ngIf="outcome.racingFormOutcome"
+                  data-crlat="formGuideDetails"
+                  [textContent]="outcome.racingFormOutcome?.formGuide || '-'">
+          </strong>
+        </div>
+        <div class="col-xs-2"><span [i18n]="'sb.rating'"></span>:</div>
+        <div class="col-xs-4">
+          <strong data-crlat="ratingDetails" [textContent]="outcome.racingFormOutcome.formProviderRating"></strong>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="noDetails"
+         [i18n]="'sb.noDetails'"
+         data-crlat="noDetails">
+    </div>
+  </div>
+
+</div>

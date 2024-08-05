@@ -1,0 +1,33 @@
+<header class="top-bar" data-crlat="topBar" *ngIf="titleText || linkPath">
+  <a class="btn-back" data-crlat="btnBack" *ngIf="!backFunc.observers.length" back-button>
+    <svg>
+      <use xlink:href="#prev-arrow"></use>
+    </svg>
+  </a>
+  <a class="btn-back" data-crlat="btnBack" *ngIf="backFunc.observers.length" (click)="backClickHandler()">
+    <svg>
+      <use xlink:href="#prev-arrow"></use>
+    </svg>
+  </a>
+  <span *ngIf="seoEnabledInCms && !isHorseRacingDetailPage && isRouteRequestSuccess" class="top-bar-title title-bar" data-crlat="topBarTitle" (click)="titleClickHandler()">
+    <svg-list [list]="iconSvg" *ngIf="iconId"></svg-list>
+    <a [textContent]="titleText" [attr.href]="linkPath" data-crlat="titleText" *ngIf="titleText"></a>
+  </span>
+  <h1 *ngIf="!seoEnabledInCms && !isHorseRacingDetailPage && isRouteRequestSuccess"   class="top-bar-title bar-title" data-crlat="topBarTitle" (click)="titleClickHandler()">
+    <svg-list [list]="iconSvg" *ngIf="iconId"></svg-list>
+    <a [textContent]="titleText" [attr.href]="linkPath" data-crlat="titleText" *ngIf="titleText"></a>
+  </h1>
+  <ng-container *ngIf="isHorseRacingDetailPage || !isRouteRequestSuccess">
+    <div class="top-bar-title">
+      <ng-content select="breadcrumbs"></ng-content>
+      <ng-content select="quick-navigation"></ng-content>
+    </div>
+  </ng-container>
+  <div>
+    <ng-content select="[changeMatch]"></ng-content>
+  </div>
+  <div *ngIf="innerContent">
+    <ng-content select="top-bar-body"></ng-content>
+  </div>
+</header>
+

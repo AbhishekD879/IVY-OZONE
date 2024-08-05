@@ -1,0 +1,9 @@
+<div class="byb-tabs-container">
+  <div class="byb-container">
+    <ng-container *ngFor="let tab of tabs;index as i; trackBy: trackByIndex">
+      <ng-container *ngIf="isEnabledMarketSwitchers(tab)">
+        <byb-tab [tab]="tab" [index]='i' (tabChange)="onTabChange($event)"></byb-tab>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

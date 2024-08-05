@@ -1,0 +1,228 @@
+// Global styles
+@import 'global.variables.scss';
+
+.markets-active {
+  border-bottom: 10px solid $color-white;
+}
+
+.event-tabs {
+  @include display-flex();
+  background: $event-bar-bg;
+  color: $color-white;
+  font-family: $base-font-family;
+  position: relative;
+  min-height: 40px;
+
+  .icon-block {
+    @include display-flex();
+    margin-left: auto;
+    width: 50%;
+    justify-content: flex-end;
+    padding-top: 9px;
+
+    .play-close-stream {
+      margin: 2px 13px 10px 0;
+
+      .odds-icon-stream {
+        width: 10px;
+        height: 10px;
+        vertical-align: middle;
+      }
+
+      .live-stream-btm {
+        width: 62px;
+        height: 20px;
+        color: $color-gray-dark;
+        background: $color-yellow;
+        font-weight: bold;
+        font-size: 10px;
+        list-style: none;
+        cursor: pointer;
+        text-transform: uppercase;
+        text-align: center;
+        border-radius: 1px;
+        margin-left: 10px;
+        border: solid 1px $color-yellow;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &.active {
+          background: none;
+          color: $color-yellow;
+        }
+
+        span {
+          vertical-align: middle;
+        }
+      }
+    }
+
+    .fav-and-notification-btn {
+      margin-bottom: 10px;
+      @include display-flex();
+
+      .football-favourites {
+        border-left: 1px solid rgba(35, 13, 56, .25);
+        text-align: center;
+        width: 37px;
+        height: 24px;
+
+        .odds-fav-icon {
+          margin: 0;
+
+          .fav-icon-svg {
+            stroke: $color-white;
+            width: 17px;
+            height: 17px;
+
+            &.active {
+              stroke: $color-yellow;
+            }
+          }
+        }
+      }
+
+      .notification-icon-wrapper {
+        border-left: 1px solid rgba(35, 13, 56, .25);
+        cursor: pointer;
+        position: relative;
+        text-align: center;
+        width: 37px;
+        height: 24px;
+        z-index: 1;
+
+        svg {
+          height: 22px;
+          width: 30px;
+          fill: $color-white;
+        }
+      }
+    }
+  }
+
+  .tabs-list {
+    width: 50%;
+
+    ul {
+      @include display-flex();
+      padding: 0;
+      margin: 0;
+
+      >li {
+        @include display-flex();
+        justify-content: center;
+        align-items: center;
+        width: 78px;
+        height: 38px;
+        text-align: center;
+        color: $color-white;
+        margin: 0 0 2px;
+        font-size: 10px;
+        list-style: none;
+        font-weight: bold;
+        cursor: pointer;
+        text-transform: uppercase;
+
+        &.active {
+          border-bottom: 2px solid $color-white;
+        }
+      }
+      .show-signposting {
+        height: 7px;
+        width: 7px;
+        background: $show-signPosting-color;
+        border-radius: 20px;
+        margin-bottom: 16px;
+        display: inline-block;
+      }
+    }
+  }
+}
+
+.events-tabs {
+  .show-signposting {
+    height: 7px;
+    width: 7px;
+    background: $show-signPosting-color;
+    border-radius: 20px;
+    margin-bottom: 9px;
+    display: inline-block;
+  }
+} 
+
+.hidden-scoreboard {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+}
+
+.sport-event-tabs {
+  transition: margin-top 300ms ease; 
+}
+
+.quick-switch-overlay {
+  position: absolute;
+  transition: opacity 0.2s linear;
+  opacity: 9998;
+  background: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100vh;
+  z-index: 100;
+  &-lads {
+    width: 100% - 1.5%
+  }
+}
+
+  .snb-sticky {
+    position: -webkit-fixed;
+    position: fixed;
+    width: 100%;
+    top: 96px;
+    z-index: 1010;
+  }
+
+.data--disclaimer--container {
+      box-shadow: none;
+      width: 100%;
+      background-color: $footer-bg;
+      box-sizing: border-box;
+      padding: 7px;
+      text-align: center;
+      font-size: 10px;
+    .disclaimer {
+      color: $color-white;
+      font-family: $base-font-family;
+    }
+}
+
+.changeMatch {
+  color: $quick-switch-color;
+  font-family: $base-font-family;
+  font-size: $fontsize-changematch;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 13px;
+  letter-spacing: $quick-switch-spacing;
+  text-transform: $quick-switch-text-transform;
+  text-wrap: nowrap;
+  height: 13px;
+  display: flex;
+  cursor: pointer;
+  .title {
+    &:hover {
+      text-decoration: underline;
+    }
+    margin-left: 8px;
+    height: $height-changematch;
+    display: inline-block;
+  }
+  .arrow {
+    height: 6px;
+    width: 10px;
+    fill: $quick-switch-color;
+    margin-left: $padding-changematch;
+    margin-right: 2px;
+    align-self: center;
+  }
+}

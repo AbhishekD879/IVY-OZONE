@@ -1,0 +1,21 @@
+<div *ngIf="isMarketsTabAvailable()" class="event-tabs racing-event-tabs"
+  [ngClass]="{'markets-active': activeUserTab === 'HR_TABS.MARKETS'}">
+  <div class="tabs-list">
+    <ul>
+      <li (click)="setActiveUserTab(HR_TABS.MARKETS)" [ngClass]="{active: activeUserTab === HR_TABS.MARKETS, 'coral-btn': isCoral}"
+        data-crlat="tab.tpTabs">
+        <span draggable="false" [i18n]="'sb.tabsMarkets'" data-crlat="tab"></span>
+      </li>
+      <li (click)="updateCashoutData();setActiveUserTab(HR_TABS.MYBETS)" [ngClass]="{active: activeUserTab === HR_TABS.MYBETS, 'coral-btn': isCoral}"
+        data-crlat="tab.tpTabs">
+        <span draggable="false" data-crlat="tab">{{ myBetsTabLabel }}</span>
+        <span *ngIf="showSignPosting" class="show-signposting"></span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<lazy-component *ngIf="activeUserTab === HR_TABS.MYBETS && isMarketsTabAvailable() && !isBetsStreamLoading"
+data-crlat="placedBets" moduleUri="@betHistoryModule/bet-history.module#BetHistoryModule" entryComponent="MyBetsComponent"
+[inputs]="{ placedBets: placedBets, cashoutIds: cashoutIds, eventId: eventId, section: HORSE_RACING_EDP, raceCardEventIds, eventEntity }">
+</lazy-component>

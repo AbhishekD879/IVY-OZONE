@@ -1,0 +1,44 @@
+@import 'global.variables.scss';
+
+$status-line-height: 14px;
+
+racing-status:host {
+  font-size: $font-size;
+  line-height: $status-line-height;
+  color: $color-black;
+  display: block;
+  text-transform: uppercase;
+
+  .race-off{
+    color: $color-orange;
+    text-transform: uppercase;
+    font-size: $font-size-pre-xs;
+    font-weight: bold;
+  }
+
+  .live {
+    color: $color-orange;
+    text-transform: uppercase;
+    font-size: $font-size-pre-xs;
+  }
+
+  .resulted {
+    font-size: $font-size-pre-xs;
+    color: $color-gray-dark;
+    font-weight: normal;
+  }
+
+  .racing-icon {
+    height: 8px;
+    width: 8px;
+    margin-right: 3px;
+    vertical-align: middle;
+  }
+
+  .inplay-icon {
+    height: 11px;
+    width: 11px;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+}

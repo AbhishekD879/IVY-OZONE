@@ -1,0 +1,54 @@
+<div class="five-a-side-journey-wrapper" data-crlat="journeyPanel" (click)="$event.stopPropagation()" [ngClass]="{'one-slide': slides.length === 1}">
+  <header>
+    <section class="wrapper">
+      <div class="close-icon" data-crlat="btnClose" (click)="onClose()">
+        <svg>
+          <use xlink:href="#icon-promotion-close"></use>
+        </svg>
+      </div>
+    </section>
+    <div *ngIf="availableFiveASideFreeBets" class="free-bet-logo">
+      <svg>
+        <use xlink:href="#free-bet-logo"></use>
+      </svg>
+      <span [i18n]="'yourCall.onBoardingJourney.labelText'"></span>
+    </div>
+    <section class="wrapper">
+      <span
+        [textContent]="carouselMode"
+        class="next-btn"
+        *ngIf="slides.length > 1"
+        (click)="navigateToNextSlide()">
+      </span>
+    </section>
+  </header>
+
+  <div class="ng-carousel five-a-side-journey-carousel"
+        *ngIf="slides.length > 1; else one_slide"
+        (isCarouselInit)="onCarouselInitChangeStatus($event)"
+        (activeSlideIndex)="setCarouselMode()"
+        [ngCarousel]
+        [ngCarouselName]="carouselName"
+        [ngCarouselWatch]="slides.length"
+        [ngCarouselFluid]="true"
+        [ngCarouselLoop]="false">
+    <slidecontainer class="carousel-slides">
+      <slide class="slide"
+              *ngFor="let slide of slides; index as i; trackBy: trackBySlide">
+        <div [innerHtml]="slide.htmlMarkup"></div>
+      </slide>
+    </slidecontainer>
+  </div>
+
+  <ng-template #one_slide>
+    <div class="slide" [innerHtml]="slides[0].htmlMarkup"></div>
+  </ng-template>
+
+  <ul class="slide-dots"
+    *ngIf="slides.length > 1">
+    <li *ngFor="let slide of slides; index as j; trackBy: trackByDot"
+        [ngClass]="{'slide-active': slideIndex === j ? 'active' : ''}">
+      <button type="button" (click)="navigateToSlide(j)"></button>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,58 @@
+<div class="sk-container" [ngClass]="{'sk-loading': !loadComplete && !loadFailed, 'widget': isTablet}">
+  <loading-screen [displayed]="!loadComplete && !loadFailed" [templateType]="'GENERIC_BET'" [isUsedFromWidget]="isTablet" data-crlat="spinner.loader"></loading-screen>
+<div class="bs-receipt-wrapper" *ngIf="loadComplete && !loadFailed" data-crlat="betslipReceipt">
+  <div class="bs-content">
+    <div class="bs-selections-wrapper scrollable-content" data-crlat="betreceiptSectionsContainer">
+      <ds-betslip-link></ds-betslip-link>
+      <receipt-header [betDate]="betDate"></receipt-header>
+      <betslip-receipt-subheader [counter]="receipts.length"></betslip-receipt-subheader>
+      <!--- Bet Slip Tote -->
+      <tote-bet-receipt-item *ngIf="toteBetDetails"
+                             [toteBet]="toteBetDetails"
+                             [poolCurrencyCode]="poolCurrencyCode"
+                             [receipts]="receipts"
+                             [isSportIconEnabled]="isSportIconEnabled">
+      </tote-bet-receipt-item>
+      <!--- Bet Slip Footer -->
+      <div class="bs-scrolling-fix-ios bs-footer-anchoring">
+        <div class="scrollable-content prevented-container">
+          <div class="bs-footer" data-crlat="bsFoot">
+
+            <!-- Total panel -->
+            <betslip-total-wrapper
+              [totalStake]="(totalStake || '0.00' | currency: userCurrencySymbol: 'code')"
+              [totalReturns]="'N/A'"
+              [totalFreeBetsStake]="totalFreebetStake"
+              [isBetReceipt]="true">
+            </betslip-total-wrapper>
+
+            <div class="bs-buttons-wrapper">
+              <button class="base-btn reuse-selection-btn" (click)="reuse()"
+                      data-crlat="reuseButton">
+                <span [i18n]="'bs.reuseSelection'"></span>
+              </button>
+              <button class="base-btn done-btn" (click)="done()" data-crlat="doneButton">
+                <span [i18n]="'bs.done'"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-container *ngIf= "bsReceiptBannerImages && bsReceiptBannerImages.length">
+        <ng-container *ngFor="let bsReceiptBannerImage of bsReceiptBannerImages">
+          <div *ngIf="bsReceiptBannerImage.imageSrc" class="bs-receipt-banner">
+            <a (click)="trackSiteCoreBanners(bsReceiptBannerImage.bannerName)" class="bs-receipt-banner__link" [href]="bsReceiptBannerImage.imageHref">
+              <img class="bg-image bs-receipt-banner__image" alt="banner-img"
+                [attr.src]="bsReceiptBannerImage.imageSrc">
+            </a>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!loadComplete" class='loading-v3' data-crlat="flashing.loader"><div class='dot-flashing'></div></div>
+
+<request-error *ngIf="loadFailed" [loadFailed]="loadFailed"></request-error>
+</div>

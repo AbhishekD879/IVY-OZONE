@@ -1,0 +1,8 @@
+<ng-container *ngIf="!state.loading && !state.error && widgetDataStore.length">
+  <right-column-widget [widgetColumn]="'rightColumn'"
+                       [widgetDataStore]="widgetDataStore"
+                       data-crlat="widgetSection">
+  </right-column-widget>
+</ng-container>
+
+<outlet-status [state]="state" [isUsedFromWidget]="true"></outlet-status>

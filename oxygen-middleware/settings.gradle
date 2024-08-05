@@ -1,0 +1,19 @@
+pluginManagement {
+  repositories {
+    maven {
+      credentials {
+        username = System.getenv("NEXUS_USER") ?: nexusUser
+        password = System.getenv("NEXUS_PASS") ?: nexusPass
+      }
+      url System.getenv("NEXUS_HOST") ?: "https://nexus-vie.coral.co.uk/repository/maven-public/"
+    }
+    gradlePluginPortal()
+  }
+}
+
+rootProject.name = 'oxygen-middleware'
+
+include 'app-pojos', 'cms-api', 'df-api', 'common'
+include 'featured-ms'
+include 'in-play-ms'
+include 'liveserver-api'

@@ -1,0 +1,46 @@
+@import 'global.variables.scss';
+
+.bs-overask-trader-offer {
+  margin: $bs-oversask-notification-margin;
+  padding: $bs-oversask-notification-padding;
+  border-bottom: $bs-oversask-notification-border;
+  background: $color-gray-light;
+  position: relative;
+
+  .bs-overask-trader-offer-message {
+    color: $bs-oversask-notification-color;
+    opacity: $bs-oversask-notification-message-opacity;
+    font-size: $bs-overask-trader-offer-message-font-size;
+  }
+
+  .bs-overask-trader-offer-info-icon {
+    position: absolute;
+    left: $bs-oversask-notification-icon-left;
+    top: $bs-oversask-notification-icon-top;
+    width: $bs-oversask-notification-icon-size;
+    height: $bs-oversask-notification-icon-size;
+  }
+
+  .bs-overask-trader-offer-expires {
+    margin: $bs-overask-trader-offer-expires-margin;
+    font-size: 14px;
+    color: $color-blue-dark;
+    font-weight: bold;
+
+    span {
+      display: inline-block;
+      vertical-align: baseline;
+    }
+
+    .bs-overask-trader-offer-expires-timer {
+      margin: 0 0 0 4px;
+      font-weight: $bs-oversask-notification-timer-weight;
+    }
+  }
+}
+
+@media #{$mqTablet} {
+  .bs-overask-trader-offer {
+    margin: 0;
+  }
+}

@@ -1,0 +1,48 @@
+@import 'global.variables.scss';
+
+//
+// POPUP POSITION BEHAVIOR
+//
+@media screen and (min-width: 1025px) and (max-width: 1599px) {
+  .login-form {
+    width: 100vw;
+    margin: 0 auto;
+  }
+
+  .login-form .modal-dialog {
+
+    position: absolute;
+    right: 15px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .login-form {
+    width: 1600px;
+    margin: 0 auto;
+  }
+
+  .login-form .modal-dialog {
+    position: absolute;
+    right: 15px;
+  }
+}
+
+//
+// ADJUST FORM STYLES
+//
+
+.login-form {
+  .modal-dialog {
+    padding-top: 50px;
+    top: 60px !important;
+    margin-top: 83px;
+  }
+}
+
+// SHAME. Removing clear and reveal password icons from IE
+// ::-ms-clear is for the little x on the input to clear content not necessary for this fix
+input::-ms-clear,
+input::-ms-reveal {
+  display: none;
+}

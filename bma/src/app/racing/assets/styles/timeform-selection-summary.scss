@@ -1,0 +1,55 @@
+@import 'global.variables.scss';
+
+.timeform-selection-summary {
+  background: $color-gray-light;
+  padding-top: 10px;
+
+  .summary-header {
+    padding: 0 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    .col-xs-6 > span {
+      font-size: 11px;
+      color: $color-gray-dark;
+    }
+
+    .rating {
+      font-size: 7px;
+      font-weight: bold;
+      color: $color-gray-dark;
+      text-align: right;
+      padding: 0 10px;
+
+      .rating-text {
+        vertical-align: 1px;
+        margin-right: 3px;
+      }
+
+      .rating-stars {
+        width: 10px;
+        height: 10px;
+        fill: $color-gray-dark;
+        margin: 2px 3px 0 2px;
+      }
+    }
+  }
+
+  .timeform-description {
+    font-size: 11px;
+    line-height: 1.45;
+    color: $color-gray-dark;
+
+    .r-post-btn {
+      text-decoration: underline;
+    }
+  }
+
+  .timeform-selection-content {
+    padding: 10px 10px 15px 10px;
+
+    .row {
+      margin: 0;
+    }
+  }
+}

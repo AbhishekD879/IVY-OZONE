@@ -1,0 +1,13 @@
+<ng-container *ngIf="isQuickLinksEnabled">
+  <list-card *ngFor="let qLink of quickLinks.data; index as i; trackBy: trackByLink"
+            [item]="qLink"
+            [title]="updateTitle(qLink)"
+            [link]="qLink.destination"
+            (clickFunction)="clickOnLink($event, qLink, i+1)"
+            data-crlat="quickLinkItem"
+            >
+    <svg *ngIf="qLink.svgId" class="quick-link-icon">
+      <use [attr.xlink:href]="'#' + qLink.svgId"></use>
+    </svg>
+  </list-card>
+</ng-container>

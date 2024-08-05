@@ -1,0 +1,175 @@
+@import 'global.variables.scss';
+//Silk images
+.silk-img {
+  @include display-flex();
+  @include align-self(center);
+  position: relative;
+  height: 32px;
+  width: 40px;
+  border-radius: 3px;
+  &.grouped-silk {
+    @include display-flex();
+    span {
+      width: 23px;
+      height: 23px;
+      display: block;
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 23px;
+      text-align: center;
+      &:first-child {
+        border-bottom-left-radius: 5px;
+        border-top-left-radius: 5px;
+        &:after {
+          display: block;
+        }
+      }
+      &:last-child {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
+    }
+  }
+  &.odd {
+    .odd-1 {
+      color: $color-white;
+      background-color: #f34444;
+      &:after {
+        content: '1';
+      }
+    }
+    .odd-2 {
+      color: #040404;
+      background-color: $color-white;
+      border: 1px solid #040404;
+      &:after {
+        content: '3';
+      }
+    }
+    .odd-3 {
+      color: $color-white;
+      background-color: #f08937;
+      &:after {
+        content: '5';
+      }
+    }
+  }
+  &.even {
+    .even-1 {
+      color: $color-white;
+      background-color: #4480f3;
+      &:after {
+        content: '2';
+      }
+    }
+    .even-2 {
+      color: $color-white;
+      background-color: #040404;
+      &:after {
+        content: '4';
+      }
+    }
+    .even-3 {
+      color: #f34444;
+      border: 1px solid #040404;
+      background: repeating-linear-gradient($color-black, $color-black 2px, $color-white 3px, $color-white 5px);
+      text-shadow: -1px -1px 1px $color-white, 1px -1px 1px $color-white, -1px 1px 1px $color-white, 1px 1px 1px $color-white;
+      &:after {
+        content: '6';
+      }
+    }
+  }
+  &.inside {
+    .inside-1 {
+      color: $color-white;
+      background-color: #f34444;
+      &:after {
+        content: '1';
+      }
+    }
+    .inside-2 {
+      color: $color-white;
+      background-color: #4480f3;
+      &:after {
+        content: '2';
+      }
+    }
+    .inside-3 {
+      color: #040404;
+      background-color: $color-white;
+      border: 1px solid #040404;
+      &:after {
+        content: '3';
+      }
+    }
+  }
+  &.outside {
+    .outside-1 {
+      color: $color-white;
+      background-color: #040404;
+      &:after {
+        content: '4';
+      }
+    }
+    .outside-2 {
+      color: $color-white;
+      background-color: #f08937;
+      &:after {
+        content: '5';
+      }
+    }
+    .outside-3 {
+      color: #f34444;
+      border: 1px solid #040404;
+      background: repeating-linear-gradient($color-black, $color-black 2px, $color-white 3px, $color-white 5px);
+      text-shadow: -1px -1px 1px $color-white, 1px -1px 1px $color-white, -1px 1px 1px $color-white, 1px 1px 1px $color-white;
+      &:after {
+        content: '6';
+      }
+    }
+  }
+
+  &.has-img {
+    margin: 0;
+    width: 40px;
+    height: 29px;
+    min-width: 40px;
+    @include align-self(center);
+    div{
+      width: inherit;
+      height: inherit;
+    }
+  }
+  &.with-default {
+    background-position: -1px 0;
+    div {
+      width: 40px;
+    }
+  }
+  &.inter-silk {
+    background-position: 0 3px;
+    div {
+      width: 40px;
+    }
+  }
+}
+
+#race-timer-Value {
+  .race-timer span.value {
+    font-size: 11.54px !important;
+  }
+}
+
+#race-timer-Value {
+  .race-timer span.label {
+    font-size: 11.54px !important;
+  }
+}
+
+.race-card.odds-card {
+  .odds-content {
+    .odds-names {
+      color: $color-gray-darkest;
+    }
+  }
+}

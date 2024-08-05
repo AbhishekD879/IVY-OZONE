@@ -1,0 +1,61 @@
+<div class="single-item-inner"
+     [ngClass]="{'suspended': pool.isSuspended}"
+     data-crlat="cashout.betLeg">
+  <div class="leg-z-index-lotto">    
+    <!-- Market header -->
+    <div class="select-market-header top" data-crlat="section.marketHeader">
+      <div class="single-left" data-crlat="marketHeader">
+        <!-- Outcome names -->
+        <div class="selection-names">
+          <div *ngFor="let outcome of pool.orderedOutcomes; trackBy: trackByFn; let i = index;"
+              class="selection-name">
+            <span class="single-selection-name"
+                  data-crlat="selectionName"
+                  data-uat="selectionName"
+                  [textContent]="getOutcomeTitle(outcome, i)"
+            ></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Suspended icon-->
+      <div class="single-right" data-crlat="section.odds">
+        <div class="tote-leg-status-container" *ngIf="pool.isSuspended">
+          <svg class="tote-leg-status suspended" data-crlat="leg.status">
+            <use  xlink:href="#icon-suspended" data-crlat="#icon-suspended"></use>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Market name -->
+    <div class="single-market-name">
+          <span [textContent]="pool.toteMarketTitle"
+                data-crlat="marketName"
+                data-uat="marketName"
+          ></span>
+    </div>
+
+    <div class="cashout-odds-card" (click)="goToEvent(pool)">
+      <div class="cashout-odds-content"
+          [ngClass]="{'active': isEventLive(pool.leg[0])}"
+          data-crlat="cashout.oddsContent">
+        <span class="cashout-odds-title"
+              [textContent]="pool.raceNumberTitle"
+              data-crlat="raceNumber"
+        ></span>
+        <span class="cashout-odds-names"
+              [ngClass]="{'active': pool.leg[0].eventEntity}"
+              data-crlat="eventName"
+              data-uat="eventName"
+              [textContent]="pool.getRaceTitle(pool.leg[0])"
+        ></span>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="isSportIconEnabled" class="sports-icon-totepool">
+  <svg class="sports-icon-position">
+    <use [attr.xlink:href]="'#'+pool.leg[0].svgId"></use>
+  </svg>
+</div>

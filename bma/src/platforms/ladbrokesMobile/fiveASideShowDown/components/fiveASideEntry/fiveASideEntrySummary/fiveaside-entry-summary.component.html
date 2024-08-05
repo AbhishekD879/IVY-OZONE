@@ -1,0 +1,77 @@
+<div class="container" (click)="eventStatus !== 'live' ? onClick() : false">
+  <div class="focus" [ngClass]="{'active-user-border': entryInfo.userEntry}">
+    <div class="row marginall" 
+    [ngClass]="{'border-radius':!(entryInfo.isOpened || entryInfo.isOverlayOpend),'border-radius-top':(entryInfo.isOpened || entryInfo.isOverlayOpend)}" 
+    id="live-overlay-click" (click)="eventStatus === 'live' ? onClick() : eventStatus === 'post'? postOnClick() : false">
+      <div class="col-md-1 col-xs-1 col-sm-1 rank" [ngClass]="getClass()">
+        <span *ngIf="eventStatus==='pre'" [textContent]="entryInfo?.rankEqual"></span>
+        <span *ngIf="eventStatus!=='pre'" [textContent]="entryInfo?.rank"></span>
+      </div>
+      <div class="col-md-2 col-xs-2 col-sm-2 pull-right">
+        <div class="col">
+          <div class="row">
+            <div class="col name"><span [textContent]="entryInfo.userId| callBack: getuserNameMask : this"></span></div>
+          </div>
+          <div class="row">
+            <div class="col odds">
+              <fiveaside-oddsview [summary]="entryInfo"></fiveaside-oddsview>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-xs-5 col-sm-5">
+        <div id="myProgress">
+          <fiveaside-progressbar [min]=0 [max]=100 [value]="entryInfo.overallProgressPct" [origin]='origin'>
+          </fiveaside-progressbar>
+        </div>
+      </div>
+      <div class="col-md-2 col-xs-2 col-sm-2 percentage"
+        [ngClass]="{'percentageFull': entryInfo.overallProgressPct === 100,'nosvg':entryInfo.overallProgressPct !== 100}">
+        <div class="percentage-img" *ngIf="entryInfo.overallProgressPct === 100">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17">
+            <g fill="none" fill-rule="evenodd">
+              <g fill-rule="nonzero">
+                <g>
+                  <g transform="translate(-832 -680) translate(377 621) translate(456 60)">
+                    <circle cx="7.5" cy="7.5" r="7.5" stroke="#78B200" stroke-width=".5" />
+                    <path fill="#78B200"
+                      d="M11.413 5.107l.509.605c.07.083.06.208-.022.28l-5.595 4.884c-.08.07-.2.065-.274-.01L3.138 7.934c-.077-.077-.077-.202 0-.28l.55-.565c.078-.079.205-.08.284-.003l.002.003 2.249 2.278 4.905-4.282c.083-.073.21-.064.282.019l.003.003z" />
+                  </g>
+                </g>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <p [textContent]="entryInfo.overallProgressPct"></p><p>%</p>
+      </div>
+      <div class="col-md-1 col-xs-2 col-sm-2 gifts">
+        <div class="d-flex justify-content-center">
+          <div class="winprize">
+            <fiveaside-entry-summary-prize-pool *ngIf="prizePoolData"
+              [prizePoolData]="prizePoolData.prizes | slice:0:2">
+            </fiveaside-entry-summary-prize-pool>
+            </div>
+          </div>
+      </div>
+    </div>
+     <!---Pre and Post -->
+    <fiveaside-entry-details *ngIf="eventStatus !== 'live' && entryInfo.isOpened && entryInfo.legs && !isOverlay"
+      [isLeaderboard]="isLeaderboard" [outComes]="entryInfo.legs" [eventStatus]="eventStatus">
+    </fiveaside-entry-details>
+    <!---live and  not leaderboard-->
+    <fiveaside-entry-details
+      *ngIf="eventStatus === 'live' && entryInfo.isOpened && legDetails && !isOverlay && !isLeaderboard"
+      (closeDetails)="onClick()" [entryId]="entryInfo.id" [isTopEntry]="isTopEntry" [isLeaderboard]="isLeaderboard"
+      [outComes]="legDetails" [eventStatus]="eventStatus" [teamColors]="teamColors" [hasTeamImage]="hasTeamImage">
+    </fiveaside-entry-details>
+    <!---live and  leaderboard-->
+    <fiveaside-entry-details
+      *ngIf="eventStatus === 'live' && entryInfo.isOpened && legDetails && !isOverlay && isLeaderboard"
+      [isLeaderboard]="isLeaderboard" [outComes]="legDetails" [eventStatus]="eventStatus"  [teamColors]="teamColors" [hasTeamImage]="hasTeamImage">
+    </fiveaside-entry-details>
+    <fiveaside-entry-details *ngIf="eventStatus === 'live' && entryInfo.isOverlayOpend && legDetails && isOverlay"
+      (closeDetails)="onClick()" [isLeaderboard]="isLeaderboard" [teamColors]="teamColors" [hasTeamImage]="hasTeamImage" [entryId]="entryInfo.id" [outComes]="legDetails"
+      [eventStatus]="eventStatus">
+    </fiveaside-entry-details>
+  </div>
+</div>

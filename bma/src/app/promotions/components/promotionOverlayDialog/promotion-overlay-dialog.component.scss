@@ -1,0 +1,157 @@
+@import 'global.variables.scss';
+
+.promotion-overlay-dialog {
+  $borderColor: $color-gray-light;
+  $shortDescColor: $color-white;
+  $buttonWidth: 175px;
+  $buttonHeight: 40px;
+  $buttonHeightTablet: 35px;
+  $closeIconSize: 20px;
+  $shortDescLineHeight: 16px;
+  $shortDescLineHeightTablet: 19px;
+  $descLineHeightTablet: 17px;
+  $headerHeight: 60px;
+
+  .modal-content {
+    .modal-header {
+      padding: 0 15px 0 0;
+      height: $headerHeight;
+      @include display-flex();
+      @include align-items(center);
+      @include justify-content(left);
+
+      .dialog-close {
+        width: $closeIconSize;
+        height: $closeIconSize;
+        left: 0;
+        top: 0;
+        padding: 0;
+        position: relative;
+        margin: 0 15px 0;
+
+        &:before, &:after {
+          width: $closeIconSize;
+        }
+      }
+
+      >div {
+        display: flex;
+      }
+    }
+
+    .promotion-overlay-inner {
+      .dialog-btn {
+        text-align: center;
+        padding-top: 13px;
+        margin-top: 25px;
+        height: $buttonHeight;
+        z-index: 1;
+
+        @media #{$mqTablet} {
+          width: $buttonWidth;
+          height: $buttonHeightTablet;
+          padding-top: 10px;
+        }
+
+        @media #{$mqTabletAndDesktop} {
+          position: relative;
+          float: right;
+        }
+      }
+    }
+  }
+
+  .modal-body {
+    padding: 60px 0;
+    background-color: $color-white;
+    @media #{$mqTablet} {
+      padding-bottom: 20px;
+    }
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  .promotion-overlay-img {
+    display: block;
+    width: 100%;
+  }
+
+  .page-container {
+    background: none;
+    box-shadow: none;
+
+    .container-content {
+      background: none;
+
+      &.text-section {
+        padding: 15px 0 0;
+      }
+    }
+
+    .container-header.toggle-header {
+      background: none;
+      font-size: $font-size-md;
+      font-family: $base-font-family;
+      font-weight: 700;
+      color: $color-gray-dark;
+      text-transform: uppercase;
+      box-shadow: none;
+      border-top: 1px solid $borderColor;
+      border-bottom: 1px solid $borderColor;
+      padding: 9px 10px 9px 32px;
+      margin-bottom: 0;
+    }
+
+    &.is-expanded > .toggle-header:after,
+    &.is-expanded > .toggle-header:before {
+      background: $color-gray-dark;
+    }
+  }
+
+  .promotion-overlay-short-description {
+    background-color: $brand-color-dark;
+    color: $shortDescColor;
+    font-family: $base-font-family;
+    font-size: $font-size-md;
+    line-height: $shortDescLineHeight;
+    text-transform: uppercase;
+    padding: 10px 15px;
+
+    @media #{$mqTablet} {
+      background-color: transparent;
+      font-size: $font-size-lg;
+      line-height: $shortDescLineHeightTablet;
+      font-weight: 700;
+      color: $color-gray-dark;
+      text-transform: lowercase;
+      padding: 25px 25px 0;
+    }
+  }
+
+  .promotion-overlay-inner {
+    padding: 0 15px 0;
+
+    @media #{$mqTablet} {
+      padding-right: 25px;
+      padding-left: 25px;
+    }
+  }
+
+  .promotion-overlay-description {
+    padding-top: 25px;
+    font-family: $base-font-family;
+    font-size: $font-size-md;
+    color: $color-gray-dark;
+    line-height: $descLineHeightTablet;
+
+    @media #{$mqTablet} {
+      font-size: $font-size;
+    }
+  }
+
+  .promotion-overlay-tc {
+    margin-top: 25px;
+    margin-bottom: 15px;
+  }
+}

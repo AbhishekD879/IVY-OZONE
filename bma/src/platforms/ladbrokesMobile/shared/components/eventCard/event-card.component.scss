@@ -1,0 +1,20 @@
+@import 'global.variables.scss';
+
+event-card {
+  background: $color-white;
+  border-bottom: 1px solid $color-gray;
+  font: $font-size-tablet $alt-font-family;
+  padding: 10px 12px;
+  @include display-flex();
+  @include align-items();
+
+  .event-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 10px;
+  }
+
+  price-odds-button {
+    margin-left: auto;
+  }
+}

@@ -1,0 +1,45 @@
+@import 'global.variables.scss';
+$terms-color: #7b7b7b;
+
+.body {
+  padding: 5px 0 10px;
+  text-align: center;
+}
+.boost-icon {
+  max-width: 40px;
+  height: auto;
+}
+.available {
+  font-size: 16px;
+  text-transform: capitalize;
+}
+.terms {
+  color: $terms-color;
+  margin: 10px 0 12px;
+}
+.more {
+  height: 40px;
+  display: block;
+  margin: 0 auto 16px;
+  text-transform: uppercase;
+}
+.thanks {
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+.show-toggle {
+  @include display-flex();
+  @include align-items(center);
+  @include justify-content(center);
+  margin: 8px;
+  input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+  }
+  span{
+    color: rgba(65, 73, 78, 0.75);
+    font-size: 12px;
+  }
+}

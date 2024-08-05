@@ -1,0 +1,44 @@
+<div *ngIf="marketMappingData" class="card">
+  <div class="header">
+    <h2 class="waves-effect waves-block">
+      Coupons WITHOUT Market Switcher
+      <small *ngIf="marketMappingData.length">Total Market Mapping Amount: {{marketMappingData.length}}</small>
+      <small *ngIf="!marketMappingData.length">No Market Mapping Found</small>
+    </h2>
+  </div>
+</div>
+<div class="card">
+    <div class="body">
+      <!-- search and download button.-->
+      <div *ngIf="marketMappingData" class="row clearfix">
+        <div class="col-md-3">
+          <button type="button" (click)="createCouponMarketMapping()" class="btn bg-teal waves-effect float-left">
+            <i class="material-icons">add_box</i>
+            <span>Create Mapping</span>
+          </button>
+        </div>
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6 m-b-0">
+          <div class="input-with-icon m-b-0">
+            <i class="material-icons">search</i>
+            <mat-form-field>
+              <input matInput placeholder="Search For Coupon Market Mapping" [(ngModel)]="searchField" [value]="searchField">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="marketMappingData?.length > 0">
+        <cms-data-table
+          [customTableData]="marketMappingData"
+          [customTableColumns]="dataTableColumns"
+          [actions]="['remove', 'editMapping']"
+          [filterString]="searchField"
+          [filterProperties]="searchableProperties"
+          [reorder]="false"
+          (onPageEditTableElement)="editCouponId($event)"
+          (onRemoveTableElement)="removeHandler($event)">
+        </cms-data-table>
+      </div>
+    </div>
+  </div>

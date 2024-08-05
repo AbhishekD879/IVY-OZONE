@@ -1,0 +1,12 @@
+<div class="event-title-bar">
+  <fallback-scoreboard
+    [event]="event"
+    [score]="parseScores(event.originalName, fallbackScoreboardType)"
+    [scoreType]="fallbackScoreboardType" *ngIf="isFallbackScoreboards" data-crlat="sbBar">
+  </fallback-scoreboard>
+  <div class="match-info" *ngIf="!isFallbackScoreboards" data-crlat="defBar">
+    <span class="event-name"
+        [textContent]="event.name"
+        data-crlat="eventEntity.name"></span>
+  </div>
+</div>

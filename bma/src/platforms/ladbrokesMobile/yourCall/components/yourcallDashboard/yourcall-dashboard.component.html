@@ -1,0 +1,93 @@
+<section class="yourcall-dashboard" overscrollFix
+         [ngClass]="{'expanded': expanded, 'visible': visible }"
+         *ngIf="isEnabled"
+         [hidden]="!showDashboard"
+         data-crlat="yourcall.dashboardSection">
+  <div class="alert" *ngIf="hasErrors()" data-crlat="infPan.msg">
+    <span *ngIf="errorMessage" [textContent]="errorMessage" data-crlat="errorMessageText"></span>
+    <span *ngIf="!isValid" [i18n]="'yourCall.validationError'" data-crlat="errorValidationError"></span>
+  </div>
+  <header>
+    <div class="summary" (click)="toggle()" data-crlat="yourcallSummary">
+      <div class="counter" data-crlat="counterBlock">
+        <svg>
+          <use xlink:href="#icn_dashboard" data-crlat="icon.dashboard"></use>
+        </svg>
+        <div><span [textContent]="counter" data-crlat="selection.counter"></span></div>
+      </div>
+      <div class="description" data-crlat="descriptionBlock">
+        <div class="title" [i18n]="'yourCall.dashboardTitle'" data-crlat="yourcall.dashboardTitle"></div>
+        <div class="brief" [innerHtml]="briefDescription" data-crlat="yourcall.dashboardText"></div>
+      </div>
+      <div class="open" data-crlat="open.closeButton">
+        <span [i18n]="(expanded ? 'yourCall.close' : 'yourCall.open')" data-crlat="yourcallOpenCloseText"></span>
+        <svg>
+          <use xlink:href="#icn_arrowdown" data-crlat="icon.arrowdown"></use>
+        </svg>
+      </div>
+      <div class="odd"
+           *ngIf="canDisplayOdds"
+           (click)="placeBet($event)"
+           [ngClass]="{ 'disabled': disableDoneButton }"
+           data-crlat="oddBlock">
+        <div class="spinner-loader spinner-dark" *ngIf="oddsLoading" data-crlat="spinner.loader"></div>
+        <div *ngIf="!oddsLoading" data-crlat="oddsLoading">
+          <span [textContent]="odds" data-crlat="yourcall.odds"></span>
+          <span class="label" [i18n]="'yourCall.placeBet'" data-crlat="yourcall.placeBet"></span>
+        </div>
+      </div>
+    </div>
+  </header>
+  <ul class="selections" [ngStyle]="listHeight" data-crlat="containerContent">
+    <li *ngFor="let item of dashboardItems; trackBy: trackByDashboard; let i = index"
+        [ngClass]="getCssClass(item)"
+        data-crlat="selectionItem">
+      <div *ngIf="!item.selection.edit" class="dash-item" data-crlat="selection.edit">
+        <div class="selection">
+          <svg *ngIf="item.selection.error" data-crlat="selection.error">
+            <use xlink:href="#icn_alert" data-crlat="icon.alert"></use>
+          </svg>
+          <span class="label"
+                *ngIf="marketTitles[i]"
+                [textContent]="marketTitles[i] + ' -'"
+                data-crlat="marketTitle">
+          </span>
+          <span class="value" id="text-value" [textContent]="selectionsTitles[i].toLowerCase()" data-crlat="selectionTitle">
+          </span>
+        </div>
+        <div class="action edit" *ngIf="item.market.edit" (click)="editSelection(item)" data-crlat="marketEditButton">
+          <svg>
+            <use xlink:href="#icn_edit" data-crlat="icon.edit"></use>
+          </svg>
+        </div>
+        <div class="action remove" (click)="removeSelection(item)" data-crlat="removeSelectionButton">
+          <svg>
+            <use xlink:href="#icn_remove" data-crlat="icon.remove"></use>
+          </svg>
+        </div>
+      </div>
+      <div *ngIf="item.selection.edit" class="edit-section" data-crlat="edit.section">
+        <div class="dash-item" data-crlat="dash.item">
+          <div class="selection" data-crlat="selection">
+            <span class="edit-section-text" [i18n]="'yourCall.editSelection'" data-crlat="edit.section.text"></span>
+          </div>
+          <div class="done"
+               (click)="saveEditSelection(item)"
+               [ngClass]="{'disabled': item.selection.disable }"
+               data-crlat="doneButton">
+            <span [i18n]="'yourCall.done'" data-crlat="doneButtonText"></span>
+          </div>
+        </div>
+        <yourcall-market-player-bets class="dash-item none-style-list"
+                                     *ngIf="item.selection.edit"
+                                     [editMode]="true"
+                                     [hideButton]="true"
+                                     [disableEditButton]="disableCorrectIcon"
+                                     [marketInfo]="item.market"
+                                     [market]="item.selection"
+                                     data-crlat="yourcallMarket.playerbets">
+        </yourcall-market-player-bets>
+      </div>
+    </li>
+  </ul>
+</section>

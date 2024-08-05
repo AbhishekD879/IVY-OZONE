@@ -1,0 +1,18 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "types": [],
+    "baseUrl": "../src"
+  },
+  "exclude": [
+    "platforms/coralDesktop/*",
+    "platforms/ladbrokesMobile/*",
+    "platforms/ladbrokesDesktop/*",
+    "test.ts",
+    "**/*.spec.ts",
+
+    "app/lazy-modules/rightColumn/components/wMiniGames/w-mini-games-iframe.component.ts",
+    "app/shared/directives/active-link-class/active-link-class.directive.ts"
+  ]
+}

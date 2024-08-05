@@ -1,0 +1,85 @@
+// base build v1.2
+// https://bitbucket.org/symphonydevelopers/codebase-main/src/master/tools/gradle/build.gradle
+
+// Limitations of the plugins DSL
+// https://docs.gradle.org/5.2.1/userguide/plugins.html#plugins_dsl_limitations
+
+plugins {
+  id 'java'
+  id 'jacoco'
+
+  id 'eclipse'
+  id 'idea'
+
+  id "org.springframework.boot" version "2.4.0"
+  id 'com.coral.tools' version "2.0-SNAPSHOT"
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.ladbrokescoral.oxygen'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+def nexusMavenRepo = System.getenv("NEXUS_HOST") ?: 'https://nexus-vie.coral.co.uk/repository/maven-public/'
+ext.nexusUser = System.getenv("NEXUS_USER") ?: project.properties.nexusUser
+ext.nexusPass = System.getenv("NEXUS_PASS") ?: project.properties.nexusPass
+
+repositories {
+  maven {
+    credentials {
+      username = "${nexusUser}"
+      password = "${nexusPass}"
+    }
+    url nexusMavenRepo
+  }
+  jcenter()
+}
+
+configurations {
+  all {
+    // exclude module: 'spring-boot-starter-tomcat'
+  }
+  compileOnly {
+    extendsFrom annotationProcessor
+  }
+}
+
+ext {
+  set('springCloudVersion', '2020.0.0-M4')
+}
+
+dependencies {
+
+  // Development
+  developmentOnly 'org.springframework.boot:spring-boot-devtools'
+  annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+  // Spring Cloud
+  implementation platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
+  implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+  // implementation 'org.springframework.cloud:spring-cloud-starter-config'
+
+  // Spring Boot
+  implementation "org.springframework.boot:spring-boot-starter-web"
+  implementation "org.springframework.boot:spring-boot-starter-actuator"
+
+  // Testing
+  testImplementation "org.springframework.boot:spring-boot-starter-test"
+}
+
+jacocoTestReport.reports.xml.enabled = true
+
+test {
+  useJUnitPlatform()
+  systemProperty 'spring.profiles.active', 'UNIT'
+}
+
+springBoot {
+  buildInfo()
+}
+
+bootBuildImage {
+  imageName = "${rootProject.name}"
+}

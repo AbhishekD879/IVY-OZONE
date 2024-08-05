@@ -1,0 +1,158 @@
+<div class="space-bottom">
+<!-- RACING DETAILS -->
+<div class="race-details-container race-result replaystream">
+  <div class="race-event-container">
+    <span class="race-event-time" [textContent]="eventEntity.localTime" data-crlat="value"></span>
+    <b class="race-event-name" [textContent]="eventEntity.name" data-crlat="value"></b>
+  </div>
+  <div class="race-title" data-crlat="value">
+    <span class="oval" [class.green]="eventEntity.isFinished"></span>
+    <span [i18n]="eventEntity.isFinished? 'racing.settledResult' : 'racing.unconfirmedResult'"></span>
+  </div>
+  <div class="race-details-container-l">
+    <div data-crlat="raceGoing">
+      <div class="value" [textContent]="eventDateSufx" data-crlat="value"></div>
+    </div>
+  </div> 
+  
+</div>
+<!-- [ngClass]="{'active done-a-btn': filter === 'showVideoStream', 'replaybtn':filter != 'showVideoStream' , 'disabled' : filter === 'showLiveSim' && !isGreyhoundEdp && eventEntity.isUKorIRE}" -->
+
+<div [ngClass]=" {'media-area-container-greyhound':isGreyhoundEdp,'media-area-container':!isGreyhoundEdp,'media-area-container-horse':!isGreyhoundEdp && !isDesktop}" *ngIf="eventEntity.isResulted && eventEntity.isReplayStreamAvailable" >
+  <div  class="group-buttons media-buttons" [ngClass]="{'live-stream-active' : filter === 'showVideoStream'}">
+    <div class="racing-post-media-btns-container" [ngClass]="[!isDesktop && filter === 'showVideoStream'?'replay-media-active': 'replay-media']"> 
+      <div class="media-btns-left">
+        <!-- WATCH BTN --->
+        <a class="btn"
+        [ngClass]="[isCoral ? 'coral-replaybtn': 'lads-replaybtn',filter === 'showVideoStream' ? 'active': '']"   (click)="playStream($event)" data-crlat="buttonPlayStream">
+           <svg  class="btn-icon video-stream-icon">
+            <use [attr.xlink:href]="isCoral ? '#video-stream-icon' : '#button-arrow'"></use>
+          </svg>
+          <span   class ="replayspan" [ngClass]="{'coral-text':isCoral}"  [i18n]="filter === 'showVideoStream'? 'sb.done' : 'sb.watchReplay'"></span>
+        </a> 
+      </div>
+    </div>
+  </div>
+
+  <div class="media-area watch-live-widget"  [ngClass]="{'replay-margin': filter === 'showVideoStream'}"
+       *ngIf="eventEntity.isResulted &&  filter === 'showVideoStream'">
+    <!-- Video Stream lazy component -->
+    <lazy-component *ngIf="(filter === 'showVideoStream')"
+                    moduleUri="@lazy-modules-module/eventVideoStream/event-video-stream.module#LazyEventVideoStreamModule"
+                    [inputs]="{eventEntity: eventEntity, autoPlay: true, preloadStream: true, cssClassesForStreams: cssClassesForStreams, streamUniqueId: 'rtmpe-hls',isReplayVideo:true}"
+                    data-crlat="eventVideoStreamArea">
+    </lazy-component>
+  </div>
+</div>
+<!-- Each Way Text -->
+<div class="section-container each-way-text space-top"  [ngClass]="{'watchreplayenabled':filter === 'showVideoStream'}" data-crlat="racingPostContainer">
+  <div *ngIf="antepostTerms" class="terms-before-market result-card">
+    <div data-crlat="terms">
+      <div class="term-value" [innerHTML]="antepostTerms" data-crlat="eachWayContainer"></div>
+      <span class="class-value" [textContent]="eventEntity.uiClass" *ngIf="eventEntity.uiClass" data-crlat="termsClass"></span>
+    </div>
+
+    <div class="racing-result-icons" *ngIf="eventEntity.resultedWEWMarket.drilldownTagNames">
+      <promotion-icon [type]="'market'" data-crlat="promotionIcons"
+                      [display]="eventEntity.resultedWEWMarket.drilldownTagNames"
+                      [cashoutAvailable]="isCashout"
+                      [mode]="'md'">
+      </promotion-icon>
+    </div>
+  </div>
+</div>
+
+
+<ng-container *ngIf="!eventEntity.voidResult && eventEntity.resultedWEWMarket?.hasPositions">
+  <!--- Results list -->
+  <div class="section-container results-list" *ngIf="eventEntity.resultedWEWMarket.outcomes?.length  || eventEntity.resultedWEWMarket.unPlaced?.length">
+    <div class="section-header top-section">
+      <strong [i18n]="'racing.raceResult'"></strong>
+      <strong class="result-odds-col" [i18n]="'racing.oddsColumn'"></strong>
+    </div>
+    <div class="result-section" *ngIf="eventEntity.categoryCode === 'HORSE_RACING' && eventEntity.isUKorIRE" [i18n]="'racing.racePlaced'"></div>
+    <ng-container *ngIf="!(eventEntity.categoryCode === 'GREYHOUNDS' && eventEntity.isUKorIRE && isGreyhoundsFullResultsEnabled)">
+      <div class="card-bordered" *ngFor="let outcomeEntity of eventEntity.resultedWEWMarket.outcomes"
+        data-crlat="outcomeEntity">
+        <racing-outcome-resulted-card
+          *ngIf="!outcomeEntity.nonRunner && outcomeEntity.results"
+          [eventEntity]="eventEntity"
+          [marketEntity]="eventEntity.resultedWEWMarket"
+          [outcomeEntity]="outcomeEntity"
+          [raceType]="eventEntity.categoryCode">
+        </racing-outcome-resulted-card>
+      </div>
+    </ng-container>
+    <lazy-component *ngIf="greyhoundsFullResultsData"
+        moduleUri="@lazy-modules-module/racingFullResults/racing-full-results.module#RacingFullResultsModule"
+        [inputs]="{eventEntity:eventEntity, greyhoundsFullResultsData: greyhoundsFullResultsData}" 
+        entryComponent="RacingFullResultsComponent">
+    </lazy-component>
+    <div *ngIf="unPlaced && eventEntity.isUKorIRE" class="unplaced">
+     <div class="result-section unplaced-section" *ngIf="eventEntity.categoryCode === 'HORSE_RACING'" [i18n]="'racing.raceUnplaced'"></div>
+     <div class="card-bordered" *ngFor="let outcomeEntity of eventEntity.resultedWEWMarket.unPlaced"
+         data-crlat="outcomeEntity">
+       <racing-outcome-resulted-card
+        *ngIf="!outcomeEntity.nonRunner && outcomeEntity.results"
+        [eventEntity]="eventEntity"
+        [marketEntity]="eventEntity.resultedWEWMarket"
+        [outcomeEntity]="outcomeEntity"
+        [raceType]="eventEntity.categoryCode"
+        [unPlaced]="eventEntity.resultedWEWMarket.unPlaced">
+       </racing-outcome-resulted-card>
+     </div>
+   </div> 
+   <div *ngIf="unPlaced && eventEntity.isUKorIRE" class="result-section results-supplied">
+      <div [i18n]="'racing.fullResults'"></div>
+      <div>
+        <svg data-crlat="racingPost.logo" class="logo">
+           <use xlink:href="#racing-post-logo"></use>
+        </svg>
+      </div>
+   </div>
+   <div *ngIf="totalResults !== undefined && totalResults" class="a-result unplaced-button" [i18n]="'racing.awaitingResult'"></div>
+      <div (click)="expandUnplaced()" class="unplaced-button" *ngIf="eventEntity.categoryCode === 'HORSE_RACING' && totalResults !== undefined && !totalResults && eventEntity.isUKorIRE">
+        <div *ngIf='!unPlaced' [i18n]="'racing.showFullResult'"></div>
+        <div *ngIf='unPlaced' [i18n]="'racing.showLessResult'"></div>
+      </div>
+  </div>
+
+  <!-- Rule 4 Deduction -->
+  <div class="section-container dividends rules-deduction space-top" *ngIf="eventEntity.resultedWEWMarket.rulesFourDeduction?.length">
+    <div [i18n]="'racing.deduction'" class="section-header text-bold"></div>
+    <div class="result-card">
+      <span class="name-col" [i18n]="'racing.rule4'"></span>
+      <span class="bold-col" *ngIf="eventEntity.resultedWEWMarket.rulesFourDeduction[0].deduction"
+          [textContent]="eventEntity.resultedWEWMarket.rulesFourDeduction[0].deduction + 'p'"></span>
+    </div>
+  </div>
+
+  <!-- Dividends -->
+  <div class="section-container dividends space-top" *ngIf="eventEntity.resultedWEWMarket.dividends?.length">
+    <div class="section-header">
+      <span [i18n]="'racing.dividend'" class="name-col"></span>
+      <span [i18n]="'racing.result'" class="dividend-result-col"></span>
+      <span [i18n]="'racing.dividend'" class="value-col"></span>
+    </div>
+    <div *ngFor="let dividend of eventEntity.resultedWEWMarket.dividends" class="result-card">
+      <span [textContent]="dividend.name" class="name-col"></span>
+      <span [textContent]="dividend.runnerNumbers" class="dividend-result-col"></span>
+      <span [textContent]="dividend.value | number : '1.1-2'" class="value-col"></span>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="eventEntity.resultedWEWMarket?.nonRunners?.length">
+  <!-- Non runners -->
+  <div class="section-container space-top">
+    <div [i18n]="'racing.nonRunners'" class="section-header text-bold"></div>
+    <racing-outcome-resulted-card *ngFor="let outcomeEntity of eventEntity.resultedWEWMarket.nonRunners"
+                                  [eventEntity]="eventEntity"
+                                  [marketEntity]="eventEntity.resultedWEWMarket"
+                                  [outcomeEntity]="outcomeEntity"
+                                  [raceType]="eventEntity.categoryCode"
+                                  [nonRunners]="eventEntity.resultedWEWMarket.nonRunners">
+    </racing-outcome-resulted-card>
+  </div>
+</ng-container>
+<no-events *ngIf="resultsResponseError" [message]="'racing.noRacingResultsFound'"></no-events>
+</div>

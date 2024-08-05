@@ -1,0 +1,19 @@
+<div class="action-arrows"
+  (mouseover)="mouseOver()"
+  (mouseleave)="mouseLeave()">
+  <ng-content select="action-arrows-content"></ng-content>
+  <div class="action-arrow left row-middle"
+       (click)="scrollLeft($event)"
+       *ngIf="isShowLeftArrow">
+    <svg class="arrow-icon prev-arrow row-center">
+      <use xlink:href="#prev-arrow"></use>
+    </svg>
+  </div>
+  <div class="action-arrow right row-middle"
+       (click)="scrollRight($event)"
+       *ngIf="isShowRightArrow">
+    <svg class="arrow-icon next-arrow">
+      <use xlink:href="#next-arrow"></use>
+    </svg>
+  </div>
+</div>

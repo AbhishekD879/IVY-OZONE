@@ -1,0 +1,60 @@
+<div id="home-betslip-tabs" class="w-betslip full-height">
+  <div class="w-betslip-tabs-wrapper" data-crlat="bsTabsWrapper">
+    <div class="w-betslip-tab" [ngClass]="{'lads': !isCoral,'active' : activeView === 'betslip'}" (click)="setActiveView('betslip')" [i18n]="'bma.betslip'" data-crlat="bsTab"></div>
+    <div class="w-betslip-tab" [ngClass]="{'lads': !isCoral,'active' : activeView === 'myBets' }" (click)="setActiveView('myBets')" [i18n]="'bma.myBets'" data-crlat="bsTab"></div>
+  </div>
+
+  <div class="container bet-slip-tabs-container {{activeView}}"
+       [ngClass]="{'quick-deposit-iframe-opened': quickDepositIFrameOpened}"
+       id="bs-tabs-container"
+       data-crlat="bsTabsContainer"
+       [ngSwitch]="activeView"
+       [ngStyle]="{'max-height': (isDefaultHeight || activeTab.id >= 4) ? '60vh' : (activeView==='myBets') ?  bsHeight : '100%'}"
+       *ngIf="!mobile">
+    <ng-container *ngSwitchCase="'betslip'">
+      <lazy-component
+        moduleUri="@betslipModule/betslip.module#BetslipModule"
+        entryComponent="BetslipContainerComponent"
+        class="slide-content"
+        data-crlat="slideContent.betslip">
+      </lazy-component>
+    </ng-container>
+
+    <div *ngSwitchCase="'myBets'" class="my-bets-content">
+      <switchers
+        [type]="'scrollable'"
+        [switchers]="betslipTabs.slice(1)"
+        [activeTab]="activeTab"
+        [switchIdPropertyName]="'id'"
+        (switchAction)="handleTabClick($event)"
+        [noPaddings]="true"
+        [preventRouteChange]="true">
+      </switchers>
+
+      <div [ngSwitch]="activeTab.id" *ngIf="userService.status" class="my-bets-content">
+        <lazy-component *ngSwitchCase="1" data-crlat="slideContent.cashOut"
+          moduleUri="@betHistoryModule/bet-history.module#BetHistoryModule"
+          entryComponent="CashOutPageComponent" [inputs]="{ isUsedFromWidget: true }">
+        </lazy-component>
+        <lazy-component *ngSwitchCase="2" data-crlat="slideContent.openBets"
+          moduleUri="@betHistoryModule/bet-history.module#BetHistoryModule"
+          entryComponent="OpenBetsComponent" [inputs]="{ isUsedFromWidget: true, area: 'open-bets-page' }">
+        </lazy-component>
+        <lazy-component *ngSwitchCase="3" data-crlat="slideContent.betHistory"
+          moduleUri="@betHistoryModule/bet-history.module#BetHistoryModule"
+          entryComponent="BetHistoryPageComponent" [inputs]="{ isUsedFromWidget: true }">
+        </lazy-component>
+        <lazy-component *ngSwitchCase="4" data-crlat="slideContent.inshopBets"
+          moduleUri="@betHistoryModule/bet-history.module#BetHistoryModule"
+          entryComponent="InShopBetsPageComponent" [inputs]="{ mode: 'BET_HISTORY' }">
+        </lazy-component>
+      </div>
+      <request-error *ngIf="!userService.status" [errorMsg]="errorMsg"
+                     [loginNeed]="!userService.status"
+                     [insertedPlace]="'open-bets'"
+                     [attr.data-crlat]="'slideContent.' + activeTab.id"
+                     [reloadMethods]="['SUCCESSFUL_LOGIN']">
+      </request-error>
+    </div>
+  </div>
+</div>

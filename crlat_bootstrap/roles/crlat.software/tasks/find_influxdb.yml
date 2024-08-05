@@ -1,0 +1,14 @@
+- name: Find influx IP
+  local_action:
+    module: ec2_instance_facts
+    region: eu-west-1
+    filters:
+      instance-state-name: running
+      "tag:Name": "{{ influx_tag_name }}"
+  register: found_nodes
+
+- name: Set InfluxDB address variable
+  set_fact:
+    influxdb_ip_address: "{{found_nodes.instances[0].private_ip_address}}"
+    influxdb_port: "8086"
+    influxdb_url: "http://{{ found_nodes.instances[0].private_ip_address }}:8086"

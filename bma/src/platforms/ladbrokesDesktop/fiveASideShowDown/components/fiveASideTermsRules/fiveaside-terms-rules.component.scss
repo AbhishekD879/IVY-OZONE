@@ -1,0 +1,207 @@
+@import 'global.variables.scss';
+@import '../../../../ladbrokesMobile/fiveASideShowDown/components/fiveASidePreLeaderBoard/fiveASidePreLeaderBoardMixin/fiveaside-pre-leader-board-mixin.scss';
+
+$grassImagePath: '/assets/images/';
+@mixin terms-rules-font($size, $family) {
+  font-size: $size;
+  font-family: $family;
+}
+
+@mixin rules-content($backgroundColor) {
+   @include terms-rules-font($font-size-tablet, $alt-font-family);
+    background-color: $backgroundColor;
+}
+
+@mixin rules-overlay-content() {
+    overflow: hidden;
+    max-height: 100%;
+    height: auto;
+}
+
+::ng-deep {
+  .rules-tabs {
+    margin-bottom: 10px;
+    .tabs-panel-component.tabs-panel {
+      background-color: $color-blue-charcoal;
+      .scroll-container {
+        background-color: $color-blue-charcoal;
+        .scroll-inner {
+          border-bottom: 0px;
+          li {
+            &:not(.active):hover .tab {
+              color: $lGrayLighter;
+              background: none;
+            }
+            .tab {
+              color: $lGrayLighter;
+              text-transform: none;
+            }
+    
+            &.active {
+              border-bottom: 3px solid $color-blue-selected;
+              color: $lGrayLighter;
+    
+              .tab {
+                color: $lGrayLighter;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.fiveaside-terms-rules-modal {
+  margin: 55px 65px;
+}
+
+::ng-deep {
+  .faq {
+    margin-top: 10px;
+    accordion {
+      &.is-expanded {
+        & > .forced-chevron-up-and-styles {
+          &:before {
+            position: absolute;
+            content: '';
+            border: solid $color-blue-selected;
+            border-width: 0 2px 2px 0;
+            padding: 3px;
+            top: 50%;
+            margin-top: -6px;
+            right: 15px;
+            @include transform(rotate(-135deg));
+          }
+        }
+      }
+      .accordion-header {
+        &.forced-chevron-up-and-styles {
+          border: 0px;
+          font-size: $font-size-xl;
+          font-weight: bold;
+          color: $lGrayLighter;
+          background-color: $color-blue-charcoal;
+          &:after {
+            position: absolute;
+            content: '';
+            border: solid $color-blue-selected;
+            border-width: 0 2px 2px 0;
+            padding: 3px;
+            @include transform(rotate(45deg));
+            top: 50%;
+            margin-top: -6px;
+            right: 15px;
+          }
+          .chevron-svg, .accordion-left-side {
+            display: none;
+          }
+        }
+      }
+    }
+    accordion-body {
+      border-bottom: 0px;
+    }
+    
+    .header-title {
+      display: inline-block;
+      & > p {
+        margin-bottom: 0px;
+        text-transform: none;
+        @include terms-rules-font($font-size-bit-lgr, $alt-font-family);
+      }
+    }
+    .faq-answer {
+      @include rules-content($color-blue-charcoal);
+      .faq-answer-text {
+          padding: 4px 12px 16px 12px;
+          color: $lGrayLighter;
+          & > p {
+            @include terms-rules-font($font-size-tablet, $alt-font-family);
+          }
+      }
+    }
+  }
+  .rules-terms-block {
+    .rules-entry-area {
+      margin: 0px;
+    }
+  }
+  .pay-table-section {
+    .prize-pool-container {
+      margin: 0px;
+    }
+  }
+}
+
+.rules-terms-conditions {
+    @include rules-content($color-border-bottom-dark-black);
+    .rules-terms-conditions-text {
+        padding: 12px;
+        color: $lGrayLighter;
+    }
+}
+
+.header-content {
+  background: url("#{$grassImagePath}soccerwithgrassdesktop.png");
+  background-size: cover;
+  background-position: center;
+  height: 170px;
+  .close-content {
+    cursor: pointer;
+    padding: 15px;
+    text-align: right;
+    .close-icon {
+      height: 15px;
+      width: 15px;
+    }
+  }
+  .flag-content {
+    clear: both;
+    @include display-flex();
+    @include align-items();
+    @include justify-content(space-between);
+    .left-side, .right-side {
+      @include display-flex();
+      @include justify-content(center);
+      @include align-items();
+      @include flex-direction(column);
+      .country-flag {
+        width: 41px;
+        height: 41px;
+        box-shadow: #828282;
+      }
+      .flag-name {
+        @include country-name-mixin(100px, 48px, $color-white, 10px, center, $base-font-family, 1px, bold, hidden);
+        text-transform: uppercase;
+        padding: 5px;
+      }
+    }
+    .left-side {
+      margin: 24px 0 0 100px;
+    }
+    .right-side {
+      margin: 24px 100px 0 0;
+    }
+  }
+}
+
+::ng-deep .fiveasideentry-rules-overlay {
+    @include rules-overlay-content();
+}
+
+#fiveaside-terms-rules {
+    display: none;
+    background-color: $color-black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1030;
+    overflow: scroll;
+    &.active {
+      display: block;
+    }
+}
+

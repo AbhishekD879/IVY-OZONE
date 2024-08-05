@@ -1,0 +1,23 @@
+<div class="tab-content tab-content__previous">
+  <div *ngIf="!showNoResultsWarning" class="prev-quizzes">
+    <div class="answers-summary-item" *ngFor="let prevQuiz of prevQuizes; trackBy: trackByFn" >
+      <answers-summary [quiz]="prevQuiz"></answers-summary>
+    </div>
+
+    <div *ngIf="loading">
+      <div class='loading-v3'><div class='dot-flashing'></div></div>
+    </div>
+
+    <ng-container *ngIf="showMoreBtn && !loading">
+      <button class="show-more-btn"
+              (click)="onShowMoreClick();"
+              [i18n]="'qe.showMoreText'">
+      </button>
+    </ng-container>
+  </div>
+
+  <div *ngIf="showNoResultsWarning" class="no-game-wrapper">
+    <div class="no-game__title" [innerHTML]="noPreviousRoundTxt.title"></div>
+    <div class="no-game__subtitle" [innerHTML]="noPreviousRoundTxt.subtitle"></div>
+  </div>
+</div>

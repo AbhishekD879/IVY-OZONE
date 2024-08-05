@@ -1,0 +1,21 @@
+<div class="rpg-module-container" *ngIf="rpgGamesData?.length">
+  <header class="title-header" *ngIf="rpgModule?.title">
+    <div class="rpg-title" [i18n]="rpgModule?.title"></div>
+  </header>
+  <div class="rpg-carousel-container">
+    <ng-container *ngFor="let carousel of rpgGamesData; index as gameIndex;">
+      <div class="carousel-item" (click)="rpgCarouselClick(carousel?.gamevariant, gameIndex)">
+        <img [attr.src]="carousel?.imageUrl"  class="carousel-image">
+        <div class="carousel-title"
+          [textContent]="carousel?.displayname">
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <a class="show-more" (click)="seeMoreClick(rpgModule?.seeMoreLink)">
+    <span [i18n]="seeAllGaming" class="show-more-text"></span>
+    <svg>
+      <use xlink:href="#next-arrow"></use>
+    </svg>
+  </a>
+</div>

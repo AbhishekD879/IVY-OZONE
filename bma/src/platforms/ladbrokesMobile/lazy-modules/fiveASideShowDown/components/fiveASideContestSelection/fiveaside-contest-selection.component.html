@@ -1,0 +1,70 @@
+  <div *ngIf="contests?.length" class="divider divider-up"></div>
+
+<section class='contest-selection' [ngClass]="slideUpClass">
+    <div class="header-container" *ngIf="contests?.length">
+      <div class="left">
+        <div class="tooltipCls">
+          <svg>
+            <use xlink:href="#icn_info-icon-bg"></use>
+          </svg>
+          <div class="tooltipMsg">
+            <div class="tooltip-container"  [innerHtml]="staticBlockContent">
+            </div>
+          </div>
+        </div>
+          <span class="primary-header" [i18n]="'fs.CONTEST_SELECTION_CAROUSEL.HEADER_TEXT'"></span>
+          <span class="secondary-header" [i18n]="'fs.CONTEST_SELECTION_CAROUSEL.CONTEST_SELECTED'"
+            [i18nArgs]="[activeSelCount()]"></span>
+        </div>
+      </div>
+      <div id="contest-carousel">
+        <div class="swiper-container ng-carousel" *ngIf="contests?.length" [ngCarousel] [ngCarouselName]="'contest-carousel'"
+          [ngCarouselLoop]="false" [ngCarouselWatch]="contests.length" [ngCarouselMoveThresholdPercentage]="5">
+          <slidecontainer class="carousel-slides" [ngClass]="{'carousel-no-scroll': contests.length === 1}">
+            <slide class="slide" *ngFor="let contest of contests; let ind = index">
+              <div *ngIf="contest.contestName" class="contest-card" [ngClass]="{'activeContest': contest.contestId === selectedContest}"
+                (click)="setActiveContest(contest.contestId)">
+                <div class="contest-title" [ngClass]="{'contest-title-font-active': contest.contestId === selectedContest, 'contest-title-font' : contest.contestId !== selectedContest }" [textContent]="contest.contestName"></div>
+                <div class="contest-details" [ngClass]="{'contest-subtitle-font-active': contest.contestId === selectedContest, 'contest-subtitle-font' : contest.contestId !== selectedContest }">
+                  <span class="contest-subtitle" *ngIf="contest.minEntryStake >= 1" [textContent]="allContestConsts.EURO"></span>
+                  <span class="contest-subtitle" [textContent]="getMinEntryCurrency(contest.minEntryStake)"></span>
+                  <span class="contest-subtitle" *ngIf="contest.firstPrize?.length <= 0" [textContent]="allContestConsts.ENTRY_FEE"></span>
+                  <ng-container *ngIf="contest.firstPrize && contest.firstPrize.length > 0" >
+                    <span class="contest-subtitle" [textContent]="allContestConsts.ENTRY_FEE_COMMA_SEP"></span>
+                    <div class="bet-type-amount" [ngClass]="{'bet-type-amount-text': contest.contestId === selectedContest && !getPrizetypeIndex(contest.firstPrize, allContestConsts.CASH)}">
+                      <svg viewBox="0 0 18 15" class= "icon-size" *ngIf="getPrizetypeIndex(contest.firstPrize, allContestConsts.VOUCHER)">
+                        <use xlink:href="#ticket"></use>
+                      </svg>
+                      <svg viewBox="0 0 18 15"  class= "icon-size" *ngIf="getPrizetypeIndex(contest.firstPrize, allContestConsts.TICKET)">
+                        <use xlink:href="#freebet"></use>
+                      </svg> 
+                      <svg viewBox="0 0 18 15"  class= "icon-size" *ngIf="getPrizetypeIndex(contest.firstPrize, allContestConsts.FREEBET)">
+                        <use xlink:href="#freebet"></use>
+                      </svg>
+                      <span [ngClass]="{'first-prize-icontext-active': contest.contestId === selectedContest && !getPrizetypeIndex(contest.firstPrize, allContestConsts.CASH)}" *ngIf="checkPenceorEuro(contest.firstPrize, 'prizeValue')" [textContent]="allContestConsts.EURO"></span>
+                      <span class="contest-subtitle" [textContent]="getPrizetypeIndex(contest.firstPrize, 'prizeValue')" [ngClass]="{'first-prize-icontext-active': contest.contestId === selectedContest && !getPrizetypeIndex(contest.firstPrize, allContestConsts.CASH)}"></span>
+                    </div>
+                    <span class="contest-subtitle" [textContent]="allContestConsts.FIRST_PRIZE"></span>
+                  </ng-container>
+                  <!-- <span class="contest-subtitle" *ngIf="contest.firstPrize.length > 1" [textContent]="allContestConsts.MORE"></span> -->
+                </div>
+              </div>
+            </slide>
+          </slidecontainer>
+          <div class="action-arrow left row-middle" (click)="prevSlide()" *ngIf="canShowPrevious && contests?.length > 1">
+            <svg class="arrow-icon prev-arrow row-center">
+              <use xlink:href="#prev-arrow"></use>
+            </svg>
+          </div>
+          <div class="action-arrow right row-middle" (click)="nextSlide()" *ngIf="canShowNext && contests?.length > 1">
+            <svg class="arrow-icon next-arrow">
+              <use xlink:href="#next-arrow"></use>
+            </svg>
+          </div>
+        </div>
+      </div>
+  </section>
+  
+  <div *ngIf="contests?.length" class="divider divider-down"></div>
+
+  

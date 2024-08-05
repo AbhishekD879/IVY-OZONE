@@ -1,0 +1,123 @@
+logging:
+
+  # FIXME: remove me after Filebeat migration
+  pattern.console: "%clr{%d{${LOG_DATEFORMAT_PATTERN}}}{faint} %clr{${LOG_LEVEL_PATTERN}} %clr{%pid}{magenta} %clr{---}{faint} %clr{[%15.15t]}{faint} %clr{%-40.40c{1.}}{cyan} %clr{:}{faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD}"
+
+
+#  data.mongodb.uri: mongodb://localhost:27017/bma
+
+spring:
+   autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
+   kafka:
+     bootstrap-servers: localhost:9092
+
+mongodb:
+  cmsApi:
+    uri: mongodb://localhost:27017/bma
+    database: bma
+  cmsArchival:
+    uri: mongodb://localhost:27017/cms_api_history
+    database: cms_api_history
+  cmsArchivalJobs:
+    uri: mongodb://localhost:27017/cspAudit
+    database: cspAudit
+
+management:
+
+  endpoint:
+    env.keys-to-sanitize: # empty
+    configprops.keys-to-sanitize: # empty
+
+akamai:
+  scheduled:
+    enabled: false
+  workers:
+    count: 10
+
+aws:
+  s3:
+    region: "eu-west-2"
+    bucket-name: "cms-api-ui-dev1"
+    brand.configs:
+      bma:
+        enabled: false
+        region: ${aws.s3.region}
+        bucket: ${aws.s3.bucket-name}
+        basePath: local/
+        purgeUrl: https://cms-dev1.coral.co.uk/
+      ladbrokes:
+        enabled: false
+        region: ${aws.s3.region}
+        bucket: ${aws.s3.bucket-name}
+        basePath: local/
+        purgeService: CloudFlare
+        purgeZoneId: e2346f989e5db2ff0cb3a4eaa2374b55
+        purgeUrl: https://cms-dev1.ladbrokes.com/
+
+fastpurge:
+  cp_code:
+
+application:
+  allowedOrigins: http://localhost:8080,http://bm-tst1.coral.co.uk,https://bm-tst1.coral.co.uk,http://cms-localhost.coral.co.uk:4200,http://localhost:8080
+
+images:
+  hosting: s3
+
+siteserver:
+  logging.level: NONE
+
+df:
+  logging.level: NONE
+
+nextRaces:
+  timePeriodMinutes : 60
+
+masterlock:
+  enabled: false
+
+aem:
+  banners:
+    produce: true
+
+otf:
+  key: take_one_if_needed_from_dev_ops_secret
+
+specialpages:
+  specialpageConfig:
+    ladbrokes:
+      url: http://localhost:9999/proxy/specialpage
+      secret: export MAINTENANCE_KEY=VALUE
+    bma:
+      url: http://localhost:9999/proxy/specialpage
+      secret: export MAINTENANCE_KEY=VALUE
+
+magicurl:
+  longurl: https://qa2.sports.ladbrokes.com/5-a-side/leaderboard/
+
+# always last few seconds should be sync with featured.cron.expression
+last.view.seconds: 5
+
+cfcache:
+  tags:
+    bma: CSP-dev0-coral
+    ladbrokes : CSP-dev0-ladbrokes
+
+topic:
+  bet-pack:
+    prefix: LOCAL
+  lads:
+    cms-push:
+      prefix: LOCAL-LB
+      partitions: 4
+      replicaFactor: 4
+
+  coral:
+    cms-push:
+      prefix: LOCAL-CR
+      partitions: 3
+      replicaFactor: 3
+
+coral:
+  kafka:
+    bootstrap-servers: localhost:9092

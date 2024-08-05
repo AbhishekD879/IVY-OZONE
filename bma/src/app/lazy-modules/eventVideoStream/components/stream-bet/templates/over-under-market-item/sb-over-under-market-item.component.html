@@ -1,0 +1,19 @@
+<div class="plus-minus-template">
+  <div class="market-name">{{markets[0]?.templateMarketName}}</div>
+  <div class="items-container">
+    <ng-container>
+      <sb-counter [teamScores]="teamHPoints" 
+                  [teamName]="teamName"
+                  (counterValueEmitter)="handleCounterValueChange($event)"
+                  ></sb-counter>
+    </ng-container>
+    <div class="sb-cs-button" *ngFor="let outcome of currOutcomes; index as outcomeIndex;">
+      <sb-price-odds-button [event]="eventEntity"
+        [market]="pointsToMarket[currPoints]" [outcome]="outcome"
+        [head]="btnTexts[outcomeIndex]"
+        [isStreamAndBet]="true" class=""
+        (selectionClickEmit)="handleSelectionClick(pointsToMarket[currPoints])">
+      </sb-price-odds-button>
+    </div>
+  </div>
+</div>

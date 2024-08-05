@@ -1,0 +1,13 @@
+<div class="tote-filters">
+  <!--- Events by Meeting -->
+  <race-grid *ngIf="meetings.length"
+             [eventsData]="meetings"
+             [raceType]="'tote'"
+             [eventsOrder]="eventsOrder"
+             [meetingsOrder]="meetingsOrder"
+             data-crlat="tabContent">
+  </race-grid>
+
+  <!-- Show only when no events -->
+  <no-events *ngIf="!meetings.length" data-crlat="noEventsLabel"></no-events>
+</div>

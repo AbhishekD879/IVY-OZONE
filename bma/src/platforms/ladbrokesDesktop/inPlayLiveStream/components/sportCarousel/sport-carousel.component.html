@@ -1,0 +1,49 @@
+<nav data-uat="mainNav"
+     class="carousel-menu carousel-menu-inplay-home"
+     (mouseover)="mouseOver()"
+     (mouseleave)="mouseLeave()"
+     *ngIf="menuElements?.length">
+  <div #inplayLiveStreamCarousel class="sport-carousel scroll-container">
+    <ul #inplayLiveStreamCarouselInner class="scroll-inner">
+      <ng-container *ngFor="let menuElement of menuElements; trackBy: trackBycategoryName">
+        <li *ngIf="!menuElement.disabled && !menuElement.hidden"
+            data-crlat="item">
+          <a [ngClass]="{active: categoryName === menuElement.categoryName}"
+             class="menu-item"
+             (click)="setActive(menuElement)"
+             [attr.title]="menuElement.imageTitle"
+             data-crlat="menu.item"
+             [click-link]>
+            <div class="carousel-icon">
+              <svg class="submenu-list-icon"
+                   [disable-dragging]
+                   data-crlat="submenuListIcon">
+                <use [attr.xlink:href]="'#' + (menuElement.svgId || 'icon-generic')"></use>
+              </svg>
+              <span class="count-label" *ngIf="eventCount(menuElement)"
+                    [textContent]="eventCount(menuElement)" data-crlat="eventCount"></span>
+            </div>
+            <span class="submenu-list-title"
+                  [disable-dragging]
+                  [textContent]="menuElement.imageTitle"
+                  data-crlat="menuItem.title"></span>
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+  <div class="action-arrow left row-middle"
+       (click)="scrollLeft($event)"
+       *ngIf="isShowLeftArrow">
+    <svg class="arrow-icon prev-arrow row-center">
+      <use [attr.xlink:href]="'#prev-arrow'"></use>
+    </svg>
+  </div>
+  <div class="action-arrow right row-middle"
+       (click)="scrollRight($event)"
+       *ngIf="isShowRightArrow">
+    <svg class="arrow-icon next-arrow">
+      <use [attr.xlink:href]="'#next-arrow'"></use>
+    </svg>
+  </div>
+</nav>

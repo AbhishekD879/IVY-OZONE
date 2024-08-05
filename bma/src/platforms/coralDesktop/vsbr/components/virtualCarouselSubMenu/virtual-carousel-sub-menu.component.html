@@ -1,0 +1,49 @@
+<div class="vc-submenu-wrap">
+  <div class="tabs-panel-component"
+       (mouseover)="mouseOver()"
+       (mouseleave)="mouseLeave()">
+
+    <nav class="vc-submenu">
+      <div class="scroll-container" scrollable>
+        <ul class="scroll-inner scroll-inner--no-padding">
+          <li *ngFor="let menuElement of elementsInMenu; trackBy: trackByMenu">
+            <a (click)="goToVirtual(menuElement, true)"
+               [ngClass]="{active: menuElement.isActive}"
+               target="{{menuElement.inApp ? '' : '_blank'}}"
+               class="vc-item"
+               [title]="menuElement.name"
+               [linkHref]
+               [routerLink]="menuElement.targetUri"
+               data-crlat="menuElement">
+
+              <span *ngIf="menuElement.label"
+                    class="vc-time"
+                    [ngClass]="menuElement.label.className"
+                    [textContent]="menuElement.label.text"
+                    data-crlat="timer">
+              </span>
+
+              <span class="sport-name" [textContent]="menuElement.name" data-crlat="name"></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="action-arrow left row-middle"
+         (click)="scrollLeft($event)"
+         [ngClass]="{'hidden' : !isShowLeftArrow}"
+         data-crlat="leftArrow">
+      <svg class="arrow-icon prev-arrow row-center">
+        <use xlink:href="#prev-arrow"></use>
+      </svg>
+    </div>
+    <div class="action-arrow right row-middle"
+         (click)="scrollRight($event)"
+         [ngClass]="{'hidden' : !isShowRightArrow}"
+         data-crlat="rightArrow">
+      <svg class="arrow-icon next-arrow">
+        <use xlink:href="#next-arrow"></use>
+      </svg>
+    </div>
+  </div>
+</div>

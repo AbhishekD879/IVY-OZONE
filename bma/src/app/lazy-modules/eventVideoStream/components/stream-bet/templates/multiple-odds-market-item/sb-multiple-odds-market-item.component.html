@@ -1,0 +1,18 @@
+<div *ngIf="event && market" class="multiple-odds-card-item">
+  <div class="odds-card-market-item">{{market?.originalMarketName || market?.name}}</div>
+  <div class="odds-card odds-hightlight-card">
+  <div class="odds-content odds-outcomes" >
+      <div class="odds-btn-content" data-crlat="oddsBtnContent">
+        <ng-container *ngFor="let outcomeEntity of newOutcomes; trackBy: getTrackById">  
+          <div class="sb-cs-button">
+            <sb-price-odds-button [event]="event" [market]="market" [outcome]="outcomeEntity" 
+              [head]="outcomeEntity?.name" [isStreamAndBet]="true" 
+              (selectionClickEmit)="handleSelectionClick($event)" 
+              class="sb-price-button">
+            </sb-price-odds-button>
+          </div>      
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>  

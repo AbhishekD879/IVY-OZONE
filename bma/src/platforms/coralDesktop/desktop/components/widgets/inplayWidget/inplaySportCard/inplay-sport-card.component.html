@@ -1,0 +1,70 @@
+<section class="in-play-card-body"
+         data-crlat="inPlayCardBody"
+         [ngClass]="{'in-play-card-no-outcomes': !isOutcomesExists}"
+         (click)="goToEvent(false, event);goToSeo(event);">
+  <div class="in-play-card-main-body" data-crlat="inPlayCardMainBody">
+    <div class="in-play-icon-container in-play-favorite-icon-container">
+      <favourites-add-button
+        class="in-play-icon in-play-fav-icon"
+        *ngIf="isFootball"
+        [event]="event"
+        [sportName]="'football'">
+      </favourites-add-button>
+    </div>
+    <div class="in-play-card-title">
+      <div class="in-play-participant-container" data-crlat="inPlayParticipantContainer">
+        <span *ngIf="!isEventSecondNameAvailable"
+              [textContent]="event.name"></span>
+        <span *ngIf="isEventSecondNameAvailable"
+              [textContent]="eventNames.eventFirstName"></span>
+      </div>
+      <div class="in-play-participant-container second-participant"
+           data-crlat="inPlayParticipantContainer.SecondParticipant">
+         <span *ngIf="isEventSecondNameAvailable"
+               [textContent]="eventNames.eventSecondName"></span>
+      </div>
+
+    </div>
+    <div class="in-play-icon-container in-play-watch-live-icon-container"
+         data-crlat="inPlayIconContainer.inPlayWatchLiveIconContainer">
+      <svg class="in-play-icon in-play-watch-live-icon" *ngIf="isStreamAvailable()">
+        <use [attr.xlink:href]="'#stream'"></use>
+      </svg>
+    </div>
+  </div>
+
+  <inplay-score [event]="event"></inplay-score>
+
+  <a [linkHref]
+     [link]="goToEvent(true, event)"
+     *ngIf="(showMarketsCount() && isOutcomesExists)"
+     class="in-play-more-link-container">
+    <div class="in-play-more-link">
+      <span class="in-play-markets-count" [textContent]="marketsCount"></span>&nbsp;
+      <span class="in-play-markets-text">Markets</span>
+    </div>
+  </a>
+  <div class="in-play-match-results-container" *ngIf="isOutcomesExists">
+    <div class="in-play-devider"></div>
+    <div class="in-play-match-results" data-crlat="inPlayMatchResults" [textContent]="market.name"></div>
+    <div class="in-play-devider"></div>
+  </div>
+</section>
+<div class="in-play-card-footer" *ngIf="isOutcomesExists">
+  <odds-card-header class="inplay-widget-odds-card-header" [events]="events" [isScoreHeader]="false"
+                    [sportConfig]="sportConfig">
+  </odds-card-header>
+  <div class="in-play-odds-btns-container" data-crlat="oddsButtons">
+    <ng-container *ngFor="let outcome of outcomes; index as outcomeIndex; trackBy:trackById">
+      <div class="in-play-odds-btn-container"
+           *ngIf="isOddButtonShown(outcomeIndex)"
+           data-crlat="oddsBtnWrapper">
+        <price-odds-button *ngIf="outcome"
+                           [event]="event"
+                           [outcome]="outcome"
+                           [market]="market">
+        </price-odds-button>
+      </div>
+    </ng-container>
+  </div>
+</div>

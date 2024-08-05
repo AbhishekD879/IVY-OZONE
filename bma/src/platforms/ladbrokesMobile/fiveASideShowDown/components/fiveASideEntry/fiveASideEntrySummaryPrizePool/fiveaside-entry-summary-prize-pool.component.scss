@@ -1,0 +1,78 @@
+@import "global.variables.scss";
+
+.prize-pool-container {
+  .mrl-3 { // Utility class to take highest priority
+    margin-left: 3px !important;
+  }
+  .mrl-0 { // Utility class to take highest priority
+    margin-left: 0px !important;
+  }
+  overflow-y: auto;
+  ul {
+    margin: 0;
+    padding: 0;
+    .prize-pool-record {
+      @include display-flex();
+      @include align-items();
+      @include flex-direction(column);
+      @include justify-content(space-between);
+      .signposting-logo {
+        max-width:46px;
+        height:15px;
+        margin: auto;
+        padding-left: 2px;
+      }
+      .prize-value {
+        @include flex(8, 1, 0%);
+        min-height: 15px;
+        @include display-flex();
+        @include align-items(flex-end);
+        @include justify-content(space-between);
+        @include flex-direction(column);
+        @include justify-content(flex-start);
+        @include flex-wrap(wrap);
+        .seperator {
+          margin: 0 auto;
+          font-size: 9px;
+          font-weight: 400;
+          color: #ededed;
+        }
+        section {
+          &:first-child {
+            margin-left: 3px;
+          }
+          @media (min-width: $tabletPoint) {
+            margin-left: 0px;
+          }
+          @include display-flex();
+          @include align-items(center);
+          .tickets {
+            @include display-flex();
+            .signPosting-ticket {
+              width: auto;
+            }
+          }
+          .prize-num {
+            @include setFontProps($alt-font-family,$font-size-lgr,bold,$color-light-green-leaf);
+            font-stretch: condensed;
+            margin: auto 0;
+          }
+          .prize-text,
+          .prize-type {
+            @include setFontProps($alt-font-family,$font-size,bold,$color-light-white-grey);
+            font-stretch: condensed;
+          }
+          .prize-text {
+            @include flex(1, 1, auto);
+            strong {
+              white-space: normal;
+            }
+          }
+          .prize-type {
+            margin-left: 3px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+@import 'global.variables.scss';
+
+.yourcall-page {
+  .ng-carousel {
+    width: 100%;
+  }
+}
+
+.yourcall-dashboard {
+  opacity: 1;
+  margin-bottom: 10px;
+  position: relative;
+
+  .summary {
+    cursor: pointer;
+  }
+}
+
+.quickbet-panel {
+  position: relative;
+  margin-bottom: 10px;
+
+  .qb-quick-stake-item {
+    cursor: pointer;
+  }
+}
+
+.byb-league .byb-event {
+  min-width: 33.33%;
+  @include flex(1, 0, 33.33%);
+}
+
+.byb-league .byb-event .event-details > * {
+  white-space: normal;
+}
+
+.yourcall-tab-content {
+  .container-inner-content.spinner-loader {
+      margin: 10px auto;
+  }
+}
+
+.yourcall-dashboard .open {
+  @include flex(0, 0, auto);
+}

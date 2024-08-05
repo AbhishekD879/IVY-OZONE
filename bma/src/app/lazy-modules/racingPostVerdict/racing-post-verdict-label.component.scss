@@ -1,0 +1,30 @@
+@import 'global.variables.scss';
+
+:host {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  line-height: 26px;
+  height:26px;
+}
+.r-post-header {
+  padding: 0 10px;
+  position: relative;
+  color: $color-white;
+  .r-post-logo {
+    width: 145px;
+    height: 15px;
+    color: $color-white;
+    float: left;
+    margin-top: 5px;
+  }
+  @media (max-width: $mobileSmallPoint) {
+    .r-post-logo {
+      width: 125px;
+      height: 15px;
+      color: $color-white;
+      float: left;
+      margin-top: 5px;
+    }
+  }
+}

@@ -1,0 +1,182 @@
+@import 'global.variables.scss';
+
+$checkbox-size: 18px;
+$non-runner-background: $color-gray-light;
+$non-runner-color: $color-gray-dark;
+
+$win-contents: 'Win';
+$place-contents: 'Place';
+$execta-contents: '1st' '2nd' 'ANY';
+$trifecta-contents: '1st' '2nd' '3rd' 'ANY';
+
+@mixin content($contents, $i: 1)  {
+  @if ($i <= length($contents)) {
+    &:nth-child(#{$i}) {
+      .checkbox {
+        &:after {
+          content: nth($contents, $i);
+        }
+      }
+    }
+
+    @include content($contents, $i + 1);
+  }
+}
+
+.uk-tote {
+  @include  display-flex();
+  .check-area {
+    width: 42px;
+    height: 70px;
+    @include display-flex();
+    @include justify-content(center);
+    @include align-items();
+    border-left: 1px solid $color-gray;
+    background: $color-gray-light;
+    cursor: pointer;
+    position: relative;
+    &.disabled {
+      background-color: $color-gray-light;
+    }
+    &.non-runner {
+      background-color: $non-runner-background;
+      pointer-events: none;
+      .non-runner-text {
+        font-size: $font-size-md;
+        font-weight: bold;
+        color: $color-gray-dark;
+        opacity: 0.8;
+
+        @media screen and (min-width: 450px) {
+          font-size: $font-size-tablet;
+        }
+      }
+    }
+    &.checked {
+      background-color: $color-white;
+    }
+    @media screen and (min-width: 450px) {
+      width: 60px;
+    }
+  }
+  .guide-container {
+    position: absolute;
+    bottom: 5px;
+    left: 0px;
+    font-size: 9px;
+    color: $color-gray-dark;
+    width: 100%;
+    text-align: center;
+    .label {
+      margin-right: 3px;
+    }
+    .value {
+      font-weight: bold;
+    }
+  }
+}
+
+.checkboxes-mode {
+  .uk-tote {
+    .check-area {
+      .checkbox {
+        width: $checkbox-size;
+        height: $checkbox-size;
+        border-radius: 2px;
+        border: solid 1px $color-black-soft;
+        position: relative;
+      }
+      &.disabled {
+        .checkbox {
+          background-color: $color-white;
+          border: solid 1px lighten($color-gray-dark, 50%);
+          opacity: 0.5;
+          pointer-events: none;
+        }
+      }
+      &.checked {
+        .checkbox {
+          background-color: $color-green;
+          border: solid 1px rgba(51, 51, 51, 0.3);
+          &:after {
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 6px;
+            background: 0 0;
+            top: 50%;
+            left: 50%;
+            margin: -4px 0 0 -5px;
+            will-change: transform;
+            -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+            border: 2px solid $color-white;
+            border-top: none;
+            border-right: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+.labels-mode {
+  .uk-tote {
+    .check-area {
+      background-color: $color-gray-lightest;
+      width: 50px;
+      height: 68px;
+      .checkbox {
+        &:after {
+          letter-spacing: -0.01px;
+          font-size: $font-size-tablet;
+          color: $color-gray-dark;
+        }
+      }
+
+      &.checked {
+        background-color: $color-green;
+        .checkbox {
+          &:after {
+            color: $color-white;
+          }
+        }
+      }
+
+      &.disabled, &.non-runner {
+        background-color: $color-snow;
+      }
+    }
+  }
+  &.win-pool {
+    .check-area {
+      @include content($win-contents);
+    }
+  }
+  &.place-pool {
+    .check-area {
+      @include content($place-contents);
+    }
+  }
+  &.execta-pool {
+    .check-area {
+      @include content($execta-contents);
+    }
+  }
+  &.trifecta-pool {
+    .check-area {
+      @include content($trifecta-contents);
+    }
+  }
+}
+ ::ng-deep {
+  .uk-tote-event {
+  .switch-btn {
+    &::before {
+      @media (max-width: 600px) {
+        right: 0 !important;
+      }
+    }
+  }
+}
+ }

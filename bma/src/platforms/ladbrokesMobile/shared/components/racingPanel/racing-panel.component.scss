@@ -1,0 +1,160 @@
+@import 'global.variables.scss';
+
+$live-status-color: #f00;
+
+racing-panel:host {
+  display: block;
+  background: $color-white;
+  border-bottom: 2px solid $lGrayLight;
+
+  &:last-child {
+    border: none;
+  }
+
+  &.racing-tabs-panel {
+    background: $color-gray-light;
+    border-bottom: 1px solid $light-grey;
+
+    .scroll-container {
+      .scroll-inner {
+        li {
+          .tab {
+            color: $color-gray-darkest;
+
+            &:before {
+              top: 3px;
+            }
+            ::ng-deep {
+              .race-off {
+                color: $live-status-color;
+              }
+              racing-status {
+                margin-top: 4px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .racing-panel-header {
+    font-size: 14px;
+    padding: 12px;
+    color: $color-gray-darkest;
+    font-family: $alt-font-family;
+    @include display-flex();
+    @include align-items();
+
+    ::ng-deep b {
+      font-weight: normal;
+      color: $lBlack-light;
+    }
+
+    ::ng-deep svg {
+      float: right;
+    }
+
+    .racing-panel-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+  }
+
+  .racing-time {
+    font-size: $font-size-xl;
+    // font-weight: bold;
+    display: block;
+  }
+
+  .racing-name {
+    font-size: $font-size;
+    display: block;
+    color: $color-gray-darkest;
+    font-family: $alt-font-family;
+    padding-top: 4px;
+
+    &.display-name {
+      font-size: $font-size-sm;
+    }
+  }
+
+  .scroll-container .scroll-inner {
+    margin: 0;
+    padding: 0;
+    @include inline-flex();
+
+    li {
+      text-align: left;
+      padding: 10px 0 10px;
+
+      &.home{
+        &:hover {
+          background: $IGreyLightDark;
+        }
+      }
+
+      &.active {
+        border-bottom: 3px solid $red;
+        background: transparent;
+      }
+
+      &:last-child .tab::before {
+        display: none;
+      }
+
+      .tab {
+        font-family: $base-font-family;
+        color: $color-gray-dark;
+        padding: 0 12px;
+        position: relative;
+        text-decoration: none;
+
+        &::before {
+          content: '';
+          position: absolute;
+          right: 0;
+          top: 0;
+          display: block;
+          width: 1px;
+          height: 20px;
+          background: $color-red-lightest;
+        }
+      }
+    }
+  }
+}
+
+.early-price-sign-post {
+  z-index: 99;
+  position: relative;
+  top: -11px;
+  margin-bottom: -4px;
+  padding: 0px 5px 0px 12px !important;
+  font-size: 9px;
+  line-height: 16px;
+  font-weight: 400 !important;
+  color: #2b2b2b !important;
+  text-transform: none;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+  letter-spacing: 0.001px;
+  span {
+    width: 86px;
+    height: 11px;
+    display: inline-block;
+    white-space: nowrap;
+  }
+}
+
+::ng-deep {
+  .bog-signposting + watch-label, .bog-signposting + .racing-label {
+    margin-left: 4px;
+  }
+}
+.move-left {
+  position : relative;
+  left: 0px;
+  margin-top: 8px;
+  
+}

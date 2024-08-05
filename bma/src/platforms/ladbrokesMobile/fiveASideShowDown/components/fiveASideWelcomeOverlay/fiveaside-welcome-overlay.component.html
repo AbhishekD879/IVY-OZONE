@@ -1,0 +1,38 @@
+<div id="fiveaside-welcome-overlay" [scroll-fix] class="cookie-top vn-smart-banner-margin-top">
+    <div class="centered">
+        <section [ngClass]="{'redBlue': showImage}"></section>
+        <section class="welcome-cards">
+            <div class="welcome-card">
+                <div class="overlay-context">
+                    <div class="overlay-content">
+                        <p class="overlay-title" *ngIf="welcomeCard && welcomeCard.headerTitle" [textContent]="welcomeCard.headerTitle"></p>
+
+                        <p class="overlay-section" *ngIf="welcomeCard && welcomeCard.sectionTitle" [textContent]="welcomeCard.sectionTitle"></p>
+
+                        <p class="overlay-footer" *ngIf="welcomeCard && welcomeCard.previewTitle" [textContent]="welcomeCard.previewTitle"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="welcome-card" *ngIf="welcomeUrl">
+                <div class="rectangle">
+                    <iframe (load)="iframeLoaded()"
+                            width="100%" height="auto" *ngIf="videoPlayer"
+                            [src]="welcomeUrl | safe: 'resourceUrl'"
+                            title="YouTube video player"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                    </iframe>
+                </div>
+            </div>
+            <div class="welcome-card btn-wrapper">
+                <button class="getStarted" (click)="getStartedClick()" [i18n]="'fs.overlay.getStarted'"></button>
+            </div>
+        </section>
+    </div>
+</div>
+<ng-container>
+    <fiveaside-lobby-overlay *ngIf="isLobbyOverlay" [tutorialData]="tutorialData"></fiveaside-lobby-overlay>
+    <fiveaside-pre-event-tutorial *ngIf="isPreEvent" [preEventData]="preEventData">
+    </fiveaside-pre-event-tutorial>
+    <five-a-side-live-event-overlay *ngIf="isLiveOverlay" [tutorialData]="tutorialData">
+    </five-a-side-live-event-overlay>
+</ng-container>

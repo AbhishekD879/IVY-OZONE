@@ -1,0 +1,336 @@
+[
+  {
+    "id": "10292828",
+    "name": "Iceland vs Sweden",
+    "eventStatusCode": "A",
+    "isActive": true,
+    "displayOrder": 0,
+    "siteChannels": "P,Q,C,U,I,M,",
+    "eventSortCode": "MTCH",
+    "startTime": "2018-04-19T18:45:00Z",
+    "rawIsOffCode": "-",
+    "classId": "97",
+    "typeId": "442",
+    "sportId": "16",
+    "liveServChannels": "sEVENT0010292828,",
+    "liveServChildrenChannels": "SEVENT0010292828,",
+    "categoryId": "16",
+    "categoryCode": "FOOTBALL",
+    "categoryName": "Football",
+    "className": "Football England",
+    "classDisplayOrder": 0,
+    "classSortCode": "FB",
+    "typeName": "Premier League",
+    "typeDisplayOrder": -9999,
+    "typeFlagCodes": "RD,IVA,PVA,",
+    "isOpenEvent": true,
+    "drilldownTagNames": "EVFLAG_ST,",
+    "isAvailable": true,
+    "cashoutAvail": "Y",
+    "responseCreationTime": "2018-04-13T13:27:21.541Z",
+    "eventFlagCodes": "true",
+    "children": [
+      {
+        "market": {
+          "id": "236383275",
+          "eventId": "10292828",
+          "templateMarketId": 37241,
+          "templateMarketName": "Match Betting",
+          "dispSortId": "391",
+          "dispSortName": "MR",
+          "collectionIds": "1297,619,252,",
+          "collectionNames": "Main Markets,Match Betting,",
+          "marketMeaningMajorCode": "-",
+          "marketMeaningMinorCode": "MR",
+          "name": "Match Result",
+          "isLpAvailable": true,
+          "isSpAvailable": false,
+          "isGpAvailable": false,
+          "isEachWayAvailable": false,
+          "isPlaceOnlyAvailable": false,
+          "displayOrder": -500,
+          "marketStatusCode": "A",
+          "isActive": true,
+          "siteChannels": "P,Q,C,U,I,M,",
+          "liveServChannels": "sEVMKT0236383275,",
+          "liveServChildrenChannels": "SEVMKT0236383275,",
+          "priceTypeCodes": "LP,",
+          "isAvailable": true,
+          "maxAccumulators": 25,
+          "minAccumulators": 1,
+          "cashoutAvail": "Y",
+          "flags": "true",
+          "children": [
+            {
+              "outcome": {
+                "id": "758667285",
+                "marketId": "236383275",
+                "name": "Chelsea",
+                "outcomeMeaningMajorCode": "MR",
+                "outcomeMeaningMinorCode": "A",
+                "displayOrder": 3,
+                "outcomeStatusCode": "A",
+                "isActive": true,
+                "siteChannels": "P,Q,C,U,I,M,",
+                "liveServChannels": "sSELCN0758667285,",
+                "liveServChildrenChannels": "SSELCN0758667285,",
+                "isAvailable": true,
+                "hasPriceStream": false,
+                "children": [
+                  {
+                    "price": {
+                      "id": "1",
+                      "isActive": true,
+                      "displayOrder": 1,
+                      "priceType": "LP",
+                      "priceNum": 1,
+                      "priceDen": 1,
+                      "priceDec": 2.0,
+                      "uuid": "4bfc7d4a-fd97-4ebb-be5b-2af905021aeb"
+                    }
+                  }
+                ],
+                "uuid": "818b9375-e1c9-4d62-aebf-e49cf7aab88b"
+              }
+            },
+            {
+              "outcome": {
+                "id": "758667287",
+                "marketId": "236383275",
+                "name": "Burnley",
+                "outcomeMeaningMajorCode": "MR",
+                "outcomeMeaningMinorCode": "H",
+                "displayOrder": 1,
+                "outcomeStatusCode": "A",
+                "isActive": true,
+                "siteChannels": "P,Q,C,U,I,M,",
+                "liveServChannels": "sSELCN0758667287,",
+                "liveServChildrenChannels": "SSELCN0758667287,",
+                "isAvailable": true,
+                "hasPriceStream": false,
+                "children": [
+                  {
+                    "price": {
+                      "id": "2",
+                      "isActive": true,
+                      "displayOrder": 1,
+                      "priceType": "LP",
+                      "priceNum": 11,
+                      "priceDen": 4,
+                      "priceDec": 3.75,
+                      "uuid": "47b4c8cf-d43b-457b-9208-2c995d718fe2"
+                    }
+                  }
+                ],
+                "uuid": "1ea7bee6-b1a8-40e9-a7dc-a7fd0e123005"
+              }
+            },
+            {
+              "outcome": {
+                "id": "758667290",
+                "marketId": "236383275",
+                "name": "Draw",
+                "outcomeMeaningMajorCode": "MR",
+                "outcomeMeaningMinorCode": "D",
+                "displayOrder": 2,
+                "outcomeStatusCode": "A",
+                "isActive": true,
+                "siteChannels": "P,Q,C,U,I,M,",
+                "liveServChannels": "sSELCN0758667290,",
+                "liveServChildrenChannels": "SSELCN0758667290,",
+                "isAvailable": true,
+                "hasPriceStream": false,
+                "children": [
+                  {
+                    "price": {
+                      "id": "3",
+                      "isActive": true,
+                      "displayOrder": 1,
+                      "priceType": "LP",
+                      "priceNum": 11,
+                      "priceDen": 5,
+                      "priceDec": 3.2,
+                      "uuid": "0dc09509-51e8-4fdf-9dd1-9fd017750457"
+                    }
+                  }
+                ],
+                "uuid": "901526dd-2f49-429b-bb9a-6531e1eb2d3a"
+              }
+            }
+          ],
+          "uuid": "19156669-85ee-4872-a86e-c68e6f3ca1ad"
+        }
+      }
+    ],
+    "uuid": "35ee7b06-800b-4770-821b-cc41a81748e9"
+  },
+  {
+  "id": "10238503",
+  "name": "England VS Denmark",
+  "eventStatusCode": "A",
+  "isActive": true,
+  "displayOrder": 0,
+  "siteChannels": "P,Q,C,U,I,M,",
+  "eventSortCode": "MTCH",
+  "startTime": "2018-04-14T11:30:00Z",
+  "rawIsOffCode": "N",
+  "classId": "97",
+  "typeId": "442",
+  "sportId": "16",
+  "liveServChannels": "sEVENT0010238503,",
+  "liveServChildrenChannels": "SEVENT0010238503,",
+  "categoryId": "16",
+  "categoryCode": "FOOTBALL",
+  "categoryName": "Football",
+  "className": "Football England",
+  "classDisplayOrder": 0,
+  "classSortCode": "FB",
+  "typeName": "Premier League",
+  "typeDisplayOrder": -9999,
+  "typeFlagCodes": "RD,IVA,PVA,",
+  "isOpenEvent": true,
+  "isNext24HourEvent": true,
+  "isLiveNowOrFutureEvent": true,
+  "drilldownTagNames": "EVFLAG_ST,EVFLAG_PDM,EVFLAG_BL,",
+  "isAvailable": true,
+  "mediaTypeCodes": "VST,",
+  "cashoutAvail": "Y",
+  "responseCreationTime": "2018-04-13T13:27:21.541Z",
+  "eventFlagCodes": "true",
+  "children": [
+    {
+      "market": {
+        "id": "235135538",
+        "eventId": "10238503",
+        "templateMarketId": 37241,
+        "templateMarketName": "Match Betting",
+        "dispSortId": "391",
+        "dispSortName": "MR",
+        "collectionIds": "1297,619,252,",
+        "collectionNames": "Main Markets,Match Betting,",
+        "marketMeaningMajorCode": "-",
+        "marketMeaningMinorCode": "MR",
+        "name": "Match Result",
+        "isLpAvailable": true,
+        "isSpAvailable": false,
+        "isGpAvailable": false,
+        "isEachWayAvailable": false,
+        "isPlaceOnlyAvailable": false,
+        "isMarketBetInRun": true,
+        "displayOrder": -500,
+        "marketStatusCode": "A",
+        "isActive": true,
+        "siteChannels": "P,Q,C,U,I,M,",
+        "liveServChannels": "sEVMKT0235135538,",
+        "liveServChildrenChannels": "SEVMKT0235135538,",
+        "priceTypeCodes": "LP,",
+        "isAvailable": true,
+        "maxAccumulators": 25,
+        "minAccumulators": 1,
+        "cashoutAvail": "Y",
+        "flags": "true",
+        "children": [
+          {
+            "outcome": {
+              "id": "754480165",
+              "marketId": "235135538",
+              "name": "Chelsea",
+              "outcomeMeaningMajorCode": "MR",
+              "outcomeMeaningMinorCode": "A",
+              "displayOrder": 3,
+              "outcomeStatusCode": "A",
+              "isActive": true,
+              "siteChannels": "P,Q,C,U,I,M,",
+              "liveServChannels": "sSELCN0754480165,",
+              "liveServChildrenChannels": "SSELCN0754480165,",
+              "isAvailable": true,
+              "hasPriceStream": false,
+              "children": [
+                {
+                  "price": {
+                    "id": "4",
+                    "isActive": true,
+                    "displayOrder": 1,
+                    "priceType": "LP",
+                    "priceNum": 5,
+                    "priceDen": 6,
+                    "priceDec": 1.83,
+                    "uuid": "dfad3aa4-bff5-4cb7-9439-4da0b94f0620"
+                  }
+                }
+              ],
+              "uuid": "0c739bdc-9a25-440a-ace3-8593bb1065b1"
+            }
+          },
+          {
+            "outcome": {
+              "id": "754480167",
+              "marketId": "235135538",
+              "name": "Draw",
+              "outcomeMeaningMajorCode": "MR",
+              "outcomeMeaningMinorCode": "D",
+              "displayOrder": 2,
+              "outcomeStatusCode": "A",
+              "isActive": true,
+              "siteChannels": "P,Q,C,U,I,M,",
+              "liveServChannels": "sSELCN0754480167,",
+              "liveServChildrenChannels": "SSELCN0754480167,",
+              "isAvailable": true,
+              "hasPriceStream": false,
+              "children": [
+                {
+                  "price": {
+                    "id": "5",
+                    "isActive": true,
+                    "displayOrder": 1,
+                    "priceType": "LP",
+                    "priceNum": 5,
+                    "priceDen": 2,
+                    "priceDec": 3.5,
+                    "uuid": "6eb1cea9-f8fb-471b-8f6b-d3160c34a161"
+                  }
+                }
+              ],
+              "uuid": "cb88a2a6-d9f4-47e4-9fbf-086cb66e7c16"
+            }
+          },
+          {
+            "outcome": {
+              "id": "754480168",
+              "marketId": "235135538",
+              "name": "Southampton",
+              "outcomeMeaningMajorCode": "MR",
+              "outcomeMeaningMinorCode": "H",
+              "displayOrder": 1,
+              "outcomeStatusCode": "A",
+              "isActive": true,
+              "siteChannels": "P,Q,C,U,I,M,",
+              "liveServChannels": "sSELCN0754480168,",
+              "liveServChildrenChannels": "SSELCN0754480168,",
+              "isAvailable": true,
+              "hasPriceStream": false,
+              "children": [
+                {
+                  "price": {
+                    "id": "6",
+                    "isActive": true,
+                    "displayOrder": 1,
+                    "priceType": "LP",
+                    "priceNum": 17,
+                    "priceDen": 5,
+                    "priceDec": 4.4,
+                    "uuid": "ce5043f7-cfbe-4674-973c-3f1c2b1078b0"
+                  }
+                }
+              ],
+              "uuid": "3fb35bbc-6f4f-4dc0-a922-9ffc4b5dc9f8"
+            }
+          }
+        ],
+        "uuid": "dda9a39c-535c-403a-8aaf-855c5cccdc77"
+      }
+    }
+  ],
+  "uuid": "0aa64cec-4b5c-4724-867c-305d85017078"
+}
+]

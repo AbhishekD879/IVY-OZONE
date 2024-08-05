@@ -1,0 +1,51 @@
+  <header class="other-sports-header" data-crlat="virtualSectionHeaderName">
+    Other Sports
+  </header>
+
+  <ng-container>
+    <div [ngClass]="{'no-margin': true}" id="banner-section" data-crlat="sectionBanner">
+      <div id="aem-placeholder" class="lc-carousel lc-carousel-virtuals" [ngClass]="'lc-carousel--'+brand"
+        [style.visibility]="true">
+        <div class="swiper-container ng-carousel" *ngIf="otherSportImages?.length" [ngCarousel] [ngCarouselName]="carouselName"
+          [ngCenterMode]="true" [ngCarouselLoop]="false" [ngCarouselWatch]="otherSportImages.length" [ngCarouselFluid]="true"
+          [ngCarouselMoveThresholdPercentage]="5" [ngCarouselDisableRightSwipe]="ngCarouselDisableRightSwipe">
+          <slidecontainer class="carousel-slides">
+            <ng-container *ngFor="let offer of otherSportImages.slice(0, topOtherSportLength); let ind = index;">
+              <slide class="slide">
+                <div *ngIf="(ind < otherSportImages.length/2)" class="lc-offer"
+                  [ngClass]="offer?.brand ? 'lc-offer--' + offer?.brand : ''" data-crlat="virtualSportWrapper">
+                  <a class="lc-offer__link" (click)="actionHandler($event, otherSportImages[ind])">
+                    <img *ngIf="otherSportImages[ind].imgURL" class="bg-image lc-offer__image"
+                      [attr.src]="otherSportImages[ind].imgURL" [alt]="otherSportImages[ind].altText"
+                      [attr.href]="otherSportImages[ind].redirectionURL" (click)="goToVirtualSports(otherSportImages[ind])"/>
+                    <span *ngIf="updateEventsData(otherSportImages[ind].title)" class="ws-updates">{{updateEventsData(otherSportImages[ind].title)}}</span>
+                    <div *ngIf="otherSportImages[ind].title" class="sport-name" data-crlat="virtualSportName"> {{otherSportImages[ind].title}}</div>
+                    <div *ngIf="otherSportImages[ind].signposting" class="signposting-header" data-crlat="virtualSportSignPost">
+                      <div class="signposting-title" [textContent]="otherSportImages[ind].signposting"></div>
+                      <div class="header-background"></div>
+                    </div>
+                  </a>
+                </div>
+
+
+                <div *ngIf="((topOtherSportLength + ind) < otherSportImages.length) && (ind < otherSportImages.length/2)" class="lc-offer"
+                  [ngClass]="offer?.brand ? 'lc-offer--' + offer?.brand : ''" data-crlat="virtualSportWrapper">
+                  <a class="lc-offer__link" (click)="actionHandler($event, otherSportImages[topOtherSportLength + ind])">
+                    <img *ngIf="otherSportImages[topOtherSportLength + ind].imgURL" class="bg-image lc-offer__image"
+                      [attr.src]="otherSportImages[topOtherSportLength + ind].imgURL" [alt]="otherSportImages[topOtherSportLength + ind].altText" 
+                      [attr.href]="otherSportImages[topOtherSportLength + ind].redirectionURL" (click)="goToVirtualSports(otherSportImages[topOtherSportLength + ind])"/>
+                    <span *ngIf="updateEventsData(otherSportImages[topOtherSportLength + ind].title)" class="ws-updates">{{updateEventsData(otherSportImages[topOtherSportLength + ind].title)}} </span>
+                    <div *ngIf="otherSportImages[topOtherSportLength + ind].title" class="sport-name" data-crlat="virtualSportName">{{otherSportImages[topOtherSportLength + ind].title}} </div>
+                    <div *ngIf="otherSportImages[topOtherSportLength + ind].signposting" class="signposting-header" data-crlat="virtualSportSignPost">
+                      <div class="signposting-title" [textContent]="otherSportImages[topOtherSportLength + ind].signposting"></div>
+                      <div class="header-background"></div>
+                    </div>
+                  </a>
+                </div>
+              </slide>
+            </ng-container>
+          </slidecontainer>
+        </div>
+      </div>
+    </div>
+  </ng-container>

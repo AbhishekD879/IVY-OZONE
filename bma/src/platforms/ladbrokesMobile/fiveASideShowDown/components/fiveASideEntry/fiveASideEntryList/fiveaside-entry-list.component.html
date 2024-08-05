@@ -1,0 +1,12 @@
+<div class="container" *ngIf="entries?.length>0">
+  <div class="my-entries" *ngIf="entries.length > 1 && userEntryLimit && eventStatus !== 'post'" [i18n]="'fs.entryinfo.myentries'"
+    [i18nArgs]="[entries?.length,userEntryLimit]"></div>
+  <div class="my-entries" *ngIf="entries.length > 1 && !userEntryLimit && eventStatus === 'post'" [i18n]="'fs.entryinfo.entries'"></div>
+  <div class="my-entries" *ngIf="entries.length > 1 && !userEntryLimit && eventStatus !== 'post'" [i18n]="'fs.entryinfo.normalmyentries'"
+    [i18nArgs]="[entries?.length]"></div>
+  <div class="my-entries" *ngIf="entries.length === 1" [i18n]="'fs.entryinfo.myentry'"></div>
+  <div class="content" *ngIf="entries">
+    <fiveaside-entry-summary *ngFor="let entry of entries; let i=index" [index]="i"
+    [prizePoolData]="entry"  [entryInfo]="entry" [eventStatus]="eventStatus"></fiveaside-entry-summary>
+  </div>
+</div>

@@ -1,0 +1,222 @@
+@import 'global.variables.scss';
+
+$in-play-font-color: $color-gray-dark;
+
+inplay-widget:host {
+  /* IN-PLAY CAROUSEL */
+  .in-play-widget-carousel {
+    height: 227px;
+    border-bottom: 1px solid $color-gray;
+    border-top: 1px solid $color-gray;
+
+    .in-play-widget-slide-container{
+      padding-top: 10px;
+      width: 310px;
+    }
+
+    .in-play-widget-slide {
+      margin-left: 10px;
+      width: 240px;
+    }
+  }
+
+  /* SINGLE CARD */
+  .in-play-widget-slide.single-event {
+    padding: 10px;
+    border-bottom: 1px solid $color-gray;
+    border-top: 1px solid $color-gray;
+  }
+
+  //IN PLAY CARD HEADER
+  .in-play-slide-header {
+    @include flex();
+    @include display-flex();
+    @include justify-content(space-between);
+    @include align-items(center);
+    background-color: $color-gray-light;
+    height: 25px;
+    padding-left: 10px;
+  }
+
+  .in-play-slide-header-title {
+    font-size: 10px;
+    color: $in-play-font-color;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  /* ACCORDION */
+  .live-accordion {
+    font-size: 12px;
+    text-transform: capitalize;
+  }
+
+  .in-play-card {
+    @include display-flex();
+    @include flex-direction(column);
+  }
+
+  ::ng-deep {
+    .in-play-event-link:hover {
+      text-decoration: none;
+    }
+    /* IN PLAY CARD BODY */
+    .in-play-card-body {
+      @include display-flex();
+      @include flex-flow(column);
+      @include justify-content(space-between);
+      height: 125px;
+      background-color: $color-gray-light;
+      cursor: pointer;
+
+      &.in-play-card-no-outcomes {
+        @include justify-content(inherit);
+
+        height: 181px;
+
+        .in-play-card-main-body {
+          margin-bottom: 10px;
+        }
+      }
+    }
+
+    /* IN PLAY CARD FOOTER */
+    .in-play-card-footer {
+      background-color: $color-white;
+      .in-play-odds-btns-container {
+        @include display-flex();
+        .in-play-odds-btn-container {
+          @include flex(1,1,100%);
+          background: $color-gray-light;
+          border-right: 1px solid $color-white;
+          &:last-child {
+            border-right: none;
+          }
+        }
+        .btn-bet {
+          min-width: auto;
+          font-size: 13px;
+          line-height: 13px;
+          min-height: 40px;
+          width: 100%;
+          border-radius: 0px;
+        }
+      }
+    }
+
+    .in-play-card-main-body {
+      @include display-flex();
+      @include flex-flow();
+      @include justify-content(space-between);
+      text-align: center;
+    }
+
+    .in-play-card-title {
+      @include flex();
+      overflow: hidden;
+      padding: 10px 10px 0 10px;
+    }
+
+    .in-play-participant-container {
+      text-align: center;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      font-size: 14px;
+      line-height: 18px;
+      font-weight: bold;
+      color: $color-gray-dark;
+    }
+
+    .in-play-more-link-container {
+      @include display-flex();
+      @include align-items(flex-end);
+      @include justify-content();
+
+      &:hover {
+        text-decoration: none;
+      }
+
+      .in-play-more-link {
+        @include display-flex();
+        @include align-items(flex-end);
+        @include justify-content();
+        color: $color-gray-dark;
+        font: normal #{$font-size-lgr}/18px $base-font-family;
+        text-transform: uppercase;
+      }
+    }
+
+    .in-play-match-results-container {
+      @include display-flex();
+      @include align-items();
+      @include justify-content();
+
+      height: 20px;
+    }
+
+    .in-play-match-results {
+      color: $color-gray-dark;
+      font-size: 10px;
+      margin: 0 10px;
+      text-transform: uppercase;
+    }
+
+    .in-play-devider {
+      @include flex();
+      border-bottom: 1px solid;
+      border-color: $color-gray-light;
+    }
+
+    .in-play-icon-container {
+      line-height: 0px;
+      min-width: 12px;
+    }
+
+    .in-play-icon {
+      stroke: $color-gray-dark;
+      stroke-width: 2px;
+      width: 12px;
+      height: 12px;
+      fill: none;
+      cursor: pointer;
+    }
+
+    .in-play-watch-live-icon {
+      stroke-width: 0px;
+      fill: $color-gray-dark;
+    }
+
+    .in-play-watch-live-icon-container {
+      margin: 10px 10px 0 0;
+    }
+
+    .in-play-favorite-icon-container {
+      margin: 10px 0 0 10px;
+    }
+
+    .in-play-fav-icon .odds-fav-icon {
+      width: 12px;
+      height: 12px;
+      margin-right: 0px;
+      cursor: pointer;
+
+      .fav-icon-svg {
+        stroke: $color-gray-dark;
+        stroke-width: 2px;
+        width: 12px;
+        height: 12px;
+        fill: none;
+
+        &.active {
+          stroke: $color-yellow;
+          fill: $color-yellow;
+        }
+      }
+    }
+  }
+}

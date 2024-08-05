@@ -1,0 +1,33 @@
+@import "global.variables.scss";
+@import "../../../promotions/assets/styles/module-styles.scss";
+
+.club-promo-description {
+  @extend #promo-descr;
+}
+
+.club-container {
+  .club-promo-description {
+    margin-bottom: 12px;
+    box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+    .club-title {
+      padding: 16px 12px;
+      font-size: $font-size-lg;
+      font-weight: bold;
+      color: $lGray;
+    }
+    .club-banner {
+      margin-bottom: 2px;
+      img {
+        width: 100%;
+      }
+    }
+    .club-data {
+      padding: 4px;
+    }
+
+    #textarea, .item-panel, .btn {
+      max-width: 100%;
+    }
+
+  }
+}

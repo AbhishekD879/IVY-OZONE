@@ -1,0 +1,38 @@
+<div class="card" *ngIf="tabs">
+  <div class="body">
+    <!-- search and download button.-->
+    <div class="row clearfix">
+      <div class="col-md-3">
+        <button (click)="createTab();" mat-button type="button" class="btn bg-teal waves-effect float-left">
+          <mat-icon>add_box</mat-icon>
+          <span>Create Tab</span>
+        </button>
+      </div>
+      <div class="col-md-3" *ngIf="tabs.length">
+        <download-cvs [cvsData]="tabs" [cvsDataTable]="dataTableColumns"></download-cvs>
+      </div>
+      <div class="col-md-6 m-b-0">
+        <div class="input-with-icon m-b-0">
+          <i class="material-icons">search</i>
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Search For Tabs" [(ngModel)]="searchField" [value]="searchField">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="tabs.length">
+      <cms-data-table
+        [customTableData]="tabs"
+        [customTableColumns]="dataTableColumns"
+        [reorder]="true"
+        [filterString]="searchField"
+        [filterProperties]="filterProperties"
+        [actions]="['remove','edit']"
+        (onElementsOrder)="reorderHandler($event)"
+        (onRemoveTableElement)="removeTab($event)">
+      </cms-data-table>
+    </div>
+    <div *ngIf="!tabs.length">Tabs list is empty</div>
+  </div>
+</div>

@@ -1,0 +1,4 @@
+@Library(value='jenkins-pipeline-lib@master', changelog=false)
+
+def arguments = [:]
+lcgJobLiveServAPIMultiBranchFortifyScan(arguments)

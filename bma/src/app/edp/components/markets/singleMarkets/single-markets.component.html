@@ -1,0 +1,87 @@
+<div class="container-inner-content" *ngIf="market.viewType === 'List'" data-crlat="containerInnerContent">
+    <div class="odds-card"
+        *ngFor="let outcomeEntity of market.outcomes | slice:0:!market.isAllShown ? 6 : market.outcomes.length; trackBy: getTrackById"
+        data-crlat="oddsCard">
+        <div class="odds-content">
+            <div class="odds-left">
+                <div class="odds-names odds-names-wrap" data-crlat="oddsNames">{{ outcomeEntity.name }}</div>
+            </div>
+            <div class="odds-right">
+                <price-odds-button [event]="eventEntity" class="one-row-btn" [market]="market"
+                    [outcome]="outcomeEntity">
+                </price-odds-button>
+            </div>
+        </div>
+        <div class="odds-footer" *ngIf="market.isSmartBoosts && outcomeEntity.wasPrice">
+            <div class="odds-right">
+                <div class="was-price">
+                    <span [i18n]="'sb.wasPrice'"></span>
+                    <strike [textContent]="outcomeEntity.wasPrice"></strike>
+                </div>
+            </div>
+        </div>
+    </div>
+    <show-all-button (click)="toggleShowAll(market)" *ngIf="market.outcomes.length > 6"
+        [allShown]="market.isAllShown">
+    </show-all-button>
+</div>
+<div class="container-inner-content" *ngIf="market.viewType === 'WW'" data-crlat="containerInnerContent">
+    <div class="row row-center row-no-gutter row-last row-pad">
+        <div class="col-xs col-bordered" *ngFor="let outcomeEntity of market.outcomes; trackBy: getTrackById"
+            data-crlat="oddsCard">
+            <div class="col-inner">
+                <strong class="col-name" data-crlat="outcomeEntity.name" [textContent]="outcomeEntity.name"></strong>
+                <price-odds-button [event]="eventEntity" [market]="market" [outcome]="outcomeEntity"
+                    class="one-row-btn"></price-odds-button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-inner-content" *ngIf="market.viewType === 'Handicap WW'" data-crlat="containerInnerContent">
+    <div class="row row-center row-no-gutter row-last row-pad">
+        <div class="col-xs col-bordered" *ngFor="let outcomeEntity of market.outcomes; trackBy: getTrackById">
+            <div class="col-inner hwdw-margin">
+                <strong class="col-name" [textContent]="outcomeEntity.name.split('(')[0]"></strong>
+                <price-odds-button [event]="eventEntity" [market]="market" [outcome]="outcomeEntity" class="one-row-btn"
+                    [handicapVal]="outcomeEntity.prices[0]?.handicapValueDec"></price-odds-button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-inner-content" *ngIf="market.viewType === 'WDW'" data-crlat="containerInnerContent">
+    <div class="row row-center row-no-gutter row-col-last row-pad" [equal-column]="market.viewType !== 'WDW'"
+        [class.is-horizontal]="market.viewType === 'WDW'">
+        <div class="col-xs col-bordered" *ngFor="let outcomeEntity of market.outcomes" data-crlat="market.outcomes">
+            <div class="col-inner col-vertical" data-crlat="oddsCard">
+                <strong class="col-name">
+                    <span *ngIf="outcomeEntity.alphabetName" id="wdw-name" data-crlat="outcomeEntity.name">{{
+                        outcomeEntity.alphabetName
+                        }}</span>
+                    <span>{{ outcomeEntity.numbersName }}</span>
+                </strong>
+                <price-odds-button [event]="eventEntity" class="one-row-btn" [market]="market"
+                    [outcome]="outcomeEntity">
+                </price-odds-button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-inner-content" *ngIf="market.viewType === 'Handicap WDW'" data-crlat="containerInnerContent">
+    <div class="row row-center row-no-gutter row-col-last row-pad" [equal-column]="market.viewType !== 'Handicap WDW'"
+        [class.is-horizontal]="market.viewType === 'Handicap WDW'">
+        <div class="col-xs col-bordered" *ngFor="let set of market.groupedOutcomes">
+            <div *ngFor="let outcomeEntity of set; trackBy: getTrackById" class="col-inner col-vertical  hwdw-margin">
+                <strong class="col-name" [textContent]="outcomeEntity.name.split('(')[0]" data-crlat="outcomeEntity.name"></strong>
+                <price-odds-button
+                    *ngIf="outcomeEntity.name.split(' ')[0].toLowerCase()!=='draw' && outcomeEntity.name.split(' ')[0].toLowerCase()!=='tie' && outcomeEntity.name.split(' ')[0].toLowerCase()!=='line'"
+                    [event]="eventEntity" [market]="market" [outcome]="outcomeEntity"
+                    [handicapVal]="outcomeEntity.prices[0]?.handicapValueDec" class="one-row-btn">
+                </price-odds-button>
+                <price-odds-button
+                    *ngIf="outcomeEntity.name.split(' ')[0].toLowerCase()==='draw' || outcomeEntity.name.split(' ')[0].toLowerCase()==='tie' || outcomeEntity.name.split(' ')[0].toLowerCase()==='line'"
+                    [event]="eventEntity" [market]="market" [outcome]="outcomeEntity" class="one-row-btn">
+                </price-odds-button>
+            </div>
+        </div>
+    </div>
+</div>

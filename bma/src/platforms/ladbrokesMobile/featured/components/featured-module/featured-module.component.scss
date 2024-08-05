@@ -1,0 +1,78 @@
+@import 'global.variables.scss';
+@import '../../../assets/styles/fanzone-banner.scss';
+
+:host {
+  .container > *:last-child:not(:empty):not(featured-quick-links) {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  accordion {
+    margin: 0 0 8px;
+    &.is-expanded.has-carousel {
+      box-shadow: none;
+      margin: -4px -4px 8px -4px;
+      padding: 4px 4px 0;
+    }
+
+    ::ng-deep .accordion-header {
+      padding-right: 21px;
+      &:after {
+        right: 11px;
+      }
+    }
+
+    &.racing-card {
+      ::ng-deep .accordion-header {
+        &:after {
+          border-color: $color-blue-alt;
+        }
+      }
+    }
+  }
+
+  right-side {
+    span:not(.pc-badge) {
+      font-size: $font-size;
+      color: $color-blue-alt;
+      &:hover{
+        text-decoration: none;
+      }
+      &:active{
+        text-decoration: underline;
+      }
+    }
+    .race-see-all-arrow {
+      fill: $color-blue-alt;
+      right: 11px;
+      height: 9px;
+      margin-top: -5px;
+    }
+  }
+
+  .featured-race-card {
+    display: block;
+    margin: 0 0 8px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+  }
+
+  ::ng-deep .show-more {
+    color: $color-blue-alt;
+
+    svg {
+      fill: $color-blue-alt;
+    }
+  }
+
+  ::ng-deep .text-area {
+    .race-timer {
+      .label {
+        color: $lGray;
+      }
+      .value {
+        color: $color-blue-alt;
+      }
+    }
+  }
+}
+@include fanzone-banner-entry();
